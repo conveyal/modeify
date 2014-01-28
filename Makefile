@@ -14,7 +14,7 @@ build: components $(CSS) $(HTML) $(JS) $(JSON)
 	@./node_modules/.bin/component build --dev --verbose
 
 beautify:
-	@./node_modules/.bin/js-beautify --replace $(CLIENTJS) $(SERVERJS) $(TESTJS)
+	@./node_modules/.bin/js-beautify --quiet --replace $(CLIENTJS) $(SERVERJS) $(TESTJS)
 
 clean:
 	@rm -rf build
@@ -46,11 +46,11 @@ lint-test:
 
 # Run before each commit/release
 release: beautify lint test
-	@./node_modules/.bin/component build --verbose --use
+	@./node_modules/.bin/component build --verbose
 
 test: test-client test-server
 test-client: lint-client lint-test
-	@NODE_ENV=test ./node_modules/.bin/mocha --recursive --require should --reporter $(REPORTER) --timeout 5000 --slow 10
+	# @NODE_ENV=test ./node_modules/.bin/mocha --recursive --require should --reporter $(REPORTER) --timeout 5000 --slow 10
 test-server: lint-server lint-test
 	@NODE_ENV=test ./node_modules/.bin/mocha --recursive --require should --reporter $(REPORTER) --timeout 5000 --slow 10
 

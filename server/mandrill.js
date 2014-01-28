@@ -29,10 +29,13 @@ module.exports.send = send;
  */
 
 function send(options, callback, template) {
-  if (process.env.NODE_ENV === 'test') return callback(null, {
-    _id: '123',
-    status: 'sent'
-  });
+  if (process.env.NODE_ENV === 'test') {
+    return callback(null, {
+      _id: '123',
+      status: 'sent'
+    });
+  }
+
   if (!template) {
     if (templates[options.template]) {
       return send(options, callback, templates[options.template]);

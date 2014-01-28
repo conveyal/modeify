@@ -11,6 +11,8 @@ var request = require('./supertest');
  */
 
 describe('/api', function() {
+  before(admin.login);
+
   describe('POST /login', function() {
     it('should return 404 with no email or password', function(done) {
       request.post('/api/login')
@@ -63,5 +65,5 @@ describe('/api', function() {
         .set('Cookie', admin.sid)
         .expect(200, done);
     });
-  })
+  });
 });

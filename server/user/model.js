@@ -29,7 +29,8 @@ var schema = new mongoose.Schema({
 
 schema.pre('save', true, function(next, done) {
   next();
-  if (this.isNew) this.password = uuid.v4().replace(/-/g, '');
+  if (this.isNew && !this.password) this.password = uuid.v4().replace(/-/g,
+    '');
   if (this.isModified('password')) {
     var self = this;
     bcrypt.hash(this.password, 10, function(err, hash) {

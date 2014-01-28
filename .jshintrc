@@ -1,6 +1,9 @@
 {
   "globals": {
-    "$": false
+    "$": false,
+    "before": false,
+    "describe": false,
+    "it": false
   },
   "boss": true,
   "browser": true,

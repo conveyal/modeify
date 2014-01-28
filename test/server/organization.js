@@ -38,7 +38,7 @@ describe('/api/organizations', function() {
           if (err) return done(err);
           res.body.length.should.equal(0);
           done();
-        })
+        });
     });
   });
 
