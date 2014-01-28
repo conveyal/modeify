@@ -10,13 +10,14 @@ var Commuter = require('./model');
  * Expose `app`
  */
 
-var app = module.exports = express();
+var app = module.exports = express()
+  .use(auth.isLoggedIn);
 
 /**
  * Get all commuters
  */
 
-app.get('/', auth.isLoggedIn, function(req, res) {
+app.get('/', function(req, res) {
   Commuter
     .find()
     .exec(function(err, commuters) {
@@ -32,7 +33,7 @@ app.get('/', auth.isLoggedIn, function(req, res) {
  * Create an commuter
  */
 
-app.post('/', auth.isLoggedIn, function(req, res) {
+app.post('/', function(req, res) {
   Commuter.create(req.body, function(err, commuter) {
     if (err) {
       if (err.name === 'MongoError' && err.code === 11000) {
@@ -69,7 +70,7 @@ function get(req, res, next) {
  * Get a specific commuter
  */
 
-app.get('/:id', auth.isLoggedIn, get, function(req, res) {
+app.get('/:id', get, function(req, res) {
   res.send(200, req.commuter);
 });
 
@@ -77,7 +78,7 @@ app.get('/:id', auth.isLoggedIn, get, function(req, res) {
  * Update an commuter
  */
 
-app.put('/:id', auth.isLoggedIn, get, function(req, res) {
+app.put('/:id', get, function(req, res) {
   req.commuter.name = req.body.name;
   req.commuter.address = req.body.address;
   req.commuter.tags = req.body.tags;
@@ -95,7 +96,7 @@ app.put('/:id', auth.isLoggedIn, get, function(req, res) {
  * Delete an commuter
  */
 
-app.delete('/:id', auth.isLoggedIn, get, function(req, res) {
+app.delete('/:id', get, function(req, res) {
   req.commuter.remove(function(err) {
     if (err) {
       res.send(400, err);

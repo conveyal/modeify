@@ -50,7 +50,6 @@ release: beautify lint test
 
 test: test-client test-server
 test-client: lint-client lint-test
-	# @NODE_ENV=test ./node_modules/.bin/mocha --recursive --require should --reporter $(REPORTER) --timeout 5000 --slow 10
 test-server: lint-server lint-test
 	@NODE_ENV=test ./node_modules/.bin/mocha --recursive --require should --reporter $(REPORTER) --timeout 5000 --slow 10
 

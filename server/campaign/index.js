@@ -10,13 +10,14 @@ var Campaign = require('./model');
  * Expose `app`
  */
 
-var app = module.exports = express();
+var app = module.exports = express()
+  .use(auth.isLoggedIn);
 
 /**
  * Get all campaigns
  */
 
-app.get('/', auth.isLoggedIn, function(req, res) {
+app.get('/', function(req, res) {
   Campaign
     .find()
     .exec(function(err, campaigns) {
@@ -32,7 +33,7 @@ app.get('/', auth.isLoggedIn, function(req, res) {
  * Create an campaign
  */
 
-app.post('/', auth.isLoggedIn, function(req, res) {
+app.post('/', function(req, res) {
   Campaign.create(req.body, function(err, campaign) {
     if (err) {
       if (err.name === 'MongoError' && err.code === 11000) {
@@ -69,7 +70,7 @@ function get(req, res, next) {
  * Get a specific campaign
  */
 
-app.get('/:id', auth.isLoggedIn, get, function(req, res) {
+app.get('/:id', get, function(req, res) {
   res.send(200, req.campaign);
 });
 
@@ -77,7 +78,7 @@ app.get('/:id', auth.isLoggedIn, get, function(req, res) {
  * Update an campaign
  */
 
-app.put('/:id', auth.isLoggedIn, get, function(req, res) {
+app.put('/:id', get, function(req, res) {
   req.campaign.filters = req.body.filters;
   req.campaign.status = req.body.status;
   req.campaign.save(function(err) {
@@ -93,7 +94,7 @@ app.put('/:id', auth.isLoggedIn, get, function(req, res) {
  * Delete an campaign
  */
 
-app.delete('/:id', auth.isLoggedIn, get, function(req, res) {
+app.delete('/:id', get, function(req, res) {
   req.campaign.remove(function(err) {
     if (err) {
       res.send(400, err);

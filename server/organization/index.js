@@ -10,13 +10,14 @@ var Org = require('./model');
  * Expose `app`
  */
 
-var app = module.exports = express();
+var app = module.exports = express()
+  .use(auth.isLoggedIn);
 
 /**
  * Get all orgs
  */
 
-app.get('/', auth.isLoggedIn, function(req, res) {
+app.get('/', function(req, res) {
   Org.find().exec(function(err, orgs) {
     if (err) {
       res.send(400, err);
@@ -30,7 +31,7 @@ app.get('/', auth.isLoggedIn, function(req, res) {
  * Create an org
  */
 
-app.post('/', auth.isLoggedIn, function(req, res) {
+app.post('/', function(req, res) {
   Org.create(req.body, function(err, org) {
     if (err) {
       if (err.name === 'MongoError' && err.code === 11000) {
@@ -65,7 +66,7 @@ function get(req, res, next) {
  * Get a specific org
  */
 
-app.get('/:id', auth.isLoggedIn, get, function(req, res) {
+app.get('/:id', get, function(req, res) {
   res.send(200, req.organization);
 });
 
@@ -73,7 +74,7 @@ app.get('/:id', auth.isLoggedIn, get, function(req, res) {
  * Update an org
  */
 
-app.put('/:id', auth.isLoggedIn, get, function(req, res) {
+app.put('/:id', get, function(req, res) {
   req.organization.name = req.body.name;
   req.organization.address = req.body.address;
   req.organization.tags = req.body.tags;
@@ -92,7 +93,7 @@ app.put('/:id', auth.isLoggedIn, get, function(req, res) {
  * Delete an org
  */
 
-app.delete('/:id', auth.isLoggedIn, get, function(req, res) {
+app.delete('/:id', get, function(req, res) {
   req.organization.remove(function(err) {
     if (err) {
       res.send(400, err);
