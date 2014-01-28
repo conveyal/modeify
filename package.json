@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "dependencies": {
+    "async": "~0.2.10",
+    "aws-lib": "~0.3.0",
+    "bcrypt": "~0.7.7",
+    "component": "~0.19.5",
+    "express": "~3.4.8",
+    "forever": "*",
+    "hogan.js": "~2.0.0",
+    "mandrill-api": "~1.0.37",
+    "mongoose": "~3.8.4",
+    "node-uuid": "~1.4.1",
+    "jade": "~1.1.5",
+    "juice": "~0.4.0",
+    "superagent": "~0.16.0"
+  },
+  "devDependencies": {
+    "mocha": "~1.17.1",
+    "js-beautify": "~1.4.2",
+    "jshint": "~2.4.2",
+    "should": "~3.1.0",
+    "supertest": "~0.9.0"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "paths": [
+    "client/lib"
+  ],
+  "local": [
+    "boot"
+  ]
+}
