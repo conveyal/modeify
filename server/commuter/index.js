@@ -17,13 +17,15 @@ var app = module.exports = express();
  */
 
 app.get('/', auth.isLoggedIn, function(req, res) {
-  Commuter.find().exec(function(err, commuters) {
-    if (err) {
-      res.send(400, err);
-    } else {
-      res.send(200, commuters);
-    }
-  });
+  Commuter
+    .find()
+    .exec(function(err, commuters) {
+      if (err) {
+        res.send(400, err);
+      } else {
+        res.send(200, commuters);
+      }
+    });
 });
 
 /**
@@ -49,16 +51,18 @@ app.post('/', auth.isLoggedIn, function(req, res) {
  */
 
 function get(req, res, next) {
-  Commuter.findById(req.params.id).exec(function(err, commuter) {
-    if (err) {
-      res.send(400, err);
-    } else if (!commuter) {
-      res.send(404, 'Commuter does not exist.');
-    } else {
-      req.commuter = commuter;
-      next();
-    }
-  });
+  Commuter
+    .findById(req.params.id)
+    .exec(function(err, commuter) {
+      if (err) {
+        res.send(400, err);
+      } else if (!commuter) {
+        res.send(404, 'Commuter does not exist.');
+      } else {
+        req.commuter = commuter;
+        next();
+      }
+    });
 }
 
 /**

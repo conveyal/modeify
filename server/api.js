@@ -2,6 +2,7 @@
  * Dependencies
  */
 
+var auth = require('./auth');
 var express = require('express');
 
 /**
@@ -14,7 +15,7 @@ var app = module.exports = express();
  * Mount routes
  */
 
-app.use(require('./auth'));
+app.use(auth);
 app.use('/campaigns', require('./campaign'));
 app.use('/commuters', require('./commuter'));
 app.use('/events', require('./event'));

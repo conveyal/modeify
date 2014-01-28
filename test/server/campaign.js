@@ -2,7 +2,7 @@
  * Dependencies
  */
 
-var commuter = require('./default-commuter');
+var campaign = require('./default-campaign');
 var org = require('./default-organization');
 var user = require('./default-user');
 var request = require('./supertest');
@@ -11,7 +11,7 @@ var request = require('./supertest');
  * Base URL
  */
 
-var base = '/api/commuters';
+var base = '/api/campaigns';
 
 /**
  * BDD
@@ -28,7 +28,7 @@ describe(base, function() {
         .expect(401, done);
     });
 
-    it('200 with list of all commuters', function(done) {
+    it('200 if logged in', function(done) {
       request
         .get(base)
         .set('cookie', user.sid)
@@ -47,20 +47,20 @@ describe(base, function() {
       request
         .post(base)
         .set('cookie', user.sid)
-        .send({})
+        .send(campaign.info)
         .expect(400, done);
     });
 
-    it('201 if correct data', function(done) {
-      commuter.info._organization = org.info._id;
+    it('201 if logged in & correct data', function(done) {
+      campaign.info._organization = org.info._id;
       request
         .post(base)
         .set('cookie', user.sid)
-        .send(commuter.info)
+        .send(campaign.info)
         .expect(201)
         .end(function(err, res) {
           if (err) return done(err);
-          commuter.info = res.body;
+          campaign.info = res.body;
           done();
         });
     });
@@ -69,7 +69,7 @@ describe(base, function() {
   describe('PUT /:id', function() {
     it('401 if not logged in', function(done) {
       request
-        .put(base + '/' + commuter.info._id)
+        .put(base + '/' + campaign.info._id)
         .expect(401, done);
     });
 
@@ -80,11 +80,10 @@ describe(base, function() {
         .expect(404, done);
     });
 
-    it('204 if updated correctly', function(done) {
+    it('204 if logged in', function(done) {
       request
-        .put(base + '/' + commuter.info._id)
+        .put(base + '/' + campaign.info._id)
         .set('cookie', user.sid)
-        .send(commuter.info)
         .expect(204, done);
     });
   });
@@ -92,7 +91,7 @@ describe(base, function() {
   describe('DELETE /:id', function() {
     it('401 if not logged in', function(done) {
       request
-        .del(base + '/' + commuter.info._id)
+        .del(base + '/' + campaign.info._id)
         .expect(401, done);
     });
 
@@ -103,9 +102,9 @@ describe(base, function() {
         .expect(404, done);
     });
 
-    it('204 if deleted correctly', function(done) {
+    it('204 if logged in', function(done) {
       request
-        .del(base + '/' + commuter.info._id)
+        .del(base + '/' + campaign.info._id)
         .set('cookie', user.sid)
         .expect(204, done);
     });
