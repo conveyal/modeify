@@ -2,7 +2,6 @@
  * Dependencies
  */
 
-var geocode = require('../geocode');
 var mongoose = require('mongoose');
 
 /**
@@ -15,51 +14,19 @@ var schema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  address: {
-    type: String,
-    required: true
-  },
-  coordinate: {
-    type: Array,
-    default: [0, 0]
+  contact: {
+    name: String,
+    email: String
   },
   tags: Array,
   opts: mongoose.Schema.Types.Mixed
 });
 
 /**
- * Geocode address on change
- */
-
-schema.pre('save', true, function(next, done) {
-  next();
-  var self = this;
-  if (this.isModified('address')) {
-    geocode.encode(this.address, function(err, coords) {
-      if (err) {
-        done(err);
-      } else {
-        self.coordinate = coords;
-        done();
-      }
-    });
-  } else {
-    done();
-  }
-});
-
-/**
- * Geospatial index
- */
-
-schema.index({
-  coordinate: '2d'
-});
-
-/**
  * Plugins
  */
 
+schema.plugin(require('../plugins/mongoose-geocode'));
 schema.plugin(require('../plugins/mongoose-trackable'));
 
 /**
@@ -67,3 +34,22 @@ schema.plugin(require('../plugins/mongoose-trackable'));
  */
 
 var Organization = module.exports = mongoose.model('Organization', schema);
+
+/**
+ * Find or create
+ */
+
+Organization.findOrCreate = function(data, callback) {
+  Organization
+    .findOne()
+    .where('name', data.name)
+    .exec(function(err, org) {
+      if (err) {
+        callback(err);
+      } else if (org) {
+        callback(null, org);
+      } else {
+        Organization.create(data, callback);
+      }
+    });
+};

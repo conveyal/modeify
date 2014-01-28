@@ -76,6 +76,9 @@ app.get('/:id', auth.isLoggedIn, get, function(req, res) {
 app.put('/:id', auth.isLoggedIn, get, function(req, res) {
   req.organization.name = req.body.name;
   req.organization.address = req.body.address;
+  req.organization.tags = req.body.tags;
+  req.organization.opts = req.body.opts;
+  req.organization.contact = req.body.contact;
   req.organization.save(function(err) {
     if (err) {
       res.send(400, err);

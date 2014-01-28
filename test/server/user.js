@@ -3,7 +3,7 @@
  */
 
 var cookie = require('./cookie');
-var admin = require('./admin-user');
+var admin = require('./default-user');
 var request = require('./supertest');
 var User = require('../../server/user/model');
 

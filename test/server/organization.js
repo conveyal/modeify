@@ -2,7 +2,7 @@
  * Dependencies
  */
 
-var admin = require('./admin-user');
+var admin = require('./default-user');
 var request = require('./supertest');
 var Org = require('../../server/organization/model');
 
@@ -33,12 +33,7 @@ describe('/api/organizations', function() {
       request
         .get('/api/organizations')
         .set('Cookie', admin.sid)
-        .expect(200)
-        .end(function(err, res) {
-          if (err) return done(err);
-          res.body.length.should.equal(0);
-          done();
-        });
+        .expect(200, done);
     });
   });
 

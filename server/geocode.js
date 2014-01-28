@@ -9,6 +9,8 @@ var superagent = require('superagent');
  */
 
 module.exports.encode = function(address, callback) {
+  if (true) return callback(null, [0, 0]);
+
   superagent
     .get(
       'http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find'
@@ -18,16 +20,6 @@ module.exports.encode = function(address, callback) {
       f: 'json'
     })
     .end(function(err, res) {
-      res.body = {
-        locations: [{
-          feature: {
-            geometry: {
-              x: 0,
-              y: 0
-            }
-          }
-        }]
-      };
       if (err) {
         callback(err, res);
       } else if (!res.body || !res.body.locations || res.body.locations.length ===

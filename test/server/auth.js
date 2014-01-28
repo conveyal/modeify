@@ -2,7 +2,7 @@
  * Dependencies
  */
 
-var admin = require('./admin-user');
+var admin = require('./default-user');
 var cookie = require('./cookie');
 var request = require('./supertest');
 

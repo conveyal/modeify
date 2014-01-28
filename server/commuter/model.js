@@ -5,21 +5,36 @@
 var mongoose = require('mongoose');
 
 /**
- * Expose `schema`
+ * Create `schema`
  */
 
-var schema = module.exports = new mongoose.Schema({
-
+var schema = new mongoose.Schema({
+  _organization: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'Organization'
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  tags: Array,
+  opts: mongoose.Schema.Types.Mixed
 });
 
 /**
  * Plugins
  */
 
+schema.plugin(require('../plugins/mongoose-geocode'));
 schema.plugin(require('../plugins/mongoose-trackable'));
 
 /**
- * Expose `Campaign`
+ * Expose `Commuter`
  */
 
-var Campaign = module.exports = mongoose.model('Campaign', schema);
+var Commuter = module.exports = mongoose.model('Commuter', schema);
