@@ -48,6 +48,10 @@ lint-test:
 release: beautify lint test
 	@./node_modules/.bin/component build --verbose
 
+# Watch & reload server
+serve:
+	@./node_modules/.bin/nodemon index.js --watch server --verbose
+
 test: test-client test-server
 test-client: lint-client lint-test
 test-server: lint-server lint-test

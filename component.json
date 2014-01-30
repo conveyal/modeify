@@ -1,4 +1,5 @@
 {
+  "name": "commute-planner",
   "paths": [
     "client/lib"
   ],

@@ -1,0 +1,12 @@
+{
+  "name": "user",
+  "dependencies": {
+    "component/model": "*"
+  },
+  "local": [
+    "request"
+  ],
+  "scripts": [
+    "index.js"
+  ]
+}

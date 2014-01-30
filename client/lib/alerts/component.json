@@ -1,0 +1,13 @@
+{
+  "name": "alerts",
+  "dependencies": {
+    "component/each": "*",
+    "visionmedia/debug": "*"
+  },
+  "local": [
+    "alert"
+  ],
+  "scripts": [
+    "index.js"
+  ]
+}

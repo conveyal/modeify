@@ -49,7 +49,7 @@ app.post('/login', function(req, res) {
   User
     .findOne()
     .where('email', req.body.email)
-    .select('email password')
+    .select('email password type')
     .exec(function(err, user) {
       if (err) {
         res.send(400, err);

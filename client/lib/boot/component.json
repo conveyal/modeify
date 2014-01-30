@@ -1,5 +1,13 @@
 {
   "name": "boot",
+  "dependencies": {
+    "ianstormtaylor/on-load": "*"
+  },
+  "local": [
+    "nav",
+    "router",
+    "session"
+  ],
   "scripts": [
     "index.js"
   ],

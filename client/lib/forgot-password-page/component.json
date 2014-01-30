@@ -1,0 +1,17 @@
+{
+  "name": "forgot-password-page",
+  "dependencies": {
+    "segmentio/value": "*",
+    "segmentio/view": "*",
+    "visionmedia/debug": "*"
+  },
+  "local": [
+    "request"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}

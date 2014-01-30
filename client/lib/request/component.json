@@ -1,0 +1,10 @@
+{
+  "name": "request",
+  "dependencies": {
+    "visionmedia/debug": "*",
+    "visionmedia/superagent": "*"
+  },
+  "scripts": [
+    "index.js"
+  ]
+}

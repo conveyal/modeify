@@ -1,0 +1,12 @@
+{
+  "name": "nav",
+  "dependencies": {
+    "segmentio/view": "*"
+  },
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}

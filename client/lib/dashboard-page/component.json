@@ -1,0 +1,13 @@
+{
+  "name": "dashboard-page",
+  "dependencies": {
+    "segmentio/view": "*",
+    "visionmedia/debug": "*"
+  },
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}

@@ -74,18 +74,18 @@ app.post('/change-password-request', function(req, res) {
  */
 
 app.post('/change-password', function(req, res) {
-  if (!req.body.change_password_key || req.body.change_password_key.length ===
-    0)
-    return res.send(404, 'Invalid change password key');
+  var key = req.body.change_password_key;
+  if (!key || key.length === 0)
+    return res.send(400, 'Invalid change password key');
 
   User
     .findOne()
-    .where('change_password_key', req.body.change_password_key)
+    .where('change_password_key', key)
     .exec(function(err, user) {
       if (err) {
         res.send(400, err);
       } else if (!user) {
-        res.send(404,
+        res.send(400,
           'Invalid change password key. Submit a change password request and use the generated link sent in the email.'
         );
       } else {

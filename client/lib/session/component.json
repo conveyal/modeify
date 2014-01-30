@@ -1,0 +1,9 @@
+{
+  "name": "session",
+  "dependencies": {
+    "component/model": "*"
+  },
+  "scripts": [
+    "index.js"
+  ]
+}

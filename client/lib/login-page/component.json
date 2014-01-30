@@ -1,0 +1,16 @@
+{
+  "name": "login-page",
+  "dependencies": {
+    "segmentio/view": "*",
+    "visionmedia/debug": "*"
+  },
+  "local": [
+    "request"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}

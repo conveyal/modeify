@@ -18,6 +18,7 @@ var mongo = require('./mongo');
 
 var app = module.exports = express()
   .use(express.compress())
+  .use('/build', express.static(__dirname + '/../build'))
   .use(express.urlencoded())
   .use(express.json());
 
@@ -40,12 +41,6 @@ app.use('/admin', require('./admin'));
  */
 
 app.use('/api', require('./api'));
-
-/**
- * Deliver the static content
- */
-
-app.use('/build', express.static(__dirname + '../build'));
 
 /**
  * Get the app

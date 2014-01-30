@@ -2,8 +2,20 @@
  * Dependencies
  */
 
+var Nav = require('nav');
+var onLoad = require('on-load');
+var router = require('router');
+var session = require('session');
+
 /**
- * Hello World
+ * Once the browser has "loaded"...ugh, can't believe we still need this.
  */
 
-console.log('hello world');
+onLoad(function() {
+  // display nav
+  var nav = new Nav(session);
+  document.body.insertBefore(nav.el, document.body.firstChild);
+
+  // listen
+  router.listen();
+});

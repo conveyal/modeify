@@ -1,0 +1,12 @@
+{
+  "name": "alert",
+  "dependencies": {
+    "segmentio/view": "*"
+  },
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}
