@@ -4,17 +4,29 @@
 
 var async = require('async');
 var geocode = require('../../server/geocode');
+var request = require('./supertest');
 
 /**
  * Valid addresses
  */
 
 var valid = [{
-  address: '1111 Army Navy Drive, Arlington, VA 22202',
-  ll: [0, 0]
+  address: '1111 Army Navy Drive',
+  city: 'Arlington',
+  state: 'VA',
+  zip: 22202,
+  ll: {
+    lng: -77.063988,
+    lat: 38.86586
+  }
 }, {
-  address: '1600 Pennsylvania Avenue, Washington, DC',
-  ll: [0, 0]
+  address: '1600 Pennsylvania Avenue',
+  cit: 'Washington',
+  state: 'DC',
+  ll: {
+    lng: -77.03894,
+    lat: 38.898788
+  }
 }];
 
 /**
@@ -30,7 +42,7 @@ describe('gecoder', function() {
     it('should correctly convert the valid addresses into ll points',
       function(done) {
         async.each(valid, function(row, next) {
-          geocode.encode(row.address, function(err, ll) {
+          geocode.encode(row, function(err, ll) {
             if (err) return next(err);
             ll.should.eql(row.ll);
             next();

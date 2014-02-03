@@ -77,9 +77,14 @@ app.get('/:id', get, function(req, res) {
 app.put('/:id', get, function(req, res) {
   req.organization.name = req.body.name;
   req.organization.address = req.body.address;
-  req.organization.tags = req.body.tags;
+  req.organization.city = req.body.city;
+  req.organization.state = req.body.state;
+  req.organization.zip = req.body.zip;
+  req.organization.labels = req.body.labels;
   req.organization.opts = req.body.opts;
   req.organization.contact = req.body.contact;
+  req.organization.email = req.body.email;
+  req.organization.coordinate = req.body.coordinate;
   req.organization.save(function(err) {
     if (err) {
       res.send(400, err);

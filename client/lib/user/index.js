@@ -1,4 +1,3 @@
-
 /**
  * Dependencies
  */
@@ -11,6 +10,8 @@ var request = require('request');
  */
 
 var User = module.exports = model('User')
+  .route('/api/users')
+  .attr('_id')
   .attr('email')
   .attr('type')
   .attr('created')

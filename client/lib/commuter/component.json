@@ -1,0 +1,14 @@
+{
+  "name": "commuter",
+  "dependencies": {
+    "component/model": "*",
+    "segmentio/model-defaults": "*",
+    "segmentio/model-memoize": "*"
+  },
+  "local": [
+    "request"
+  ],
+  "scripts": [
+    "index.js"
+  ]
+}

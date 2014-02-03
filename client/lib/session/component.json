@@ -1,7 +1,8 @@
 {
   "name": "session",
   "dependencies": {
-    "component/model": "*"
+    "component/model": "*",
+    "segmentio/model-defaults": "*"
   },
   "scripts": [
     "index.js"

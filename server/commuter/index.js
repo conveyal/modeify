@@ -5,6 +5,7 @@
 var auth = require('../auth');
 var express = require('express');
 var Commuter = require('./model');
+var Link = require('../link/model');
 
 /**
  * Expose `app`
@@ -19,7 +20,7 @@ var app = module.exports = express()
 
 app.get('/', function(req, res) {
   Commuter
-    .find()
+    .find(req.query)
     .exec(function(err, commuters) {
       if (err) {
         res.send(400, err);
@@ -42,7 +43,13 @@ app.post('/', function(req, res) {
         res.send(400, err);
       }
     } else {
-      res.send(201, commuter);
+      Link.create({
+        _organization: commuter._organization,
+        _commuter: commuter._id
+      }, function(err, link) {
+        if (err) console.error(err);
+        res.send(201, commuter);
+      });
     }
   });
 });
@@ -81,8 +88,12 @@ app.get('/:id', get, function(req, res) {
 app.put('/:id', get, function(req, res) {
   req.commuter.name = req.body.name;
   req.commuter.address = req.body.address;
-  req.commuter.tags = req.body.tags;
+  req.commuter.state = req.body.state;
+  req.commuter.city = req.body.city;
+  req.commuter.zip = req.body.zip;
+  req.commuter.labels = req.body.labels;
   req.commuter.opts = req.body.opts;
+  req.commuter.coordinate = req.body.coordinate;
   req.commuter.save(function(err) {
     if (err) {
       res.send(400, err);

@@ -20,6 +20,7 @@ app.use('/campaigns', require('./campaign'));
 app.use('/commuters', require('./commuter'));
 app.use('/events', require('./event'));
 app.use('/emails', require('./email'));
+app.use('/geocode', require('./geocode'));
 app.use('/links', require('./link'));
 app.use('/organizations', require('./organization'));
 app.use('/users', require('./user'));

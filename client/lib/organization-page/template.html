@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <h3>
+      {name}
+      <a class="btn btn-default pull-right" href="/organizations"><i class="fa fa-arrow-left"></i> Back</a>
+      <a class="btn btn-warning pull-right" href="/organizations/{_id}/edit"><i class="fa fa-pencil"></i> Edit</a>
+      <a class="btn btn-danger pull-right" href="#" on-click="destroy"><i class="fa fa-times"></i> Delete</a>
+    </h3>
+    <p>{contact} — <a href="mailto:{email}">{email}</a></p>
+    <p>{address}, {city}, {state} {zip}</p>
+  </div>
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="map"></div>
+  </div>
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <h3>Commuters <a class="btn btn-info pull-right" href="/organizations/{_id}/upload" disabled><i class="fa fa-upload"></i> CSV</a> <a class="btn btn-success pull-right" href="/organizations/{_id}/commuters/new"><i class="fa fa-plus"></i> Add</a></h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Labels</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>

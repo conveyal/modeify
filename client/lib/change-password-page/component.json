@@ -5,6 +5,7 @@
     "visionmedia/debug": "*"
   },
   "local": [
+    "alerts",
     "request"
   ],
   "scripts": [

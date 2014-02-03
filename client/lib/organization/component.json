@@ -1,0 +1,11 @@
+{
+  "name": "organization",
+  "dependencies": {
+    "component/model": "*",
+    "segmentio/model-defaults": "*",
+    "segmentio/model-memoize": "*"
+  },
+  "scripts": [
+    "index.js"
+  ]
+}

@@ -7,12 +7,20 @@
   "local": [
     "alerts",
     "change-password-page",
+    "commuter",
+    "commuter-form",
+    "commuter-page",
     "dashboard-page",
     "forgot-password-page",
     "login-page",
+    "organization",
+    "organization-form",
+    "organization-page",
+    "organizations-page",
     "request",
     "session",
-    "user"
+    "user",
+    "users-page"
   ],
   "scripts": [
     "index.js"

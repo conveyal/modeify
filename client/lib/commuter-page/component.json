@@ -1,0 +1,18 @@
+{
+  "name": "commuter-page",
+  "dependencies": {
+    "segmentio/view": "*",
+    "visionmedia/debug": "*"
+  },
+  "local": [
+    "alerts",
+    "commuter",
+    "map"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}

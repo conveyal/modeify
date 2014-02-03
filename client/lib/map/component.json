@@ -1,0 +1,9 @@
+{
+  "name": "map",
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
+  ]
+}

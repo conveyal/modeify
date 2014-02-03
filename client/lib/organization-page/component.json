@@ -1,0 +1,21 @@
+{
+  "name": "organization-page",
+  "dependencies": {
+    "segmentio/view": "*",
+    "visionmedia/debug": "*"
+  },
+  "local": [
+    "alerts",
+    "commuter",
+    "map",
+    "organization",
+    "request"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "row.html",
+    "template.html"
+  ]
+}

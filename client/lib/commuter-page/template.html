@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <h3>
+      Commuter
+      <a class="btn btn-default pull-right" href="/organizations/{_organization}"><i class="fa fa-arrow-left"></i> Back</a>
+      <a class="btn btn-warning pull-right" href="/organizations/{_organization}/commuters/{_id}/edit"><i class="fa fa-pencil"></i> Edit</a>
+      <a class="btn btn-danger pull-right" href="#" on-click="destroy"><i class="fa fa-times"></i> Delete</a>
+    </h3>
+    <p>{name} — <a href="mailto:{email}">{email}</a></p>
+    <p><a href="{link}" target="_blank"><i class="fa fa-home"></i> {address} to <i class="fa fa-building-o"></i> {organization().address}</a></p>
+  </div>
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="map"></div>
+  </div>
+</div>

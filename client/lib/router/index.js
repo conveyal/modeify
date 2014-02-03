@@ -4,14 +4,22 @@
 
 var alerts = require('alerts');
 var changePasswordPage = require('change-password-page');
+var Commuter = require('commuter');
+var commuterForm = require('commuter-form');
+var commuterPage = require('commuter-page');
 var dashboardPage = require('dashboard-page');
 var debug = require('debug')('router');
 var forgotPasswordPage = require('forgot-password-page');
 var loginPage = require('login-page');
+var Organization = require('organization');
+var organizationForm = require('organization-form');
+var organizationPage = require('organization-page');
+var organizationsPage = require('organizations-page');
 var request = require('request');
 var Router = require('router');
 var session = require('session');
 var User = require('user');
+var usersPage = require('users-page');
 
 /**
  * Expose `router`
@@ -19,20 +27,26 @@ var User = require('user');
 
 var router = module.exports = new Router()
   .on('*', alerts)
-  .on('/', isLoggedIn, function() { router.go('/dashboard'); }) // if logged in redirect to dashboard
-  .on('/login', loginPage, render)
+  .on('/', isLoggedIn, function() {
+    router.go('/organizations');
+  }) // if logged in redirect to dashboard
+.on('/login', loginPage, render)
   .on('/logout', logout, render)
   .on('/forgot-password', forgotPasswordPage, render)
   .on('/change-password/:key', changePasswordPage, render)
-  .on('/dashboard', isLoggedIn, dashboardPage, render);
-/*.on('/organizations', isLoggedIn, organizationsPage)
-  .on('/organizations/new', isLoggedIn, createOrganizationPage)
-  .on('/organizations/:organization', isLoggedIn, organizationPage)
-  .on('/organizations/:organization/edit', isLoggedIn, editOrganizationPage)
-  .on('/organizations/:organization/commuters', isLoggedIn, commutersPage)
-  .on('/organizations/:organization/commuters/new', isLoggedIn, createCommuterPage)
-  .on('/organizations/:organization/commuters/:commuter', isLoggedIn, commuterPage)
-  .on('/organizations/:organization/commuters/:commuter/edit', isLoggedIn, editCommuterPage);*/
+  .on('/users', isLoggedIn, isAdmin, usersPage, render)
+  .on('/organizations', isLoggedIn, organizationsPage, render)
+  .on('/organizations/new', isLoggedIn, organizationForm, render)
+  .on('/organizations/:organization', isLoggedIn, Organization.load, Commuter.loadOrg,
+    organizationPage, render)
+  .on('/organizations/:organization/edit', isLoggedIn, Organization.load,
+    organizationForm, render)
+  .on('/organizations/:organization/commuters/new', isLoggedIn, commuterForm,
+    render)
+  .on('/organizations/:organization/commuters/:commuter', isLoggedIn,
+    Organization.load, Commuter.load, commuterPage, render)
+  .on('/organizations/:organization/commuters/:commuter/edit', isLoggedIn,
+    Commuter.load, commuterForm, render);
 
 /**
  * Cache `main` & `view`
@@ -45,12 +59,12 @@ var view = null;
  * Render
  */
 
-function render(ctx) {
+function render(ctx, next) {
   debug('render %s %s', ctx.path, ctx.view);
 
   if (view) {
     view.off();
-    if (view.el) view.el.remove();
+    if (view.el && view.el.remove) view.el.remove();
   }
 
   if (ctx.view) {
@@ -59,7 +73,9 @@ function render(ctx) {
       router.go(path);
     });
 
+    $main.innerHTML = '';
     $main.appendChild(view.el);
+    view.emit('rendered', view);
   }
 }
 
@@ -72,7 +88,7 @@ function isLoggedIn(ctx, next) {
 
   if (User.instance) {
     session.isLoggedIn(true);
-    session.isAdmin(User.instance.type === 'administrator');
+    session.isAdmin(User.instance.type() === 'administrator');
     ctx.user = User.instance;
     next();
   } else {
@@ -88,6 +104,19 @@ function isLoggedIn(ctx, next) {
         next();
       }
     });
+  }
+}
+
+/**
+ * Redirect to `/organizations` if not admin
+ */
+
+function isAdmin(ctx, next) {
+  debug('is admin %s', ctx.path);
+  if (!session.isAdmin()) {
+    router.go('/organizations');
+  } else {
+    next();
   }
 }
 

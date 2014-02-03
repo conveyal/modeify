@@ -9,7 +9,7 @@ var Org = require('../../server/organization/model');
  */
 
 var info = module.exports.info = {
-  name: 'Organization',
+  name: 'Organizationally',
   address: '1600 Pennsylvania Ave, Washington, DC'
 };
 

@@ -5,11 +5,19 @@
 var mongoose = require('mongoose');
 
 /**
- * Expose `schema`
+ * Create `schema`
  */
 
-var schema = module.exports = new mongoose.Schema({
-
+var schema = new mongoose.Schema({
+  _organization: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Organization'
+  },
+  _commuter: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Commuter'
+  },
+  opts: mongoose.Schema.Types.Mixed
 });
 
 /**
@@ -17,3 +25,9 @@ var schema = module.exports = new mongoose.Schema({
  */
 
 schema.plugin(require('../plugins/mongoose-trackable'));
+
+/**
+ * Expose `Link`
+ */
+
+var Link = module.exports = mongoose.model('Link', schema);

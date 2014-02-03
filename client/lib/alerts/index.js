@@ -1,4 +1,3 @@
-
 /**
  * Dependencies
  */
@@ -8,37 +7,41 @@ var debug = require('debug')('alerts');
 var each = require('each');
 
 /**
- * Local Storage
+ * Alerts
  */
 
-var ls = window.localStorage;
+var alerts = [];
 
 /**
- * Expose `render`
+ * Expose `render` middleware
  */
 
 module.exports = function(ctx) {
   debug('displaying');
 
+  // remove all alerts
   var el = document.getElementById('alerts');
   el.innerHTML = '';
 
-  each(ls.getItem('alerts') || [], function(info) {
-    var alert = new Alert(info);
-    el.appendChild(alert);
+  // create all alerts in local storage
+  each(alerts, function(info) {
+    new Alert(info);
   });
 
+  // reset local storage
+  alerts = [];
+
+  // create all alerts in the query parameters
   each(ctx.query, function(name, val) {
-    switch(name) {
+    switch (name) {
       case 'danger':
       case 'info':
       case 'success':
       case 'warning':
-        var alert = new Alert({
+        new Alert({
           type: name,
           text: val
         });
-        el.appendChild(alert.el);
         break;
     }
   });
@@ -49,6 +52,5 @@ module.exports = function(ctx) {
  */
 
 module.exports.push = function(info) {
-  var alerts = [].concat(ls.getItem('alerts') || []);
-  ls.setItem('alerts', alerts.push(info));
+  alerts = [info].concat(alerts);
 };

@@ -1,0 +1,19 @@
+{
+  "name": "commuter-form",
+  "dependencies": {
+    "segmentio/view": "*",
+    "trevorgerhardt/serialize": "*",
+    "visionmedia/debug": "*"
+  },
+  "local": [
+    "alert",
+    "alerts",
+    "commuter"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}

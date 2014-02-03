@@ -16,9 +16,15 @@ module.exports = function(schema, options) {
 
   schema.add({
     address: String,
+    city: String,
+    state: String,
+    zip: Number,
     coordinate: {
-      type: Array,
-      default: [0, 0]
+      type: Object,
+      default: {
+        lng: 0,
+        lat: 0
+      }
     }
   });
 
@@ -29,8 +35,9 @@ module.exports = function(schema, options) {
   schema.pre('save', true, function(next, done) {
     next();
     var self = this;
-    if (this.isModified('address')) {
-      geocode.encode(this.address, function(err, coords) {
+    if (this.isModified('address') || this.isModified('city') || this.isModified(
+      'state') || this.isModified('zip')) {
+      geocode.encode(this.toJSON(), function(err, coords) {
         if (err) {
           done(err);
         } else {

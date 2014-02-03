@@ -2,41 +2,70 @@
  * Dependencies
  */
 
+var express = require('express');
 var superagent = require('superagent');
 
 /**
- * Expose `encode`
+ * Url
  */
 
-module.exports.encode = function(address, callback) {
-  if (true) return callback(null, [0, 0]);
+var url = 'http://cherriots.dev.conveyal.com/simplecoder';
 
+/**
+ * Expose `app`
+ */
+
+var app = module.exports = express();
+
+/**
+ * Expose `encode` & `reverse`
+ */
+
+module.exports.encode = encode;
+module.exports.reverse = reverse;
+
+/**
+ * Endpoints
+ */
+
+app.get('/', function(req, res) {
+  encode(req.query, function(err, ll) {
+    if (err) {
+      res.send(400, err);
+    } else {
+      res.send(200, ll);
+    }
+  });
+});
+
+/**
+ * Geocode
+ */
+
+function encode(address, callback) {
   superagent
-    .get(
-      'http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find'
-  )
-    .query({
-      text: address,
-      f: 'json'
-    })
+    .get(url + '/q/' + address.address + '/' + address.city + ', ' + address.state +
+      ' ' + address.zip)
     .end(function(err, res) {
       if (err) {
         callback(err, res);
-      } else if (!res.body || !res.body.locations || res.body.locations.length ===
-        0) {
-        callback(new Error('Location not found.'));
+      } else if (!res.body || res.body.length === 0) {
+        callback(new Error('Location not found.'), res);
       } else {
-        var ll = res.body.locations[0].feature.geometry;
-        callback(null, [ll.x, ll.y]);
+        var ll = res.body[0];
+        callback(null, {
+          lng: ll.lon,
+          lat: ll.lat
+        });
       }
     });
-};
+}
 
 /**
- * Expose `reverse`
+ * Reverse geocode
  */
 
-module.exports.reverse = function(ll, callback) {
+function reverse(ll, callback) {
   superagent
     .get(
       'http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find'
@@ -56,4 +85,4 @@ module.exports.reverse = function(ll, callback) {
         callback(null, [ll.x, ll.y]);
       }
     });
-};
+}

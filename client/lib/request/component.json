@@ -4,6 +4,9 @@
     "visionmedia/debug": "*",
     "visionmedia/superagent": "*"
   },
+  "local": [
+    "spinner"
+  ],
   "scripts": [
     "index.js"
   ]

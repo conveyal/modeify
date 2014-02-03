@@ -95,10 +95,10 @@ describe('/api/users', function() {
   });
 
   describe('POST /change-password', function() {
-    it('404 for an invalid key', function(done) {
+    it('400 for an invalid key', function(done) {
       request
         .post('/api/users/change-password')
-        .expect(404, done);
+        .expect(400, done);
     });
 
     it('204 and change the password for a correct key', function(done) {

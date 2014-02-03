@@ -29,7 +29,6 @@ help:
 
 # Install
 install: node_modules components
-	@source .env
 
 node_modules: package.json
 	@npm install

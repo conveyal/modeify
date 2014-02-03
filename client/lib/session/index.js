@@ -1,8 +1,8 @@
-
 /**
  * Dependencies
  */
 
+var defaults = require('model-defaults');
 var model = require('model');
 
 /**
@@ -10,6 +10,10 @@ var model = require('model');
  */
 
 var Session = model('Session')
+  .use(defaults({
+    isAdmin: false,
+    isLoggedIn: false
+  }))
   .attr('isAdmin')
   .attr('isLoggedIn');
 
@@ -17,7 +21,4 @@ var Session = model('Session')
  * Expose `session`
  */
 
-window.session = module.exports = new Session({
-  isAdmin: false,
-  isLoggedIn: false
-});
+window.session = module.exports = new Session();

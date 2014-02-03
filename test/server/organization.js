@@ -11,7 +11,7 @@ var Org = require('../../server/organization/model');
  */
 
 var org = {
-  name: 'Organization 1',
+  name: 'Organization 123',
   address: '2100 Clarendon Boulevard, Arlington, VA'
 };
 
@@ -61,7 +61,6 @@ describe('/api/organizations', function() {
           if (err) return done(err);
           res.body.address.should.equal(org.address);
           res.body.name.should.equal(org.name);
-          res.body.coordinate.length.should.equal(2);
           org = res.body;
           done();
         });

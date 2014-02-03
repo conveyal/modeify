@@ -22,7 +22,7 @@ var schema = new mongoose.Schema({
     type: String,
     required: true
   },
-  tags: Array,
+  labels: Array,
   opts: mongoose.Schema.Types.Mixed
 });
 

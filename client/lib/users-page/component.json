@@ -1,0 +1,19 @@
+{
+  "name": "users-page",
+  "dependencies": {
+    "segmentio/view": "*",
+    "visionmedia/debug": "*"
+  },
+  "local": [
+    "alerts",
+    "request",
+    "user"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html",
+    "user.html"
+  ]
+}

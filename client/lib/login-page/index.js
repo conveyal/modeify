@@ -2,6 +2,7 @@
  * Dependencies
  */
 
+var alerts = require('alerts');
 var debug = require('debug')('login-page');
 var request = require('request');
 var template = require('./template.html');
@@ -28,7 +29,11 @@ View.prototype.login = function(e) {
     password: password
   }, function(err, res) {
     if (res.ok) {
-      self.emit('go', '/dashboard?success=Welcome back!');
+      alerts.push({
+        type: 'success',
+        text: 'Welcome back!'
+      });
+      self.emit('go', '/organizations');
     } else {
       window.alert(err || res.text || 'Failed to login.');
     }

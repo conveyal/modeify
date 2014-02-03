@@ -1,4 +1,3 @@
-
 /**
  * Dependencies
  */
@@ -11,3 +10,19 @@ var create = require('view');
  */
 
 var Nav = module.exports = create(template);
+
+/**
+ * Is admin?
+ */
+
+Nav.prototype.isAdmin = function() {
+  return this.model.isAdmin();
+};
+
+/**
+ * Is authed?
+ */
+
+Nav.prototype.isLoggedIn = function() {
+  return this.model.isLoggedIn();
+};

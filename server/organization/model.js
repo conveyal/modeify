@@ -11,14 +11,11 @@ var mongoose = require('mongoose');
 var schema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
-  contact: {
-    name: String,
-    email: String
-  },
-  tags: Array,
+  contact: String,
+  email: String,
+  labels: Array,
   opts: mongoose.Schema.Types.Mixed
 });
 

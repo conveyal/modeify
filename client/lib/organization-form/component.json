@@ -1,0 +1,19 @@
+{
+  "name": "organization-form",
+  "dependencies": {
+    "segmentio/view": "*",
+    "trevorgerhardt/serialize": "*",
+    "visionmedia/debug": "*"
+  },
+  "local": [
+    "alert",
+    "alerts",
+    "organization"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}

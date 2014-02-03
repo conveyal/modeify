@@ -26,9 +26,11 @@ View.prototype.sendChangeRequest = function(e) {
     email: email
   }, function(err, res) {
     if (res.ok) {
-      window.alert('Check your inbox for instructions to change your password.');
+      window.alert(
+        'Check your inbox for instructions to change your password.');
     } else {
-      window.alert(err || res.text || 'Failed to send change password request.');
+      window.alert(err || res.text ||
+        'Failed to send change password request.');
     }
   });
 };

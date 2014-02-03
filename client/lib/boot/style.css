@@ -2,3 +2,12 @@
 body {
   color: #333;
 }
+
+.btn.pull-right {
+  margin-left: 10px;
+}
+
+.label {
+  font-size: 100%;
+  font-weight: normal;
+}
