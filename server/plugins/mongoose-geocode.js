@@ -57,4 +57,14 @@ module.exports = function(schema, options) {
   schema.index({
     coordinate: '2d'
   });
+
+  /**
+   * Full address
+   */
+
+  schema.methods.fullAddress = function() {
+    return [ this.address, this.city, this.state, this.zip ].filter(function(v) {
+      return !!v;
+    }).join(', ');
+  };
 };

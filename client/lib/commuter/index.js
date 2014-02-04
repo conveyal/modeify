@@ -108,6 +108,7 @@ Commuter.prototype.mapMarker = function() {
       ' ' + this.zip(),
     color: '#5cb85c',
     coordinate: [c.lng, c.lat],
-    icon: 'building'
+    icon: 'building',
+    size: 'small'
   };
 };

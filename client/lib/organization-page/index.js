@@ -26,23 +26,18 @@ module.exports = function(ctx) {
   if (ctx.params.organization === 'new' || !ctx.organization) return;
 
   ctx.view = new Page(ctx.organization);
-  var tbody = ctx.view.find('tbody');
-  var c = ctx.organization.coordinate();
-  ctx.view.on('rendered', function(v) {
-    ctx.view.map = map(v.find('.map'), {
-      center: c,
+  ctx.view.on('rendered', function() {
+    var m = map(ctx.view.find('.map'), {
+      center: ctx.organization.coordinate(),
       zoom: 13
     });
-    map.add(ctx.view.map, {
-      color: '#428bca',
-      coordinate: [c.lng, c.lat],
-      icon: 'commercial'
-    });
+    map.add(m.markerLayer, ctx.organization.mapMarker());
 
+    var tbody = ctx.view.find('tbody');
     ctx.commuters.forEach(function(commuter) {
       var row = new Row(commuter);
       tbody.appendChild(row.el);
-      map.add(ctx.view.map, commuter.mapMarker());
+      map.add(m.markerLayer, commuter.mapMarker());
     });
   });
 };

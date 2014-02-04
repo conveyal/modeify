@@ -6,6 +6,7 @@ var alerts = require('alerts');
 var Commuter = require('commuter');
 var debug = require('debug')('commuter-page');
 var map = require('map');
+var request = require('request');
 var template = require('./template.html');
 var view = require('view');
 
@@ -29,19 +30,8 @@ module.exports = function(ctx) {
       center: ctx.commuter.coordinate(),
       zoom: 13
     });
-    map.add(m, {
-      color: '#5cb85c',
-      coordinate: [ctx.commuter.coordinate().lng, ctx.commuter.coordinate()
-        .lat
-      ],
-      icon: 'building'
-    });
-    var c = ctx.commuter.organization().coordinate;
-    map.add(m, {
-      color: '#428bca',
-      coordinate: [c.lng, c.lat],
-      icon: 'commercial'
-    });
+    map.add(m.markerLayer, ctx.commuter.mapMarker());
+    map.add(m.markerLayer, ctx.organization.mapMarker());
     m.fitBounds(m.markerLayer.getBounds());
   });
 };
@@ -63,6 +53,27 @@ Page.prototype.destroy = function() {
           text: 'Deleted commuter.'
         });
         page.emit('go', url);
+      }
+    });
+  }
+};
+
+/**
+ * Send
+ */
+
+Page.prototype.sendPlan = function(e) {
+  e.preventDefault();
+  if (window.confirm('Send personalized plan to commuter?')) {
+    request.post('/commuters/' + this.model._id() + '/send-plan', {}, function(err, res) {
+      if (err || !res.ok) {
+        console.error(err, res);
+        window.alert('Failed to send plan.');
+      } else {
+        alerts.show({
+          type: 'success',
+          text: 'Emailed plan to commuter.'
+        });
       }
     });
   }

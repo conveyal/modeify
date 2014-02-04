@@ -54,3 +54,11 @@ module.exports = function(ctx) {
 module.exports.push = function(info) {
   alerts = [info].concat(alerts);
 };
+
+/**
+ * Show
+ */
+
+module.exports.show = function(info) {
+  return new Alert(info);
+};

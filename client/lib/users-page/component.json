@@ -5,6 +5,7 @@
     "visionmedia/debug": "*"
   },
   "local": [
+    "alert",
     "alerts",
     "request",
     "user"

@@ -57,3 +57,19 @@ Organization.load = function(ctx, next) {
     next();
   });
 };
+
+/**
+ * Return map marker opts
+ */
+
+Organization.prototype.mapMarker = function() {
+  var c = this.coordinate();
+  return {
+    title: '<a href="/organizations/' + this._id() + '">' + this.name() + '</a>',
+    description: this.address() + '<br>' + this.city() + ', ' + this.state() +
+      ' ' + this.zip(),
+    color: '#428bca',
+    coordinate: [c.lng, c.lat],
+    icon: 'commercial'
+  };
+};

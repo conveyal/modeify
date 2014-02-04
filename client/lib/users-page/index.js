@@ -2,6 +2,7 @@
  * Dependencies
  */
 
+var Alert = require('alert');
 var alerts = require('alerts');
 var debug = require('debug')('users-page');
 var request = require('request');
@@ -89,6 +90,28 @@ UserPage.prototype.destroy = function(e) {
           text: 'Created new user.'
         });
         page.emit('go', '/users');
+      }
+    });
+  }
+};
+
+/**
+ * Reset password
+ */
+
+UserPage.prototype.resetPassword = function(e) {
+  if (window.confirm('Reset user\'s password?')) {
+    request.post('/users/change-password-request', {
+      email: this.model.email()
+    }, function(err, res) {
+      if (err || !res.ok) {
+        console.error(err, res);
+        window.alert('Failed to send reset password request.');
+      } else {
+        new Alert({
+          type: 'success',
+          text: 'Reset password request sent.'
+        });
       }
     });
   }

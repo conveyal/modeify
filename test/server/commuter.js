@@ -89,6 +89,34 @@ describe(base, function() {
     });
   });
 
+  describe('POST /:id/send-plan', function() {
+    it('401 if not logged in', function(done) {
+      request
+        .post(base + '/' + commuter.info._id + '/send-plan')
+        .expect(401, done);
+    });
+
+    it('404 if id does not exist', function(done) {
+      request
+        .post(base + '/52e7ecb9e023120000c33697/send-plan')
+        .set('Cookie', user.sid)
+        .expect(404, done);
+    });
+
+    it('201 if sent correctly and return email object', function(done) {
+      request
+        .post(base + '/' + commuter.info._id + '/send-plan')
+        .set('Cookie', user.sid)
+        .expect(201)
+        .end(function(err, res) {
+          if (err) return done(err);
+          res.body._commuter.should.eql(commuter.info._id);
+          res.body._organization.should.eql(commuter.info._organization);
+          done();
+        });
+    });
+  });
+
   describe('DELETE /:id', function() {
     it('401 if not logged in', function(done) {
       request

@@ -3,7 +3,9 @@
  */
 
 var auth = require('../auth');
+var Email = require('../email/model');
 var express = require('express');
+var mandrill = require('../mandrill');
 var Commuter = require('./model');
 var Link = require('../link/model');
 
@@ -73,6 +75,22 @@ function get(req, res, next) {
     });
 }
 
+function getWithOrg(req, res, next) {
+  Commuter
+    .findById(req.params.id)
+    .populate('_organization')
+    .exec(function(err, commuter) {
+      if (err) {
+        res.send(400, err);
+      } else if (!commuter) {
+        res.send(404, 'Commuter does not exist.');
+      } else {
+        req.commuter = commuter;
+        next();
+      }
+    });
+}
+
 /**
  * Get a specific commuter
  */
@@ -99,6 +117,42 @@ app.put('/:id', get, function(req, res) {
       res.send(400, err);
     } else {
       res.send(204);
+    }
+  });
+});
+
+/**
+ * Send a plan
+ */
+
+app.post('/:id/send-plan', getWithOrg, function(req, res) {
+  var options = {
+    commuterAddress: req.commuter.fullAddress(),
+    orgAddress: req.commuter._organization.fullAddress(),
+    subject: 'Your Personalized Commute Plan',
+    template: 'plan',
+    to: {
+      name: req.commuter.name,
+      email: req.commuter.email
+    }
+  };
+
+  mandrill.send(options, function(err, results) {
+    if (err) {
+      res.send(400, err);
+    } else {
+      Email.create({
+        _commuter: req.commuter._id,
+        _organization: req.commuter._organization._id,
+        metadata: options,
+        result: results
+      }, function(err, email) {
+        if (err) {
+          res.send(400, err);
+        } else {
+          res.send(201, email);
+        }
+      });
     }
   });
 });
