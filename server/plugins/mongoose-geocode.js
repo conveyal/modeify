@@ -35,8 +35,8 @@ module.exports = function(schema, options) {
   schema.pre('save', true, function(next, done) {
     next();
     var self = this;
-    if (this.isModified('address') || this.isModified('city') || this.isModified(
-      'state') || this.isModified('zip')) {
+    if (!this.isModified('coordinate') && (this.isModified('address') || this.isModified('city') || this.isModified(
+      'state') || this.isModified('zip'))) {
       geocode.encode(this.toJSON(), function(err, coords) {
         if (err) {
           done(err);

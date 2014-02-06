@@ -1,0 +1,6 @@
+{
+  "ext": "js json css html",
+  "script": "index.js",
+  "verbose": true,
+  "watch": [ "client", "email-templates", "server" ]
+}

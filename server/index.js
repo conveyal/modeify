@@ -17,6 +17,7 @@ var mongo = require('./mongo');
  */
 
 var app = module.exports = express()
+  .use(express.favicon())
   .use(express.compress())
   .use('/build', express.static(__dirname + '/../build'))
   .use(express.urlencoded())

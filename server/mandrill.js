@@ -16,7 +16,7 @@ var templates = {};
  * Create `client`
  */
 
-var client = new Mandrill(process.env.MANDRILL_API_KEY);
+var client = module.exports.client = new Mandrill(process.env.MANDRILL_API_KEY);
 
 /**
  * Expose `send`

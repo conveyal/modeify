@@ -3,11 +3,8 @@
  */
 
 var auth = require('../auth');
-var Email = require('../email/model');
 var express = require('express');
-var mandrill = require('../mandrill');
 var Commuter = require('./model');
-var Link = require('../link/model');
 
 /**
  * Expose `app`
@@ -45,13 +42,7 @@ app.post('/', function(req, res) {
         res.send(400, err);
       }
     } else {
-      Link.create({
-        _organization: commuter._organization,
-        _commuter: commuter._id
-      }, function(err, link) {
-        if (err) console.error(err);
-        res.send(201, commuter);
-      });
+      res.send(201, commuter);
     }
   });
 });
@@ -108,10 +99,11 @@ app.put('/:id', get, function(req, res) {
   req.commuter.address = req.body.address;
   req.commuter.state = req.body.state;
   req.commuter.city = req.body.city;
-  req.commuter.zip = req.body.zip;
+  req.commuter.zip = parseInt(req.body.zip, 10);
   req.commuter.labels = req.body.labels;
   req.commuter.opts = req.body.opts;
   req.commuter.coordinate = req.body.coordinate;
+  req.commuter.link = req.body.link;
   req.commuter.save(function(err) {
     if (err) {
       res.send(400, err);
@@ -126,33 +118,11 @@ app.put('/:id', get, function(req, res) {
  */
 
 app.post('/:id/send-plan', getWithOrg, function(req, res) {
-  var options = {
-    commuterAddress: req.commuter.fullAddress(),
-    orgAddress: req.commuter._organization.fullAddress(),
-    subject: 'Your Personalized Commute Plan',
-    template: 'plan',
-    to: {
-      name: req.commuter.name,
-      email: req.commuter.email
-    }
-  };
-
-  mandrill.send(options, function(err, results) {
+  req.commuter.sendPlan(function(err, email) {
     if (err) {
       res.send(400, err);
     } else {
-      Email.create({
-        _commuter: req.commuter._id,
-        _organization: req.commuter._organization._id,
-        metadata: options,
-        result: results
-      }, function(err, email) {
-        if (err) {
-          res.send(400, err);
-        } else {
-          res.send(201, email);
-        }
-      });
+      res.send(201, email);
     }
   });
 });

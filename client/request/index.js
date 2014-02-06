@@ -2,7 +2,7 @@
  * Dependencies
  */
 
-var debug = require('debug')('request');
+var debug = require('debug')('commute-planner:request');
 var spin = require('spinner');
 var superagent = require('superagent');
 

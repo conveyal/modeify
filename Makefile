@@ -11,7 +11,7 @@ REPORTER = spec
 build: components $(CSS) $(HTML) $(JS) $(JSON)
 	@$(MAKE) lint-client
 	@$(MAKE) test-client
-	@./node_modules/.bin/component build --dev --verbose
+	@node build.js
 
 beautify:
 	@./node_modules/.bin/js-beautify --quiet --replace $(CLIENTJS) $(SERVERJS) $(TESTJS)
@@ -45,18 +45,15 @@ lint-test:
 
 # Run before each commit/release
 release: beautify lint test
-	@./node_modules/.bin/component build --verbose
+	@NODE_ENV=production node build.js
 
 # Watch & reload server
-serve:
-	@./node_modules/.bin/nodemon index.js --watch server --verbose
+serve: install
+	@./node_modules/.bin/nodemon --verbose
 
 test: test-client test-server
 test-client: lint-client lint-test
 test-server: lint-server lint-test
 	@NODE_ENV=test ./node_modules/.bin/mocha --recursive --require should --reporter $(REPORTER) --timeout 5000 --slow 10
-
-watch:
-	@watch $(MAKE) build
 
 .PHONY: beautify help lint lint-client lint-server release test test-client test-server watch

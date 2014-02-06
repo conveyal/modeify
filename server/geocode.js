@@ -25,7 +25,7 @@ module.exports.encode = encode;
 module.exports.reverse = reverse;
 
 /**
- * Endpoints
+ * Geocode
  */
 
 app.get('/', function(req, res) {
@@ -34,6 +34,20 @@ app.get('/', function(req, res) {
       res.send(400, err);
     } else {
       res.send(200, ll);
+    }
+  });
+});
+
+/**
+ * Reverse
+ */
+
+app.get('/reverse', function(req, res) {
+  reverse(req.query, function(err, address) {
+    if (err) {
+      res.send(400, err);
+    } else {
+      res.send(200, address);
     }
   });
 });
