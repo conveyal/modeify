@@ -65,7 +65,8 @@ Organization.load = function(ctx, next) {
 Organization.prototype.mapMarker = function() {
   var c = this.coordinate();
   return {
-    title: '<a href="/organizations/' + this._id() + '">' + this.name() + '</a>',
+    title: '<a href="/organizations/' + this._id() + '">' + this.name() +
+      '</a>',
     description: this.address() + '<br>' + this.city() + ', ' + this.state() +
       ' ' + this.zip(),
     color: '#428bca',

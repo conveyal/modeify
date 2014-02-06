@@ -65,7 +65,8 @@ Page.prototype.destroy = function() {
 Page.prototype.sendPlan = function(e) {
   e.preventDefault();
   if (window.confirm('Send personalized plan to commuter?')) {
-    request.post('/commuters/' + this.model._id() + '/send-plan', {}, function(err, res) {
+    request.post('/commuters/' + this.model._id() + '/send-plan', {}, function(
+      err, res) {
       if (err || !res.ok) {
         console.error(err, res);
         window.alert('Failed to send plan.');
