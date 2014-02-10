@@ -62,6 +62,21 @@ Commuter.load = function(ctx, next) {
 };
 
 /**
+ * Load via link
+ */
+
+Commuter.loadLink = function(ctx, next) {
+  request.get('/commuters/link/' + ctx.params.link, function(err, res) {
+    if (err || !res.ok) {
+      next(err || new Error(res.text));
+    } else {
+      ctx.commuter = new Commuter(res.body);
+      next();
+    }
+  });
+};
+
+/**
  * Load all commuters for an org via middleware
  */
 
@@ -91,7 +106,7 @@ Commuter.prototype.link = function() {
     this.zip();
   var org = this.organization().address + ', ' + this.organization().city +
     ', ' + this.organization().state + ' ' + this.organization().zip;
-  return 'http://arlington.dev.conveyal.com/#results?from=' + address + '&to=' +
+  return '/planner#results?from=' + address + '&to=' +
     org;
 };
 

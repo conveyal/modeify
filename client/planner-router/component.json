@@ -1,0 +1,13 @@
+{
+  "name": "planner-router",
+  "dependencies": {
+    "ianstormtaylor/router": "*"
+  },
+  "local": [
+    "commuter-form",
+    "planner-page"
+  ],
+  "scripts": [
+    "index.js"
+  ]
+}

@@ -4,6 +4,7 @@
     "client"
   ],
   "local": [
-    "boot"
+    "manager-app",
+    "planner-app"
   ]
 }

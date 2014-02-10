@@ -22,30 +22,37 @@ var User = require('user');
 var usersPage = require('users-page');
 
 /**
+ * Root
+ */
+
+var root = '';
+
+/**
  * Expose `router`
  */
 
 var router = module.exports = new Router()
-  .on('*', alerts)
-  .on('/', isLoggedIn, function() {
-    router.go('/organizations');
+  .on(root + '*', setRoot, alerts)
+  .on(root, isLoggedIn, function() {
+    router.go(root + '/organizations');
   }) // if logged in redirect to dashboard
-.on('/login', loginPage, render)
-  .on('/logout', logout, render)
-  .on('/forgot-password', forgotPasswordPage, render)
-  .on('/change-password/:key', changePasswordPage, render)
-  .on('/users', isLoggedIn, isAdmin, usersPage, render)
-  .on('/organizations', isLoggedIn, organizationsPage, render)
-  .on('/organizations/new', isLoggedIn, organizationForm, render)
-  .on('/organizations/:organization', isLoggedIn, Organization.load, Commuter.loadOrg,
+.on(root + '/login', loginPage, render)
+  .on(root + '/logout', logout, render)
+  .on(root + '/forgot-password', forgotPasswordPage, render)
+  .on(root + '/change-password/:key', changePasswordPage, render)
+  .on(root + '/commuters/:link/edit', Commuter.loadLink, commuterForm, render)
+  .on(root + '/users', isLoggedIn, isAdmin, usersPage, render)
+  .on(root + '/organizations', isLoggedIn, organizationsPage, render)
+  .on(root + '/organizations/new', isLoggedIn, organizationForm, render)
+  .on(root + '/organizations/:organization', isLoggedIn, Organization.load, Commuter.loadOrg,
     organizationPage, render)
-  .on('/organizations/:organization/edit', isLoggedIn, Organization.load,
+  .on(root + '/organizations/:organization/edit', isLoggedIn, Organization.load,
     organizationForm, render)
-  .on('/organizations/:organization/commuters/new', isLoggedIn, commuterForm,
+  .on(root + '/organizations/:organization/commuters/new', isLoggedIn, commuterForm,
     render)
-  .on('/organizations/:organization/commuters/:commuter', isLoggedIn,
+  .on(root + '/organizations/:organization/commuters/:commuter', isLoggedIn,
     Organization.load, Commuter.load, commuterPage, render)
-  .on('/organizations/:organization/commuters/:commuter/edit', isLoggedIn,
+  .on(root + '/organizations/:organization/commuters/:commuter/edit', isLoggedIn,
     Commuter.load, commuterForm, render);
 
 /**
@@ -54,6 +61,14 @@ var router = module.exports = new Router()
 
 var $main = document.getElementById('main');
 var view = null;
+
+/**
+ * Set root
+ */
+
+function setRoot(ctx, next) {
+  ctx.root = root;
+}
 
 /**
  * Render
@@ -96,7 +111,7 @@ function isLoggedIn(ctx, next) {
       if (err || !res.ok) {
         session.isLoggedIn(false);
         session.isAdmin(false);
-        router.go('/login');
+        router.go(root + '/login');
       } else {
         session.isLoggedIn(true);
         session.isAdmin(res.body.type === 'administrator');
@@ -114,7 +129,7 @@ function isLoggedIn(ctx, next) {
 function isAdmin(ctx, next) {
   debug('is admin %s', ctx.path);
   if (!session.isAdmin()) {
-    router.go('/organizations');
+    router.go(root + '/organizations');
   } else {
     next();
   }
@@ -133,6 +148,6 @@ function logout(ctx) {
 
   request.get('/logout', function(err, res) {
     document.cookie = null;
-    router.go('/login');
+    router.go(root + '/login');
   });
 }

@@ -37,7 +37,9 @@ module.exports = function(ctx) {
  */
 
 Page.prototype.action = function() {
-  return this.model.isNew() ? 'Add' : 'Edit';
+  if (this.model.isNew()) return 'Add';
+  if (typeof this.model._organization() === 'string') return 'Edit';
+  return 'Hello';
 };
 
 /**

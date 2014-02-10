@@ -32,23 +32,29 @@ app.configure('development', function() {
 });
 
 /**
- * Admin
- */
-
-app.use('/admin', require('./admin'));
-
-/**
  * Mount the api
  */
 
 app.use('/api', require('./api'));
 
 /**
- * Get the app
+ * Planner
+ */
+
+app.all('/planner*', function(req, res) {
+  fs.readFile(__dirname + '/../client/planner.html', {
+    encoding: 'utf8'
+  }, function(err, data) {
+    res.send(200, data);
+  });
+});
+
+/**
+ * Manager
  */
 
 app.all('*', function(req, res) {
-  fs.readFile(__dirname + '/../client/index.html', {
+  fs.readFile(__dirname + '/../client/manager.html', {
     encoding: 'utf8'
   }, function(err, data) {
     res.send(200, data);

@@ -1,0 +1,9 @@
+{
+  "name": "geocode",
+  "local": [
+    "request"
+  ],
+  "scripts": [
+    "index.js"
+  ]
+}

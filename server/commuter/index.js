@@ -10,14 +10,13 @@ var Commuter = require('./model');
  * Expose `app`
  */
 
-var app = module.exports = express()
-  .use(auth.isLoggedIn);
+var app = module.exports = express();
 
 /**
  * Get all commuters
  */
 
-app.get('/', function(req, res) {
+app.get('/', auth.isLoggedIn, function(req, res) {
   Commuter
     .find(req.query)
     .exec(function(err, commuters) {
@@ -33,7 +32,7 @@ app.get('/', function(req, res) {
  * Create an commuter
  */
 
-app.post('/', function(req, res) {
+app.post('/', auth.isLoggedIn, function(req, res) {
   Commuter.create(req.body, function(err, commuter) {
     if (err) {
       if (err.name === 'MongoError' && err.code === 11000) {
@@ -45,6 +44,26 @@ app.post('/', function(req, res) {
       res.send(201, commuter);
     }
   });
+});
+
+/**
+ * Get with a link
+ */
+
+app.get('/link/:link', function(req, res) {
+  Commuter
+    .findOne()
+    .where('link', req.params.link)
+    .populate('_organization')
+    .exec(function(err, commuter) {
+      if (err) {
+        res.send(400, err);
+      } else if (!commuter) {
+        res.send(404, 'Commuter does not exist for link.');
+      } else {
+        res.send(200, commuter);
+      }
+    });
 });
 
 /**
@@ -86,7 +105,7 @@ function getWithOrg(req, res, next) {
  * Get a specific commuter
  */
 
-app.get('/:id', get, function(req, res) {
+app.get('/:id', auth.isLoggedIn, get, function(req, res) {
   res.send(200, req.commuter);
 });
 
@@ -94,7 +113,7 @@ app.get('/:id', get, function(req, res) {
  * Update an commuter
  */
 
-app.put('/:id', get, function(req, res) {
+app.put('/:id', auth.isLoggedIn, get, function(req, res) {
   req.commuter.name = req.body.name;
   req.commuter.address = req.body.address;
   req.commuter.state = req.body.state;
@@ -117,7 +136,7 @@ app.put('/:id', get, function(req, res) {
  * Send a plan
  */
 
-app.post('/:id/send-plan', getWithOrg, function(req, res) {
+app.post('/:id/send-plan', auth.isLoggedIn, getWithOrg, function(req, res) {
   req.commuter.sendPlan(function(err, email) {
     if (err) {
       res.send(400, err);
@@ -131,7 +150,7 @@ app.post('/:id/send-plan', getWithOrg, function(req, res) {
  * Delete an commuter
  */
 
-app.delete('/:id', get, function(req, res) {
+app.delete('/:id', auth.isLoggedIn, get, function(req, res) {
   req.commuter.remove(function(err) {
     if (err) {
       res.send(400, err);

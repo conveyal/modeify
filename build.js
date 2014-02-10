@@ -4,6 +4,7 @@
  */
 
 var Builder = require('component-builder');
+var component = require('./component.json');
 var fs = require('fs');
 var mkdir = require('mkdirp');
 var minify = require('minify');
@@ -16,14 +17,14 @@ var write = fs.writeFileSync;
  * Expose `build`
  */
 
-module.exports = build;
+module.exports = buildAll;
 
 /**
  * Run if not `require`d
  */
 
 if (!module.parent) {
-  build();
+  buildAll();
 }
 
 /**
@@ -32,19 +33,28 @@ if (!module.parent) {
 
 var config = {
   'ENV': process.env.NODE_ENV,
-  'BASE_URL': process.env.BASE_URL
+  'BASE_URL': process.env.BASE_URL,
+  'OTP_URL': process.env.OTP_URL
 };
+
+/**
+ * Build all
+ */
+
+function buildAll() {
+  component.local.forEach(build);
+}
 
 /**
  * Build.
  */
 
-function build() {
+function build(bundle) {
   /**
    * Settings.
    */
 
-  var dest = 'build';
+  var dest = 'build/' + bundle;
   var production = process.env.NODE_ENV === 'production';
 
   /**
@@ -52,6 +62,7 @@ function build() {
    */
 
   var builder = new Builder('.');
+
   builder.copyAssetsTo(dest);
   builder.prefixUrls('/' + dest);
   builder.copyFiles(true);
@@ -66,7 +77,7 @@ function build() {
     mkdir.sync(dest);
 
     if (res.js) {
-      js = 'window.CONFIG=' + JSON.stringify(config) + ';' + res.require + res.js + ';require(\'boot\');';
+      js = 'window.CONFIG=' + JSON.stringify(config) + ';' + res.require + res.js + ';require("' + bundle + '");';
       if (production) js = minify.js(js);
       write(resolve(dest, 'build.js'), js);
     }

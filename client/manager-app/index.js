@@ -4,7 +4,7 @@
 
 var Nav = require('nav');
 var onLoad = require('on-load');
-var router = require('router');
+var router = require('manager-router');
 var session = require('session');
 
 /**

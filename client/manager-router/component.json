@@ -1,5 +1,5 @@
 {
-  "name": "router",
+  "name": "manager-router",
   "dependencies": {
     "ianstormtaylor/router": "*",
     "visionmedia/debug": "*"

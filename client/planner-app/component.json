@@ -1,17 +1,12 @@
 {
-  "name": "boot",
+  "name": "planner-app",
   "dependencies": {
     "ianstormtaylor/on-load": "*"
   },
   "local": [
-    "nav",
-    "router",
-    "session"
+    "planner-router"
   ],
   "scripts": [
     "index.js"
-  ],
-  "styles": [
-    "style.css"
   ]
 }

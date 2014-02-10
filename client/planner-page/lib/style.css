@@ -1,0 +1,114 @@
+
+body {
+  padding-bottom: 100px;
+}
+
+#canvas {
+  height: 400px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 20px 0 40px;
+}
+
+.canvas {
+  height: 350px;
+  width: 1138px;
+}
+
+.results-heading {
+  margin-top: 30px;
+  margin-bottom: 14px;
+  line-height: 34px;
+}
+
+.route-heading > div:first-of-type {
+  padding-left: 25px;
+}
+
+.route-heading > div {
+  font-size: 1.2em;
+}
+
+.route {
+  margin-top: 3px;
+  margin-bottom: 3px;
+  margin-left: 0;
+  margin-right: 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #333;
+  display: block;
+}
+
+.route:hover,
+.route:focus {
+  text-decoration: none;
+  color: #333;
+}
+
+.summary, .times {
+  padding: 10px;
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.summary, .times, .segments {
+  cursor: pointer;
+}
+
+.segments {
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: -5px;
+}
+
+.segment {
+  display: inline-block;
+  background-color: #ccc;
+  height: 100%;
+  padding: 10px 0 10px 6px;
+  border-right: 1px solid #fff;
+  color: white;
+  overflow-x: hidden;
+}
+
+.segment:focus,
+.segment:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.segment:last-of-type {
+  border-right: none;
+}
+
+.details {
+  background-color: #fff;
+  cursor: normal;
+}
+
+.details pre {
+  border: none;
+  border-radius: 0;
+  border-top: 1px solid #ccc;
+  margin-top: 10px;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.details pre button {
+  border: none;
+}
+
+.details pre code {
+  background-color: #f5f5f5;
+}
+
+.details hr {
+  margin-top: 0;
+  margin-bottom: 0;
+  border-color: #ccc;
+  border-width: 1px;
+}

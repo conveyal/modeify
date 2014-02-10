@@ -1,0 +1,17 @@
+{
+  "name": "manager-app",
+  "dependencies": {
+    "ianstormtaylor/on-load": "*"
+  },
+  "local": [
+    "nav",
+    "manager-router",
+    "session"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
+  ]
+}
