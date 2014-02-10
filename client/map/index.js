@@ -2,7 +2,7 @@
  * Leaflet
  */
 
-var L = window.L;
+// var L = window.L;
 
 /**
  * Mapbox ID
@@ -21,7 +21,7 @@ module.exports = function(el, opts) {
   };
 
   // create a map in the el with given options
-  var map = window.map = L.mapbox.map(el, ID, opts);
+  var map = L.mapbox.map(el, ID, opts);
 
   return map;
 };

@@ -118,13 +118,14 @@ app.put('/:id', auth.isLoggedIn, get, function(req, res) {
   req.commuter.address = req.body.address;
   req.commuter.state = req.body.state;
   req.commuter.city = req.body.city;
-  req.commuter.zip = parseInt(req.body.zip, 10);
+  req.commuter.zip = req.body.zip;
   req.commuter.labels = req.body.labels;
   req.commuter.opts = req.body.opts;
   req.commuter.coordinate = req.body.coordinate;
   req.commuter.link = req.body.link;
   req.commuter.save(function(err) {
     if (err) {
+      console.log(err);
       res.send(400, err);
     } else {
       res.send(204);

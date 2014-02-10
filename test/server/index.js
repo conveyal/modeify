@@ -9,7 +9,7 @@ var request = require('./supertest');
  * Index
  */
 
-var index = fs.readFileSync(__dirname + '/../../client/index.html', 'utf8');
+var index = fs.readFileSync(__dirname + '/../../client/manager.html', 'utf8');
 
 /**
  * Mocha

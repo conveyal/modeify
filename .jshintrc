@@ -2,7 +2,9 @@
   "globals": {
     "before": false,
     "describe": false,
-    "it": false
+    "it": false,
+    "$": false,
+    "L": false
   },
   "boss": true,
   "browser": true,
