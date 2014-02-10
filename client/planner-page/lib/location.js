@@ -70,8 +70,9 @@ $('a.set-location').on('click', function(event) {
   var from = $from.val();
   var to = $to.val();
 
-  window.history.pushState({}, null, window.location.pathname + '#results?from=' + encodeURIComponent(
-    from) + '&to=' + encodeURIComponent(to));
+  window.history.pushState({}, null, window.location.pathname +
+    '#results?from=' + encodeURIComponent(
+      from) + '&to=' + encodeURIComponent(to));
 
   changeLocations(from, to);
 });

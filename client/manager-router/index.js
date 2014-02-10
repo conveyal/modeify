@@ -44,15 +44,18 @@ var router = module.exports = new Router()
   .on(root + '/users', isLoggedIn, isAdmin, usersPage, render)
   .on(root + '/organizations', isLoggedIn, organizationsPage, render)
   .on(root + '/organizations/new', isLoggedIn, organizationForm, render)
-  .on(root + '/organizations/:organization', isLoggedIn, Organization.load, Commuter.loadOrg,
+  .on(root + '/organizations/:organization', isLoggedIn, Organization.load,
+    Commuter.loadOrg,
     organizationPage, render)
   .on(root + '/organizations/:organization/edit', isLoggedIn, Organization.load,
     organizationForm, render)
-  .on(root + '/organizations/:organization/commuters/new', isLoggedIn, commuterForm,
+  .on(root + '/organizations/:organization/commuters/new', isLoggedIn,
+    commuterForm,
     render)
   .on(root + '/organizations/:organization/commuters/:commuter', isLoggedIn,
     Organization.load, Commuter.load, commuterPage, render)
-  .on(root + '/organizations/:organization/commuters/:commuter/edit', isLoggedIn,
+  .on(root + '/organizations/:organization/commuters/:commuter/edit',
+    isLoggedIn,
     Commuter.load, commuterForm, render);
 
 /**
