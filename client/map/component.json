@@ -1,5 +1,8 @@
 {
   "name": "map",
+  "local": [
+    "config"
+  ],
   "scripts": [
     "index.js"
   ],

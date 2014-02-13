@@ -37,7 +37,7 @@ var changeLocations = module.exports.changeLocations = function(from, to) {
       $('.from-display-value').html(fll.name);
       $('.to-display-value').html(tll.name);
 
-      jsonp(config.OTP_API_URL + 'profile?from=' + fll.lat + ',' + fll.lon +
+      jsonp(config.OTP_URL + 'profile?from=' + fll.lat + ',' + fll.lon +
         '&to=' + tll.lat + ',' + tll.lon, function(err, data) {
           if (err) {
             window.alert(err);

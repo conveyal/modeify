@@ -32,7 +32,7 @@ module.exports = function(ctx) {
     });
     map.add(m.markerLayer, ctx.commuter.mapMarker());
     map.add(m.markerLayer, ctx.organization.mapMarker());
-    m.fitBounds(m.markerLayer.getBounds());
+    map.fitBounds(m, m.markerLayer.getBounds());
   });
 };
 

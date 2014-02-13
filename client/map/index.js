@@ -1,14 +1,15 @@
+
+/**
+ * Dependencies
+ */
+
+var ID = require('config').MAPBOX_MAP_ID;
+
 /**
  * Leaflet
  */
 
 // var L = window.L;
-
-/**
- * Mapbox ID
- */
-
-var ID = 'conveyal.h5bghhkn';
 
 /**
  * Expose `map`
@@ -24,6 +25,18 @@ module.exports = function(el, opts) {
   var map = L.mapbox.map(el, ID, opts);
 
   return map;
+};
+
+/**
+ * Map
+ */
+
+module.exports.fitBounds = function(map, bounds) {
+  map.whenReady(function() {
+    setTimeout(function() {
+      map.fitBounds(bounds);
+    }, 100);
+  });
 };
 
 /**

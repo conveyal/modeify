@@ -40,7 +40,6 @@ exports.segments = {
 
 exports.stops = {
   r: [
-
     function(display, data, index, utils) {
       return utils.pixels(display.zoom.scale(), 2, 4, 8) + 'px';
     },
@@ -57,7 +56,6 @@ exports.stops = {
   ],
   stroke: '#444',
   'stroke-width': [
-
     function(display, data, index, utils) {
       return utils.pixels(display.zoom.scale(), 0.5, 1, 2) + 'px';
     },

@@ -3,6 +3,9 @@
   "dependencies": {
     "segmentio/view": "*"
   },
+  "local": [
+    "config"
+  ],
   "scripts": [
     "index.js"
   ],

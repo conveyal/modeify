@@ -17,5 +17,5 @@ onLoad(function() {
   document.body.insertBefore(nav.el, document.body.firstChild);
 
   // listen
-  router.listen();
+  router.listen('/');
 });

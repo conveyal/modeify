@@ -9,7 +9,8 @@ var env = process.env.NODE_ENV || 'development';
  */
 
 var express = require('express');
-var fs = require('fs');
+var read = require('fs').readFileSync;
+var hogan = require('hogan.js');
 var mongo = require('./mongo');
 
 /**
@@ -32,6 +33,19 @@ app.configure('development', function() {
 });
 
 /**
+ * Compile the templates
+ */
+
+var planner = compile('planner', {
+  css: '/build/planner-app/build.css',
+  js: '/build/planner-app/build.js'
+});
+var manager = compile('manager', {
+  css: '/build/manager-app/build.css',
+  js: '/build/manager-app/build.js'
+});
+
+/**
  * Mount the api
  */
 
@@ -42,11 +56,7 @@ app.use('/api', require('./api'));
  */
 
 app.all('/planner*', function(req, res) {
-  fs.readFile(__dirname + '/../client/planner.html', {
-    encoding: 'utf8'
-  }, function(err, data) {
-    res.send(200, data);
-  });
+  res.send(200, planner);
 });
 
 /**
@@ -54,11 +64,7 @@ app.all('/planner*', function(req, res) {
  */
 
 app.all('*', function(req, res) {
-  fs.readFile(__dirname + '/../client/manager.html', {
-    encoding: 'utf8'
-  }, function(err, data) {
-    res.send(200, data);
-  });
+  res.send(200, manager);
 });
 
 /**
@@ -69,3 +75,20 @@ app.use(function(err, req, res, next) {
   err = err || new Error('Server error.');
   res.send(err.status || 500, err.message || err);
 });
+
+/**
+ * Compile templates
+ */
+
+function compile(name, opts) {
+  var html = read(__dirname + '/../client/' + name + '.html', {
+    encoding: 'utf8'
+  });
+  var template = hogan.compile(html);
+
+  for (var key in process.env) {
+    opts[key] = process.env[key];
+  }
+
+  return template.render(opts);
+}

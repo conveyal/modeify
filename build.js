@@ -28,13 +28,15 @@ if (!module.parent) {
 }
 
 /**
- * Config
+ * Config. Do not put any private keys here!!!
  */
 
 var config = {
-  'ENV': process.env.NODE_ENV,
-  'BASE_URL': process.env.BASE_URL,
-  'OTP_URL': process.env.OTP_URL
+  BASE_URL: process.env.BASE_URL,
+  ENV: process.env.NODE_ENV,
+  MAPBOX_MAP_ID: process.env.MAPBOX_MAP_ID,
+  NAME: process.env.NAME,
+  OTP_URL: process.env.OTP_URL
 };
 
 /**

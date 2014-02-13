@@ -1,0 +1,6 @@
+{
+  "name": "config",
+  "scripts": [
+    "index.js"
+  ]
+}

@@ -8,8 +8,8 @@ var parseColor = require('color-parser');
 var styles = require('./styles');
 var computed = require('./computed');
 var toTitleCase = require('to-capital-case');
-var Transitive = require('transitive.js');
-var OtpProfiler = require('otpprofiler.js');
+var Transitive = require('transitive');
+var OtpProfiler = require('otpprofilerjs');
 
 /**
  * Average walk speed = 1.5 meters per second
@@ -61,7 +61,7 @@ Table.prototype.render = function(list, od) {
           'options': data
         });
         var TransitiveLoader = new OtpProfiler.transitive.TransitiveLoader(
-          profileResponse, window.CONFIG.OTP_API_URL, function(transiveData) {
+          profileResponse, window.CONFIG.OTP_URL, function(transiveData) {
 
             var el = $(self).find('.canvas')[0];
             var transitive = new Transitive(el, transiveData, styles);

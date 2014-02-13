@@ -3,6 +3,7 @@
  */
 
 var template = require('./template.html');
+var name = require('config').NAME;
 var create = require('view');
 
 /**
@@ -10,6 +11,14 @@ var create = require('view');
  */
 
 var Nav = module.exports = create(template);
+
+/**
+ * Name
+ */
+
+Nav.prototype.name = function() {
+  return name;
+};
 
 /**
  * Is admin?

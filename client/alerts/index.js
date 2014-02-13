@@ -4,13 +4,21 @@
 
 var Alert = require('alert');
 var debug = require('debug')('alerts');
+var domify = require('domify');
 var each = require('each');
+var template = require('./template.html');
 
 /**
  * Alerts
  */
 
 var alerts = [];
+
+/**
+ * Append el
+ */
+
+document.body.insertBefore(domify(template), document.body.firstChild);
 
 /**
  * Expose `render` middleware

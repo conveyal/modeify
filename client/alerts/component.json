@@ -1,6 +1,7 @@
 {
   "name": "alerts",
   "dependencies": {
+    "component/domify": "*",
     "component/each": "*",
     "visionmedia/debug": "*"
   },
@@ -9,5 +10,8 @@
   ],
   "scripts": [
     "index.js"
+  ],
+  "templates": [
+    "template.html"
   ]
 }

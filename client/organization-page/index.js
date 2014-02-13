@@ -39,6 +39,7 @@ module.exports = function(ctx) {
       tbody.appendChild(row.el);
       map.add(m.markerLayer, commuter.mapMarker());
     });
+    map.fitBounds(m, m.markerLayer.getBounds());
   });
 };
 
