@@ -23,7 +23,6 @@ var app = module.exports = express()
   .use('/build', express.static(__dirname + '/../build'))
   .use(express.urlencoded())
   .use(express.json())
-  .use(express.logger('dev'))
   .use(logErrors);
 
 /**
