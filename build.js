@@ -11,6 +11,8 @@ var minify = require('minify');
 var myth = require('myth');
 var path = require('path');
 var resolve = path.resolve;
+var sqwish = require('sqwish');
+var uglify = require('uglify-js');
 var write = fs.writeFileSync;
 
 /**
@@ -81,13 +83,13 @@ function build(bundle) {
 
     if (res.js) {
       js = 'window.CONFIG=' + JSON.stringify(config) + ';' + res.require + res.js + ';require("' + bundle + '");';
-      if (production) js = minify.js(js);
+      if (production) js = uglify.minify(js, { fromString: true }).code;
       write(resolve(dest, 'build.js'), js);
     }
 
     if (res.css) {
       css = myth(res.css);
-      if (production) css = minify.css(css);
+      if (production) css = sqwish.minify(css);
       write(resolve(dest, 'build.css'), css);
     }
   });
