@@ -7,6 +7,8 @@
   "local": [
     "alerts",
     "commuter",
+    "config",
+    "go",
     "map",
     "request"
   ],

@@ -3,7 +3,7 @@
  */
 
 var template = require('./template.html');
-var name = require('config').NAME;
+var config = require('config');
 var create = require('view');
 
 /**
@@ -17,7 +17,7 @@ var Nav = module.exports = create(template);
  */
 
 Nav.prototype.name = function() {
-  return name;
+  return config.name();
 };
 
 /**

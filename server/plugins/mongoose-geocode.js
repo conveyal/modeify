@@ -18,6 +18,7 @@ module.exports = function(schema, options) {
     address: String,
     city: String,
     state: String,
+    neighborhood: String,
     zip: Number,
     coordinate: {
       type: Object,

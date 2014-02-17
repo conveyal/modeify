@@ -2,6 +2,8 @@
  * Dependencies
  */
 
+var config = require('config');
+var debug = require('debug')(config.name() + ':user');
 var model = require('model');
 var request = require('request');
 
@@ -10,7 +12,7 @@ var request = require('request');
  */
 
 var User = module.exports = model('User')
-  .route('/api/users')
+  .route(config.api_url() + '/users')
   .attr('_id')
   .attr('email')
   .attr('type')

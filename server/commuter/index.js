@@ -17,8 +17,17 @@ var app = module.exports = express();
  */
 
 app.get('/', auth.isLoggedIn, function(req, res) {
+  var query = req.query;
+  var skip = query.skip || 0;
+  var limit = query.limit;
+
+  delete query.skip;
+  delete query.limit;
+
   Commuter
-    .find(req.query)
+    .find(query)
+    .limit(limit)
+    .skip(skip)
     .exec(function(err, commuters) {
       if (err) {
         res.send(400, err);
@@ -35,6 +44,7 @@ app.get('/', auth.isLoggedIn, function(req, res) {
 app.post('/', auth.isLoggedIn, function(req, res) {
   Commuter.create(req.body, function(err, commuter) {
     if (err) {
+      console.log(err);
       if (err.name === 'MongoError' && err.code === 11000) {
         res.send(409, new Error('Resource exists with that information.'));
       } else {

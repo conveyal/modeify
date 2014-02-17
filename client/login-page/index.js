@@ -3,7 +3,9 @@
  */
 
 var alerts = require('alerts');
-var debug = require('debug')('login-page');
+var config = require('config');
+var debug = require('debug')(config.name() + ':login-page');
+var go = require('go');
 var request = require('request');
 var template = require('./template.html');
 var create = require('view');
@@ -33,7 +35,7 @@ View.prototype.login = function(e) {
         type: 'success',
         text: 'Welcome back!'
       });
-      self.emit('go', '/organizations');
+      go('/organizations');
     } else {
       window.alert(err || res.text || 'Failed to login.');
     }

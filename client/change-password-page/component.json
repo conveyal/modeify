@@ -6,6 +6,8 @@
   },
   "local": [
     "alerts",
+    "config",
+    "go",
     "request"
   ],
   "scripts": [

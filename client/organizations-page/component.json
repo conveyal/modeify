@@ -5,6 +5,8 @@
     "visionmedia/debug": "*"
   },
   "local": [
+    "config",
+    "go",
     "map",
     "organization"
   ],

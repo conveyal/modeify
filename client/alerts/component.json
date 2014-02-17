@@ -6,7 +6,8 @@
     "visionmedia/debug": "*"
   },
   "local": [
-    "alert"
+    "alert",
+    "config"
   ],
   "scripts": [
     "index.js"

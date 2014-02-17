@@ -5,11 +5,13 @@
     "visionmedia/debug": "*"
   },
   "local": [
+    "404-page",
     "alerts",
     "change-password-page",
     "commuter",
     "commuter-form",
     "commuter-page",
+    "config",
     "dashboard-page",
     "forgot-password-page",
     "login-page",

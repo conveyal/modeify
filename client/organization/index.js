@@ -2,8 +2,10 @@
  * Dependencies
  */
 
+var config = require('config');
+var debug = require('debug')(config.name() + ':organization');
 var defaults = require('model-defaults');
-var memoize = require('model-memoize');
+var map = require('map');
 var model = require('model');
 
 /**
@@ -22,8 +24,9 @@ var Organization = module.exports = model('Organization')
     zip: '',
     labels: []
   }))
-  .use(memoize)
-  .route('/api/organizations')
+  .use(require('model-memoize'))
+  .use(require('model-query'))
+  .route(config.api_url() + '/organizations')
   .attr('_id')
   .attr('name')
   .attr('contact')
@@ -50,11 +53,11 @@ Organization.load = function(ctx, next) {
 
   Organization.get(ctx.params.organization, function(err, org) {
     if (err) {
-      ctx.error = err;
+      next(err);
     } else {
       ctx.organization = org;
+      next();
     }
-    next();
   });
 };
 
@@ -64,7 +67,7 @@ Organization.load = function(ctx, next) {
 
 Organization.prototype.mapMarker = function() {
   var c = this.coordinate();
-  return {
+  return map.createMarker({
     title: '<a href="/organizations/' + this._id() + '">' + this.name() +
       '</a>',
     description: this.address() + '<br>' + this.city() + ', ' + this.state() +
@@ -72,5 +75,5 @@ Organization.prototype.mapMarker = function() {
     color: '#428bca',
     coordinate: [c.lng, c.lat],
     icon: 'commercial'
-  };
+  });
 };

@@ -2,7 +2,8 @@
  * Dependencies
  */
 
-var debug = require('debug')('organizations-page');
+var config = require('config');
+var debug = require('debug')(config.name() + ':organizations-page');
 var map = require('map');
 var Organization = require('organization');
 var Row = require('./row');

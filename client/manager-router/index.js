@@ -2,13 +2,15 @@
  * Dependencies
  */
 
+var Page404 = require('404-page');
 var alerts = require('alerts');
 var changePasswordPage = require('change-password-page');
 var Commuter = require('commuter');
 var commuterForm = require('commuter-form');
 var commuterPage = require('commuter-page');
+var config = require('config');
 var dashboardPage = require('dashboard-page');
-var debug = require('debug')('router');
+var debug = require('debug')(config.name() + ':manager-router');
 var forgotPasswordPage = require('forgot-password-page');
 var loginPage = require('login-page');
 var Organization = require('organization');
@@ -26,31 +28,39 @@ var usersPage = require('users-page');
  */
 
 var router = module.exports = new Router()
-  .on('*', alerts)
-  .on('/', isLoggedIn, function() {
-    router.go('/organizations');
-  }) // if logged in redirect to dashboard
-.on('/login', loginPage, render)
-  .on('/logout', logout, render)
-  .on('/forgot-password', forgotPasswordPage, render)
-  .on('/change-password/:key', changePasswordPage, render)
-  .on('/commuters/:link/edit', Commuter.loadLink, commuterForm, render)
-  .on('/users', isLoggedIn, isAdmin, usersPage, render)
-  .on('/organizations', isLoggedIn, organizationsPage, render)
-  .on('/organizations/new', isLoggedIn, organizationForm, render)
-  .on('/organizations/:organization', isLoggedIn, Organization.load,
-    Commuter.loadOrg,
-    organizationPage, render)
-  .on('/organizations/:organization/edit', isLoggedIn, Organization.load,
-    organizationForm, render)
-  .on('/organizations/:organization/commuters/new', isLoggedIn,
-    commuterForm,
-    render)
-  .on('/organizations/:organization/commuters/:commuter', isLoggedIn,
-    Organization.load, Commuter.load, commuterPage, render)
+  .on('*',
+    alerts)
+  .on('/',
+    isLoggedIn, function() {
+      router.go('/organizations');
+    }) // if logged in redirect to dashboard
+  .on('/login',
+    loginPage, render)
+  .on('/logout',
+    logout, render)
+  .on('/forgot-password',
+    forgotPasswordPage, render, error)
+  .on('/change-password/:key',
+    changePasswordPage, render, error)
+  .on('/commuters/:link/edit',
+    Commuter.loadLink, commuterForm, render, error)
+  .on('/users',
+    isLoggedIn, isAdmin, usersPage, render, error)
+  .on('/organizations',
+    isLoggedIn, organizationsPage, render, error)
+  .on('/organizations/new',
+    isLoggedIn, organizationForm, render, error)
+  .on('/organizations/:organization',
+    isLoggedIn, Organization.load, Commuter.loadOrg, organizationPage, render, error)
+  .on('/organizations/:organization/edit',
+    isLoggedIn, Organization.load, organizationForm, render, error)
+  .on('/organizations/:organization/commuters/new',
+    isLoggedIn, commuterForm, render, error)
+  .on('/organizations/:organization/commuters/:commuter',
+    isLoggedIn, Organization.load, Commuter.load, commuterPage, render, error)
   .on('/organizations/:organization/commuters/:commuter/edit',
-    isLoggedIn,
-    Commuter.load, commuterForm, render);
+    isLoggedIn, Commuter.load, commuterForm, render, error)
+  .on('*', error);
 
 /**
  * Cache `main` & `view`
@@ -81,6 +91,18 @@ function render(ctx, next) {
     $main.appendChild(view.el);
     view.emit('rendered', view);
   }
+}
+
+/**
+ * Error
+ */
+
+function error(err, ctx, next) {
+  debug('error %s at %s', err, ctx.path);
+  ctx.view = new Page404({
+    message: ''
+  });
+  render(ctx, next);
 }
 
 /**

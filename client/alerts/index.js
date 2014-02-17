@@ -3,7 +3,8 @@
  */
 
 var Alert = require('alert');
-var debug = require('debug')('alerts');
+var config = require('config');
+var debug = require('debug')(config.name() + ':alerts');
 var domify = require('domify');
 var each = require('each');
 var template = require('./template.html');

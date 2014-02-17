@@ -2,9 +2,10 @@
  * Dependencies
  */
 
-var Alert = require('alert');
 var alerts = require('alerts');
-var debug = require('debug')('organization-form');
+var config = require('config');
+var debug = require('debug')(config.name() + ':organization-form');
+var go = require('go');
 var Organization = require('organization');
 var serialize = require('serialize');
 var template = require('./template.html');
@@ -66,7 +67,7 @@ Page.prototype.save = function(e) {
   var self = this;
   this.model.save(function(err) {
     if (err) {
-      new Alert({
+      alerts.show({
         type: 'danger',
         text: err
       });
@@ -75,7 +76,7 @@ Page.prototype.save = function(e) {
         type: 'success',
         text: text
       });
-      self.emit('go', '/organizations/' + self.model._id());
+      go('/organizations/' + self.model._id());
     }
   });
 };

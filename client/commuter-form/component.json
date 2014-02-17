@@ -8,7 +8,9 @@
   "local": [
     "alert",
     "alerts",
-    "commuter"
+    "commuter",
+    "config",
+    "go"
   ],
   "scripts": [
     "index.js"

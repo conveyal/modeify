@@ -4,7 +4,9 @@
 
 var alerts = require('alerts');
 var Commuter = require('commuter');
-var debug = require('debug')('commuter-page');
+var config = require('config');
+var debug = require('debug')(config.name() + ':commuter-page');
+var go = require('go');
 var map = require('map');
 var request = require('request');
 var template = require('./template.html');
@@ -26,13 +28,14 @@ module.exports = function(ctx) {
 
   ctx.view = new Page(ctx.commuter);
   ctx.view.on('rendered', function(v) {
-    var m = map(v.find('.map'), {
+    var m = window.map = map(v.find('.map'), {
       center: ctx.commuter.coordinate(),
       zoom: 13
     });
-    map.add(m.markerLayer, ctx.commuter.mapMarker());
-    map.add(m.markerLayer, ctx.organization.mapMarker());
-    map.fitBounds(m, m.markerLayer.getBounds());
+
+    m.addMarker(ctx.commuter.mapMarker());
+    m.addMarker(ctx.organization.mapMarker());
+    m.fitLayer(m.featureLayer);
   });
 };
 
@@ -40,7 +43,8 @@ module.exports = function(ctx) {
  * Destroy
  */
 
-Page.prototype.destroy = function() {
+Page.prototype.destroy = function(e) {
+  e.preventDefault();
   if (window.confirm('Delete commuter?')) {
     var page = this;
     var url = '/organizations/' + this.model._organization();
@@ -52,7 +56,7 @@ Page.prototype.destroy = function() {
           type: 'success',
           text: 'Deleted commuter.'
         });
-        page.emit('go', url);
+        go(url);
       }
     });
   }

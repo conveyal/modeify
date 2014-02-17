@@ -1,14 +1,11 @@
 {
-  "name": "login-page",
+  "name": "404-page",
   "dependencies": {
     "segmentio/view": "*",
     "visionmedia/debug": "*"
   },
   "local": [
-    "alerts",
-    "config",
-    "go",
-    "request"
+    "config"
   ],
   "scripts": [
     "index.js"

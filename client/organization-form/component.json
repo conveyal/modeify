@@ -6,8 +6,9 @@
     "visionmedia/debug": "*"
   },
   "local": [
-    "alert",
     "alerts",
+    "config",
+    "go",
     "organization"
   ],
   "scripts": [

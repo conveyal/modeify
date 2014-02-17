@@ -2,8 +2,10 @@
  * Dependencies
  */
 
+var config = require('config');
+var debug = require('debug')(config.name() + ':commuter');
 var defaults = require('model-defaults');
-var memoize = require('model-memoize');
+var map = require('map');
 var model = require('model');
 var request = require('request');
 
@@ -23,8 +25,9 @@ var Commuter = module.exports = model('Commuter')
     labels: [],
     organization: {}
   }))
-  .use(memoize)
-  .route('/api/commuters')
+  .use(require('model-query'))
+  .use(require('model-memoize'))
+  .route(config.api_url() + '/commuters')
   .attr('_id')
   .attr('_organization')
   .attr('organization')
@@ -83,18 +86,25 @@ Commuter.loadLink = function(ctx, next) {
 Commuter.loadOrg = function(ctx, next) {
   if (ctx.params.organization === 'new') return next();
 
-  request.get('/commuters', {
+  Commuter.query({
     _organization: ctx.params.organization
-  }, function(err, res) {
+  }, function(err, commuters, res) {
     if (err || !res.ok) {
+      debug(err || res.err || res.error);
       next(err || new Error(res.text));
     } else {
-      ctx.commuters = res.body.map(function(commuter) {
-        return new Commuter(commuter);
-      });
+      ctx.commuters = commuters;
       next();
     }
   });
+};
+
+/**
+ * Address
+ */
+
+Commuter.prototype.location = function() {
+  return this.city() + ', ' + this.state() + ' ' + this.zip();
 };
 
 /**
@@ -116,14 +126,23 @@ Commuter.prototype.link = function() {
 
 Commuter.prototype.mapMarker = function() {
   var c = this.coordinate();
-  return {
-    title: '<a href=\"/organizations/' + this._organization() + '/commuters/' +
-      this._id() + '\">' + this.name() + '</a>',
-    description: this.address() + '<br>' + this.city() + ', ' + this.state() +
-      ' ' + this.zip(),
+  var coordinate = [ obscure(c.lng), obscure(c.lat) ];
+
+  return map.createMarker({
+    title: 'Approx. location of ' + this.email(),
+    description: '<a href=\"/organizations/' + this._organization() + '/commuters/' +
+      this._id() + '\">' + this.location() + '</a>',
     color: '#5cb85c',
-    coordinate: [c.lng, c.lat],
+    coordinate: coordinate,
     icon: 'building',
     size: 'small'
-  };
+  });
 };
+
+/**
+ * Obscure a ll by a bit
+ */
+
+function obscure(l) {
+  return parseInt(l * 1000) / 1000;
+}

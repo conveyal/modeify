@@ -2,9 +2,10 @@
  * Dependencies
  */
 
-var Alert = require('alert');
 var alerts = require('alerts');
-var debug = require('debug')('users-page');
+var config = require('config');
+var debug = require('debug')(config.name() + ':users-page');
+var go = require('go');
 var request = require('request');
 var User = require('user');
 var view = require('view');
@@ -49,21 +50,21 @@ Page.prototype.create = function(e) {
   });
   user.save(function(err) {
     if (err) {
-      console.error(err);
+      debug(err);
       window.alert('Failed to create user.');
     } else {
       request.post('/users/change-password-request', {
         email: email
       }, function(err, res) {
         if (err || !res.ok) {
-          console.error(err);
+          debug(err);
           window.alert('Failed to send new user email.');
         } else {
           alerts.push({
             type: 'success',
             text: 'Created new user.'
           });
-          page.emit('go', '/users');
+          go('/users');
         }
       });
     }
@@ -82,14 +83,14 @@ UserPage.prototype.destroy = function(e) {
     var page = this;
     this.model.destroy(function(err) {
       if (err) {
-        console.error(err);
+        debug(err);
         window.alert('Failed to send new user email.');
       } else {
         alerts.push({
           type: 'success',
           text: 'Created new user.'
         });
-        page.emit('go', '/users');
+        go('/users');
       }
     });
   }
@@ -105,10 +106,10 @@ UserPage.prototype.resetPassword = function(e) {
       email: this.model.email()
     }, function(err, res) {
       if (err || !res.ok) {
-        console.error(err, res);
+        debug(err, res);
         window.alert('Failed to send reset password request.');
       } else {
-        new Alert({
+        alerts.show({
           type: 'success',
           text: 'Reset password request sent.'
         });

@@ -1,15 +1,23 @@
 {
   "name": "organization-page",
   "dependencies": {
+    "component/each": "*",
+    "component/file": "*",
+    "component/file-picker": "*",
     "segmentio/view": "*",
+    "trevorgerhardt/csv-to-array": "*",
+    "visionmedia/batch": "*",
     "visionmedia/debug": "*"
   },
   "local": [
     "alerts",
     "commuter",
+    "config",
+    "go",
     "map",
     "organization",
-    "request"
+    "request",
+    "spinner"
   ],
   "scripts": [
     "index.js"

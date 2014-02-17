@@ -2,7 +2,8 @@
  * Dependencies
  */
 
-var debug = require('debug')('commute-planner:request');
+var config = require('config');
+var debug = require('debug')(config.name() + ':request');
 var spin = require('spinner');
 var superagent = require('superagent');
 
@@ -10,7 +11,7 @@ var superagent = require('superagent');
  * Base URL
  */
 
-var base = '/api';
+var base = config.api_url();
 
 /**
  * Expose `get`

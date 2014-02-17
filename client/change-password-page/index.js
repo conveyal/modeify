@@ -3,7 +3,9 @@
  */
 
 var alerts = require('alerts');
-var debug = require('debug')('change-password-page');
+var config = require('config');
+var debug = require('debug')(config.name() + ':change-password-page');
+var go = require('go');
 var request = require('request');
 var template = require('./template.html');
 var create = require('view');
@@ -25,7 +27,6 @@ View.prototype.changePassword = function(e) {
   if (password !== repeat) return window.alert('Passwords do not match.');
 
   var key = this.model.key;
-  var self = this;
   request.post('/users/change-password', {
     change_password_key: key,
     password: password
@@ -35,7 +36,7 @@ View.prototype.changePassword = function(e) {
         type: 'success',
         text: 'Login using your new password.'
       });
-      self.emit('go', '/login');
+      go('/login');
     } else {
       window.alert(err || res.text ||
         'Failed to change password. Use the link sent to your email address.'

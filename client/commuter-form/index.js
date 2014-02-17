@@ -4,8 +4,10 @@
 
 var Alert = require('alert');
 var alerts = require('alerts');
-var debug = require('debug')('commuter-form');
 var Commuter = require('commuter');
+var config = require('config');
+var debug = require('debug')(config.name() + ':commuter-form');
+var go = require('go');
 var serialize = require('serialize');
 var template = require('./template.html');
 var view = require('view');
@@ -89,7 +91,7 @@ Page.prototype.save = function(e) {
         type: 'success',
         text: text
       });
-      self.emit('go', self.back());
+      go(self.back());
     }
   });
 };

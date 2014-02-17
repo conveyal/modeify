@@ -3,8 +3,14 @@
   "dependencies": {
     "component/model": "*",
     "segmentio/model-defaults": "*",
-    "segmentio/model-memoize": "*"
+    "segmentio/model-memoize": "*",
+    "trevorgerhardt/model-query": "*",
+    "visionmedia/debug": "*"
   },
+  "local": [
+    "config",
+    "map"
+  ],
   "scripts": [
     "index.js"
   ]

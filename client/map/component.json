@@ -1,7 +1,11 @@
 {
   "name": "map",
+  "dependencies": {
+    "visionmedia/debug": "*"
+  },
   "local": [
-    "config"
+    "config",
+    "go"
   ],
   "scripts": [
     "index.js"

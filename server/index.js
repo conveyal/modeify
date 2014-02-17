@@ -22,7 +22,9 @@ var app = module.exports = express()
   .use(express.compress())
   .use('/build', express.static(__dirname + '/../build'))
   .use(express.urlencoded())
-  .use(express.json());
+  .use(express.json())
+  .use(express.logger('dev'))
+  .use(logErrors);
 
 /**
  * Config
@@ -91,4 +93,19 @@ function compile(name, opts) {
   }
 
   return template.render(opts);
+}
+
+/**
+ * Log errors
+ */
+
+function logErrors(req, res, next) {
+  var send = res.send;
+  res.send = function(status, body) {
+    if (status >= 400) {
+      console.log('\x1b[33m ' + status + ' — ' + JSON.stringify(body));
+    }
+    send.apply(res, arguments);
+  };
+  next();
 }

@@ -3,7 +3,9 @@
  * Dependencies
  */
 
-var ID = require('config').MAPBOX_MAP_ID;
+var config = require('config');
+var debug = require('debug')(config.name() + ':map');
+var go = require('go');
 
 /**
  * Leaflet
@@ -22,48 +24,77 @@ module.exports = function(el, opts) {
   };
 
   // create a map in the el with given options
-  var map = L.mapbox.map(el, ID, opts);
+  return new Map(L.mapbox.map(el, config.mapbox_map_id(), opts));
+};
 
-  return map;
+/**
+ * Expose `createMarker`
+ */
+
+module.exports.createMarker = function(opts) {
+  debug('creating marker %s', opts);
+
+  var marker = L.marker(new L.LatLng(opts.coordinate[1], opts.coordinate[0]), {
+    icon: L.mapbox.marker.icon({
+      'marker-size': opts.size || 'medium',
+      'marker-color': opts.color || '#ccc',
+      'marker-symbol': opts.icon || ''
+    }),
+    title: opts.title || ''
+  });
+  if (opts.url) {
+    marker.on('click', function() {
+      go(opts.url);
+    });
+  }
+  return marker;
 };
 
 /**
  * Map
  */
 
-module.exports.fitBounds = function(map, bounds) {
+function Map(map) {
+  this.map = map;
+  this.featureLayer = L.mapbox.featureLayer().addTo(map);
+}
+
+/**
+ * Add Marker
+ */
+
+Map.prototype.addMarker = function(marker) {
+  this.featureLayer.addLayer(marker);
+};
+
+/**
+ * Add Layer
+ */
+
+Map.prototype.addLayer = function(layer) {
+  this.map.addLayer(layer);
+};
+
+/**
+ * Fit bounds
+ */
+
+Map.prototype.fitLayer = function(layer) {
+  debug('fitting layer %s', layer);
+  var map = this.map;
   map.whenReady(function() {
+    debug('map ready');
     setTimeout(function() {
+      var bounds = layer.getBounds();
+      debug('fitting to bounds %s', bounds);
       map.fitBounds(bounds);
-    }, 100);
+    }, 200);
   });
 };
 
 /**
- * Add marker
+ * Featureify
  */
-
-module.exports.add = function(layer, opts) {
-  var json = layer.getGeoJSON();
-  if (!json) {
-    json = {
-      features: [],
-      id: ID,
-      type: 'FeatureCollection'
-    };
-  }
-
-  json.features.push(featureify(opts));
-  layer.setGeoJSON(json);
-};
-
-/**
- * Add markers
- */
-
-module.exports.addMarkers = function(layer, markers) {
-
-};
 
 function featureify(opts) {
   return {

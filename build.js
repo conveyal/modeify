@@ -32,6 +32,7 @@ if (!module.parent) {
  */
 
 var config = {
+  API_URL: process.env.API_URL,
   BASE_URL: process.env.BASE_URL,
   ENV: process.env.NODE_ENV,
   MAPBOX_MAP_ID: process.env.MAPBOX_MAP_ID,
