@@ -5,8 +5,11 @@
     "visionmedia/debug": "*"
   },
   "local": [
+    "analytics",
     "config",
-    "request"
+    "go",
+    "request",
+    "session"
   ],
   "scripts": [
     "index.js"

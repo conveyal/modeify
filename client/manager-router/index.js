@@ -4,6 +4,7 @@
 
 var Page404 = require('404-page');
 var alerts = require('alerts');
+var analytics = require('analytics');
 var changePasswordPage = require('change-password-page');
 var Commuter = require('commuter');
 var commuterForm = require('commuter-form');
@@ -17,9 +18,7 @@ var Organization = require('organization');
 var organizationForm = require('organization-form');
 var organizationPage = require('organization-page');
 var organizationsPage = require('organizations-page');
-var request = require('request');
 var Router = require('router');
-var session = require('session');
 var User = require('user');
 var usersPage = require('users-page');
 
@@ -31,13 +30,11 @@ var router = module.exports = new Router()
   .on('*',
     alerts)
   .on('/',
-    isLoggedIn, function() {
-      router.go('/organizations');
-    }) // if logged in redirect to dashboard
+    User.isLoggedIn, redirect('/organizations'))
   .on('/login',
     loginPage, render)
   .on('/logout',
-    logout, render)
+    User.logout)
   .on('/forgot-password',
     forgotPasswordPage, render, error)
   .on('/change-password/:key',
@@ -45,22 +42,22 @@ var router = module.exports = new Router()
   .on('/commuters/:link/edit',
     Commuter.loadLink, commuterForm, render, error)
   .on('/users',
-    isLoggedIn, isAdmin, usersPage, render, error)
+    User.isLoggedIn, User.isAdmin, usersPage, render, error)
   .on('/organizations',
-    isLoggedIn, organizationsPage, render, error)
+    User.isLoggedIn, organizationsPage, render, error)
   .on('/organizations/new',
-    isLoggedIn, organizationForm, render, error)
+    User.isLoggedIn, organizationForm, render, error)
   .on('/organizations/:organization',
-    isLoggedIn, Organization.load, Commuter.loadOrg, organizationPage, render, error)
+    User.isLoggedIn, Organization.load, Commuter.loadOrg, organizationPage, render, error)
   .on('/organizations/:organization/edit',
-    isLoggedIn, Organization.load, organizationForm, render, error)
+    User.isLoggedIn, Organization.load, organizationForm, render, error)
   .on('/organizations/:organization/commuters/new',
-    isLoggedIn, commuterForm, render, error)
+    User.isLoggedIn, commuterForm, render, error)
   .on('/organizations/:organization/commuters/:commuter',
-    isLoggedIn, Organization.load, Commuter.load, commuterPage, render, error)
+    User.isLoggedIn, Organization.load, Commuter.load, commuterPage, render, error)
   .on('/organizations/:organization/commuters/:commuter/edit',
-    isLoggedIn, Commuter.load, commuterForm, render, error)
-  .on('*', error);
+    User.isLoggedIn, Commuter.load, commuterForm, render, error)
+  .on('*', notFound, render);
 
 /**
  * Cache `main` & `view`
@@ -90,6 +87,9 @@ function render(ctx, next) {
     $main.innerHTML = '';
     $main.appendChild(view.el);
     view.emit('rendered', view);
+
+    // track the page view
+    analytics.page(ctx.view.category, ctx.view.title, ctx.view.properties);
   }
 }
 
@@ -106,59 +106,20 @@ function error(err, ctx, next) {
 }
 
 /**
- * Redirect to `/login` if not logged in middleware
+ * Not found
  */
 
-function isLoggedIn(ctx, next) {
-  debug('is logged in %s', ctx.path);
-
-  if (User.instance) {
-    session.isLoggedIn(true);
-    session.isAdmin(User.instance.type() === 'administrator');
-    ctx.user = User.instance;
-    next();
-  } else {
-    request.get('/is-logged-in', function(err, res) {
-      if (err || !res.ok) {
-        session.isLoggedIn(false);
-        session.isAdmin(false);
-        router.go('/login');
-      } else {
-        session.isLoggedIn(true);
-        session.isAdmin(res.body.type === 'administrator');
-        ctx.user = User.instance = new User(res.body);
-        next();
-      }
-    });
-  }
+function notFound(ctx) {
+  debug('%s not found', ctx.path);
+  ctx.view = new Page404();
 }
 
 /**
- * Redirect to `/organizations` if not admin
+ * Redirect
  */
 
-function isAdmin(ctx, next) {
-  debug('is admin %s', ctx.path);
-  if (!session.isAdmin()) {
+function redirect(to) {
+  return function(ctx) {
     router.go('/organizations');
-  } else {
-    next();
   }
-}
-
-/**
- * Logout middleware
- */
-
-function logout(ctx) {
-  debug('logout %s', ctx.path);
-
-  session.isLoggedIn(false);
-  session.isAdmin(false);
-  User.instance = null;
-
-  request.get('/logout', function(err, res) {
-    document.cookie = null;
-    router.go('/login');
-  });
 }

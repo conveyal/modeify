@@ -65,6 +65,11 @@ app.post('/login', function(req, res) {
             res.cookie('user', user._id, {
               signed: true
             });
+            // convert to JSON and delete password
+            user = user.toJSON();
+            delete user.password;
+
+            // save in session
             req.session.user = user;
             res.send(200, user);
           }
@@ -109,16 +114,8 @@ function isLoggedIn(req, res, next) {
  */
 
 function isAdmin(req, res, next) {
-  if (req.session && req.session.user) {
-    User
-      .findById(req.session.user._id)
-      .exec(function(err, user) {
-        if (err || user.type !== 'administrator') {
-          res.send(401, 'Administrators only.');
-        } else {
-          next();
-        }
-      });
+  if (req.session && req.session.user && req.session.user.type === 'administrator') {
+    next();
   } else {
     res.send(401, 'Administrators only.');
   }
@@ -129,7 +126,7 @@ function isAdmin(req, res, next) {
  */
 
 function logout(req, res, next) {
-  res.clearCookie('commute-planner');
+  res.clearCookie('user');
   req.session = null;
   if (next) next();
 }

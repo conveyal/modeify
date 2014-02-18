@@ -64,7 +64,7 @@ function encode(address, callback) {
       if (err) {
         callback(err, res);
       } else if (!res.body || res.body.length === 0) {
-        callback(new Error('Location not found.'), res);
+        callback(null, {});
       } else {
         var ll = res.body[0];
         callback(null, {

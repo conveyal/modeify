@@ -7,6 +7,7 @@
   "local": [
     "404-page",
     "alerts",
+    "analytics",
     "change-password-page",
     "commuter",
     "commuter-form",
@@ -19,8 +20,6 @@
     "organization-form",
     "organization-page",
     "organizations-page",
-    "request",
-    "session",
     "user",
     "users-page"
   ],

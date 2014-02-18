@@ -1,0 +1,6 @@
+{
+  "name": "analytics",
+  "scripts": [
+    "index.js"
+  ]
+}
