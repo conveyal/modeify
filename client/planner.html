@@ -2,69 +2,28 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{NAME}}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
     <link href="//api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css" rel="stylesheet">
-    <link href="http://yandex.st/highlightjs/7.5/styles/default.min.css" rel="stylesheet">
-    <link href="/build/planner-app/build.css" rel="stylesheet">
+    <link href="{{css}}" rel="stylesheet">
   </head>
   <body>
-
-    <div id="location" class="container">
-      <form class="location-form">
-        <fieldset>
-          <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4">
-              <div class="input-group">
-                <input type="text" class="form-control" name="from-address" placeholder="From" value="2100 Clarendon Boulevard, Arlington, VA">
-                <span class="input-group-btn">
-                  <button class="btn btn-default" type="button" onclick="javascript:useDeviceLocation('from-address')" title="Use Current Location"><i class="fa fa-location-arrow"></i></button>
-                </span>
-              </div><!-- /input-group -->
-            </div><!-- /.col-lg-6 -->
-            <div class="col-lg-4 col-md-4 col-sm-4">
-              <div class="input-group">
-                <input type="text" class="form-control" name="to-address" placeholder="To" value="55 Massachusetts Ave NE, Washington, District of Columbia">
-                <span class="input-group-btn">
-                  <button class="btn btn-default" type="button" onclick="javascript:useDeviceLocation('to-address')" title="Use Current Location"><i class="fa fa-location-arrow"></i></button>
-                </span>
-              </div><!-- /input-group -->
-            </div><!-- /.col-lg-6 -->
-            <div class="col-lg-4 col-md-4 col-sm-4">
-              <a class="btn btn-primary btn-block set-location" type="button">Show Routes</a>
-            </div>
-          </div>
-        </fieldset>
-      </form>
-    </div>
-
     <div class="container">
-      <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12">
-          <div id="map"></div>
+      <h1><i class="fa fa-circle"></i> trippr <small>your commute planner</small>
+        <div class="btn-group pull-right">
+          <a class="btn btn-default" href="/planner/profile">Profile</a>
+          <a class="btn btn-default" href="/planner/config"><i class="fa fa-cog"></i></a>
         </div>
-      </div>
+      </h1>
+      <hr>
     </div>
 
-    <div class="container" id="results" style="display:none;">
-      <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <h4 class="results-heading"><span class="from-display-value"></span> <i class="fa fa-long-arrow-right"></i> <span class="to-display-value"></span>
-          <a class="btn btn-default pull-right" type="button" href="javascript:animateTo('location')">Change Locations <i class="fa fa-location-arrow"></i></a></h4>
-        </div>
-      </div>
-      <div id="canvas" style="display:none;"></div>
-      <div class="data"></div>
-    </div>
+    <div class="container" id="main"></div>
 
-    <script src="//codeorigin.jquery.com/jquery-2.1.0.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script src="//api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js"></script>
-    <script src="/build/planner-app/build.js"></script>
-
-    <!-- syntax higlighter -->
-    <script src="http://yandex.st/highlightjs/7.5/highlight.min.js"></script>
+    <script src="{{js}}"></script>
   </body>
 </html>

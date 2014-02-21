@@ -1,0 +1,12 @@
+{
+  "name": "planner-nav",
+  "local": [
+    "view"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
+  ]
+}

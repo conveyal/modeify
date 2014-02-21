@@ -1,4 +1,3 @@
-
 /**
  * Dependencies
  */
@@ -8,7 +7,7 @@ var debug = require('debug')(config.name() + ':404-page');
 var view = require('view');
 
 /**
- * Expose `Page`
+ * Expose `View`
  */
 
-var Page = module.exports =  view(require('./template.html'));
+var View = module.exports = view(require('./template.html'));

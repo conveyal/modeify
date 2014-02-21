@@ -10,6 +10,7 @@
     "hogan.js": "~2.0.0",
     "mandrill-api": "~1.0.37",
     "mongoose": "~3.8.4",
+    "monquery": "^0.1.0",
     "node-uuid": "~1.4.1",
     "nodemon": "~1.0.14",
     "juice": "~0.4.0",

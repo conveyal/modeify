@@ -2,12 +2,12 @@
   "name": "change-password-page",
   "dependencies": {
     "segmentio/view": "*",
-    "visionmedia/debug": "*"
+    "visionmedia/debug": "*",
+    "visionmedia/page.js": "*"
   },
   "local": [
     "alerts",
     "config",
-    "go",
     "request"
   ],
   "scripts": [

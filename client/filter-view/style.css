@@ -1,0 +1,74 @@
+
+.filter-view {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-left: 0;
+  margin-right: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.filter-view > div:first-child {
+  padding-left: 10px;
+}
+
+.filter-view .dropdown-menu {
+  z-index: 1001;
+}
+
+.svg-icon {
+  background-size: 100% 100%;
+  background-color: transparent;
+  padding: 8px;
+}
+
+.svg-icon-bike {
+  background-image: url(images/Bike.svg);
+}
+
+.svg-icon-bus {
+  background-image: url(images/Bus.svg);
+}
+
+.svg-icon-train {
+  background-image: url(images/Train.svg);
+}
+
+.svg-icon-car {
+  background-image: url(images/Car.svg);
+}
+
+.svg-icon-walk {
+  background-image: url(images/Pedestrian.svg);
+}
+
+.progress-container {
+  padding-top: 7px;
+}
+
+.progress {
+  overflow: visible;
+  margin-bottom: 0;
+}
+
+.progress-bar {
+  background-color: #999;
+}
+
+.progress-bar.main {
+  position: relative;
+  transition: none;
+}
+
+.progress-bar.handle {
+  z-index: 100;
+  height: 30px;
+  width: 30px;
+  border-radius: 30px;
+  color: #fff;
+  margin-top: -5px;
+  line-height: 30px;
+  position: absolute;
+  user-select: none;
+  cursor: pointer;
+}

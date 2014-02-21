@@ -1,99 +1,36 @@
 /**
- * Expose `render`
- */
-
-module.exports = function() {};
-
-/**
  * Dependencies
  */
 
-var crossfilter = require('crossfilter').crossfilter;
-var config = window.CONFIG;
-var d3 = require('d3');
-var loc = require('./lib/location');
-var Table = require('./lib/table');
+var FilterView = require('filter-view');
+var OptionsView = require('options-view');
+var Plan = require('plan');
+var TransitiveView = require('transitive-view');
+var view = require('view');
 
 /**
- * Max options
+ * Create `View`
  */
 
-var MAX_OPTIONS = 5;
+var View = view(require('./template.html'));
 
 /**
- * Options
+ * Expose `render`
  */
 
-var options = crossfilter();
+module.exports = function(ctx, next) {
+  var plan = new Plan();
 
-/**
- * Dimensions
- */
+  ctx.view = new View({
+    filter: new FilterView(plan),
+    'options-view': new OptionsView(plan),
+    transitive: new TransitiveView(plan)
+  });
 
-var dimensions = window.dimensions = {
-  segments: options.dimension(function(d) {
-    return d.segments.length;
-  }),
-  average: options.dimension(function(d) {
-    return d.stats.avg;
-  }),
-  max: options.dimension(function(d) {
-    return d.stats.max;
-  }),
-  min: options.dimension(function(d) {
-    return d.stats.min;
-  })
-};
+  document.getElementById('main').appendChild(ctx.view.el);
 
-/**
- * Currently sorted by...
- */
-
-var currentSort;
-
-/**
- * Table
- */
-
-var table = null;
-
-/**
- * Display data
- */
-
-loc.on('change', function(data, od) {
-  if (data.options.length < 1) return window.alert('No routes found.');
-
-  $('#results').css('display', 'block');
-
-  options.remove();
-  options.add(data.options);
-
-  if (!table) table = new Table(document.querySelector('.data'),
-    Object.keys(dimensions.min.bottom(1)[0]));
-
-  window.sortBy(currentSort || 'min', od);
-  window.animateTo('results');
-});
-
-/**
- * Sort by
- */
-
-window.sortBy = function(dimension, od) {
-  var d = dimensions[dimension];
-  var data = d.bottom(MAX_OPTIONS * 2);
-
-  table.render(data, od);
-  $('.routes-count').html(data.length);
-};
-
-/**
- * Animate a scroll to a link
- */
-
-window.animateTo = function(id) {
-  $('html, body').animate({
-    scrollTop: $('#' + id).offset().top - 50
-  }, 500);
+  ctx.view.emit('rendered');
+  ctx.view.model.filter.emit('rendered');
+  ctx.view.model['options-view'].emit('rendered');
+  ctx.view.model.transitive.emit('rendered');
 };

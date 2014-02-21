@@ -82,13 +82,13 @@ function build(bundle) {
     mkdir.sync(dest);
 
     if (res.js) {
-      js = 'window.CONFIG=' + JSON.stringify(config) + ';' + res.require + res.js + ';require("' + bundle + '");';
-      if (production) js = uglify.minify(js, { fromString: true }).code;
+      var js = 'window.CONFIG=' + JSON.stringify(config) + ';' + res.require + res.js + ';require("' + bundle + '");';
+      // if (production) js = uglify.minify(js, { fromString: true }).code;
       write(resolve(dest, 'build.js'), js);
     }
 
     if (res.css) {
-      css = myth(res.css);
+      var css = myth(res.css);
       if (production) css = sqwish.minify(css);
       write(resolve(dest, 'build.css'), css);
     }

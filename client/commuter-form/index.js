@@ -7,58 +7,78 @@ var alerts = require('alerts');
 var Commuter = require('commuter');
 var config = require('config');
 var debug = require('debug')(config.name() + ':commuter-form');
-var go = require('go');
+var page = require('page');
 var serialize = require('serialize');
 var template = require('./template.html');
 var view = require('view');
 
 /**
- * Create Page
+ * Create `View`
  */
 
-var Page = view(template);
+var View = view(template);
 
 /**
  * Expose `render`
  */
 
-module.exports = function(ctx) {
+module.exports = function(ctx, next) {
   debug('render');
 
   if (ctx.commuter) {
-    ctx.view = new Page(ctx.commuter);
+    ctx.view = new View(ctx.commuter);
+    ctx.view.organization = ctx.organization;
   } else {
-    ctx.view = new Page(new Commuter({
+    ctx.view = new View(new Commuter({
       _organization: ctx.params.organization
     }));
   }
+
+  next();
 };
 
 /**
  * Action
  */
 
-Page.prototype.action = function() {
+View.prototype.action = function() {
   if (this.model.isNew()) return 'Add';
   if (typeof this.model._organization() === 'string') return 'Edit';
   return 'Hello';
 };
 
 /**
+ * Is Old?
+ */
+
+View.prototype.isEditing = function() {
+  return !this.model.isNew();
+};
+
+/**
+ * Email
+ */
+
+View.prototype.email = function() {
+  return this.model._user().email || '';
+};
+
+/**
  * Back?
  */
 
-Page.prototype.back = function() {
-  return this.model.isNew() ? '/organizations/' + this.model._organization() :
-    '/organizations/' + this.model._organization() + '/commuters/' + this.model
-    ._id();
+View.prototype.back = function() {
+  var m = this.model;
+  var org = m._organization();
+  return m.isNew() ? '/manager/organizations/' + org + '/show' :
+    '/manager/organizations/' + org + '/commuters/' + m._id() + '/show';
 };
 
 /**
  * Labels
  */
 
-Page.prototype.labels = function() {
+View.prototype.labels = function() {
   return this.model.labels().length > 0 ? this.model.labels().join(', ') : '';
 };
 
@@ -66,14 +86,23 @@ Page.prototype.labels = function() {
  * Save!
  */
 
-Page.prototype.save = function(e) {
+View.prototype.save = function(e) {
   debug('save');
+
   var data = serialize(this.el);
   data.labels = data.labels && data.labels.length > 0 ? data.labels.split(',') : [];
   data.labels = data.labels.map(function(label) {
     return label.trim();
   });
   data.zip = parseInt(data.zip);
+
+  // set the email address
+  this.model._user({
+    email: data.email
+  });
+  delete data.email;
+
+  // set the rest of the data
   this.model.set(data);
 
   var text = this.model.isNew() ? 'Added new commuter.' :
@@ -91,7 +120,7 @@ Page.prototype.save = function(e) {
         type: 'success',
         text: text
       });
-      go(self.back());
+      page(self.back());
     }
   });
 };

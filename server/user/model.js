@@ -60,8 +60,12 @@ schema.methods.comparePassword = function(password, callback) {
 
 schema.methods.sendChangePasswordRequest = function(callback) {
   this.change_password_key = uuid.v4().replace(/-/g, '');
+
+  var base = process.env.BASE_URL;
+  if (this.type !== 'commuter') base += '/manager';
+
   var options = {
-    change_password_url: process.env.BASE_URL + '/change-password/' + this.change_password_key,
+    change_password_url: base + '/change-password/' + this.change_password_key,
     subject: 'Change Password Requested',
     template: 'change-password-request',
     to: {
@@ -87,10 +91,36 @@ schema.methods.sendChangePasswordRequest = function(callback) {
 };
 
 /**
+ * Find or create
+ *
+ * @param {String} email
+ * @param {Function} callback
+ */
+
+schema.statics.findOrCreate = function(data, callback) {
+  var self = this;
+  this.findOne({
+    email: data.email
+  }, function(err, user) {
+    console.log('findOne');
+    if (err || user) {
+      callback(err, user);
+    } else {
+      console.log('creating');
+      self.create({
+        email: data.email,
+        type: data.type
+      }, callback);
+    }
+  });
+};
+
+/**
  * Plugins
  */
 
 schema.plugin(require('../plugins/mongoose-trackable'));
+schema.plugin(require('../plugins/mongoose-querystring'));
 
 /**
  * Expose `User`

@@ -5,16 +5,16 @@
 var alerts = require('alerts');
 var config = require('config');
 var debug = require('debug')(config.name() + ':login-page');
-var go = require('go');
+var page = require('page');
 var request = require('request');
 var template = require('./template.html');
-var create = require('view');
+var view = require('view');
 
 /**
- * Create view
+ * Create `View`
  */
 
-var View = create(template);
+var View = view(template);
 
 /**
  * On button click
@@ -35,7 +35,7 @@ View.prototype.login = function(e) {
         type: 'success',
         text: 'Welcome back!'
       });
-      go('/organizations');
+      page('/manager/organizations');
     } else {
       window.alert(err || res.text || 'Failed to login.');
     }
@@ -46,6 +46,8 @@ View.prototype.login = function(e) {
  * Expose `render`
  */
 
-module.exports = function(ctx) {
+module.exports = function(ctx, next) {
   ctx.view = new View();
+
+  next();
 };

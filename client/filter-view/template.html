@@ -1,0 +1,34 @@
+<div class="filter-view row">
+  <div class="col-lg-1 col-md-1 col-sm-1">
+    <div class="btn-group">
+      <button type="button" class="btn btn-default dropdown-toggle" dropdown>M—F <span class="caret"></span></button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="#">Monday to Friday</a></li>
+        <li><a href="#">Saturday</a></li>
+        <li><a href="#">Sunday</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-3 col-sm-3 progress-container">
+    <div class="progress">
+      <div class="progress-bar handle left" on-drag="start"></div>
+      <div class="progress-bar main"></div>
+      <div class="progress-bar handle right" on-drag="end"></div>
+    </div>
+  </div>
+  <div class="col-lg-2 col-md-2 col-sm-2">
+    <div class="btn-group">
+      <button type="button" class="btn btn-default active">AM</button>
+      <button type="button" class="btn btn-default">PM</button>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="btn-group" on-click="setActive">
+      <button type="button" class="btn btn-default" data-mode="bike"><span class="svg-icon svg-icon-bike"></span></button>
+      <button type="button" class="btn btn-default" data-mode="bus"><span class="svg-icon svg-icon-bus"></span></button>
+      <button type="button" class="btn btn-default" data-mode="train"><span class="svg-icon svg-icon-train"></span></button>
+      <button type="button" class="btn btn-default" data-mode="car"><span class="svg-icon svg-icon-car"></span></button>
+      <button type="button" class="btn btn-default" data-mode="walk"><span class="svg-icon svg-icon-walk"></span></button>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12">
-    <h3>Organizations <a class="btn btn-success pull-right" href="/organizations/new"><i class="fa fa-plus"></i> Create</a></h3>
+    <h3>Organizations <a class="btn btn-success pull-right" href="/manager/organizations/new"><i class="fa fa-plus"></i> Create</a></h3>
   </div>
-  <!--<div class="col-lg-12 col-md-12 col-sm-12">
-    <div class="map"></div>
-  </div>-->
   <div class="col-lg-12 col-md-12 col-sm-12">
     <table class="table table-striped">
       <thead>
@@ -13,7 +10,7 @@
           <th>Address</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody data-each="organizations"></tbody>
     </table>
   </div>
 </div>

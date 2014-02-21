@@ -5,6 +5,7 @@
 var auth = require('../auth');
 var express = require('express');
 var Commuter = require('./model');
+var User = require('../user/model');
 
 /**
  * Expose `app`
@@ -17,17 +18,9 @@ var app = module.exports = express();
  */
 
 app.get('/', auth.isLoggedIn, function(req, res) {
-  var query = req.query;
-  var skip = query.skip || 0;
-  var limit = query.limit;
-
-  delete query.skip;
-  delete query.limit;
-
   Commuter
-    .find(query)
-    .limit(limit)
-    .skip(skip)
+    .querystring(req.query)
+    .populate('_user', 'email')
     .exec(function(err, commuters) {
       if (err) {
         res.send(400, err);
@@ -42,16 +35,31 @@ app.get('/', auth.isLoggedIn, function(req, res) {
  */
 
 app.post('/', auth.isLoggedIn, function(req, res) {
-  Commuter.create(req.body, function(err, commuter) {
+  User.findOrCreate({
+    email: req.body._user.email,
+    type: 'commuter'
+  }, function(err, user) {
     if (err) {
-      console.log(err);
-      if (err.name === 'MongoError' && err.code === 11000) {
-        res.send(409, new Error('Resource exists with that information.'));
-      } else {
-        res.send(400, err);
-      }
+      res.send(400, err);
     } else {
-      res.send(201, commuter);
+      Commuter.create({
+        _organization: req.body._organization,
+        _user: user._id,
+        name: req.body.name,
+        address: req.body.address,
+        state: req.body.state,
+        city: req.body.city,
+        zip: req.body.zip,
+        labels: req.body.labels,
+        opts: req.body.opts
+      }, function(err, commuter) {
+        if (err) {
+          res.send(400, err);
+        } else {
+          commuter._user = user;
+          res.send(201, commuter);
+        }
+      });
     }
   });
 });
@@ -65,6 +73,7 @@ app.get('/link/:link', function(req, res) {
     .findOne()
     .where('link', req.params.link)
     .populate('_organization')
+    .populate('_user', 'email')
     .exec(function(err, commuter) {
       if (err) {
         res.send(400, err);
@@ -83,6 +92,7 @@ app.get('/link/:link', function(req, res) {
 function get(req, res, next) {
   Commuter
     .findById(req.params.id)
+    .populate('_user', 'email')
     .exec(function(err, commuter) {
       if (err) {
         res.send(400, err);
@@ -99,6 +109,7 @@ function getWithOrg(req, res, next) {
   Commuter
     .findById(req.params.id)
     .populate('_organization')
+    .populate('_user', 'email')
     .exec(function(err, commuter) {
       if (err) {
         res.send(400, err);
@@ -124,15 +135,11 @@ app.get('/:id', auth.isLoggedIn, get, function(req, res) {
  */
 
 app.put('/:id', auth.isLoggedIn, get, function(req, res) {
-  req.commuter.name = req.body.name;
-  req.commuter.address = req.body.address;
-  req.commuter.state = req.body.state;
-  req.commuter.city = req.body.city;
-  req.commuter.zip = req.body.zip;
-  req.commuter.labels = req.body.labels;
-  req.commuter.opts = req.body.opts;
-  req.commuter.coordinate = req.body.coordinate;
-  req.commuter.link = req.body.link;
+  for (var key in req.body) {
+    if (key === '_user') continue;
+    req.commuter[key] = req.body[key];
+  }
+
   req.commuter.save(function(err) {
     if (err) {
       console.log(err);

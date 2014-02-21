@@ -25,7 +25,7 @@ document.body.insertBefore(domify(template), document.body.firstChild);
  * Expose `render` middleware
  */
 
-module.exports = function(ctx) {
+module.exports = function(ctx, next) {
   debug('displaying');
 
   // remove all alerts
@@ -54,6 +54,8 @@ module.exports = function(ctx) {
         break;
     }
   });
+
+  next();
 };
 
 /**

@@ -11,10 +11,10 @@ var template = require('./template.html');
 var view = require('view');
 
 /**
- * Create `OrganizationsPage`
+ * Create `View`
  */
 
-var Page = view(template);
+var View = view(template);
 
 /**
  * Expose `render` middleware
@@ -27,11 +27,11 @@ module.exports = function(ctx, next) {
     if (err || !res.ok) {
       window.alert(res.text || 'Failed to load organizations.');
     } else {
-      ctx.view = new Page();
-      var tbody = ctx.view.find('tbody');
-      orgs.each(function(org) {
-        var row = new Row(org);
-        tbody.appendChild(row.el);
+      ctx.view = new View({
+        organizations: orgs,
+        'organizations-view': function() {
+          return Row;
+        }
       });
 
       next();

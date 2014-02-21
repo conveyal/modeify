@@ -16,7 +16,8 @@ var schema = new mongoose.Schema({
   contact: String,
   email: String,
   labels: Array,
-  opts: mongoose.Schema.Types.Mixed
+  opts: mongoose.Schema.Types.Mixed,
+  stats: mongoose.Schema.Types.Mixed
 });
 
 /**

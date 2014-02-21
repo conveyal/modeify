@@ -2,12 +2,12 @@
   <div class="col-lg-12 col-md-12 col-sm-12">
     <h3>
       Commuter
-      <a class="btn btn-default pull-right" href="/organizations/{_organization}"><i class="fa fa-arrow-left"></i> Back</a>
-      <a class="btn btn-warning pull-right" href="/organizations/{_organization}/commuters/{_id}/edit"><i class="fa fa-pencil"></i> Edit</a>
+      <a class="btn btn-default pull-right" href="/manager/organizations/{_organization}/show"><i class="fa fa-arrow-left"></i> Back</a>
+      <a class="btn btn-warning pull-right" href="/manager/organizations/{_organization}/commuters/{_id}/edit"><i class="fa fa-pencil"></i> Edit</a>
       <a class="btn btn-danger pull-right" on-click="destroy"><i class="fa fa-times"></i> Delete</a>
     </h3>
     <p>{email}</p>
-    <p><a href="{link}" target="_blank">From <i class="fa fa-home"></i> {location} to <i class="fa fa-building-o"></i> {organization().address}</a></p>
+    <p><a href="/plan/{link}" target="_blank">From <i class="fa fa-home"></i> {location} to <i class="fa fa-building-o"></i> {toLocation}</a></p>
   </div>
   <div class="col-lg-12 col-md-12 col-sm-12">
     <div class="map"></div>

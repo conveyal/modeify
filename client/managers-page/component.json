@@ -1,0 +1,22 @@
+{
+  "name": "managers-page",
+  "dependencies": {
+    "segmentio/view": "*",
+    "visionmedia/debug": "*",
+    "visionmedia/page.js": "*"
+  },
+  "local": [
+    "alerts",
+    "config",
+    "request",
+    "session",
+    "user"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html",
+    "manager.html"
+  ]
+}

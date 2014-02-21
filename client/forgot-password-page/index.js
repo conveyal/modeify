@@ -39,6 +39,8 @@ View.prototype.sendChangeRequest = function(e) {
  * Expose `render`
  */
 
-module.exports = function(ctx) {
+module.exports = function(ctx, next) {
   ctx.view = new View();
+
+  next();
 };

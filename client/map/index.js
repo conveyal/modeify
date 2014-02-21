@@ -1,11 +1,10 @@
-
 /**
  * Dependencies
  */
 
 var config = require('config');
 var debug = require('debug')(config.name() + ':map');
-var go = require('go');
+var page = require('page');
 
 /**
  * Leaflet
@@ -44,7 +43,7 @@ module.exports.createMarker = function(opts) {
   });
   if (opts.url) {
     marker.on('click', function() {
-      go(opts.url);
+      page(opts.url);
     });
   }
   return marker;
@@ -87,6 +86,25 @@ Map.prototype.fitLayer = function(layer) {
     setTimeout(function() {
       var bounds = layer.getBounds();
       debug('fitting to bounds %s', bounds);
+      map.fitBounds(bounds);
+    }, 200);
+  });
+};
+
+/**
+ * Fit to multiple layers
+ */
+
+Map.prototype.fitLayers = function(layers) {
+  debug('fitting to %s layers', layers.length);
+  var map = this.map;
+  map.whenReady(function() {
+    debug('map ready');
+    setTimeout(function() {
+      var bounds = layers[0].getBounds();
+      for (var i = 1; i < layers.length; i++) {
+        bounds.extend(layers[i].getBounds());
+      }
       map.fitBounds(bounds);
     }, 200);
   });

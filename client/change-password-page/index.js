@@ -5,7 +5,7 @@
 var alerts = require('alerts');
 var config = require('config');
 var debug = require('debug')(config.name() + ':change-password-page');
-var go = require('go');
+var page = require('page');
 var request = require('request');
 var template = require('./template.html');
 var create = require('view');
@@ -36,7 +36,7 @@ View.prototype.changePassword = function(e) {
         type: 'success',
         text: 'Login using your new password.'
       });
-      go('/login');
+      page('/manager/login');
     } else {
       window.alert(err || res.text ||
         'Failed to change password. Use the link sent to your email address.'
@@ -49,8 +49,10 @@ View.prototype.changePassword = function(e) {
  * Expose `render`
  */
 
-module.exports = function(ctx) {
+module.exports = function(ctx, next) {
   ctx.view = new View({
     key: ctx.params.key
   });
+
+  next();
 };

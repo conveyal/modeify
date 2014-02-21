@@ -11,7 +11,7 @@ var debug = require('debug')(config.name() + ':organization-page');
 var each = require('each');
 var file = require('file');
 var filePicker = require('file-picker');
-var go = require('go');
+var page = require('page');
 var map = require('map');
 var Organization = require('organization');
 var request = require('request');
@@ -19,22 +19,21 @@ var spin = require('spinner');
 var view = require('view');
 
 /**
- * Create `Page`
+ * Create `View`
  */
 
-var Page = view(require('./template.html'));
 var Row = view(require('./row.html'));
+var View = view(require('./template.html'));
 
 /**
  * Expose `render`
  */
 
-module.exports = function(ctx) {
+module.exports = function(ctx, next) {
   debug('render');
-  if (ctx.params.organization === 'new' || !ctx.organization) return;
 
   ctx.organization.commuters = ctx.commuters;
-  ctx.view = new Page(ctx.organization);
+  ctx.view = new View(ctx.organization);
   ctx.view.on('rendered', function() {
     var m = map(ctx.view.find('.map'), {
       center: ctx.organization.coordinate(),
@@ -43,24 +42,30 @@ module.exports = function(ctx) {
     m.addMarker(ctx.organization.mapMarker());
 
     var cluster = new L.MarkerClusterGroup();
-    var tbody = ctx.view.find('tbody');
     ctx.commuters.forEach(function(commuter) {
-      var row = new Row(commuter);
-      tbody.appendChild(row.el);
-      row.marker = commuter.mapMarker();
-      cluster.addLayer(row.marker);
+      cluster.addLayer(commuter.mapMarker());
     });
 
     m.addLayer(cluster);
-    m.fitLayer(cluster);
+    m.fitLayers([m.featureLayer, cluster]);
   });
+
+  next();
+};
+
+/**
+ * Commuter View
+ */
+
+View.prototype['commuters-view'] = function() {
+  return Row;
 };
 
 /**
  * Commuters
  */
 
-Page.prototype.commuters = function() {
+View.prototype.commuterCount = function() {
   return this.model.commuters.length();
 };
 
@@ -68,9 +73,8 @@ Page.prototype.commuters = function() {
  * Destroy
  */
 
-Page.prototype.destroy = function(e) {
+View.prototype.destroy = function(e) {
   if (window.confirm('Delete organization?')) {
-    var page = this;
     this.model.destroy(function(err) {
       if (err) {
         window.alert(err);
@@ -79,7 +83,7 @@ Page.prototype.destroy = function(e) {
           type: 'success',
           text: 'Deleted organization.'
         });
-        go('/organizations');
+        page('/manager/organizations');
       }
     });
   }
@@ -89,10 +93,12 @@ Page.prototype.destroy = function(e) {
  * Upload CSV
  */
 
-Page.prototype.uploadCSV = function(e) {
-  var page = this;
+View.prototype.uploadCSV = function(e) {
+  var view = this;
   var spinner = spin();
-  filePicker({ accept: [ '.csv' ] }, function(files) {
+  filePicker({
+    accept: ['.csv']
+  }, function(files) {
     var csv = file(files[0]);
     csv.toText(function(err, text) {
       var batch = new Batch();
@@ -106,7 +112,10 @@ Page.prototype.uploadCSV = function(e) {
 
         batch.push(function(done) {
           var commuter = new Commuter(data);
-          commuter._organization(page.model._id());
+          commuter._user({
+            email: data.email
+          });
+          commuter._organization(view.model._id());
           commuter.save(done);
         });
       });
@@ -121,7 +130,7 @@ Page.prototype.uploadCSV = function(e) {
           });
         }
         spin.remove();
-        go('/organizations/' + page.model._id());
+        page('/manager/organizations/' + view.model._id() + '/show');
       });
     });
   });

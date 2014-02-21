@@ -17,13 +17,16 @@ var app = module.exports = express();
  */
 
 app.get('/', auth.isLoggedIn, auth.isAdmin, function(req, res) {
-  User.find().exec(function(err, users) {
-    if (err) {
-      res.send(400, err);
-    } else {
-      res.send(200, users);
-    }
-  });
+  User
+    .querystring(req.query)
+    .select('email created modified type')
+    .exec(function(err, users) {
+      if (err) {
+        res.send(400, err);
+      } else {
+        res.send(200, users);
+      }
+    });
 });
 
 /**
@@ -39,7 +42,13 @@ app.post('/', auth.isLoggedIn, auth.isAdmin, function(req, res) {
         res.send(400, err);
       }
     } else {
-      res.send(201, user);
+      user.sendChangePasswordRequest(function(err) {
+        if (err) {
+          res.send(400, err);
+        } else {
+          res.send(201, user);
+        }
+      });
     }
   });
 });
@@ -131,8 +140,10 @@ app.get('/:id', auth.isLoggedIn, auth.isAdmin, get, function(req, res) {
  */
 
 app.put('/:id', auth.isLoggedIn, auth.isAdmin, get, function(req, res) {
-  req.user.email = req.body.email;
-  req.user.password = req.body.password;
+  for (var key in req.body) {
+    req.user[key] = req.body[key];
+  }
+
   req.user.save(function(err) {
     if (err) {
       res.send(400, err);

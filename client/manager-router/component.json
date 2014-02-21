@@ -1,8 +1,8 @@
 {
   "name": "manager-router",
   "dependencies": {
-    "ianstormtaylor/router": "*",
-    "visionmedia/debug": "*"
+    "visionmedia/debug": "*",
+    "visionmedia/page.js": "*"
   },
   "local": [
     "404-page",
@@ -13,15 +13,14 @@
     "commuter-form",
     "commuter-page",
     "config",
-    "dashboard-page",
     "forgot-password-page",
     "login-page",
+    "managers-page",
     "organization",
     "organization-form",
     "organization-page",
     "organizations-page",
-    "user",
-    "users-page"
+    "session"
   ],
   "scripts": [
     "index.js"

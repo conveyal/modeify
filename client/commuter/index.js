@@ -15,29 +15,29 @@ var request = require('request');
 
 var Commuter = module.exports = model('Commuter')
   .use(defaults({
+    _user: {},
     name: '',
-    email: '',
     coordinate: {},
+    link: '',
     address: '',
     city: '',
     state: '',
     zip: '',
-    labels: [],
-    organization: {}
+    labels: []
   }))
   .use(require('model-query'))
   .use(require('model-memoize'))
   .route(config.api_url() + '/commuters')
   .attr('_id')
   .attr('_organization')
-  .attr('organization')
+  .attr('_user')
   .attr('name')
-  .attr('email')
   .attr('coordinate')
   .attr('address')
   .attr('city')
   .attr('state')
   .attr('zip')
+  .attr('link')
   .attr('labels')
   .attr('created', {
     type: 'date'
@@ -47,7 +47,7 @@ var Commuter = module.exports = model('Commuter')
   });
 
 /**
- * Load via middleware
+ * Load middleware
  */
 
 Commuter.load = function(ctx, next) {
@@ -58,14 +58,13 @@ Commuter.load = function(ctx, next) {
       next(err);
     } else {
       ctx.commuter = commuter;
-      if (ctx.organization) ctx.commuter.organization(ctx.organization.toJSON());
       next();
     }
   });
 };
 
 /**
- * Load via link
+ * Load via link middleware
  */
 
 Commuter.loadLink = function(ctx, next) {
@@ -80,7 +79,7 @@ Commuter.loadLink = function(ctx, next) {
 };
 
 /**
- * Load all commuters for an org via middleware
+ * Load all commuters for an org middleware
  */
 
 Commuter.loadOrg = function(ctx, next) {
@@ -108,30 +107,18 @@ Commuter.prototype.location = function() {
 };
 
 /**
- * Generate a link
- */
-
-Commuter.prototype.link = function() {
-  var address = this.address() + ', ' + this.city() + ', ' + this.state() + ' ' +
-    this.zip();
-  var org = this.organization().address + ', ' + this.organization().city +
-    ', ' + this.organization().state + ' ' + this.organization().zip;
-  return '/planner#results?from=' + address + '&to=' +
-    org;
-};
-
-/**
  * Return map marker opts
  */
 
 Commuter.prototype.mapMarker = function() {
   var c = this.coordinate();
-  var coordinate = [ obscure(c.lng), obscure(c.lat) ];
+  var coordinate = [obscure(c.lng), obscure(c.lat)];
 
   return map.createMarker({
-    title: 'Approx. location of ' + this.email(),
-    description: '<a href=\"/organizations/' + this._organization() + '/commuters/' +
-      this._id() + '\">' + this.location() + '</a>',
+    title: 'Approx. location of ' + this._user().email,
+    description: '<a href=\"/manage/organizations/' + this._organization() +
+      '/commuters/' +
+      this._id() + '/show\">' + this.location() + '</a>',
     color: '#5cb85c',
     coordinate: coordinate,
     icon: 'building',

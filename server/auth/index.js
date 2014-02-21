@@ -114,7 +114,8 @@ function isLoggedIn(req, res, next) {
  */
 
 function isAdmin(req, res, next) {
-  if (req.session && req.session.user && req.session.user.type === 'administrator') {
+  if (req.session && req.session.user && req.session.user.type ===
+    'administrator') {
     next();
   } else {
     res.send(401, 'Administrators only.');

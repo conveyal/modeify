@@ -1,0 +1,15 @@
+{
+  "name": "manager-nav",
+  "dependencies": {
+    "segmentio/view": "*"
+  },
+  "local": [
+    "config"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}

@@ -3,12 +3,12 @@
   "dependencies": {
     "segmentio/view": "*",
     "trevorgerhardt/serialize": "*",
-    "visionmedia/debug": "*"
+    "visionmedia/debug": "*",
+    "visionmedia/page.js": "*"
   },
   "local": [
     "alerts",
     "config",
-    "go",
     "organization"
   ],
   "scripts": [

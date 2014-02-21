@@ -14,12 +14,12 @@ var uuid = require('node-uuid');
 var schema = new mongoose.Schema({
   _organization: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
     ref: 'Organization'
   },
-  email: {
-    type: String,
-    required: true
+  _user: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User'
   },
   name: {
     type: String,
@@ -27,7 +27,8 @@ var schema = new mongoose.Schema({
   },
   link: String,
   labels: Array,
-  opts: mongoose.Schema.Types.Mixed
+  opts: mongoose.Schema.Types.Mixed,
+  stats: mongoose.Schema.Types.Mixed
 });
 
 /**
@@ -52,7 +53,7 @@ schema.methods.sendPlan = function(callback) {
     template: 'plan',
     to: {
       name: this.name,
-      email: this.email
+      email: this._user.email
     }
   };
 
@@ -75,6 +76,7 @@ schema.methods.sendPlan = function(callback) {
  */
 
 schema.plugin(require('../plugins/mongoose-geocode'));
+schema.plugin(require('../plugins/mongoose-querystring'));
 schema.plugin(require('../plugins/mongoose-trackable'));
 
 /**

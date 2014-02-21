@@ -1,4 +1,3 @@
-
 /**
  * Dependencies
  */
@@ -10,7 +9,9 @@ var each = require('each');
  */
 
 each(window.CONFIG, function(key, val) {
-  var g = function() { return val; };
+  var g = function() {
+    return val;
+  };
   module.exports[key] = g;
   module.exports[key.toLowerCase()] = g;
 });

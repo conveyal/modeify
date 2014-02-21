@@ -4,20 +4,20 @@
     "component/each": "*",
     "component/file": "*",
     "component/file-picker": "*",
-    "segmentio/view": "*",
     "trevorgerhardt/csv-to-array": "*",
     "visionmedia/batch": "*",
-    "visionmedia/debug": "*"
+    "visionmedia/debug": "*",
+    "visionmedia/page.js": "*"
   },
   "local": [
     "alerts",
     "commuter",
     "config",
-    "go",
     "map",
     "organization",
     "request",
-    "spinner"
+    "spinner",
+    "view"
   ],
   "scripts": [
     "index.js"

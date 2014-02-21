@@ -29,7 +29,7 @@ describe('/api/users', function() {
         .expect(401, done);
     });
 
-    it('200 and a list of users if an administrator', function(done) {
+    it('200 a list of users if an administrator', function(done) {
       request
         .get('/api/users')
         .set('Cookie', admin.sid)
@@ -37,6 +37,51 @@ describe('/api/users', function() {
         .end(function(err, res) {
           if (err) return done(err);
           res.body.length.should.be.greaterThan(0);
+          done();
+        });
+    });
+
+    it('200 list only managers', function(done) {
+      request
+        .get('/api/users')
+        .set('Cookie', admin.sid)
+        .query({
+          type: 'manager'
+        })
+        .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err);
+          res.body.length.should.equal(0);
+          done();
+        });
+    });
+
+    it('200 list only administrators', function(done) {
+      request
+        .get('/api/users')
+        .set('Cookie', admin.sid)
+        .query({
+          type: 'administrator'
+        })
+        .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err);
+          res.body.length.should.equal(1);
+          done();
+        });
+    });
+
+    it('200 handle advance queries', function(done) {
+      request
+        .get('/api/users')
+        .set('Cookie', admin.sid)
+        .query({
+          $query: 'type:administrator OR type:manager'
+        })
+        .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err);
+          res.body.length.should.equal(1);
           done();
         });
     });

@@ -3,61 +3,71 @@
  */
 
 var Page404 = require('404-page');
-var alerts = require('alerts');
 var analytics = require('analytics');
-var changePasswordPage = require('change-password-page');
 var Commuter = require('commuter');
 var commuterForm = require('commuter-form');
-var commuterPage = require('commuter-page');
 var config = require('config');
-var dashboardPage = require('dashboard-page');
 var debug = require('debug')(config.name() + ':manager-router');
-var forgotPasswordPage = require('forgot-password-page');
-var loginPage = require('login-page');
 var Organization = require('organization');
 var organizationForm = require('organization-form');
-var organizationPage = require('organization-page');
-var organizationsPage = require('organizations-page');
-var Router = require('router');
-var User = require('user');
-var usersPage = require('users-page');
+var p = require('page');
+var session = require('session');
 
 /**
- * Expose `router`
+ * Show alerts
  */
 
-var router = module.exports = new Router()
-  .on('*',
-    alerts)
-  .on('/',
-    User.isLoggedIn, redirect('/organizations'))
-  .on('/login',
-    loginPage, render)
-  .on('/logout',
-    User.logout)
-  .on('/forgot-password',
-    forgotPasswordPage, render, error)
-  .on('/change-password/:key',
-    changePasswordPage, render, error)
-  .on('/commuters/:link/edit',
-    Commuter.loadLink, commuterForm, render, error)
-  .on('/users',
-    User.isLoggedIn, User.isAdmin, usersPage, render, error)
-  .on('/organizations',
-    User.isLoggedIn, organizationsPage, render, error)
-  .on('/organizations/new',
-    User.isLoggedIn, organizationForm, render, error)
-  .on('/organizations/:organization',
-    User.isLoggedIn, Organization.load, Commuter.loadOrg, organizationPage, render, error)
-  .on('/organizations/:organization/edit',
-    User.isLoggedIn, Organization.load, organizationForm, render, error)
-  .on('/organizations/:organization/commuters/new',
-    User.isLoggedIn, commuterForm, render, error)
-  .on('/organizations/:organization/commuters/:commuter',
-    User.isLoggedIn, Organization.load, Commuter.load, commuterPage, render, error)
-  .on('/organizations/:organization/commuters/:commuter/edit',
-    User.isLoggedIn, Commuter.load, commuterForm, render, error)
-  .on('*', notFound, render);
+p('*', require('alerts'));
+
+/**
+ * If the user is logged in, redirect to orgs, else redirect to login
+ */
+
+p('/', session.checkIfLoggedIn, redirect('/organizations'));
+
+/**
+ * Public links
+ */
+
+p('/login', require('login-page'));
+p('/logout', session.logout);
+p('/forgot-password', require('forgot-password-page'));
+p('/change-password/:key', require('change-password-page'));
+
+/**
+ * Admin only
+ */
+
+p('/managers', session.checkIfLoggedIn, session.checkIfAdmin, require(
+  'managers-page'));
+
+/**
+ * Organizations
+ */
+
+p('/organizations*', session.checkIfLoggedIn);
+p('/organizations', require('organizations-page'));
+p('/organizations/new', organizationForm);
+p('/organizations/:organization/*', Organization.load);
+p('/organizations/:organization/show', Commuter.loadOrg, require(
+  'organization-page'));
+p('/organizations/:organization/edit', organizationForm);
+
+/**
+ * Commuters
+ */
+
+p('/organizations/:organization/commuters/new', commuterForm);
+p('/organizations/:organization/commuters/:commuter/*', Commuter.load);
+p('/organizations/:organization/commuters/:commuter/show', require(
+  'commuter-page'));
+p('/organizations/:organization/commuters/:commuter/edit', commuterForm);
+
+/**
+ * Render all
+ */
+
+p('*', render);
 
 /**
  * Cache `main` & `view`
@@ -73,45 +83,23 @@ var view = null;
 function render(ctx, next) {
   debug('render %s %s', ctx.path, ctx.view);
 
+  // remove old view
   if (view) {
     view.off();
     if (view.el && view.el.remove) view.el.remove();
   }
 
-  if (ctx.view) {
-    view = ctx.view;
-    view.on('go', function(path) {
-      router.go(path);
-    });
+  // if no view has been created or ther was an error, create an error page
+  if (!ctx.view || ctx.error) ctx.view = new Page404(ctx.error || {});
 
-    $main.innerHTML = '';
-    $main.appendChild(view.el);
-    view.emit('rendered', view);
+  view = ctx.view;
 
-    // track the page view
-    analytics.page(ctx.view.category, ctx.view.title, ctx.view.properties);
-  }
-}
+  $main.innerHTML = '';
+  $main.appendChild(view.el);
+  view.emit('rendered', view);
 
-/**
- * Error
- */
-
-function error(err, ctx, next) {
-  debug('error %s at %s', err, ctx.path);
-  ctx.view = new Page404({
-    message: ''
-  });
-  render(ctx, next);
-}
-
-/**
- * Not found
- */
-
-function notFound(ctx) {
-  debug('%s not found', ctx.path);
-  ctx.view = new Page404();
+  // track the page view
+  analytics.page(ctx.view.category, ctx.view.title, ctx.view.properties);
 }
 
 /**
@@ -120,6 +108,6 @@ function notFound(ctx) {
 
 function redirect(to) {
   return function(ctx) {
-    router.go('/organizations');
-  }
+    p('/organizations');
+  };
 }

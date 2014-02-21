@@ -2,8 +2,16 @@
   "name": "session",
   "dependencies": {
     "component/model": "*",
-    "segmentio/model-defaults": "*"
+    "segmentio/model-defaults": "*",
+    "visionmedia/debug": "*",
+    "visionmedia/page.js": "*"
   },
+  "local": [
+    "analytics",
+    "config",
+    "request",
+    "user"
+  ],
   "scripts": [
     "index.js"
   ]

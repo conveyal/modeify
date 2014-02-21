@@ -6,27 +6,29 @@ var alerts = require('alerts');
 var Commuter = require('commuter');
 var config = require('config');
 var debug = require('debug')(config.name() + ':commuter-page');
-var go = require('go');
 var map = require('map');
+var page = require('page');
 var request = require('request');
 var template = require('./template.html');
 var view = require('view');
 
 /**
- * Create `Page`
+ * Create `View`
  */
 
-var Page = view(template);
+var View = view(template);
 
 /**
  * Expose `render`
  */
 
-module.exports = function(ctx) {
+module.exports = function(ctx, next) {
   debug('render');
   if (ctx.params.commuter === 'new' || !ctx.commuter) return;
 
-  ctx.view = new Page(ctx.commuter);
+  ctx.view = new View(ctx.commuter, {
+    organization: ctx.organization
+  });
   ctx.view.on('rendered', function(v) {
     var m = window.map = map(v.find('.map'), {
       center: ctx.commuter.coordinate(),
@@ -37,17 +39,18 @@ module.exports = function(ctx) {
     m.addMarker(ctx.organization.mapMarker());
     m.fitLayer(m.featureLayer);
   });
+
+  next();
 };
 
 /**
  * Destroy
  */
 
-Page.prototype.destroy = function(e) {
+View.prototype.destroy = function(e) {
   e.preventDefault();
   if (window.confirm('Delete commuter?')) {
-    var page = this;
-    var url = '/organizations/' + this.model._organization();
+    var url = '/manager/organizations/' + this.model._organization() + '/show';
     this.model.destroy(function(err) {
       if (err) {
         window.alert(err);
@@ -56,7 +59,7 @@ Page.prototype.destroy = function(e) {
           type: 'success',
           text: 'Deleted commuter.'
         });
-        go(url);
+        page(url);
       }
     });
   }
@@ -66,13 +69,13 @@ Page.prototype.destroy = function(e) {
  * Send
  */
 
-Page.prototype.sendPlan = function(e) {
+View.prototype.sendPlan = function(e) {
   e.preventDefault();
   if (window.confirm('Send personalized plan to commuter?')) {
     request.post('/commuters/' + this.model._id() + '/send-plan', {}, function(
       err, res) {
       if (err || !res.ok) {
-        console.error(err, res);
+        debug(err, res);
         window.alert('Failed to send plan.');
       } else {
         alerts.show({
@@ -82,4 +85,12 @@ Page.prototype.sendPlan = function(e) {
       }
     });
   }
+};
+
+/**
+ * To Location
+ */
+
+View.prototype.toLocation = function() {
+  return this.options.organization.location();
 };

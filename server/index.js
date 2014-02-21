@@ -53,19 +53,19 @@ var manager = compile('manager', {
 app.use('/api', require('./api'));
 
 /**
- * Planner
- */
-
-app.all('/planner*', function(req, res) {
-  res.send(200, planner);
-});
-
-/**
  * Manager
  */
 
-app.all('*', function(req, res) {
+app.all('/manager*', function(req, res) {
   res.send(200, manager);
+});
+
+/**
+ * Planner
+ */
+
+app.all('*', function(req, res) {
+  res.send(200, planner);
 });
 
 /**

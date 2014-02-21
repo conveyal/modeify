@@ -1,0 +1,10 @@
+{
+  "name": "plan",
+  "dependencies": {
+    "component/model": "*",
+    "segmentio/model-defaults": "*"
+  },
+  "scripts": [
+    "index.js"
+  ]
+}

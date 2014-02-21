@@ -2,13 +2,13 @@
   "name": "commuter-page",
   "dependencies": {
     "segmentio/view": "*",
-    "visionmedia/debug": "*"
+    "visionmedia/debug": "*",
+    "visionmedia/page.js": "*"
   },
   "local": [
     "alerts",
     "commuter",
     "config",
-    "go",
     "map",
     "request"
   ],

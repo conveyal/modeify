@@ -1,0 +1,9 @@
+<tr>
+  <td>{email} <span class="label label-warning">{type || ''}</span></td>
+  <td>
+    <button class="btn btn-warning" on-click="makeAdmin" data-visible="isNotAdmin"><i class="fa fa-caret-up"></i> Give Admin Access</button>
+    <button class="btn btn-warning" on-click="removeAdmin" data-visible="isAdmin"><i class="fa fa-caret-down"></i> Remove Admin Access</button>
+    <button class="btn btn-info" on-click="resetPassword"><i class="fa fa-lock"></i> Reset Password</button>
+    <button class="btn btn-danger" on-click="destroy"><i class="fa fa-times"></i> Delete</button>
+  </td>
+</tr>

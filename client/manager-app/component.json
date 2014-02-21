@@ -1,10 +1,11 @@
 {
   "name": "manager-app",
   "dependencies": {
-    "ianstormtaylor/on-load": "*"
+    "ianstormtaylor/on-load": "*",
+    "visionmedia/page.js": "*"
   },
   "local": [
-    "nav",
+    "manager-nav",
     "manager-router",
     "session"
   ],

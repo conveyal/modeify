@@ -1,0 +1,28 @@
+{
+  "name": "filter-view",
+  "dependencies": {
+    "component/emitter": "*",
+    "component/event": "*",
+    "mbostock/d3": "*"
+  },
+  "local": [
+    "view"
+  ],
+  "scripts": [
+    "drag.js",
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
+  ],
+  "templates": [
+    "template.html"
+  ],
+  "images": [
+    "images/Bike.svg",
+    "images/Bus.svg",
+    "images/Car.svg",
+    "images/Pedestrian.svg",
+    "images/Train.svg"
+  ]
+}

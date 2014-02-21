@@ -1,0 +1,12 @@
+{
+  "name": "options-view",
+  "local": [
+    "view"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}

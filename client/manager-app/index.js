@@ -2,9 +2,10 @@
  * Dependencies
  */
 
-var Nav = require('nav');
+var Nav = require('manager-nav');
+var router = require('manager-router');
 var onLoad = require('on-load');
-var router = window.router = require('manager-router');
+var page = require('page');
 var session = require('session');
 
 /**
@@ -16,6 +17,9 @@ onLoad(function() {
   var nav = new Nav(session);
   document.body.insertBefore(nav.el, document.body.firstChild);
 
+  // set base
+  page.base('/manager');
+
   // listen
-  router.listen('/');
+  page();
 });

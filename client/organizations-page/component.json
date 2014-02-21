@@ -2,11 +2,11 @@
   "name": "organizations-page",
   "dependencies": {
     "segmentio/view": "*",
-    "visionmedia/debug": "*"
+    "visionmedia/debug": "*",
+    "visionmedia/page.js": "*"
   },
   "local": [
     "config",
-    "go",
     "map",
     "organization"
   ],

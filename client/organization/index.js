@@ -62,16 +62,25 @@ Organization.load = function(ctx, next) {
 };
 
 /**
+ * Location
+ */
+
+Organization.prototype.location = function() {
+  return this.address() + ', ' + this.city() + ', ' + this.state() + ' ' + this
+    .zip();
+};
+
+/**
  * Return map marker opts
  */
 
 Organization.prototype.mapMarker = function() {
   var c = this.coordinate();
   return map.createMarker({
-    title: '<a href="/organizations/' + this._id() + '">' + this.name() +
+    title: '<a href="/manager/organizations/' + this._id() + '/show">' + this
+      .name() +
       '</a>',
-    description: this.address() + '<br>' + this.city() + ', ' + this.state() +
-      ' ' + this.zip(),
+    description: this.location(),
     color: '#428bca',
     coordinate: [c.lng, c.lat],
     icon: 'commercial'

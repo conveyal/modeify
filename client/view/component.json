@@ -1,0 +1,16 @@
+{
+  "name": "view",
+  "dependencies": {
+    "component/classes": "*",
+    "component/event": "*",
+    "ianstormtaylor/reactive": "*",
+    "segmentio/reactive-child": "*",
+    "segmentio/reactive-disabled": "*",
+    "segmentio/view": "*"
+  },
+  "scripts": [
+    "dropdown.js",
+    "each.js",
+    "index.js"
+  ]
+}

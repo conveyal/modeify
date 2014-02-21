@@ -1,0 +1,16 @@
+{
+  "name": "transitive-view",
+  "local": [
+    "map",
+    "view"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}

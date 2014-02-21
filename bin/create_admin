@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+
+var email = process.argv[2];
+var mongo = require('../server/mongo');
+var User = require('../server/user/model');
+
+if (!process.env.NODE_ENV) throw new Error('Environment vars must be set. See `.env.tmp`.');
+if (!email) throw new Error('Must pass in an email.');
+
+console.log('Creating', email, 'as administrator.');
+
+User.create({
+  email: email,
+  type: 'administrator'
+}, function(err, user) {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  } else {
+    console.log('Created', email, 'as administrator.');
+    process.exit(0);
+  }
+});

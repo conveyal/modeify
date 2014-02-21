@@ -1,32 +1,22 @@
 {
   "name": "planner-page",
   "dependencies": {
-    "component/color-parser": "*",
-    "component/emitter": "*",
-    "component/querystring": "*",
-    "component/scroll-to": "*",
-    "ianstormtaylor/to-capital-case": "*",
-    "learnboost/jsonp": "*",
-    "mbostock/d3": "*",
-    "mobqueue/component-spinner": "*",
-    "square/crossfilter": "*",
-    "ui-component/resizable": "*",
-    "visionmedia/debug": "*",
-    "visionmedia/superagent": "*",
-    "conveyal/transitive.js": "*",
-    "conveyal/otpprofiler.js": "*",
-    "component/each": "*"
+
   },
+  "local": [
+    "filter-view",
+    "options-view",
+    "plan",
+    "transitive-view",
+    "view"
+  ],
   "scripts": [
-    "index.js",
-    "lib/geocode.js",
-    "lib/location.js",
-    "lib/styles.js",
-    "lib/table.js",
-    "lib/computed.js"
+    "index.js"
   ],
   "styles": [
-    "lib/location.css",
-    "lib/style.css"
+    "style.css"
+  ],
+  "templates": [
+    "template.html"
   ]
 }
