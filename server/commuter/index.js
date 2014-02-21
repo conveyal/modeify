@@ -35,23 +35,26 @@ app.get('/', auth.isLoggedIn, function(req, res) {
  */
 
 app.post('/', auth.isLoggedIn, function(req, res) {
+  var body = req.body || {};
+  var user = body._user || {};
+
   User.findOrCreate({
-    email: req.body._user.email,
+    email: user.email,
     type: 'commuter'
   }, function(err, user) {
     if (err) {
       res.send(400, err);
     } else {
       Commuter.create({
-        _organization: req.body._organization,
+        _organization: body._organization,
         _user: user._id,
-        name: req.body.name,
-        address: req.body.address,
-        state: req.body.state,
-        city: req.body.city,
-        zip: req.body.zip,
-        labels: req.body.labels,
-        opts: req.body.opts
+        name: body.name,
+        address: body.address,
+        state: body.state,
+        city: body.city,
+        zip: body.zip,
+        labels: body.labels,
+        opts: body.opts
       }, function(err, commuter) {
         if (err) {
           res.send(400, err);
