@@ -55,7 +55,7 @@
   background-color: #999;
 }
 
-.progress-bar.main {
+.progress-bar.range {
   position: relative;
   transition: none;
 }

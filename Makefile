@@ -44,7 +44,7 @@ lint-test:
 	@./node_modules/.bin/jshint $(TESTJS)
 
 # Run before each commit/release
-release: beautify lint test
+release: lint test beautify
 	@NODE_ENV=production node build.js
 
 # Watch & reload server

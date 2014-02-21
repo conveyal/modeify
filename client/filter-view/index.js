@@ -19,20 +19,14 @@ var View = module.exports = view(require('./template.html'));
 View.on('construct', function(view) {
   view.reactive.bind('on-drag', function(el, name) {
     var drag = draggable(el);
-    var cb = function(opts) {
+
+    drag.on('drag', function(opts) {
       view[name](opts.el);
-      view.setWidth();
-    };
+      view.setRange();
+    });
 
-    drag.on('dragstart', cb);
-    drag.on('drag', cb);
-    drag.on('dragend', function(opts) {
-      var time = elToTime(opts.el);
-
-      view.setTime(el, time);
-      view.setWidth();
-      view.model.set(name, time);
-
+    drag.on('dragend', function() {
+      view.saveTime();
       drag.emit('remove');
     });
   });
@@ -46,9 +40,15 @@ View.on('construct', function(view) {
   });
 
   view.on('rendered', function() {
-    view.setTime(view.find('.handle.left'), view.model.start());
-    view.setTime(view.find('.handle.right'), view.model.end());
-    view.setWidth();
+    view.reactive.bind('data-style-left', function(el, name) {
+      this.change(function() {
+        var val = this.value(name);
+        el.style.left = toPixels(el.parentNode.offsetWidth, val) + 'px';
+        el.innerText = val;
+      });
+    });
+
+    view.setRange();
   });
 });
 
@@ -56,9 +56,28 @@ View.on('construct', function(view) {
  * Set Active
  */
 
-View.prototype.setActive = function(e) {
-  console.log(e);
+View.prototype.setMode = function(e) {
+  var el = e.target;
+  var mode = el.dataset.mode;
 
+  if (!mode) {
+    el = el.parentNode;
+    mode = el.dataset.mode;
+  }
+
+  this.model[mode](!el.classList.contains('active'));
+  document.activeElement.blur();
+};
+
+/**
+ * Save
+ */
+
+View.prototype.saveTime = function() {
+  this.model.set({
+    start: elToTime(this.find('.handle.start')),
+    end: elToTime(this.find('.handle.end'))
+  });
 };
 
 /**
@@ -74,52 +93,45 @@ View.prototype.setTime = function(el, time) {
  * Update Start
  */
 
-View.prototype.start = function(el) {
-  var end = this.model.end();
-  var start = this.model.start();
+View.prototype.setStartPosition = function(el) {
+  var endEl = this.find('.handle.end');
   var time = elToTime(el);
 
-  if (time >= end) {
-    if (time === 12) return this.setTime(this.find('.handle.left'), 11);
-    this.setTime(this.find('.handle.right'), time + 1);
-    this.model.end(time + 1);
+  if (time >= elToTime(endEl)) {
+    if (time === 12) return this.setTime(el, 11);
+    this.setTime(endEl, time + 1);
   }
 
-  if (start !== time) {
-    el.innerText = time;
-  }
+  el.innerText = time;
 };
 
 /**
  * Update End
  */
 
-View.prototype.end = function(el) {
-  var end = this.model.end();
-  var start = this.model.start();
+View.prototype.setEndPosition = function(el) {
+  var startEl = this.find('.handle.start');
   var time = elToTime(el);
 
-  if (time <= start) {
-    if (time === 0) return this.setTime(this.find('.handle.left'), 1);
-    this.setTime(this.find('.handle.right'), time - 1);
+  if (time <= elToTime(startEl)) {
+    if (time === 0) return this.setTime(el, 1);
+    this.setTime(startEl, time - 1);
   }
 
-  if (end !== time) {
-    el.innerText = time;
-  }
+  el.innerText = time;
 };
 
 /**
  * Width
  */
 
-View.prototype.setWidth = function() {
-  var bar = this.find('.progress-bar.main');
-  var left = this.find('.handle.left').offsetLeft;
-  var right = this.find('.handle.right').offsetLeft;
+View.prototype.setRange = function() {
+  var range = this.find('.progress-bar.range');
+  var left = this.find('.handle.start').offsetLeft;
+  var right = this.find('.handle.end').offsetLeft;
 
-  bar.style.left = left + 'px';
-  bar.style.width = (right - left) + 'px';
+  range.style.left = left + 'px';
+  range.style.width = (right - left) + 'px';
 };
 
 /**
@@ -132,12 +144,12 @@ function elToTime(el) {
 
 function toTime(width, pixels) {
   return d3.scale.linear()
-    .domain([ 0, width ])
-    .rangeRound([ 0, 12 ])(pixels);
+    .domain([0, width])
+    .rangeRound([0, 12])(pixels);
 }
 
 function toPixels(width, time) {
   return d3.scale.linear()
-    .domain([ 0, 12 ])
-    .range([ 0, width ])(time);
+    .domain([0, 12])
+    .range([0, width])(time);
 }

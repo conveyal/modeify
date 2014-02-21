@@ -18,7 +18,10 @@ var View = module.exports = view(require('./template.html'));
 View.on('construct', function(view) {
   view.on('rendered', function() {
     var m = map(view.find('.map'), {
-      center: { lat: 38.865860, lng: -77.063988 },
+      center: {
+        lat: 38.865860,
+        lng: -77.063988
+      },
       zoom: 14
     });
   });

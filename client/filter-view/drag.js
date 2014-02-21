@@ -1,4 +1,3 @@
-
 /**
  * Dependencies
  */
@@ -12,12 +11,12 @@ var evnt = require('event');
 
 module.exports = function(el) {
   var emitter = new Emitter();
-  var origin = [ 0, 0 ];
-  var start = [ 0, 0 ];
+  var origin = [0, 0];
+  var start = [0, 0];
 
   var onMouseDown = function(e) {
-    origin = [ el.offsetLeft, el.offsetTop ];
-    start  = [ e.pageX, e.pageY ];
+    origin = [el.offsetLeft, el.offsetTop];
+    start = [e.pageX, e.pageY];
 
     emitter.emit('dragstart', {
       el: el,
@@ -28,13 +27,14 @@ module.exports = function(el) {
 
     var onMouseMove = function(e) {
       var left = origin[0] + (e.pageX - start[0]);
-      if (left >= 0 && left <= el.parentNode.offsetWidth) el.style.left = left + 'px';
+      if (left >= 0 && left <= el.parentNode.offsetWidth) el.style.left = left +
+        'px';
 
       return emitter.emit('drag', {
         el: el,
         origin: origin,
         start: start,
-        current: [ e.pageX, e.pageY ]
+        current: [e.pageX, e.pageY]
       });
     };
 
@@ -43,7 +43,7 @@ module.exports = function(el) {
         el: el,
         origin: origin,
         start: start,
-        current: [ e.pageX, e.pageY ]
+        current: [e.pageX, e.pageY]
       });
 
       evnt.unbind(document, 'mousemove', onMouseMove);

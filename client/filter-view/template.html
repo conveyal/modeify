@@ -11,9 +11,9 @@
   </div>
   <div class="col-lg-3 col-md-3 col-sm-3 progress-container">
     <div class="progress">
-      <div class="progress-bar handle left" on-drag="start"></div>
-      <div class="progress-bar main"></div>
-      <div class="progress-bar handle right" on-drag="end"></div>
+      <div class="progress-bar handle start" on-drag="setStartPosition" data-style-left="start"></div>
+      <div class="progress-bar range"></div>
+      <div class="progress-bar handle end" on-drag="setEndPosition" data-style-left="end"></div>
     </div>
   </div>
   <div class="col-lg-2 col-md-2 col-sm-2">
@@ -23,12 +23,12 @@
     </div>
   </div>
   <div class="col-lg-6 col-md-6 col-sm-6">
-    <div class="btn-group" on-click="setActive">
-      <button type="button" class="btn btn-default" data-mode="bike"><span class="svg-icon svg-icon-bike"></span></button>
-      <button type="button" class="btn btn-default" data-mode="bus"><span class="svg-icon svg-icon-bus"></span></button>
-      <button type="button" class="btn btn-default" data-mode="train"><span class="svg-icon svg-icon-train"></span></button>
-      <button type="button" class="btn btn-default" data-mode="car"><span class="svg-icon svg-icon-car"></span></button>
-      <button type="button" class="btn btn-default" data-mode="walk"><span class="svg-icon svg-icon-walk"></span></button>
+    <div class="btn-group">
+      <button type="button" class="btn btn-default" data-mode="bike" on-click="setMode"><span class="svg-icon svg-icon-bike"></span></button>
+      <button type="button" class="btn btn-default" data-mode="bus" on-click="setMode"><span class="svg-icon svg-icon-bus"></span></button>
+      <button type="button" class="btn btn-default" data-mode="train" on-click="setMode"><span class="svg-icon svg-icon-train"></span></button>
+      <button type="button" class="btn btn-default" data-mode="car" on-click="setMode"><span class="svg-icon svg-icon-car"></span></button>
+      <button type="button" class="btn btn-default" data-mode="walk" on-click="setMode"><span class="svg-icon svg-icon-walk"></span></button>
     </div>
   </div>
 </div>
