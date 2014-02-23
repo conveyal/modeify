@@ -34,16 +34,22 @@ app.configure('development', function() {
 });
 
 /**
+ * Static host
+ */
+
+var STATIC = process.env.STATIC_URL || process.env.BASE_URL;
+
+/**
  * Compile the templates
  */
 
 var planner = compile('planner', {
-  css: '/build/planner-app/build.css',
-  js: '/build/planner-app/build.js'
+  css: STATIC + '/build/planner-app/build.css',
+  js: STATIC + '/build/planner-app/build.js'
 });
 var manager = compile('manager', {
-  css: '/build/manager-app/build.css',
-  js: '/build/manager-app/build.js'
+  css: STATIC + '/build/manager-app/build.css',
+  js: STATIC + '/build/manager-app/build.js'
 });
 
 /**

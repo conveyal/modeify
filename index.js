@@ -15,7 +15,7 @@ var port = process.env.PORT;
  * Dependencies
  */
 
-var build = require('./build');
+var build = require('./bin/build');
 var debug = require('debug')('commute-planner');
 var server = require('./server');
 

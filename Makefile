@@ -11,7 +11,7 @@ REPORTER = spec
 build: components $(CSS) $(HTML) $(JS) $(JSON)
 	@$(MAKE) lint-client
 	@$(MAKE) test-client
-	@node build.js
+	@./bin/build
 
 beautify:
 	@./node_modules/.bin/js-beautify --quiet --replace $(CLIENTJS) $(SERVERJS) $(TESTJS)
@@ -44,8 +44,9 @@ lint-test:
 	@./node_modules/.bin/jshint $(TESTJS)
 
 # Run before each commit/release
-release: lint test beautify
-	@NODE_ENV=production node build.js
+release: components test beautify
+	@./bin/build production
+	@s3cmd sync --guess-mime-type --recursive build s3://arlington.dev.conveyal.com
 
 # Watch & reload server
 serve: install
