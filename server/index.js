@@ -37,7 +37,7 @@ app.configure('development', function() {
  * Static host
  */
 
-var STATIC = process.env.STATIC_URL || process.env.BASE_URL;
+var STATIC = process.env.STATIC_URL || '';
 
 /**
  * Compile the templates

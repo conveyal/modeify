@@ -15,15 +15,14 @@ var port = process.env.PORT;
  * Dependencies
  */
 
-var build = require('./bin/build');
 var debug = require('debug')('commute-planner');
 var server = require('./server');
 
 /**
- * Build the client
+ * If `dev` build
  */
 
-build();
+if (process.env.NODE_ENV === 'development') require('./bin/build');
 
 /**
  * Run the server

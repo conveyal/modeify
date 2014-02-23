@@ -23,20 +23,6 @@ var uglify = require('uglify-js');
 var write = fs.writeFileSync;
 
 /**
- * Expose `build`
- */
-
-module.exports = buildAll;
-
-/**
- * Run if not `require`d
- */
-
-if (!module.parent) {
-  buildAll();
-}
-
-/**
  * Config. Do not put any private keys here!!!
  */
 
@@ -53,9 +39,7 @@ var config = {
  * Build all
  */
 
-function buildAll() {
-  component.local.forEach(build);
-}
+component.local.forEach(build);
 
 /**
  * Build.
