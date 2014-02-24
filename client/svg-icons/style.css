@@ -1,0 +1,33 @@
+
+.svg-icon {
+  background-size: 100% 100%;
+  padding: 8px;
+}
+
+.svg-icon-bike {
+  background-image: url(images/Bike.svg);
+}
+
+.svg-icon-bus {
+  background-image: url(images/Bus.svg);
+}
+
+.svg-icon-house {
+  background-image: url(images/House.svg);
+}
+
+.svg-icon-office {
+  background-image: url(images/Office.svg);
+}
+
+.svg-icon-train {
+  background-image: url(images/Train.svg);
+}
+
+.svg-icon-car {
+  background-image: url(images/Car.svg);
+}
+
+.svg-icon-walk {
+  background-image: url(images/Pedestrian.svg);
+}

@@ -1,0 +1,15 @@
+{
+  "name": "router-utils",
+  "dependencies": {
+    "visionmedia/debug": "*",
+    "visionmedia/page.js": "*"
+  },
+  "local": [
+    "404-page",
+    "analytics",
+    "config"
+  ],
+  "scripts": [
+    "index.js"
+  ]
+}

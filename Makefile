@@ -46,10 +46,10 @@ lint-test:
 # Run before each commit/release
 release: components test beautify
 	@./bin/build production
-	@s3cmd sync --guess-mime-type --recursive build s3://arlington.dev.conveyal.com
+	@s3cmd sync --guess-mime-type --acl-public --recursive build s3://arlington.dev.conveyal.com
 
 # Watch & reload server
-serve: install
+serve: node_modules
 	@./node_modules/.bin/nodemon --verbose
 
 test: test-client test-server

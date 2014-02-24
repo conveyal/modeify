@@ -1,11 +1,11 @@
 <div class="filter-view row">
   <div class="col-lg-1 col-md-1 col-sm-1">
     <div class="btn-group">
-      <button type="button" class="btn btn-default dropdown-toggle" dropdown>M—F <span class="caret"></span></button>
+      <button type="button" class="btn btn-default dropdown-toggle" dropdown><span class="fa fa-calendar"></span> <span data-text="days">M—F</span> <span class="caret"></span></button>
       <ul class="dropdown-menu" role="menu">
-        <li><a href="#">Monday to Friday</a></li>
-        <li><a href="#">Saturday</a></li>
-        <li><a href="#">Sunday</a></li>
+        <li><a href="#" on-click="setDays" data-value="M—F">Monday to Friday</a></li>
+        <li><a href="#" on-click="setDays" data-value="Sat">Saturday</a></li>
+        <li><a href="#" on-click="setDays" data-value="Sun">Sunday</a></li>
       </ul>
     </div>
   </div>
@@ -18,8 +18,8 @@
   </div>
   <div class="col-lg-2 col-md-2 col-sm-2">
     <div class="btn-group">
-      <button type="button" class="btn btn-default active">AM</button>
-      <button type="button" class="btn btn-default">PM</button>
+      <button type="button" class="btn btn-default am" on-click="setAMPM">AM</button>
+      <button type="button" class="btn btn-default pm" on-click="setAMPM">PM</button>
     </div>
   </div>
   <div class="col-lg-6 col-md-6 col-sm-6">

@@ -3,6 +3,7 @@
  */
 
 var bcrypt = require('bcrypt');
+var config = require('../../config.json')[process.env.NODE_ENV];
 var Email = require('../email/model');
 var mandrill = require('../mandrill');
 var mongoose = require('mongoose');
@@ -61,7 +62,7 @@ schema.methods.comparePassword = function(password, callback) {
 schema.methods.sendChangePasswordRequest = function(callback) {
   this.change_password_key = uuid.v4().replace(/-/g, '');
 
-  var base = process.env.BASE_URL;
+  var base = config.base_url;
   if (this.type !== 'commuter') base += '/manager';
 
   var options = {

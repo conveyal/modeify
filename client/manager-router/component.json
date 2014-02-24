@@ -5,9 +5,7 @@
     "visionmedia/page.js": "*"
   },
   "local": [
-    "404-page",
     "alerts",
-    "analytics",
     "change-password-page",
     "commuter",
     "commuter-form",
@@ -20,6 +18,7 @@
     "organization-form",
     "organization-page",
     "organizations-page",
+    "router-utils",
     "session"
   ],
   "scripts": [

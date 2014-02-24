@@ -6,7 +6,7 @@
 if (process.env.NODE_ENV === undefined) throw new Error('Envrionment variables must be set. See `.env.tmp`.');
 
 /**
- * Env
+ * Port
  */
 
 var port = process.env.PORT;
@@ -19,7 +19,7 @@ var debug = require('debug')('commute-planner');
 var server = require('./server');
 
 /**
- * If `dev` build
+ * If environment is `development`, build on load
  */
 
 if (process.env.NODE_ENV === 'development') require('./bin/build');

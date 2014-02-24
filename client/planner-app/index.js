@@ -2,19 +2,27 @@
  * Dependencies
  */
 
-// var Commuter = require('commuter');
-// var introduction = require('introduction-page');
 var onLoad = require('on-load');
 var page = require('page');
+var Plan = require('plan');
+var Nav = require('planner-nav');
+var utils = require('router-utils');
+var session = require('session');
 
 /**
  * Set up routes
  */
 
-page('/', redirect('/planner'));
-page('/planner', /* session.load, introduction */ require('planner-page'));
+page('/', utils.redirect('/planner'));
+page('/planner', Plan.load, require('planner-page'));
 // page('/planner/profile', function() {});
-page('/planner/:link', /*session.load, Commuter.loadLink,*/ redirect('/planner'));
+// page('/planner/:link', /*session.load, Commuter.loadLink,*/ redirect('/planner'));
+
+/**
+ * Render all
+ */
+
+page('*', utils.render);
 
 /**
  * Once the browser has "loaded"...ugh, can't believe we still need this.
@@ -22,17 +30,9 @@ page('/planner/:link', /*session.load, Commuter.loadLink,*/ redirect('/planner')
 
 onLoad(function() {
   // show nav ?
+  var nav = new Nav();
+  document.body.insertBefore(nav.el, document.body.firstChild);
 
   // listen
   page();
 });
-
-/**
- * redirect
- */
-
-function redirect(to) {
-  return function(ctx, next) {
-    page(to);
-  };
-}

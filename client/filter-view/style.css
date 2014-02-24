@@ -16,32 +16,6 @@
   z-index: 1001;
 }
 
-.svg-icon {
-  background-size: 100% 100%;
-  background-color: transparent;
-  padding: 8px;
-}
-
-.svg-icon-bike {
-  background-image: url(images/Bike.svg);
-}
-
-.svg-icon-bus {
-  background-image: url(images/Bus.svg);
-}
-
-.svg-icon-train {
-  background-image: url(images/Train.svg);
-}
-
-.svg-icon-car {
-  background-image: url(images/Car.svg);
-}
-
-.svg-icon-walk {
-  background-image: url(images/Pedestrian.svg);
-}
-
 .progress-container {
   padding-top: 7px;
 }

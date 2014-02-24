@@ -3,8 +3,8 @@
  */
 
 var FilterView = require('filter-view');
+var LocationsView = require('locations-view');
 var OptionsView = require('options-view');
-var Plan = require('plan');
 var TransitiveView = require('transitive-view');
 var view = require('view');
 
@@ -19,18 +19,18 @@ var View = view(require('./template.html'));
  */
 
 module.exports = function(ctx, next) {
-  var plan = new Plan();
-
   ctx.view = new View({
-    filter: new FilterView(plan),
-    'options-view': new OptionsView(plan),
-    transitive: new TransitiveView(plan)
+    filter: new FilterView(ctx.plan),
+    'locations-view': new LocationsView(ctx.plan),
+    'options-view': new OptionsView(ctx.plan),
+    transitive: new TransitiveView(ctx.plan)
   });
 
-  document.getElementById('main').appendChild(ctx.view.el);
+  ctx.view.on('rendered', function() {
+    [ 'filter', 'locations-view', 'options-view', 'transitive' ].forEach(function(view) {
+      ctx.view.model[view].emit('rendered');
+    });
+  });
 
-  ctx.view.emit('rendered');
-  ctx.view.model.filter.emit('rendered');
-  ctx.view.model['options-view'].emit('rendered');
-  ctx.view.model.transitive.emit('rendered');
+  next();
 };

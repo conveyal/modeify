@@ -5,9 +5,16 @@
     "visionmedia/page.js": "*"
   },
   "local": [
-    "planner-page"
+    "plan",
+    "planner-nav",
+    "planner-page",
+    "router-utils",
+    "session"
   ],
   "scripts": [
     "index.js"
+  ],
+  "styles": [
+    "style.css"
   ]
 }

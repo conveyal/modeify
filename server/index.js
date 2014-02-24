@@ -9,6 +9,7 @@ var env = process.env.NODE_ENV || 'development';
  */
 
 var express = require('express');
+var config = require('../config.json')[env];
 var read = require('fs').readFileSync;
 var hogan = require('hogan.js');
 var mongo = require('./mongo');
@@ -34,22 +35,16 @@ app.configure('development', function() {
 });
 
 /**
- * Static host
- */
-
-var STATIC = process.env.STATIC_URL || '';
-
-/**
  * Compile the templates
  */
 
 var planner = compile('planner', {
-  css: STATIC + '/build/planner-app/build.css',
-  js: STATIC + '/build/planner-app/build.js'
+  css: config.static_url + '/build/planner-app/build.css',
+  js: config.static_url + '/build/planner-app/build.js'
 });
 var manager = compile('manager', {
-  css: STATIC + '/build/manager-app/build.css',
-  js: STATIC + '/build/manager-app/build.js'
+  css: config.static_url + '/build/manager-app/build.css',
+  js: config.static_url + '/build/manager-app/build.js'
 });
 
 /**

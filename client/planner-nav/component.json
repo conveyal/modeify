@@ -8,5 +8,8 @@
   ],
   "styles": [
     "style.css"
+  ],
+  "templates": [
+    "template.html"
   ]
 }

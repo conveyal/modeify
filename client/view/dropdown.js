@@ -14,10 +14,9 @@ module.exports = function(reactive) {
     var parent = el.parentNode;
     var list = classes(parent);
     var close = function(e) {
-      if (!childOf(e.target, parent)) {
-        list.remove('open');
-        evnt.unbind(document, 'click', close);
-      }
+      list.remove('open');
+      evnt.unbind(document, 'click', close);
+      document.activeElement.blur();
     };
 
     evnt.bind(el, 'click', function(e) {

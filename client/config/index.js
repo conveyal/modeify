@@ -9,9 +9,7 @@ var each = require('each');
  */
 
 each(window.CONFIG, function(key, val) {
-  var g = function() {
+  module.exports[key] = module.exports[key.toLowerCase()] = function() {
     return val;
   };
-  module.exports[key] = g;
-  module.exports[key.toLowerCase()] = g;
 });

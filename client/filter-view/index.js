@@ -31,6 +31,9 @@ View.on('construct', function(view) {
     });
   });
 
+  view.displayAMPM(view.model.ampm());
+  view.model.on('change ampm', view.displayAMPM.bind(view));
+
   view.reactive.bind('data-mode', function(el, name) {
     this.change(function() {
       var val = this.value(name);
@@ -53,6 +56,15 @@ View.on('construct', function(view) {
 });
 
 /**
+ * Set Day of the Week
+ */
+
+View.prototype.setDays = function(e) {
+  e.preventDefault();
+  this.model.days(e.target.dataset.value);
+};
+
+/**
  * Set Active
  */
 
@@ -67,6 +79,35 @@ View.prototype.setMode = function(e) {
 
   this.model[mode](!el.classList.contains('active'));
   document.activeElement.blur();
+};
+
+/**
+ * Set AMPM
+ */
+
+View.prototype.setAMPM = function(e) {
+  var ampm = e.target.classList.contains('am')
+    ? 'am'
+    : 'pm';
+
+  this.model.ampm(ampm);
+  document.activeElement.blur();
+};
+
+/**
+ * Display AM/PM
+ */
+
+View.prototype.displayAMPM = function(ampm) {
+  var am = this.find('.am');
+  var pm = this.find('.pm');
+  if (ampm === 'am') {
+    am.classList.add('active');
+    pm.classList.remove('active');
+  } else {
+    pm.classList.add('active');
+    am.classList.remove('active');
+  }
 };
 
 /**

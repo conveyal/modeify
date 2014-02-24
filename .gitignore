@@ -9,6 +9,7 @@ lib-cov
 
 .DS_Store
 .env
+config.json
 
 pids
 logs

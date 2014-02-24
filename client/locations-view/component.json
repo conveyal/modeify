@@ -1,13 +1,7 @@
 {
-  "name": "planner-page",
-  "dependencies": {
-
-  },
+  "name": "locations-view",
   "local": [
-    "filter-view",
-    "locations-view",
-    "options-view",
-    "transitive-view",
+    "svg-icons",
     "view"
   ],
   "scripts": [
