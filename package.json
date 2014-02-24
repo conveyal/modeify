@@ -34,6 +34,7 @@
     "mime": "^1.2.11"
   },
   "scripts": {
+    "postinstall": "cp -n config.json.tmp config.json || true",
     "test": "make test",
     "start": "make serve"
   }
