@@ -1,0 +1,26 @@
+{
+  "test": {
+    "api_url": "http://localhost:5000/api",
+    "base_url": "http://localhost:5000",
+    "otp_url": "http://localhost:8080/otp-rest-servlet/",
+    "static_url": ""
+  },
+  "development": {
+    "api_url": "http://localhost:5000/api",
+    "base_url": "http://localhost:5000",
+    "otp_url": "http://localhost:8080/otp-rest-servlet/",
+    "static_url": ""
+  },
+  "staging": {
+    "api_url": "",
+    "base_url": "",
+    "otp_url": "",
+    "static_url": ""
+  },
+  "production": {
+    "api_url": "",
+    "base_url": "",
+    "otp_url": "",
+    "static_url": ""
+  }
+}
