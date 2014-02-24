@@ -9,7 +9,8 @@ var superagent = require('superagent');
  * Url
  */
 
-var url = 'http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find';
+var url =
+  'http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find';
 
 /**
  * Expose `app`
@@ -59,7 +60,8 @@ app.get('/reverse', function(req, res) {
 function encode(address, callback) {
   var text = '';
   if (address.address) {
-    text = address.address + ', ' + address.city + ', ' + address.state + ' ' + address.zip;
+    text = address.address + ', ' + address.city + ', ' + address.state + ' ' +
+      address.zip;
   } else {
     text = address;
   }
@@ -77,7 +79,7 @@ function encode(address, callback) {
         var body;
         try {
           body = JSON.parse(res.text);
-        } catch(e) {
+        } catch (e) {
           callback(e);
         } finally {
           if (!body || !body.locations || body.locations.length === 0) {

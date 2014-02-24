@@ -14,7 +14,7 @@ var qs = require('querystring');
 module.exports.profile = function(from, to, callback) {
   debug('profiling %s to %s', from, to);
   jsonp(config.otp_url() + '/profile?' + qs.stringify({
-    from: [ from.lat, from.lng ],
-    to: [ to.lat, to.lng ]
+    from: [from.lat, from.lng],
+    to: [to.lat, to.lng]
   }), callback);
 };
