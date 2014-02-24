@@ -9,7 +9,7 @@ var get = require('request').get;
  */
 
 module.exports = function(address, callback) {
-  get('/geocode', address, function(err, res) {
+  get('/geocode/' + address, function(err, res) {
     if (err) {
       callback(err, res);
     } else {

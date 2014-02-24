@@ -1,6 +1,7 @@
 {
   "name": "locations-view",
   "local": [
+    "geocode",
     "svg-icons",
     "view"
   ],

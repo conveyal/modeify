@@ -51,6 +51,7 @@ schema.methods.sendPlan = function(callback) {
     orgAddress: this._organization.fullAddress(),
     subject: 'Your Personalized Commute Plan',
     template: 'plan',
+    link: this.link,
     to: {
       name: this.name,
       email: this._user.email

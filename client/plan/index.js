@@ -18,8 +18,10 @@ var session = require('session');
 
 var Plan = module.exports = model('Plan')
   .use(defaults({
-    from: '',
-    to: '',
+    from: '1111 Army Navy Drive, Arlington, VA 22202',
+    to: '1133 15th St NW, Washington, DC 20005',
+    from_ll: {},
+    to_ll: {},
     start: 7,
     end: 9,
     ampm: 'am',
@@ -41,6 +43,8 @@ var Plan = module.exports = model('Plan')
   .attr('walk')
   .attr('from')
   .attr('to')
+  .attr('from_ll')
+  .attr('to_ll')
   .attr('days')
   .attr('routes');
 
@@ -49,16 +53,19 @@ var Plan = module.exports = model('Plan')
  */
 
 Plan.load = function(ctx, next) {
-  var opts = {};
-  if (session.isLoggedIn() && session.commuter()) {
+  if (session.isLoggedIn() && session.user().type === 'commuter') {
     var commuter = session.commuter();
-    opts = commuter.opts();
+
+    var opts = commuter.opts();
     opts.from = commuter.location();
 
     var org = commuter._organization();
     opts.to = org.address + ', ' + org.city + ', ' + org.state + ' ' + org.zip;
+
+    ctx.plan = new Plan(opts);
+  } else {
+    ctx.plan = new Plan();
   }
 
-  ctx.plan = new Plan(opts);
   next();
 };

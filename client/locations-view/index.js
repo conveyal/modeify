@@ -2,6 +2,7 @@
  * Dependencies
  */
 
+var geocode = require('geocode');
 var view = require('view');
 
 /**
@@ -11,20 +12,47 @@ var view = require('view');
 var View = module.exports = view(require('./template.html'));
 
 /**
- * Save
+ * Geocode && Save
  */
 
-View.prototype.saveFrom = View.prototype.saveTo = function(e) {
-  e.target.parentNode.classList.add('inactive');
+View.prototype.save = function(e) {
+  var el = e.target;
+  var name = el.name;
+  var address = el.value;
+  var parent = el.parentNode;
+  var self = this;
+  var model = this.model;
 
-  this.model.from(this.find('[name="from"]').value);
-  this.model.to(this.find('[name="to"]').value);
-};
+  if (!address) {
+    return parent.classList.add('has-warning');
+  }
+
+  geocode(address, function(err, ll) {
+    if (err) {
+      parent.classList.add('has-error');
+    } else {
+      parent.classList.add('has-success');
+      self[name + '-timeout'] = setTimeout(function() {
+        parent.classList.remove('has-success');
+        parent.classList.add('inactive');
+        self[name + '-timeout'] = null;
+      }, 1000);
+      model[name](address);
+      model[name + '_ll'](ll);
+    }
+  });
+}
 
 /**
  * Edit
  */
 
-View.prototype.editFrom = View.prototype.editTo = function(e) {
-  e.target.parentNode.classList.remove('inactive');
+View.prototype.edit = function(e) {
+  var name = e.target.name;
+  var parent = e.target.parentNode;
+  parent.classList.remove('inactive');
+  parent.classList.remove('has-error');
+  parent.classList.remove('has-success');
+  parent.classList.remove('has-warning');
+  if (this[name + '-timeout']) clearTimeout(this[name + '-timeout']);
 };

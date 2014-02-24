@@ -9,7 +9,7 @@ var superagent = require('superagent');
  * Url
  */
 
-var url = 'http://cherriots.dev.conveyal.com/simplecoder';
+var url = 'http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find';
 
 /**
  * Expose `app`
@@ -28,8 +28,8 @@ module.exports.reverse = reverse;
  * Geocode
  */
 
-app.get('/', function(req, res) {
-  encode(req.query, function(err, ll) {
+app.get('/:address', function(req, res) {
+  encode(req.params.address, function(err, ll) {
     if (err) {
       res.send(400, err);
     } else {
@@ -57,20 +57,38 @@ app.get('/reverse', function(req, res) {
  */
 
 function encode(address, callback) {
+  var text = '';
+  if (address.address) {
+    text = address.address + ', ' + address.city + ', ' + address.state + ' ' + address.zip;
+  } else {
+    text = address;
+  }
+
   superagent
-    .get(url + '/q/' + address.address + '/' + address.city + ', ' + address.state +
-      ' ' + address.zip)
+    .get(url)
+    .query({
+      f: 'pjson',
+      text: text
+    })
     .end(function(err, res) {
       if (err) {
         callback(err, res);
-      } else if (!res.body || res.body.length === 0) {
-        callback(null, {});
       } else {
-        var ll = res.body[0];
-        callback(null, {
-          lng: ll.lon,
-          lat: ll.lat
-        });
+        try {
+          var body = JSON.parse(res.text);
+        } catch(e) {
+          callback(e);
+        } finally {
+          if (!body || !body.locations || body.locations.length === 0) {
+            callback(new Error('Location not found.'));
+          } else {
+            var ll = body.locations[0].feature.geometry;
+            callback(null, {
+              lng: ll.x,
+              lat: ll.y
+            });
+          }
+        }
       }
     });
 }

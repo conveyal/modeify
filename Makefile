@@ -24,8 +24,8 @@ components: component.json $(JSON)
 	@./node_modules/.bin/component install --dev --verbose
 
 postinstall:
-	@cp -n .env.tmp .env
-	@cp -n config.json.tmp config.json
+	@cp -n .env.tmp .env || true
+	@cp -n config.json.tmp config.json || true
 
 # Display Makefile
 help:
