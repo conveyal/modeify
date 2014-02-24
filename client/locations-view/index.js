@@ -41,7 +41,7 @@ View.prototype.save = function(e) {
       model[name + '_ll'](ll);
     }
   });
-}
+};
 
 /**
  * Edit

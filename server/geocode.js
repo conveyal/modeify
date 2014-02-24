@@ -74,8 +74,9 @@ function encode(address, callback) {
       if (err) {
         callback(err, res);
       } else {
+        var body;
         try {
-          var body = JSON.parse(res.text);
+          body = JSON.parse(res.text);
         } catch(e) {
           callback(e);
         } finally {

@@ -16,16 +16,17 @@ var valid = [{
   state: 'VA',
   zip: 22202,
   ll: {
-    lng: -77.063988,
-    lat: 38.86586
+    lng: -77.06398626875051,
+    lat: 38.86583312290139
   }
 }, {
   address: '1600 Pennsylvania Avenue',
   cit: 'Washington',
   state: 'DC',
+  zip: 20005,
   ll: {
-    lng: -77.03894,
-    lat: 38.898788
+    lng: -77.03080922896197,
+    lat: 38.90369263400896
   }
 }];
 
