@@ -103,11 +103,9 @@ schema.statics.findOrCreate = function(data, callback) {
   this.findOne({
     email: data.email
   }, function(err, user) {
-    console.log('findOne');
     if (err || user) {
       callback(err, user);
     } else {
-      console.log('creating');
       self.create({
         email: data.email,
         type: data.type

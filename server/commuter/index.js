@@ -145,7 +145,6 @@ app.put('/:id', auth.isLoggedIn, get, function(req, res) {
 
   req.commuter.save(function(err) {
     if (err) {
-      console.log(err);
       res.send(400, err);
     } else {
       res.send(204);
