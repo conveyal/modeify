@@ -27,9 +27,10 @@ module.exports = function(ctx, next) {
   });
 
   ctx.view.on('rendered', function() {
-    [ 'filter', 'locations-view', 'options-view', 'transitive' ].forEach(function(view) {
-      ctx.view.model[view].emit('rendered');
-    });
+    ['filter', 'locations-view', 'options-view', 'transitive'].forEach(
+      function(view) {
+        ctx.view.model[view].emit('rendered');
+      });
   });
 
   next();

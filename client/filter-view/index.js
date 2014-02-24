@@ -86,9 +86,7 @@ View.prototype.setMode = function(e) {
  */
 
 View.prototype.setAMPM = function(e) {
-  var ampm = e.target.classList.contains('am')
-    ? 'am'
-    : 'pm';
+  var ampm = e.target.classList.contains('am') ? 'am' : 'pm';
 
   this.model.ampm(ampm);
   document.activeElement.blur();

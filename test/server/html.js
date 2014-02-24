@@ -26,7 +26,8 @@ var planner = hogan.compile(fs.readFileSync(__dirname +
   '/../../client/planner.html', 'utf8')).render({
   css: '/build/planner-app/build.css',
   js: '/build/planner-app/build.js',
-  NAME: process.env.NAME
+  NAME: process.env.NAME,
+  SEGMENTIO_KEY: process.env.SEGMENTIO_KEY
 });
 
 /**
