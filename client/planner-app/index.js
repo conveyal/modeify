@@ -14,9 +14,8 @@ var session = require('session');
  */
 
 page('/', utils.redirect('/planner'));
-page('/planner', Plan.load, require('planner-page'));
-// page('/planner/profile', function() {});
-// page('/planner/:link', /*session.load, Commuter.loadLink,*/ redirect('/planner'));
+page('/planner', session.commuterIsLoggedIn, Plan.load, /* Welcome.load, */ require('planner-page'));
+page('/planner/:link', session.loginWithLink, utils.redirect('/planner'));
 
 /**
  * Render all
@@ -30,7 +29,7 @@ page('*', utils.render);
 
 onLoad(function() {
   // show nav ?
-  var nav = new Nav();
+  var nav = new Nav(session);
   document.body.insertBefore(nav.el, document.body.firstChild);
 
   // listen

@@ -8,6 +8,7 @@
   },
   "local": [
     "analytics",
+    "commuter",
     "config",
     "request",
     "user"

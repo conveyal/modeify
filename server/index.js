@@ -23,8 +23,7 @@ var app = module.exports = express()
   .use(express.compress())
   .use('/build', express.static(__dirname + '/../build'))
   .use(express.urlencoded())
-  .use(express.json())
-  .use(logErrors);
+  .use(express.json());
 
 /**
  * Config
@@ -32,6 +31,7 @@ var app = module.exports = express()
 
 app.configure('development', function() {
   app.use(express.logger('dev'));
+  app.use(logErrors);
 });
 
 /**

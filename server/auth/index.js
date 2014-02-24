@@ -3,6 +3,7 @@
  */
 
 var express = require('express');
+var Commuter = require('../commuter/model');
 var User = require('../user/model');
 
 /**
@@ -79,6 +80,32 @@ app.post('/login', function(req, res) {
 });
 
 /**
+ * Login with link
+ */
+
+app.get('/login/:link', function(req, res) {
+  Commuter
+    .findOne()
+    .where('link', req.params.link)
+    .populate('_organization')
+    .populate('_user', 'email type')
+    .exec(function(err, commuter) {
+      if (err) {
+        res.send(400, err);
+      } else if (!commuter) {
+        res.send(404, 'Incorrect link.');
+      } else {
+        res.cookie('user', commuter._user._id, {
+          signed: true
+        });
+
+        req.session.user = commuter;
+        res.send(200, commuter);
+      }
+    });
+});
+
+/**
  * Logout
  */
 
@@ -91,6 +118,14 @@ app.all('/logout', logout, function(req, res) {
  */
 
 app.all('/is-logged-in', isLoggedIn, function(req, res) {
+  res.send(200, req.session.user);
+});
+
+/**
+ * Commuter is logged in?
+ */
+
+app.all('/commuter-is-logged-in', isLoggedIn, function(req, res) {
   res.send(200, req.session.user);
 });
 

@@ -3,6 +3,7 @@
  */
 
 var analytics = require('analytics');
+var Commuter = require('commuter');
 var config = require('config');
 var debug = require('debug')(config.name() + ':session');
 var defaults = require('model-defaults');
@@ -17,10 +18,13 @@ var User = require('user');
 
 var Session = model('Session')
   .use(defaults({
+    commuter: false,
+    user: false,
     isAdmin: false,
     isLoggedIn: false,
     isManager: false
   }))
+  .attr('commuter')
   .attr('user')
   .attr('isAdmin')
   .attr('isLoggedIn')
@@ -60,6 +64,66 @@ module.exports.login = function(data, callback) {
       callback(err);
     }
   });
+};
+
+/**
+ * Log in with link middleware
+ */
+
+module.exports.loginWithLink = function(ctx, next) {
+  request.get('/login/' + ctx.params.link, function(err, res) {
+    if (res.ok) {
+      var commuter = new Commuter(res.body);
+      var user = new User(res.body._user);
+
+      session.commuter(commuter);
+      session.user(user);
+      session.isAdmin(user().type() === 'administrator');
+      session.isManager(user().type() !== 'commuter');
+      session.isLoggedIn(true);
+
+      next();
+    } else {
+      next(err || new Error(res.text));
+    }
+  });
+};
+
+/**
+ * Check if logged in
+ */
+
+module.exports.commuterIsLoggedIn = function(ctx, next) {
+  debug('check if commuter is logged in %s', ctx.path);
+
+  if (session.commuter()) {
+    session.isLoggedIn(true);
+    session.isAdmin(session.user().type() === 'administrator');
+    session.isManager(session.user().type() !== 'commuter');
+    next();
+  } else {
+    request.get('/commuter-is-logged-in', function(err, res) {
+      if (err || !res.ok) {
+        session.isLoggedIn(false);
+        session.isAdmin(false);
+        session.isManager(false);
+        session.user(null);
+        session.commuter(null);
+        next();
+      } else {
+        var commuter = new Commuter(res.body);
+        var user = new User(res.body._user);
+
+        session.commuter(commuter);
+        session.user(user);
+        session.isAdmin(user.type() === 'administrator');
+        session.isManager(user.type() !== 'commuter');
+        session.isLoggedIn(true);
+
+        next();
+      }
+    });
+  }
 };
 
 /**

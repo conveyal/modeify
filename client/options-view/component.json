@@ -1,12 +1,14 @@
 {
   "name": "options-view",
   "local": [
+    "otp",
     "view"
   ],
   "scripts": [
     "index.js"
   ],
   "templates": [
+    "route.html",
     "template.html"
   ]
 }

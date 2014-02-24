@@ -23,7 +23,8 @@ var Commuter = module.exports = model('Commuter')
     city: '',
     state: '',
     zip: '',
-    labels: []
+    labels: [],
+    opts: {}
   }))
   .use(require('model-query'))
   .use(require('model-memoize'))
@@ -44,7 +45,8 @@ var Commuter = module.exports = model('Commuter')
   })
   .attr('updated', {
     type: 'date'
-  });
+  })
+  .attr('opts');
 
 /**
  * Load middleware
@@ -58,21 +60,6 @@ Commuter.load = function(ctx, next) {
       next(err);
     } else {
       ctx.commuter = commuter;
-      next();
-    }
-  });
-};
-
-/**
- * Load via link middleware
- */
-
-Commuter.loadLink = function(ctx, next) {
-  request.get('/commuters/link/' + ctx.params.link, function(err, res) {
-    if (err || !res.ok) {
-      next(err || new Error(res.text));
-    } else {
-      ctx.commuter = new Commuter(res.body);
       next();
     }
   });

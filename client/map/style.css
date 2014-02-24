@@ -6,6 +6,18 @@
   border-radius: 4px;
 }
 
+.map-small {
+  height: 200px;
+}
+
+.map-medium {
+  height: 400px;
+}
+
+.map-large {
+  height: 600px;
+}
+
 /**
  * Override the default colors to be Bootstrap style
  */
