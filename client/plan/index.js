@@ -2,14 +2,12 @@
  * Dependencies
  */
 
-var series = require('array-series');
 var config = require('config');
 var debug = require('debug')(config.name() + ':plan');
-var defaults = require('model-defaults');
 var geocode = require('geocode');
-var jsonp = require('jsonp');
+var defaults = require('model-defaults');
 var model = require('model');
-var querystring = require('querystring');
+var otp = require('otp');
 var session = require('session');
 
 /**
@@ -33,6 +31,7 @@ var Plan = module.exports = model('Plan')
     days: 'M—F',
     routes: []
   }))
+  .use(updateRoutesOnLLChange)
   .attr('start')
   .attr('end')
   .attr('ampm')
@@ -69,3 +68,63 @@ Plan.load = function(ctx, next) {
 
   next();
 };
+
+/**
+ * Update routes
+ */
+
+Plan.prototype.updateRoutes = function(val, prev) {
+  debug('updating routes on ll change');
+
+  var model = this;
+  var from = model.from_ll();
+  var to = model.to_ll();
+
+  if (from && to && from.lat && from.lng && to.lat && to.lng) {
+    debug('updating routes from', from, 'to', to);
+    otp.profile(from, to, function(err, data) {
+      if (err) {
+        model.emit('error', err);
+      } else {
+        model.routes(data.options);
+      }
+    });
+  } else {
+    debug('not updating routes from/to ll does not exist', from, to);
+  }
+};
+
+/**
+ * Geocode
+ */
+
+Plan.prototype.geocode = function(dest, callback) {
+  if (!callback) callback = function(){};
+
+  var plan = this;
+  var address = plan[dest]();
+  var ll = plan[dest + '_ll']();
+  if (address && address.length > 0 && ll && (!ll.lat || !ll.lng)) {
+    geocode(address, function(err, ll) {
+      if (err) {
+        callback(err);
+      } else {
+        plan[dest + '_ll'](ll);
+        callback(null, ll);
+      }
+    });
+  } else {
+    callback(null, ll);
+  }
+};
+
+/**
+ * Update Routes on From/to change
+ */
+
+function updateRoutesOnLLChange(Plan) {
+  Plan.on('construct', function(plan) {
+    plan.on('change from_ll', plan.updateRoutes);
+    plan.on('change to_ll', plan.updateRoutes);
+  });
+}

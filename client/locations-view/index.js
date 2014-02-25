@@ -37,6 +37,7 @@ View.prototype.save = function(e) {
         parent.classList.add('inactive');
         self[name + '-timeout'] = null;
       }, 1000);
+
       model[name](address);
       model[name + '_ll'](ll);
     }

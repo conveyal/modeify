@@ -2,6 +2,7 @@
  * Dependencies
  */
 
+var config = require('../../config.json')[process.env.NODE_ENV];
 var Email = require('../email/model');
 var mandrill = require('../mandrill');
 var mongoose = require('mongoose');
@@ -51,7 +52,7 @@ schema.methods.sendPlan = function(callback) {
     orgAddress: this._organization.fullAddress(),
     subject: 'Your Personalized Commute Plan',
     template: 'plan',
-    link: this.link,
+    link: config.base_url + '/planner/' + this.link,
     to: {
       name: this.name,
       email: this._user.email

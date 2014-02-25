@@ -181,11 +181,19 @@ function elToTime(el) {
   return toTime(el.parentNode.offsetWidth, el.offsetLeft);
 }
 
+/**
+ * To time
+ */
+
 function toTime(width, pixels) {
   return d3.scale.linear()
     .domain([0, width])
     .rangeRound([0, 12])(pixels);
 }
+
+/**
+ * To Pixels
+ */
 
 function toPixels(width, time) {
   return d3.scale.linear()

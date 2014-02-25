@@ -4,7 +4,8 @@
     "component/model": "*",
     "segmentio/model-defaults": "*",
     "visionmedia/debug": "*",
-    "visionmedia/page.js": "*"
+    "visionmedia/page.js": "*",
+    "yields/store": "*"
   },
   "local": [
     "analytics",

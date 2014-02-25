@@ -1,0 +1,6 @@
+{
+  "name": "convert",
+  "scripts": [
+    "index.js"
+  ]
+}

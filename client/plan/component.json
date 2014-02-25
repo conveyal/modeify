@@ -1,16 +1,14 @@
 {
   "name": "plan",
   "dependencies": {
-    "component/array-series": "*",
     "component/model": "*",
-    "component/querystring": "*",
-    "learnboost/jsonp": "*",
     "segmentio/model-defaults": "*",
     "visionmedia/debug": "*"
   },
   "local": [
     "config",
     "geocode",
+    "otp",
     "session"
   ],
   "scripts": [

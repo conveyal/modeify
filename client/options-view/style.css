@@ -1,0 +1,29 @@
+
+.routes {
+  margin-top: 20px;
+  padding-left: 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+}
+
+.route {
+  list-style-type: none;
+  border-bottom: 1px solid #ccc;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.route:last-of-type {
+  border-bottom: none;
+}
+
+.time {
+  font-variant: small-caps;
+  color: #999;
+  text-align: center;
+  border-right: 1px solid #ccc;
+  line-height: 0.8em;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

@@ -14,8 +14,7 @@ var session = require('session');
  */
 
 page('/', utils.redirect('/planner'));
-page('/planner', session.commuterIsLoggedIn, Plan.load, /* Welcome.load, */
-  require('planner-page'));
+page('/planner', session.commuterIsLoggedIn, Plan.load, require('planner-page'));
 page('/planner/:link', session.loginWithLink, utils.redirect('/planner'));
 
 /**

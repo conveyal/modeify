@@ -3,13 +3,13 @@
  */
 
 module.exports = function(reactive) {
-  reactive.bind('data-each', function(el, attr, model) {
+  reactive.bind('data-each', function(el, attr) {
     var container = this.el;
     this.change(function() {
       container.innerHTML = '';
 
       var items = this.value(attr);
-      if (!items || items.forEach === undefined) return;
+      if (!items || items.forEach === undefined || items.length === 0) return;
 
       var View = this.value(attr + '-view');
       if (!View) return;

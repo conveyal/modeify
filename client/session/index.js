@@ -10,6 +10,7 @@ var defaults = require('model-defaults');
 var model = require('model');
 var page = require('page');
 var request = require('request');
+var store = require('store');
 var User = require('user');
 
 /**
@@ -35,6 +36,21 @@ var Session = model('Session')
  */
 
 var session = window.session = module.exports = new Session();
+
+/**
+ * Save on change
+ */
+
+session.on('change', function(name, attr) {
+  var commuter = session.commuter();
+  var user = session.user();
+  var data = session.toJSON();
+
+  if (commuter && commuter.toJSON) data.commuter = commuter.toJSON();
+  if (user && user.toJSON) data.user = user.toJSON();
+
+  store('session', session.toJSON());
+});
 
 /**
  * Track user
@@ -78,8 +94,8 @@ module.exports.loginWithLink = function(ctx, next) {
 
       session.commuter(commuter);
       session.user(user);
-      session.isAdmin(user().type() === 'administrator');
-      session.isManager(user().type() !== 'commuter');
+      session.isAdmin(user.type() === 'administrator');
+      session.isManager(user.type() !== 'commuter');
       session.isLoggedIn(true);
 
       next();
@@ -139,6 +155,7 @@ module.exports.logout = function(ctx) {
   session.user(null);
 
   request.get('/logout', function(err, res) {
+    store('session', null);
     document.cookie = null;
     page('/manager/login');
   });
