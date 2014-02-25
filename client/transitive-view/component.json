@@ -1,7 +1,12 @@
 {
   "name": "transitive-view",
+  "dependencies": {
+    "conveyal/otpprofiler.js": "*",
+    "conveyal/transitive.js": "*",
+    "visionmedia/debug": "*"
+  },
   "local": [
-    "map",
+    "config",
     "view"
   ],
   "scripts": [
