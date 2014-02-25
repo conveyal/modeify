@@ -99,7 +99,7 @@ Plan.prototype.updateRoutes = function(val, prev) {
  */
 
 Plan.prototype.geocode = function(dest, callback) {
-  if (!callback) callback = function(){};
+  if (!callback) callback = function() {};
 
   var plan = this;
   var address = plan[dest]();

@@ -1,4 +1,3 @@
-
 exports.secondsToMinutes = function(s) {
   var m = Math.floor(s / 60);
   var sec = s % 60;

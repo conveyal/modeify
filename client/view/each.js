@@ -9,7 +9,8 @@ module.exports = function(reactive) {
       container.innerHTML = '';
 
       var items = this.value(attr);
-      if (!items || items.forEach === undefined || items.length === 0) return;
+      if (!items || items.forEach === undefined || items.length === 0)
+        return;
 
       var View = this.value(attr + '-view');
       if (!View) return;

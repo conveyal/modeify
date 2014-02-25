@@ -6,7 +6,7 @@ SERVERJS = $(shell find server -name '*.js')
 TESTJS = $(shell find test -name '*.js')
 JSON = $(shell find client -name '*.json')
 
-REPORTER = min
+REPORTER = spec
 
 build: components $(CSS) $(HTML) $(JS) $(JSON)
 	@$(MAKE) lint-client

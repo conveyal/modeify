@@ -12,6 +12,8 @@
   border-bottom: 1px solid #ccc;
   margin-left: 0;
   margin-right: 0;
+  color: #333;
+  text-align: center;
 }
 
 .route:last-of-type {
@@ -19,11 +21,13 @@
 }
 
 .time {
-  font-variant: small-caps;
-  color: #999;
-  text-align: center;
   border-right: 1px solid #ccc;
+  font-variant: small-caps;
   line-height: 0.8em;
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+.summary {
+  line-height: 43px;
 }

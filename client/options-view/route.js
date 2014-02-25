@@ -16,5 +16,15 @@ var View = module.exports = view(require('./route.html'));
  */
 
 View.prototype.average = function() {
-  return convert.secondsToMinutes(this.model.stats.avg);
+  return Math.round(this.model.stats.min / 60);
+};
+
+/**
+ * Summary
+ */
+
+View.prototype.summary = function() {
+  return this.model.segments.map(function(segment) {
+    return segment.routeShortName;
+  }).join(' — ');
 };
