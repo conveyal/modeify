@@ -15,7 +15,6 @@ var component = require('../component.json');
 var config = require('../config.json')[env];
 var fs = require('fs');
 var mkdir = require('mkdirp');
-var minify = require('minify');
 var myth = require('myth');
 var path = require('path');
 var resolve = path.resolve;
