@@ -32,7 +32,7 @@ View.on('construct', function(view) {
   });
 
   view.displayAMPM(view.model.am_pm());
-  view.model.on('change ampm', view.displayAMPM.bind(view));
+  view.model.on('change am_pm', view.displayAMPM.bind(view));
 
   view.on('rendered', function() {
     view.reactive.bind('data-style-left', function(el, name) {

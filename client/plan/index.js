@@ -78,7 +78,7 @@ Plan.on('change', function(plan) {
  * If the filters change, update the viz
  */
 
-['am_pm', 'start_time', 'end_time', 'from_ll', 'to_ll'].forEach(function(attr) {
+['am_pm', 'days', 'start_time', 'end_time', 'from_ll', 'to_ll'].forEach(function(attr) {
   Plan.on('change ' + attr, function(plan) {
     plan.updateRoutes();
   });

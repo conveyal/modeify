@@ -1,6 +1,7 @@
 {
   "name": "planner-nav",
   "local": [
+    "config",
     "view"
   ],
   "scripts": [
