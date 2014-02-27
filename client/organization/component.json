@@ -9,7 +9,8 @@
   },
   "local": [
     "config",
-    "map"
+    "map",
+    "model-geo"
   ],
   "scripts": [
     "index.js"

@@ -2,7 +2,17 @@
 
 ## Installation & Running
 
-Copy `.env.tmp` to `.env` and customize per deployment. Nothing will work without a `MONGODB_URL`. Emails will not send without a `MANDRILL_API_KEY`. Maps will not be displayed without a `MAPBOX_PROJECT_KEY`.
+### Environment Variables & Config
+
+All environment variables needed can be found in `.env.tmp` and environment specific URLS can be found in `config.json.tmp`.
+
+### MongoDB
+
+Install [locally](http://www.mongodb.org/downloads) or use a service like [MongoLab](https://mongolab.com/welcome/). Set `MONGODB_URL` accordingly.
+
+### OpenTripPlanner
+
+The planner requires an instance of [OpenTripPlanner](http://opentripplanner.com) running with the GTFS feeds you would like to analyze.
 
 ```bash
 $ git clone git@github.com:conveyal/commute-planner.git

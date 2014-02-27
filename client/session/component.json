@@ -2,10 +2,10 @@
   "name": "session",
   "dependencies": {
     "component/model": "*",
+    "component/uid": "*",
     "segmentio/model-defaults": "*",
     "visionmedia/debug": "*",
-    "visionmedia/page.js": "*",
-    "yields/store": "*"
+    "visionmedia/page.js": "*"
   },
   "local": [
     "analytics",

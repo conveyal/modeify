@@ -9,6 +9,7 @@
     "segmentio/view": "*"
   },
   "scripts": [
+    "active.js",
     "dropdown.js",
     "each.js",
     "index.js"

@@ -9,6 +9,7 @@ var defaults = require('model-defaults');
 var model = require('model');
 var otp = require('otp');
 var session = require('session');
+var store = require('store');
 
 /**
  * Expose `Plan`
@@ -16,25 +17,28 @@ var session = require('session');
 
 var Plan = module.exports = model('Plan')
   .use(defaults({
-    from: '1111 Army Navy Drive, Arlington, VA 22202',
-    to: '1133 15th St NW, Washington, DC 20005',
-    from_ll: {},
-    to_ll: {},
-    start: 7,
-    end: 9,
-    ampm: 'am',
-    bike: true,
-    bus: true,
-    train: true,
-    car: true,
-    walk: true,
+    from: '',
+    to: '',
+    original_modes: null,
+    from_ll: null,
+    to_ll: null,
+    start_time: 7,
+    end_time: 9,
+    am_pm: 'am',
+    bike: false,
+    bus: false,
+    train: false,
+    car: false,
+    walk: false,
     days: 'M—F',
-    routes: []
+    routes: [],
+    patterns: null,
+    commuter: null
   }))
-  .use(updateRoutesOnLLChange)
-  .attr('start')
-  .attr('end')
-  .attr('ampm')
+  .attr('original_modes')
+  .attr('start_time')
+  .attr('end_time')
+  .attr('am_pm')
   .attr('bike')
   .attr('bus')
   .attr('train')
@@ -45,27 +49,77 @@ var Plan = module.exports = model('Plan')
   .attr('from_ll')
   .attr('to_ll')
   .attr('days')
-  .attr('routes');
+  .attr('routes')
+  .attr('patterns');
 
 /**
- * Load
+ * Sync plans with localStorage
+ */
+
+Plan.on('change', function(plan) {
+  var json = plan.toJSON();
+
+  // remove routes & patterns
+  delete json.routes;
+  delete json.patterns;
+
+  // save in local storage
+  store('plan', json);
+
+  // if we've created a commuter object, save to the commuter
+  var commuter = session.commuter();
+  if (commuter) {
+    commuter.opts(json);
+    commuter.save();
+  }
+});
+
+/**
+ * If the filters change, update the viz
+ */
+
+['am_pm', 'start_time', 'end_time', 'from_ll', 'to_ll'].forEach(function(attr) {
+  Plan.on('change ' + attr, function(plan) {
+    plan.updateRoutes();
+  });
+});
+
+/**
+ * Once the routes have changed, get the patterns
+ */
+
+Plan.on('change routes', function(plan, routes) {
+  otp.patterns({
+    options: routes
+  }, function(patterns) {
+    plan.patterns(patterns);
+  });
+});
+
+/**
+ * Load plan middleware
  */
 
 Plan.load = function(ctx, next) {
+  // check if we have a stored plan
+  var opts = store('plan');
   if (session.isLoggedIn() && session.user().type === 'commuter') {
     var commuter = session.commuter();
 
-    var opts = commuter.opts();
-    opts.from = commuter.location();
+    // if the stored plan is not the logged in commuters, change
+    if (opts.commuter !== commuter._id()) {
+      opts = commuter.opts();
+      var org = commuter._organization();
 
-    var org = commuter._organization();
-    opts.to = org.address + ', ' + org.city + ', ' + org.state + ' ' + org.zip;
+      opts.from = commuter.fullAddress();
+      opts.from_ll = commuter.coordinate();
 
-    ctx.plan = new Plan(opts);
-  } else {
-    ctx.plan = new Plan();
+      opts.to = org.address + ', ' + org.city + ', ' + org.state + ' ' + org.zip;
+      opts.to_ll = org.coordinate();
+    }
   }
 
+  ctx.plan = new Plan(opts);
   next();
 };
 
@@ -73,16 +127,30 @@ Plan.load = function(ctx, next) {
  * Update routes
  */
 
-Plan.prototype.updateRoutes = function(val, prev) {
+Plan.prototype.updateRoutes = function() {
   debug('updating routes on ll change');
 
   var model = this;
   var from = model.from_ll();
   var to = model.to_ll();
+  var startTime = model.start_time();
+  var endTime = model.end_time();
+
+  if (model.am_pm() === 'pm') {
+    startTime += 12;
+    endTime += 12;
+
+    if (endTime === 24) endTime = 0;
+  }
 
   if (from && to && from.lat && from.lng && to.lat && to.lng) {
     debug('updating routes from', from, 'to', to);
-    otp.profile(from, to, function(err, data) {
+    otp.profile({
+      from: [from.lat, from.lng],
+      to: [to.lat, to.lng],
+      startTime: startTime + ':00',
+      endTime: endTime + ':00'
+    }, function(err, data) {
       if (err) {
         model.emit('error', err);
       } else {
@@ -104,7 +172,7 @@ Plan.prototype.geocode = function(dest, callback) {
   var plan = this;
   var address = plan[dest]();
   var ll = plan[dest + '_ll']();
-  if (address && address.length > 0 && ll && (!ll.lat || !ll.lng)) {
+  if (address && address.length > 0) {
     geocode(address, function(err, ll) {
       if (err) {
         callback(err);
@@ -117,14 +185,3 @@ Plan.prototype.geocode = function(dest, callback) {
     callback(null, ll);
   }
 };
-
-/**
- * Update Routes on From/to change
- */
-
-function updateRoutesOnLLChange(Plan) {
-  Plan.on('construct', function(plan) {
-    plan.on('change from_ll', plan.updateRoutes);
-    plan.on('change to_ll', plan.updateRoutes);
-  });
-}

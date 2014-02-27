@@ -20,6 +20,12 @@ var view = null;
  */
 
 module.exports.render = function(ctx, next) {
+  if (ctx.redirect) {
+    debug('redirecting from %s to %s', ctx.path, ctx.redirect);
+    return page(ctx.redirect);
+  }
+
+  // if no redirect, render the view
   debug('render %s %s', ctx.path, ctx.view);
 
   // remove old view

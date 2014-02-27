@@ -1,21 +1,23 @@
 {
-  "name": "organizations-page",
+  "name": "welcome-page",
   "dependencies": {
     "visionmedia/debug": "*",
     "visionmedia/page.js": "*"
   },
   "local": [
     "config",
-    "map",
-    "organization",
+    "geocode",
+    "spinner",
+    "svg-icons",
     "view"
   ],
   "scripts": [
-    "index.js",
-    "row.js"
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
   ],
   "templates": [
-    "row.html",
     "template.html"
   ]
 }

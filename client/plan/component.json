@@ -3,7 +3,8 @@
   "dependencies": {
     "component/model": "*",
     "segmentio/model-defaults": "*",
-    "visionmedia/debug": "*"
+    "visionmedia/debug": "*",
+    "yields/store": "*"
   },
   "local": [
     "config",

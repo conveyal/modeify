@@ -1,0 +1,6 @@
+{
+  "name": "model-geo",
+  "scripts": [
+    "index.js"
+  ]
+}

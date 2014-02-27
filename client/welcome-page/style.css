@@ -1,0 +1,32 @@
+
+.welcome-page {
+  text-align: center;
+}
+
+.answers {
+  padding: 50px 0;
+}
+
+.answer {
+  display: inline-block;
+  padding-bottom: 57px;
+  cursor: pointer;
+}
+
+.answer.active {
+  padding-bottom: 0;
+}
+
+.answer .svg-icon {
+  padding: 20px 30px;
+}
+
+.answer .fa {
+  font-size: 20px;
+  display: none;
+  margin-top: 35px;
+}
+
+.answer.active .fa {
+  display: inline-block;
+}

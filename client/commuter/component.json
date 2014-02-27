@@ -10,6 +10,7 @@
   "local": [
     "config",
     "map",
+    "model-geo",
     "request"
   ],
   "scripts": [

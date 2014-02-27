@@ -1,11 +1,11 @@
 {
   "name": "404-page",
   "dependencies": {
-    "segmentio/view": "*",
     "visionmedia/debug": "*"
   },
   "local": [
-    "config"
+    "config",
+    "view"
   ],
   "scripts": [
     "index.js"

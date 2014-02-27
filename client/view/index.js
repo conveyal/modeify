@@ -9,6 +9,7 @@ var view = require('view');
  * Set up reactive plugins
  */
 
+reactive.use(require('./active'));
 reactive.use(require('./dropdown'));
 reactive.use(require('./each'));
 reactive.use(require('reactive-child'));

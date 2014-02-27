@@ -18,8 +18,10 @@
     "http-proxy": "^1.0.2"
   },
   "devDependencies": {
+    "aws-sdk": "^2.0.0-rc9",
     "component": "~0.19.5",
     "component-builder": "~0.10.1",
+    "mime": "^1.2.11",
     "mkdirp": "~0.3.5",
     "mocha": "~1.17.1",
     "myth": "~0.3.0",
@@ -29,12 +31,11 @@
     "should": "~3.1.0",
     "sqwish": "^0.2.2",
     "supertest": "~0.9.0",
-    "uglify-js": "^2.4.12",
-    "aws-sdk": "^2.0.0-rc9",
-    "mime": "^1.2.11"
+    "uglify-js": "^2.4.12"
   },
   "scripts": {
     "postinstall": "make postinstall",
+    "pretest": "npm ls --depth=Infinity > /dev/null",
     "test": "make test",
     "start": "source .env && make serve"
   }

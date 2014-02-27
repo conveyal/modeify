@@ -17,15 +17,11 @@ var Commuter = module.exports = model('Commuter')
   .use(defaults({
     _user: {},
     name: '',
-    coordinate: {},
     link: '',
-    address: '',
-    city: '',
-    state: '',
-    zip: '',
     labels: [],
     opts: {}
   }))
+  .use(require('model-geo'))
   .use(require('model-query'))
   .use(require('model-memoize'))
   .route(config.api_url() + '/commuters')
@@ -33,19 +29,8 @@ var Commuter = module.exports = model('Commuter')
   .attr('_organization')
   .attr('_user')
   .attr('name')
-  .attr('coordinate')
-  .attr('address')
-  .attr('city')
-  .attr('state')
-  .attr('zip')
   .attr('link')
   .attr('labels')
-  .attr('created', {
-    type: 'date'
-  })
-  .attr('updated', {
-    type: 'date'
-  })
   .attr('opts');
 
 /**
@@ -86,37 +71,20 @@ Commuter.loadOrg = function(ctx, next) {
 };
 
 /**
- * Address
- */
-
-Commuter.prototype.location = function() {
-  return this.city() + ', ' + this.state() + ' ' + this.zip();
-};
-
-/**
  * Return map marker opts
  */
 
 Commuter.prototype.mapMarker = function() {
-  var c = this.coordinate();
-  var coordinate = [obscure(c.lng), obscure(c.lat)];
+  var c = this.fuzzyCoordinate();
 
   return map.createMarker({
     title: 'Approx. location of ' + this._user().email,
     description: '<a href=\"/manage/organizations/' + this._organization() +
       '/commuters/' +
-      this._id() + '/show\">' + this.location() + '</a>',
+      this._id() + '/show\">' + this.fuzzyAddress() + '</a>',
     color: '#5cb85c',
-    coordinate: coordinate,
+    coordinate: [c.lng, c.lat],
     icon: 'building',
     size: 'small'
   });
 };
-
-/**
- * Obscure a ll by a bit
- */
-
-function obscure(l) {
-  return parseInt(l * 1000) / 1000;
-}

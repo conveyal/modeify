@@ -1,8 +1,8 @@
 {
   "name": "alert",
-  "dependencies": {
-    "segmentio/view": "*"
-  },
+  "local": [
+    "view"
+  ],
   "scripts": [
     "index.js"
   ],

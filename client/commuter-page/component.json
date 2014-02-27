@@ -1,7 +1,6 @@
 {
   "name": "commuter-page",
   "dependencies": {
-    "segmentio/view": "*",
     "visionmedia/debug": "*",
     "visionmedia/page.js": "*"
   },
@@ -10,7 +9,8 @@
     "commuter",
     "config",
     "map",
-    "request"
+    "request",
+    "view"
   ],
   "scripts": [
     "index.js"

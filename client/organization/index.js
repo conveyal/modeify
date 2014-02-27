@@ -17,13 +17,9 @@ var Organization = module.exports = model('Organization')
     name: '',
     contact: '',
     email: '',
-    coordinate: {},
-    address: '',
-    city: '',
-    state: '',
-    zip: '',
     labels: []
   }))
+  .use(require('model-geo'))
   .use(require('model-memoize'))
   .use(require('model-query'))
   .route(config.api_url() + '/organizations')
@@ -31,18 +27,7 @@ var Organization = module.exports = model('Organization')
   .attr('name')
   .attr('contact')
   .attr('email')
-  .attr('coordinate')
-  .attr('address')
-  .attr('city')
-  .attr('state')
-  .attr('zip')
-  .attr('labels')
-  .attr('created', {
-    type: 'date'
-  })
-  .attr('updated', {
-    type: 'date'
-  });
+  .attr('labels');
 
 /**
  * Load middleware
@@ -62,15 +47,6 @@ Organization.load = function(ctx, next) {
 };
 
 /**
- * Location
- */
-
-Organization.prototype.location = function() {
-  return this.address() + ', ' + this.city() + ', ' + this.state() + ' ' + this
-    .zip();
-};
-
-/**
  * Return map marker opts
  */
 
@@ -80,7 +56,7 @@ Organization.prototype.mapMarker = function() {
     title: '<a href="/manager/organizations/' + this._id() + '/show">' + this
       .name() +
       '</a>',
-    description: this.location(),
+    description: this.fullAddress(),
     color: '#428bca',
     coordinate: [c.lng, c.lat],
     icon: 'commercial'

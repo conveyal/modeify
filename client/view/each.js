@@ -5,10 +5,8 @@
 module.exports = function(reactive) {
   reactive.bind('data-each', function(el, attr) {
     var container = this.el;
-    this.change(function() {
+    this.change(function(items) {
       container.innerHTML = '';
-
-      var items = this.value(attr);
       if (!items || items.forEach === undefined || items.length === 0)
         return;
 

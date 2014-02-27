@@ -31,16 +31,8 @@ View.on('construct', function(view) {
     });
   });
 
-  view.displayAMPM(view.model.ampm());
+  view.displayAMPM(view.model.am_pm());
   view.model.on('change ampm', view.displayAMPM.bind(view));
-
-  view.reactive.bind('data-mode', function(el, name) {
-    this.change(function() {
-      var val = this.value(name);
-      if (val) el.classList.add('active');
-      else el.classList.remove('active');
-    });
-  });
 
   view.on('rendered', function() {
     view.reactive.bind('data-style-left', function(el, name) {
@@ -70,11 +62,11 @@ View.prototype.setDays = function(e) {
 
 View.prototype.setMode = function(e) {
   var el = e.target;
-  var mode = el.dataset.mode;
+  var mode = el.dataset.active;
 
   if (!mode) {
     el = el.parentNode;
-    mode = el.dataset.mode;
+    mode = el.dataset.active;
   }
 
   this.model[mode](!el.classList.contains('active'));
@@ -88,7 +80,7 @@ View.prototype.setMode = function(e) {
 View.prototype.setAMPM = function(e) {
   var ampm = e.target.classList.contains('am') ? 'am' : 'pm';
 
-  this.model.ampm(ampm);
+  this.model.am_pm(ampm);
   document.activeElement.blur();
 };
 
@@ -114,8 +106,8 @@ View.prototype.displayAMPM = function(ampm) {
 
 View.prototype.saveTime = function() {
   this.model.set({
-    start: elToTime(this.find('.handle.start')),
-    end: elToTime(this.find('.handle.end'))
+    start_time: elToTime(this.find('.handle.start-time')),
+    end_time: elToTime(this.find('.handle.end-time'))
   });
 };
 
@@ -132,8 +124,8 @@ View.prototype.setTime = function(el, time) {
  * Update Start
  */
 
-View.prototype.setStartPosition = function(el) {
-  var endEl = this.find('.handle.end');
+View.prototype.setStartTimePosition = function(el) {
+  var endEl = this.find('.handle.end-time');
   var time = elToTime(el);
 
   if (time >= elToTime(endEl)) {
@@ -149,7 +141,7 @@ View.prototype.setStartPosition = function(el) {
  */
 
 View.prototype.setEndPosition = function(el) {
-  var startEl = this.find('.handle.start');
+  var startEl = this.find('.handle.start-time');
   var time = elToTime(el);
 
   if (time <= elToTime(startEl)) {
@@ -166,8 +158,8 @@ View.prototype.setEndPosition = function(el) {
 
 View.prototype.setRange = function() {
   var range = this.find('.progress-bar.range');
-  var left = this.find('.handle.start').offsetLeft;
-  var right = this.find('.handle.end').offsetLeft;
+  var left = this.find('.handle.start-time').offsetLeft;
+  var right = this.find('.handle.end-time').offsetLeft;
 
   range.style.left = left + 'px';
   range.style.width = (right - left) + 'px';

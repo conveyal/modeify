@@ -20,24 +20,29 @@ var View = view(require('./template.html'));
  */
 
 module.exports = function(ctx, next) {
-  var views = {
-    'filter-view': new FilterView(ctx.plan),
-    'locations-view': new LocationsView(ctx.plan),
-    'options-view': new OptionsView(ctx.plan),
-    'transitive-view': new TransitiveView(ctx.plan)
-  };
+  var plan = ctx.plan;
 
-  ctx.view = new View(views);
+  // redirect if plan isn't filled out
+  if (plan.original_modes() === null || plan.from() === null || plan.to() ===
+    null) {
+    ctx.redirect = '/';
+  } else {
+    var views = {
+      'filter-view': new FilterView(plan),
+      'locations-view': new LocationsView(plan),
+      'options-view': new OptionsView(plan),
+      'transitive-view': new TransitiveView(plan)
+    };
 
-  ctx.view.on('rendered', function() {
-    each(views, function(key, view) {
-      view.emit('rendered', view);
+    ctx.view = new View(views);
+    ctx.view.on('rendered', function() {
+      each(views, function(key, view) {
+        view.emit('rendered', view);
+      });
+
+      plan.updateRoutes();
     });
-
-    ctx.plan.geocode('from', function(err, ll) {
-      ctx.plan.geocode('to');
-    });
-  });
+  }
 
   next();
 };

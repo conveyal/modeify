@@ -3,6 +3,7 @@
   "dependencies": {
     "component/array-series": "*",
     "component/querystring": "*",
+    "conveyal/otpprofiler.js": "*",
     "learnboost/jsonp": "*",
     "visionmedia/debug": "*"
   },

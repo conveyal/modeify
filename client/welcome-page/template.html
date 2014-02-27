@@ -1,0 +1,54 @@
+<div class="row welcome-page">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div data-hidden="original_modes">
+      <h3>How do you get to work?</h3>
+      <p>Select all that apply</p>
+      <div class="answers row">
+        <div class="answer col-lg-2 col-md-2 col-sm-2" data-active="bike" on-click="setMode" title="Bike">
+          <span class="svg-icon svg-icon-bike"></span><br>
+          <span class="fa fa-check-circle"></span>
+        </div>
+        <div class="answer col-lg-2 col-md-2 col-sm-2" data-active="bus" on-click="setMode">
+          <span class="svg-icon svg-icon-bus"></span><br>
+          <span class="fa fa-check-circle"></span>
+        </div>
+        <div class="answer col-lg-2 col-md-2 col-sm-2" data-active="train" on-click="setMode">
+          <span class="svg-icon svg-icon-train"></span><br>
+          <span class="fa fa-check-circle"></span>
+        </div>
+        <div class="answer col-lg-2 col-md-2 col-sm-2" data-active="car" on-click="setMode">
+          <span class="svg-icon svg-icon-car"></span><br>
+          <span class="fa fa-check-circle"></span>
+        </div>
+        <div class="answer col-lg-2 col-md-2 col-sm-2" data-active="walk" on-click="setMode">
+          <span class="svg-icon svg-icon-walk"></span><br>
+          <span class="fa fa-check-circle"></span>
+        </div>
+      </div>
+    </div>
+    <div data-visible="original_modes">
+      <div data-hidden="from_ll">
+        <h3>What is your home address?</h3>
+        <div class="answers row">
+          <div class="col-lg-6 col-lg-offset-3 input-group">
+            <span class="input-group-addon"><span class="svg-icon svg-icon-house"></span></span>
+            <input type="text" placeholder="Home" class="form-control input-lg" name="from" data-value="from">
+          </div>
+        </div>
+      </div>
+      <div data-visible="from_ll">
+        <div data-hidden="to_ll">
+          <h3>What is your work address?</h3>
+          <div class="answers row">
+            <div class="col-lg-6 col-lg-offset-3 input-group">
+              <span class="input-group-addon"><span class="svg-icon svg-icon-office"></span></span>
+              <input type="text" placeholder="Office" class="form-control input-lg" name="to" data-value="to">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-default btn-lg" on-click="back" data-visible="original_modes"><span class="fa fa-chevron-left"></span> Back</button>
+    <button class="btn btn-primary btn-lg" on-click="save">Next <span class="fa fa-chevron-right"></span></button>
+  </div>
+</div>

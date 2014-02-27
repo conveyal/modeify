@@ -92,5 +92,5 @@ View.prototype.sendPlan = function(e) {
  */
 
 View.prototype.toLocation = function() {
-  return this.options.organization.location();
+  return this.options.organization.fullAddress();
 };

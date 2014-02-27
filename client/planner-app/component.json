@@ -9,7 +9,8 @@
     "planner-nav",
     "planner-page",
     "router-utils",
-    "session"
+    "session",
+    "welcome-page"
   ],
   "scripts": [
     "index.js"

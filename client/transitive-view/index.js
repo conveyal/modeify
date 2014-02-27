@@ -12,11 +12,15 @@ var view = require('view');
  * Expose `View`
  */
 
-var View = module.exports = view(require('./template.html'), function(view, model) {
-  var routes = model.routes();
-  if (routes && routes.length > 0) view.display(routes);
-  model.on('change routes', function(routes) {
-    view.display(routes);
+var View = module.exports = view(require('./template.html'), function(view,
+  model) {
+  view.transitive = new Transitive(view.find('.map'), null, require('./style'), {
+    gridCellSize: 800
+  });
+  var patterns = model.patterns();
+  if (patterns && patterns.stops.length > 0) view.display(patterns);
+  model.on('change patterns', function(patterns) {
+    view.display(patterns);
   });
 });
 
@@ -24,17 +28,8 @@ var View = module.exports = view(require('./template.html'), function(view, mode
  * Display
  */
 
-View.prototype.display = function(routes) {
+View.prototype.display = function(patterns) {
   debug('displaying...');
-  var el = this.find('.map');
-  var response = new profiler.models.OtpProfileResponse({
-    options: routes.slice(0, 3)
-  });
-  new profiler.transitive.TransitiveLoader(response, config.otp_url() + '/', function(data) {
-    debug('profiled and loaded');
-    var transitive = new Transitive(el, data, {}, {
-      gridCellSize: 800
-    });
-    transitive.render();
-  });
+  this.transitive.data = patterns;
+  this.transitive.render();
 };
