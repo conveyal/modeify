@@ -78,11 +78,12 @@ Plan.on('change', function(plan) {
  * If the filters change, update the viz
  */
 
-['am_pm', 'days', 'start_time', 'end_time', 'from_ll', 'to_ll'].forEach(function(attr) {
-  Plan.on('change ' + attr, function(plan) {
-    plan.updateRoutes();
+['am_pm', 'days', 'start_time', 'end_time', 'from_ll', 'to_ll'].forEach(
+  function(attr) {
+    Plan.on('change ' + attr, function(plan) {
+      plan.updateRoutes();
+    });
   });
-});
 
 /**
  * Once the routes have changed, get the patterns

@@ -139,8 +139,7 @@ app.get('/:id', auth.isLoggedIn, get, function(req, res) {
 
 app.put('/:id', auth.isLoggedIn, get, function(req, res) {
   for (var key in req.body) {
-    if (key === '_user'
-      || key === '_organization') continue;
+    if (key === '_user' || key === '_organization') continue;
     req.commuter[key] = req.body[key];
   }
 
