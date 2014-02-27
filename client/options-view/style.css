@@ -14,6 +14,7 @@
   margin-right: 0;
   color: #333;
   text-align: center;
+  vertical-align:middle;
 }
 
 .route:last-of-type {
@@ -24,10 +25,13 @@
   border-right: 1px solid #ccc;
   font-variant: small-caps;
   line-height: 0.8em;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  font-weight:bold;
+  color:#333;
+  padding-top: 14px;
+  padding-bottom: 14px;
 }
 
 .summary {
   line-height: 43px;
+  color: #333;
 }
