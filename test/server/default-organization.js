@@ -10,7 +10,10 @@ var Org = require('../../server/organization/model');
 
 var info = module.exports.info = {
   name: 'Organizationally',
-  address: '1600 Pennsylvania Ave, Washington, DC'
+  address: '1600 Pennsylvania Ave',
+  city: 'Washington',
+  state: 'DC',
+  zip: 20005
 };
 
 /**
@@ -21,7 +24,11 @@ module.exports.create = function(done) {
   if (module.exports.info._id) return done();
 
   Org.findOrCreate(info, function(err, org) {
-    module.exports.info = org;
-    done();
+    if (err) {
+      done(err);
+    } else {
+      module.exports.info = org;
+      done(null, org);
+    }
   });
 };
