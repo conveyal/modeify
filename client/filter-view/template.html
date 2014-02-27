@@ -1,5 +1,5 @@
 <div class="filter-view row">
-  <div class="col-lg-2 col-md-2 col-sm-2">
+  <div class="col-lg-1 col-md-1 col-sm-1">
     <div class="btn-group">
       <button type="button" class="btn btn-default dropdown-toggle" dropdown><span class="fa fa-calendar"></span> <span data-text="days">M—F</span> <span class="caret"></span></button>
       <ul class="dropdown-menu" role="menu">
@@ -9,14 +9,14 @@
       </ul>
     </div>
   </div>
-  <div class="col-lg-3 col-md-3 col-sm-3 progress-container">
+  <div class="col-lg-4 col-md-4 col-sm-4 progress-container">
     <div class="progress">
       <div class="progress-bar handle start-time" on-drag="setStartTimePosition" data-style-left="start_time"></div>
       <div class="progress-bar range"></div>
       <div class="progress-bar handle end-time" on-drag="setEndTimePosition" data-style-left="end_time"></div>
     </div>
   </div>
-  <div class="col-lg-3 col-md-3 col-sm-3">
+  <div class="col-lg-2 col-md-2 col-sm-2">
     <div class="btn-group">
       <button type="button" class="btn btn-default am" on-click="setAMPM">AM</button>
       <button type="button" class="btn btn-default pm" on-click="setAMPM">PM</button>
@@ -30,5 +30,10 @@
       <button type="button" class="btn btn-default" data-active="car" on-click="setMode"><span class="svg-icon svg-icon-car"></span></button>
       <button type="button" class="btn btn-default" data-active="walk" on-click="setMode"><span class="svg-icon svg-icon-walk"></span></button>
     </div>
+  </div>
+  <div class="col-lg-1 col-md-1 col-sm-1 go-button">
+    <div class="go-button">
+<button type="button" class="btn btn-primary"><span class="fa fa-search"></span></button>    
+</div>
   </div>
 </div>
