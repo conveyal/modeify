@@ -14,9 +14,6 @@ var view = require('view');
 
 var View = module.exports = view(require('./template.html'), function(view,
   model) {
-  view.transitive = new Transitive(view.find('.map'), null, require('./style'), {
-    gridCellSize: 800
-  });
   var patterns = model.patterns();
   if (patterns && patterns.stops.length > 0) view.display(patterns);
   model.on('change patterns', function(patterns) {
@@ -30,6 +27,10 @@ var View = module.exports = view(require('./template.html'), function(view,
 
 View.prototype.display = function(patterns) {
   debug('displaying...');
-  this.transitive.data = patterns;
-  this.transitive.render();
+  var map = this.find('.map');
+  map.innerHTML = '';
+  var transitive = new Transitive(this.find('.map'), patterns, require('./style'), {
+    gridCellSize: 800
+  });
+  transitive.render();
 };

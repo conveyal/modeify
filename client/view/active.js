@@ -14,8 +14,6 @@ module.exports = function(reactive) {
     var view = this.reactive.view;
 
     evnt.bind(el, 'click', function(e) {
-      if (!view && !view.setActive) throw new Error('method .setActive is missing.');
-
       var el = e.target;
       var val = el.dataset.active;
 
@@ -25,7 +23,13 @@ module.exports = function(reactive) {
       }
 
       // toggle the value
-      view.model[val](!el.classList.contains('active'));
+      var newVal = !el.classList.contains('active');
+      if (view[val]) {
+        view[val](newVal);
+      } else {
+        view.model[val](newVal);
+      }
+
       document.activeElement.blur();
     });
 

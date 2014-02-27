@@ -3,9 +3,11 @@
   "dependencies": {
     "component/emitter": "*",
     "component/event": "*",
-    "mbostock/d3": "*"
+    "mbostock/d3": "*",
+    "visionmedia/debug": "*"
   },
   "local": [
+    "config",
     "svg-icons",
     "view"
   ],

@@ -9,7 +9,7 @@ var view = require('view');
  * Expose `View`
  */
 
-var View = module.exports = view(require('./route.html'));
+var View = module.exports = view(require('./template.html'));
 
 /**
  * Average Time

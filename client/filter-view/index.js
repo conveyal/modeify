@@ -2,7 +2,9 @@
  * Dependencies
  */
 
+var config = require('config');
 var d3 = require('d3');
+var debug = require('debug')(config.name() + ':filter-view');
 var draggable = require('./drag');
 var view = require('view');
 
@@ -25,9 +27,8 @@ View.on('construct', function(view) {
       view.setRange();
     });
 
-    drag.on('dragend', function() {
+    drag.on('dragstop', function() {
       view.saveTime();
-      drag.emit('remove');
     });
   });
 
@@ -88,10 +89,16 @@ View.prototype.displayAMPM = function(ampm) {
  */
 
 View.prototype.saveTime = function() {
+  var start = elToTime(this.find('.handle.start-time'));
+  var end = elToTime(this.find('.handle.end-time'));
+
+  debug('updating time from %s:00 to %s:00', start, end);
   this.model.set({
-    start_time: elToTime(this.find('.handle.start-time')),
-    end_time: elToTime(this.find('.handle.end-time'))
+    start_time: start,
+    end_time: end
   });
+
+  this.setRange();
 };
 
 /**

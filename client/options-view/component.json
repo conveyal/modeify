@@ -5,14 +5,18 @@
     "view"
   ],
   "scripts": [
+    "detailed/index.js",
     "index.js",
-    "route.js"
+    "simple/index.js"
   ],
   "styles": [
+    "detailed/style.css",
+    "simple/style.css",
     "style.css"
   ],
   "templates": [
-    "route.html",
+    "detailed/template.html",
+    "simple/template.html",
     "template.html"
   ]
 }

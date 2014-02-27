@@ -56,7 +56,9 @@ var Plan = module.exports = model('Plan')
  * Sync plans with localStorage
  */
 
-Plan.on('change', function(plan) {
+Plan.on('change', function(plan, name) {
+  debug('plan.%s changed', name);
+
   var json = plan.toJSON();
 
   // remove routes & patterns
@@ -78,9 +80,9 @@ Plan.on('change', function(plan) {
  * If the filters change, update the viz
  */
 
-['am_pm', 'days', 'start_time', 'end_time', 'from_ll', 'to_ll'].forEach(
+['am_pm', 'bike', 'bus', 'train', 'car', 'walk', 'days', 'start_time', 'end_time', 'from_ll', 'to_ll'].forEach(
   function(attr) {
-    Plan.on('change ' + attr, function(plan) {
+    Plan.on('change ' + attr, function(plan, val, prev) {
       plan.updateRoutes();
     });
   });
@@ -144,6 +146,7 @@ Plan.prototype.updateRoutes = function() {
   var to = model.to_ll();
   var startTime = model.start_time();
   var endTime = model.end_time();
+  var date = nextDate(model.days());
 
   if (model.am_pm() === 'pm') {
     startTime += 12;
@@ -153,12 +156,13 @@ Plan.prototype.updateRoutes = function() {
   }
 
   if (from && to && from.lat && from.lng && to.lat && to.lng) {
-    debug('updating routes from', from, 'to', to);
+    debug('updating routes from %s to %s on %s between %s and %s %s', from, to, date, startTime, endTime, model.am_pm());
     otp.profile({
       from: [from.lat, from.lng],
       to: [to.lat, to.lng],
       startTime: startTime + ':00',
-      endTime: endTime + ':00'
+      endTime: endTime + ':00',
+      date: date
     }, function(err, data) {
       if (err) {
         model.emit('error', err);
@@ -194,3 +198,27 @@ Plan.prototype.geocode = function(dest, callback) {
     callback(null, ll);
   }
 };
+
+/**
+ * Get next date for day of the week
+ */
+
+function nextDate(days) {
+  var now = new Date();
+  var date = now.getDate();
+  var day = now.getDay();
+  switch (days) {
+    case 'M—F':
+      if (day === '0') now.setDate(date + 1);
+      if (day === '6') now.setDate(date + 2);
+      break;
+    case 'Sat':
+      now.setDate(date + (6 - day));
+      break;
+    case 'Sun':
+      now.setDate(date + (7 - day));
+      break;
+  }
+  return now.toISOString().split('T')[0];
+}
+
