@@ -13,11 +13,9 @@ var session = require('session');
  * Set up routes
  */
 
-page('*', session.commuterIsLoggedIn, Plan.load);
-
-page('/', require('welcome-page'));
-page('/planner', require('planner-page'));
-page('/planner/:link', session.loginWithLink, utils.redirect('/planner'));
+page('/', session.commuterIsLoggedIn, Plan.load, require('welcome-page'));
+page('/planner', session.commuterIsLoggedIn, Plan.load, require('planner-page'));
+page('/planner/:link', session.loginWithLink);
 
 /**
  * Render all

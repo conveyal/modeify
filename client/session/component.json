@@ -11,6 +11,7 @@
     "analytics",
     "commuter",
     "config",
+    "organization",
     "request",
     "user"
   ],

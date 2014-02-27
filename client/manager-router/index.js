@@ -29,7 +29,7 @@ p('/', session.checkIfLoggedIn, utils.redirect('/organizations'));
  */
 
 p('/login', require('login-page'));
-p('/logout', session.logout);
+p('/logout', session.logoutMiddleware);
 p('/forgot-password', require('forgot-password-page'));
 p('/change-password/:key', require('change-password-page'));
 

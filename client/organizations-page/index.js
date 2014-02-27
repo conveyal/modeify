@@ -27,14 +27,20 @@ module.exports = function(ctx, next) {
     if (err || !res.ok) {
       window.alert(res.text || 'Failed to load organizations.');
     } else {
+      debug('showing %s org(s)', orgs.length());
       ctx.view = new View({
-        organizations: orgs,
-        'organizations-view': function() {
-          return Row;
-        }
+        organizations: orgs
       });
 
       next();
     }
   });
+};
+
+/**
+ * Orgs view
+ */
+
+View.prototype['organizations-view'] = function() {
+  return Row;
 };

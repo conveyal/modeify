@@ -8,6 +8,7 @@
     "alerts",
     "config",
     "request",
+    "session",
     "view"
   ],
   "scripts": [

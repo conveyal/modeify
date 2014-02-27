@@ -7,6 +7,7 @@ var config = require('config');
 var debug = require('debug')(config.name() + ':login-page');
 var page = require('page');
 var request = require('request');
+var session = require('session');
 var template = require('./template.html');
 var view = require('view');
 
@@ -35,6 +36,7 @@ View.prototype.login = function(e) {
         type: 'success',
         text: 'Welcome back!'
       });
+      session.login(res.body);
       page('/manager/organizations');
     } else {
       window.alert(err || res.text || 'Failed to login.');
@@ -48,6 +50,5 @@ View.prototype.login = function(e) {
 
 module.exports = function(ctx, next) {
   ctx.view = new View();
-
   next();
 };

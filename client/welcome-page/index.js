@@ -27,6 +27,7 @@ module.exports = function(ctx, next) {
     null) {
     ctx.redirect = '/planner';
   } else {
+    debug('creating welcome page view with plan', plan.toJSON());
     ctx.view = new View(plan);
   }
 
@@ -69,7 +70,12 @@ View.prototype.save = function() {
       window.alert('Please select at least one option.');
     } else {
       plan.original_modes(modes);
+
+      if (plan.from_ll() && plan.to_ll()) {
+        page('/planner');
+      }
     }
+
     spinner.remove();
   } else if (!plan.from_ll()) {
     this.geocode(fromEl, function(err, ll) {
@@ -78,6 +84,10 @@ View.prototype.save = function() {
       } else {
         plan.from(fromEl.value);
         plan.from_ll(ll);
+
+        if (plan.to_ll()) {
+          page('/planner');
+        }
       }
       spinner.remove();
     });

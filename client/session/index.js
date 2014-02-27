@@ -8,6 +8,7 @@ var config = require('config');
 var debug = require('debug')(config.name() + ':session');
 var defaults = require('model-defaults');
 var model = require('model');
+var Organization = require('organization');
 var page = require('page');
 var request = require('request');
 var uid = require('uid');
@@ -32,6 +33,45 @@ var Session = model('Session')
   .attr('isManager');
 
 /**
+ * Logout
+ */
+
+Session.prototype.logout = function() {
+  session.isAdmin(false);
+  session.isLoggedIn(false);
+  session.isManager(false);
+  session.user(null);
+  session.commuter(null);
+};
+
+/**
+ * Login
+ */
+
+Session.prototype.login = function(data) {
+  var commuter = null;
+  var type = null;
+  var user = null;
+
+  // is the user a commuter?
+  if (data._user) {
+    commuter = new Commuter(data);
+    user = new User(data._user);
+    if (data._organization && data._organization._id) {
+      commuter._organization(new Organization(data._organization));
+    }
+  } else {
+    user = new User(data);
+  }
+
+  session.commuter(commuter);
+  session.user(user);
+  session.isAdmin(type === 'administrator');
+  session.isManager(type !== 'commuter');
+  session.isLoggedIn(true);
+};
+
+/**
  * Expose `session`
  */
 
@@ -47,42 +87,14 @@ session.on('change user', function(user, prev) {
 });
 
 /**
- * Login
- */
-
-module.exports.login = function(data, callback) {
-  request.post('/login', data, function(err, res) {
-    if (res.ok) {
-      var user = new User(res.body);
-
-      session.user(user);
-      session.isAdmin(user.type() === 'administrator');
-      session.isManager(user.type() !== 'commuter');
-      session.isLoggedIn(true);
-
-      callback(null, user);
-    } else {
-      callback(err);
-    }
-  });
-};
-
-/**
  * Log in with link middleware
  */
 
 module.exports.loginWithLink = function(ctx, next) {
+  ctx.redirect = '/';
   request.get('/login/' + ctx.params.link, function(err, res) {
     if (res.ok) {
-      var commuter = new Commuter(res.body);
-      var user = new User(res.body._user);
-
-      session.commuter(commuter);
-      session.user(user);
-      session.isAdmin(user.type() === 'administrator');
-      session.isManager(user.type() !== 'commuter');
-      session.isLoggedIn(true);
-
+      session.login(res.body);
       next();
     } else {
       next(err || new Error(res.text));
@@ -98,29 +110,14 @@ module.exports.commuterIsLoggedIn = function(ctx, next) {
   debug('check if commuter is logged in %s', ctx.path);
 
   if (session.commuter()) {
-    session.isLoggedIn(true);
-    session.isAdmin(session.user().type() === 'administrator');
-    session.isManager(session.user().type() !== 'commuter');
     next();
   } else {
     request.get('/commuter-is-logged-in', function(err, res) {
       if (err || !res.ok) {
-        session.isLoggedIn(false);
-        session.isAdmin(false);
-        session.isManager(false);
-        session.user(null);
-        session.commuter(null);
+        session.logout();
         next();
       } else {
-        var commuter = new Commuter(res.body);
-        var user = new User(res.body._user);
-
-        session.commuter(commuter);
-        session.user(user);
-        session.isAdmin(user.type() === 'administrator');
-        session.isManager(user.type() !== 'commuter');
-        session.isLoggedIn(true);
-
+        session.login(res.body);
         next();
       }
     });
@@ -131,14 +128,10 @@ module.exports.commuterIsLoggedIn = function(ctx, next) {
  * Log out
  */
 
-module.exports.logout = function(ctx) {
+module.exports.logoutMiddleware = function(ctx) {
   debug('logout %s', ctx.path);
 
-  session.isAdmin(false);
-  session.isLoggedIn(false);
-  session.isManager(false);
-  session.user(null);
-
+  session.logout();
   request.get('/logout', function(err, res) {
     document.cookie = null;
     page('/manager/login');
@@ -153,23 +146,14 @@ module.exports.checkIfLoggedIn = function(ctx, next) {
   debug('check if user is logged in %s', ctx.path);
 
   if (session.user()) {
-    session.isLoggedIn(true);
-    session.isAdmin(session.user().type() === 'administrator');
-    session.isManager(session.user().type() !== 'commuter');
     next();
   } else {
     request.get('/is-logged-in', function(err, res) {
       if (err || !res.ok) {
-        session.isLoggedIn(false);
-        session.isAdmin(false);
-        session.isManager(false);
-        session.user(null);
+        session.logout();
         page('/manager/login');
       } else {
-        session.user(new User(res.body));
-        session.isLoggedIn(true);
-        session.isAdmin(res.body.type === 'administrator');
-        session.isManager(res.body.type !== 'commuter');
+        session.login(res.body);
         next();
       }
     });

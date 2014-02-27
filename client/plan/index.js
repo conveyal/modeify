@@ -101,21 +101,29 @@ Plan.on('change routes', function(plan, routes) {
  */
 
 Plan.load = function(ctx, next) {
+  debug('loading plan at %s', ctx.path);
+
   // check if we have a stored plan
   var opts = store('plan');
-  if (session.isLoggedIn() && session.user().type === 'commuter') {
+  if (session.isLoggedIn() && session.commuter()) {
     var commuter = session.commuter();
+    debug('loading plan for logged in commuter %s', commuter._id());
 
     // if the stored plan is not the logged in commuters, change
     if (opts.commuter !== commuter._id()) {
+      debug('load plan from the commuter instead of localStorage');
+
       opts = commuter.opts();
       var org = commuter._organization();
 
       opts.from = commuter.fullAddress();
       opts.from_ll = commuter.coordinate();
 
-      opts.to = org.address + ', ' + org.city + ', ' + org.state + ' ' + org.zip;
-      opts.to_ll = org.coordinate();
+      // if there is an organization attached to this commuter
+      if (org && org.model) {
+        opts.to = org.fullAddress();
+        opts.to_ll = org.coordinate();
+      }
     }
   }
 

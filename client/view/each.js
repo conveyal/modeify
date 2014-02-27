@@ -7,6 +7,8 @@ module.exports = function(reactive) {
     var container = this.el;
     this.change(function(items) {
       container.innerHTML = '';
+
+      items = items || this.value(attr);
       if (!items || items.forEach === undefined || items.length === 0)
         return;
 
