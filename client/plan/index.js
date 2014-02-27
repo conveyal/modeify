@@ -80,7 +80,9 @@ Plan.on('change', function(plan, name) {
  * If the filters change, update the viz
  */
 
-['am_pm', 'bike', 'bus', 'train', 'car', 'walk', 'days', 'start_time', 'end_time', 'from_ll', 'to_ll'].forEach(
+['am_pm', 'bike', 'bus', 'train', 'car', 'walk', 'days', 'start_time',
+  'end_time', 'from_ll', 'to_ll'
+].forEach(
   function(attr) {
     Plan.on('change ' + attr, function(plan, val, prev) {
       plan.updateRoutes();
@@ -156,7 +158,8 @@ Plan.prototype.updateRoutes = function() {
   }
 
   if (from && to && from.lat && from.lng && to.lat && to.lng) {
-    debug('updating routes from %s to %s on %s between %s and %s %s', from, to, date, startTime, endTime, model.am_pm());
+    debug('updating routes from %s to %s on %s between %s and %s %s', from, to,
+      date, startTime, endTime, model.am_pm());
     otp.profile({
       from: [from.lat, from.lng],
       to: [to.lat, to.lng],
@@ -221,4 +224,3 @@ function nextDate(days) {
   }
   return now.toISOString().split('T')[0];
 }
-

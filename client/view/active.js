@@ -1,4 +1,3 @@
-
 /**
  * Bind event
  */

@@ -49,5 +49,3 @@ View.prototype.simple = function() {
 View.prototype.detailed = function() {
   this.setView('detailed-options', Detailed);
 };
-
-

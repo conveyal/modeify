@@ -29,7 +29,8 @@ View.prototype.display = function(patterns) {
   debug('displaying...');
   var map = this.find('.map');
   map.innerHTML = '';
-  var transitive = new Transitive(this.find('.map'), patterns, require('./style'), {
+  var transitive = new Transitive(this.find('.map'), patterns, require(
+    './style'), {
     gridCellSize: 800
   });
   transitive.render();
