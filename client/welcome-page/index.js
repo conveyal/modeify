@@ -35,23 +35,6 @@ module.exports = function(ctx, next) {
 };
 
 /**
- * Set Mode
- */
-
-View.prototype.setMode = function(e) {
-  var el = e.target;
-  var mode = el.dataset.active;
-
-  if (!mode) {
-    el = el.parentNode;
-    mode = el.dataset.active;
-  }
-
-  this.model[mode](!el.classList.contains('active'));
-  document.activeElement.blur();
-};
-
-/**
  * Save
  */
 

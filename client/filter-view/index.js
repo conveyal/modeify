@@ -57,23 +57,6 @@ View.prototype.setDays = function(e) {
 };
 
 /**
- * Set Active
- */
-
-View.prototype.setMode = function(e) {
-  var el = e.target;
-  var mode = el.dataset.active;
-
-  if (!mode) {
-    el = el.parentNode;
-    mode = el.dataset.active;
-  }
-
-  this.model[mode](!el.classList.contains('active'));
-  document.activeElement.blur();
-};
-
-/**
  * Set AMPM
  */
 
@@ -121,32 +104,24 @@ View.prototype.setTime = function(el, time) {
 };
 
 /**
- * Update Start
+ * Set time position
  */
 
-View.prototype.setStartTimePosition = function(el) {
-  var endEl = this.find('.handle.end-time');
+View.prototype.setTimePositions = function(el) {
   var time = elToTime(el);
 
-  if (time >= elToTime(endEl)) {
-    if (time === 12) return this.setTime(el, 11);
-    this.setTime(endEl, time + 1);
-  }
-
-  el.innerText = time;
-};
-
-/**
- * Update End
- */
-
-View.prototype.setEndPosition = function(el) {
-  var startEl = this.find('.handle.start-time');
-  var time = elToTime(el);
-
-  if (time <= elToTime(startEl)) {
-    if (time === 0) return this.setTime(el, 1);
-    this.setTime(startEl, time - 1);
+  if (el.classList.contains('start-time')) {
+    var endEl = this.find('.handle.end-time');
+    if (time >= elToTime(endEl)) {
+      if (time === 12) return this.setTime(el, 11);
+      this.setTime(endEl, time + 1);
+    }
+  } else {
+    var startEl = this.find('.handle.start-time');
+    if (time <= elToTime(startEl)) {
+      if (time === 0) return this.setTime(el, 1);
+      this.setTime(startEl, time - 1);
+    }
   }
 
   el.innerText = time;
