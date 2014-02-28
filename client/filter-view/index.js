@@ -49,6 +49,14 @@ View.on('construct', function(view) {
 });
 
 /**
+ * Reload
+ */
+
+View.prototype.update = function(e) {
+  this.model.updateRoutes();
+};
+
+/**
  * Set Day of the Week
  */
 

@@ -6,8 +6,11 @@
   margin-right: 0;
   margin-top: 5px;
   margin-bottom: 5px;
-  padding-top: 14px;
-  padding-bottom: 14px;
+}
+
+.filter-view > div {
+  margin-top: 14px;
+  margin-bottom: 14px;
 }
 
 .filter-view > div:first-child {
@@ -49,11 +52,22 @@
   cursor: pointer;
 }
 
-.btn-primary{
+.filter-view > div.go-button {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-right: 0;
+}
+
+.go-button .btn-primary{
 	padding-top: 5px;
 	padding-bottom: 5px;
 	padding-right: 30px;
 	padding-left: 30px;
+  height: 62px;
+  float: right;
+  border: none;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
 }
 
 
