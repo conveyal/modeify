@@ -16,7 +16,7 @@ var View = module.exports = view(require('./template.html'));
  */
 
 View.prototype.average = function() {
-  return Math.round(this.model.stats.min / 60);
+  return Math.round(this.model.stats.avg / 60);
 };
 
 /**

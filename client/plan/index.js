@@ -95,7 +95,7 @@ Plan.on('change', function(plan, name) {
 
 Plan.on('change routes', function(plan, routes) {
   otp.patterns({
-    options: routes
+    options: routes.slice(0, 3)
   }, function(patterns) {
     plan.patterns(patterns);
   });
