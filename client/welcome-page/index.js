@@ -65,8 +65,10 @@ View.prototype.save = function() {
       if (err) {
         window.alert('Please enter a valid address.');
       } else {
-        plan.from(fromEl.value);
-        plan.from_ll(ll);
+        plan.set({
+          from: fromEl.value,
+          from_ll: ll
+        });
         if (plan.welcome_complete()) page('/planner');
       }
       spinner.remove();
@@ -76,8 +78,10 @@ View.prototype.save = function() {
       if (err) {
         window.alert('Please enter a valid address.');
       } else {
-        plan.to(toEl.value);
-        plan.to_ll(ll);
+        plan.set({
+          to: toEl.value,
+          to_ll: ll
+        });
         page('/planner');
       }
       spinner.remove();

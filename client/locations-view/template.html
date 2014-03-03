@@ -1,16 +1,24 @@
 <form class="locations-view">
   <div class="row">
-    <div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="col-lg-5 col-md-5 col-sm-5">
       <div class="input-group inactive">
-        <span class="input-group-addon"><span class="svg-icon svg-icon-house"></span></span>
+        <span class="input-group-addon">
+          <span class="svg-icon svg-icon-house" data-hidden="reverse_commute"></span>
+          <span class="svg-icon svg-icon-office" data-visible="reverse_commute"></span>
+        </span>
         <input type="text" placeholder="From" class="form-control input-lg" on-focus="edit" on-blur="save" name="from" data-value="from">
       </div>
     </div>
-    <div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="col-sm-2">
+      <button type="button" class="btn btn-default btn-block" on-click="reverseCommute"><i class="fa fa-lg fa-exchange"></i></button>
+    </div>
+    <div class="col-lg-5 col-md-5 col-sm-5">
       <div class="input-group inactive align-right">
-       
-        <span class="input-group-addon"><span class="svg-icon svg-icon-office"></span></span>
-         <input type="text" placeholder="To" class="form-control input-lg" on-focus="edit" on-blur="save" name="to" data-value="to">
+        <input type="text" placeholder="To" class="form-control input-lg" on-focus="edit" on-blur="save" name="to" data-value="to">
+        <span class="input-group-addon">
+          <span class="svg-icon svg-icon-office" data-hidden="reverse_commute"></span>
+          <span class="svg-icon svg-icon-house" data-visible="reverse_commute"></span>
+        </span>
       </div>
     </div>
   </div>

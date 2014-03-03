@@ -1,6 +1,7 @@
 {
   "name": "plan",
   "dependencies": {
+    "component/debounce": "*",
     "component/model": "*",
     "segmentio/model-defaults": "*",
     "visionmedia/debug": "*",

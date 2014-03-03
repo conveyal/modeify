@@ -1,5 +1,5 @@
 
-.filter-view {
+/*.filter-view {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-left: 0;
@@ -15,7 +15,7 @@
 
 .filter-view > div:first-child {
   padding-left: 10px;
-}
+}*/
 
 .filter-view .dropdown-menu {
   z-index: 1001;
@@ -52,7 +52,7 @@
   cursor: pointer;
 }
 
-.filter-view > div.go-button {
+/*.filter-view > div.go-button {
   margin-top: 0;
   margin-bottom: 0;
   padding-right: 0;
@@ -68,6 +68,6 @@
   border: none;
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
-}
+}*/
 
 

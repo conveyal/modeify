@@ -4,6 +4,7 @@
 
 var analytics = require('analytics');
 var config = require('config');
+var debounce = require('debounce');
 var debug = require('debug')(config.name() + ':plan');
 var geocode = require('geocode');
 var defaults = require('model-defaults');
@@ -18,41 +19,38 @@ var store = require('store');
 
 var Plan = module.exports = model('Plan')
   .use(defaults({
-    from: '',
-    to: '',
-    original_modes: null,
-    from_ll: null,
-    to_ll: null,
-    start_time: 7,
-    end_time: 9,
     am_pm: 'am',
     bike: false,
     bus: false,
-    train: false,
     car: false,
-    walk: false,
     days: 'M—F',
+    end_time: 9,
+    from: '',
+    reverse_commute: false,
     routes: [],
-    patterns: null,
-    commuter: null,
+    start_time: 7,
+    to: '',
+    train: false,
+    walk: false,
     welcome_complete: false
   }))
-  .attr('original_modes')
-  .attr('start_time')
-  .attr('end_time')
   .attr('am_pm')
   .attr('bike')
   .attr('bus')
-  .attr('train')
   .attr('car')
-  .attr('walk')
-  .attr('from')
-  .attr('to')
-  .attr('from_ll')
-  .attr('to_ll')
   .attr('days')
-  .attr('routes')
+  .attr('end_time')
+  .attr('from')
+  .attr('from_ll')
+  .attr('original_modes')
   .attr('patterns')
+  .attr('reverse_commute')
+  .attr('routes')
+  .attr('start_time')
+  .attr('to')
+  .attr('to_ll')
+  .attr('train')
+  .attr('walk')
   .attr('welcome_complete');
 
 /**
@@ -67,6 +65,19 @@ var filters = ['am_pm', 'bike', 'bus', 'train', 'car', 'walk', 'days', 'start_ti
 
 Plan.on('change', function(plan, name, val) {
   debug('plan.%s changed', name);
+
+  if (name === 'reverse_commute') {
+    var am_pm = plan.am_pm() === 'am'
+      ? 'pm'
+      : 'am';
+    plan.set({
+      am_pm: am_pm,
+      from: plan.to(),
+      from_ll: plan.to_ll(),
+      to: plan.from(),
+      to_ll: plan.from_ll()
+    });
+  }
 
   // if the type is a filter, trigger `updateRoutes`
   if (plan.welcome_complete()) {
@@ -122,10 +133,10 @@ Plan.load = function(ctx, next) {
 };
 
 /**
- * Update routes
+ * Update routes. Restrict to once every 100ms.
  */
 
-Plan.prototype.updateRoutes = function() {
+Plan.prototype.updateRoutes = debounce(function() {
   debug('--> updating routes');
 
   var plan = this;
@@ -170,7 +181,7 @@ Plan.prototype.updateRoutes = function() {
   } else {
     debug('<-- updating routes not completed: from/to ll does not exist');
   }
-};
+}, 100);
 
 /**
  * Geocode
@@ -197,7 +208,7 @@ Plan.prototype.geocode = function(dest, callback) {
 };
 
 /**
- * Store in localStorage
+ * Store in localStorage. Restrict this I/O to once every 500ms.
  */
 
 Plan.prototype.store = function() {

@@ -57,3 +57,11 @@ View.prototype.edit = function(e) {
   parent.classList.remove('has-warning');
   if (this[name + '-timeout']) clearTimeout(this[name + '-timeout']);
 };
+
+/**
+ * Reverse Commute
+ */
+
+View.prototype.reverseCommute = function() {
+  this.model.reverse_commute(!this.model.reverse_commute());
+};
