@@ -4,13 +4,14 @@
 
 var template = require('./template.html');
 var config = require('config');
-var create = require('view');
+var page = require('page');
+var view = require('view');
 
 /**
  * Nav
  */
 
-var Nav = module.exports = create(template);
+var Nav = module.exports = view(template);
 
 /**
  * Name
@@ -34,4 +35,14 @@ Nav.prototype.isAdmin = function() {
 
 Nav.prototype.isLoggedIn = function() {
   return this.model.isLoggedIn();
+};
+
+/**
+ * Logout
+ */
+
+Nav.prototype.logout = function() {
+  this.model.logout(function() {
+    page('/manager');
+  });
 };

@@ -2,6 +2,7 @@
  * Dependencies
  */
 
+var analytics = require('analytics');
 var config = require('config');
 var debug = require('debug')(config.name() + ':plan');
 var geocode = require('geocode');
@@ -33,7 +34,8 @@ var Plan = module.exports = model('Plan')
     days: 'M—F',
     routes: [],
     patterns: null,
-    commuter: null
+    commuter: null,
+    welcome_complete: false
   }))
   .attr('original_modes')
   .attr('start_time')
@@ -50,55 +52,36 @@ var Plan = module.exports = model('Plan')
   .attr('to_ll')
   .attr('days')
   .attr('routes')
-  .attr('patterns');
+  .attr('patterns')
+  .attr('welcome_complete');
+
+/**
+ * Filters
+ */
+
+var filters = ['am_pm', 'bike', 'bus', 'train', 'car', 'walk', 'days', 'start_time', 'end_time', 'from_ll', 'to_ll' ];
 
 /**
  * Sync plans with localStorage
  */
 
-Plan.on('change', function(plan, name) {
+Plan.on('change', function(plan, name, val) {
   debug('plan.%s changed', name);
 
-  var json = plan.toJSON();
-
-  // remove routes & patterns
-  delete json.routes;
-  delete json.patterns;
-
-  // save in local storage
-  store('plan', json);
-
-  // if we've created a commuter object, save to the commuter
-  var commuter = session.commuter();
-  if (commuter) {
-    commuter.opts(json);
-    commuter.save();
-  }
-});
-
-/**
- * If the filters change, update the viz
- */
-
-['am_pm', 'bike', 'bus', 'train', 'car', 'walk', 'days', 'start_time',
-  'end_time', 'from_ll', 'to_ll'
-].forEach(
-  function(attr) {
-    Plan.on('change ' + attr, function(plan, val, prev) {
+  // if the type is a filter, trigger `updateRoutes`
+  if (plan.welcome_complete()) {
+    if (filters.indexOf(name) !== -1) {
       plan.updateRoutes();
-    });
-  });
+    }
+  } else if (plan.original_modes() && plan.from_ll() && plan.to_ll()) {
+    plan.welcome_complete(true);
+  }
 
-/**
- * Once the routes have changed, get the patterns
- */
+  // Store in localStorage
+  plan.store();
 
-Plan.on('change routes', function(plan, routes) {
-  otp.patterns({
-    options: routes.slice(0, 3)
-  }, function(patterns) {
-    plan.patterns(patterns);
-  });
+  // track the change
+  analytics.track('plan.' + name + ' change', val);
 });
 
 /**
@@ -133,6 +116,8 @@ Plan.load = function(ctx, next) {
   }
 
   ctx.plan = new Plan(opts);
+  session.plan(ctx.plan);
+
   next();
 };
 
@@ -141,25 +126,26 @@ Plan.load = function(ctx, next) {
  */
 
 Plan.prototype.updateRoutes = function() {
-  debug('updating routes on ll change');
+  debug('--> updating routes');
 
-  var model = this;
-  var from = model.from_ll();
-  var to = model.to_ll();
-  var startTime = model.start_time();
-  var endTime = model.end_time();
-  var date = nextDate(model.days());
+  var plan = this;
+  var from = plan.from_ll();
+  var to = plan.to_ll();
+  var startTime = plan.start_time();
+  var endTime = plan.end_time();
+  var date = nextDate(plan.days());
 
-  if (model.am_pm() === 'pm') {
+  if (plan.am_pm() === 'pm') {
     startTime += 12;
     endTime += 12;
-
-    if (endTime === 24) endTime = 0;
   }
+
+  if (endTime === 24) endTime = '23:59';
+  else endTime += ':00';
 
   if (from && to && from.lat && from.lng && to.lat && to.lng) {
     debug('updating routes from %s to %s on %s between %s and %s %s', from, to,
-      date, startTime, endTime, model.am_pm());
+      date, startTime, endTime, plan.am_pm());
     otp.profile({
       from: [from.lat, from.lng],
       to: [to.lat, to.lng],
@@ -168,13 +154,21 @@ Plan.prototype.updateRoutes = function() {
       date: date
     }, function(err, data) {
       if (err) {
-        model.emit('error', err);
+        plan.emit('error', err);
       } else {
-        model.routes(data.options);
+        debug('<-- updated routes');
+        plan.routes(data.options);
+
+        // get the patterns
+        otp.patterns({
+          options: data.options.slice(0, 3)
+        }, function(patterns) {
+          plan.patterns(patterns);
+        });
       }
     });
   } else {
-    debug('not updating routes from/to ll does not exist', from, to);
+    debug('<-- updating routes not completed: from/to ll does not exist');
   }
 };
 
@@ -203,23 +197,52 @@ Plan.prototype.geocode = function(dest, callback) {
 };
 
 /**
+ * Store in localStorage
+ */
+
+Plan.prototype.store = function() {
+   // convert to "JSON", remove routes & patterns
+  var json = this.toJSON();
+  delete json.routes;
+  delete json.patterns;
+
+  // save in local storage
+  store('plan', json);
+
+  // if we've created a commuter object, save to the commuter
+  var commuter = session.commuter();
+  if (commuter) {
+    commuter.opts(json);
+    commuter.save();
+  }
+};
+
+/**
+ * Clear localStorage
+ */
+
+Plan.prototype.clearStore = function() {
+  store('plan', null);
+};
+
+/**
  * Get next date for day of the week
  */
 
-function nextDate(days) {
+function nextDate(dayType) {
   var now = new Date();
   var date = now.getDate();
-  var day = now.getDay();
-  switch (days) {
+  var dayOfTheWeek = now.getDay();
+  switch (dayType) {
     case 'M—F':
-      if (day === '0') now.setDate(date + 1);
-      if (day === '6') now.setDate(date + 2);
+      if (dayOfTheWeek === 0) now.setDate(date + 1);
+      if (dayOfTheWeek === 6) now.setDate(date + 2);
       break;
     case 'Sat':
-      now.setDate(date + (6 - day));
+      now.setDate(date + (6 - dayOfTheWeek));
       break;
     case 'Sun':
-      now.setDate(date + (7 - day));
+      now.setDate(date + (7 - dayOfTheWeek));
       break;
   }
   return now.toISOString().split('T')[0];

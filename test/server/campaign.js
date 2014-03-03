@@ -88,6 +88,15 @@ describe(base, function() {
     });
   });
 
+  describe('GET /:id/send', function() {
+    it('204 if it has not been sent', function(done) {
+      request
+        .get(base + '/' + campaign.info._id + '/send')
+        .set('cookie', user.sid)
+        .expect(204, done);
+    });
+  });
+
   describe('DELETE /:id', function() {
     it('401 if not logged in', function(done) {
       request

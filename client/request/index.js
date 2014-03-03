@@ -20,15 +20,16 @@ var base = config.api_url();
 module.exports.get = function(url, params, callback) {
   if (arguments.length === 2) {
     callback = params;
-    params = {};
+    params = null;
   }
 
+  debug('--> GET %s', url);
   var spinner = spin();
   superagent
     .get(base + url)
     .query(params)
     .end(function(err, res) {
-      debug('%s GET %s%s?%s', res.status, base, url, JSON.stringify(params));
+      debug('<-- GET %s > %s', url, res.status);
       callback(err, res);
       spinner.remove();
     });
@@ -39,12 +40,13 @@ module.exports.get = function(url, params, callback) {
  */
 
 module.exports.post = function(url, data, callback) {
+  debug('--> POST %s', url);
   var spinner = spin();
   superagent
     .post(base + url)
     .send(data)
     .end(function(err, res) {
-      debug('%s POST %s%s > %s', res.status, base, url, JSON.stringify(data));
+      debug('<-- POST %s > %s', url, res.status);
       callback(err, res);
       spinner.remove();
     });
@@ -55,11 +57,12 @@ module.exports.post = function(url, data, callback) {
  */
 
 module.exports.del = function(url, callback) {
+  debug('--> DELETE %s', url);
   var spinner = spin();
   superagent
     .del(base + url)
     .end(function(err, res) {
-      debug('%s DELETE %s%s', res.status, base, url);
+      debug('<-- DELETE %s > %s', url, res.status);
       callback(err, res);
       spinner.remove();
     });

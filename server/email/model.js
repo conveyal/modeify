@@ -21,10 +21,6 @@ var schema = module.exports = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Organization'
   },
-  _link: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Link'
-  },
   _user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'

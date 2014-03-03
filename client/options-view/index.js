@@ -27,11 +27,20 @@ View.prototype['routes-view'] = function() {
 View.prototype.setView = function(namespace, view) {
   this.RoutesView = view;
 
+  this.removeClass('graphical-options');
   this.removeClass('detailed-options');
   this.removeClass('simple-options');
   this.addClass(namespace);
 
-  this.model.updateRoutes();
+  // this.model.updateRoutes();
+};
+
+/**
+ * Graphical
+ */
+
+View.prototype.graphical = function() {
+  this.setView('graphical-options', require('./graphical'));
 };
 
 /**

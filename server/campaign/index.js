@@ -75,7 +75,7 @@ app.get('/:id', get, function(req, res) {
 });
 
 /**
- * Update an campaign
+ * Update a campaign
  */
 
 app.put('/:id', get, function(req, res) {
@@ -96,6 +96,20 @@ app.put('/:id', get, function(req, res) {
 
 app.delete('/:id', get, function(req, res) {
   req.campaign.remove(function(err) {
+    if (err) {
+      res.send(400, err);
+    } else {
+      res.send(204);
+    }
+  });
+});
+
+/**
+ * Send
+ */
+
+app.get('/:id/send', get, function(req, res) {
+  req.campaign.send(function(err) {
     if (err) {
       res.send(400, err);
     } else {

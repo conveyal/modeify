@@ -1,0 +1,14 @@
+{
+  "name": "campaign",
+  "dependencies": {
+    "component/model": "*",
+    "visionmedia/debug": "*"
+  },
+  "local": [
+    "config",
+    "request"
+  ],
+  "scripts": [
+    "index.js"
+  ]
+}

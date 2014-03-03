@@ -1,5 +1,8 @@
 {
   "name": "manager-nav",
+  "dependencies": {
+    "visionmedia/page.js": "*"
+  },
   "local": [
     "config",
     "view"

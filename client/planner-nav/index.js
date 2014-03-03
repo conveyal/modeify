@@ -3,6 +3,7 @@
  */
 
 var config = require('config');
+var page = require('page');
 var view = require('view');
 
 /**
@@ -17,4 +18,14 @@ var View = module.exports = view(require('./template.html'));
 
 View.prototype.name = function() {
   return config.name();
+};
+
+/**
+ * Logout
+ */
+
+View.prototype.logout = function() {
+  this.model.logout(function(err) {
+    page('/');
+  });
 };

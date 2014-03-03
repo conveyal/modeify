@@ -13,7 +13,11 @@ var view = require('view');
  * Create `View`
  */
 
-var View = view(require('./template.html'));
+var View = view({
+  category: 'planner',
+  template: require('./template.html'),
+  title: 'Planner Page'
+});
 
 /**
  * Expose `render`
@@ -23,9 +27,8 @@ module.exports = function(ctx, next) {
   var plan = ctx.plan;
 
   // redirect if plan isn't filled out
-  if (plan.original_modes() === null || plan.from() === null || plan.to() ===
-    null) {
-    ctx.redirect = '/';
+  if (!plan.welcome_complete()) {
+    ctx.redirect = '/welcome';
   } else {
     var views = {
       'filter-view': new FilterView(plan),
@@ -40,7 +43,7 @@ module.exports = function(ctx, next) {
         view.emit('rendered', view);
       });
 
-      plan.updateRoutes();
+      if (!plan.routes() || !plan.patterns()) plan.updateRoutes();
     });
   }
 

@@ -9,7 +9,8 @@
   },
   "local": [
     "config",
-    "geocode"
+    "geocode",
+    "spinner"
   ],
   "scripts": [
     "index.js"

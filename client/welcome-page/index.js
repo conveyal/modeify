@@ -13,7 +13,11 @@ var view = require('view');
  * Create `View`
  */
 
-var View = view(require('./template.html'));
+var View = view({
+  category: 'planner',
+  template: require('./template.html'),
+  title: 'Welcome Page'
+});
 
 /**
  * Expose `render`
@@ -23,8 +27,7 @@ module.exports = function(ctx, next) {
   var plan = ctx.plan;
 
   // check if plan is full enough to redirect to planner
-  if (plan.original_modes() !== null && plan.from_ll() !== null && plan.to_ll() !==
-    null) {
+  if (plan.welcome_complete()) {
     ctx.redirect = '/planner';
   } else {
     debug('creating welcome page view with plan', plan.toJSON());
@@ -53,10 +56,7 @@ View.prototype.save = function() {
       window.alert('Please select at least one option.');
     } else {
       plan.original_modes(modes);
-
-      if (plan.from_ll() && plan.to_ll()) {
-        page('/planner');
-      }
+      if (plan.welcome_complete()) page('/planner');
     }
 
     spinner.remove();
@@ -67,10 +67,7 @@ View.prototype.save = function() {
       } else {
         plan.from(fromEl.value);
         plan.from_ll(ll);
-
-        if (plan.to_ll()) {
-          page('/planner');
-        }
+        if (plan.welcome_complete()) page('/planner');
       }
       spinner.remove();
     });

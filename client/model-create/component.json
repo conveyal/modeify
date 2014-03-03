@@ -1,0 +1,6 @@
+{
+  "name": "model-create",
+  "scripts": [
+    "index.js"
+  ]
+}

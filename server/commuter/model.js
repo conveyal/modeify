@@ -45,8 +45,13 @@ schema.pre('save', function(next) {
  * Send plan
  */
 
-schema.methods.sendPlan = function(callback) {
-  var self = this;
+schema.methods.sendPlan = function(campaign_id, callback) {
+  if (arguments.length === 1) {
+    callback = campaign_id;
+    campaign_id = null;
+  }
+
+  var commuter = this;
   var options = {
     commuterAddress: this.fullAddress(),
     orgAddress: this._organization.fullAddress(),
@@ -60,12 +65,15 @@ schema.methods.sendPlan = function(callback) {
   };
 
   mandrill.send(options, function(err, results) {
+    console.log(err, results);
     if (err) {
       callback(err);
     } else {
       Email.create({
-        _commuter: self._id,
-        _organization: self._organization._id,
+        _campaign: campaign_id,
+        _commuter: commuter._id,
+        _organization: commuter._organization._id,
+        _user: commuter._user,
         metadata: options,
         result: results
       }, callback);

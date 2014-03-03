@@ -1,8 +1,9 @@
+
 /**
  * Expose `plugin`
  */
 
-module.exports = function(schema) {
+module.exports = function(schema, options) {
   schema.add({
     created: Date,
     modified: Date

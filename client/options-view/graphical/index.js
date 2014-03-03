@@ -28,3 +28,11 @@ View.prototype.segmentNames = function() {
     return segment.routeShortName;
   }).join(' — ');
 };
+
+/**
+ * Details
+ */
+
+View.prototype.details = function() {
+  return JSON.stringify(this.model, null, '\t');
+};

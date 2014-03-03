@@ -6,16 +6,19 @@
   ],
   "scripts": [
     "detailed/index.js",
+    "graphical/index.js",
     "index.js",
     "simple/index.js"
   ],
   "styles": [
     "detailed/style.css",
+    "graphical/style.css",
     "simple/style.css",
     "style.css"
   ],
   "templates": [
     "detailed/template.html",
+    "graphical/template.html",
     "simple/template.html",
     "template.html"
   ]

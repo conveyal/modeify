@@ -2,6 +2,8 @@
  * Dependencies
  */
 
+var alerts = require('alerts');
+var Campaign = require('campaign');
 var config = require('config');
 var debug = require('debug')(config.name() + ':organization');
 var defaults = require('model-defaults');
@@ -61,4 +63,31 @@ Organization.prototype.mapMarker = function() {
     coordinate: [c.lng, c.lat],
     icon: 'commercial'
   });
+};
+
+/**
+ * Send a plan
+ */
+
+Organization.prototype.sendPlan = function() {
+  if (window.confirm('Send personalized plan to this organization\'s commuters?')) {
+    debug('--> sending plans to %s', this.name());
+    var campaign = new Campaign({
+      _organization: this._id()
+    });
+    campaign.save(function(err) {
+      campaign.send(function(err, res) {
+        if (err || !res.ok) {
+          debug('<-- sending plans failed: %s', res.text);
+          window.alert('Failed to send emails.');
+        } else {
+          debug('<-- plans sent');
+          alerts.show({
+            type: 'success',
+            text: 'Plans sent to organization.'
+          });
+        }
+      });
+    });
+  }
 };

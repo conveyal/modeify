@@ -23,7 +23,11 @@ var view = require('view');
  */
 
 var Row = view(require('./row.html'));
-var View = view(require('./template.html'));
+var View = view({
+  category: 'manager',
+  template: require('./template.html'),
+  title: 'Organization Page'
+});
 
 /**
  * Expose `render`
@@ -67,6 +71,14 @@ View.prototype['commuters-view'] = function() {
 
 View.prototype.commuterCount = function() {
   return this.model.commuters.length();
+};
+
+/**
+ * Send Plan
+ */
+
+View.prototype.sendPlan = function() {
+  this.model.sendPlan();
 };
 
 /**

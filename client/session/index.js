@@ -21,12 +21,14 @@ var User = require('user');
 var Session = model('Session')
   .use(defaults({
     commuter: null,
+    plan: null,
     user: null,
     isAdmin: false,
     isLoggedIn: false,
     isManager: false
   }))
   .attr('commuter')
+  .attr('plan')
   .attr('user')
   .attr('isAdmin')
   .attr('isLoggedIn')
@@ -36,12 +38,24 @@ var Session = model('Session')
  * Logout
  */
 
-Session.prototype.logout = function() {
+Session.prototype.logout = function(next) {
+  debug('--> logging out');
+
+  var plan = session.plan();
+  if (plan) plan.clearStore();
+
   session.isAdmin(false);
   session.isLoggedIn(false);
   session.isManager(false);
   session.user(null);
+  session.plan(null);
   session.commuter(null);
+
+  request.get('/logout', function(err, res) {
+    document.cookie = null;
+    debug('<-- logged out %s', res.text);
+    if (next) next(err, res);
+  });
 };
 
 /**
@@ -53,15 +67,19 @@ Session.prototype.login = function(data) {
   var type = null;
   var user = null;
 
-  // is the user a commuter?
+  // is this a commuter object with a reference to a user?
   if (data._user) {
     commuter = new Commuter(data);
     user = new User(data._user);
+
+    // is this user associated with an organization?
     if (data._organization && data._organization._id) {
       commuter._organization(new Organization(data._organization));
     }
+    type = 'commuter';
   } else {
     user = new User(data);
+    type = user.type();
   }
 
   session.commuter(commuter);
@@ -91,7 +109,7 @@ session.on('change user', function(user, prev) {
  */
 
 module.exports.loginWithLink = function(ctx, next) {
-  ctx.redirect = '/';
+  ctx.redirect = '/planner';
   request.get('/login/' + ctx.params.link, function(err, res) {
     if (res.ok) {
       session.login(res.body);
@@ -114,7 +132,6 @@ module.exports.commuterIsLoggedIn = function(ctx, next) {
   } else {
     request.get('/commuter-is-logged-in', function(err, res) {
       if (err || !res.ok) {
-        session.logout();
         next();
       } else {
         session.login(res.body);
@@ -150,7 +167,6 @@ module.exports.checkIfLoggedIn = function(ctx, next) {
   } else {
     request.get('/is-logged-in', function(err, res) {
       if (err || !res.ok) {
-        session.logout();
         page('/manager/login');
       } else {
         session.login(res.body);

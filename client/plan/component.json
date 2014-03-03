@@ -7,6 +7,7 @@
     "yields/store": "*"
   },
   "local": [
+    "analytics",
     "config",
     "geocode",
     "otp",

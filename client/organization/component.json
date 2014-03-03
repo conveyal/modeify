@@ -8,9 +8,12 @@
     "visionmedia/debug": "*"
   },
   "local": [
+    "alerts",
+    "campaign",
     "config",
     "map",
-    "model-geo"
+    "model-geo",
+    "spinner"
   ],
   "scripts": [
     "index.js"

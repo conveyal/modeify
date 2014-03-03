@@ -19,4 +19,15 @@ reactive.use(require('reactive-disabled'));
  * Expose `view`
  */
 
-module.exports = view;
+module.exports = function(options, fn) {
+  var View;
+  if (typeof options === 'string') {
+    View = view(options, fn);
+  } else {
+    View = view(options.template, fn);
+    View.prototype.title = options.title;
+    View.prototype.category = options.category;
+  }
+
+  return View;
+};
