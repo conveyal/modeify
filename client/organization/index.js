@@ -70,7 +70,8 @@ Organization.prototype.mapMarker = function() {
  */
 
 Organization.prototype.sendPlan = function() {
-  if (window.confirm('Send personalized plan to this organization\'s commuters?')) {
+  if (window.confirm(
+    'Send personalized plan to this organization\'s commuters?')) {
     debug('--> sending plans to %s', this.name());
     var campaign = new Campaign({
       _organization: this._id()

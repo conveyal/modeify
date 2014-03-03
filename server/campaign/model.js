@@ -39,7 +39,8 @@ schema.pre('save', function(next) {
  */
 
 schema.methods.send = function(callback) {
-  if (this.status !== 'created') return callback(new Error('Campaign cannot be sent twice.'));
+  if (this.status !== 'created') return callback(new Error(
+    'Campaign cannot be sent twice.'));
   var campaign = this;
   Commuter
     .find()

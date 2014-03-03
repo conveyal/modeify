@@ -57,7 +57,9 @@ var Plan = module.exports = model('Plan')
  * Filters
  */
 
-var filters = ['am_pm', 'bike', 'bus', 'train', 'car', 'walk', 'days', 'start_time', 'end_time', 'from_ll', 'to_ll' ];
+var filters = ['am_pm', 'bike', 'bus', 'train', 'car', 'walk', 'days',
+  'start_time', 'end_time', 'from_ll', 'to_ll'
+];
 
 /**
  * Sync plans with localStorage
@@ -67,9 +69,7 @@ Plan.on('change', function(plan, name, val) {
   debug('plan.%s changed', name);
 
   if (name === 'reverse_commute') {
-    var am_pm = plan.am_pm() === 'am'
-      ? 'pm'
-      : 'am';
+    var am_pm = plan.am_pm() === 'am' ? 'pm' : 'am';
     plan.set({
       am_pm: am_pm,
       from: plan.to(),
@@ -155,7 +155,8 @@ Plan.prototype.updateRoutes = debounce(function() {
   else endTime += ':00';
 
   if (from && to && from.lat && from.lng && to.lat && to.lng) {
-    debug('updating routes from %s to %s on %s between %s and %s %s', from, to,
+    debug('updating routes from %s to %s on %s between %s and %s %s', from,
+      to,
       date, startTime, endTime, plan.am_pm());
     otp.profile({
       from: [from.lat, from.lng],
@@ -212,7 +213,7 @@ Plan.prototype.geocode = function(dest, callback) {
  */
 
 Plan.prototype.store = function() {
-   // convert to "JSON", remove routes & patterns
+  // convert to "JSON", remove routes & patterns
   var json = this.toJSON();
   delete json.routes;
   delete json.patterns;
