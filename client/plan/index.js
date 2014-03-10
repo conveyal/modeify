@@ -14,6 +14,13 @@ var session = require('session');
 var store = require('store');
 
 /**
+ * Max routes & patterns to show
+ */
+
+var MAX_ROUTES = localStorage.getItem('max_routes') || 1000;
+var MAX_PATTERNS = localStorage.getItem('max_patterns') || MAX_ROUTES;
+
+/**
  * Expose `Plan`
  */
 
@@ -169,11 +176,11 @@ Plan.prototype.updateRoutes = debounce(function() {
         plan.emit('error', err);
       } else {
         debug('<-- updated routes');
-        plan.routes(data.options);
+        plan.routes(data.options.slice(0, MAX_ROUTES));
 
         // get the patterns
         otp.patterns({
-          options: data.options.slice(0, 3)
+          options: data.options.slice(0, MAX_PATTERNS)
         }, function(patterns) {
           plan.patterns(patterns);
         });

@@ -31,7 +31,7 @@ var el = document.getElementById('spinner');
 module.exports = function() {
   el.style.display = 'block';
 
-  if (spinner) return spinner;
+  if (spinner !== null) return spinner;
   spinner = spin(el, {
     size: el.offsetWidth / 15
   });

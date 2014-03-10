@@ -1,6 +1,6 @@
 # Commute Planner [![Build Status](https://travis-ci.org/conveyal/commute-planner.png)](https://travis-ci.org/conveyal/commute-planner) [![Code Climate](https://codeclimate.com/github/conveyal/commute-planner.png)](https://codeclimate.com/github/conveyal/commute-planner)
 
-## Installation & Running
+## Installation
 
 Clone to your local directory to begin.
 
@@ -27,15 +27,15 @@ Commute Planner uses [Component](https://github.com/component) to manage client 
 
 When `NODE_ENV` is set to `development` the server will rebuild the client side dependencies on each change.
 
-### Running
+## Running
 
-#### Option 1:
+### `make serve`
 
-`make serve` runs [nodemon](http://nodemon.io/) to restart the server on file changes or when it crashes for production use. Environment variables must be set if you use `make serve`.
+Runs [nodemon](http://nodemon.io/) to restart the server on file changes or when it crashes for production use. Environment variables must be set if you use `make serve`.
 
-#### Option 2:
+### `npm start`
 
-`npm start` automatically sources your `.env` file before running `make serve`. Great for usage in development when you don't want to set all of the environment variables.
+Automatically sources your `.env` file before running `make serve`. Great for usage in development when you don't want to set all of the environment variables.
 
 ## Pushing to S3
 
