@@ -20,20 +20,18 @@ clean:
 	@rm -rf build
 	@rm -rf components
 
-components: component.json $(JSON)
+components: node_modules component.json $(JSON)
 	@./node_modules/.bin/component install --dev --verbose
 
+# Copy temporary config files
 postinstall:
 	@cp -n .env.tmp .env || true
 	@cp -n config.json.tmp config.json || true
 
-# Display Makefile
-help:
-	@cat Makefile
-
 # Install
-install: node_modules components
+install: node_modules
 
+# Reinstall if package.json has changed
 node_modules: package.json
 	@npm install
 
@@ -53,12 +51,13 @@ release: components test beautify
 	@s3cmd sync --guess-mime-type --acl-public --recursive build s3://arlington.dev.conveyal.com
 
 # Watch & reload server
-serve: node_modules
+serve: node_modules build
 	@./node_modules/.bin/nodemon --verbose
 
+# Run mocha test suite
 test: test-client test-server
 test-client: lint-client lint-test
 test-server: lint-server lint-test
 	@NODE_ENV=test ./node_modules/.bin/mocha --recursive --require should --reporter $(REPORTER) --timeout 5000 --slow 10
 
-.PHONY: beautify help lint lint-client lint-server release test test-client test-server watch
+.PHONY: beautify help lint lint-client lint-server lint-test release test test-client test-server watch
