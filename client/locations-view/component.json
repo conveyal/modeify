@@ -13,5 +13,6 @@
   ],
   "templates": [
     "template.html"
-  ]
+  ],
+  "dependencies": {}
 }

@@ -1,11 +1,11 @@
 {
   "name": "otp",
   "dependencies": {
-    "component/array-series": "*",
-    "component/querystring": "*",
-    "conveyal/otpprofiler.js": "*",
-    "learnboost/jsonp": "*",
-    "visionmedia/debug": "*"
+    "component/array-series": "0.1.5",
+    "component/querystring": "1.2.0",
+    "conveyal/otpprofiler.js": "0.1.0",
+    "learnboost/jsonp": "0.0.3",
+    "visionmedia/debug": "0.7.4"
   },
   "local": [
     "config",

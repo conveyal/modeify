@@ -1,10 +1,10 @@
 {
   "name": "transitive-view",
   "dependencies": {
-    "component/color-parser": "*",
-    "conveyal/otpprofiler.js": "*",
-    "conveyal/transitive.js": "*",
-    "visionmedia/debug": "*"
+    "component/color-parser": "0.1.0",
+    "conveyal/otpprofiler.js": "0.1.0",
+    "conveyal/transitive.js": "0.0.0",
+    "visionmedia/debug": "0.7.4"
   },
   "local": [
     "config",

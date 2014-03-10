@@ -5,5 +5,6 @@
   ],
   "scripts": [
     "index.js"
-  ]
+  ],
+  "dependencies": {}
 }

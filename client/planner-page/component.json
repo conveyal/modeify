@@ -1,7 +1,7 @@
 {
   "name": "planner-page",
   "dependencies": {
-    "component/each": "*"
+    "component/each": "0.2.3"
   },
   "local": [
     "filter-view",

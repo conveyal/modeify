@@ -1,11 +1,11 @@
 {
   "name": "organization",
   "dependencies": {
-    "component/model": "*",
-    "segmentio/model-defaults": "*",
-    "segmentio/model-memoize": "*",
-    "trevorgerhardt/model-query": "*",
-    "visionmedia/debug": "*"
+    "component/model": "0.1.2",
+    "segmentio/model-defaults": "0.1.0",
+    "segmentio/model-memoize": "0.0.2",
+    "trevorgerhardt/model-query": "0.0.2",
+    "visionmedia/debug": "0.7.4"
   },
   "local": [
     "alerts",

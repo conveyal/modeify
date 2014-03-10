@@ -29,11 +29,11 @@ When `NODE_ENV` is set to `development` the server will rebuild the client side 
 
 ## Running
 
-### `make serve`
+#### `make serve`
 
 Runs [nodemon](http://nodemon.io/) to restart the server on file changes or when it crashes for production use. Environment variables must be set if you use `make serve`.
 
-### `npm start`
+#### `npm start`
 
 Automatically sources your `.env` file before running `make serve`. Great for usage in development when you don't want to set all of the environment variables.
 

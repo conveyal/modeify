@@ -1,8 +1,8 @@
 {
   "name": "spinner",
   "dependencies": {
-    "component/domify": "*",
-    "component/spin": "*"
+    "component/domify": "1.2.2",
+    "component/spin": "0.0.2"
   },
   "scripts": [
     "index.js"

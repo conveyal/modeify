@@ -1,7 +1,7 @@
 {
   "name": "config",
   "dependencies": {
-    "component/each": "*"
+    "component/each": "0.2.3"
   },
   "scripts": [
     "index.js"

@@ -1,9 +1,9 @@
 {
   "name": "alerts",
   "dependencies": {
-    "component/domify": "*",
-    "component/each": "*",
-    "visionmedia/debug": "*"
+    "component/domify": "1.2.2",
+    "component/each": "0.2.3",
+    "visionmedia/debug": "0.7.4"
   },
   "local": [
     "alert",

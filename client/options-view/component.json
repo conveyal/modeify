@@ -21,5 +21,6 @@
     "graphical/template.html",
     "simple/template.html",
     "template.html"
-  ]
+  ],
+  "dependencies": {}
 }

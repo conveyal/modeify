@@ -1,8 +1,8 @@
 {
   "name": "forgot-password-page",
   "dependencies": {
-    "segmentio/value": "*",
-    "visionmedia/debug": "*"
+    "segmentio/value": "1.0.0",
+    "visionmedia/debug": "0.7.4"
   },
   "local": [
     "request",

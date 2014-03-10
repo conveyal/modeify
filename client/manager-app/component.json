@@ -1,8 +1,8 @@
 {
   "name": "manager-app",
   "dependencies": {
-    "ianstormtaylor/on-load": "*",
-    "visionmedia/page.js": "*"
+    "ianstormtaylor/on-load": "0.0.1",
+    "visionmedia/page.js": "1.3.7"
   },
   "local": [
     "manager-nav",

@@ -8,5 +8,6 @@
   ],
   "templates": [
     "template.html"
-  ]
+  ],
+  "dependencies": {}
 }

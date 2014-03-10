@@ -1,11 +1,11 @@
 {
   "name": "session",
   "dependencies": {
-    "component/model": "*",
-    "component/uid": "*",
-    "segmentio/model-defaults": "*",
-    "visionmedia/debug": "*",
-    "visionmedia/page.js": "*"
+    "component/model": "0.1.2",
+    "component/uid": "0.0.2",
+    "segmentio/model-defaults": "0.1.0",
+    "visionmedia/debug": "0.7.4",
+    "visionmedia/page.js": "1.3.7"
   },
   "local": [
     "analytics",

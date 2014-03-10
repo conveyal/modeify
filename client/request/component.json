@@ -1,8 +1,8 @@
 {
   "name": "request",
   "dependencies": {
-    "visionmedia/debug": "*",
-    "visionmedia/superagent": "*"
+    "visionmedia/debug": "0.7.4",
+    "visionmedia/superagent": "0.16.0"
   },
   "local": [
     "config",

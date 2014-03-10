@@ -11,5 +11,6 @@
     "images/Office.svg",
     "images/Pedestrian.svg",
     "images/Train.svg"
-  ]
+  ],
+  "dependencies": {}
 }
