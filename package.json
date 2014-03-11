@@ -36,7 +36,7 @@
   "scripts": {
     "postinstall": "make postinstall",
     "pretest": "npm ls --depth=Infinity > /dev/null",
-    "test": "source .env && make test",
+    "test": "make test",
     "start": "source .env && make serve"
   }
 }
