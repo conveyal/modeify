@@ -15,7 +15,7 @@ var toCapitalCase = require('to-capital-case');
  * Metro Colors
  */
 
-var colors = [ 'Blue', 'Green', 'Orange', 'Red', 'Yellow' ];
+var colors = ['Blue', 'Green', 'Orange', 'Red', 'Yellow'];
 
 /**
  * Expose `profile`
@@ -72,9 +72,8 @@ function process(data) {
         addWalkTime = 0;
       }
 
-      segment.type = colors.indexOf(segment.routeShortName) === -1
-        ? 'bus'
-        : 'train';
+      segment.type = colors.indexOf(segment.routeShortName) === -1 ? 'bus' :
+        'train';
 
       segment.fromName = format(segment.fromName);
       segment.routeShortName = format(segment.routeShortName);

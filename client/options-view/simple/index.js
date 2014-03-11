@@ -14,8 +14,8 @@ var view = require('view');
  */
 
 var diffcolor = d3.scale.linear()
-  .domain([ 0, 60 ])
-  .range([ '#333333', '#d9534f' ]);
+  .domain([0, 60])
+  .range(['#333333', '#d9534f']);
 
 /**
  * Expose `View`
@@ -64,15 +64,19 @@ View.prototype.diffcolor = function() {
 
 View.prototype.summary = function() {
   var segments = this.model.segments;
-  var summary = '<div class="segment">Walk to ' + segments[0].fromName + '</div>';
+  var summary = '<div class="segment">Walk to ' + segments[0].fromName +
+    '</div>';
   var length = segments.length;
   var to = session.plan().to();
 
   for (var i = 0; i < length; i++) {
-    summary += '<div class="segment"><span class="svg-icon svg-icon-' + segments[i].type + '"></span>' + segments[i].routeShortName + ' from ' + segments[i].fromName + ' to ' + segments[i].toName + '</div>';
+    summary += '<div class="segment"><span class="svg-icon svg-icon-' +
+      segments[i].type + '"></span>' + segments[i].routeShortName + ' from ' +
+      segments[i].fromName + ' to ' + segments[i].toName + '</div>';
   }
 
-  summary += '<div class="segment">Walk from ' + segments[length - 1].toName + ' to ' + to.slice(0, to.indexOf(',')) + '</div>';
+  summary += '<div class="segment">Walk from ' + segments[length - 1].toName +
+    ' to ' + to.slice(0, to.indexOf(',')) + '</div>';
 
   return summary;
 };

@@ -166,7 +166,8 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
   if (endTime === 24) endTime = '23:59';
 
   if (from && to && from.lat && from.lng && to.lat && to.lng) {
-    debug('--- updating routes from %s to %s on %s between %s and %s %s', from,
+    debug('--- updating routes from %s to %s on %s between %s and %s %s',
+      from,
       to, date, startTime, endTime, plan.am_pm());
     otp.profile({
       from: [from.lat, from.lng],

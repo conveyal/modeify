@@ -11,7 +11,8 @@ var view = require('view');
  * Expose `View`
  */
 
-var View = module.exports = view(require('./template.html'), function(view, model) {
+var View = module.exports = view(require('./template.html'), function(view,
+  model) {
 
   // get max
   var max = maxTripLength();

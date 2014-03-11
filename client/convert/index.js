@@ -1,4 +1,3 @@
-
 /**
  * Seconds to minutes
  */
