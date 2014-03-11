@@ -6,11 +6,15 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <p>Hi!</p>
+    <p>Hi {{name}},</p>
 
-    <p>A custom commute plan has been created for you. Just click on the link below.</p>
+    <p>Your employer has sent you a personalized commute plan via {{application}}! Check it out here:</p>
 
-    <p><a href="{{link}}">From {{commuterAddress}} to {{orgAddress}}.</a></p>
+    <p><a href="{{link}}">Commute to {{orgAddress}}</a></p>
+
+    <p>{{organization}} uses {{application}} to generate commute options for all company members. Here’s your opportunity to visualize journeys and explore the wide range of options available to you in the region — including biking, ridesharing, walking and transit.</p>
+
+    <p>{{application}} uses technology built on open transport data standards including GTFS and OpenStreetMap, as well as multimodal trip planning engine OpenTripPlanner. We are improving our tools and would love your feedback! Please take a few minutes fill out this <a href="https://docs.google.com/forms/d/1Hxz4JcRP-AJmFShsMdXYROb53XL6EXyXn0K-V-ZTbwo/viewform">survey</a>.</p>
 
     <p>Thanks!</p>
   </body>
