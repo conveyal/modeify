@@ -72,7 +72,6 @@ function process(data) {
         addWalkTime = 0;
       }
 
-      console.log(segment.routeShortName);
       segment.type = colors.indexOf(segment.routeShortName) === -1
         ? 'bus'
         : 'train';
@@ -84,7 +83,7 @@ function process(data) {
 
     // TODO: Remove
     each(removeSegment, function(i) {
-      option.segments.splice(i, 1)
+      option.segments.splice(i, 1);
     });
 
     option.summary = format(option.summary);
