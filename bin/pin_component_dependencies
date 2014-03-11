@@ -1,0 +1,3 @@
+#!/bin/sh
+
+find client -type d -exec sh -c '(cd {} && component update --pin)' ';'
