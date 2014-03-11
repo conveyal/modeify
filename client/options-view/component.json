@@ -1,7 +1,14 @@
 {
   "name": "options-view",
+  "dependencies": {
+    "component/each": "*",
+    "ianstormtaylor/to-capital-case": "*",
+    "mbostock/d3": "3.4.3"
+  },
   "local": [
     "convert",
+    "session",
+    "svg-icons",
     "view"
   ],
   "scripts": [
@@ -21,6 +28,5 @@
     "graphical/template.html",
     "simple/template.html",
     "template.html"
-  ],
-  "dependencies": {}
+  ]
 }

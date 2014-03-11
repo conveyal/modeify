@@ -133,6 +133,10 @@ Plan.load = function(ctx, next) {
     }
   }
 
+  // remove stored patterns & routes
+  delete opts.patterns;
+  delete opts.routes;
+
   ctx.plan = new Plan(opts);
   session.plan(ctx.plan);
 
@@ -143,7 +147,8 @@ Plan.load = function(ctx, next) {
  * Update routes. Restrict to once every 100ms.
  */
 
-Plan.prototype.updateRoutes = debounce(function() {
+Plan.prototype.updateRoutes = debounce(function(callback) {
+  callback = callback || function() {};
   debug('--> updating routes');
 
   var plan = this;
@@ -159,30 +164,30 @@ Plan.prototype.updateRoutes = debounce(function() {
   }
 
   if (endTime === 24) endTime = '23:59';
-  else endTime += ':00';
 
   if (from && to && from.lat && from.lng && to.lat && to.lng) {
-    debug('updating routes from %s to %s on %s between %s and %s %s', from,
-      to,
-      date, startTime, endTime, plan.am_pm());
+    debug('--- updating routes from %s to %s on %s between %s and %s %s', from,
+      to, date, startTime, endTime, plan.am_pm());
     otp.profile({
       from: [from.lat, from.lng],
       to: [to.lat, to.lng],
       startTime: startTime + ':00',
       endTime: endTime + ':00',
-      date: date
+      date: date,
+      orderBy: 'MIN',
+      limit: MAX_ROUTES
     }, function(err, data) {
       if (err) {
         plan.emit('error', err);
+        callback(err);
       } else {
         debug('<-- updated routes');
-        plan.routes(data.options.slice(0, MAX_ROUTES));
+        plan.routes(data.options);
 
         // get the patterns
-        otp.patterns({
-          options: data.options.slice(0, MAX_PATTERNS)
-        }, function(patterns) {
+        otp.patterns(data, function(patterns) {
           plan.patterns(patterns);
+          callback();
         });
       }
     });
@@ -222,8 +227,6 @@ Plan.prototype.geocode = function(dest, callback) {
 Plan.prototype.store = function() {
   // convert to "JSON", remove routes & patterns
   var json = this.toJSON();
-  delete json.routes;
-  delete json.patterns;
 
   // save in local storage
   store('plan', json);

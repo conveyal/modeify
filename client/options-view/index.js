@@ -30,9 +30,11 @@ View.prototype.setView = function(namespace, view) {
   this.removeClass('graphical-options');
   this.removeClass('detailed-options');
   this.removeClass('simple-options');
-  this.addClass(namespace);
 
-  // this.model.updateRoutes();
+  var self = this;
+  this.model.updateRoutes(function() {
+    self.addClass(namespace);
+  });
 };
 
 /**

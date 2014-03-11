@@ -1,19 +1,20 @@
 
 .simple-options .routes {
-  margin-top: 20px;
   padding-left: 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-
 }
 
 .simple-options .route {
   list-style-type: none;
-  border-bottom: 1px solid #ccc;
-  margin-left: 0;
-  margin-right: 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 20px 0 0;
   color: #333;
   text-align: center;
+}
+
+.simple-options .route .row {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .simple-options .route:last-of-type {
@@ -27,11 +28,38 @@
   font-weight:bold;
   font-size: 1em;
   color:#333;
-  padding-top: 14px;
-  padding-bottom: 14px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.simple-options .time span {
+  width: 50%;
+  display: inline-block;
+}
+
+.simple-options .time:last-of-type {
+  border-right: none;
+}
+
+.simple-options .time.svg-icon {
+  padding-right: 26px;
+  padding-left: 0;
+  background-position: right center;
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
 }
 
 .simple-options .summary {
   color: #333;
-  padding-top:14px;
+  border-top: 1px solid #ccc;
+  text-align: left;
+  padding: 5px 10px;
+}
+
+.simple-options .summary .svg-icon {
+  margin-left: -5px;
+}
+
+.simple-options .summary .segment {
+  padding: 5px 0;
 }

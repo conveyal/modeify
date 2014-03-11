@@ -23,9 +23,8 @@ View.prototype.save = function(e) {
   var self = this;
   var model = this.model;
 
-  if (!address) {
-    return parent.classList.add('has-warning');
-  }
+  if (!address) return parent.classList.add('has-warning');
+  if (address === model[name]()) return;
 
   geocode(address, function(err, ll) {
     if (err) {
