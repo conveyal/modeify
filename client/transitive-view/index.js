@@ -35,12 +35,5 @@ View.prototype.display = function(patterns) {
     gridCellSize: 800
   });
 
-  // apply computed behaviors
-  /*transitive.on('render', function (transitive) {
-    each(require('./computed'), function (behavior) {
-      behavior(transitive);
-    });
-  });*/
-
   transitive.render();
 };

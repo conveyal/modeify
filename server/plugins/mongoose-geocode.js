@@ -40,7 +40,8 @@ module.exports = function(schema, options) {
       'state') || this.isModified('zip')) {
       geocode.encode(this.toJSON(), function(err, coords) {
         if (err) {
-          done(err);
+          // TODO: Handle this
+          done();
         } else {
           self.coordinate = coords;
           done();
