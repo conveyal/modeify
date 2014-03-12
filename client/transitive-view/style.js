@@ -6,7 +6,7 @@ var parse = require('color-parser');
 
 /**
  * Expose pattern styles
- */
+ *
 
 exports.segments = {
   stroke: function(display, data) {
@@ -36,7 +36,7 @@ exports.segments = {
 
 /**
  * Expose stop styles
- */
+ *
 
 exports.stops = {
   r: [
@@ -76,7 +76,7 @@ exports.stops = {
 
 /**
  * Expose label styles
- */
+ *
 
 exports.labels = {
   x: function(display, data, index, utils) {

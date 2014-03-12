@@ -17,7 +17,7 @@ var store = require('store');
  * Max routes & patterns to show
  */
 
-var MAX_ROUTES = localStorage.getItem('max_routes') || 1000;
+var MAX_ROUTES = localStorage.getItem('max_routes') || 3;
 var MAX_PATTERNS = localStorage.getItem('max_patterns') || MAX_ROUTES;
 
 /**
@@ -172,6 +172,27 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
   if (endTime === 24) endTime = '23:59';
   else endTime += ':30';
 
+  // Pattern config
+  var pconfig = {
+    fromLocation: {
+      lat: from.lat,
+      lon: from.lng
+    },
+    toLocation: {
+      lat: to.lat,
+      lon: to.lng
+    }
+  };
+
+  // Reverse commute?
+  if (plan.reverse_commute()) {
+    pconfig.fromLocation.name = 'Work';
+    pconfig.toLocation.name = 'Home';
+  } else {
+    pconfig.fromLocation.name = 'Home';
+    pconfig.toLocation.name = 'Work';
+  }
+
   if (from && to && from.lat && from.lng && to.lat && to.lng) {
     debug('--- updating routes from %s to %s on %s between %s and %s %s',
       from,
@@ -189,9 +210,9 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
         plan.emit('error', err);
         callback(err);
       } else if (data.options.length < 1) {
-        window.alert('Warning: no trips found for route between ' + plan.from() +
+        window.alert('No trips found for route between ' + plan.from() +
           ' and ' + plan.to() +
-          ' at the requested hours.\n\nIf the trip takes longer than the given time window, it will not display any results.'
+          ' at the requested hours!\n\nIf the trip takes longer than the given time window, it will not display any results.'
         );
         plan.routes(null);
         plan.patterns(null);
@@ -200,7 +221,7 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
         plan.routes(data.options);
 
         // get the patterns
-        otp.patterns(data, function(patterns) {
+        otp.patterns(data, pconfig, function(patterns) {
           plan.patterns(patterns);
           callback();
         });

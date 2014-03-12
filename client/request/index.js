@@ -29,7 +29,7 @@ module.exports.get = function(url, params, callback) {
     .get(base + url)
     .query(params)
     .end(function(err, res) {
-      debug('<-- GET %s > %s', url, res.status);
+      debug('<-- GET %s > %s', url, err || res.status);
       callback(err, res);
       spinner.remove();
     });
@@ -46,7 +46,7 @@ module.exports.post = function(url, data, callback) {
     .post(base + url)
     .send(data)
     .end(function(err, res) {
-      debug('<-- POST %s > %s', url, res.status);
+      debug('<-- POST %s > %s', url, err || res.status);
       callback(err, res);
       spinner.remove();
     });
@@ -62,7 +62,7 @@ module.exports.del = function(url, callback) {
   superagent
     .del(base + url)
     .end(function(err, res) {
-      debug('<-- DELETE %s > %s', url, res.status);
+      debug('<-- DELETE %s > %s', url, err || res.status);
       callback(err, res);
       spinner.remove();
     });

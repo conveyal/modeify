@@ -36,14 +36,14 @@ module.exports.profile = function(query, callback) {
  * Expose `profile`
  */
 
-module.exports.patterns = function(profile, callback) {
+module.exports.patterns = function(profile, opts, callback) {
   var spinner = spin();
   var response = new profiler.models.OtpProfileResponse(profile);
   var loader = new profiler.transitive.TransitiveLoader(response, config.otp_url() +
     '/', function() {
       spinner.remove();
       callback.apply(null, arguments);
-    });
+    }, opts);
 };
 
 /**
@@ -62,7 +62,6 @@ function process(data) {
     each(option.segments, function(segment, i) {
       // TODO: Fix on server side. Currently removing segments with a zero ride time
       if (segment.rideStats.min === 0) {
-        console.log(segment.summary, '!!!');
         addWalkTime = segment.walkTime;
         removeSegment.push(i);
         return;

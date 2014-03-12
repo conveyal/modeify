@@ -37,7 +37,7 @@ module.exports = function() {
   });
 
   window.onresize = function() {
-    if (spinner) spinner.update();
+    if (spinner && spinner.update) spinner.update();
   };
 
   var remove = spinner.remove;

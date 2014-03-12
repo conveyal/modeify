@@ -17,8 +17,23 @@
   margin-right: 0;
 }
 
-.simple-options .route:last-of-type {
-  border-bottom: none;
+.simple-options .segments {
+  text-align: left;
+}
+
+.simple-options .segments .segment {
+  display: inline-block;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  line-height: 30px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.simple-options .details {
+  border-top: 1px solid #ccc;
 }
 
 .simple-options .time {

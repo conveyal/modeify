@@ -23,18 +23,16 @@ exports.metersToMiles = function(meters) {
 
 exports.toBSColor = function(s) {
   switch (s.toLowerCase()) {
-    case 'red':
+    case 'red line':
       return '#d9534f';
-    case 'green':
+    case 'green line':
       return '#5cb85c';
-    case 'blue':
+    case 'blue line':
       return '#428bca';
-    case 'yellow':
+    case 'yellow line':
       return '#ffd247';
-    case 'orange':
+    case 'orange line':
       return '#f0ad4e';
-    case 'lightgrey':
-      return '#efefef';
     default:
       return null;
   }

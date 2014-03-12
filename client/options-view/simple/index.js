@@ -21,7 +21,75 @@ var diffcolor = d3.scale.linear()
  * Expose `View`
  */
 
-var View = module.exports = view(require('./template.html'));
+var View = module.exports = view(require('./template.html'), function(view,
+  model) {
+
+  // get max
+  var max = maxTripLength();
+  var width = function(t) {
+    return t / max * 100 + '%';
+  };
+
+  //
+  var paths = [];
+
+  model.segments.forEach(function(segment) {
+    paths.push({
+      text: '&nbsp;',
+      bg: '#f5f5f5',
+      color: '#333',
+      time: segment.walkTime
+    });
+    paths.push({
+      type: segment.type,
+      text: segment.routeShortName,
+      bg: segment.routeShortName,
+      color: '#fff',
+      time: segment.waitStats.min + segment.rideStats.min
+    });
+  });
+
+  paths.push({
+    text: '&nbsp;',
+    bg: '#f5f5f5',
+    color: '#333',
+    time: model.finalWalkTime
+  });
+
+  d3.select(view.el)
+    .select('.segments')
+    .selectAll('.segment')
+    .data(paths)
+    .enter()
+    .append('div')
+    .attr('class', 'segment')
+    .style('color', function(d) {
+      return d.color;
+    })
+    .style('background-color', function(d) {
+      if (d.type === 'train') {
+        return convert.toBSColor(d.bg);
+      } else if (d.type === 'bus') {
+        return '#ccc';
+      }
+      return d.bg;
+    })
+    .style('width', function(d) {
+      return width(d.time);
+    })
+    .html(function(d) {
+      return d.text;
+    });
+});
+
+/**
+ * Get the max trip length
+ */
+
+function maxTripLength() {
+  var profile = session.plan().routes();
+  return profile[profile.length - 1].stats.min;
+}
 
 /**
  * Average Time
