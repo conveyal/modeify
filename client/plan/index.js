@@ -165,7 +165,12 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
     endTime += 12;
   }
 
+  // Do a minimum 2 hour window
+  if (startTime === 0) startTime += ':00';
+  else startTime = (startTime - 1) + ':30';
+
   if (endTime === 24) endTime = '23:59';
+  else endTime += ':30';
 
   if (from && to && from.lat && from.lng && to.lat && to.lng) {
     debug('--- updating routes from %s to %s on %s between %s and %s %s',
@@ -174,10 +179,10 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
     otp.profile({
       from: [from.lat, from.lng],
       to: [to.lat, to.lng],
-      startTime: startTime + ':00',
-      endTime: endTime + ':00',
+      startTime: startTime,
+      endTime: endTime,
       date: date,
-      orderBy: 'AVG',
+      orderBy: 'MIN',
       limit: MAX_ROUTES
     }, function(err, data) {
       if (err) {
@@ -185,7 +190,7 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
         callback(err);
       } else if (data.options.length < 1) {
         window.alert('Warning: no trips found for route between ' + plan.from() +
-          ' and ' + plan.to() + ' at the requested hours.');
+          ' and ' + plan.to() + ' at the requested hours.\n\nIf the trip takes longer than the given time window, it will not display any results.');
         plan.routes(null);
         plan.patterns(null);
       } else {
