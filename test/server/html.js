@@ -2,6 +2,7 @@
  * Dependencies
  */
 
+var config = require('../../server/config');
 var fs = require('fs');
 var hogan = require('hogan.js');
 var request = require('./supertest');
@@ -12,9 +13,8 @@ var request = require('./supertest');
 
 var manager = hogan.compile(fs.readFileSync(__dirname +
   '/../../client/manager.html', 'utf8')).render({
-  css: '/build/manager-app/build.css',
-  js: '/build/manager-app/build.js',
-  NAME: process.env.NAME,
+  application: config.application,
+  static_url: '',
   SEGMENTIO_KEY: process.env.SEGMENTIO_KEY
 });
 
@@ -24,9 +24,8 @@ var manager = hogan.compile(fs.readFileSync(__dirname +
 
 var planner = hogan.compile(fs.readFileSync(__dirname +
   '/../../client/planner.html', 'utf8')).render({
-  css: '/build/planner-app/build.css',
-  js: '/build/planner-app/build.js',
-  NAME: process.env.NAME,
+  application: config.application,
+  static_url: '',
   SEGMENTIO_KEY: process.env.SEGMENTIO_KEY
 });
 
