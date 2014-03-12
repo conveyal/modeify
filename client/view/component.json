@@ -3,7 +3,7 @@
   "dependencies": {
     "component/classes": "1.2.1",
     "component/event": "0.1.3",
-    "ianstormtaylor/reactive": "0.13.2",
+    "ianstormtaylor/reactive": "*",
     "segmentio/reactive-child": "0.0.1",
     "segmentio/reactive-disabled": "0.0.1",
     "segmentio/view": "0.4.0"

@@ -1,15 +1,9 @@
 /**
- * Env
- */
-
-var env = process.env.NODE_ENV || 'development';
-
-/**
  * Dependencies
  */
 
 var express = require('express');
-var config = require('../config.json')[env];
+var config = require('./config');
 var read = require('fs').readFileSync;
 var hogan = require('hogan.js');
 var mongo = require('./mongo');
@@ -38,14 +32,8 @@ app.configure('development', function() {
  * Compile the templates
  */
 
-var planner = compile('planner', {
-  css: config.static_url + '/build/planner-app/build.css',
-  js: config.static_url + '/build/planner-app/build.js'
-});
-var manager = compile('manager', {
-  css: config.static_url + '/build/manager-app/build.css',
-  js: config.static_url + '/build/manager-app/build.js'
-});
+var planner = compile('planner');
+var manager = compile('manager');
 
 /**
  * Mount the api
@@ -82,17 +70,12 @@ app.use(function(err, req, res, next) {
  * Compile templates
  */
 
-function compile(name, opts) {
+function compile(name) {
   var html = read(__dirname + '/../client/' + name + '.html', {
     encoding: 'utf8'
   });
   var template = hogan.compile(html);
-
-  for (var key in process.env) {
-    opts[key] = process.env[key];
-  }
-
-  return template.render(opts);
+  return template.render(config);
 }
 
 /**

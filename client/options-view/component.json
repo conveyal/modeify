@@ -1,9 +1,9 @@
 {
   "name": "options-view",
   "dependencies": {
-    "component/each": "*",
-    "ianstormtaylor/to-capital-case": "*",
-    "mbostock/d3": "3.4.3"
+    "component/each": "0.2.3",
+    "ianstormtaylor/to-capital-case": "0.1.1",
+    "mbostock/d3": "*"
   },
   "local": [
     "convert",

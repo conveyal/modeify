@@ -3,7 +3,7 @@
  */
 
 var config = require('config');
-var debug = require('debug')(config.name() + ':otp');
+var debug = require('debug')(config.application() + ':otp');
 var each = require('each');
 var jsonp = require('jsonp');
 var profiler = require('otpprofiler.js');
@@ -23,10 +23,11 @@ var colors = ['Blue', 'Green', 'Orange', 'Red', 'Yellow'];
 
 module.exports.profile = function(query, callback) {
   var str = qs.stringify(query);
-  debug('profiling %s', str);
+  debug('--> profiling %s', str);
   var spinner = spin();
   jsonp(config.otp_url() + '/profile?' + str, function(err, data) {
     spinner.remove();
+    debug('<-- profiled %s options', data.options.length);
     callback.call(null, err, process(data));
   });
 };
@@ -61,6 +62,7 @@ function process(data) {
     each(option.segments, function(segment, i) {
       // TODO: Fix on server side. Currently removing segments with a zero ride time
       if (segment.rideStats.min === 0) {
+        console.log(segment.summary, '!!!');
         addWalkTime = segment.walkTime;
         removeSegment.push(i);
         return;
@@ -122,6 +124,8 @@ function word(w) {
   switch (w) {
     case 'Mcpherson':
       return 'McPherson';
+    case 'Pi':
+      return 'Pike';
   }
 
   // starts with number?

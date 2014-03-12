@@ -2,7 +2,7 @@
  * Dependencies
  */
 
-var config = require('../../config.json')[process.env.NODE_ENV];
+var config = require('../config');
 var Email = require('../email/model');
 var mandrill = require('../mandrill');
 var mongoose = require('mongoose');
@@ -53,7 +53,9 @@ schema.methods.sendPlan = function(campaign_id, callback) {
 
   var commuter = this;
   var options = {
-    commuterAddress: this.fullAddress(),
+    application: config.application,
+    name: this.name || 'Commuter',
+    organization: config.organization,
     orgAddress: this._organization.fullAddress(),
     subject: 'Your Personalized Commute Plan',
     template: 'plan',
@@ -65,7 +67,6 @@ schema.methods.sendPlan = function(campaign_id, callback) {
   };
 
   mandrill.send(options, function(err, results) {
-    console.log(err, results);
     if (err) {
       callback(err);
     } else {

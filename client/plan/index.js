@@ -73,7 +73,7 @@ var filters = ['am_pm', 'bike', 'bus', 'train', 'car', 'walk', 'days',
  */
 
 Plan.on('change', function(plan, name, val) {
-  debug('plan.%s changed', name);
+  debug('plan.%s changed to %s', name, val);
 
   if (name === 'reverse_commute') {
     var am_pm = plan.am_pm() === 'am' ? 'pm' : 'am';
@@ -99,7 +99,9 @@ Plan.on('change', function(plan, name, val) {
   plan.store();
 
   // track the change
-  analytics.track('plan.' + name + ' change', val);
+  var data = {};
+  data[name] = val;
+  analytics.track('plan.' + name, data);
 });
 
 /**
@@ -110,7 +112,7 @@ Plan.load = function(ctx, next) {
   debug('loading plan at %s', ctx.path);
 
   // check if we have a stored plan
-  var opts = store('plan');
+  var opts = store('plan') || {};
   if (session.isLoggedIn() && session.commuter()) {
     var commuter = session.commuter();
     debug('loading plan for logged in commuter %s', commuter._id());
@@ -175,12 +177,17 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
       startTime: startTime + ':00',
       endTime: endTime + ':00',
       date: date,
-      orderBy: 'MIN',
+      orderBy: 'AVG',
       limit: MAX_ROUTES
     }, function(err, data) {
       if (err) {
         plan.emit('error', err);
         callback(err);
+      } else if (data.options.length < 1) {
+        window.alert('Warning: no trips found for route between ' + plan.from() +
+          ' and ' + plan.to() + ' at the requested hours.');
+        plan.routes(null);
+        plan.patterns(null);
       } else {
         debug('<-- updated routes');
         plan.routes(data.options);

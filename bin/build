@@ -12,7 +12,7 @@ var env = process.env.NODE_ENV = process.argv[2] || process.env.NODE_ENV || 'dev
 
 var Builder = require('component-builder');
 var component = require('../component.json');
-var config = require('../config.json')[env];
+var config = require('../config.json');
 var fs = require('fs');
 var mkdir = require('mkdirp');
 var myth = require('myth');
@@ -27,8 +27,14 @@ var write = fs.writeFileSync;
  */
 
 config.env = env;
+
+// Merge in `env` specifc vars
+for (var key in config[env]) {
+  config[key] = config[env][key];
+}
+
+// Mapbox is set in `.env` but needed in the client
 config.mapbox_map_id = process.env.MAPBOX_MAP_ID;
-config.name = process.env.NAME;
 
 /**
  * Build all

@@ -2,7 +2,7 @@
   "name": "plan",
   "dependencies": {
     "component/debounce": "0.0.3",
-    "component/each": "*",
+    "component/each": "0.2.3",
     "component/model": "0.1.2",
     "segmentio/model-defaults": "0.1.0",
     "visionmedia/debug": "0.7.4",

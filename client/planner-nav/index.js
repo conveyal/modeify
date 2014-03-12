@@ -13,11 +13,11 @@ var view = require('view');
 var View = module.exports = view(require('./template.html'));
 
 /**
- * Name
+ * Application Name
  */
 
-View.prototype.name = function() {
-  return config.name();
+View.prototype.application = function() {
+  return config.application();
 };
 
 /**

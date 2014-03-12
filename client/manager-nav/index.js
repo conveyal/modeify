@@ -14,11 +14,11 @@ var view = require('view');
 var Nav = module.exports = view(template);
 
 /**
- * Name
+ * Application Name
  */
 
-Nav.prototype.name = function() {
-  return config.name();
+Nav.prototype.application = function() {
+  return config.application();
 };
 
 /**

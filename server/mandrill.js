@@ -2,6 +2,7 @@
  * Dependencies
  */
 
+var config = require('./config');
 var hogan = require('hogan.js');
 var juice = require('juice');
 var Mandrill = require('mandrill-api/mandrill').Mandrill;
@@ -57,8 +58,8 @@ function send(options, callback, template) {
       html: template.render(options),
       subject: options.subject,
       to: [options.to],
-      from_email: 'support@conveyal.com',
-      from_name: 'Support',
+      from_email: config.email.address,
+      from_name: config.email.name,
       track_opens: true,
       track_clicks: true,
       auto_text: true,

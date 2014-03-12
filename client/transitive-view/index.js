@@ -17,7 +17,7 @@ var View = module.exports = view(require('./template.html'), function(view,
   var patterns = model.patterns();
   if (patterns && patterns.stops.length > 0) view.display(patterns);
   model.on('change patterns', function(patterns) {
-    view.display(patterns);
+    if (patterns) view.display(patterns);
   });
 });
 

@@ -2,11 +2,11 @@
   "name": "otp",
   "dependencies": {
     "component/array-series": "0.1.5",
-    "component/each": "*",
+    "component/each": "0.2.3",
     "component/querystring": "1.2.0",
     "conveyal/otpprofiler.js": "0.1.0",
-    "ianstormtaylor/to-capital-case": "*",
-    "learnboost/jsonp": "0.0.3",
+    "ianstormtaylor/to-capital-case": "0.1.1",
+    "learnboost/jsonp": "0.0.4",
     "visionmedia/debug": "0.7.4"
   },
   "local": [

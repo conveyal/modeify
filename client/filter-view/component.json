@@ -3,7 +3,8 @@
   "dependencies": {
     "component/emitter": "1.1.2",
     "component/event": "0.1.3",
-    "mbostock/d3": "3.4.3",
+    "component/tip": "*",
+    "mbostock/d3": "*",
     "visionmedia/debug": "0.7.4"
   },
   "local": [
