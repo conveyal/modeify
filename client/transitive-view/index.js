@@ -4,6 +4,7 @@
 
 var config = require('config');
 var debug = require('debug')(config.name() + ':transitive-view');
+var each = require('each');
 var profiler = require('otpprofiler.js');
 var Transitive = require('transitive');
 var view = require('view');
@@ -33,5 +34,13 @@ View.prototype.display = function(patterns) {
     './style'), {
     gridCellSize: 800
   });
+
+  // apply computed behaviors
+  /*transitive.on('render', function (transitive) {
+    each(require('./computed'), function (behavior) {
+      behavior(transitive);
+    });
+  });*/
+
   transitive.render();
 };

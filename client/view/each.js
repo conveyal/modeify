@@ -15,7 +15,8 @@ module.exports = function(reactive) {
       var View = this.value(attr + '-view');
       if (!View) return;
 
-      items.forEach(function(item) {
+      items.forEach(function(item, index) {
+        item.index = index;
         var view = new View(item);
         container.appendChild(view.el);
       });

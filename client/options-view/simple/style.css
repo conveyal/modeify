@@ -10,6 +10,7 @@
   margin: 20px 0 0;
   color: #333;
   text-align: center;
+  cursor: pointer;
 }
 
 .simple-options .route .row {
@@ -19,6 +20,7 @@
 
 .simple-options .segments {
   text-align: left;
+  margin-bottom: -5px;
 }
 
 .simple-options .segments .segment {

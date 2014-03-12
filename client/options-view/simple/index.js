@@ -80,6 +80,21 @@ var View = module.exports = view(require('./template.html'), function(view,
     .html(function(d) {
       return d.text;
     });
+
+  view.el.onmouseover = function(event) {
+    console.log('onmouseover', model.index);
+    d3.selectAll('.transitive-path-highlight').style('visibility', 'hidden');
+    d3.select('#transitive-path-highlight-journey-option_' + model.index).style(
+      'visibility', 'visible');
+    d3.selectAll('.transitive-transfer-stops-journey-option_' + model.index).style(
+      'visibility', 'visible');
+  };
+
+  view.el.onmouseout = function(event) {
+    d3.selectAll('.transitive-path-highlight').style('visibility', 'hidden');
+    d3.selectAll('.transitive-transfer-stops-journey-option_' + model.index).style(
+      'visibility', 'hidden');
+  };
 });
 
 /**

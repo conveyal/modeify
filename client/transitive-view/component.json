@@ -2,6 +2,7 @@
   "name": "transitive-view",
   "dependencies": {
     "component/color-parser": "0.1.0",
+    "component/each": "*",
     "conveyal/otpprofiler.js": "*",
     "conveyal/transitive.js": "*",
     "visionmedia/debug": "0.7.4"
@@ -11,6 +12,7 @@
     "view"
   ],
   "scripts": [
+    "computed.js",
     "index.js",
     "style.js"
   ],
