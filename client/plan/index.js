@@ -190,7 +190,9 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
         callback(err);
       } else if (data.options.length < 1) {
         window.alert('Warning: no trips found for route between ' + plan.from() +
-          ' and ' + plan.to() + ' at the requested hours.\n\nIf the trip takes longer than the given time window, it will not display any results.');
+          ' and ' + plan.to() +
+          ' at the requested hours.\n\nIf the trip takes longer than the given time window, it will not display any results.'
+        );
         plan.routes(null);
         plan.patterns(null);
       } else {
