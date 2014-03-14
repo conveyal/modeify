@@ -47,10 +47,10 @@ module.exports = function(ctx, next) {
     });
 
     ctx.view.reactive.bind('autosubmit', function(el) {
-      el.onsubmit = function(e){
+      el.onsubmit = function(e) {
         e.preventDefault();
         plan.updateRoutes();
-      }
+      };
     });
   }
 

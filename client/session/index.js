@@ -130,7 +130,7 @@ module.exports.loginWithLink = function(ctx, next) {
   debug('--> logging in with link %s', ctx.params.link);
   ctx.redirect = '/planner';
   request.get('/login/' + ctx.params.link, function(err, res) {
-    if (res.ok) {
+    if (res.ok && res.body) {
       session.login(res.body);
       debug('<-- successfully logged in with link');
       next();
@@ -151,12 +151,12 @@ module.exports.commuterIsLoggedIn = function(ctx, next) {
   } else {
     debug('--> checking if commuter is logged in %s', ctx.path);
     request.get('/commuter-is-logged-in', function(err, res) {
-      if (err || !res.ok) {
-        debug('<-- commuter is not logged in: %s', err || res.text);
-        next();
-      } else {
+      if (res.ok && res.body) {
         session.login(res.body);
         debug('<-- commuter is logged in');
+        next();
+      } else {
+        debug('<-- commuter is not logged in: %s', err || res.text);
         next();
       }
     });
