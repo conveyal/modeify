@@ -6,7 +6,7 @@
     "address": "trevor@conveyal.com"
   },
   "organization": "ACCS",
-  "development": {
+  "test": {
     "api_url": "http://localhost:5000/api",
     "base_url": "http://localhost:5000",
     "otp_url": "http://localhost:8080/otp-rest-servlet",

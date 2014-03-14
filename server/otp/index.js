@@ -3,7 +3,7 @@
  */
 
 var auth = require('../auth');
-var config = require('../../config.json')[process.env.NODE_ENV];
+var config = require('../config');
 var express = require('express');
 var httpProxy = require('http-proxy');
 
@@ -12,7 +12,7 @@ var httpProxy = require('http-proxy');
  */
 
 var proxy = new httpProxy.createProxyServer({
-  target: config.otp
+  target: config.otp_url
 });
 
 /**

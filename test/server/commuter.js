@@ -29,9 +29,8 @@ describe(base, function() {
     });
 
     it('200 with list of all commuters', function(done) {
-      request
+      user.agent
         .get(base)
-        .set('cookie', user.sid)
         .expect(200, done);
     });
   });
@@ -44,18 +43,16 @@ describe(base, function() {
     });
 
     it('400 if invalid data', function(done) {
-      request
+      user.agent
         .post(base)
-        .set('cookie', user.sid)
         .send({})
         .expect(400, done);
     });
 
     it('201 if correct data', function(done) {
       commuter.info._organization = org.info._id;
-      request
+      user.agent
         .post(base)
-        .set('cookie', user.sid)
         .send(commuter.info)
         .expect(201)
         .end(function(err, res) {
@@ -74,16 +71,14 @@ describe(base, function() {
     });
 
     it('404 if id does not exist', function(done) {
-      request
+      user.agent
         .put(base + '/52e7ecb9e023120000c33697')
-        .set('Cookie', user.sid)
         .expect(404, done);
     });
 
     it('204 if updated correctly', function(done) {
-      request
+      user.agent
         .put(base + '/' + commuter.info._id)
-        .set('cookie', user.sid)
         .send(commuter.info)
         .expect(204, done);
     });
@@ -97,16 +92,14 @@ describe(base, function() {
     });
 
     it('404 if id does not exist', function(done) {
-      request
+      user.agent
         .post(base + '/52e7ecb9e023120000c33697/send-plan')
-        .set('Cookie', user.sid)
         .expect(404, done);
     });
 
     it('201 if sent correctly and return email object', function(done) {
-      request
+      user.agent
         .post(base + '/' + commuter.info._id + '/send-plan')
-        .set('Cookie', user.sid)
         .expect(201)
         .end(function(err, res) {
           if (err) return done(err);
@@ -125,16 +118,14 @@ describe(base, function() {
     });
 
     it('404 if id does not exist', function(done) {
-      request
+      user.agent
         .del(base + '/52e7ecb9e023120000c33697')
-        .set('Cookie', user.sid)
         .expect(404, done);
     });
 
     it('204 if deleted correctly', function(done) {
-      request
+      user.agent
         .del(base + '/' + commuter.info._id)
-        .set('cookie', user.sid)
         .expect(204, done);
     });
   });

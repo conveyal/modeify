@@ -29,9 +29,8 @@ describe(base, function() {
     });
 
     it('200 if logged in', function(done) {
-      request
+      user.agent
         .get(base)
-        .set('cookie', user.sid)
         .expect(200, done);
     });
   });
@@ -44,18 +43,16 @@ describe(base, function() {
     });
 
     it('400 if invalid data', function(done) {
-      request
+      user.agent
         .post(base)
-        .set('cookie', user.sid)
         .send(campaign.info)
         .expect(400, done);
     });
 
     it('201 if logged in & correct data', function(done) {
       campaign.info._organization = org.info._id;
-      request
+      user.agent
         .post(base)
-        .set('cookie', user.sid)
         .send(campaign.info)
         .expect(201)
         .end(function(err, res) {
@@ -74,25 +71,22 @@ describe(base, function() {
     });
 
     it('404 if id does not exist', function(done) {
-      request
+      user.agent
         .put(base + '/52e7ecb9e023120000c33697')
-        .set('Cookie', user.sid)
         .expect(404, done);
     });
 
     it('204 if logged in', function(done) {
-      request
+      user.agent
         .put(base + '/' + campaign.info._id)
-        .set('cookie', user.sid)
         .expect(204, done);
     });
   });
 
   describe('GET /:id/send', function() {
     it('204 if it has not been sent', function(done) {
-      request
+      user.agent
         .get(base + '/' + campaign.info._id + '/send')
-        .set('cookie', user.sid)
         .expect(204, done);
     });
   });
@@ -105,16 +99,14 @@ describe(base, function() {
     });
 
     it('404 if id does not exist', function(done) {
-      request
+      user.agent
         .del(base + '/52e7ecb9e023120000c33697')
-        .set('Cookie', user.sid)
         .expect(404, done);
     });
 
     it('204 if logged in', function(done) {
-      request
+      user.agent
         .del(base + '/' + campaign.info._id)
-        .set('cookie', user.sid)
         .expect(204, done);
     });
   });

@@ -30,9 +30,8 @@ describe('/api/organizations', function() {
     });
 
     it('200 return a list of organizations', function(done) {
-      request
+      admin.agent
         .get('/api/organizations')
-        .set('Cookie', admin.sid)
         .expect(200, done);
     });
   });
@@ -45,16 +44,14 @@ describe('/api/organizations', function() {
     });
 
     it('400 if no name or no address', function(done) {
-      request
+      admin.agent
         .post('/api/organizations')
-        .set('Cookie', admin.sid)
         .expect(400, done);
     });
 
     it('201 if logged in and correct data', function(done) {
-      request
+      admin.agent
         .post('/api/organizations')
-        .set('Cookie', admin.sid)
         .send(org)
         .expect(201)
         .end(function(err, res) {
@@ -67,9 +64,8 @@ describe('/api/organizations', function() {
     });
 
     it('409 if name already exists', function(done) {
-      request
+      admin.agent
         .post('/api/organizations')
-        .set('Cookie', admin.sid)
         .send(org)
         .expect(409, done);
     });
@@ -83,17 +79,15 @@ describe('/api/organizations', function() {
     });
 
     it('404 if id does not exist', function(done) {
-      request
+      admin.agent
         .put('/api/organizations/52e7ecb9e023120000c33697')
-        .set('Cookie', admin.sid)
         .expect(404, done);
     });
 
     it('204 if logged in and correct data', function(done) {
       org.name += '2';
-      request
+      admin.agent
         .put('/api/organizations/' + org._id)
-        .set('Cookie', admin.sid)
         .send(org)
         .expect(204, done);
     });
@@ -107,16 +101,14 @@ describe('/api/organizations', function() {
     });
 
     it('404 if id does not exist', function(done) {
-      request
+      admin.agent
         .del('/api/organizations/52e7ecb9e023120000c33697')
-        .set('Cookie', admin.sid)
         .expect(404, done);
     });
 
     it('204 if correct id and logged in', function(done) {
-      request
+      admin.agent
         .del('/api/organizations/' + org._id)
-        .set('Cookie', admin.sid)
         .expect(204, done);
     });
   });

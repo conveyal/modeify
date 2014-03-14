@@ -3,14 +3,19 @@
  */
 
 var admin = require('./default-user');
-var cookie = require('./cookie');
 var request = require('./supertest');
+
+/**
+ * Agent to use
+ */
+
+var agent = request.agent();
 
 /**
  * Mocha
  */
 
-describe('/api', function() {
+describe.only('/api', function() {
   before(admin.login);
 
   describe('POST /login', function() {
@@ -40,13 +45,12 @@ describe('/api', function() {
       });
 
     it('should return 200 for a correct email and password', function(done) {
-      request
+      agent
         .post('/api/login')
         .send(admin.info)
         .expect(200)
         .end(function(err, res) {
           if (err) return done(err);
-          admin.sid = cookie(res);
           done();
         });
     });
@@ -60,9 +64,8 @@ describe('/api', function() {
     });
 
     it('should return 200 wth a cookie passed', function(done) {
-      request
+      agent
         .get('/api/is-logged-in')
-        .set('Cookie', admin.sid)
         .expect(200, done);
     });
   });

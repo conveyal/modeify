@@ -2,7 +2,7 @@
  * Dependencies
  */
 
-var cookie = require('./cookie');
+var isLoggedIn = false;
 var request = require('./supertest');
 var User = require('../../server/user/model');
 
@@ -17,21 +17,30 @@ var info = module.exports.info = {
 };
 
 /**
+ * Expose `agent`
+ */
+
+var agent = module.exports.agent = request.agent();
+
+/**
  * Expose `login`
  */
 
 module.exports.login = function(done) {
-  if (module.exports.sid) return done();
+  if (isLoggedIn) return done();
 
   User.create(info, function() {
-    request
+    agent
       .post('/api/login')
       .send(info)
       .expect(200)
       .end(function(err, res) {
-        if (err) return done(err);
-        module.exports.sid = cookie(res);
-        done();
+        if (err || !res.ok) {
+          done(err || res.text);
+        } else {
+          isLoggedIn = true;
+          done();
+        }
       });
   });
 };
