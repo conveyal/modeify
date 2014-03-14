@@ -45,6 +45,13 @@ module.exports = function(ctx, next) {
 
       if (!plan.routes() || !plan.patterns()) plan.updateRoutes();
     });
+
+    ctx.view.reactive.bind('autosubmit', function(el) {
+      el.onsubmit = function(e){
+        e.preventDefault();
+        plan.updateRoutes();
+      }
+    });
   }
 
   next();
