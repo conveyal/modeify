@@ -9,14 +9,17 @@ var config = require('config');
 var debug = require('debug')(config.name() + ':commuter-form');
 var page = require('page');
 var serialize = require('serialize');
-var template = require('./template.html');
 var view = require('view');
 
 /**
  * Create `View`
  */
 
-var View = view(template);
+var View = view({
+  category: 'manager',
+  template: require('./template.html'),
+  title: 'Commuter Form',
+});
 
 /**
  * Expose `render`

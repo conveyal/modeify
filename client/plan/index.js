@@ -33,7 +33,6 @@ var Plan = module.exports = model('Plan')
     days: 'M—F',
     end_time: 9,
     from: '',
-    reverse_commute: false,
     routes: [],
     start_time: 7,
     to: '',
@@ -91,7 +90,7 @@ Plan.on('change', function(plan, name, val) {
     if (filters.indexOf(name) !== -1) {
       plan.updateRoutes();
     }
-  } else if (plan.original_modes() && plan.from_ll() && plan.to_ll()) {
+  } else if (plan.original_modes() && plan.validCoordinates()) {
     plan.welcome_complete(true);
   }
 
@@ -109,39 +108,43 @@ Plan.on('change', function(plan, name, val) {
  */
 
 Plan.load = function(ctx, next) {
-  debug('loading plan at %s', ctx.path);
+  var plan = session.plan();
+  if (!plan) {
+    debug('loading plan at %s', ctx.path);
 
-  // check if we have a stored plan
-  var opts = store('plan') || {};
-  if (session.isLoggedIn() && session.commuter()) {
-    var commuter = session.commuter();
-    debug('loading plan for logged in commuter %s', commuter._id());
+    // check if we have a stored plan
+    var opts = store('plan') || {};
+    if (session.isLoggedIn() && session.commuter()) {
+      var commuter = session.commuter();
+      debug('loading plan for logged in commuter %s', commuter._id());
 
-    // if the stored plan is not the logged in commuters, change
-    if (opts.commuter !== commuter._id()) {
-      debug('load plan from the commuter instead of localStorage');
+      // if the stored plan is not the logged in commuters, change
+      if (opts._commuter !== commuter._id()) {
+        debug('load plan from the commuter instead of localStorage');
 
-      opts = commuter.opts();
-      var org = commuter._organization();
+        opts = commuter.opts();
+        var org = commuter._organization();
 
-      opts.from = commuter.fullAddress();
-      opts.from_ll = commuter.coordinate();
+        opts.from = commuter.fullAddress() || opts.from;
+        opts.from_ll = commuter.coordinate() || opts.from_ll;
 
-      // if there is an organization attached to this commuter
-      if (org && org.model) {
-        opts.to = org.fullAddress();
-        opts.to_ll = org.coordinate();
+        // if there is an organization attached to this commuter
+        if (org && org.model) {
+          opts.to = org.fullAddress();
+          opts.to_ll = org.coordinate();
+        }
       }
     }
+
+    // remove stored patterns & routes
+    delete opts.patterns;
+    delete opts.routes;
+
+    plan = new Plan(opts);
+    session.plan(plan);
   }
 
-  // remove stored patterns & routes
-  delete opts.patterns;
-  delete opts.routes;
-
-  ctx.plan = new Plan(opts);
-  session.plan(ctx.plan);
-
+  ctx.plan = plan;
   next();
 };
 
@@ -149,7 +152,7 @@ Plan.load = function(ctx, next) {
  * Update routes. Restrict to once every 100ms.
  */
 
-Plan.prototype.updateRoutes = debounce(function(callback) {
+Plan.prototype.updateRoutes = function(callback) {
   callback = callback || function() {};
   debug('--> updating routes');
 
@@ -193,7 +196,7 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
     pconfig.toLocation.name = 'Work';
   }
 
-  if (from && to && from.lat && from.lng && to.lat && to.lng) {
+  if (plan.validCoordinates()) {
     debug('--- updating routes from %s to %s on %s between %s and %s %s',
       from,
       to, date, startTime, endTime, plan.am_pm());
@@ -228,9 +231,11 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
       }
     });
   } else {
+    if (!plan.fromIsValid() && plan.from().length > 0) plan.geocode('from');
+    if (!plan.toIsValid() && plan.to().length > 0) plan.geocode('to');
     debug('<-- updating routes not completed: from/to ll does not exist');
   }
-}, 100);
+};
 
 /**
  * Geocode
@@ -264,15 +269,16 @@ Plan.prototype.store = function() {
   // convert to "JSON", remove routes & patterns
   var json = this.toJSON();
 
-  // save in local storage
-  store('plan', json);
-
   // if we've created a commuter object, save to the commuter
   var commuter = session.commuter();
   if (commuter) {
+    json._commuter = commuter._id();
     commuter.opts(json);
     commuter.save();
   }
+
+  // save in local storage
+  store('plan', json);
 };
 
 /**
@@ -281,6 +287,32 @@ Plan.prototype.store = function() {
 
 Plan.prototype.clearStore = function() {
   store('plan', null);
+};
+
+/**
+ * Valid coordinates
+ */
+
+Plan.prototype.validCoordinates = function() {
+  return this.fromIsValid() && this.toIsValid();
+};
+
+/**
+ * From is valid
+ */
+
+Plan.prototype.fromIsValid = function() {
+  var from = this.from_ll();
+  return !!from && !! from.lat && !! from.lng;
+};
+
+/**
+ * To is valid
+ */
+
+Plan.prototype.toIsValid = function() {
+  var to = this.to_ll();
+  return !!to && !! to.lat && !! to.lng;
 };
 
 /**

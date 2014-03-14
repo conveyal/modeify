@@ -138,6 +138,9 @@ app.get('/:id', auth.isLoggedIn, get, function(req, res) {
  */
 
 app.put('/:id', auth.isLoggedIn, get, function(req, res) {
+  if (req.session.commuter && req.session.commuter._id !== req.params.id)
+    return res.send(403, 'Cannot change other commuters.');
+
   for (var key in req.body) {
     if (key === '_user' || key === '_organization') continue;
     req.commuter[key] = req.body[key];

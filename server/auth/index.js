@@ -2,17 +2,24 @@
  * Dependencies
  */
 
+var config = require('../config');
 var express = require('express');
 var Commuter = require('../commuter/model');
+var toSlugCase = require('to-slug-case');
 var User = require('../user/model');
+
+/**
+ * Turn application name into a slug
+ */
+
+var slug = toSlugCase(config.application);
 
 /**
  * Cookie data
  */
 
-var cookieSecret = process.env.COOKIE_SECRET + '.commute-planner.' + process.env
-  .NODE_ENV;
-var cookieKey = 'commute-planner.' + process.env.NODE_ENV;
+var cookieKey = slug + '.' + process.env.NODE_ENV;
+var cookieSecret = process.env.COOKIE_SECRET + '.' + cookieKey;
 var thirtyDays = 2592000000; // 30 days in ms
 
 /**
@@ -63,9 +70,6 @@ app.post('/login', function(req, res) {
           } else if (!same) {
             res.send(400, 'Incorrect password.');
           } else {
-            res.cookie('user', user._id, {
-              signed: true
-            });
             // convert to JSON and delete password
             user = user.toJSON();
             delete user.password;
@@ -88,18 +92,16 @@ app.get('/login/:link', function(req, res) {
     .findOne()
     .where('link', req.params.link)
     .populate('_organization')
-    .populate('_user', 'email type')
+    .populate('_user', '_id email type')
     .exec(function(err, commuter) {
       if (err) {
         res.send(400, err);
       } else if (!commuter) {
         res.send(404, 'Incorrect link.');
       } else {
-        res.cookie('user', commuter._user._id, {
-          signed: true
-        });
+        req.session.user = commuter._user.toJSON();
+        req.session.commuter = commuter.toJSON();
 
-        req.session.user = commuter;
         res.send(200, commuter);
       }
     });
@@ -126,7 +128,7 @@ app.all('/is-logged-in', isLoggedIn, function(req, res) {
  */
 
 app.all('/commuter-is-logged-in', isLoggedIn, function(req, res) {
-  res.send(200, req.session.user);
+  res.send(200, req.session.commuter);
 });
 
 /**
@@ -137,6 +139,7 @@ function isLoggedIn(req, res, next) {
   if (req.signedCookies && req.signedCookies[cookieKey] && req.signedCookies[
     cookieKey].user) {
     req.session.user = req.signedCookies[cookieKey].user;
+    req.session.commuter = req.signedCookies[cookieKey].commuter;
     next();
   } else {
     logout(req, res);
@@ -162,6 +165,7 @@ function isAdmin(req, res, next) {
  */
 
 function logout(req, res, next) {
+  res.clearCookie('commuter');
   res.clearCookie('user');
   req.session = null;
   if (next) next();

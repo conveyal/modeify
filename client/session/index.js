@@ -3,6 +3,7 @@
  */
 
 var analytics = require('analytics');
+var cookie = require('cookie');
 var Commuter = require('commuter');
 var config = require('config');
 var debug = require('debug')(config.name() + ':session');
@@ -52,7 +53,9 @@ Session.prototype.logout = function(next) {
   session.commuter(null);
 
   request.get('/logout', function(err, res) {
-    document.cookie = null;
+    cookie('commuter', null);
+    cookie('user', null);
+
     debug('<-- logged out %s', res.text);
     if (next) next(err, res);
   });
@@ -63,12 +66,17 @@ Session.prototype.logout = function(next) {
  */
 
 Session.prototype.login = function(data) {
+  debug('--> login');
+
   var commuter = null;
   var type = null;
   var user = null;
 
   // is this a commuter object with a reference to a user?
   if (data._user) {
+    debug('--- login as %s', data._user.email);
+
+    // Create the commuter object
     commuter = new Commuter(data);
     user = new User(data._user);
 
@@ -76,6 +84,7 @@ Session.prototype.login = function(data) {
     if (data._organization && data._organization._id) {
       commuter._organization(new Organization(data._organization));
     }
+
     type = 'commuter';
   } else {
     user = new User(data);
@@ -87,7 +96,25 @@ Session.prototype.login = function(data) {
   session.isAdmin(type === 'administrator');
   session.isManager(type !== 'commuter');
   session.isLoggedIn(true);
+
+  debug('<-- login complete');
 };
+
+/**
+ * Track user
+ */
+
+Session.on('change user', function(session, user, prev) {
+  debug('--> identifying user');
+  if (user && user._id) {
+    analytics.identify(user._id(), user.toJSON());
+    debug('<-- tracking %s', user.email());
+  } else if (user !== prev) {
+    var id = 'guest-' + uid(9);
+    analytics.identify(id);
+    debug('<-- tracking %s', id);
+  }
+});
 
 /**
  * Expose `session`
@@ -96,25 +123,19 @@ Session.prototype.login = function(data) {
 var session = window.session = module.exports = new Session();
 
 /**
- * Track user
- */
-
-session.on('change user', function(user, prev) {
-  if (user) analytics.identify(user._id(), user.toJSON());
-  else if (user !== prev) analytics.identify('guest-' + uid());
-});
-
-/**
  * Log in with link middleware
  */
 
 module.exports.loginWithLink = function(ctx, next) {
+  debug('--> logging in with link %s', ctx.params.link);
   ctx.redirect = '/planner';
   request.get('/login/' + ctx.params.link, function(err, res) {
     if (res.ok) {
       session.login(res.body);
+      debug('<-- successfully logged in with link');
       next();
     } else {
+      debug('<-- failed to login with link: %s', err || res.text);
       next(err || new Error(res.text));
     }
   });
@@ -125,16 +146,17 @@ module.exports.loginWithLink = function(ctx, next) {
  */
 
 module.exports.commuterIsLoggedIn = function(ctx, next) {
-  debug('check if commuter is logged in %s', ctx.path);
-
   if (session.commuter()) {
     next();
   } else {
+    debug('--> checking if commuter is logged in %s', ctx.path);
     request.get('/commuter-is-logged-in', function(err, res) {
       if (err || !res.ok) {
+        debug('<-- commuter is not logged in: %s', err || res.text);
         next();
       } else {
         session.login(res.body);
+        debug('<-- commuter is logged in');
         next();
       }
     });

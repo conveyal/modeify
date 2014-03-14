@@ -1,6 +1,7 @@
 {
   "name": "session",
   "dependencies": {
+    "component/cookie": "*",
     "component/model": "0.1.2",
     "component/uid": "0.0.2",
     "segmentio/model-defaults": "0.1.0",

@@ -4,7 +4,7 @@
     "component/array-series": "0.1.5",
     "component/each": "0.2.3",
     "component/querystring": "1.2.0",
-    "conveyal/otpprofiler.js": "0.1.0",
+    "conveyal/otpprofiler.js": "*",
     "ianstormtaylor/to-capital-case": "0.1.1",
     "learnboost/jsonp": "0.0.4",
     "visionmedia/debug": "0.7.4"

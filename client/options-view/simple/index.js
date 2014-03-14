@@ -82,7 +82,6 @@ var View = module.exports = view(require('./template.html'), function(view,
     });
 
   view.el.onmouseover = function(event) {
-    console.log('onmouseover', model.index);
     d3.selectAll('.transitive-path-highlight').style('visibility', 'hidden');
     d3.select('#transitive-path-highlight-journey-option_' + model.index).style(
       'visibility', 'visible');

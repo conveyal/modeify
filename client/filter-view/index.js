@@ -53,6 +53,7 @@ View.on('construct', function(view) {
  */
 
 View.prototype.update = function(e) {
+  e.preventDefault();
   this.model.updateRoutes();
 };
 

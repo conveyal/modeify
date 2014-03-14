@@ -27,13 +27,14 @@ var View = module.exports = view(require('./template.html'), function(view,
  */
 
 View.prototype.display = function(patterns) {
-  debug('displaying...');
+  debug('--> displaying patterns');
   var map = this.find('.map');
   map.innerHTML = '';
   var transitive = new Transitive(this.find('.map'), patterns, require(
     './style'), {
     gridCellSize: 800
   });
-
   transitive.render();
+
+  debug('<-- done displaying patterns');
 };

@@ -30,14 +30,16 @@ module.exports = function(ctx, next) {
     organization: ctx.organization
   });
   ctx.view.on('rendered', function(v) {
-    var m = window.map = map(v.find('.map'), {
-      center: ctx.commuter.coordinate(),
-      zoom: 13
-    });
+    if (ctx.commuter.validCoordinate()) {
+      var m = window.map = map(v.find('.map'), {
+        center: ctx.commuter.coordinate(),
+        zoom: 13
+      });
 
-    m.addMarker(ctx.commuter.mapMarker());
-    m.addMarker(ctx.organization.mapMarker());
-    m.fitLayer(m.featureLayer);
+      m.addMarker(ctx.commuter.mapMarker());
+      m.addMarker(ctx.organization.mapMarker());
+      m.fitLayer(m.featureLayer);
+    }
   });
 
   next();

@@ -4,29 +4,26 @@
 
 module.exports = function(Model) {
   Model
-    .attr('coordinate', {
-      type: 'object'
-    })
-    .attr('address', {
-      type: 'string'
-    })
-    .attr('city', {
-      type: 'string'
-    })
-    .attr('state', {
-      type: 'string'
-    })
-    .attr('zip', {
-      type: 'number'
-    });
+    .attr('coordinate')
+    .attr('address')
+    .attr('city')
+    .attr('state')
+    .attr('zip');
 
   /**
    * Full address
    */
 
   Model.prototype.fullAddress = function() {
-    return this.address() + ', ' + this.city() + ', ' + this.state() + ' ' +
-      this.zip();
+    var addr = this.address() || '';
+    var fuzzy = this.fuzzyAddress();
+
+    if (fuzzy) {
+      if (addr) addr += ', ' + fuzzy;
+      else addr = fuzzy;
+    }
+
+    return addr;
   };
 
   /**
@@ -34,7 +31,20 @@ module.exports = function(Model) {
    */
 
   Model.prototype.fuzzyAddress = function() {
-    return this.city() + ', ' + this.state() + ' ' + this.zip();
+    var city = this.city();
+    var state = this.state();
+    var zip = this.zip();
+    var addr = city || '';
+
+    if (city && (state || zip)) addr += ', ';
+    if (state) addr += state;
+
+    if (zip) {
+      if (state) addr += ' ' + zip;
+      else addr += zip;
+    }
+
+    return addr;
   };
 
   /**
@@ -47,6 +57,15 @@ module.exports = function(Model) {
       lat: obscure(ll.lat),
       lng: obscure(ll.lng)
     };
+  };
+
+  /**
+   * Valid coordinate
+   */
+
+  Model.prototype.validCoordinate = function() {
+    var c = this.coordinate();
+    return c && !! c.lat && !! c.lng;
   };
 };
 

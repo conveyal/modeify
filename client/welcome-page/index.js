@@ -6,6 +6,7 @@ var config = require('config');
 var debug = require('debug')(config.name() + ':welcome-page');
 var geocode = require('geocode');
 var page = require('page');
+var session = require('session');
 var spin = require('spinner');
 var view = require('view');
 
@@ -30,7 +31,7 @@ module.exports = function(ctx, next) {
   if (plan.welcome_complete()) {
     ctx.redirect = '/planner';
   } else {
-    debug('creating welcome page view with plan', plan.toJSON());
+    debug('showing welcome page view with plan');
     ctx.view = new View(plan);
   }
 
@@ -42,6 +43,7 @@ module.exports = function(ctx, next) {
  */
 
 View.prototype.save = function() {
+  debug('--> saving');
   var plan = this.model;
   var spinner = spin();
   var fromEl = this.find('[name="from"]');
@@ -59,8 +61,9 @@ View.prototype.save = function() {
       if (plan.welcome_complete()) page('/planner');
     }
 
+    debug('<-- saved');
     spinner.remove();
-  } else if (!plan.from_ll()) {
+  } else if (!plan.fromIsValid()) {
     this.geocode(fromEl, function(err, ll) {
       if (err) {
         window.alert('Please enter a valid address.');
@@ -72,6 +75,7 @@ View.prototype.save = function() {
         if (plan.welcome_complete()) page('/planner');
       }
       spinner.remove();
+      debug('<-- saved');
     });
   } else {
     this.geocode(toEl, function(err, ll) {
@@ -85,6 +89,7 @@ View.prototype.save = function() {
         page('/planner');
       }
       spinner.remove();
+      debug('<-- saved');
     });
   }
 };

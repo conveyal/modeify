@@ -7,7 +7,7 @@ var Batch = require('batch');
 var Commuter = require('commuter');
 var config = require('config');
 var csvToArray = require('csv-to-array');
-var debug = require('debug')(config.name() + ':organization-page');
+var debug = require('debug')(config.application() + ':organization-page');
 var each = require('each');
 var file = require('file');
 var filePicker = require('file-picker');
@@ -47,7 +47,7 @@ module.exports = function(ctx, next) {
 
     var cluster = new L.MarkerClusterGroup();
     ctx.commuters.forEach(function(commuter) {
-      cluster.addLayer(commuter.mapMarker());
+      if (commuter.validCoordinate()) cluster.addLayer(commuter.mapMarker());
     });
 
     m.addLayer(cluster);
