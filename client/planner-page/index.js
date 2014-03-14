@@ -49,3 +49,11 @@ module.exports = function(ctx, next) {
 
   next();
 };
+
+/**
+ * On submit
+ */
+
+View.prototype.onsubmit = function(e) {
+  e.preventDefault();
+};

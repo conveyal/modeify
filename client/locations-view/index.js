@@ -62,5 +62,14 @@ View.prototype.edit = function(e) {
  */
 
 View.prototype.reverseCommute = function() {
-  this.model.reverse_commute(!this.model.reverse_commute());
+  var plan = this.model;
+  var am_pm = plan.am_pm() === 'am' ? 'pm' : 'am';
+  plan.set({
+    am_pm: am_pm,
+    from: plan.to(),
+    from_ll: plan.to_ll(),
+    reverse_commute: !plan.reverse_commute(),
+    to: plan.from(),
+    to_ll: plan.from_ll()
+  });
 };

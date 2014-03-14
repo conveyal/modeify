@@ -29,9 +29,8 @@ var el = document.getElementById('spinner');
  */
 
 module.exports = function() {
-  el.style.display = 'block';
-
   if (spinner !== null) return spinner;
+
   spinner = spin(el, {
     size: el.offsetWidth / 15
   });
@@ -47,5 +46,6 @@ module.exports = function() {
     spinner = null;
   };
 
+  el.style.display = 'block';
   return spinner;
 };

@@ -74,17 +74,6 @@ var filters = ['am_pm', 'bike', 'bus', 'train', 'car', 'walk', 'days',
 Plan.on('change', function(plan, name, val) {
   debug('plan.%s changed to %s', name, val);
 
-  if (name === 'reverse_commute') {
-    var am_pm = plan.am_pm() === 'am' ? 'pm' : 'am';
-    plan.set({
-      am_pm: am_pm,
-      from: plan.to(),
-      from_ll: plan.to_ll(),
-      to: plan.from(),
-      to_ll: plan.from_ll()
-    });
-  }
-
   // if the type is a filter, trigger `updateRoutes`
   if (plan.welcome_complete()) {
     if (filters.indexOf(name) !== -1) {
@@ -95,12 +84,7 @@ Plan.on('change', function(plan, name, val) {
   }
 
   // Store in localStorage
-  plan.store();
-
-  // track the change
-  var data = {};
-  data[name] = val;
-  analytics.track('plan.' + name, data);
+  if (name !== 'routes' && name !== 'patterns') plan.store();
 });
 
 /**
@@ -152,7 +136,7 @@ Plan.load = function(ctx, next) {
  * Update routes. Restrict to once every 100ms.
  */
 
-Plan.prototype.updateRoutes = function(callback) {
+Plan.prototype.updateRoutes = debounce(function(callback) {
   callback = callback || function() {};
   debug('--> updating routes');
 
@@ -235,7 +219,7 @@ Plan.prototype.updateRoutes = function(callback) {
     if (!plan.toIsValid() && plan.to().length > 0) plan.geocode('to');
     debug('<-- updating routes not completed: from/to ll does not exist');
   }
-};
+}, 25);
 
 /**
  * Geocode
@@ -262,12 +246,16 @@ Plan.prototype.geocode = function(dest, callback) {
 };
 
 /**
- * Store in localStorage. Restrict this I/O to once every 500ms.
+ * Store in localStorage. Restrict this I/O to once every 25ms.
  */
 
-Plan.prototype.store = function() {
+Plan.prototype.store = debounce(function(name) {
   // convert to "JSON", remove routes & patterns
-  var json = this.toJSON();
+  var json = {};
+  for (var key in this.attrs) {
+    if (key === 'routes' || key === 'patterns') continue;
+    json[key] = this.attrs[key];
+  }
 
   // if we've created a commuter object, save to the commuter
   var commuter = session.commuter();
@@ -279,7 +267,10 @@ Plan.prototype.store = function() {
 
   // save in local storage
   store('plan', json);
-};
+
+  // track the change
+  analytics.track('plan.' + name + ' changed', json);
+}, 25);
 
 /**
  * Clear localStorage
