@@ -9,7 +9,9 @@
   "test": {
     "api_url": "http://localhost:5000/api",
     "base_url": "http://localhost:5000",
+    "mapbox_map_id": "",
     "otp_url": "http://localhost:8080/otp-rest-servlet",
+    "segmentio_key": "",
     "static_url": ""
   }
 }
