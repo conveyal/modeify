@@ -3,7 +3,7 @@
  */
 
 var async = require('async');
-var geocode = require('../../server/geocode');
+var geocode = require('../../lib/geocode');
 var request = require('./supertest');
 
 /**

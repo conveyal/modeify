@@ -2,7 +2,7 @@
 CSS = $(shell find client -name '*.css')
 HTML = $(shell find client -name '*.html')
 CLIENTJS = $(shell find client -name '*.js')
-SERVERJS = $(shell find server -name '*.js')
+LIBJS = $(shell find lib -name '*.js')
 TESTJS = $(shell find test -name '*.js')
 JSON = $(shell find client -name '*.json')
 
@@ -14,7 +14,7 @@ build: components $(CSS) $(HTML) $(JS) $(JSON)
 	@./bin/build
 
 beautify:
-	@./node_modules/.bin/js-beautify --quiet --replace $(CLIENTJS) $(SERVERJS) $(TESTJS)
+	@./node_modules/.bin/js-beautify --quiet --replace $(CLIENTJS) $(LIBJS) $(TESTJS)
 
 clean:
 	@rm -rf build
@@ -37,11 +37,11 @@ node_modules: package.json
 
 # Lint JavaScript with JSHint
 lint:
-	@./node_modules/.bin/jshint $(CLIENTJS) $(SERVERJS) $(TESTJS)
+	@./node_modules/.bin/jshint $(CLIENTJS) $(LIBJS) $(TESTJS)
 lint-client:
 	@./node_modules/.bin/jshint $(CLIENTJS)
-lint-server:
-	@./node_modules/.bin/jshint $(SERVERJS)
+lint-lib:
+	@./node_modules/.bin/jshint $(LIBJS)
 lint-test:
 	@./node_modules/.bin/jshint $(TESTJS)
 
@@ -55,9 +55,9 @@ serve: node_modules build
 	@./node_modules/.bin/nodemon --verbose
 
 # Run mocha test suite
-test: test-client test-server
+test: test-client test-lib
 test-client: lint-client lint-test
-test-server: lint-server lint-test
+test-lib: lint-lib lint-test
 	@NODE_ENV=test ./node_modules/.bin/mocha --recursive --require should --reporter $(REPORTER) --timeout 5000 --slow 10
 
-.PHONY: beautify help lint lint-client lint-server lint-test release test test-client test-server watch
+.PHONY: beautify help lint lint-client lint-lib lint-test release test test-client test-lib watch

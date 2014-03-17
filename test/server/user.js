@@ -4,7 +4,7 @@
 
 var admin = require('./default-admin');
 var request = require('./supertest');
-var User = require('../../server/user/model');
+var User = require('../../lib/user/model');
 
 /**
  * New user

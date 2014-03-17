@@ -2,5 +2,5 @@
   "ext": "js json css html",
   "script": "./bin/server",
   "verbose": true,
-  "watch": [ "bin", "client", "email-templates", "server" ]
+  "watch": [ "bin", "client", "email-templates", "lib" ]
 }

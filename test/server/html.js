@@ -2,7 +2,7 @@
  * Dependencies
  */
 
-var config = require('../../server/config');
+var config = require('../../lib/config');
 var fs = require('fs');
 var hogan = require('hogan.js');
 var request = require('./supertest');

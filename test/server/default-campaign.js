@@ -3,7 +3,7 @@
  */
 
 var Org = require('./default-organization');
-var Campaign = require('../../server/campaign/model');
+var Campaign = require('../../lib/campaign/model');
 
 /**
  * Expose `info`

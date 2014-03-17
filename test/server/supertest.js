@@ -2,19 +2,19 @@
  * Dependencies
  */
 
-var app = require('../../server');
+var api = require('../../lib/api');
 var supertest = require('supertest');
 
 /**
  * Expose `app`
  */
 
-module.exports = supertest(app);
+module.exports = supertest(api);
 
 /**
  * Expose `agent`
  */
 
 module.exports.agent = function() {
-  return supertest.agent(app);
+  return supertest.agent(api);
 };

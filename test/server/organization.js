@@ -4,7 +4,7 @@
 
 var admin = require('./default-admin');
 var request = require('./supertest');
-var Org = require('../../server/organization/model');
+var Org = require('../../lib/organization/model');
 
 /**
  * Empty org

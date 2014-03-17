@@ -2,7 +2,7 @@
  * Dependencies
  */
 
-var Org = require('../../server/organization/model');
+var Org = require('../../lib/organization/model');
 
 /**
  * Expose `info`

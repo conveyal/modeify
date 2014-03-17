@@ -4,7 +4,7 @@
 
 var isLoggedIn = false;
 var request = require('./supertest');
-var User = require('../../server/user/model');
+var User = require('../../lib/user/model');
 
 /**
  * Expose `info`
