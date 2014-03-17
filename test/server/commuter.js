@@ -2,9 +2,9 @@
  * Dependencies
  */
 
+var user = require('./default-admin');
 var commuter = require('./default-commuter');
 var org = require('./default-organization');
-var user = require('./default-user');
 var request = require('./supertest');
 
 /**

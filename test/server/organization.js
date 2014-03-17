@@ -2,7 +2,7 @@
  * Dependencies
  */
 
-var admin = require('./default-user');
+var admin = require('./default-admin');
 var request = require('./supertest');
 var Org = require('../../server/organization/model');
 
