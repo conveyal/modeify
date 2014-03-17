@@ -5,6 +5,13 @@
 var env = process.env.NODE_ENV;
 var port = process.env.PORT || 5000;
 
+/**
+ * Dependencies
+ */
+
+var app = require('../lib/express');
+var log = require('../lib/log');
+
 // If `NODE_ENV` is not set throw
 
 if (process.env.NODE_ENV === undefined) throw new Error('Envrionment variables must be set. See `.env.tmp`.');
@@ -15,6 +22,6 @@ if (env === 'development') require('./build');
 
 // Run the server
 
-require('../server').listen(port, function() {
-  console.log('\033[36m[commute-planner] \033[90mserver listening on port', port);
+app.listen(port, function() {
+  log.info('express server listening on port ' + port);
 });
