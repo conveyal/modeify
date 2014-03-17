@@ -84,7 +84,7 @@ Plan.on('change', function(plan, name, val) {
   }
 
   // Store in localStorage
-  if (name !== 'routes' && name !== 'patterns') plan.store();
+  if (name !== 'routes' && name !== 'patterns') plan.store(name, val);
 });
 
 /**
