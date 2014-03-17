@@ -1,6 +1,6 @@
 {
   "private": true,
-  "main": "index.js",
+  "main": "bin/server",
   "dependencies": {
     "async": "~0.2.10",
     "aws-lib": "~0.3.0",

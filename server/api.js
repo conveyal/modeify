@@ -24,3 +24,4 @@ app.use('/geocode', require('./geocode'));
 app.use('/organizations', require('./organization'));
 app.use('/otp', require('./otp'));
 app.use('/users', require('./user'));
+app.use('/webhooks', require('./webhooks'));

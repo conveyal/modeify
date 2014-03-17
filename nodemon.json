@@ -1,6 +1,6 @@
 {
   "ext": "js json css html",
-  "script": "index.js",
+  "script": "./bin/server",
   "verbose": true,
-  "watch": [ "client", "email-templates", "server" ]
+  "watch": [ "bin", "client", "email-templates", "server" ]
 }
