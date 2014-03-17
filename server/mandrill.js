@@ -20,10 +20,11 @@ var templates = {};
 var client = module.exports.client = new Mandrill(process.env.MANDRILL_API_KEY);
 
 /**
- * Expose `send`
+ * Expose `send` & `info`
  */
 
 module.exports.send = send;
+module.exports.info = info;
 
 /**
  * Send
@@ -71,6 +72,20 @@ function send(options, callback, template) {
     } else {
       callback(null, result[0]);
     }
+  }, function(err) {
+    callback(err);
+  });
+}
+
+/**
+ * Info
+ */
+
+function info(id, callback) {
+  client.messages.info({
+    id: id
+  }, function(results) {
+    callback(null, results);
   }, function(err) {
     callback(err);
   });
