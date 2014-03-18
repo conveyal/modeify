@@ -1,13 +1,10 @@
-/**
- * Dependencies
- */
-
 var config = require('config');
 var debug = require('debug')(config.application() + ':otp');
 var each = require('each');
 var jsonp = require('jsonp');
 var profiler = require('otpprofiler.js');
 var qs = require('querystring');
+var request = require('request');
 var spin = require('spinner');
 var toCapitalCase = require('to-capital-case');
 
@@ -24,11 +21,9 @@ var colors = ['Blue', 'Green', 'Orange', 'Red', 'Yellow'];
 module.exports.profile = function(query, callback) {
   var str = qs.stringify(query);
   debug('--> profiling %s', str);
-  var spinner = spin();
-  jsonp(config.otp_url() + '/profile?' + str, function(err, data) {
-    spinner.remove();
-    debug('<-- profiled %s options', data.options.length);
-    callback.call(null, err, process(data));
+  request.get('/otp/profile?' + str, function(err, res) {
+    debug('<-- profiled %s options', res.body.options.length);
+    callback.call(null, err, process(res.body));
   });
 };
 

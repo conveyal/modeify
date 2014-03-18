@@ -1,7 +1,3 @@
-/**
- * Dependencies
- */
-
 var config = require('config');
 var debug = require('debug')(config.name() + ':request');
 var spin = require('spinner');

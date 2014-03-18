@@ -12,6 +12,7 @@
   "local": [
     "config",
     "geocode",
+    "request",
     "spinner"
   ],
   "scripts": [
