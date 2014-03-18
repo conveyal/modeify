@@ -21,5 +21,12 @@
 
     <div class="container" id="main"></div>
     <script src="{{static_url}}/build/planner-app/build.js"></script>
+    <script type="text/javascript">
+      if (!document.body.classList) {
+        window.alert('Please use a modern browser or this website will not run correctly.\n We recommend Google Chrome.');
+        window.analytics.page('planner', 'Planner Page');
+        window.analytics.track('browser incompatibility warning shown', navigator);
+      }
+    </script>
   </body>
 </html>
