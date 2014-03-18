@@ -15,7 +15,7 @@ var agent = request.agent();
  * Mocha
  */
 
-describe.only('/api', function() {
+describe('/api', function() {
   before(admin.login);
 
   describe('POST /login', function() {
