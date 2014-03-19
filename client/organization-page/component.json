@@ -2,8 +2,10 @@
   "name": "organization-page",
   "dependencies": {
     "component/each": "0.2.3",
+    "component/domify": "*",
     "component/file": "0.1.1",
     "component/file-picker": "0.2.0",
+    "component/value": "*",
     "trevorgerhardt/csv-to-array": "0.0.1",
     "visionmedia/batch": "0.5.0",
     "visionmedia/debug": "0.7.4",
@@ -20,10 +22,13 @@
     "view"
   ],
   "scripts": [
-    "index.js"
+    "index.js",
+    "view.js"
   ],
   "templates": [
-    "row.html",
+    "commuter-confirm-input.html",
+    "commuter-confirm-modal.html",
+    "commuter.html",
     "template.html"
   ]
 }

@@ -1,0 +1,17 @@
+<div class="modal fade in" style="display:block;">
+  <div class="modal-dialog">
+    <form class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" on-click="close">&times;</button>
+        <h4 class="modal-title">Confirm Commuter Data</h4>
+      </div>
+      <table class="modal-body table">
+        <tbody data-each="commuters"></tbody>
+      </table>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" on-click="close" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" on-click="upload">Upload &amp; Invite Commuters</button>
+      </div>
+    </form><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>

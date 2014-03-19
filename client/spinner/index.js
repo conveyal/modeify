@@ -5,19 +5,26 @@ var Spinner = require('spin');
  */
 
 var spinner = new Spinner();
+var isSpinning = false;
+
+/**
+ * Old remove function
+ */
+
+spinner.remove = function() {
+  spinner.stop();
+  isSpinning = false;
+};
 
 /**
  * Expose `spinner`
  */
 
 module.exports = function() {
-  if (spinner !== null) return spinner;
+  if (isSpinning) return spinner;
 
   spinner.spin(document.body);
-
-  spinner.remove = function() {
-    if (spinner) spinner.stop();
-  };
+  isSpinning = true;
 
   return spinner;
 };
