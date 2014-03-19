@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+
+var updateStatus = require('../lib/commuter/process').updateStatus;
+var runBatch = require('../lib/worker').run;
+
+runBatch(updateStatus);

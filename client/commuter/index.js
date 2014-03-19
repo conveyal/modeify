@@ -31,7 +31,8 @@ var Commuter = module.exports = model('Commuter')
   .attr('name')
   .attr('link')
   .attr('labels')
-  .attr('opts');
+  .attr('opts')
+  .attr('status');
 
 /**
  * Load middleware
