@@ -1,28 +1,10 @@
-/**
- * Dependencies
- */
-
-var domify = require('domify');
-var spin = require('spin');
-var template = require('./template.html');
-
-/**
- * Append template to the page
- */
-
-document.body.appendChild(domify(template));
+var Spinner = require('spin');
 
 /**
  * Store one spinner at a time
  */
 
-var spinner = null;
-
-/**
- * Store the spinner div
- */
-
-var el = document.getElementById('spinner');
+var spinner = new Spinner();
 
 /**
  * Expose `spinner`
@@ -31,21 +13,11 @@ var el = document.getElementById('spinner');
 module.exports = function() {
   if (spinner !== null) return spinner;
 
-  spinner = spin(el, {
-    size: el.offsetWidth / 15
-  });
+  spinner.spin(document.body);
 
-  window.onresize = function() {
-    if (spinner && spinner.update) spinner.update();
-  };
-
-  var remove = spinner.remove;
   spinner.remove = function() {
-    if (spinner) remove.apply(spinner, arguments);
-    el.style.display = 'none';
-    spinner = null;
+    if (spinner) spinner.stop();
   };
 
-  el.style.display = 'block';
   return spinner;
 };

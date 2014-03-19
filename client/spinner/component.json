@@ -1,16 +1,9 @@
 {
   "name": "spinner",
   "dependencies": {
-    "component/domify": "1.2.2",
-    "component/spin": "0.0.2"
+    "fgnass/spin.js": "*"
   },
   "scripts": [
     "index.js"
-  ],
-  "styles": [
-    "style.css"
-  ],
-  "templates": [
-    "template.html"
   ]
 }
