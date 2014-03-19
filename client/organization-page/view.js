@@ -26,14 +26,6 @@ var View = module.exports = view({
 });
 
 /**
- * On rendered
- */
-
-View.on('rendered', function(view) {
-  debug('REALLY??');
-});
-
-/**
  * Commuter View
  */
 
@@ -101,7 +93,7 @@ View.prototype.parseCSV = function(e) {
       spinner.remove();
       var commuters = csvToArray(text);
       view.showConfirmUpload(commuters.filter(function(commuter) {
-        return commuter.email && String(commuter.email).length >= 5;
+        return commuter.email && commuter.email.length >= 5;
       }));
     });
   });
@@ -152,6 +144,7 @@ Modal.prototype.upload = function(e) {
   var batch = new Batch();
   var spinner = spin();
   var modal = this;
+  var organization = modal.model.organization;
 
   each(modal.findAll('tr'), function(el) {
     // if confirm is unchecked, skip
@@ -159,29 +152,33 @@ Modal.prototype.upload = function(e) {
 
     // get the other data
     var data = {
-      address: String(el.querySelector('.address').innerText),
-      email: String(el.querySelector('.email').innerText).toLowerCase(),
-      name: String(el.querySelector('.name').innerText)
+      address: el.querySelector('.address').innerText || '',
+      email: (el.querySelector('.email').innerText || '').toLowerCase(),
+      name: el.querySelector('.name').innerText || ''
     };
 
     batch.push(function(done) {
       var commuter = new Commuter(data);
-      commuter._user(data);
-      commuter._organization(modal.model.organization._id());
+      commuter._user({
+        email: data.email,
+        type: 'commuter'
+      });
+      commuter._organization(organization._id());
       commuter.save(done);
     });
   });
 
   batch.end(function(err) {
     if (err) {
-      window.alert('Error while uploading CSV. ' + err);
+      window.alert('Error while uploading commuters. ' + err);
     } else {
       alerts.push({
         type: 'success',
-        text: 'Upload succesful, commuters created.'
+        text: 'Upload succesful, commuters created & invited.'
       });
     }
     spinner.remove();
     modal.el.remove();
+    page('/manager/organizations/' + organization._id() + '/show');
   });
 };

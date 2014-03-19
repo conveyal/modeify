@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+
+var processEmails = require('../lib/email/process');
+
+// get a batch process
+processEmails(function(err, batch) {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  } else {
+    console.log('processing', batch.fns.length, 'emails');
+
+    batch.on('progress', function(e) {
+      console.log(e.complete + ' / ' + e.total);
+    });
+
+    batch.end(function(err, results) {
+      if (err) {
+        console.error(err);
+        process.exit(1);
+      } else {
+        console.log('processing finished');
+        process.exit(0);
+      }
+    });
+  }
+});

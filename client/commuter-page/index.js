@@ -73,7 +73,7 @@ View.prototype.destroy = function(e) {
 
 View.prototype.sendPlan = function(e) {
   e.preventDefault();
-  if (window.confirm('Send personalized plan to commuter?')) {
+  if (window.confirm('Resend invitation to commuter?')) {
     request.post('/commuters/' + this.model._id() + '/send-plan', {}, function(
       err, res) {
       if (err || !res.ok) {
