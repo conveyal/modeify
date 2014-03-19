@@ -1,2 +1,29 @@
 
+.omnibox {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 25px;
+  width: 350px;
+  z-index: 1;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px #ccc;
+}
 
+.panel {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 450px;
+  overflow-y: scroll;
+  z-index: 1;
+  background-color: #fff;
+  border-left: 1px solid #ccc;
+  box-shadow: 0 0 10px #ccc;
+}
+
+.fullscreen {
+  padding-right: 450px;
+}

@@ -2,11 +2,11 @@
   "name": "planner-app",
   "dependencies": {
     "ianstormtaylor/on-load": "0.0.2",
+    "necolas/normalize.css": "*",
     "visionmedia/page.js": "1.3.7"
   },
   "local": [
     "plan",
-    "planner-nav",
     "planner-page",
     "router-utils",
     "session",

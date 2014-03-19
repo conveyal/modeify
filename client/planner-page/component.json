@@ -7,7 +7,9 @@
     "filter-view",
     "locations-view",
     "options-view",
+    "planner-nav",
     "transitive-view",
+    "session",
     "view"
   ],
   "scripts": [

@@ -6,6 +6,8 @@ var each = require('each');
 var FilterView = require('filter-view');
 var LocationsView = require('locations-view');
 var OptionsView = require('options-view');
+var PlannerNav = require('planner-nav');
+var session = require('session');
 var TransitiveView = require('transitive-view');
 var view = require('view');
 
@@ -34,6 +36,7 @@ module.exports = function(ctx, next) {
       'filter-view': new FilterView(plan),
       'locations-view': new LocationsView(plan),
       'options-view': new OptionsView(plan),
+      'planner-nav': new PlannerNav(session),
       'transitive-view': new TransitiveView(plan)
     };
 

@@ -28,11 +28,11 @@ var View = module.exports = view(require('./template.html'), function(view,
 
 View.prototype.display = function(patterns) {
   debug('--> displaying patterns');
-  var map = this.find('.map');
-  map.innerHTML = '';
-  var transitive = new Transitive(this.find('.map'), patterns, require(
+  var gridCellSize = localStorage.getItem('gridCellSize') || 800;
+  this.el.innerHTML = '';
+  var transitive = new Transitive(this.el, patterns, require(
     './style'), {
-    gridCellSize: 800
+    gridCellSize: gridCellSize
   });
   transitive.render();
 

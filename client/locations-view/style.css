@@ -1,39 +1,16 @@
 
 .locations-view {
-  margin-bottom: 20px;
+
 }
 
-.locations-view input,
-.locations-view .input-group-addon,
-.locations-view input:focus,
-.locations-view .has-success .form-control,
-.locations-view .has-error .form-control,
-.locations-view .has-warning .form-control {
+.locations-view input {
+  width: 100%;
   border: none;
+  padding: 7px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #ccc;
+}
+
+.locations-view input:focus {
   outline: none;
-  box-shadow: none;
-  transition: none;
-}
-
-.locations-view .input-lg {
-  height: 34px;
-}
-
-.locations-view .inactive input {
-  cursor: pointer;
-}
-
-.locations-view .input-group-addon {
-  background: transparent;
-  border: none;
-  padding-left: 0;
-}
-
-.locations-view .align-right .input-group-addon {
-  padding-right: 0;
-  padding-left: 12px;
-}
-
-.locations-view .align-right input {
-  text-align: right;
 }
