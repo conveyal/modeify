@@ -15,7 +15,11 @@ var view = require('view');
  * Create View
  */
 
-var View = view(require('./template.html'));
+var View = view({
+  category: 'manager',
+  template: require('./template.html'),
+  title: 'Managers Page'
+});
 var ManagerView = view(require('./manager.html'));
 
 /**
