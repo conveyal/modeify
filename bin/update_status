@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var processEmails = require('../lib/email/process');
+var processEmails = require('../lib/email/process').syncAllWithMandrill;
 var updateStatus = require('../lib/commuter/process').updateStatus;
 var runBatch = require('../lib/worker').run;
 
