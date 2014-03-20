@@ -6,7 +6,7 @@ var analytics = require('analytics');
 var cookie = require('cookie');
 var Commuter = require('commuter');
 var config = require('config');
-var debug = require('debug')(config.name() + ':session');
+var debug = require('debug')(config.application() + ':session');
 var defaults = require('model-defaults');
 var model = require('model');
 var Organization = require('organization');
@@ -146,21 +146,17 @@ module.exports.loginWithLink = function(ctx, next) {
  */
 
 module.exports.commuterIsLoggedIn = function(ctx, next) {
-  if (session.commuter()) {
-    next();
-  } else {
-    debug('--> checking if commuter is logged in %s', ctx.path);
-    request.get('/commuter-is-logged-in', function(err, res) {
-      if (res.ok && res.body) {
-        session.login(res.body);
-        debug('<-- commuter is logged in');
-        next();
-      } else {
-        debug('<-- commuter is not logged in: %s', err || res.text);
-        next();
-      }
-    });
-  }
+  debug('--> checking if commuter is logged in %s', ctx.path);
+  request.get('/commuter-is-logged-in', function(err, res) {
+    if (res.ok && res.body) {
+      session.login(res.body);
+      debug('<-- commuter is logged in');
+      next();
+    } else {
+      debug('<-- commuter is not logged in: %s', err || res.text);
+      next(err || res.text);
+    }
+  });
 };
 
 /**

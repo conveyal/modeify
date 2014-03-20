@@ -76,11 +76,27 @@ describe(base, function() {
         .expect(404, done);
     });
 
-    it('204 if updated correctly', function(done) {
+    it('200 if updated correctly', function(done) {
       user.agent
         .put(base + '/' + commuter.info._id)
         .send(commuter.info)
-        .expect(204, done);
+        .expect(200, done);
+    });
+
+    it('200 update address if coordinates change', function(done) {
+      commuter.info.coordinate = {
+        lng: -77.06398626875051,
+        lat: 38.86583312290139
+      };
+      user.agent
+        .put(base + '/' + commuter.info._id)
+        .send(commuter.info)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err);
+          res.body.address.should.equal('1111 Army Navy Dr');
+          done();
+        });
     });
   });
 

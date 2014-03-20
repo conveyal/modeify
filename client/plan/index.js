@@ -250,6 +250,8 @@ Plan.prototype.geocode = function(dest, callback) {
  */
 
 Plan.prototype.store = debounce(function(name) {
+  debug('--> storing plan');
+
   // convert to "JSON", remove routes & patterns
   var json = {};
   for (var key in this.attrs) {
@@ -270,6 +272,8 @@ Plan.prototype.store = debounce(function(name) {
 
   // track the change
   analytics.track('plan.' + name + ' changed', json);
+
+  debug('<-- stored plan');
 }, 25);
 
 /**

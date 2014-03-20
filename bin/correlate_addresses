@@ -15,9 +15,10 @@ Commuter.find(function(err, commuters) {
     process.exit(1);
   } else {
     commuters.forEach(function(commuter) {
+      var opts = commuter.opts;
       if (opts && opts.from_ll && opts.from_ll.lat) {
         batch.push(function(done) {
-          var ll = commuter.opts.reverse_commute
+          var ll = opts.reverse_commute
             ? opts.to_ll
             : opts.from_ll;
           commuter.reverseGeocode(ll, function(err) {

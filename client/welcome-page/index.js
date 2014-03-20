@@ -68,6 +68,13 @@ View.prototype.save = function() {
       if (err) {
         window.alert('Please enter a valid address.');
       } else {
+        var commuter = session.commuter();
+        if (commuter) {
+          debug('-- saving new coordinates to commuter');
+          commuter.coordinate(ll);
+          commuter.save();
+        }
+
         plan.set({
           from: fromEl.value,
           from_ll: ll
