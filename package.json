@@ -40,6 +40,6 @@
     "postinstall": "make postinstall",
     "pretest": "npm ls --depth=Infinity > /dev/null",
     "test": "make test",
-    "start": "source .env && make serve"
+    "start": "node bin/server"
   }
 }

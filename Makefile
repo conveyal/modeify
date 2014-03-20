@@ -52,7 +52,10 @@ release: components test beautify
 
 # Watch & reload server
 serve: node_modules
-	@./node_modules/.bin/nodemon --verbose
+	@nohup ./node_modules/.bin/nodemon </dev/null & echo "$$!" > server.pid
+
+stop: server.pid
+	@kill `cat server.pid` && rm server.pid
 
 # Run mocha test suite
 test: test-client test-lib
