@@ -11,22 +11,31 @@ var request = require('./supertest');
  */
 
 var valid = [{
-  address: '1111 Army Navy Drive',
+  address: '1111 Army Navy Dr',
   city: 'Arlington',
-  state: 'VA',
+  state: 'Virginia',
   zip: 22202,
   ll: {
     lng: -77.06398626875051,
     lat: 38.86583312290139
   }
 }, {
-  address: '1600 Pennsylvania Avenue',
-  cit: 'Washington',
+  address: '1133 15th St NW',
+  city: 'Washington',
   state: 'DC',
   zip: 20005,
   ll: {
-    lng: -77.03556897003114,
-    lat: 38.898732984440755
+    lng: -77.03453592419277,
+    lat: 38.90485941802882
+  },
+}, {
+  address: '1301 U St NW',
+  city: 'Washington',
+  state: 'DC',
+  zip: 20003,
+  ll: {
+    lng: -77.0304508958913,
+    lat: 38.91702804211155
   }
 }];
 
@@ -43,9 +52,13 @@ describe('gecoder', function() {
     it('should correctly convert the valid addresses into ll points',
       function(done) {
         async.each(valid, function(row, next) {
-          geocode.encode(row, function(err, ll) {
+          geocode.encode(row, function(err, addresses) {
             if (err) return next(err);
-            ll.should.eql(row.ll);
+            var ll = addresses[0].feature.geometry;
+            row.ll.should.eql({
+              lng: ll.x,
+              lat: ll.y
+            });
             next();
           });
         }, done);
@@ -53,12 +66,12 @@ describe('gecoder', function() {
   });
 
   describe('#reverse()', function() {
-    it.skip('should correctly convert the valid ll points into addresses',
+    it('should correctly convert the valid ll points into addresses',
       function(done) {
         async.each(valid, function(row, next) {
           geocode.reverse(row.ll, function(err, address) {
             if (err) return next(err);
-            address.should.eql(row.address);
+            address.address.should.eql(row.address);
             next();
           });
         }, done);
