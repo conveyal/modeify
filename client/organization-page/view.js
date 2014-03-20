@@ -43,11 +43,10 @@ View.prototype['commuters-view'] = function() {
  * Row labels
  */
 
-CommuterRow.prototype.labels = function() {
-  var l = this.model.labels();
-  return l.map(function(label) {
-    return '<span class="label label-default">' + label + '</span>';
-  }).join(' ');
+CommuterRow.prototype.status = function() {
+  var status = this.model.status();
+  var label = this.model.statusLabel();
+  return '<span class="label label-' + label + '">' + status + '</span>';
 };
 
 /**

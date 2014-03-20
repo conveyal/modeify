@@ -1,5 +1,5 @@
 <tr>
-  <td><a href="/manager/organizations/{_organization}/commuters/{_id}/show">{_user().email}</a></td>
+  <td><a href="/manager/organizations/{_organization}/commuters/{_id}/show">{name || _user().email}</a></td>
   <td>{fuzzyAddress}</td>
-  <td data-text="status"></td>
+  <td data-html="status"></td>
 </tr>

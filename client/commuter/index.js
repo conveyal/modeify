@@ -89,3 +89,18 @@ Commuter.prototype.mapMarker = function() {
     size: 'small'
   });
 };
+
+/**
+ * Status Label
+ */
+
+Commuter.prototype.statusLabel = function() {
+  switch (this.status()) {
+    case 'sent':
+      return 'default';
+    case 'opened':
+      return 'warning';
+    case 'clicked':
+      return 'success';
+  }
+};
