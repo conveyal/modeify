@@ -52,7 +52,8 @@ release: components test beautify
 
 # Watch & reload server
 serve: node_modules
-	@nohup ./node_modules/.bin/nodemon </dev/null & echo "$$!" > server.pid
+	@nohup ./node_modules/.bin/nodemon > /var/tmp/server.log </dev/null & echo "$$!" > server.pid
+	@echo "Server logs stored in /var/tmp/server.log"
 
 stop: server.pid
 	@kill `cat server.pid` && rm server.pid
