@@ -1,11 +1,11 @@
 {
   "name": "commute-planner",
+  "version": "0.0.1",
   "paths": [
     "client"
   ],
   "local": [
     "manager-app",
     "planner-app"
-  ],
-  "dependencies": {}
+  ]
 }
