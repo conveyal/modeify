@@ -6,10 +6,11 @@ LIBJS = $(shell find lib -name '*.js')
 TESTJS = $(shell find test -name '*.js')
 JSON = $(shell find client -name '*.json')
 
+ENV = development
 REPORTER = spec
 
 build: components $(CSS) $(HTML) $(CLIENTJS) $(JSON)
-	@./bin/build
+	@./bin/build-client $(ENV)
 
 beautify:
 	@./node_modules/.bin/js-beautify --quiet --replace $(CLIENTJS) $(LIBJS) $(TESTJS)
@@ -20,6 +21,10 @@ clean:
 
 components: node_modules component.json $(JSON)
 	@./node_modules/.bin/component install --dev --verbose
+
+commute-planner.zip: $(LIBJS)
+	@git archive --format=zip HEAD > commute-planner.zip
+	@zip -g commute-planner.zip config.json
 
 # Install
 install: node_modules
@@ -37,10 +42,9 @@ postinstall:
 	@cp -n .env.tmp .env || true
 	@cp -n config.json.tmp config.json || true
 
-# Run before each commit/release
-release: components test beautify
-	@./bin/build production
-	@s3cmd sync --guess-mime-type --acl-public --recursive build s3://arlington.dev.conveyal.com
+# Run before each release
+release: build test commute-planner.zip
+	@./bin/push-to-s3 $(ENV)
 
 # Watch & reload server
 serve: node_modules

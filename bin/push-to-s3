@@ -1,0 +1,90 @@
+#!/usr/bin/env node
+
+/**
+ * Env
+ */
+
+var env = process.env.NODE_ENV = process.argv[2] || process.env.NODE_ENV || 'development';
+
+/**
+ * Dependencies
+ */
+
+var AWS = require('aws-sdk');
+var Batch = require('batch');
+var config = require('../lib/config');
+var fs = require('fs');
+var mime = require('mime');
+
+/**
+ * S3
+ */
+
+var s3 = new AWS.S3({
+  params: {
+    Bucket: config.s3_bucket
+  }
+});
+
+/**
+ * Read dir
+ */
+
+var files = walk(__dirname + '/../build');
+
+/**
+ * Push each file to Amazon
+ */
+
+var batch = new Batch();
+console.log('--> uploading to', config.s3_bucket);
+
+files.forEach(function(file) {
+  batch.push(function(done) {
+    push(file, done);
+  });
+});
+
+batch.end(function(err) {
+  console.log('<-- done uploading to', config.s3_bucket);
+});
+
+/**
+ * Push
+ */
+
+function push(file, done) {
+  var body = fs.readFileSync(file);
+  var key = file.substring(__dirname.length + 3);
+  var type = mime.lookup(file);
+
+  console.log('--> uploading', key, type, body.length);
+  s3.putObject({
+    ACL: 'public-read',
+    Body: body,
+    Bucket: config.s3_bucket,
+    ContentType: type,
+    Key: key
+  }, function(err, res) {
+    if (err) console.error('<-- error uploading', key, err);
+    else console.log('<-- done uploading', key);
+    done(err);
+  });
+}
+
+/**
+ * Walk
+ */
+
+function walk(dir) {
+  var results = [];
+  var list = fs.readdirSync(dir);
+  list.forEach(function(file) {
+    file = dir + '/' + file;
+    var stat = fs.statSync(file);
+    if (stat && stat.isDirectory()) results = results.concat(walk(file));
+    else results.push(file);
+  });
+
+  return results;
+}

@@ -22,14 +22,19 @@ var sqwish = require('sqwish');
 var uglify = require('uglify-js');
 var write = fs.writeFileSync;
 
-/**
- * Set the rest of the public config.
- */
+// Set the rest of the public config.
 
 config.env = env;
 for (var key in config[env]) {
   config[key] = config[env][key];
 }
+
+// remove unused data
+
+[ 'test', 'development', 'staging', 'production' ].forEach(function(e) {
+  if (env === e) return;
+  delete config[e];
+});
 
 /**
  * Build all
@@ -42,16 +47,12 @@ component.local.forEach(build);
  */
 
 function build(bundle) {
-  /**
-   * Settings.
-   */
+  // Build settings.
 
   var dest = 'build/' + bundle;
   var production = env === 'production';
 
-  /**
-   * Builder.
-   */
+  // Builder.
 
   var builder = new Builder(__dirname + '/..');
   builder.config.local = [bundle];
@@ -71,7 +72,7 @@ function build(bundle) {
 
     if (res.js) {
       var js = 'window.CONFIG=' + JSON.stringify(config) + ';' + res.require + res.js + ';require("' + bundle + '");';
-      // if (production) js = uglify.minify(js, { fromString: true }).code;
+      // TODO: Fix if (production) js = uglify.minify(js, { fromString: true }).code;
       write(resolve(dest, 'build.js'), js);
     }
 
