@@ -32,6 +32,11 @@ node_modules: package.json
 lint:
 	@./node_modules/.bin/jshint $(CLIENTJS) $(LIBJS) $(TESTJS)
 
+# Copy .env.tmp & config.json.tmp
+postinstall:
+	@cp -n .env.tmp .env || true
+	@cp -n config.json.tmp config.json || true
+
 # Run before each commit/release
 release: components test beautify
 	@./bin/build production
