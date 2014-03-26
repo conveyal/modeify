@@ -3,9 +3,7 @@
  */
 
 var config = require('config');
-var d3 = require('d3');
 var debug = require('debug')(config.name() + ':filter-view');
-var draggable = require('./drag');
 var view = require('view');
 
 /**
@@ -19,158 +17,49 @@ var View = module.exports = view(require('./template.html'));
  */
 
 View.on('construct', function(view) {
-  view.reactive.bind('on-drag', function(el, name) {
-    var drag = draggable(el);
-
-    drag.on('drag', function(opts) {
-      view[name](opts.el);
-      view.setRange();
-    });
-
-    drag.on('dragstop', function() {
-      view.saveTime();
-    });
-  });
-
-  view.displayAMPM(view.model.am_pm());
-  view.model.on('change am_pm', view.displayAMPM.bind(view));
-
-  view.on('rendered', function() {
-    view.reactive.bind('data-style-left', function(el, name) {
-      this.change(function() {
-        var val = this.value(name);
-        el.style.left = toPixels(el.parentNode.offsetWidth, val) + 'px';
-        el.innerText = val;
-      });
-    });
-
-    view.setRange();
-  });
+  view.reactive.use(require('reactive-select'));
 });
 
 /**
- * Set Day of the Week
+ * Start Times
  */
 
-View.prototype.setDays = function(e) {
-  e.preventDefault();
-  this.model.days(e.target.dataset.value);
+View.prototype.startTimes = function() {
+  var opts = [];
+  for (var i = 0; i <= 23; i++) opts.push(toTime(i));
+  return opts;
 };
 
 /**
- * Set AMPM
+ * End Times
  */
 
-View.prototype.setAMPM = function(e) {
-  var ampm = e.target.classList.contains('am') ? 'am' : 'pm';
-
-  this.model.am_pm(ampm);
-  document.activeElement.blur();
-};
-
-/**
- * Display AM/PM
- */
-
-View.prototype.displayAMPM = function(ampm) {
-  var am = this.find('.am');
-  var pm = this.find('.pm');
-  if (ampm === 'am') {
-    am.classList.add('active');
-    pm.classList.remove('active');
-  } else {
-    pm.classList.add('active');
-    am.classList.remove('active');
-  }
-};
-
-/**
- * Save
- */
-
-View.prototype.saveTime = function() {
-  var start = elToTime(this.find('.handle.start-time'));
-  var end = elToTime(this.find('.handle.end-time'));
-
-  debug('updating time from %s:00 to %s:00', start, end);
-  this.model.set({
-    start_time: start,
-    end_time: end
-  });
-
-  this.setRange();
-};
-
-/**
- * Set Left
- */
-
-View.prototype.setTime = function(el, time) {
-  el.style.left = toPixels(el.parentNode.offsetWidth, time) + 'px';
-  el.innerText = time;
-};
-
-/**
- * Set time position
- */
-
-View.prototype.setTimePositions = function(el) {
-  var time = elToTime(el);
-
-  if (el.classList.contains('start-time')) {
-    var endEl = this.find('.handle.end-time');
-    if (time >= elToTime(endEl)) {
-      if (time === 12) return this.setTime(el, 11);
-      this.setTime(endEl, time + 1);
-    }
-  } else {
-    var startEl = this.find('.handle.start-time');
-    if (time <= elToTime(startEl)) {
-      if (time === 0) return this.setTime(el, 1);
-      this.setTime(startEl, time - 1);
-    }
-  }
-
-  el.innerText = time;
-};
-
-/**
- * Width
- */
-
-View.prototype.setRange = function() {
-  var range = this.find('.progress-bar.range');
-  var left = this.find('.handle.start-time').offsetLeft;
-  var right = this.find('.handle.end-time').offsetLeft;
-
-  range.style.left = left + 'px';
-  range.style.width = (right - left) + 'px';
-};
-
-/**
- * Element to time scale
- */
-
-function elToTime(el) {
-  return toTime(el.parentNode.offsetWidth, el.offsetLeft);
+View.prototype.endTimes = function() {
+  var opts = [];
+  for (var i = 1; i <= 24; i++) opts.push(toTime(i));
+  return opts;
 }
 
 /**
- * To time
+ * Parse Int
  */
 
-function toTime(width, pixels) {
-  return d3.scale.linear()
-    .domain([0, width])
-    .rangeRound([0, 12])(pixels);
-}
+View.prototype.parseInt = parseInt;
 
 /**
- * To Pixels
+ * Number to formatted time
  */
 
-function toPixels(width, time) {
-  return d3.scale.linear()
-    .domain([0, 12])
-    .range([0, width])(time);
+function toTime(n) {
+  var opt = {
+    name: '',
+    value: n
+  };
+
+  if (n > 23 || n === 0) opt.name = 'Midnight';
+  else if (n > 12) opt.name = n - 12 + ':00 pm';
+  else if (n === 12) opt.name = 'Noon';
+  else opt.name = n + ':00 am';
+
+  return opt;
 }

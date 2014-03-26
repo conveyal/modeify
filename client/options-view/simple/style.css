@@ -6,10 +6,11 @@
 .simple-options .route {
   list-style-type: none;
   border-radius: 4px;
-  margin: 20px 0 0;
+  margin: 10px 0 0;
   color: #333;
   text-align: center;
   cursor: pointer;
+  border-top: 1px solid #ccc;
 }
 
 .simple-options .route .row {
@@ -26,7 +27,7 @@
   display: inline-block;
   padding-top: 10px;
   padding-bottom: 10px;
-  line-height: 30px;
+  line-height: 15px;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
@@ -44,8 +45,8 @@
   font-weight:bold;
   font-size: 1em;
   color:#333;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 7px;
+  padding-bottom: 7px;
 }
 
 .simple-options .time span {

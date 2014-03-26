@@ -1,2 +1,5 @@
 
-
+.simple-options {
+  overflow-y: scroll;
+  height: 100%;
+}

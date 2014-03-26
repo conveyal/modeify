@@ -88,6 +88,20 @@ Plan.on('change', function(plan, name, val) {
 });
 
 /**
+ * Keep start/end times in sync
+ */
+
+Plan.on('change start_time', function(plan, val, prev) {
+  console.log('start_time', val, 'to', plan.end_time());
+  if (val >= plan.end_time()) plan.end_time(val + 1);
+});
+
+Plan.on('change end_time', function(plan, val, prev) {
+  console.log('end_time', plan.start_time(), 'to', val);
+  if (val <= plan.start_time()) plan.start_time(val - 1);
+});
+
+/**
  * Load plan middleware
  */
 

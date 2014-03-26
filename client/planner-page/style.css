@@ -1,27 +1,25 @@
 
-.omnibox {
+.omnibox, .panel {
   position: absolute;
-  left: 0;
-  top: 0;
-  margin: 25px;
-  width: 350px;
-  z-index: 1;
+  margin: 14px;
   background-color: #fff;
-  border: 1px solid #ccc;
-  box-shadow: 0 0 10px #ccc;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 7px #eee;
+  z-index: 1;
+  top: 0;
+  border-radius: 0;
+}
+
+.omnibox {
+  left: 0;
+  width: 350px;
 }
 
 .panel {
-  position: absolute;
   right: 0;
-  top: 0;
-  height: 100%;
+  bottom: 0;
   width: 450px;
-  overflow-y: scroll;
-  z-index: 1;
-  background-color: #fff;
-  border-left: 1px solid #ccc;
-  box-shadow: 0 0 10px #ccc;
+  overflow-y: hidden;
 }
 
 .fullscreen {

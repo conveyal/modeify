@@ -3,6 +3,15 @@
   z-index: 1001;
 }
 
+.filter-view .btn {
+  border-top: none;
+  border-left: none;
+}
+
+.filter-view .btn-group:last-of-type .btn {
+  border-right: none;
+}
+
 .progress-container {
   padding-top: 7px;
 }
@@ -32,4 +41,23 @@
   position: absolute;
   user-select: none;
   cursor: pointer;
+}
+
+.filter-view .select-container {
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+}
+
+.filter-view .select-container:last-of-type {
+  border-right: none;
+}
+
+.filter-view select {
+  -webkit-appearance: none;
+  height: 34px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  padding: 0 5px;
 }

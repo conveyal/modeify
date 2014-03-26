@@ -1,9 +1,11 @@
 <div class="locations-view">
-  <div class="input input-from">
-    <input type="text" placeholder="From" on-focus="edit" on-blur="save" name="from" data-value="from">
+  <div class="icons" on-click="reverseCommute">
+    <div class="icon from"><i class="fa fa-fw fa-dot-circle-o"></i></div>
+    <div class="icon"><i class="fa fa-fw fa-exchange fa-rotate-90"></i></div>
+    <div class="icon to"><i class="fa fa-fw fa-map-marker"></i></div>
   </div>
-  <div class="input input-to">
-    <input type="text" placeholder="To" class="form-control input-lg" on-focus="edit" on-blur="save" name="to" data-value="to">
+  <div class="inputs">
+    <input class="form-control from" type="text" placeholder="What's your home address?" on-blur="save" name="from" data-value="from">
+    <input class="form-control to" type="text" placeholder="Where's your office?" on-blur="save" name="to" data-value="to">
   </div>
-  <button type="button" class="btn btn-default btn-block" on-click="reverseCommute"><i class="fa fa-lg fa-exchange"></i></button>
 </div>

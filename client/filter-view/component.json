@@ -1,19 +1,16 @@
 {
   "name": "filter-view",
   "dependencies": {
-    "component/emitter": "1.1.2",
-    "component/event": "0.1.3",
-    "component/tip": "*",
-    "mbostock/d3": "*",
+    "component/value": "*",
     "visionmedia/debug": "0.7.4"
   },
   "local": [
     "config",
+    "reactive-select",
     "svg-icons",
     "view"
   ],
   "scripts": [
-    "drag.js",
     "index.js"
   ],
   "styles": [

@@ -8,16 +8,20 @@
   overflow: hidden;
 }
 
+#main,
+.btn,
+.dropdown-menu,
+.form-control {
+  font-size: 14px;
+  font-weight: 300;
+  color: #333;
+  border-radius: 0;
+}
+
 .centered {
   text-align: center;
 }
 
-input {
-  box-sizing: border-box;
-}
-
-button,
-input[type=button] {
-  background-color: #eee;
-  border: none;
+.btn-primary {
+  color: #fff;
 }

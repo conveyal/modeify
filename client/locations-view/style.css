@@ -1,16 +1,48 @@
 
 .locations-view {
-
-}
-
-.locations-view input {
-  width: 100%;
-  border: none;
-  padding: 7px;
-  box-sizing: border-box;
   border-bottom: 1px solid #ccc;
 }
 
-.locations-view input:focus {
+.locations-view > div {
+  display: inline-block;
+}
+
+.locations-view .icons {
+  width: 9%;
+  text-align: center;
+  padding-left: 4px;
+  cursor: pointer;
+}
+
+.locations-view .inputs {
+  width: 89%;
+}
+
+.locations-view .icon.from {
+  color: #5cb85c;
+}
+
+.locations-view .icon.to {
+  color: #d9534f;
+}
+
+.locations-view .form-control {
+  box-shadow: none;
   outline: none;
+  border: none;
+  border-radius: 0;
+  transition: none;
+}
+
+.locations-view .form-control:active,
+.locations-view .form-control:focus {
+  box-shadow: 0 -4px 4px -4px rgba(102,175,233,.6) inset;
+}
+
+.locations-view .form-control.from {
+  border-bottom: 1px solid #ccc;
+}
+
+.locations-view button {
+  padding: 0;
 }

@@ -1,0 +1,10 @@
+{
+  "name": "reactive-select",
+  "dependencies": {
+    "component/domify": "*",
+    "component/value": "*"
+  },
+  "scripts": [
+    "index.js"
+  ]
+}

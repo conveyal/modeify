@@ -8,9 +8,7 @@ JSON = $(shell find client -name '*.json')
 
 REPORTER = spec
 
-build: components $(CSS) $(HTML) $(JS) $(JSON)
-	@$(MAKE) lint-client
-	@$(MAKE) test-client
+build: components $(CSS) $(HTML) $(CLIENTJS) $(JSON)
 	@./bin/build
 
 beautify:
@@ -38,12 +36,6 @@ node_modules: package.json
 # Lint JavaScript with JSHint
 lint:
 	@./node_modules/.bin/jshint $(CLIENTJS) $(LIBJS) $(TESTJS)
-lint-client:
-	@./node_modules/.bin/jshint $(CLIENTJS)
-lint-lib:
-	@./node_modules/.bin/jshint $(LIBJS)
-lint-test:
-	@./node_modules/.bin/jshint $(TESTJS)
 
 # Run before each commit/release
 release: components test beautify
@@ -59,9 +51,7 @@ stop: server.pid
 	@kill `cat server.pid` && rm server.pid
 
 # Run mocha test suite
-test: test-client test-lib
-test-client: lint-client lint-test
-test-lib: lint-lib lint-test
+test: lint
 	@NODE_ENV=test ./node_modules/.bin/mocha --recursive --require should --reporter $(REPORTER) --timeout 5000 --slow 10
 
 .PHONY: beautify help lint lint-client lint-lib lint-test release test test-client test-lib watch
