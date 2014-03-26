@@ -38,7 +38,7 @@ View.prototype.endTimes = function() {
   var opts = [];
   for (var i = 1; i <= 24; i++) opts.push(toTime(i));
   return opts;
-}
+};
 
 /**
  * Parse Int

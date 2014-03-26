@@ -29,13 +29,17 @@ When `NODE_ENV` is set to `development` the server will rebuild the client side 
 
 ## Running
 
-#### `make serve`
-
-Runs [nodemon](http://nodemon.io/) to restart the server on file changes or when it crashes for production use. Environment variables must be set if you use `make serve`.
-
 #### `npm start`
 
-Automatically sources your `.env` file before running `make serve`. Great for usage in development when you don't want to set all of the environment variables.
+Runs `node bin/server`. Environment variables must be set.
+
+#### `make serve`
+
+Runs the server as a daemon with automatic restarts by [nodemon](http://nodemon.io/). Outputs logs to `/var/tmp/commute-planner-server.log`. Stores the `pid` in `server.pid`
+
+##### `make stop`
+
+Kills the server and cleans up the `.pid`.
 
 ## Pushing to S3
 

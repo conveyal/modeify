@@ -3,19 +3,17 @@
 var env = process.env.NODE_ENV;
 var port = process.env.PORT || 5000;
 
-/**
- * Dependencies
- */
+// If `NODE_ENV` is not set exit
+
+if (env === undefined) {
+  console.error('Envrionment variables must be set. See `.env.tmp`.');
+  process.exit(1);
+}
+
+// Dependencies
 
 var api = require('../lib/api');
 var log = require('../lib/log');
-
-// If `NODE_ENV` is not set exit
-
-if (process.env.NODE_ENV === undefined) {
-  log.error('Envrionment variables must be set. See `.env.tmp`.');
-  process.exit(1);
-}
 
 // If environment is `development`, build on load
 

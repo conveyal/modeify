@@ -21,11 +21,6 @@ clean:
 components: node_modules component.json $(JSON)
 	@./node_modules/.bin/component install --dev --verbose
 
-# Copy temporary config files
-postinstall:
-	@cp -n .env.tmp .env || true
-	@cp -n config.json.tmp config.json || true
-
 # Install
 install: node_modules
 
@@ -44,8 +39,8 @@ release: components test beautify
 
 # Watch & reload server
 serve: node_modules
-	@nohup ./node_modules/.bin/nodemon > /var/tmp/server.log </dev/null & echo "$$!" > server.pid
-	@echo "Server logs stored in /var/tmp/server.log"
+	@nohup ./node_modules/.bin/nodemon > /var/tmp/commute-planner-server.log </dev/null & echo "$$!" > server.pid
+	@echo "Server logs stored in /var/tmp/commute-planner-server.log"
 
 stop: server.pid
 	@kill `cat server.pid` && rm server.pid
