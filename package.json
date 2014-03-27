@@ -4,7 +4,6 @@
   "version": "0.0.2",
   "dependencies": {
     "async": "~0.2.10",
-    "aws-lib": "~0.3.0",
     "batch": "^0.5.0",
     "bcryptjs": "^0.7.12",
     "debug": "*",
