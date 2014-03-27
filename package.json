@@ -1,6 +1,6 @@
 {
   "private": true,
-  "main": "bin/server",
+  "main": "server.js",
   "version": "0.0.2",
   "dependencies": {
     "async": "~0.2.10",
@@ -40,6 +40,6 @@
     "postinstall": "make postinstall",
     "pretest": "npm ls --depth=Infinity > /dev/null",
     "test": "make test",
-    "start": "node bin/server"
+    "start": "node server.js"
   }
 }
