@@ -11,7 +11,8 @@
 #main,
 .btn,
 .dropdown-menu,
-.form-control {
+.form-control,
+.input-group-addon {
   font-size: 14px;
   font-weight: 300;
   color: #333;

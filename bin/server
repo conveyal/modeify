@@ -17,7 +17,7 @@ var log = require('../lib/log');
 
 // If environment is `development`, build on load
 
-if (env === 'development') require('./build');
+if (env === 'development') require('./build-client');
 
 // Run the server
 
