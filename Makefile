@@ -22,20 +22,20 @@ clean:
 components: node_modules component.json $(JSON)
 	@./node_modules/.bin/component install --dev --verbose
 
-commute-planner.zip: $(LIBJS)
-	@git archive --format=zip HEAD > commute-planner.zip
-	@zip -g commute-planner.zip config.json
-
 # Install
 install: node_modules
+
+# Lint JavaScript with JSHint
+lint:
+	@./node_modules/.bin/jshint $(CLIENTJS) $(LIBJS) $(TESTJS)
 
 # Reinstall if package.json has changed
 node_modules: package.json
 	@npm install
 
-# Lint JavaScript with JSHint
-lint:
-	@./node_modules/.bin/jshint $(CLIENTJS) $(LIBJS) $(TESTJS)
+package.zip: $(LIBJS)
+	@git archive --format=zip HEAD > package.zip
+	@zip -g package.zip config.json
 
 # Copy .env.tmp & config.json.tmp
 postinstall:
@@ -43,7 +43,7 @@ postinstall:
 	@cp -n config.json.tmp config.json || true
 
 # Run before each release
-release: build test commute-planner.zip
+release: build test package.zip
 	@./bin/push-to-s3 $(ENV)
 
 # Watch & reload server
