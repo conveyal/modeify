@@ -6,7 +6,7 @@
     "async": "~0.2.10",
     "aws-lib": "~0.3.0",
     "batch": "^0.5.0",
-    "bcrypt": "~0.7.7",
+    "bcryptjs": "^0.7.12",
     "debug": "*",
     "express": "~3.4.8",
     "hogan.js": "~2.0.0",
