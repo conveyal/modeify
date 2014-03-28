@@ -1,7 +1,7 @@
 {
   "private": true,
   "main": "server.js",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "dependencies": {
     "async": "~0.2.10",
     "batch": "^0.5.0",
