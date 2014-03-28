@@ -1,7 +1,7 @@
 {
   "private": true,
   "main": "server.js",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "dependencies": {
     "async": "~0.2.10",
     "batch": "^0.5.0",
@@ -37,7 +37,6 @@
     "uglify-js": "^2.4.12"
   },
   "scripts": {
-    "postinstall": "make postinstall",
     "pretest": "npm ls --depth=Infinity > /dev/null",
     "test": "make test",
     "start": "node server.js"

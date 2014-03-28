@@ -37,11 +37,6 @@ package.zip: $(LIBJS)
 	@git archive --format=zip HEAD > package.zip
 	@zip -g package.zip config.json
 
-# Copy .env.tmp & config.json.tmp
-postinstall:
-	@cp -n .env.tmp .env || true
-	@cp -n config.json.tmp config.json || true
-
 # Run before each release
 release: build test package.zip
 	@./bin/push-to-s3 $(ENV)
