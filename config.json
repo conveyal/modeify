@@ -8,7 +8,7 @@
   "name": "Commute Planner",
   "organization": "ACCS",
   "test": {
-    "api_url": "http://localhost:5000/api",
+    "api_url": "/api",
     "base_url": "http://localhost:5000",
     "mapbox_map_id": "",
     "otp_url": "http://localhost:8080/otp-rest-servlet",
@@ -17,7 +17,7 @@
     "static_url": ""
   },
   "development": {
-    "api_url": "http://localhost:5000/api",
+    "api_url": "/api",
     "base_url": "http://localhost:5000",
     "mapbox_map_id": "conveyal.h5bghhkn",
     "otp_url": "http://localhost:8080/otp-rest-servlet",
@@ -26,7 +26,7 @@
     "static_url": ""
   },
   "staging": {
-    "api_url": "http://arlington.dev.conveyal.com/api",
+    "api_url": "/api",
     "base_url": "http://arlington.dev.conveyal.com",
     "mapbox_map_id": "conveyal.h5bghhkn",
     "otp_url": "http://arlington.dev.conveyal.com/otp-rest-servlet",
@@ -35,7 +35,7 @@
     "static_url": "https://s3.amazonaws.com/arlington.dev.conveyal.com"
   },
   "production": {
-    "api_url": "http://arlington.conveyal.com/api",
+    "api_url": "/api",
     "base_url": "http://arlington.conveyal.com",
     "mapbox_map_id": "conveyal.h5bghhkn",
     "otp_url": "http://arlington.dev.conveyal.com/otp-rest-servlet",
