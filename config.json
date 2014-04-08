@@ -29,7 +29,7 @@
     "api_url": "/api",
     "base_url": "http://arlington.dev.conveyal.com",
     "mapbox_map_id": "conveyal.h5bghhkn",
-    "otp_url": "http://arlington.dev.conveyal.com/otp-rest-servlet",
+    "otp_url": "http://ec2-23-21-67-127.compute-1.amazonaws.com/otp-rest-servlet",
     "s3_bucket": "arlington.dev.conveyal.com",
     "segmentio_key": "qak98wes8c",
     "static_url": "https://s3.amazonaws.com/arlington.dev.conveyal.com"
@@ -38,7 +38,7 @@
     "api_url": "/api",
     "base_url": "http://arlington.conveyal.com",
     "mapbox_map_id": "conveyal.h5bghhkn",
-    "otp_url": "http://arlington.dev.conveyal.com/otp-rest-servlet",
+    "otp_url": "http://ec2-23-21-67-127.compute-1.amazonaws.com/otp-rest-servlet",
     "s3_bucket": "arlington.conveyal.com",
     "segmentio_key": "51cp2qlgkb",
     "static_url": "https://s3.amazonaws.com/arlington.conveyal.com"
