@@ -38,7 +38,7 @@ package.zip: $(LIBJS)
 	@zip -g package.zip config.json
 
 # Run before each release
-release: build test package.zip
+release: build test
 	@./bin/push-to-s3 $(ENV)
 
 # Watch & reload server
