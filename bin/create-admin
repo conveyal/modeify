@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var email = process.argv[2];
-var User = require('../server/user/model');
+var User = require('../lib/user/model');
 
 if (!process.env.NODE_ENV) throw new Error('Environment vars must be set. See `.env.tmp`.');
 if (!email) throw new Error('Must pass in an email.');
