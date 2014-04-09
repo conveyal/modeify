@@ -4,6 +4,7 @@ HTML = $(shell find client -name '*.html')
 CLIENTJS = $(shell find client -name '*.js')
 LIBJS = $(shell find lib -name '*.js')
 TESTJS = $(shell find test -name '*.js')
+BINJS = $(shell find bin/*)
 JSON = $(shell find client -name '*.json')
 
 ENV = development
@@ -13,7 +14,7 @@ build: components $(CSS) $(HTML) $(CLIENTJS) $(JSON)
 	@./bin/build-client $(ENV)
 
 beautify:
-	@./node_modules/.bin/js-beautify --quiet --replace $(CLIENTJS) $(LIBJS) $(TESTJS)
+	@./node_modules/.bin/js-beautify --quiet --replace $(CLIENTJS) $(LIBJS) $(BINJS) $(TESTJS)
 
 clean:
 	@rm -rf build
@@ -27,7 +28,7 @@ install: node_modules
 
 # Lint JavaScript with JSHint
 lint:
-	@./node_modules/.bin/jshint $(CLIENTJS) $(LIBJS) $(TESTJS)
+	@./node_modules/.bin/jshint $(CLIENTJS) $(LIBJS) $(BINJS) $(TESTJS)
 
 # Reinstall if package.json has changed
 node_modules: package.json
