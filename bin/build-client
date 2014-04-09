@@ -1,9 +1,5 @@
 #!/usr/bin/env node
 
-/**
- * Env
- */
-
 var env = process.env.NODE_ENV = process.argv[2] || process.env.NODE_ENV || 'development';
 
 /**
@@ -13,14 +9,12 @@ var env = process.env.NODE_ENV = process.argv[2] || process.env.NODE_ENV || 'dev
 var Builder = require('component-builder');
 var component = require('../component.json');
 var config = require('../config.json');
-var fs = require('fs');
 var mkdir = require('mkdirp');
 var myth = require('myth');
-var path = require('path');
-var resolve = path.resolve;
+var resolve = require('path').resolve;
 var sqwish = require('sqwish');
 var uglify = require('uglify-js');
-var write = fs.writeFileSync;
+var write = require('fs').writeFileSync;
 
 // Set the rest of the public config.
 
@@ -32,8 +26,7 @@ for (var key in config[env]) {
 // remove unused data
 
 [ 'test', 'development', 'staging', 'production' ].forEach(function(e) {
-  if (env === e) return;
-  delete config[e];
+  if (env !== e) delete config[e];
 });
 
 /**
