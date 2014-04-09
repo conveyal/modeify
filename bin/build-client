@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-var env = process.env.NODE_ENV = process.argv[2] || process.env.NODE_ENV || 'development';
+var env = process.env.NODE_ENV = process.argv[2] || process.env.NODE_ENV ||
+  'development';
 
 /**
  * Dependencies
@@ -25,7 +26,7 @@ for (var key in config[env]) {
 
 // remove unused data
 
-[ 'test', 'development', 'staging', 'production' ].forEach(function(e) {
+['test', 'development', 'staging', 'production'].forEach(function(e) {
   if (env !== e) delete config[e];
 });
 
@@ -59,12 +60,13 @@ function build(bundle) {
     builder.addSourceURLs(true);
   }
 
-  builder.build(function (err, res) {
+  builder.build(function(err, res) {
     if (err) throw err;
     mkdir.sync(__dirname + '/../' + dest);
 
     if (res.js) {
-      var js = 'window.CONFIG=' + JSON.stringify(config) + ';' + res.require + res.js + ';require("' + bundle + '");';
+      var js = 'window.CONFIG=' + JSON.stringify(config) + ';' + res.require +
+        res.js + ';require("' + bundle + '");';
       // TODO: Fix if (production) js = uglify.minify(js, { fromString: true }).code;
       write(resolve(dest, 'build.js'), js);
     }

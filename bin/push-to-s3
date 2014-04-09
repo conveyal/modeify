@@ -4,14 +4,17 @@
  * Env
  */
 
-var env = process.env.NODE_ENV = process.argv[2] || process.env.NODE_ENV || 'development';
+var env = process.env.NODE_ENV = process.argv[2] || process.env.NODE_ENV ||
+  'development';
 
 /**
  * Check for `AWS_ACCESS_KEY_ID` & `AWS_SECRET_ACCESS_KEY`
  */
 
 if (!process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY)
-  console.error('AWS_ACCESS_KEY_ID & AWS_SECRET_ACCESS_KEY environment variables must be set.');
+  console.error(
+    'AWS_ACCESS_KEY_ID & AWS_SECRET_ACCESS_KEY environment variables must be set.'
+  );
 
 /**
  * Dependencies
@@ -62,7 +65,7 @@ batch.end(function(err) {
 
 function push(file, done) {
   var body = fs.readFileSync(file);
-  var key = file.substring(__dirname.length + 3);
+  var key = file.substring(__dirname.length + 4);
   var type = mime.lookup(file);
 
   console.log('--> uploading', key, type, body.length);
