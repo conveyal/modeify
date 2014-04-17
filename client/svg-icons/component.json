@@ -1,8 +1,8 @@
 {
   "name": "svg-icons",
-  "styles": [
-    "style.css"
-  ],
+  "dependencies": {
+    "component/domify": "*"
+  },
   "images": [
     "images/Bike.svg",
     "images/Bus.svg",
@@ -12,5 +12,19 @@
     "images/Pedestrian.svg",
     "images/Train.svg"
   ],
-  "dependencies": {}
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
+  ],
+  "templates": [
+    "images/bike.html",
+    "images/bus.html",
+    "images/car.html",
+    "images/house.html",
+    "images/office.html",
+    "images/pedestrian.html",
+    "images/train.html"
+  ]
 }

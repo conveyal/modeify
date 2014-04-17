@@ -17,7 +17,7 @@ var View = module.exports = view(require('./template.html'));
  */
 
 View.prototype['routes-view'] = function() {
-  return this.RoutesView || Simple;
+  return this.RoutesView || Detailed;
 };
 
 /**

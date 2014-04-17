@@ -5,8 +5,7 @@
     "visionmedia/superagent": "0.16.0"
   },
   "local": [
-    "config",
-    "spinner"
+    "config"
   ],
   "scripts": [
     "index.js"

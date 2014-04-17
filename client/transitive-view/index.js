@@ -1,7 +1,3 @@
-/**
- * Dependencies
- */
-
 var config = require('config');
 var debug = require('debug')(config.name() + ':transitive-view');
 var each = require('each');
@@ -30,10 +26,11 @@ View.prototype.display = function(patterns) {
   debug('--> displaying patterns');
   var gridCellSize = localStorage.getItem('gridCellSize') || 800;
   this.el.innerHTML = '';
-  var transitive = new Transitive(this.el, patterns, require(
-    './style'), {
-    gridCellSize: gridCellSize
-  });
+  var transitive = window.transitive = new Transitive(this.el, patterns,
+    require(
+      './style'), {
+      gridCellSize: gridCellSize
+    });
   transitive.render();
 
   debug('<-- done displaying patterns');

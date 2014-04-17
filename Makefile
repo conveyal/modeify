@@ -6,6 +6,7 @@ LIBJS = $(shell find lib -name '*.js')
 TESTJS = $(shell find test -name '*.js')
 BINJS = $(shell find bin/*)
 JSON = $(shell find client -name '*.json')
+SVG = $(shell find client -name '*.svg')
 
 ENV = development
 REPORTER = spec
@@ -19,6 +20,12 @@ beautify:
 clean:
 	@rm -rf build
 	@rm -rf components
+
+convert: $(SVG)
+	@echo $(SVG)
+
+%.svg:
+	@echo $<
 
 components: node_modules component.json $(JSON)
 	@./node_modules/.bin/component install --dev --verbose
@@ -47,6 +54,7 @@ serve: server.pid
 server.pid: node_modules
 	@nohup ./node_modules/.bin/nodemon > /var/tmp/commute-planner-server.log </dev/null & echo "$$!" > server.pid
 	@echo "Server logs stored in /var/tmp/commute-planner-server.log"
+start: server.pid
 
 stop: server.pid
 	@kill `cat server.pid` && rm server.pid
@@ -55,4 +63,4 @@ stop: server.pid
 test: lint
 	@NODE_ENV=test ./node_modules/.bin/mocha --recursive --require should --reporter $(REPORTER) --timeout 5000 --slow 10
 
-.PHONY: beautify help lint lint-client lint-lib lint-test release serve stop test test-client test-lib watch
+.PHONY: beautify convert help lint lint-client lint-lib lint-test release serve stop test test-client test-lib watch

@@ -22,8 +22,10 @@ module.exports.profile = function(query, callback) {
   var str = qs.stringify(query);
   debug('--> profiling %s', str);
   request.get('/otp/profile?' + str, function(err, res) {
+    if (!res.body) res.body = {};
+    if (!res.body.options) res.body.options = [];
     debug('<-- profiled %s options', res.body.options.length);
-    callback.call(null, err, process(res.body));
+    callback.call(null, err || res.error, process(res.body));
   });
 };
 
@@ -100,11 +102,11 @@ function format(text) {
   // remove hypens
   text = text.replace(/-/g, ' ');
 
-  // add "line" for colored lines
-  if (colors.indexOf(text) !== -1 && text.indexOf(' ') === -1) text += ' LINE';
-
   // capitalize correctly
   text = toCapitalCase(text);
+
+  // replace 'Dc*' with 'DC*'
+  text = text.replace('Dc', 'DC');
 
   // process individual words
   return text.split(' ').map(word).join(' ');
@@ -120,10 +122,21 @@ function word(w) {
       return 'McPherson';
     case 'Pi':
       return 'Pike';
+    case 'Sq':
+      return 'Square';
+    case 'Nw':
+      return 'NW';
+    case 'Ne':
+      return 'NE';
+    case 'Se':
+      return 'SE';
+    case 'Sw':
+      return 'SW';
+    case 'Noma':
+      return 'NoMA';
+    case '(new':
+      return '(New';
   }
-
-  // starts with number?
-  if (w.match(/^\d/)) return w.toUpperCase();
 
   return w;
 }

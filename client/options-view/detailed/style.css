@@ -1,37 +1,126 @@
 
 .detailed-options .routes {
-  margin-top: 20px;
   padding-left: 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-
+  margin-bottom: 0;
 }
 
 .detailed-options .route {
-  list-style-type: none;
   border-bottom: 1px solid #ccc;
-  margin-left: 0;
-  margin-right: 0;
   color: #333;
-  text-align: center;
+  list-style-type: none;
 }
 
 .detailed-options .route:last-of-type {
   border-bottom: none;
 }
 
-.detailed-options .time {
-  border-left: 1px solid #ccc;
-  font-variant: small-caps;
-  line-height: 0.8em;
-  font-weight:bold;
-  font-size: 1em;
-  color:#333;
-  padding-top: 14px;
-  padding-bottom: 14px;
-}
+/**
+ * Summary
+ */
 
 .detailed-options .summary {
-  color: #333;
-  padding-top:14px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.detailed-options .summary p {
+  margin: 0;
+  line-height: 14px;
+}
+
+.detailed-options .summary-segments {
+  width: 50%;
+}
+
+.detailed-options .summary .segment {
+  display: inline-block;
+  text-align: left;
+  padding: 4px 5px 0;
+  box-sizing: border-box;
+}
+
+.detailed-options .segment svg {
+  width: 25px;
+  height: 32px;
+}
+
+.detailed-options .segment.white svg {
+  fill: #fff;
+}
+
+.detailed-options .segment .name {
+  padding: 0 5px 0 0;
+  line-height: 36px;
+  float: right;
+}
+
+.detailed-options .cost,
+.detailed-options .value,
+.detailed-options .units {
+  text-align: center;
+  line-height: 1.0em;
+}
+
+.detailed-options .cost,
+.detailed-options .value {
+  font-weight: 500;
+  font-size: 1.2em;
+}
+
+/**
+ * Details
+ */
+
+.details {
+  width: 100%;
+  border-top: 1px solid #ccc;
+  box-shadow: 0 7px 7px -7px #eee inset;
+}
+
+.details tr {
+  margin: 0 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.details tr:last-of-type {
+  border-bottom: none;
+  box-shadow: 0 -7px 7px -7px #eee inset;
+}
+
+.details td {
+  vertical-align: middle;
+  padding: 4px;
+}
+
+.details td:last-of-type {
+  padding-right: 8px;
+}
+
+.details td p {
+  margin-bottom: 4px;
+}
+
+.details td p:last-of-type {
+  margin-bottom: 0;
+}
+
+.details .stop-name {
+  font-weight: 400;
+}
+
+.details .detail-icon {
+  height: 100%;
+  font-size: 2em;
+  background-repeat: repeat-y;
+  background-position: center;
+}
+
+.details .detail-icon svg {
+  height: 1.5em;
+  width: 1.5em;
+  vertical-align: middle;
+}
+
+.detail-icon, .detail-time {
+  text-align: center;
 }

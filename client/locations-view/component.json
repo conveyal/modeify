@@ -1,6 +1,10 @@
 {
   "name": "locations-view",
+  "dependencies": {
+    "visionmedia/debug": "*"
+  },
   "local": [
+    "config",
     "geocode",
     "svg-icons",
     "view"
@@ -13,6 +17,5 @@
   ],
   "templates": [
     "template.html"
-  ],
-  "dependencies": {}
+  ]
 }

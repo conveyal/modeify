@@ -1,6 +1,5 @@
 var config = require('config');
 var debug = require('debug')(config.name() + ':request');
-var spin = require('spinner');
 var superagent = require('superagent');
 
 /**
@@ -19,16 +18,12 @@ module.exports.get = function(url, params, callback) {
     params = null;
   }
 
-  debug('--> GET %s', url);
-  var spinner = spin();
+  var name = 'GET ' + url;
+  debug('--> %s', name);
   superagent
     .get(base + url)
     .query(params)
-    .end(function(err, res) {
-      debug('<-- GET %s > %s', url, err || res.status);
-      callback(err, res);
-      spinner.remove();
-    });
+    .end(response(name, callback));
 };
 
 /**
@@ -36,16 +31,12 @@ module.exports.get = function(url, params, callback) {
  */
 
 module.exports.post = function(url, data, callback) {
-  debug('--> POST %s', url);
-  var spinner = spin();
+  var name = 'POST ' + url;
+  debug('--> %s', name);
   superagent
     .post(base + url)
     .send(data)
-    .end(function(err, res) {
-      debug('<-- POST %s > %s', url, err || res.status);
-      callback(err, res);
-      spinner.remove();
-    });
+    .end(response(name, callback));
 };
 
 /**
@@ -53,13 +44,20 @@ module.exports.post = function(url, data, callback) {
  */
 
 module.exports.del = function(url, callback) {
-  debug('--> DELETE %s', url);
-  var spinner = spin();
+  var name = 'DELETE ' + url;
+  debug('--> %s', name);
   superagent
     .del(base + url)
-    .end(function(err, res) {
-      debug('<-- DELETE %s > %s', url, err || res.status);
-      callback(err, res);
-      spinner.remove();
-    });
+    .end(response(name, callback));
 };
+
+/**
+ * Response
+ */
+
+function response(name, callback) {
+  return function(err, res) {
+    debug('<-- %s > %s', name, err || res.error || res.status);
+    callback(err || res.error, res);
+  };
+}

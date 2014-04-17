@@ -49,6 +49,12 @@
   text-align: center;
 }
 
+.filter-view .more-options {
+  text-align: right;
+  padding: 4px;
+  line-height: 25px;
+}
+
 .filter-view .select-container:last-of-type {
   border-right: none;
 }
@@ -60,4 +66,5 @@
   cursor: pointer;
   width: 100%;
   padding: 0 5px;
+  background-color: #fff;
 }

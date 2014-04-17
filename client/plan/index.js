@@ -202,7 +202,7 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
       startTime: startTime,
       endTime: endTime,
       date: date,
-      orderBy: 'MIN',
+      orderBy: 'AVG',
       limit: MAX_ROUTES
     }, function(err, data) {
       if (err) {

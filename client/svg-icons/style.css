@@ -20,6 +20,7 @@
   background-image: url(images/Office.svg);
 }
 
+.svg-icon-metro,
 .svg-icon-train {
   background-image: url(images/Train.svg);
 }
@@ -28,6 +29,7 @@
   background-image: url(images/Car.svg);
 }
 
+.svg-icon-pedestrian,
 .svg-icon-walk {
   background-image: url(images/Pedestrian.svg);
 }

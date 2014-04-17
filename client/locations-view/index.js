@@ -1,7 +1,4 @@
-/**
- * Dependencies
- */
-
+var debug = require('debug');
 var geocode = require('geocode');
 var view = require('view');
 
@@ -19,14 +16,16 @@ View.prototype.save = function(e) {
   var el = e.target;
   var name = el.name;
   var address = el.value;
-  var parent = el.parentNode;
-  var self = this;
   var model = this.model;
 
+  // If the address hasn't changed, return
   if (address === model[name]()) return;
 
+  // Geocode the new address
   geocode(address, function(err, ll) {
-    if (!err) {
+    if (err) {
+      window.alert('Invalid address.');
+    } else {
       model[name](address);
       model[name + '_ll'](ll);
     }

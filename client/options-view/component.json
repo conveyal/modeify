@@ -1,10 +1,16 @@
 {
   "name": "options-view",
   "dependencies": {
+    "component/domify": "*",
     "component/each": "0.2.3",
     "ianstormtaylor/to-capital-case": "0.1.1",
+    "ianstormtaylor/reactive": "*",
     "mbostock/d3": "*"
   },
+  "images": [
+    "detailed/circle.gif",
+    "detailed/circle.png"
+  ],
   "local": [
     "convert",
     "session",
@@ -24,6 +30,7 @@
     "style.css"
   ],
   "templates": [
+    "detailed/detail.html",
     "detailed/template.html",
     "graphical/template.html",
     "simple/template.html",

@@ -15,14 +15,14 @@
 }
 
 .locations-view .inputs {
-  width: 89%;
+  width: 89.8%;
 }
 
-.locations-view .icon.from {
+.icon.from {
   color: #5cb85c;
 }
 
-.locations-view .icon.to {
+.icon.to {
   color: #d9534f;
 }
 

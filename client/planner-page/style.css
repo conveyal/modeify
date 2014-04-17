@@ -12,16 +12,16 @@
 
 .omnibox {
   left: 0;
-  width: 350px;
+  width: 400px;
 }
 
 .panel {
   right: 0;
-  bottom: 0;
   width: 450px;
-  overflow-y: hidden;
+  overflow-y: scroll;
+  max-height: 100%;
 }
 
 .fullscreen {
-  padding-right: 450px;
+
 }
