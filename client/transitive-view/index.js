@@ -1,7 +1,6 @@
 var config = require('config');
 var debug = require('debug')(config.name() + ':transitive-view');
 var each = require('each');
-var profiler = require('otpprofiler.js');
 var Transitive = require('transitive');
 var view = require('view');
 

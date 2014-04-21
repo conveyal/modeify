@@ -171,13 +171,13 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
   if (endTime === 24) endTime = '23:59';
   else endTime += ':30';
 
-  // Pattern config
-  var pconfig = {
-    fromLocation: {
+  // Pattern options
+  var options = {
+    from: {
       lat: from.lat,
       lon: from.lng
     },
-    toLocation: {
+    to: {
       lat: to.lat,
       lon: to.lng
     }
@@ -185,11 +185,11 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
 
   // Reverse commute?
   if (plan.reverse_commute()) {
-    pconfig.fromLocation.name = 'Work';
-    pconfig.toLocation.name = 'Home';
+    options.from.name = 'Work';
+    options.to.name = 'Home';
   } else {
-    pconfig.fromLocation.name = 'Home';
-    pconfig.toLocation.name = 'Work';
+    options.from.name = 'Home';
+    options.to.name = 'Work';
   }
 
   if (plan.validCoordinates()) {
@@ -197,8 +197,8 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
       from,
       to, date, startTime, endTime, plan.am_pm());
     otp.profile({
-      from: [from.lat, from.lng],
-      to: [to.lat, to.lng],
+      from: options.from,
+      to: options.to,
       startTime: startTime,
       endTime: endTime,
       date: date,
@@ -219,10 +219,18 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
         debug('<-- updated routes');
         plan.routes(data.options);
 
+        // Add the profile to the options
+        options.profile = data;
+
         // get the patterns
-        otp.patterns(data, pconfig, function(patterns) {
-          plan.patterns(patterns);
-          callback();
+        otp.patterns(options, function(err, patterns) {
+          if (err) {
+            window.alert(err);
+            callback(err);
+          } else {
+            plan.patterns(patterns);
+            callback();
+          }
         });
       }
     });

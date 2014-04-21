@@ -2,8 +2,7 @@ var config = require('config');
 var debug = require('debug')(config.application() + ':otp');
 var each = require('each');
 var jsonp = require('jsonp');
-var profiler = require('otpprofiler.js');
-var qs = require('querystring');
+var Profiler = require('otpprofiler.js');
 var request = require('request');
 var spin = require('spinner');
 var toCapitalCase = require('to-capital-case');
@@ -15,31 +14,40 @@ var toCapitalCase = require('to-capital-case');
 var colors = ['Blue', 'Green', 'Orange', 'Red', 'Yellow'];
 
 /**
- * Expose `profile`
+ * Create profiler
  */
 
-module.exports.profile = function(query, callback) {
-  var str = qs.stringify(query);
-  debug('--> profiling %s', str);
-  request.get('/otp/profile?' + str, function(err, res) {
-    if (!res.body) res.body = {};
-    if (!res.body.options) res.body.options = [];
-    debug('<-- profiled %s options', res.body.options.length);
-    callback.call(null, err || res.error, process(res.body));
-  });
-};
+var profiler = new Profiler({
+  host: '/api/otp'
+});
 
 /**
  * Expose `profile`
  */
 
-module.exports.patterns = function(profile, opts, callback) {
+module.exports.profile = function(query, callback) {
+  debug('--> profiling');
+  profiler.profile(query, function(err, data) {
+    if (!data) {
+      data = {
+        options: []
+      };
+    }
+    debug('<-- profiled %s options', data.options.length);
+    callback(err, process(data));
+  });
+};
+
+/**
+ * Expose `patterns`
+ */
+
+module.exports.patterns = function(opts, callback) {
   var spinner = spin();
-  var response = new profiler.models.OtpProfileResponse(profile);
-  var loader = new profiler.transitive.TransitiveLoader(response, '/api/otp/', function() {
-      spinner.remove();
-      callback.apply(null, arguments);
-    }, opts);
+  profiler.journey(opts, function(err, data) {
+    spinner.remove();
+    callback(err, data);
+  });
 };
 
 /**
