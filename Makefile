@@ -56,7 +56,7 @@ server.pid: node_modules
 	@echo "Server logs stored in /var/tmp/commute-planner-server.log"
 start: server.pid
 
-stop: server.pid
+stop:
 	@kill `cat server.pid` && rm server.pid
 
 # Run mocha test suite

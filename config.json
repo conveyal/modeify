@@ -11,7 +11,11 @@
     "api_url": "/api",
     "base_url": "http://localhost:5000",
     "mapbox_map_id": "",
-    "otp_url": "http://ec2-23-21-67-127.compute-1.amazonaws.com/otp-rest-servlet",
+    "otp": {
+      "host": "ec2-23-21-67-127.compute-1.amazonaws.com",
+      "path": "/otp-rest-servlet",
+      "port": 80
+    },
     "s3_bucket": "",
     "segmentio_key": "",
     "static_url": ""
@@ -20,7 +24,11 @@
     "api_url": "/api",
     "base_url": "http://localhost:5000",
     "mapbox_map_id": "conveyal.h5bghhkn",
-    "otp_url": "http://localhost:8080/otp-rest-servlet",
+    "otp": {
+      "host": "localhost",
+      "path": "/otp-rest-servlet",
+      "port": 8080
+    },
     "s3_bucket": "",
     "segmentio_key": "egulwcylaa",
     "static_url": ""
@@ -29,7 +37,11 @@
     "api_url": "/api",
     "base_url": "http://arlington.dev.conveyal.com",
     "mapbox_map_id": "conveyal.h5bghhkn",
-    "otp_url": "http://ec2-23-21-67-127.compute-1.amazonaws.com/otp-rest-servlet",
+    "otp": {
+      "host": "ec2-23-21-67-127.compute-1.amazonaws.com",
+      "path": "/otp-rest-servlet",
+      "port": 80
+    },
     "s3_bucket": "arlington.dev.conveyal.com",
     "segmentio_key": "qak98wes8c",
     "static_url": "https://s3.amazonaws.com/arlington.dev.conveyal.com"
@@ -38,7 +50,11 @@
     "api_url": "/api",
     "base_url": "http://arlington.conveyal.com",
     "mapbox_map_id": "conveyal.h5bghhkn",
-    "otp_url": "http://ec2-23-21-67-127.compute-1.amazonaws.com/otp-rest-servlet",
+    "otp": {
+      "host": "ec2-23-21-67-127.compute-1.amazonaws.com",
+      "path": "/otp-rest-servlet",
+      "port": 80
+    },
     "s3_bucket": "arlington.conveyal.com",
     "segmentio_key": "51cp2qlgkb",
     "static_url": "https://s3.amazonaws.com/arlington.conveyal.com"

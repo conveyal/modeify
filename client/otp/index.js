@@ -36,8 +36,7 @@ module.exports.profile = function(query, callback) {
 module.exports.patterns = function(profile, opts, callback) {
   var spinner = spin();
   var response = new profiler.models.OtpProfileResponse(profile);
-  var loader = new profiler.transitive.TransitiveLoader(response, config.otp_url() +
-    '/', function() {
+  var loader = new profiler.transitive.TransitiveLoader(response, '/api/otp/', function() {
       spinner.remove();
       callback.apply(null, arguments);
     }, opts);
