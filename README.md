@@ -1,5 +1,7 @@
 # Commute Planner [![Build Status](https://travis-ci.org/conveyal/commute-planner.png)](https://travis-ci.org/conveyal/commute-planner) [![Code Climate](https://codeclimate.com/github/conveyal/commute-planner.png)](https://codeclimate.com/github/conveyal/commute-planner) [![Dependency Status](https://david-dm.org/conveyal/commute-planner.png)](https://david-dm.org/conveyal/commute-planner)
 
+A web-based UI for delivering personalized commute information to travelers. Supported by the [Mobility Lab](http://mobilitylab.org/) [Transit Tech Initiative](http://mobilitylab.org/tech/transit-tech-initiative/).
+
 ## Installation
 
 Clone to your local directory to begin.
