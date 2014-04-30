@@ -26,7 +26,7 @@ var profiler = new Profiler({
  */
 
 module.exports.profile = function(query, callback) {
-  debug('--> profiling');
+  debug('--> profiling %s', JSON.stringify(query));
   profiler.profile(query, function(err, data) {
     if (!data) {
       data = {
