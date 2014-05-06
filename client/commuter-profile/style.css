@@ -1,0 +1,34 @@
+
+.commuter-profile {
+  padding: 10px;
+}
+
+.commuter-profile .journeys {
+  padding-left: 0;
+}
+
+.commuter-profile .journey {
+  list-style-type: none;
+  margin-bottom: 10px;
+}
+
+.commuter-profile .journey .btn-group {
+  margin-top: 5px;
+}
+
+.Modal {
+  box-shadow: 2px 2px 5px rgba(0,0,0,.4);
+  background-color: white;
+}
+
+.Modal.hide {
+  opacity: 0;
+}
+
+.Overlay {
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%);
+}
+
+.Modal form {
+  width: 500px;
+}

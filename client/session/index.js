@@ -1,7 +1,3 @@
-/**
- * Dependencies
- */
-
 var analytics = require('analytics');
 var cookie = require('cookie');
 var Commuter = require('commuter');

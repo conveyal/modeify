@@ -27,13 +27,16 @@ var profiler = new Profiler({
 
 module.exports.profile = function(query, callback) {
   debug('--> profiling %s', JSON.stringify(query));
+  var spinner = spin();
   profiler.profile(query, function(err, data) {
     if (!data) {
       data = {
         options: []
       };
     }
+
     debug('<-- profiled %s options', data.options.length);
+    spinner.remove();
     callback(err, process(data));
   });
 };

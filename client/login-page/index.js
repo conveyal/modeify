@@ -39,7 +39,7 @@ View.prototype.login = function(e) {
       session.login(res.body);
       page('/manager/organizations');
     } else {
-      window.alert(err || res.text || 'Failed to login.');
+      window.alert(res.text || 'Failed to login.');
     }
   });
 };

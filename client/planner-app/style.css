@@ -23,6 +23,9 @@
   text-align: center;
 }
 
-.btn-primary {
+.btn-info,
+.btn-primary,
+.btn-success,
+.btn-danger {
   color: #fff;
 }

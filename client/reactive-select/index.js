@@ -31,9 +31,9 @@ module.exports = function(reactive) {
     });
 
     var parse = this.view[el.getAttribute('select-parse-value')] || function(
-        v) {
-        return v;
-      };
+      v) {
+      return v;
+    };
     el.onchange = function(e) {
       model[name](parse(value(el)));
     };

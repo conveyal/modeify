@@ -1,12 +1,9 @@
-/**
- * Dependencies
- */
-
 var analytics = require('analytics');
 var config = require('config');
 var debounce = require('debounce');
 var debug = require('debug')(config.name() + ':plan');
 var geocode = require('geocode');
+var Journey = require('journey');
 var defaults = require('model-defaults');
 var model = require('model');
 var otp = require('otp');
@@ -26,7 +23,6 @@ var MAX_PATTERNS = localStorage.getItem('max_patterns') || MAX_ROUTES;
 
 var Plan = module.exports = model('Plan')
   .use(defaults({
-    am_pm: 'am',
     bike: false,
     bus: false,
     car: false,
@@ -40,13 +36,13 @@ var Plan = module.exports = model('Plan')
     walk: false,
     welcome_complete: false
   }))
-  .attr('am_pm')
   .attr('bike')
   .attr('bus')
   .attr('car')
   .attr('days')
   .attr('end_time')
   .attr('from')
+  .attr('from_id')
   .attr('from_ll')
   .attr('original_modes')
   .attr('patterns')
@@ -54,6 +50,7 @@ var Plan = module.exports = model('Plan')
   .attr('routes')
   .attr('start_time')
   .attr('to')
+  .attr('to_id')
   .attr('to_ll')
   .attr('train')
   .attr('walk')
@@ -63,7 +60,7 @@ var Plan = module.exports = model('Plan')
  * Filters
  */
 
-var filters = ['am_pm', 'bike', 'bus', 'train', 'car', 'walk', 'days',
+var filters = ['bike', 'bus', 'train', 'car', 'walk', 'days',
   'start_time', 'end_time', 'from_ll', 'to_ll'
 ];
 
@@ -159,11 +156,6 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
   var endTime = plan.end_time();
   var date = nextDate(plan.days());
 
-  if (plan.am_pm() === 'pm') {
-    startTime += 12;
-    endTime += 12;
-  }
-
   // Do a minimum 2 hour window
   if (startTime === 0) startTime += ':00';
   else startTime = (startTime - 1) + ':30';
@@ -193,9 +185,9 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
   }
 
   if (plan.validCoordinates()) {
-    debug('--- updating routes from %s to %s on %s between %s and %s %s',
+    debug('--- updating routes from %s to %s on %s between %s and %s',
       from,
-      to, date, startTime, endTime, plan.am_pm());
+      to, date, startTime, endTime);
     otp.profile({
       from: options.from,
       to: options.to,
@@ -266,6 +258,34 @@ Plan.prototype.geocode = function(dest, callback) {
 };
 
 /**
+ * Save Journey
+ */
+
+Plan.prototype.saveJourney = function(callback) {
+  var opts = {};
+  for (var key in this.attrs) {
+    if (key === 'routes' || key === 'patterns' || key.indexOf('to') === 0 ||
+      key.indexOf('from') === 0) {
+      continue;
+    }
+    opts[key] = this.attrs[key];
+  }
+
+  // Create new journey
+  var journey = new Journey({
+    locations: [{
+      _id: this.from_id()
+    }, {
+      _id: this.to_id()
+    }],
+    opts: opts
+  });
+
+  // Save
+  journey.save(callback);
+};
+
+/**
  * Store in localStorage. Restrict this I/O to once every 25ms.
  */
 
@@ -318,7 +338,7 @@ Plan.prototype.validCoordinates = function() {
 
 Plan.prototype.fromIsValid = function() {
   var from = this.from_ll();
-  return !!from && !! from.lat && !! from.lng;
+  return !!from && !!from.lat && !!from.lng;
 };
 
 /**
@@ -327,7 +347,7 @@ Plan.prototype.fromIsValid = function() {
 
 Plan.prototype.toIsValid = function() {
   var to = this.to_ll();
-  return !!to && !! to.lat && !! to.lng;
+  return !!to && !!to.lat && !!to.lng;
 };
 
 /**

@@ -12,7 +12,9 @@ var Org = require('../../lib/organization/model');
 
 var org = {
   name: 'Organization 123',
-  address: '2100 Clarendon Boulevard, Arlington, VA'
+  address: '2300 Clarendon Blvd',
+  city: 'Arlington',
+  state: 'VA'
 };
 
 /**

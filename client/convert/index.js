@@ -43,13 +43,9 @@ exports.toBSColor = function(s) {
  */
 
 function milesToString(miles) {
-  var output;
   if (miles > 10) {
-    output = Math.round(miles);
-  } else if (miles > 1) {
-    output = Math.round(miles * 10) / 10;
+    return Math.round(miles);
   } else {
-    output = Math.round(miles * 100) / 100;
+    return Math.round(miles * 10) / 10;
   }
-  return output;
 }

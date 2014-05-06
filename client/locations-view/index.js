@@ -1,5 +1,5 @@
 var debug = require('debug');
-var geocode = require('geocode');
+var Location = require('location');
 var view = require('view');
 
 /**
@@ -21,13 +21,19 @@ View.prototype.save = function(e) {
   // If the address hasn't changed, return
   if (address === model[name]()) return;
 
-  // Geocode the new address
-  geocode(address, function(err, ll) {
+  // Create a new location on change
+  var location = new Location({
+    address: address
+  });
+
+  // Creates a new location & saves
+  location.save(function(err, res) {
     if (err) {
       window.alert('Invalid address.');
     } else {
       model[name](address);
-      model[name + '_ll'](ll);
+      model[name + '_ll'](res.body.coordinate);
+      model[name + '_id'](res.body._id);
     }
   });
 };
@@ -38,13 +44,13 @@ View.prototype.save = function(e) {
 
 View.prototype.reverseCommute = function() {
   var plan = this.model;
-  var am_pm = plan.am_pm() === 'am' ? 'pm' : 'am';
   plan.set({
-    am_pm: am_pm,
     from: plan.to(),
+    from_id: plan.to_id(),
     from_ll: plan.to_ll(),
     reverse_commute: !plan.reverse_commute(),
     to: plan.from(),
+    to_id: plan.from_id(),
     to_ll: plan.from_ll()
   });
 };

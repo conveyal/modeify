@@ -1,0 +1,16 @@
+{
+  "name": "location",
+  "dependencies": {
+    "component/model": "0.1.2",
+    "segmentio/model-defaults": "0.2.0",
+    "segmentio/model-memoize": "0.0.2",
+    "visionmedia/debug": "*"
+  },
+  "local": [
+    "config",
+    "model-geo"
+  ],
+  "scripts": [
+    "index.js"
+  ]
+}

@@ -61,6 +61,6 @@ stop:
 
 # Run mocha test suite
 test: lint
-	@NODE_ENV=test ./node_modules/.bin/mocha --recursive --require should --reporter $(REPORTER) --timeout 5000 --slow 10
+	@NODE_ENV=test ./node_modules/.bin/mocha --recursive --require should --reporter $(REPORTER) --timeout 10s --slow 10
 
 .PHONY: beautify convert help lint lint-client lint-lib lint-test release serve stop test test-client test-lib watch

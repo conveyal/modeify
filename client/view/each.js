@@ -1,3 +1,6 @@
+var config = require('config');
+var debug = require('debug')(config.application() + ':view:each');
+
 /**
  * `data-each="items"`
  */
@@ -9,11 +12,16 @@ module.exports = function(reactive) {
       container.innerHTML = '';
 
       items = items || this.value(attr);
-      if (!items || items.forEach === undefined || items.length === 0)
+      if (!items || items.forEach === undefined || items.length === 0) {
+        debug('no items to iterate over.');
         return;
+      }
 
       var View = this.value(attr + '-view');
-      if (!View) return;
+      if (!View) {
+        debug('no view for %s', attr);
+        return;
+      }
 
       items.forEach(function(item, index) {
         item.index = index;

@@ -1,22 +1,25 @@
 {
-  "name": "locations-view",
+  "name": "commuter-profile",
   "dependencies": {
+    "segmentio/modal": "*",
     "visionmedia/debug": "*"
   },
   "local": [
     "config",
-    "location",
+    "journey",
     "session",
-    "svg-icons",
+    "spinner",
     "view"
   ],
   "scripts": [
-    "index.js"
+    "index.js",
+    "journey.js"
   ],
   "styles": [
     "style.css"
   ],
   "templates": [
+    "journey.html",
     "template.html"
   ]
 }

@@ -6,6 +6,7 @@ module.exports = function(Model) {
   Model
     .attr('coordinate')
     .attr('address')
+    .attr('original_address')
     .attr('city')
     .attr('state')
     .attr('zip');
@@ -65,7 +66,7 @@ module.exports = function(Model) {
 
   Model.prototype.validCoordinate = function() {
     var c = this.coordinate();
-    return c && !! c.lat && !! c.lng;
+    return c && !!c.lat && !!c.lng;
   };
 };
 

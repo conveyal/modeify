@@ -14,7 +14,7 @@ var view = require('view');
  * Significant Ratio
  */
 
-var SRATIO = 1 / 5;
+var SRATIO = 1 / 10;
 
 /**
  * Create black to red color conversion
@@ -66,7 +66,7 @@ var View = module.exports = view(require('./template.html'), function(view,
     })
     .html(function(d) {
       var html = svg(d.type);
-      if (d.type !== 'pedestrian') html += '<span class="name">' + d.text +
+      if (d.type === 'bus') html += '<span class="name">' + d.text +
         '</span>';
       html += '<div class="clearfix"></div>';
       return html;
@@ -171,13 +171,24 @@ View.prototype.details = function() {
     });
   }
 
-  // Final Walk Segment
-  addDetail({
-    description: 'Walk from ' + segments[length - 1].toName +
-      ' to destination',
-    icon: svg('pedestrian'),
-    type: 'pedestrian'
-  });
+  if (segments.length === 0) {
+    // One mode the entire way
+    addDetail({
+      description: 'Walk the entire way.',
+      icon: svg('pedestrian'),
+      time: Math.round(this.model.finalWalkTime / 60),
+      type: 'pedestrian'
+    });
+  } else {
+    // Final Walk Segment
+    addDetail({
+      description: 'Walk from ' + segments[length - 1].toName +
+        ' to destination',
+      icon: svg('pedestrian'),
+      time: Math.round(this.model.finalWalkTime / 60),
+      type: 'pedestrian'
+    });
+  }
 
   // Ending Address
   addDetail({
@@ -218,25 +229,18 @@ function significantSegments(route) {
   var significant = [];
 
   route.segments.forEach(function(segment) {
-    // Add a walking segment if it's significant
-    if (segment.walkTime / total > SRATIO) {
-      significant.push(walkSegment(segment.walkTime));
-    }
-
     // Add the dominant transit segment
-    if ((segment.waitStats.min + segment.rideStats.min) / total > SRATIO) {
-      significant.push({
-        type: segment.type,
-        text: segment.routeShortName,
-        bg: segment.routeShortName,
-        color: '#fff',
-        time: segment.waitStats.min + segment.rideStats.min
-      });
-    }
+    significant.push({
+      type: segment.type,
+      text: segment.routeShortName,
+      bg: segment.routeShortName,
+      color: '#fff',
+      time: segment.waitStats.min + segment.rideStats.min
+    });
   });
 
   // Add the final walking segment if it's significant
-  if (route.finalWalkTime / total > SRATIO) {
+  if (route.segments.length === 0) {
     significant.push(walkSegment(route.finalWalkTime));
   }
 

@@ -23,13 +23,14 @@ var View = module.exports = view(require('./template.html'), function(view,
 
 View.prototype.display = function(patterns) {
   debug('--> displaying patterns');
-  var gridCellSize = localStorage.getItem('gridCellSize') || 800;
+
   this.el.innerHTML = '';
-  var transitive = window.transitive = new Transitive(this.el, patterns,
-    require(
-      './style'), {
-      gridCellSize: gridCellSize
-    });
+  var transitive = window.transitive = new Transitive({
+    el: this.el,
+    data: patterns,
+    style: require('./style'),
+    gridCellSize: localStorage.getItem('gridCellSize') || 800
+  });
   transitive.render();
 
   debug('<-- done displaying patterns');

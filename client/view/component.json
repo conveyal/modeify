@@ -6,8 +6,12 @@
     "ianstormtaylor/reactive": "*",
     "segmentio/reactive-child": "0.0.1",
     "segmentio/reactive-disabled": "0.0.1",
-    "segmentio/view": "0.4.0"
+    "segmentio/view": "0.4.0",
+    "visionmedia/debug": "*"
   },
+  "local": [
+    "config"
+  ],
   "scripts": [
     "active.js",
     "dropdown.js",

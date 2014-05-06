@@ -55,7 +55,8 @@ Organization.load = function(ctx, next) {
 Organization.prototype.mapMarker = function() {
   var c = this.coordinate();
   return map.createMarker({
-    title: '<a href="/manager/organizations/' + this._id() + '/show">' + this
+    title: '<a href="/manager/organizations/' + this._id() + '/show">' +
+      this
       .name() +
       '</a>',
     description: this.fullAddress(),
