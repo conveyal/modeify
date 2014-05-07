@@ -29,9 +29,11 @@ var Plan = module.exports = model('Plan')
     days: 'M—F',
     end_time: 9,
     from: '',
+    from_valid: false,
     routes: [],
     start_time: 7,
     to: '',
+    to_valid: false,
     train: false,
     walk: false,
     welcome_complete: false
@@ -44,6 +46,7 @@ var Plan = module.exports = model('Plan')
   .attr('from')
   .attr('from_id')
   .attr('from_ll')
+  .attr('from_valid')
   .attr('original_modes')
   .attr('patterns')
   .attr('reverse_commute')
@@ -52,6 +55,7 @@ var Plan = module.exports = model('Plan')
   .attr('to')
   .attr('to_id')
   .attr('to_ll')
+  .attr('to_valid')
   .attr('train')
   .attr('walk')
   .attr('welcome_complete');
@@ -76,7 +80,7 @@ Plan.on('change', function(plan, name, val) {
     if (filters.indexOf(name) !== -1) {
       plan.updateRoutes();
     }
-  } else if (plan.original_modes() && plan.validCoordinates()) {
+  } else if (plan.original_modes() && plan.from_valid() && plan.to_valid()) {
     plan.welcome_complete(true);
   }
 
@@ -338,7 +342,9 @@ Plan.prototype.validCoordinates = function() {
 
 Plan.prototype.fromIsValid = function() {
   var from = this.from_ll();
-  return !!from && !!from.lat && !!from.lng;
+  var valid = !!from && !!from.lat && !!from.lng;
+  this.from_valid(valid);
+  return valid;
 };
 
 /**

@@ -6,7 +6,7 @@
   },
   "local": [
     "config",
-    "geocode",
+    "location",
     "session",
     "spinner",
     "svg-icons",

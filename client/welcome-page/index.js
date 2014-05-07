@@ -1,10 +1,6 @@
-/**
- * Dependencies
- */
-
 var config = require('config');
 var debug = require('debug')(config.name() + ':welcome-page');
-var geocode = require('geocode');
+var Location = require('location');
 var page = require('page');
 var session = require('session');
 var spin = require('spinner');
@@ -42,12 +38,18 @@ module.exports = function(ctx, next) {
  * Save
  */
 
-View.prototype.save = function() {
+View.prototype.save = function(e) {
+  e.preventDefault();
   debug('--> saving');
+
   var plan = this.model;
   var spinner = spin();
   var fromEl = this.find('[name="from"]');
   var toEl = this.find('[name="to"]');
+  var done = function() {
+    debug('<-- saved');
+    spinner.remove();
+  };
 
   if (!plan.original_modes()) {
     var modes = [this.mode('bike'), this.mode('bus'), this.mode('train'), this.mode(
@@ -60,53 +62,80 @@ View.prototype.save = function() {
       plan.original_modes(modes);
       if (plan.welcome_complete()) page('/planner');
     }
-
-    debug('<-- saved');
-    spinner.remove();
-  } else if (!plan.fromIsValid()) {
-    this.geocode(fromEl, function(err, ll) {
-      if (err) {
-        window.alert('Please enter a valid address.');
-      } else {
-        var commuter = session.commuter();
-        if (commuter) {
-          debug('-- saving new coordinates to commuter');
-          commuter.coordinate(ll);
-          commuter.save();
-        }
-
-        plan.set({
-          from: fromEl.value,
-          from_ll: ll
-        });
-        if (plan.welcome_complete()) page('/planner');
-      }
-      spinner.remove();
-      debug('<-- saved');
+    done();
+  } else if (!plan.from_valid()) {
+    this.saveFrom(fromEl.value, function(err) {
+      if (err) window.alert('Please enter a valid address.');
+      done();
     });
   } else {
-    this.geocode(toEl, function(err, ll) {
-      if (err) {
-        window.alert('Please enter a valid address.');
-      } else {
-        plan.set({
-          to: toEl.value,
-          to_ll: ll
-        });
-        page('/planner');
-      }
-      spinner.remove();
-      debug('<-- saved');
+    this.saveTo(toEl.value, function(err) {
+      if (err) window.alert('Please enter a valid address.');
+      done();
     });
   }
 };
 
 /**
- * Geocode && Save
+ * Save From
  */
 
-View.prototype.geocode = function(el, fn) {
-  geocode(el.value, fn);
+View.prototype.saveFrom = function(address, callback) {
+  var plan = this.model;
+  var location = new Location({
+    address: address,
+    category: 'residence',
+    name: 'Home'
+  });
+
+  location.save(function(err, res) {
+    if (err) {
+      callback(err);
+    } else {
+      var ll = res.body.coordinate;
+
+      plan.set({
+        from: address,
+        from_id: res.body._id,
+        from_ll: ll,
+        from_valid: true
+      });
+
+      if (plan.welcome_complete()) page('/planner');
+      callback();
+    }
+  });
+};
+
+/**
+ * Save to
+ */
+
+View.prototype.saveTo = function(address, callback) {
+  var plan = this.model;
+  var location = new Location({
+    address: address,
+    category: 'office',
+    name: 'Work'
+  });
+
+  location.save(function(err, res) {
+    if (err) {
+      callback(err);
+    } else {
+      var ll = res.body.coordinate;
+
+      plan.set({
+        to: address,
+        to_id: res.body._id,
+        to_ll: ll,
+        to_valid: true
+      });
+
+      page('/planner');
+      callback();
+    }
+  });
 };
 
 /**
