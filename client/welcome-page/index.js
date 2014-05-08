@@ -143,8 +143,8 @@ View.prototype.saveTo = function(address, callback) {
  */
 
 View.prototype.back = function() {
-  if (this.model.from_ll()) {
-    this.model.from_ll(null);
+  if (this.model.from_valid()) {
+    this.model.from_valid(false);
   } else {
     this.model.original_modes(null);
   }
