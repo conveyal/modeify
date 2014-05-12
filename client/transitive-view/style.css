@@ -2,3 +2,14 @@
 .transitive-view {
   height: 100%;
 }
+
+.transitive-view .legend {
+  position: absolute;
+  height: 35px;
+  border: 1px solid #84909d;
+  left: 15px;
+  bottom: 15px;
+  width: 100px;
+  background-color: #fff;
+  box-shadow: 0 0 7px #eee;
+}

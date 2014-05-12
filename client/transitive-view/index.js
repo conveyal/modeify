@@ -24,9 +24,10 @@ var View = module.exports = view(require('./template.html'), function(view,
 View.prototype.display = function(patterns) {
   debug('--> displaying patterns');
 
-  this.el.innerHTML = '';
+  this.el.innerHTML = '<div class="legend"></div>';
   var transitive = window.transitive = new Transitive({
     el: this.el,
+    legendEl: this.find('.legend'),
     data: patterns,
     style: require('./style'),
     gridCellSize: localStorage.getItem('gridCellSize') || 800

@@ -29,7 +29,7 @@
 }
 
 .detailed-options .summary-segments {
-  width: 50%;
+  width: 60%;
 }
 
 .detailed-options .summary .segment {
@@ -37,6 +37,7 @@
   text-align: left;
   padding: 4px 5px 0;
   box-sizing: border-box;
+  height: 41px;
 }
 
 .detailed-options .segment svg {

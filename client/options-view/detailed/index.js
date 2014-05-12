@@ -66,7 +66,7 @@ var View = module.exports = view(require('./template.html'), function(view,
     })
     .html(function(d) {
       var html = svg(d.type);
-      if (d.type === 'bus') html += '<span class="name">' + d.text +
+      if (d.type === 'bus') html += '<span class="name">' + d.text.toUpperCase() +
         '</span>';
       html += '<div class="clearfix"></div>';
       return html;
@@ -164,7 +164,7 @@ View.prototype.details = function() {
     addDetail({
       description: description,
       icon: svg(segment.type),
-      name: segment.routeShortName,
+      name: segment.routeShortName.toUpperCase(),
       style: 'color: #fff;fill: #fff; background-color: ' + color + ';',
       time: Math.round(segment.rideStats.avg / 60),
       type: segment.type

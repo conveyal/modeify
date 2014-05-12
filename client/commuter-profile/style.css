@@ -12,8 +12,20 @@
   margin-bottom: 10px;
 }
 
+.commuter-profile .journey a {
+  float: left;
+}
+
 .commuter-profile .journey .btn-group {
   margin-top: 5px;
+}
+
+.commuter-profile .from {
+  color: #8ec449;
+}
+
+.commuter-profile .to {
+  color: #d9534f;
 }
 
 .Modal {
