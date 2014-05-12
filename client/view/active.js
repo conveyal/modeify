@@ -16,9 +16,9 @@ module.exports = function(reactive) {
       var el = e.target;
       var val = el.dataset.active;
 
-      if (!val) {
+      while (el && (val === undefined || val === null)) {
         el = el.parentNode;
-        val = el.dataset.active;
+        val = el && el.dataset.active;
       }
 
       // toggle the value

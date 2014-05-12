@@ -1,48 +1,68 @@
 
-.locations-view {
-  border-bottom: 1px solid #ccc;
+.locations {
+  border-top: 1px solid #f2f4f5;
 }
 
-.locations-view > div {
-  display: inline-block;
+.locations .border {
+  width: 100%;
+  height: 1px;
+  background-color: #f2f4f5;
+  float: left;
 }
 
-.locations-view .icons {
-  width: 9%;
-  text-align: center;
-  padding-left: 4px;
-  cursor: pointer;
+.locations input {
+  font-family: "HelveticaNeue-CondensedBold";
+  font-size: 16pt;
+  padding: 10px 10px 10px 40px;
+  color: #8ec449;
+  box-shadow: none;
+  border: none;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: 8px center;
 }
 
-.locations-view .inputs {
-  width: 89.8%;
+.locations .home {
+  background-size: 18px 17px;
 }
 
-.icon.from {
-  color: #5cb85c;
+.locations .work {
+  background-size: 18px 15px;
 }
 
-.icon.to {
-  color: #d9534f;
-}
-
-.locations-view .form-control {
+.locations input:focus {
+  background-color: #f2f4f5;
   box-shadow: none;
   outline: none;
-  border: none;
-  border-radius: 0;
-  transition: none;
+  border-left: 5px solid black;
+  height: 100%;
 }
 
-.locations-view .form-control:active,
-.locations-view .form-control:focus {
-  box-shadow: 0 -4px 4px -4px rgba(102,175,233,.6) inset;
+::-webkit-input-placeholder {
+  padding-top: 4px;
+  font-family: "HelveticaNeue-Light", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: light;
 }
 
-.locations-view .form-control.from {
-  border-bottom: 1px solid #ccc;
+:-moz-placeholder { /* Firefox 18- */
+  padding-top: 4px;
+  font-family: "HelveticaNeue-Light", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: light;
 }
 
-.locations-view button {
-  padding: 0;
+::-moz-placeholder {  /* Firefox 19+ */
+  padding-top: 4px;
+  font-family: "HelveticaNeue-Light", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: light;
+}
+
+:-ms-input-placeholder {
+  padding-top: 42px;
+  font-family: "HelveticaNeue-Light", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: light;
 }

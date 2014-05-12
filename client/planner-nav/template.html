@@ -1,9 +1,7 @@
 <nav>
-  <h3><i class="fa fa-circle"></i> {application}
-    <div class="btn-group pull-right" data-visible="isLoggedIn">
-      <button type="button" class="btn btn-success" on-click="saveJourney"><i class="fa fa-white fa-save"></i></button>
-      <button type="button" class="btn btn-info" on-click="showProfile"><i class="fa fa-white fa-user"></i></button>
-      <button type="button" class="btn btn-default" on-click="logout"><i class="fa fa-sign-out"></i></button>
-    </div>
-  </h3>
+  <div class="btn-group pull-right" data-visible="isLoggedIn">
+    <button type="button" class="btn btn-default" on-click="saveJourney"><i class="fa fa-fw fa-save"></i> Save</button>
+    <button type="button" class="btn btn-default" on-click="showProfile"><i class="fa fa-fw fa-user"></i> Profile</button>
+    <button type="button" class="btn btn-default" on-click="logout"><i class="fa fa-fw fa-sign-out"></i> Sign Out</button>
+  </div>
 </nav>

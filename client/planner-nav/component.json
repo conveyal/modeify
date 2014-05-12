@@ -18,5 +18,8 @@
   ],
   "templates": [
     "template.html"
+  ],
+  "images": [
+    "logo.svg"
   ]
 }

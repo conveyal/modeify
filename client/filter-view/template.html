@@ -1,38 +1,40 @@
 <div class="filter-view">
-  <div class="btn-group btn-group-justified">
-    <div class="btn-group select-container">
-      <select select-value="days">
-        <option value="M—F">Monday to Friday</option>
-        <option value="Sat">Saturday</option>
-        <option value="Sun">Sunday</option>
-      </select>
-    </div>
+  <div class="time-filters">
+    <span class="calendar"></span>
+    <select select-value="days">
+      <option value="M—F">M—F</option>
+      <option value="Sat">Sat</option>
+      <option value="Sun">Sun</option>
+    </select>
 
-    <div class="btn-group select-container">
-      <select select-value="start_time" select-options="startTimes" select-parse-value="parseInt"></select>
-    </div>
-    <div class="btn-group select-container">
-      <select select-value="end_time" select-options="endTimes" select-parse-value="parseInt"></select>
-    </div>
+    <label class="date-text">FROM</label>
+    <select select-value="start_time" select-options="startTimes" select-parse-value="parseInt"></select>
+
+    <label class="date-text">TO</label>
+    <select select-value="end_time" select-options="endTimes" select-parse-value="parseInt"></select>
   </div>
 
-  <div class="btn-group btn-group-justified">
-    <div class="btn-group">
-      <button type="button" class="btn btn-default" data-active="bike" disabled><span class="svg-icon svg-icon-bike"></span></button>
+  <p class="time-information">This planner shows trips on a normal day.<br> Select the time when you typically make your trip to work.</p>
+
+  <div class="mode-filters">
+    <div class="mode train svg-icon-train" data-active="train">
+      <div class="ring"></div>
     </div>
-    <div class="btn-group">
-      <button type="button" class="btn btn-default" data-active="bus" disabled><span class="svg-icon svg-icon-bus"></span></button>
+
+    <div class="mode bus svg-icon-bus" data-active="bus">
+      <div class="ring"></div>
     </div>
-    <div class="btn-group">
-      <button type="button" class="btn btn-default" data-active="train" disabled><span class="svg-icon svg-icon-train"></span></button>
+
+    <div class="mode bike svg-icon-bike" data-active="bike">
+      <div class="ring"></div>
     </div>
-    <div class="btn-group">
-      <button type="button" class="btn btn-default" data-active="car" disabled><span class="svg-icon svg-icon-car"></span></button>
+
+    <div class="mode car svg-icon-car" data-active="car">
+      <div class="ring"></div>
     </div>
-    <div class="btn-group">
-      <button type="button" class="btn btn-default" data-active="walk" disabled><span class="svg-icon svg-icon-walk"></span></button>
+
+    <div class="mode walk svg-icon-pedestrian" data-active="walk">
+      <div class="ring"></div>
     </div>
   </div>
-
-  <button type="submit" class="btn btn-primary btn-block"><span class="fa fa-search"></span></button>
 </div>

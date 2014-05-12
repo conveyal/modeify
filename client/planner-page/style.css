@@ -3,16 +3,23 @@
   position: absolute;
   margin: 14px;
   background-color: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #84909d;
   box-shadow: 0 0 7px #eee;
   z-index: 1;
-  top: 0;
+  top: 43px;
   border-radius: 0;
 }
 
 .omnibox {
   left: 0;
-  width: 400px;
+  width: 320px;
+}
+
+.omnibox .title {
+  padding: 3%;
+  font-family: "HelveticaNeue-Light", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  color: #84909d;
 }
 
 .panel {
