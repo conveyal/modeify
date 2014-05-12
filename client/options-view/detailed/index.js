@@ -47,7 +47,7 @@ var View = module.exports = view(require('./template.html'), function(view,
     .append('div')
     .attr('class', function(d) {
       var name = 'segment';
-      if (d.type !== 'pedestrian') name += ' white';
+      if (d.type === 'bus' || d.type === 'train') name += ' white';
       return name;
     })
     .style('width', function() {
@@ -88,7 +88,7 @@ View.prototype.showHideDetails = function() {
  */
 
 View.prototype.average = function() {
-  return Math.round(this.model.stats.min / 60);
+  return Math.round(this.model.stats.avg / 60);
 };
 
 /**
@@ -96,6 +96,8 @@ View.prototype.average = function() {
  */
 
 View.prototype.totalWalkDistance = function() {
+  if (this.model.summary === 'Car' || this.model.summary === 'Bicycle') return false;
+
   return convert.metersToMiles(this.model.segments.reduce(function(memo,
     segment) {
     return memo + segment.walkTime;
@@ -173,12 +175,32 @@ View.prototype.details = function() {
 
   if (segments.length === 0) {
     // One mode the entire way
-    addDetail({
-      description: 'Walk the entire way.',
-      icon: svg('pedestrian'),
-      time: Math.round(this.model.finalWalkTime / 60),
-      type: 'pedestrian'
-    });
+    switch(this.model.summary) {
+      case 'Bicycle':
+        addDetail({
+          description: 'Bike the entire way.',
+          icon: svg('bike'),
+          time: Math.round(this.model.finalWalkTime / 60),
+          type: 'bicycle'
+        });
+        break;
+      case 'Car':
+        addDetail({
+          description: 'Drive the entire way.',
+          icon: svg('car'),
+          time: Math.round(this.model.finalWalkTime / 60),
+          type: 'car'
+        });
+        break;
+      case 'Walk':
+        addDetail({
+          description: 'Walk the entire way.',
+          icon: svg('pedestrian'),
+          time: Math.round(this.model.finalWalkTime / 60),
+          type: 'pedestrian'
+        });
+        break;
+    }
   } else {
     // Final Walk Segment
     addDetail({
@@ -225,7 +247,7 @@ function randStops() {
  */
 
 function significantSegments(route) {
-  var total = route.stats.min;
+  var total = route.stats.avg;
   var significant = [];
 
   route.segments.forEach(function(segment) {
@@ -235,13 +257,20 @@ function significantSegments(route) {
       text: segment.routeShortName,
       bg: segment.routeShortName,
       color: '#fff',
-      time: segment.waitStats.min + segment.rideStats.min
+      time: segment.waitStats.avg + segment.rideStats.avg
     });
   });
 
   // Add the final walking segment if it's significant
   if (route.segments.length === 0) {
-    significant.push(walkSegment(route.finalWalkTime));
+    console.log(route.summary);
+    if (route.summary === 'Bicycle') {
+      significant.push(singleSegment('bike', route.stats.avg));
+    } else if (route.summary === 'Car') {
+      significant.push(singleSegment('car', route.stats.avg));
+    } else {
+      significant.push(singleSegment('pedestrian', route.finalWalkTime));
+    }
   }
 
   return significant;
@@ -251,9 +280,9 @@ function significantSegments(route) {
  * Create Walk Segment
  */
 
-function walkSegment(time) {
+function singleSegment(type, time) {
   return {
-    type: 'pedestrian',
+    type: type,
     text: '&nbsp;',
     bg: '#fff',
     color: '#333',
@@ -267,5 +296,5 @@ function walkSegment(time) {
 
 function maxTripLength() {
   var profile = session.plan().routes();
-  return profile[profile.length - 1].stats.min;
+  return profile[profile.length - 1].stats.avg;
 }

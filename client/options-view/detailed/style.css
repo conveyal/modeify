@@ -23,6 +23,11 @@
   width: 100%;
 }
 
+.detailed-options .summary-time,
+.detailed-options .summary-walk-distance {
+  width: 20%;
+}
+
 .detailed-options .summary p {
   margin: 0;
   line-height: 14px;

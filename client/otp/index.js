@@ -69,6 +69,7 @@ function process(data) {
     each(option.segments, function(segment, i) {
       // TODO: Fix on server side. Currently removing segments with a zero ride time
       if (segment.rideStats.min === 0) {
+        debug('removing segment %s due to a 0 ride time', i);
         addWalkTime = segment.walkTime;
         removeSegment.push(i);
         return;
