@@ -190,8 +190,7 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
 
   if (plan.validCoordinates()) {
     debug('--- updating routes from %s to %s on %s between %s and %s',
-      from,
-      to, date, startTime, endTime);
+      from, to, date, startTime, endTime);
     otp.profile({
       from: options.from,
       to: options.to,
@@ -199,7 +198,8 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
       endTime: endTime,
       date: date,
       orderBy: 'AVG',
-      limit: MAX_ROUTES
+      limit: MAX_ROUTES,
+      modes: plan.modesCSV()
     }, function(err, data) {
       if (err) {
         plan.emit('error', err);
@@ -354,6 +354,21 @@ Plan.prototype.fromIsValid = function() {
 Plan.prototype.toIsValid = function() {
   var to = this.to_ll();
   return !!to && !!to.lat && !!to.lng;
+};
+
+/**
+ * Modes as a CSV
+ */
+
+Plan.prototype.modesCSV = function() {
+  var modes = [];
+  if (this.bike()) modes.push('BICYCLE');
+  if (this.bus()) modes.push('BUS');
+  if (this.train()) modes.push('TRAINISH');
+  if (this.walk()) modes.push('WALK');
+  if (this.car()) modes.push('CAR');
+
+  return modes.join(',');
 };
 
 /**

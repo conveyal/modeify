@@ -77,6 +77,14 @@
   box-shadow: 0 7px 7px -7px #eee inset;
 }
 
+.details .from {
+  color: #8ec449;
+}
+
+.details .to {
+  color: #d9534f;
+}
+
 .details tr {
   margin: 0 8px;
   border-bottom: 1px solid #eee;
