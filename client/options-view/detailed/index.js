@@ -170,7 +170,8 @@ View.prototype.details = function() {
     var color = segment.type === 'train' ? convert.toBSColor(segment.routeShortName) :
       'gray';
 
-    var description = '<p>' + segment.fromName + '</p>' + '<p>&nbsp;</p>' + '<p>' + segment.toName + '</p>';
+    var description = '<p>' + segment.fromName + '</p>' + '<p>&nbsp;</p>' +
+      '<p>' + segment.toName + '</p>';
 
     addDetail({
       description: description,

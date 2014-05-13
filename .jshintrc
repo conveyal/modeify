@@ -12,7 +12,6 @@
   "laxbreak": true,
   "maxcomplexity": 10,
   "node": true,
-  "quotmark": "single",
   "trailing": true,
   "undef": true
 }
