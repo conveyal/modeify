@@ -171,22 +171,15 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
   var options = {
     from: {
       lat: from.lat,
-      lon: from.lng
+      lon: from.lng,
+      name: 'Home'
     },
     to: {
       lat: to.lat,
-      lon: to.lng
+      lon: to.lng,
+      name: 'Work'
     }
   };
-
-  // Reverse commute?
-  if (plan.reverse_commute()) {
-    options.from.name = 'Work';
-    options.to.name = 'Home';
-  } else {
-    options.from.name = 'Home';
-    options.to.name = 'Work';
-  }
 
   if (plan.validCoordinates()) {
     debug('--- updating routes from %s to %s on %s between %s and %s',

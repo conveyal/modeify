@@ -71,6 +71,14 @@ var View = module.exports = view(require('./template.html'), function(view,
       html += '<div class="clearfix"></div>';
       return html;
     });
+
+  d3.select(view.el)
+    .on('mouseover', function() {
+      window.transitive.focusJourney(model.id);
+    })
+    .on('mouseout', function() {
+      window.transitive.focusJourney();
+    });
 });
 
 /**
@@ -96,7 +104,9 @@ View.prototype.average = function() {
  */
 
 View.prototype.totalWalkDistance = function() {
-  if (this.model.summary === 'Car' || this.model.summary === 'Bicycle') return false;
+  if (this.model.summary === 'Car' || this.model.summary === 'Bicycle') {
+    return false;
+  }
 
   return convert.metersToMiles(this.model.segments.reduce(function(memo,
     segment) {
@@ -175,7 +185,7 @@ View.prototype.details = function() {
 
   if (segments.length === 0) {
     // One mode the entire way
-    switch(this.model.summary) {
+    switch (this.model.summary) {
       case 'Bicycle':
         addDetail({
           description: 'Bike the entire way.',
@@ -263,7 +273,6 @@ function significantSegments(route) {
 
   // Add the final walking segment if it's significant
   if (route.segments.length === 0) {
-    console.log(route.summary);
     if (route.summary === 'Bicycle') {
       significant.push(singleSegment('bike', route.stats.avg));
     } else if (route.summary === 'Car') {

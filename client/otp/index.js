@@ -61,10 +61,12 @@ function process(data) {
   var options = data.options;
   var numOptions = data.options.length;
 
-  each(options, function(option) {
+  each(options, function(option, index) {
     // TODO: Remove laater
     var addWalkTime = 0;
     var removeSegment = [];
+
+    option.id = 'option_' + index;
 
     each(option.segments, function(segment, i) {
       // TODO: Fix on server side. Currently removing segments with a zero ride time
