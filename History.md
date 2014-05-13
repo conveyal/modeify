@@ -1,4 +1,8 @@
 
+## 0.1.1 — 2014-05-13
+
+* Temporary fix for routes, hard coded them in.
+
 ## 0.1.0 — 2014-05-13
 
 * Design overall of filter form & nav
