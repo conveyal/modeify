@@ -13,7 +13,6 @@ var Row = module.exports = view(template);
  */
 
 Row.prototype.from = function() {
-  console.log(this.model.toJSON());
   return this.model.locations()[0].original_address;
 };
 
