@@ -74,6 +74,7 @@ var View = module.exports = view(require('./template.html'), function(view,
 
   d3.select(view.el)
     .on('mouseover', function() {
+      console.log(model.id, model);
       window.transitive.focusJourney(model.id);
     })
     .on('mouseout', function() {

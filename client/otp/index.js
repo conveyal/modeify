@@ -61,6 +61,11 @@ function process(data) {
   var options = data.options;
   var numOptions = data.options.length;
 
+  // Sort by avg time
+  options.sort(function(a, b) {
+    return a.stats.avg - b.stats.avg;
+  });
+
   each(options, function(option, index) {
     // TODO: Remove laater
     var addWalkTime = 0;
