@@ -17,6 +17,7 @@
     "session"
   ],
   "scripts": [
-    "index.js"
+    "index.js",
+    "routes.js"
   ]
 }

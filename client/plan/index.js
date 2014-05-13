@@ -7,6 +7,7 @@ var Journey = require('journey');
 var defaults = require('model-defaults');
 var model = require('model');
 var otp = require('otp');
+var DEFAULT_ROUTES = require('./routes');
 var session = require('session');
 var store = require('store');
 
@@ -178,7 +179,8 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
       lat: to.lat,
       lon: to.lng,
       name: 'Work'
-    }
+    },
+    routes: DEFAULT_ROUTES
   };
 
   if (plan.validCoordinates()) {
