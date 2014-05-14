@@ -55,6 +55,7 @@ View.prototype.destroy = function(e) {
     var url = '/manager/organizations/' + this.model._organization() + '/show';
     this.model.destroy(function(err) {
       if (err) {
+        debug(err);
         window.alert(err);
       } else {
         alerts.push({

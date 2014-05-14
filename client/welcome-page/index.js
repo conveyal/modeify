@@ -65,12 +65,18 @@ View.prototype.save = function(e) {
     done();
   } else if (!plan.from_valid()) {
     this.saveFrom(fromEl.value, function(err) {
-      if (err) window.alert('Please enter a valid address.');
+      if (err) {
+        debug(err);
+        window.alert('Please enter a valid address.');
+      }
       done();
     });
   } else {
     this.saveTo(toEl.value, function(err) {
-      if (err) window.alert('Please enter a valid address.');
+      if (err) {
+        debug(err);
+        window.alert('Please enter a valid address.');
+      }
       done();
     });
   }

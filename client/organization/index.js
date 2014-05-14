@@ -80,7 +80,7 @@ Organization.prototype.sendPlan = function() {
     campaign.save(function(err) {
       campaign.send(function(err, res) {
         if (err || !res.ok) {
-          debug('<-- sending plans failed: %s', res.text);
+          debug('<-- sending plans failed: %s', err || res.error || res.text);
           window.alert('Failed to send emails.');
         } else {
           debug('<-- plans sent');

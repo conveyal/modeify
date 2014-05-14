@@ -21,6 +21,7 @@ module.exports = function(ctx, next) {
 
   Organization.all(function(err, orgs, res) {
     if (err || !res.ok) {
+      debug(err || res.error || res.text);
       window.alert(res.text || 'Failed to load organizations.');
     } else {
       debug('showing %s org(s)', orgs.length());

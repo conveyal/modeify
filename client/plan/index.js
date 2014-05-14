@@ -198,6 +198,7 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
     }, function(err, data) {
       if (err) {
         plan.emit('error', err);
+        debug(err);
         callback(err);
       } else if (data.options.length < 1) {
         window.alert('No trips found for route between ' + plan.from() +
@@ -216,7 +217,7 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
         // get the patterns
         otp.patterns(options, function(err, patterns) {
           if (err) {
-            window.alert(err);
+            debug(err);
             callback(err);
           } else {
             plan.patterns(patterns);

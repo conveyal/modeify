@@ -29,6 +29,7 @@ View.prototype.save = function(e) {
   // Creates a new location & saves
   location.save(function(err, res) {
     if (err) {
+      debug(err);
       window.alert('Invalid address.');
     } else {
       model[name](address);

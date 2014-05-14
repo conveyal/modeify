@@ -65,6 +65,7 @@ View.prototype.destroy = function(e) {
   if (window.confirm('Delete organization?')) {
     this.model.destroy(function(err) {
       if (err) {
+        debug(err);
         window.alert(err);
       } else {
         alerts.push({
@@ -169,6 +170,7 @@ Modal.prototype.upload = function(e) {
 
   batch.end(function(err) {
     if (err) {
+      debug(err);
       window.alert('Error while uploading commuters. ' + err);
     } else {
       alerts.push({

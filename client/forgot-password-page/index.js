@@ -29,6 +29,7 @@ View.prototype.sendChangeRequest = function(e) {
       window.alert(
         'Check your inbox for instructions to change your password.');
     } else {
+      debug(err || res.error || res.text);
       window.alert(err || res.text ||
         'Failed to send change password request.');
     }
@@ -41,6 +42,5 @@ View.prototype.sendChangeRequest = function(e) {
 
 module.exports = function(ctx, next) {
   ctx.view = new View();
-
   next();
 };

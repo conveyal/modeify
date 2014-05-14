@@ -37,7 +37,7 @@ View.prototype.saveJourney = function(e) {
   var plan = this.model.plan();
   plan.saveJourney(function(err) {
     if (err) {
-      console.error(err);
+      debug(err);
       window.alert('Failed to save journey.\n' + err);
     } else {
       window.alert('Saved journey successfully');
@@ -53,7 +53,7 @@ View.prototype.showProfile = function() {
   var spinner = spin();
   Journey.all(function(err, journeys) {
     if (err) {
-      console.error(err);
+      debug(err);
       window.alert('Failed to load journeys.');
     } else {
       var profile = new Profile({
