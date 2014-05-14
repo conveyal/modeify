@@ -52,6 +52,9 @@ release: build test
 # Watch & reload server
 serve: server.pid
 server.pid: node_modules
+ifndef NODE_ENV
+	$(error NODE_ENV is undefined)
+endif
 	@nohup ./node_modules/.bin/nodemon > /var/tmp/commute-planner-server.log </dev/null & echo "$$!" > server.pid
 	@echo "Server logs stored in /var/tmp/commute-planner-server.log"
 start: server.pid
@@ -63,4 +66,4 @@ stop:
 test: lint
 	@NODE_ENV=test ./node_modules/.bin/mocha --recursive --require should --reporter $(REPORTER) --timeout 20s --slow 10
 
-.PHONY: beautify convert help lint lint-client lint-lib lint-test release serve stop test test-client test-lib watch
+.PHONY: beautify convert lint release serve stop test watch
