@@ -1,7 +1,3 @@
-/**
- * Dependencies
- */
-
 var alerts = require('alerts');
 var config = require('config');
 var debug = require('debug')(config.name() + ':managers-page');
@@ -32,6 +28,7 @@ module.exports = function(ctx, next) {
     $query: 'type:administrator OR type:manager'
   }, function(err, managers, res) {
     if (err || !res.ok) {
+      debug(err || res.error || res.text);
       window.alert(err || res.text || 'Failed to load managers.');
     } else {
       var tbody = ctx.view.find('tbody');
@@ -102,7 +99,7 @@ ManagerView.prototype.resetPassword = function(e) {
       email: this.model.email()
     }, function(err, res) {
       if (err || !res.ok) {
-        debug(err, res);
+        debug(err || res.error || res.text);
         window.alert('Failed to send reset password request.');
       } else {
         alerts.show({

@@ -56,7 +56,7 @@ Row.prototype.destroy = function(e) {
   var self = this;
   this.model.destroy(function(err) {
     if (err) {
-      console.error(err);
+      debug(err);
       window.alert('Failed to remove journey.');
     } else {
       self.el.remove();

@@ -1,7 +1,3 @@
-/**
- * Dependencies
- */
-
 var alerts = require('alerts');
 var config = require('config');
 var debug = require('debug')(config.name() + ':login-page');
@@ -39,6 +35,7 @@ View.prototype.login = function(e) {
       session.login(res.body);
       page('/manager/organizations');
     } else {
+      debug(err || res.error || res.text);
       window.alert(res.text || 'Failed to login.');
     }
   });

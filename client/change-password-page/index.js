@@ -1,7 +1,3 @@
-/**
- * Dependencies
- */
-
 var alerts = require('alerts');
 var config = require('config');
 var debug = require('debug')(config.name() + ':change-password-page');
@@ -38,6 +34,7 @@ View.prototype.changePassword = function(e) {
       });
       page('/manager/login');
     } else {
+      debug(err || res.error || res.text);
       window.alert(err || res.text ||
         'Failed to change password. Use the link sent to your email address.'
       );

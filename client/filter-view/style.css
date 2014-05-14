@@ -64,13 +64,11 @@
 
 .mode-filters {
   width: 100%;
-  padding: 15px 0;
+  padding: 15px 0 10px;
 }
 
 .mode-filters .mode {
-  vertical-align: middle;
   display: inline-block;
-  text-align: center;
   background-size: 100%;
   background-position: center center;
   background-repeat: no-repeat;
