@@ -1,4 +1,10 @@
 
+## 0.1.2 — 2014-05-19
+
+* Bug fixes for when no transit options are available
+* Added health check for OTP
+* Minor refactoring
+
 ## 0.1.1 — 2014-05-13
 
 * Temporary fix for routes, hard coded them in.
