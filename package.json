@@ -32,7 +32,7 @@
     "component-builder": "~0.10.1",
     "mime": "^1.2.11",
     "mkdirp": "~0.5.0",
-    "mocha": "~1.18.1",
+    "mocha": "~1.19.0",
     "myth": "~1.0.2",
     "js-beautify": "~1.5.1",
     "jshint": "~2.5.0",
