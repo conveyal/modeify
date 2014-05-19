@@ -3,7 +3,7 @@
   "dependencies": {
     "component/color-parser": "0.1.0",
     "component/each": "*",
-    "conveyal/transitive.js": "*",
+    "conveyal/transitive.js": "0.2.1",
     "visionmedia/debug": "0.7.4"
   },
   "local": [
