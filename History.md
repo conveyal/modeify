@@ -1,4 +1,8 @@
 
+## Latest
+
+* Authenticate ArcGIS requests
+
 ## 0.1.2 — 2014-05-19
 
 * Bug fixes for when no transit options are available
