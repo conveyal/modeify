@@ -3,7 +3,7 @@
   "main": "server.js",
   "version": "0.1.2",
   "dependencies": {
-    "async": "~0.8.0",
+    "async": "~0.9.0",
     "batch": "^0.5.0",
     "bcryptjs": "^0.7.12",
     "body-parser": "^1.0.2",
