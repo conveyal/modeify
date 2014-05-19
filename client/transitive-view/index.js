@@ -25,14 +25,18 @@ View.prototype.display = function(patterns) {
   debug('--> displaying patterns');
 
   this.el.innerHTML = '<div class="legend"></div>';
-  var transitive = window.transitive = new Transitive({
-    el: this.el,
-    legendEl: this.find('.legend'),
-    data: patterns,
-    style: require('./style'),
-    gridCellSize: localStorage.getItem('gridCellSize') || 800
-  });
-  transitive.render();
+  console.log(patterns);
+
+  if (patterns.journeys && patterns.journeys.length > 0) {
+    var transitive = window.transitive = new Transitive({
+      el: this.el,
+      legendEl: this.find('.legend'),
+      data: patterns,
+      style: require('./style'),
+      gridCellSize: localStorage.getItem('gridCellSize') || 800
+    });
+    transitive.render();
+  }
 
   debug('<-- done displaying patterns');
 };

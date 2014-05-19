@@ -1,4 +1,5 @@
 var config = require('config');
+var debug = require('debug')(config.application() + ':planner-nav');
 var Journey = require('journey');
 var page = require('page');
 var Profile = require('commuter-profile');
