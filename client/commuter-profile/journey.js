@@ -1,3 +1,5 @@
+var config = require('config');
+var debug = require('debug')(config.application() + ':commuter-profile:journey');
 var session = require('session');
 var template = require('./journey.html');
 var view = require('view');
