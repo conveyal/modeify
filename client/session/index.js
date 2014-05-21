@@ -122,7 +122,7 @@ var session = window.session = module.exports = new Session();
  * Log in with link middleware
  */
 
-module.exports.loginWithLink = function(ctx, next) {
+session.loginWithLink = function(ctx, next) {
   debug('--> logging in with link %s', ctx.params.link);
   ctx.redirect = '/planner';
   request.get('/login/' + ctx.params.link, function(err, res) {
@@ -138,10 +138,28 @@ module.exports.loginWithLink = function(ctx, next) {
 };
 
 /**
+ * Log in anonymously
+ */
+
+session.loginAnonymously = function(next) {
+  debug('--> logging in anonymously');
+  request.get('/login-anonymously', function(err, res) {
+    if (res.ok && res.body) {
+      session.login(res.body);
+      debug('<-- logged in anonymously');
+      next();
+    } else {
+      debug('<-- failed to log in anonymously: %s', err || res.error || res.text);
+      next(err || res.error || res.text);
+    }
+  });
+};
+
+/**
  * Check if logged in
  */
 
-module.exports.commuterIsLoggedIn = function(ctx, next) {
+session.commuterIsLoggedIn = function(ctx, next) {
   debug('--> checking if commuter is logged in %s', ctx.path);
   request.get('/commuter-is-logged-in', function(err, res) {
     if (res.ok && res.body) {
@@ -149,8 +167,8 @@ module.exports.commuterIsLoggedIn = function(ctx, next) {
       debug('<-- commuter is logged in');
       next();
     } else {
-      debug('<-- commuter is not logged in: %s', err || res.text);
-      next(err || res.text);
+      debug('<-- commuter is not logged in: %s', err || res.error || res.text);
+      session.loginAnonymously(next);
     }
   });
 };
@@ -159,7 +177,7 @@ module.exports.commuterIsLoggedIn = function(ctx, next) {
  * Log out
  */
 
-module.exports.logoutMiddleware = function(ctx) {
+session.logoutMiddleware = function(ctx) {
   debug('logout %s', ctx.path);
 
   session.logout();
@@ -173,7 +191,7 @@ module.exports.logoutMiddleware = function(ctx) {
  * Redirect to `/login` if not logged in middleware
  */
 
-module.exports.checkIfLoggedIn = function(ctx, next) {
+session.checkIfLoggedIn = function(ctx, next) {
   debug('check if user is logged in %s', ctx.path);
 
   if (session.user()) {
@@ -194,7 +212,7 @@ module.exports.checkIfLoggedIn = function(ctx, next) {
  * Check if admin
  */
 
-module.exports.checkIfAdmin = function(ctx, next) {
+session.checkIfAdmin = function(ctx, next) {
   debug('is admin %s', ctx.path);
   if (session.user().type() !== 'administrator') {
     page('/manager/organizations');
@@ -207,7 +225,7 @@ module.exports.checkIfAdmin = function(ctx, next) {
  * Check if manager
  */
 
-module.exports.checkIfManager = function(ctx, next) {
+session.checkIfManager = function(ctx, next) {
   debug('is manager %s', ctx.path);
   if (session.user().type() === 'commuter') {
     page('/manager/login');

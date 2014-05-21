@@ -150,6 +150,35 @@ describe('/api/users', function() {
     });
   });
 
+  describe('GET /confirm-email/:key', function() {
+    it('400 for an invalid key', function(done) {
+      request
+        .get('/api/users/confirm-email/asdfasdf')
+        .expect(404, done);
+    });
+
+    it('204 and set email_confirmed to true', function(done) {
+      admin.info.email = 'admin2@website.com';
+      admin.info.save(function(err) {
+        if (err) return done(err);
+        request
+          .get('/api/users/confirm-email/' + admin.info.email_confirmation_key)
+          .expect(204)
+          .end(function(err, res) {
+            if (err) return done(err);
+            User
+              .findOne()
+              .where('email', admin.info.email)
+              .exec(function(err, user) {
+                if (err) return done(err);
+                user.email_confirmed.should.equal(true);
+                done();
+              });
+          });
+      });
+    });
+  });
+
   describe('GET /:id', function() {
     it('401 if not logged in as an administrator', function(done) {
       request
@@ -198,6 +227,12 @@ describe('/api/users', function() {
     it('204 if logged in as an administrator', function(done) {
       admin.agent
         .del('/api/users/' + newUser._id)
+        .expect(204, done);
+    });
+
+    it('204 and delete self', function(done) {
+      admin.agent
+        .del('/api/users/' + admin.info._id)
         .expect(204, done);
     });
   });

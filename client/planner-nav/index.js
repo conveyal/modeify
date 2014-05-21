@@ -25,9 +25,11 @@ View.prototype.application = function() {
  */
 
 View.prototype.logout = function() {
-  this.model.logout(function(err) {
-    page('/');
-  });
+  if (window.confirm('Are you sure you want to sign out?')) {
+    this.model.logout(function(err) {
+      page('/');
+    });
+  }
 };
 
 /**
