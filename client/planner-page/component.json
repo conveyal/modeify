@@ -20,5 +20,8 @@
   ],
   "templates": [
     "template.html"
+  ],
+  "images": [
+    "switch.svg"
   ]
 }

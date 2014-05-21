@@ -22,6 +22,21 @@
   color: #84909d;
 }
 
+.omnibox .button{
+	color: #fff;
+	display: inline-block;
+	padding: 3px;
+	text-align: center;
+	margin-left: 5px;
+	margin-top: 2px;
+	background-image: url(switch.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 7%;
+	height: 12px;
+}
+	
+
 .panel {
   right: 0;
   width: 450px;
