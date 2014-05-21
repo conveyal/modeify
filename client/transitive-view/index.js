@@ -25,7 +25,6 @@ View.prototype.display = function(patterns) {
   debug('--> displaying patterns');
 
   this.el.innerHTML = '<div class="legend"></div>';
-  console.log(patterns);
 
   if (patterns.journeys && patterns.journeys.length > 0) {
     var transitive = window.transitive = new Transitive({

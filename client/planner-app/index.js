@@ -1,7 +1,3 @@
-/**
- * Dependencies
- */
-
 var onLoad = require('on-load');
 var page = require('page');
 var Plan = require('plan');

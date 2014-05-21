@@ -29,16 +29,22 @@ var agent = module.exports.agent = request.agent();
 module.exports.login = function(done) {
   if (isLoggedIn) return done();
 
-  User.create(info, function() {
+  User.findOrCreate(info, function(err, user) {
+    if (err) return done(err);
+
     agent
       .post('/api/login')
       .send(info)
       .expect(200)
       .end(function(err, res) {
-        if (err || !res.ok) {
-          done(err || res.text);
+        if (err || res.error || !res.ok) {
+          done(err || res.error || res.text);
         } else {
           isLoggedIn = true;
+
+          user.password = info.password;
+          module.exports.info = user;
+
           done();
         }
       });

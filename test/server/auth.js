@@ -1,7 +1,3 @@
-/**
- * Dependencies
- */
-
 var admin = require('./default-admin');
 var request = require('./supertest');
 
@@ -15,16 +11,16 @@ var agent = request.agent();
  * Mocha
  */
 
-describe('/api', function() {
+describe('/api/auth', function() {
   before(admin.login);
 
   describe('POST /login', function() {
-    it('should return 404 with no email or password', function(done) {
+    it('404 with no email or password', function(done) {
       request.post('/api/login')
         .expect(404, done);
     });
 
-    it('should return 404 with a non-existing email', function(done) {
+    it('404 with a non-existing email', function(done) {
       request
         .post('/api/login')
         .send({
@@ -33,8 +29,7 @@ describe('/api', function() {
         .expect(404, done);
     });
 
-    it('should return 400 for an existing email but incorrect password',
-      function(done) {
+    it('400 for an existing email but incorrect password', function(done) {
         request
           .post('/api/login')
           .send({
@@ -57,13 +52,46 @@ describe('/api', function() {
   });
 
   describe('GET /is-logged-in', function() {
-    it('should return 401 with no cookie passed', function(done) {
+    it('401 with no cookie passed', function(done) {
       request
         .get('/api/is-logged-in')
         .expect(401, done);
     });
 
-    it('should return 200 wth a cookie passed', function(done) {
+    it('s200 wth a cookie passed', function(done) {
+      agent
+        .get('/api/is-logged-in')
+        .expect(200, done);
+    });
+  });
+
+  describe('GET /logout', function() {
+    it('204', function(done) {
+      agent
+        .get('/api/logout')
+        .expect(204, done);
+    });
+
+    it('401 after logout', function(done) {
+      agent
+        .get('/api/is-logged-in')
+        .expect(401, done);
+    });
+  });
+
+  describe('GET /login-anonymously', function() {
+    it('200 create a user and log you in', function(done) {
+      agent
+        .get('/api/login-anonymously')
+        .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err);
+          res.body.anonymous.should.equal(true);
+          done();
+        });
+    });
+
+    it('200 from is-logged-in', function(done) {
       agent
         .get('/api/is-logged-in')
         .expect(200, done);
