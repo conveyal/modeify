@@ -1,14 +1,14 @@
 
 
 .time-filters {
-  padding-top: 10px;
+  padding-top: 5px;
 }
 
 .time-filters select {
   background: transparent;
   border: none;
-  width: 19%;
-  font-size: 14pt;
+  width: 20%;
+  font-size: 13pt;
   color: #8ec449;
   font-family: "HelveticaNeue-CondensedBold";
   line-height: 1;
@@ -16,7 +16,7 @@
   border-radius: 0;
   -webkit-appearance: none;
   display: inline-block;
-  background: url(images/arrow.svg) no-repeat 13px 29px;
+  background: url(images/arrow.svg) no-repeat 8px 29px;
   height: 34px;
   padding-top: 2px;
   text-align: center;
@@ -33,12 +33,12 @@
   color: #000;
   font-size: 14px;
   margin: 0;
-  padding-left: 11px;
+  padding-left: 8px;
   padding-right: 3px;
 }
 
 .time-filters .calendar {
-  height: 16px;
+  height: 14px;
   width: 16px;
   text-align: center;
   background: url(images/calendar.svg);
@@ -50,7 +50,7 @@
 }
 
 .time-information {
-  margin-top: 6%;
+  margin-top: 3%;
   background-color: #F2F4F5;
   font-family: "HelveticaNeue-Light", Helvetica, Arial, sans-serif;
   color: #84909D;
@@ -60,6 +60,7 @@
   text-align: center;
   margin-bottom: 0;
 }
+
 
 .mode-filters {
   width: 100%;

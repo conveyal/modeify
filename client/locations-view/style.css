@@ -17,7 +17,7 @@
   color: #8ec449;
   box-shadow: none;
   border: none;
-  width: 92%;
+  width: 90%;
   height: 100%;
   background-repeat: no-repeat;
   background-position: 8px center;
@@ -44,7 +44,7 @@
 .locations input:focus {
   box-shadow: none;
   outline: none;
-  border-left: 5px solid #8ec449;
+  border-left: 5px solid black;
   height: 100%;
 }
 
