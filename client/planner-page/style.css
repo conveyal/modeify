@@ -45,12 +45,12 @@
 
 .omnibox a:hover {
 	cursor: pointer;
-	color: #8ec449;
+	color: #000;
 }
 
 .omnibox a:active {
 	cursor: pointer;
-	color: #8ec449;
+	color: #000;
 }
 
 .omnibox a:visited {
