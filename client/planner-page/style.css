@@ -22,25 +22,10 @@
   color: #84909d;
 }
 
-.omnibox .button{
-	cursor: pointer;
-	color: #fff;
-	display: inline-block;
-	padding: 3px;
-	text-align: center;
-	margin-left: 5px;
-	margin-top: 2px;
-	background-image: url(reverse.svg);
-	background-repeat: no-repeat;
-	background-position: center;
-	width: 7%;
-	height: 12px;
-}
 
 .omnibox a {
 	 color: #84909d;
 }
-
 	
 
 .omnibox a:hover {
