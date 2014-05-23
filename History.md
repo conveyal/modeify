@@ -3,6 +3,7 @@
 
 * Authenticate ArcGIS requests
 * Create `User`s for anonymous sessions for better tracking
+* Added login, change password and forgot password screens for commuters
 
 ## 0.1.2 — 2014-05-19
 

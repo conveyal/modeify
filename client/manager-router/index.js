@@ -1,7 +1,3 @@
-/**
- * Dependencies
- */
-
 var Commuter = require('commuter');
 var commuterForm = require('commuter-form');
 var config = require('config');
@@ -16,7 +12,10 @@ var utils = require('router-utils');
  * Show alerts
  */
 
-p('*', require('alerts'));
+p('*', require('alerts'), function(ctx, next) {
+  ctx.manager = true;
+  next();
+});
 
 /**
  * If the user is logged in, redirect to orgs, else redirect to login

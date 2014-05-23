@@ -30,14 +30,14 @@ describe('/api/auth', function() {
     });
 
     it('400 for an existing email but incorrect password', function(done) {
-        request
-          .post('/api/login')
-          .send({
-            email: admin.info.email,
-            password: 'password'
-          })
-          .expect(400, done);
-      });
+      request
+        .post('/api/login')
+        .send({
+          email: admin.info.email,
+          password: 'password'
+        })
+        .expect(400, done);
+    });
 
     it('should return 200 for a correct email and password', function(done) {
       agent

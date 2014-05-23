@@ -19,6 +19,11 @@
   border-radius: 0;
 }
 
+.alert {
+  border-radius: 0;
+  margin-bottom: 10px;
+}
+
 .centered {
   text-align: center;
 }

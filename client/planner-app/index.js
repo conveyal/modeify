@@ -9,6 +9,9 @@ var session = require('session');
  */
 
 page('/', utils.redirect('/planner'));
+page('/login', require('login-page'));
+page('/forgot-password', require('forgot-password-page'));
+page('/change-password/:key', require('change-password-page'));
 page('/welcome', session.commuterIsLoggedIn, Plan.load, require('welcome-page'));
 page('/planner', session.commuterIsLoggedIn, Plan.load, require('planner-page'));
 page('/planner/:link', session.loginWithLink);

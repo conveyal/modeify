@@ -1,6 +1,29 @@
-<form class="commuter-profile">
-  <legend>Journeys</legend>
-  <ul class="journeys" data-each="journeys">
-    <li class="center">You have no saved journeys.</li>
-  </ul>
-</form>
+<div class="commuter-profile">
+
+  <div data-visible="anonymous">
+    <h4>Signed in anonymously</h4>
+    <div class="alert alert-danger">
+      If you do not add an email address, you will lose your saved journeys and settings when you close your browser.
+    </div>
+    <div class="alert alert-warning">
+      Already have an account? <a href="/login" class="alert-link">Click here to login.</a>
+    </div>
+    <form on-submit="submitEmailAddress">
+      <input type="email" name="email" class="form-control" placeholder="Email">
+      <input type="submit" class="btn btn-block btn-success" value="Add Email Address">
+    </form>
+  </div>
+
+  <div data-hidden="anonymous">
+    <h4>Signed in with <span data-text="email"></span></h4>
+    <div data-hidden="profileComplete">
+      <div class="alert alert-warning">
+        If you do not add a password, you will only be able to log in with the link found in your email.
+      </div>
+      <button class="btn btn-block btn-success" on-click="submitAddPassword"><i class="fa fa-key"></i> Add Password</button>
+    </div>
+  </div>
+
+  <h4>Saved Journeys</h4>
+  <ul class="journeys" data-each="journeys"></ul>
+</div>

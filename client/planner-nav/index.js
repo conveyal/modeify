@@ -53,6 +53,7 @@ View.prototype.saveJourney = function(e) {
  */
 
 View.prototype.showProfile = function() {
+  var commuter = this.model.commuter();
   var spinner = spin();
   Journey.all(function(err, journeys) {
     if (err) {
@@ -60,6 +61,7 @@ View.prototype.showProfile = function() {
       window.alert('Failed to load journeys.');
     } else {
       var profile = new Profile({
+        commuter: commuter,
         journeys: journeys
       });
       profile.show(function() {

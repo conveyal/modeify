@@ -177,7 +177,8 @@ View.prototype.details = function() {
     addDetail({
       description: description,
       icon: svg(segment.type),
-      name: (segment.routeShortName ? segment.routeShortName.toUpperCase() : ''),
+      name: (segment.routeShortName ? segment.routeShortName.toUpperCase() :
+        ''),
       style: 'color: #fff;fill: #fff; background-color: ' + color + ';',
       time: Math.round(segment.rideStats.avg / 60),
       type: segment.type
