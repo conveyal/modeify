@@ -21,12 +21,10 @@ var View = view(template);
 View.prototype.login = function(e) {
   e.preventDefault();
   var email = this.find('#email').value;
-  var isManager = this.model.manager;
-  var loginUrl = isManager ? '/login' : '/commuter-login';
   var password = this.find('#password').value;
   var self = this;
 
-  request.post(loginUrl, {
+  request.post('/login', {
     email: email,
     password: password
   }, function(err, res) {
@@ -36,9 +34,7 @@ View.prototype.login = function(e) {
         text: 'Welcome back!'
       });
       session.login(res.body);
-
-      if (isManager) page('/manager/organizations');
-      else page('/planner');
+      page('/manager/organizations');
     } else {
       debug(err || res.error || res.text);
       window.alert(res.text || 'Failed to login.');
@@ -47,21 +43,10 @@ View.prototype.login = function(e) {
 };
 
 /**
- * Forgot Password
- */
-
-View.prototype.forgotPassword = function() {
-  if (this.model.manager) return '/manager/forgot-password';
-  return '/forgot-password';
-};
-
-/**
  * Expose `render`
  */
 
 module.exports = function(ctx, next) {
-  ctx.view = new View({
-    manager: ctx.manager
-  });
+  ctx.view = new View();
   next();
 };

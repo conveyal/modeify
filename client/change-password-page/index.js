@@ -32,14 +32,24 @@ View.prototype.changePassword = function(e) {
         type: 'success',
         text: 'Login using your new password.'
       });
-      page('/manager/login');
+
+      page(this.back());
     } else {
-      debug(err || res.error || res.text);
-      window.alert(err || res.text ||
+      debug(err);
+      window.alert(
         'Failed to change password. Use the link sent to your email address.'
       );
     }
   });
+};
+
+/**
+ * Back
+ */
+
+View.prototype.back = function() {
+  if (this.model.manager) return '/manager/login';
+  return '/login';
 };
 
 /**
@@ -48,7 +58,8 @@ View.prototype.changePassword = function(e) {
 
 module.exports = function(ctx, next) {
   ctx.view = new View({
-    key: ctx.params.key
+    key: ctx.params.key,
+    manager: ctx.manager
   });
 
   next();

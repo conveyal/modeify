@@ -48,28 +48,28 @@
   height: 100%;
 }
 
-::-webkit-input-placeholder {
+.locations ::-webkit-input-placeholder {
   padding-top: 4px;
   font-family: "HelveticaNeue-Light", Helvetica, Arial, sans-serif;
   font-size: 16px;
   font-weight: light;
 }
 
-:-moz-placeholder { /* Firefox 18- */
+.locations :-moz-placeholder { /* Firefox 18- */
   padding-top: 4px;
   font-family: "HelveticaNeue-Light", Helvetica, Arial, sans-serif;
   font-size: 16px;
   font-weight: light;
 }
 
-::-moz-placeholder {  /* Firefox 19+ */
+.locations ::-moz-placeholder {  /* Firefox 19+ */
   padding-top: 4px;
   font-family: "HelveticaNeue-Light", Helvetica, Arial, sans-serif;
   font-size: 16px;
   font-weight: light;
 }
 
-:-ms-input-placeholder {
+.locations :-ms-input-placeholder {
   padding-top: 42px;
   font-family: "HelveticaNeue-Light", Helvetica, Arial, sans-serif;
   font-size: 16px;

@@ -6,6 +6,9 @@
     "visionmedia/page.js": "1.3.7"
   },
   "local": [
+    "change-password-page",
+    "forgot-password-page",
+    "login-page",
     "plan",
     "planner-page",
     "router-utils",

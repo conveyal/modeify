@@ -1,7 +1,3 @@
-/**
- * Dependencies
- */
-
 var debug = require('debug')('forgot-password-page');
 var request = require('request');
 var template = require('./template.html');
@@ -37,10 +33,21 @@ View.prototype.sendChangeRequest = function(e) {
 };
 
 /**
+ * Back
+ */
+
+View.prototype.back = function() {
+  if (this.model.manager) return '/manager/login';
+  return '/login';
+};
+
+/**
  * Expose `render`
  */
 
 module.exports = function(ctx, next) {
-  ctx.view = new View();
+  ctx.view = new View({
+    manager: ctx.manager
+  });
   next();
 };

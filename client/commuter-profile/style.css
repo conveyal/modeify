@@ -1,6 +1,11 @@
 
 .commuter-profile {
   padding: 10px;
+  width: 500px;
+}
+
+.commuter-profile input {
+  margin-bottom: 10px;
 }
 
 .commuter-profile .journeys {
@@ -31,6 +36,9 @@
 .Modal {
   box-shadow: 2px 2px 5px rgba(0,0,0,.4);
   background-color: white;
+  height: 100%;
+  top: 44px;
+  overflow: scroll;
 }
 
 .Modal.hide {
@@ -39,8 +47,4 @@
 
 .Overlay {
   background: radial-gradient(ellipse at center, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%);
-}
-
-.Modal form {
-  width: 500px;
 }
