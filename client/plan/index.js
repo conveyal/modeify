@@ -7,9 +7,10 @@ var Journey = require('journey');
 var defaults = require('model-defaults');
 var model = require('model');
 var otp = require('otp');
-var DEFAULT_ROUTES = require('./routes');
 var session = require('session');
 var store = require('store');
+
+var DEFAULT_ROUTES = require('./routes');
 
 /**
  * Max routes & patterns to show
@@ -82,6 +83,11 @@ Plan.on('change', function(plan, name, val) {
       plan.updateRoutes();
     }
   } else if (plan.original_modes() && plan.from_valid() && plan.to_valid()) {
+    plan.attrs.bike = true;
+    plan.attrs.bus = true;
+    plan.attrs.car = false;
+    plan.attrs.train = true;
+    plan.attrs.walk = true;
     plan.welcome_complete(true);
   }
 
