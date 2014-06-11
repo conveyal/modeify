@@ -1,8 +1,5 @@
-/**
- * Dependencies
- */
-
 var Detailed = require('./detailed');
+var Graphical = require('./graphical');
 var Simple = require('./simple');
 var view = require('view');
 
@@ -17,7 +14,7 @@ var View = module.exports = view(require('./template.html'));
  */
 
 View.prototype['routes-view'] = function() {
-  return this.RoutesView || Detailed;
+  return this.RoutesView || Graphical;
 };
 
 /**

@@ -23,12 +23,7 @@
   background-position: 8px center;
 }
 
-.locations a {
-	cursor: pointer;
-	color: #84909d;
-}
-
-.locations a:hover {
+.locations .clear {
 	cursor: pointer;
 	color: #84909d;
 }

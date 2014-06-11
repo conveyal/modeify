@@ -31,8 +31,9 @@ View.prototype.display = function(patterns) {
       el: this.el,
       legendEl: this.find('.legend'),
       data: patterns,
-      style: require('./style'),
-      gridCellSize: localStorage.getItem('gridCellSize') || 800
+      gridCellSize: 200,
+      mapboxId: 'conveyal.ie3o67m0',
+      useDynamicRendering: true
     });
     transitive.render();
   }

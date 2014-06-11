@@ -1,7 +1,3 @@
-/**
- * Dependencies
- */
-
 var convert = require('convert');
 var domify = require('domify');
 var d3 = require('d3');

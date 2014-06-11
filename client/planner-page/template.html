@@ -2,15 +2,17 @@
 <div class="fullscreen">
   <div reactive="transitive-view"></div>
 </div>
-<form autosubmit class="omnibox">
-  <div class="title">
-    Your <strong>Commute</strong>
-    <a><i class="fa fa-exchange"></i></a>
-    <br>
-  </div>
-  <div reactive="locations-view"></div>
-  <div reactive="filter-view"></div>
-</form>
 <div class="panel">
+  <form autosubmit>
+    <div class="title">
+      Your <strong>Commute</strong>
+      <i class="reverse-commute fa fa-exchange" on-click="reverseCommute"></i>
+    </div>
+    <div reactive="locations-view"></div>
+    <div reactive="filter-view"></div>
+    <button type="submit">
+      <i class="fa fa-fw fa-lg fa-search"></i>
+    </button>
+  </form>
   <div reactive="options-view"></div>
 </div>

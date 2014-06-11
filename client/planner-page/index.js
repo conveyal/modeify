@@ -1,7 +1,3 @@
-/**
- * Dependencies
- */
-
 var each = require('each');
 var FilterView = require('filter-view');
 var LocationsView = require('locations-view');
@@ -58,6 +54,24 @@ module.exports = function(ctx, next) {
   }
 
   next();
+};
+
+/**
+ * Reverse Commute
+ */
+
+View.prototype.reverseCommute = function(e) {
+  e.preventDefault();
+  var plan = session.plan();
+  plan.set({
+    from: plan.to(),
+    from_id: plan.to_id(),
+    from_ll: plan.to_ll(),
+    reverse_commute: !plan.reverse_commute(),
+    to: plan.from(),
+    to_id: plan.from_id(),
+    to_ll: plan.from_ll()
+  });
 };
 
 /**

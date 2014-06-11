@@ -5,13 +5,85 @@
 
 .graphical-options .route {
   list-style-type: none;
-  margin-top: 20px;
+  cursor: pointer;
 }
 
-.graphical-options .segment {
+.graphical-options .simple .details {
+  width: 100%;
+}
+
+.graphical-options .simple .expand {
+  padding: 10px;
+  font-size: 22px;
+}
+
+.graphical-options .route:hover .simple .expand {
+  color: #84909d;
+}
+
+.graphical-options .simple .minutes {
+  font-size: 16px;
+  padding-left: 10px;
+}
+
+.graphical-options .simple .minutes strong {
+  font-size: 22px;
+}
+
+.graphical-options .simple .fare {
+  color: #84909d;
+  float: right;
+  margin-top: 13px;
+  margin-right: 10px;
+}
+
+.graphical-options .simple .segments {
+  width: 100%;
+  padding: 0 18px;
+  height: 40px;
+  box-size: border-box;
+}
+
+.graphical-options .simple .segment {
   display: inline-block;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  line-height: 30px;
-  text-align: center;
+  height: 100%;
+  background-color: #5ae3f9;
+  color: #fff;
+  float: left;
+}
+
+.graphical-options .simple .segment .inner-text {
+  padding: 10px 5px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.graphical-options .simple .segment svg {
+  width: 30px;
+  height: 100%;
+  padding: 2px;
+  fill: #fff;
+}
+
+.graphical-options .detailed .segment {
+  height: 30px;
+}
+
+.graphical-options .detailed .icon {
+  float: left;
+  background-size: 75% 75%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 28px;
+  height: 28px;
+  margin-left: 6px;
+  margin-right: 6px;
+  border: 1px solid #fff;
+  border-radius: 30px;
+}
+
+.graphical-options .detailed .description {
+  float: left;
+
 }

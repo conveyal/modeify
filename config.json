@@ -25,9 +25,9 @@
     "base_url": "http://localhost:5000",
     "mapbox_map_id": "conveyal.h5bghhkn",
     "otp": {
-      "host": "ec2-23-21-67-127.compute-1.amazonaws.com",
+      "host": "localhost",
       "path": "/otp/routers/default",
-      "port": 80
+      "port": 8080
     },
     "s3_bucket": "",
     "segmentio_key": "egulwcylaa",

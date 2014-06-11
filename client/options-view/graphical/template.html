@@ -1,1 +1,22 @@
-<li class="route"></li>
+<li class="route">
+  <div class="simple" on-click="showHide">
+    <div class="details">
+      <i class="expand fa fa-fw fa-plus-circle"></i>
+      <span class="minutes">
+        <strong>{average} min</strong> avg commute
+      </span>
+      <strong class="fare" data-text="fare"></strong>
+    </div>
+    <div class="segments" data-html="simpleSegments"></div>
+  </div>
+  <div class="detailed hidden">
+    <div class="segment from">
+      <div class="icon svg-icon svg-icon-house"></div>
+      <div class="description">{from}</div>
+    </div>
+    <div class="segment to">
+      <div class="icon svg-icon svg-icon-office"></div>
+      <div class="description">{to}</div>
+    </div>
+  </div>
+</li>

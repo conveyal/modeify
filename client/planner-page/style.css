@@ -1,56 +1,57 @@
 
-.omnibox, .panel {
+.panel {
   position: absolute;
-  margin: 14px;
+  background-color: #fff;
+  border-left: 1px solid #84909d;
+  z-index: 1;
+  top: 44px;
+  bottom: 0;
+  right: 0;
+  border-radius: 0;
+  width: 320px;
+  overflow-y: scroll;
+  margin-bottom: 0;
+  box-shadow: none;
+}
+
+.panel form {
+
+}
+
+.panel form button {
+  width: 100%;
   background-color: #fff;
   border: 1px solid #84909d;
-  box-shadow: 0 0 7px #eee;
-  z-index: 1;
-  top: 43px;
-  border-radius: 0;
+  border-left: none;
+  border-right: none;
+  padding: 5px 0;
 }
 
-.omnibox {
-  left: 0;
-  width: 320px;
+.panel form button:hover {
+  background-color: #84909d;
+  color: #fff;
 }
 
-.omnibox .title {
+.panel .title {
   padding: 3%;
   font-family: "HelveticaNeue-Light", Helvetica, Arial, sans-serif;
   font-size: 20px;
   color: #84909d;
 }
 
-
-.omnibox a {
-	 color: #84909d;
+.panel .reverse-commute {
+  cursor: pointer;
+	color: #84909d;
 }
-	
 
-.omnibox a:hover {
-	cursor: pointer;
+.panel .reverse-commute:hover,
+.panel .reverse-commute:active,
+.panel .reverse-commute:visited {
 	color: #000;
-}
-
-.omnibox a:active {
-	cursor: pointer;
-	color: #000;
-}
-
-.omnibox a:visited {
-	cursor: pointer;
-	color: #000;
-}
-	
-
-.panel {
-  right: 0;
-  width: 450px;
-  overflow-y: scroll;
-  max-height: 100%;
 }
 
 .fullscreen {
-
+  margin-right: 320px;
+  position: relative;
+  height: 100%;
 }

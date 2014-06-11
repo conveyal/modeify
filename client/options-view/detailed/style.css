@@ -77,64 +77,64 @@
  * Details
  */
 
-.details {
+.detailed-options .details {
   width: 100%;
   border-top: 1px solid #ccc;
   box-shadow: 0 7px 7px -7px #eee inset;
 }
 
-.details .from {
+.detailed-options .details .from {
   color: #8ec449;
 }
 
-.details .to {
+.detailed-options .details .to {
   color: #d9534f;
 }
 
-.details tr {
+.detailed-options .details tr {
   margin: 0 8px;
   border-bottom: 1px solid #eee;
 }
 
-.details tr:last-of-type {
+.detailed-options .details tr:last-of-type {
   border-bottom: none;
   box-shadow: 0 -7px 7px -7px #eee inset;
 }
 
-.details td {
+.detailed-options .details td {
   vertical-align: middle;
   padding: 4px;
 }
 
-.details td:last-of-type {
+.detailed-options .details td:last-of-type {
   padding-right: 8px;
 }
 
-.details td p {
+.detailed-options .details td p {
   margin-bottom: 4px;
 }
 
-.details td p:last-of-type {
+.detailed-options .details td p:last-of-type {
   margin-bottom: 0;
 }
 
-.details .stop-name {
+.detailed-options .details .stop-name {
   font-weight: 400;
 }
 
-.details .detail-icon {
+.detailed-options .details .detail-icon {
   height: 100%;
   font-size: 2em;
   background-repeat: repeat-y;
   background-position: center;
 }
 
-.details .detail-icon svg {
+.detailed-options .details .detail-icon svg {
   height: 1.5em;
   width: 1.5em;
   vertical-align: middle;
 }
 
-.detail-icon, .detail-time {
+.detailed-options .detail-icon, .detail-time {
   text-align: center;
 }

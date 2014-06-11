@@ -1,4 +1,8 @@
 
+* {
+  font-family: "HelveticaNeue-Light", Helvetica, arial, sans-serif;
+}
+
 #main {
   position: absolute;
   top: 0;

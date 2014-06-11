@@ -40,18 +40,13 @@ View.prototype.save = function(e) {
 };
 
 /**
- * Reverse Commute
+ * Clear
  */
 
-View.prototype.reverseCommute = function() {
-  var plan = this.model;
-  plan.set({
-    from: plan.to(),
-    from_id: plan.to_id(),
-    from_ll: plan.to_ll(),
-    reverse_commute: !plan.reverse_commute(),
-    to: plan.from(),
-    to_id: plan.from_id(),
-    to_ll: plan.from_ll()
-  });
+View.prototype.clear = function(e) {
+  e.preventDefault();
+  var name = e.target.dataset.value;
+  var el = this.find('input[name="' + name + '"]');
+  el.value = '';
+  window.focus(el);
 };
