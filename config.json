@@ -10,7 +10,7 @@
   "test": {
     "api_url": "/api",
     "base_url": "http://localhost:5000",
-    "mapbox_map_id": "",
+    "mapbox_map_id": "conveyal.ie3o67m0",
     "otp": {
       "host": "ec2-23-21-67-127.compute-1.amazonaws.com",
       "path": "/otp/routers/default",
@@ -23,7 +23,7 @@
   "development": {
     "api_url": "/api",
     "base_url": "http://localhost:5000",
-    "mapbox_map_id": "conveyal.h5bghhkn",
+    "mapbox_map_id": "conveyal.ie3o67m0",
     "otp": {
       "host": "localhost",
       "path": "/otp/routers/default",
@@ -36,7 +36,7 @@
   "staging": {
     "api_url": "/api",
     "base_url": "http://arlington.dev.conveyal.com",
-    "mapbox_map_id": "conveyal.h5bghhkn",
+    "mapbox_map_id": "conveyal.ie3o67m0",
     "otp": {
       "host": "ec2-23-21-67-127.compute-1.amazonaws.com",
       "path": "/otp/routers/default",
@@ -49,7 +49,7 @@
   "production": {
     "api_url": "/api",
     "base_url": "http://arlington.conveyal.com",
-    "mapbox_map_id": "conveyal.h5bghhkn",
+    "mapbox_map_id": "conveyal.ie3o67m0",
     "otp": {
       "host": "ec2-23-22-158-225.compute-1.amazonaws.com",
       "path": "/otp/routers/default",

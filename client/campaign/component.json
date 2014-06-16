@@ -2,7 +2,7 @@
   "name": "campaign",
   "dependencies": {
     "component/model": "0.1.2",
-    "visionmedia/debug": "0.7.4"
+    "visionmedia/debug": "*"
   },
   "local": [
     "config",

@@ -1,6 +1,6 @@
 <li class="route">
   <div class="simple" on-click="showHide">
-    <div class="details">
+    <div class="summary">
       <i class="expand fa fa-fw fa-plus-circle"></i>
       <span class="minutes">
         <strong>{average} min</strong> avg commute
@@ -9,14 +9,23 @@
     </div>
     <div class="segments" data-html="simpleSegments"></div>
   </div>
-  <div class="detailed hidden">
-    <div class="segment from">
-      <div class="icon svg-icon svg-icon-house"></div>
-      <div class="description">{from}</div>
-    </div>
-    <div class="segment to">
-      <div class="icon svg-icon svg-icon-office"></div>
-      <div class="description">{to}</div>
-    </div>
-  </div>
+  <table class="details hidden">
+    <thead>
+      <tr class="detail-address">
+        <th class="detail-icon">
+          <i class="icon from fa fa-dot-circle-o"></i>
+        </th>
+        <th class="detail-description" data-text="from"></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr class="detail-address">
+        <td class="detail-icon">
+          <i class="icon to fa fa-map-marker"></i>
+        </td>
+        <td class="detail-description" data-text="to"></td>
+      </tr>
+    </tfoot>
+    <tbody data-html="segments"></tbody>
+  </table>
 </li>

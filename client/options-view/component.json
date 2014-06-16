@@ -5,7 +5,8 @@
     "component/each": "0.2.3",
     "ianstormtaylor/to-capital-case": "0.1.1",
     "ianstormtaylor/reactive": "*",
-    "mbostock/d3": "*"
+    "mbostock/d3": "*",
+    "twitter/hogan.js": "*"
   },
   "images": [
     "detailed/circle.gif",
@@ -32,6 +33,7 @@
   "templates": [
     "detailed/detail.html",
     "detailed/template.html",
+    "graphical/detail.html",
     "graphical/template.html",
     "simple/template.html",
     "template.html"

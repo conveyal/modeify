@@ -2,7 +2,7 @@
   "name": "forgot-password-page",
   "dependencies": {
     "component/value": "1.1.0",
-    "visionmedia/debug": "0.7.4"
+    "visionmedia/debug": "*"
   },
   "local": [
     "request",

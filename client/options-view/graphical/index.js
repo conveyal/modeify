@@ -1,6 +1,7 @@
 var convert = require('convert');
 var d3 = require('d3');
 var domify = require('domify');
+var hogan = require('hogan.js');
 var session = require('session');
 var svg = require('svg-icons');
 var view = require('view');
@@ -11,39 +12,33 @@ var view = require('view');
 
 var View = module.exports = view(require('./template.html'), function(view,
   model) {
-
+  d3.select(view.el)
+    .on('mouseover', function() {
+      window.transitive.focusJourney(model.id);
+    });
 });
 
 /**
  * Detail template
  */
 
-var template = require('../detailed/detail.html');
+var template = hogan.compile(require('./detail.html'));
 var detail = function(obj) {
-  return reactive(domify(template), obj).el;
+  return template.render(obj);
 };
 
 /**
  * Details
  */
 
-View.prototype.details = function() {
+View.prototype.segments = function() {
   var segments = this.model.segments;
-  var from = session.plan().from().split(',')[0];
-  var to = session.plan().to().split(',')[0];
-  var details = document.createDocumentFragment();
+  var details = '';
 
   // Add a detail
   function addDetail(d) {
-    details.appendChild(detail(d));
+    details += detail(d);
   }
-
-  // Starting Address
-  addDetail({
-    description: from,
-    icon: '<i class="icon from fa fa-fw fa-dot-circle-o"></i>',
-    type: 'address'
-  });
 
   // Add transit segments
   var length = segments.length;
@@ -51,37 +46,36 @@ View.prototype.details = function() {
     var segment = segments[i];
 
     // Check for a walking distance
-    if (segment.walkTime === 0) {
-      // Add transfer
+    if (segment.walkTime !== 0) {
       addDetail({
-        description: 'Transfer at station',
-        icon: '',
-        time: Math.round(segment.waitStats.avg / 60),
+        description: 'Walk ' + Math.round(segment.walkTime / 60) + ' mins',
+        type: 'pedestrian',
+        segment: true
       });
-    } else {
+
       addDetail({
-        description: 'Walk to ' + segment.fromName,
-        icon: svg('pedestrian'),
-        time: Math.round(segment.walkTime / 60),
-        type: 'pedestrian'
+        description: segment.fromName,
+        type: 'transfer',
+        transfer: true
       });
     }
 
     var color = segment.type === 'train' ? convert.toBSColor(segment.routeShortName) :
       'gray';
 
-    var description = '<p>' + segment.fromName + '</p>' + '<p>&nbsp;</p>' +
-      '<p>' + segment.toName + '</p>';
+    addDetail({
+      description: segment.routeShortName,
+      color: color,
+      time: Math.round(segment.rideStats.avg / 60),
+      type: segment.type,
+      segment: true
+    });
 
     addDetail({
-      description: description,
-      icon: svg(segment.type),
-      name: (segment.routeShortName ? segment.routeShortName.toUpperCase() :
-        ''),
-      style: 'color: #fff;fill: #fff; background-color: ' + color + ';',
-      time: Math.round(segment.rideStats.avg / 60),
-      type: segment.type
-    });
+      description: segment.toName,
+      type: 'transfer',
+      transfer: true
+    })
   }
 
   if (segments.length === 0) {
@@ -89,52 +83,36 @@ View.prototype.details = function() {
     switch (this.model.summary) {
       case 'Bicycle':
         addDetail({
-          description: 'Bike the entire way.',
-          icon: svg('bike'),
-          time: Math.round(this.model.finalWalkTime / 60),
-          type: 'bicycle'
+          description: 'Bike ' + Math.round(this.model.finalWalkTime / 60) + ' mins',
+          type: 'bike',
+          segment: true
         });
         break;
       case 'Car':
         addDetail({
-          description: 'Drive the entire way.',
-          icon: svg('car'),
-          time: Math.round(this.model.finalWalkTime / 60),
-          type: 'car'
+          description: 'Drive ' + Math.round(this.model.finalWalkTime / 60) + ' mins',
+          type: 'car',
+          segment: true
         });
         break;
       case 'Walk':
         addDetail({
-          description: 'Walk the entire way.',
-          icon: svg('pedestrian'),
-          time: Math.round(this.model.finalWalkTime / 60),
-          type: 'pedestrian'
+          description: 'Walk ' + Math.round(this.model.finalWalkTime / 60) + ' mins',
+          type: 'pedestrian',
+          segment: true
         });
         break;
     }
   } else {
     // Final Walk Segment
     addDetail({
-      description: 'Walk from ' + segments[length - 1].toName +
-        ' to destination',
-      icon: svg('pedestrian'),
-      time: Math.round(this.model.finalWalkTime / 60),
-      type: 'pedestrian'
+      description: 'Walk ' + Math.round(this.model.finalWalkTime / 60) + ' mins',
+      type: 'pedestrian',
+      segment: true
     });
   }
 
-  // Ending Address
-  addDetail({
-    description: to,
-    icon: '<i class="icon to fa fa-fw fa-map-marker"></i>',
-    type: 'address'
-  });
-
-  // Add to a tbody for `data-replace`
-  var tbody = document.createElement('tbody');
-  tbody.appendChild(details);
-
-  return tbody;
+  return details;
 };
 
 /**
@@ -157,8 +135,8 @@ View.prototype.fare = function() {
  * To/from
  */
 
-View.prototype.from = function() { return session.plan().from(); };
-View.prototype.to = function() { return session.plan().to(); };
+View.prototype.from = function() { return session.plan().from().split(',')[0]; };
+View.prototype.to = function() { return session.plan().to().split(',')[0]; };
 
 
 /**
@@ -166,7 +144,7 @@ View.prototype.to = function() { return session.plan().to(); };
  */
 
 View.prototype.showHide = function() {
-  this.find('.detailed').classList.toggle('hidden');
+  this.find('.details').classList.toggle('hidden');
   this.find('.segments').classList.toggle('hidden');
 };
 

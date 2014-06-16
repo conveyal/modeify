@@ -3,7 +3,7 @@
   "dependencies": {
     "component/domify": "1.2.2",
     "component/each": "0.2.3",
-    "visionmedia/debug": "0.7.4"
+    "visionmedia/debug": "*"
   },
   "local": [
     "alert",

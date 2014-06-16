@@ -5,7 +5,7 @@
     "segmentio/model-defaults": "0.2.0",
     "segmentio/model-memoize": "0.0.2",
     "trevorgerhardt/model-query": "0.0.2",
-    "visionmedia/debug": "0.7.4"
+    "visionmedia/debug": "*"
   },
   "local": [
     "config",

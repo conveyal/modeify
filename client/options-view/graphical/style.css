@@ -8,7 +8,7 @@
   cursor: pointer;
 }
 
-.graphical-options .simple .details {
+.graphical-options .simple .summary {
   width: 100%;
 }
 
@@ -57,6 +57,8 @@
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #fff;
+  font-weight: bold;
 }
 
 .graphical-options .simple .segment svg {
@@ -66,24 +68,45 @@
   fill: #fff;
 }
 
-.graphical-options .detailed .segment {
-  height: 30px;
+.graphical-options .details {
+  border-left: 5px solid #333;
+  background-color: #eee;
+  font-size: 17px;
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 12px 0;
 }
 
-.graphical-options .detailed .icon {
-  float: left;
-  background-size: 75% 75%;
+.graphical-options .details .detail-icon {
+  width: 30px;
+  background-color: #5ae3f9;
+  font-size: 26px;
+  text-align: center;
+  vertical-align: middle;
+  color: #fff;
+  height: 75px;
+  background-size: 95%;
   background-repeat: no-repeat;
   background-position: center center;
-  width: 28px;
-  height: 28px;
-  margin-left: 6px;
-  margin-right: 6px;
-  border: 1px solid #fff;
-  border-radius: 30px;
 }
 
-.graphical-options .detailed .description {
-  float: left;
+.details .detail-transfer .detail-icon {
+  font-size: 35px;
+  background-color: transparent;
+}
 
+.graphical-options .details .detail-icon svg {
+  width: 30px;
+  fill: #fff;
+}
+
+.graphical-options .details .detail-address .detail-description {
+  font-family: 'Oswald', sans-serif;
+  color: #8ec449;
+  vertical-align: middle;
+}
+
+.graphical-options .details .detail-address .detail-icon {
+  background-color: transparent;
 }

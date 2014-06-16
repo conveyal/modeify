@@ -2,7 +2,7 @@
   "name": "organization-form",
   "dependencies": {
     "trevorgerhardt/serialize": "0.0.1",
-    "visionmedia/debug": "0.7.4",
+    "visionmedia/debug": "*",
     "visionmedia/page.js": "1.3.7"
   },
   "local": [

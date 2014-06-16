@@ -12,7 +12,7 @@
 
 .locations input {
   font-family: "HelveticaNeue-CondensedBold";
-  font-size: 13pt;
+  font-size: 17px;
   padding: 10px 10px 10px 40px;
   color: #8ec449;
   box-shadow: none;
@@ -39,7 +39,7 @@
 .locations input:focus {
   box-shadow: none;
   outline: none;
-  border-left: 5px solid black;
+  border-left: 5px solid #333;
   height: 100%;
 }
 

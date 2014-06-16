@@ -32,7 +32,7 @@ View.prototype.display = function(patterns) {
       legendEl: this.find('.legend'),
       data: patterns,
       gridCellSize: 200,
-      mapboxId: 'conveyal.ie3o67m0',
+      mapboxId: config.mapbox_map_id(),
       useDynamicRendering: true
     });
     transitive.render();

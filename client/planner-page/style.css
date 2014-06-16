@@ -29,6 +29,9 @@
 
 .panel form button:hover {
   background-color: #84909d;
+}
+
+.panel form button:hover i {
   color: #fff;
 }
 
