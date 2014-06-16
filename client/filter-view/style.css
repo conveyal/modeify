@@ -10,7 +10,7 @@
   width: 20%;
   font-size: 13pt;
   color: #8ec449;
-  font-family: "HelveticaNeue-CondensedBold";
+  font-family: 'Oswald', sans-serif;
   line-height: 1;
   border: 0;
   border-radius: 0;
@@ -28,8 +28,8 @@
 }
 
 .time-filters label {
-  font-family:"HelveticaNeue-Light", Helvetica, Arial, sans-serif;
-  font-weight: normal;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: light;
   color: #000;
   font-size: 14px;
   margin: 0;
@@ -52,7 +52,8 @@
 .time-information {
   margin-top: 3%;
   background-color: #F2F4F5;
-  font-family: "HelveticaNeue-Light", Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: light;
   color: #84909D;
   font-size: 11px;
   clear: both;

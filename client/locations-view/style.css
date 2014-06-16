@@ -11,7 +11,7 @@
 }
 
 .locations input {
-  font-family: "HelveticaNeue-CondensedBold";
+  font-family: 'Oswald', sans-serif;
   font-size: 17px;
   padding: 10px 10px 10px 40px;
   color: #8ec449;
@@ -43,30 +43,12 @@
   height: 100%;
 }
 
-.locations ::-webkit-input-placeholder {
-  padding-top: 4px;
-  font-family: "HelveticaNeue-Light", Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  font-weight: light;
-}
-
-.locations :-moz-placeholder { /* Firefox 18- */
-  padding-top: 4px;
-  font-family: "HelveticaNeue-Light", Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  font-weight: light;
-}
-
-.locations ::-moz-placeholder {  /* Firefox 19+ */
-  padding-top: 4px;
-  font-family: "HelveticaNeue-Light", Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  font-weight: light;
-}
-
+.locations ::-webkit-input-placeholder,
+.locations :-moz-placeholder,
+.locations ::-moz-placeholder,
 .locations :-ms-input-placeholder {
-  padding-top: 42px;
-  font-family: "HelveticaNeue-Light", Helvetica, Arial, sans-serif;
+  padding-top: 4px;
+  font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   font-weight: light;
 }

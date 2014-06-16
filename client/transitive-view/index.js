@@ -33,7 +33,8 @@ View.prototype.display = function(patterns) {
       data: patterns,
       gridCellSize: 200,
       mapboxId: config.mapbox_map_id(),
-      useDynamicRendering: true
+      useDynamicRendering: true,
+      styles: require('./style')
     });
     transitive.render();
   }
