@@ -75,7 +75,7 @@ View.prototype.segments = function() {
       description: segment.toName,
       type: 'transfer',
       transfer: true
-    })
+    });
   }
 
   if (segments.length === 0) {
