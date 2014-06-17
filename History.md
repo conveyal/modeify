@@ -1,9 +1,10 @@
 
-## Latest
+## 0.1.3 — 2014-06-17
 
 * Authenticate ArcGIS requests
 * Create `User`s for anonymous sessions for better tracking
 * Added login, change password and forgot password screens for commuters
+* Interface changes
 
 ## 0.1.2 — 2014-05-19
 
