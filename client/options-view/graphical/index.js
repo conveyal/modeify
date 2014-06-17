@@ -83,21 +83,24 @@ View.prototype.segments = function() {
     switch (this.model.summary) {
       case 'Bicycle':
         addDetail({
-          description: 'Bike ' + Math.round(this.model.finalWalkTime / 60) + ' mins',
+          description: 'Bike ' + Math.round(this.model.finalWalkTime / 60) +
+            ' mins',
           type: 'bike',
           segment: true
         });
         break;
       case 'Car':
         addDetail({
-          description: 'Drive ' + Math.round(this.model.finalWalkTime / 60) + ' mins',
+          description: 'Drive ' + Math.round(this.model.finalWalkTime / 60) +
+            ' mins',
           type: 'car',
           segment: true
         });
         break;
       case 'Walk':
         addDetail({
-          description: 'Walk ' + Math.round(this.model.finalWalkTime / 60) + ' mins',
+          description: 'Walk ' + Math.round(this.model.finalWalkTime / 60) +
+            ' mins',
           type: 'pedestrian',
           segment: true
         });
@@ -106,7 +109,8 @@ View.prototype.segments = function() {
   } else {
     // Final Walk Segment
     addDetail({
-      description: 'Walk ' + Math.round(this.model.finalWalkTime / 60) + ' mins',
+      description: 'Walk ' + Math.round(this.model.finalWalkTime / 60) +
+        ' mins',
       type: 'pedestrian',
       segment: true
     });
@@ -135,9 +139,12 @@ View.prototype.fare = function() {
  * To/from
  */
 
-View.prototype.from = function() { return session.plan().from().split(',')[0]; };
-View.prototype.to = function() { return session.plan().to().split(',')[0]; };
-
+View.prototype.from = function() {
+  return session.plan().from().split(',')[0];
+};
+View.prototype.to = function() {
+  return session.plan().to().split(',')[0];
+};
 
 /**
  * Show/hide
@@ -162,7 +169,8 @@ View.prototype.simpleSegments = function() {
     segments += singleSegment('pedestrian', segment.walkTime / total * 100);
 
     // Add Transit Segment
-    segments += singleSegment(segment.mode, (segment.waitStats.avg + segment.rideStats.avg) / total * 100, segment.routeShortName);
+    segments += singleSegment(segment.mode, (segment.waitStats.avg + segment.rideStats
+      .avg) / total * 100, segment.routeShortName);
   });
 
   /* Add the final walking segment if it's significant */
@@ -189,12 +197,14 @@ function singleSegment(type, width, text) {
   var html = '<div class="segment" style="width:';
   html += width + '%;';
 
-  switch(type) {
+  switch (type) {
     case 'BUS':
-      html += 'background-color:gray;"><div class="inner-text">' + text + '</div></div>';
+      html += 'background-color:gray;"><div class="inner-text">' + text +
+        '</div></div>';
       break;
     case 'SUBWAY':
-      html += 'background-color:' + text.toLowerCase() + ';"><div class="inner-text">' + text + '</div></div>';
+      html += 'background-color:' + text.toLowerCase() +
+        ';"><div class="inner-text">' + text + '</div></div>';
       break;
     default:
       html += '">' + svg(type) + '</div>';
