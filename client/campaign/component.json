@@ -1,7 +1,7 @@
 {
   "name": "campaign",
   "dependencies": {
-    "component/model": "0.1.2",
+    "component/model": "*",
     "visionmedia/debug": "*"
   },
   "local": [

@@ -1,7 +1,7 @@
 {
   "name": "commuter",
   "dependencies": {
-    "component/model": "0.1.2",
+    "component/model": "*",
     "segmentio/model-defaults": "0.2.0",
     "segmentio/model-memoize": "0.0.2",
     "trevorgerhardt/model-query": "0.0.2",

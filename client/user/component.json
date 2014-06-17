@@ -1,7 +1,7 @@
 {
   "name": "user",
   "dependencies": {
-    "component/model": "0.1.2",
+    "component/model": "*",
     "trevorgerhardt/model-query": "0.0.2",
     "visionmedia/debug": "*"
   },
