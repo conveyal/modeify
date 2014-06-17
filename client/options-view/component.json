@@ -21,7 +21,7 @@
   "scripts": [
     "detailed/index.js",
     "graphical/index.js",
-    "index.js",
+    "index.js"
   ],
   "styles": [
     "detailed/style.css",
