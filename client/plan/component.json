@@ -3,7 +3,7 @@
   "dependencies": {
     "component/debounce": "0.0.3",
     "component/each": "0.2.3",
-    "component/model": "0.1.2",
+    "component/model": "*",
     "segmentio/model-defaults": "0.2.0",
     "visionmedia/debug": "*",
     "yields/store": "0.2.0"
