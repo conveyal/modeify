@@ -131,30 +131,25 @@ function format(text) {
 }
 
 /**
+ * Words that get replaced
+ */
+
+var wordReplacementTable = {
+  'Mcpherson': 'McPherson',
+  'Pi': 'Pike',
+  'Sq': 'Square',
+  'Nw': 'NW',
+  'Ne': 'NE',
+  'Se': 'SE',
+  'Sw': 'SW',
+  'Noma': 'NoMA',
+  '(new': '(New'
+};
+
+/**
  * Word replacement
  */
 
 function word(w) {
-  switch (w) {
-    case 'Mcpherson':
-      return 'McPherson';
-    case 'Pi':
-      return 'Pike';
-    case 'Sq':
-      return 'Square';
-    case 'Nw':
-      return 'NW';
-    case 'Ne':
-      return 'NE';
-    case 'Se':
-      return 'SE';
-    case 'Sw':
-      return 'SW';
-    case 'Noma':
-      return 'NoMA';
-    case '(new':
-      return '(New';
-  }
-
-  return w;
+  return wordReplacementTable[w];
 }
