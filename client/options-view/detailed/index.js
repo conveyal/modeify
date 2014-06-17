@@ -144,72 +144,44 @@ View.prototype.details = function() {
 
   // Add transit segments
   var length = segments.length;
-  for (var i = 0; i < length; i++) {
-    var segment = segments[i];
+  if (length !== 0) {
+    for (var i = 0; i < length; i++) {
+      var segment = segments[i];
 
-    // Check for a walking distance
-    if (segment.walkTime === 0) {
-      // Add transfer
-      addDetail({
-        description: 'Transfer at station',
-        icon: '',
-        time: Math.round(segment.waitStats.avg / 60),
-      });
-    } else {
-      addDetail({
-        description: 'Walk to ' + segment.fromName,
-        icon: svg('pedestrian'),
-        time: Math.round(segment.walkTime / 60),
-        type: 'pedestrian'
-      });
-    }
-
-    var color = segment.type === 'train' ? convert.toBSColor(segment.routeShortName) :
-      'gray';
-
-    var description = '<p>' + segment.fromName + '</p>' + '<p>&nbsp;</p>' +
-      '<p>' + segment.toName + '</p>';
-
-    addDetail({
-      description: description,
-      icon: svg(segment.type),
-      name: (segment.routeShortName ? segment.routeShortName.toUpperCase() :
-        ''),
-      style: 'color: #fff;fill: #fff; background-color: ' + color + ';',
-      time: Math.round(segment.rideStats.avg / 60),
-      type: segment.type
-    });
-  }
-
-  if (segments.length === 0) {
-    // One mode the entire way
-    switch (this.model.summary) {
-      case 'Bicycle':
+      // Check for a walking distance
+      if (segment.walkTime === 0) {
+        // Add transfer
         addDetail({
-          description: 'Bike the entire way.',
-          icon: svg('bike'),
-          time: Math.round(this.model.finalWalkTime / 60),
-          type: 'bicycle'
+          description: 'Transfer at station',
+          icon: '',
+          time: Math.round(segment.waitStats.avg / 60),
         });
-        break;
-      case 'Car':
+      } else {
         addDetail({
-          description: 'Drive the entire way.',
-          icon: svg('car'),
-          time: Math.round(this.model.finalWalkTime / 60),
-          type: 'car'
-        });
-        break;
-      case 'Walk':
-        addDetail({
-          description: 'Walk the entire way.',
+          description: 'Walk to ' + segment.fromName,
           icon: svg('pedestrian'),
-          time: Math.round(this.model.finalWalkTime / 60),
+          time: Math.round(segment.walkTime / 60),
           type: 'pedestrian'
         });
-        break;
+      }
+
+      var color = segment.type === 'train' ? convert.toBSColor(segment.routeShortName) :
+        'gray';
+
+      var description = '<p>' + segment.fromName + '</p>' + '<p>&nbsp;</p>' +
+        '<p>' + segment.toName + '</p>';
+
+      addDetail({
+        description: description,
+        icon: svg(segment.type),
+        name: (segment.routeShortName ? segment.routeShortName.toUpperCase() :
+          ''),
+        style: 'color: #fff;fill: #fff; background-color: ' + color + ';',
+        time: Math.round(segment.rideStats.avg / 60),
+        type: segment.type
+      });
     }
-  } else {
+
     // Final Walk Segment
     addDetail({
       description: 'Walk from ' + segments[length - 1].toName +
@@ -218,6 +190,9 @@ View.prototype.details = function() {
       time: Math.round(this.model.finalWalkTime / 60),
       type: 'pedestrian'
     });
+
+  } else {
+    addDetail(this.getSingleModeTrip());
   }
 
   // Ending Address
@@ -232,6 +207,37 @@ View.prototype.details = function() {
   tbody.appendChild(details);
 
   return tbody;
+};
+
+/**
+ * Get single mode trip data
+ */
+
+View.prototype.getSingleModeTrip = function() {
+  // One mode the entire way
+  switch (this.model.summary) {
+    case 'Bicycle':
+      return {
+        description: 'Bike the entire way.',
+        icon: svg('bike'),
+        time: Math.round(this.model.finalWalkTime / 60),
+        type: 'bicycle'
+      };
+    case 'Car':
+      return {
+        description: 'Drive the entire way.',
+        icon: svg('car'),
+        time: Math.round(this.model.finalWalkTime / 60),
+        type: 'car'
+      };
+    case 'Walk':
+      return {
+        description: 'Walk the entire way.',
+        icon: svg('pedestrian'),
+        time: Math.round(this.model.finalWalkTime / 60),
+        type: 'pedestrian'
+      };
+  }
 };
 
 /**
