@@ -16,3 +16,7 @@
   box-shadow: 0 0 7px #eee;
   z-index: 150;
 }
+
+.Transitive .transitive-line {
+  stroke-linecap: round;
+}

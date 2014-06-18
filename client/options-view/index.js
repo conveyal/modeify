@@ -1,6 +1,5 @@
 var Detailed = require('./detailed');
 var Graphical = require('./graphical');
-var Simple = require('./simple');
 var view = require('view');
 
 /**
@@ -26,7 +25,6 @@ View.prototype.setView = function(namespace, view) {
 
   this.removeClass('graphical-options');
   this.removeClass('detailed-options');
-  this.removeClass('simple-options');
 
   var self = this;
   this.model.updateRoutes(function() {
@@ -40,14 +38,6 @@ View.prototype.setView = function(namespace, view) {
 
 View.prototype.graphical = function() {
   this.setView('graphical-options', require('./graphical'));
-};
-
-/**
- * Set Active
- */
-
-View.prototype.simple = function() {
-  this.setView('simple-options', Simple);
 };
 
 /**

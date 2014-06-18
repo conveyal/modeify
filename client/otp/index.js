@@ -67,38 +67,15 @@ function process(data) {
   });
 
   each(options, function(option, index) {
-    // TODO: Remove laater
-    var addWalkTime = 0;
-    var removeSegment = [];
-
     option.id = 'option_' + index;
 
     each(option.segments, function(segment, i) {
-      // TODO: Fix on server side. Currently removing segments with a zero ride time
-      if (segment.rideStats.min === 0) {
-        debug('removing segment %s due to a 0 ride time', i);
-        addWalkTime = segment.walkTime;
-        removeSegment.push(i);
-        return;
-      }
-
-      // TODO: Remove
-      if (addWalkTime) {
-        segment.walkTime += addWalkTime;
-        addWalkTime = 0;
-      }
-
       segment.type = colors.indexOf(segment.routeShortName) === -1 ? 'bus' :
         'train';
 
       segment.fromName = format(segment.fromName);
       segment.routeShortName = format(segment.routeShortName);
       segment.toName = format(segment.toName);
-    });
-
-    // TODO: Remove
-    each(removeSegment, function(i) {
-      option.segments.splice(i, 1);
     });
 
     option.summary = format(option.summary);
@@ -151,5 +128,7 @@ var wordReplacementTable = {
  */
 
 function word(w) {
-  return wordReplacementTable[w];
+  return wordReplacementTable.hasOwnProperty(w)
+    ? wordReplacementTable[w]
+    : w;
 }

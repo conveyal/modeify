@@ -24,5 +24,6 @@ function toBSColor(s) {
 }
 
 exports.labels = {
-  'font-family': '\'Open Sans\', sans-serif'
+  'font-family': '\'Open Sans\', sans-serif',
+  'z-index': 1000
 };
