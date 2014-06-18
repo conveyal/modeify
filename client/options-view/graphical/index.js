@@ -83,7 +83,7 @@ View.prototype.segments = function() {
     switch (this.model.summary) {
       case 'Bicycle':
         addDetail({
-          description: 'Bike ' + Math.round(this.model.finalWalkTime / 60) +
+          description: 'Bike ' + Math.round(this.model.stats.avg / 60) +
             ' mins',
           type: 'bike',
           segment: true
@@ -91,7 +91,7 @@ View.prototype.segments = function() {
         break;
       case 'Car':
         addDetail({
-          description: 'Drive ' + Math.round(this.model.finalWalkTime / 60) +
+          description: 'Drive ' + Math.round(this.model.stats.avg / 60) +
             ' mins',
           type: 'car',
           segment: true
