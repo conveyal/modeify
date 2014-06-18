@@ -179,12 +179,12 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
     from: {
       lat: from.lat,
       lon: from.lng,
-      name: 'Home'
+      name: 'From'
     },
     to: {
       lat: to.lat,
       lon: to.lng,
-      name: 'Work'
+      name: 'To'
     },
     routes: DEFAULT_ROUTES
   };
