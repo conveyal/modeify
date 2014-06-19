@@ -132,7 +132,25 @@ View.prototype.average = function() {
  */
 
 View.prototype.fare = function() {
-  return '$2.10';
+  if (this.model.fares && this.model.fares.length > 0) {
+    var total = this.model.fares.reduce(function(total, fare) {
+      return total + fare.peak;
+    }, 0);
+    return '$' + total.toFixed(2);
+  } else {
+    console.log(this.model.summary);
+    switch (this.model.summary) {
+      case 'Car':
+        var distance = this.model.walkSteps.reduce(function(total, step) {
+          return total + step.distance;
+        }, 0);
+        return '$' + (convert.metersToMiles(distance) * 0.56).toFixed(2);
+      case 'Bicycle':
+        return ((this.model.stats.avg / 60 * 4.4) | 0) + ' cals';
+      case 'Walk':
+        return ((this.model.stats.avg / 60 * 4.4) | 0) + ' cals';
+    }
+  }
 };
 
 /**
