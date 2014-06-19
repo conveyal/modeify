@@ -12,7 +12,7 @@ ENV = development
 REPORTER = spec
 
 build: components $(CSS) $(HTML) $(CLIENTJS) $(JSON)
-	@./bin/build-client $(ENV)
+	@./bin/build-client $(NODE_ENV)
 
 beautify:
 	@./node_modules/.bin/js-beautify --quiet --replace $(CLIENTJS) $(LIBJS) $(BINJS) $(TESTJS)
@@ -52,7 +52,7 @@ package.zip: $(LIBJS)
 
 # Run before each release
 release: checkenv build test
-	@./bin/push-to-s3 $(ENV)
+	@./bin/push-to-s3 $(NODE_ENV)
 
 # Watch & reload server
 serve: server.pid
