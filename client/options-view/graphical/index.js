@@ -138,19 +138,22 @@ View.prototype.fare = function() {
     }, 0);
     return '$' + total.toFixed(2);
   } else {
-    console.log(this.model.summary);
     switch (this.model.summary) {
       case 'Car':
-        var distance = this.model.walkSteps.reduce(function(total, step) {
-          return total + step.distance;
-        }, 0);
-        return '$' + (convert.metersToMiles(distance) * 0.56).toFixed(2);
+        if (this.model.walkSteps) {
+          var distance = this.model.walkSteps.reduce(function(total, step) {
+            return total + step.distance;
+          }, 0);
+          return '$' + (convert.metersToMiles(distance) * 0.56).toFixed(2);
+        }
+        return '';
       case 'Bicycle':
         return ((this.model.stats.avg / 60 * 4.4) | 0) + ' cals';
       case 'Walk':
         return ((this.model.stats.avg / 60 * 4.4) | 0) + ' cals';
     }
   }
+  return '';
 };
 
 /**
