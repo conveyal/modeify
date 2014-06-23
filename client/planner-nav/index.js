@@ -33,22 +33,6 @@ View.prototype.logout = function() {
 };
 
 /**
- * Save journey
- */
-
-View.prototype.saveJourney = function(e) {
-  var plan = this.model.plan();
-  plan.saveJourney(function(err) {
-    if (err) {
-      debug(err);
-      window.alert('Failed to save journey.\n' + err);
-    } else {
-      window.alert('Saved journey successfully');
-    }
-  });
-};
-
-/**
  * Show Profile
  */
 

@@ -54,7 +54,7 @@ var View = module.exports = view(require('./template.html'), function(view,
     })
     .style('background-color', function(d) {
       if (d.type === 'train') {
-        return convert.toBSColor(d.bg);
+        return d.bg.toLowerCase();
       } else if (d.type === 'bus') {
         return 'gray';
       }
@@ -165,7 +165,7 @@ View.prototype.details = function() {
         });
       }
 
-      var color = segment.type === 'train' ? convert.toBSColor(segment.routeShortName) :
+      var color = segment.type === 'train' ? segment.routeShortName.toLowerCase() :
         'gray';
 
       var description = '<p>' + segment.fromName + '</p>' + '<p>&nbsp;</p>' +

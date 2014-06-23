@@ -1,3 +1,5 @@
+var config = require('config');
+var debug = require('debug')(config.application() + ':planner-page');
 var each = require('each');
 var FilterView = require('filter-view');
 var LocationsView = require('locations-view');
@@ -71,6 +73,22 @@ View.prototype.reverseCommute = function(e) {
     to: plan.from(),
     to_id: plan.from_id(),
     to_ll: plan.from_ll()
+  });
+};
+
+/**
+ * Save journey
+ */
+
+View.prototype.saveTrip = function(e) {
+  var plan = session.plan();
+  plan.saveJourney(function(err) {
+    if (err) {
+      debug(err);
+      window.alert('Failed to save journey.\n' + err);
+    } else {
+      window.alert('Saved journey successfully');
+    }
   });
 };
 

@@ -1,29 +1,68 @@
 <div class="commuter-profile">
+  <h3 data-visible="anonymous">Your <strong>Settings</strong> | <small>anonymous</small></h3>
+  <h3 data-hidden="anonymous">Your <strong>Settings</strong> | <small data-text="email"></small></h3>
 
-  <div data-visible="anonymous">
-    <h4>Signed in anonymously</h4>
-    <div class="alert alert-danger">
-      If you do not add an email address, you will lose your saved journeys and settings when you close your browser.
+  <div class="row">
+    <div class="col-sm-6">
+      <section>
+        <h4>Account</h4>
+
+        <div data-visible="anonymous">
+          <div class="alert alert-danger">Add an email address so you don't lost your settings.</div>
+          <div class="alert alert-warning">Already have an account? <a href="/login" class="alert-link">Click here to login.</a></div>
+          <form on-submit="submitEmailAddress">
+            <input type="email" name="email" class="form-control" placeholder="Email">
+            <input type="submit" class="btn btn-block btn-success" value="Add Email Address">
+          </form>
+        </div>
+
+        <div data-hidden="anonymous">
+          <div data-hidden="profileComplete">
+            <div class="alert alert-warning">
+              If you do not add a password, you will only be able to log in with the link found in your email.
+            </div>
+            <button class="btn btn-block btn-success" on-click="submitAddPassword"><i class="fa fa-key"></i> Add Password</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="speed-preference">
+        <h4>Speed <br><small>Set your preferred bike and walk speeds.</small></h4>
+        <div class="walk-speed">
+          <button class="stroller svg-icon-stroller">Stroller</button>
+          <button class="speedwalker svg-icon-speedwalker">Speed walker</button>
+        </div>
+        <div class="bike-speed">
+          <button class="cruiser svg-icon-cruiser">Cruiser</button>
+          <button class="racer svg-icon-racer">Racer</button>
+        </div>
+      </section>
+
+      <section class="walk-time-preference">
+        <h4>Walk Time <br><small>Maximum walk time.</small></h4>
+        <form>
+          <select>
+            <option value="5">5 min</option>
+            <option value="10">10 min</option>
+            <option value="15">15 min</option>
+            <option value="20">20 min</option>
+            <option value="25">25 min</option>
+            <option value="30">30 min</option>
+            <option value="35">35 min</option>
+            <option value="40">40 min</option>
+            <option value="45">45 min</option>
+            <option value="50">50 min</option>
+            <option value="55">55 min</option>
+            <option value="60">60 min</option>
+          </select>
+        </form>
+      </section>
     </div>
-    <div class="alert alert-warning">
-      Already have an account? <a href="/login" class="alert-link">Click here to login.</a>
+    <div class="col-sm-6">
+      <section>
+        <h4>Saved Trips <br><small>Review your saved journeys.</small></h4>
+        <ul class="journeys" data-each="journeys"></ul>
+      </section>
     </div>
-    <form on-submit="submitEmailAddress">
-      <input type="email" name="email" class="form-control" placeholder="Email">
-      <input type="submit" class="btn btn-block btn-success" value="Add Email Address">
-    </form>
   </div>
-
-  <div data-hidden="anonymous">
-    <h4>Signed in with <span data-text="email"></span></h4>
-    <div data-hidden="profileComplete">
-      <div class="alert alert-warning">
-        If you do not add a password, you will only be able to log in with the link found in your email.
-      </div>
-      <button class="btn btn-block btn-success" on-click="submitAddPassword"><i class="fa fa-key"></i> Add Password</button>
-    </div>
-  </div>
-
-  <h4>Saved Journeys</h4>
-  <ul class="journeys" data-each="journeys"></ul>
 </div>

@@ -7,9 +7,13 @@
     "images/Bike.svg",
     "images/Bus.svg",
     "images/Car.svg",
+    "images/cruiser.svg",
     "images/House.svg",
     "images/Office.svg",
     "images/Pedestrian.svg",
+    "images/racer.svg",
+    "images/speedwalker.svg",
+    "images/stroller.svg",
     "images/Train.svg"
   ],
   "scripts": [

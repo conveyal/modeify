@@ -1,9 +1,11 @@
 {
   "name": "planner-page",
   "dependencies": {
-    "component/each": "0.2.3"
+    "component/each": "0.2.3",
+    "visionmedia/debug": "*"
   },
   "local": [
+    "config",
     "filter-view",
     "locations-view",
     "options-view",

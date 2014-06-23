@@ -1,11 +1,47 @@
 
 .commuter-profile {
+  width: 600px;
+  border: 1px solid #84909d;
+}
+
+.commuter-profile h3 {
+  margin: 10px 10px;
+}
+
+.commuter-profile h4 {
+  border-left: 5px solid #333;
+  background-color: #eee;
   padding: 10px;
-  width: 500px;
+  color: #333;
+}
+
+.commuter-profile .alert {
+  border-left: none;
+  padding: 8px 15px;
+}
+
+.commuter-profile form {
+  padding: 0 10px 0;
 }
 
 .commuter-profile input {
   margin-bottom: 10px;
+}
+
+.commuter-profile .speed-preference div {
+  text-align: center;
+}
+
+.commuter-profile .speed-preference button {
+  width: 50px;
+  height: 50px;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  background-size: 100% 100%;
+  background-position: center center;
+  font-size: 0;
+  margin-right: 10px;
 }
 
 .commuter-profile .journeys {
@@ -15,30 +51,62 @@
 .commuter-profile .journey {
   list-style-type: none;
   margin-bottom: 10px;
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #84909d;
+  box-shadow: 1px 1px 1px #84909d;
+  margin-right: 10px;
 }
 
-.commuter-profile .journey a {
-  float: left;
+.commuter-profile .journey:hover {
+  padding-left: 6px;
+  border-left: 5px solid #333;
 }
 
-.commuter-profile .journey .btn-group {
-  margin-top: 5px;
-}
-
-.commuter-profile .from {
+.commuter-profile .journey div {
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
   color: #8ec449;
 }
 
+.commuter-profile .journey div .fa {
+  color: #333;
+}
+
+.commuter-profile .journey button {
+  display: none;
+  position: absolute;
+  right: 25px;
+  height: 72px;
+  margin-top: -10px;
+}
+
+.commuter-profile .journey:hover button {
+  display: block;
+}
+
+.commuter-profile .from {
+  color: #333;
+}
+
 .commuter-profile .to {
-  color: #d9534f;
+  color: #333;
+}
+
+.commuter-profile .walk-time-preference form {
+  text-align: center;
+  padding-bottom: 15px;
 }
 
 .Modal {
-  box-shadow: 2px 2px 5px rgba(0,0,0,.4);
   background-color: white;
-  height: 100%;
-  top: 44px;
-  overflow: scroll;
+  top: 54px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-width: none;
 }
 
 .Modal.hide {

@@ -60,11 +60,11 @@ View.prototype.segments = function() {
       });
     }
 
-    var color = segment.type === 'train' ? convert.toBSColor(segment.routeShortName) :
+    var color = segment.type === 'train' ? segment.routeShortName.toLowerCase() :
       'gray';
 
     addDetail({
-      description: segment.routeShortName,
+      description: 'Take <strong>' + segment.routeShortName + '</strong>' ,
       color: color,
       time: Math.round(segment.rideStats.avg / 60),
       type: segment.type,
@@ -177,6 +177,12 @@ View.prototype.showHide = function() {
 };
 
 /**
+ * Simple Template
+ */
+
+var simpleTemplate = hogan.compile(require('./simple.html'));
+
+/**
  * Simple Segments
  */
 
@@ -185,52 +191,48 @@ View.prototype.simpleSegments = function() {
   var total = route.stats.avg;
   var segments = '';
 
+  // If no segments, return the single mode
+  if (route.segments.length === 0) {
+    var opts = {
+      backgroundColor: '#5ae3f9',
+      svg: svg('pedestrian'),
+      width: 100
+    };
+
+    if (route.summary === 'Bicycle') {
+      opts.svg = svg('bike');
+    } else if (route.summary === 'Car') {
+      opts.svg = svg('car');
+    }
+
+    return simpleTemplate.render(opts);
+  }
+
   route.segments.forEach(function(segment) {
     // Add Walk Segment
-    segments += singleSegment('pedestrian', segment.walkTime / total * 100);
+    segments += simpleTemplate.render({
+      backgroundColor: '#5ae3f9',
+      svg: svg('pedestrian'),
+      width: segment.walkTime / total * 100
+    });
 
-    // Add Transit Segment
-    segments += singleSegment(segment.mode, (segment.waitStats.avg + segment.rideStats
-      .avg) / total * 100, segment.routeShortName);
+    var opts = {
+      backgroundColor: 'gray',
+      text: segment.routeShortName,
+      width: (segment.waitStats.avg + segment.rideStats.avg) / total * 100
+    };
+
+    if (segment.mode !== 'BUS')
+      opts.backgroundColor = segment.routeShortName.toLowerCase();
+
+    segments += simpleTemplate.render(opts);
   });
 
-  /* Add the final walking segment if it's significant */
-  if (route.segments.length === 0) {
-    if (route.summary === 'Bicycle') {
-      segments += singleSegment('bike', 100);
-    } else if (route.summary === 'Car') {
-      segments += singleSegment('car', 100);
-    } else {
-      segments += singleSegment('pedestrian', 100);
-    }
-  } else {
-    segments += singleSegment('pedestrian', route.finalWalkTime / total * 100);
-  }
+  segments += simpleTemplate.render({
+    backgroundColor: '#5ae3f9',
+    svg: svg('pedestrian')  ,
+    width: route.finalWalkTime / total * 100
+  });
 
   return segments;
 };
-
-/**
- * Create Walk Segment
- */
-
-function singleSegment(type, width, text) {
-  var html = '<div class="segment" style="width:';
-  html += width + '%;';
-
-  switch (type) {
-    case 'BUS':
-      html += 'background-color:gray;"><div class="inner-text">' + text +
-        '</div></div>';
-      break;
-    case 'SUBWAY':
-      html += 'background-color:' + text.toLowerCase() +
-        ';"><div class="inner-text">' + text + '</div></div>';
-      break;
-    default:
-      html += '">' + svg(type) + '</div>';
-      break;
-  }
-
-  return html;
-}

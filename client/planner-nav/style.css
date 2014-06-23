@@ -11,7 +11,21 @@ nav {
   height: 44px;
 }
 
-nav .btn-group {
-  margin-top: 5px;
+nav div {
   margin-right: 15px;
+  color: #fff;
+}
+
+nav a {
+  color: #fff;
+  color: #fff;
+  height: 44px;
+  display: inline-block;
+  padding: 13px 0 0 8px;
+  cursor: pointer;
+}
+
+nav a:hover {
+  color: #fff;
+  text-decoration: underline;
 }

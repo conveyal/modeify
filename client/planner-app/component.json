@@ -20,5 +20,8 @@
   ],
   "styles": [
     "style.css"
+  ],
+  "images": [
+    "arrow.svg"
   ]
 }

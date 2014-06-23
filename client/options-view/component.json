@@ -32,6 +32,7 @@
     "detailed/detail.html",
     "detailed/template.html",
     "graphical/detail.html",
+    "graphical/simple.html",
     "graphical/template.html",
     "template.html"
   ]

@@ -36,20 +36,18 @@
 }
 
 .panel .title {
-  padding: 3%;
-  font-family: "HelveticaNeue-Light", Helvetica, Arial, sans-serif;
-  font-size: 20px;
+  margin: 8px;
   color: #84909d;
 }
 
-.panel .reverse-commute {
+.panel .title .fa {
   cursor: pointer;
 	color: #84909d;
 }
 
-.panel .reverse-commute:hover,
-.panel .reverse-commute:active,
-.panel .reverse-commute:visited {
+.panel .title .fa:hover,
+.panel .title .fa:active,
+.panel .title .fa:visited {
 	color: #000;
 }
 

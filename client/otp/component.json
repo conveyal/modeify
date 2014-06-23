@@ -4,7 +4,6 @@
     "component/each": "0.2.3",
     "conveyal/otpprofiler.js": "*",
     "ianstormtaylor/to-capital-case": "0.1.1",
-    "learnboost/jsonp": "0.0.4",
     "visionmedia/debug": "*"
   },
   "local": [
