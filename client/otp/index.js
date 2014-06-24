@@ -127,7 +127,5 @@ var wordReplacementTable = {
  */
 
 function word(w) {
-  return wordReplacementTable.hasOwnProperty(w)
-    ? wordReplacementTable[w]
-    : w;
+  return wordReplacementTable.hasOwnProperty(w) ? wordReplacementTable[w] : w;
 }

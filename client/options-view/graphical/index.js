@@ -64,7 +64,7 @@ View.prototype.segments = function() {
       'gray';
 
     addDetail({
-      description: 'Take <strong>' + segment.routeShortName + '</strong>' ,
+      description: 'Take <strong>' + segment.routeShortName + '</strong>',
       color: color,
       time: Math.round(segment.rideStats.avg / 60),
       type: segment.type,
@@ -230,7 +230,7 @@ View.prototype.simpleSegments = function() {
 
   segments += simpleTemplate.render({
     backgroundColor: '#5ae3f9',
-    svg: svg('pedestrian')  ,
+    svg: svg('pedestrian'),
     width: route.finalWalkTime / total * 100
   });
 

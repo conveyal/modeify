@@ -26,6 +26,7 @@ var MAX_PATTERNS = localStorage.getItem('max_patterns') || MAX_ROUTES;
 var Plan = module.exports = model('Plan')
   .use(defaults({
     bike: false,
+    bike_speed: 4.1,
     bus: false,
     car: false,
     days: 'M—F',
@@ -38,9 +39,11 @@ var Plan = module.exports = model('Plan')
     to_valid: false,
     train: false,
     walk: false,
+    walk_speed: 1.4,
     welcome_complete: false
   }))
   .attr('bike')
+  .attr('bike_speed')
   .attr('bus')
   .attr('car')
   .attr('days')
@@ -60,14 +63,15 @@ var Plan = module.exports = model('Plan')
   .attr('to_valid')
   .attr('train')
   .attr('walk')
+  .attr('walk_speed')
   .attr('welcome_complete');
 
 /**
  * Filters
  */
 
-var filters = ['bike', 'bus', 'train', 'car', 'walk', 'days',
-  'start_time', 'end_time', 'from_ll', 'to_ll'
+var filters = ['bike', 'bike_speed', 'bus', 'train', 'car', 'walk', 'days',
+  'start_time', 'end_time', 'from_ll', 'to_ll', 'walk_speed'
 ];
 
 /**
@@ -166,6 +170,8 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
   var startTime = plan.start_time();
   var endTime = plan.end_time();
   var date = nextDate(plan.days());
+  var bikeSpeed = plan.bike_speed();
+  var walkSpeed = plan.walk_speed();
 
   // Do a minimum 2 hour window
   if (startTime === 0) startTime += ':00';
@@ -193,6 +199,7 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
     debug('--- updating routes from %s to %s on %s between %s and %s',
       from, to, date, startTime, endTime);
     otp.profile({
+      bikeSpeed: bikeSpeed,
       from: options.from,
       to: options.to,
       startTime: startTime,
@@ -200,7 +207,8 @@ Plan.prototype.updateRoutes = debounce(function(callback) {
       date: date,
       orderBy: 'AVG',
       limit: MAX_ROUTES,
-      modes: plan.modesCSV()
+      modes: plan.modesCSV(),
+      walkSpeed: walkSpeed
     }, function(err, data) {
       if (err) {
         plan.emit('error', err);

@@ -9,7 +9,36 @@ var view = require('view');
  * Expose `View`
  */
 
-var View = module.exports = view(require('./template.html'));
+var View = module.exports = view(require('./template.html'), function(view,
+  model) {
+  var plan = model.plan;
+  var stroller = view.find('.stroller');
+  var speedwalker = view.find('.speedwalker');
+  var cruiser = view.find('.cruiser');
+  var racer = view.find('.racer');
+
+  selectWalkSpeed();
+  selectBikeSpeed();
+
+  plan.on('change walk_speed', selectWalkSpeed);
+  plan.on('change bike_speed', selectBikeSpeed);
+
+  function selectWalkSpeed() {
+    stroller.classList.remove('selected');
+    speedwalker.classList.remove('selected');
+
+    if (plan.walk_speed() === 1.4) stroller.classList.add('selected');
+    else speedwalker.classList.add('selected');
+  }
+
+  function selectBikeSpeed() {
+    cruiser.classList.remove('selected');
+    racer.classList.remove('selected');
+
+    if (plan.bike_speed() === 4.1) cruiser.classList.add('selected');
+    else racer.classList.add('selected');
+  }
+});
 
 /**
  *
@@ -81,6 +110,32 @@ View.prototype.profileComplete = function() {
 
 View.prototype.hide = function() {
   if (this.modal) this.modal.hide();
+};
+
+/**
+ * Set Walk Speed
+ */
+
+View.prototype.setWalkSpeed = function(e) {
+  console.log('setting walk speed', e);
+  if (e.target.classList.contains('stroller')) {
+    this.model.plan.walk_speed(1.4);
+  } else {
+    this.model.plan.walk_speed(2.1);
+  }
+};
+
+/**
+ * Set Bike Speed
+ */
+
+View.prototype.setBikeSpeed = function(e) {
+  console.log('setting bike speed', e);
+  if (e.target.classList.contains('cruiser')) {
+    this.model.plan.bike_speed(4.1);
+  } else {
+    this.model.plan.bike_speed(6.05);
+  }
 };
 
 /**

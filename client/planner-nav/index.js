@@ -38,6 +38,7 @@ View.prototype.logout = function() {
 
 View.prototype.showProfile = function() {
   var commuter = this.model.commuter();
+  var plan = this.model.plan();
   var spinner = spin();
   Journey.all(function(err, journeys) {
     if (err) {
@@ -46,7 +47,8 @@ View.prototype.showProfile = function() {
     } else {
       var profile = new Profile({
         commuter: commuter,
-        journeys: journeys
+        journeys: journeys,
+        plan: plan
       });
       profile.show(function() {
         spinner.stop();

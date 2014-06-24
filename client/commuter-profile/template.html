@@ -29,19 +29,19 @@
       <section class="speed-preference">
         <h4>Speed <br><small>Set your preferred bike and walk speeds.</small></h4>
         <div class="walk-speed">
-          <button class="stroller svg-icon-stroller">Stroller</button>
-          <button class="speedwalker svg-icon-speedwalker">Speed walker</button>
+          <button class="stroller svg-icon-stroller" on-click="setWalkSpeed">Stroller</button>
+          <button class="speedwalker svg-icon-speedwalker" on-click="setWalkSpeed">Speed walker</button>
         </div>
         <div class="bike-speed">
-          <button class="cruiser svg-icon-cruiser">Cruiser</button>
-          <button class="racer svg-icon-racer">Racer</button>
+          <button class="cruiser svg-icon-cruiser" on-click="setBikeSpeed">Cruiser</button>
+          <button class="racer svg-icon-racer" on-click="setBikeSpeed">Racer</button>
         </div>
       </section>
 
-      <section class="walk-time-preference">
+      <section class="walk-time-preference" style="display: none;">
         <h4>Walk Time <br><small>Maximum walk time.</small></h4>
         <form>
-          <select>
+          <select disabled>
             <option value="5">5 min</option>
             <option value="10">10 min</option>
             <option value="15">15 min</option>
