@@ -4,6 +4,7 @@
     "component/color-parser": "0.1.0",
     "component/each": "*",
     "conveyal/transitive.js": "*",
+    "mbostock/d3": "*",
     "visionmedia/debug": "*"
   },
   "local": [
@@ -19,6 +20,7 @@
     "style.css"
   ],
   "templates": [
+    "legend.html",
     "template.html"
   ]
 }

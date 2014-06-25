@@ -5,7 +5,7 @@
   width: 100%;
 }
 
-.Transitive > .legend {
+.Transitive .legend {
   position: absolute;
   height: 35px;
   border: 1px solid #84909d;
@@ -15,6 +15,27 @@
   background-color: #fff;
   box-shadow: 0 0 7px #eee;
   z-index: 150;
+}
+
+.Transitive .map-zoom {
+  position: absolute;
+  height: 35px;
+  right: -1px;
+  bottom: 43px;
+  z-index: 150;
+}
+
+.Transitive .map-zoom button {
+  color: #fff;
+  background-color: #8ec449;
+  border: none;
+  padding: 6px 12px;
+}
+
+.Transitive .map-zoom button:hover,
+.Transitive .map-zoom button:active {
+  background-color: #7aae38;
+  outline: none;
 }
 
 .Transitive .transitive-line {
