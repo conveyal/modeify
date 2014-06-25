@@ -34,7 +34,8 @@ View.prototype.save = function(e) {
 
   var plan = this.model;
   var spinner = spin();
-  var modes = [this.mode('bike'), this.mode('bus'), this.mode('train'), this.mode('car'), this.mode('walk')];
+  var modes = [this.mode('bike'), this.mode('bus'), this.mode('train'), this.mode(
+    'car'), this.mode('walk')];
 
   if (!modes.reduce(function(a, b) {
     return a || b;
