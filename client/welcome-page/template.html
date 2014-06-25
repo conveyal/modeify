@@ -1,10 +1,10 @@
 <div class="welcome-page">
-  <div class="col-sm-12">
-    <div data-hidden="original_modes">
-      <h3>How do you get to work?</h3>
+  <div class="row">
+    <div class="col-sm-12">
+      <h3>How can you get to work?</h3>
       <p>Select all that apply</p>
       <div class="answers row">
-        <div class="answer col-sm-2" data-active="bike" title="Bike">
+        <div class="answer col-sm-2 col-sm-offset-1" data-active="bike" title="Bike">
           <span class="svg-icon svg-icon-bike"></span><br>
           <span class="fa fa-check-circle"></span>
         </div>
@@ -26,29 +26,6 @@
         </div>
       </div>
     </div>
-    <div data-visible="original_modes">
-      <div data-hidden="from_valid">
-        <h3>What is your home address?</h3>
-        <div class="answers row">
-          <div class="col-sm-6 col-sm-offset-3 input-group">
-            <span class="input-group-addon"><span class="svg-icon svg-icon-house"></span></span>
-            <input type="text" placeholder="Home" class="form-control input-lg" name="from" value="{from || ''}">
-          </div>
-        </div>
-      </div>
-      <div data-visible="from_valid">
-        <div data-hidden="to_valid">
-          <h3>What is your work address?</h3>
-          <div class="answers row">
-            <div class="col-sm-6 col-sm-offset-3 input-group">
-              <span class="input-group-addon"><span class="svg-icon svg-icon-office"></span></span>
-              <input type="text" placeholder="Office" class="form-control input-lg" name="to" value="{to || ''}">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <button class="btn btn-default btn-lg" on-click="back" data-visible="original_modes"><span class="fa fa-chevron-left"></span> Back</button>
-    <button class="btn btn-primary btn-lg" on-click="save">Next <span class="fa fa-chevron-right"></span></button>
+    <button class="btn btn-lg" on-click="save">Next <span class="fa fa-chevron-right"></span></button>
   </div>
 </div>

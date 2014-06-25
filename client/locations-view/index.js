@@ -16,10 +16,10 @@ View.prototype.save = function(e) {
   var el = e.target;
   var name = el.name;
   var address = el.value;
-  var model = this.model;
+  var plan = this.model;
 
   // If the address hasn't changed, return
-  if (address === model[name]()) return;
+  if (address === plan[name]()) return;
 
   // Create a new location on change
   var location = new Location({
@@ -32,9 +32,13 @@ View.prototype.save = function(e) {
       debug(err);
       window.alert('Invalid address.');
     } else {
-      model[name](address);
-      model[name + '_ll'](res.body.coordinate);
-      model[name + '_id'](res.body._id);
+      var changes = {};
+      changes[name] = 'address';
+      changes[name + '_ll'] = res.body.coordinate;
+      changes[name + '_id'] = res.body._id;
+      changes[name + '_valid'] = true;
+
+      plan.set(changes);
     }
   });
 };

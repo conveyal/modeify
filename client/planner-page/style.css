@@ -56,3 +56,20 @@
   position: relative;
   height: 100%;
 }
+
+.tip {
+  background-color: #8ec449;
+  color: #fff;
+  padding: 0 0 0 10px;
+}
+
+.tip .btn {
+  background-color: transparent;
+  color: #fff;
+  margin-left: 10px;
+  padding: 10px 12px;
+}
+
+.tip .btn:hover {
+  background-color: rgba(0,0,0,0.1);
+}

@@ -2,6 +2,23 @@
 .welcome-page {
   text-align: center;
   padding: 50px;
+  background-color: #8ec449;
+  border: 2px solid #fff;
+}
+
+.welcome-page h3,
+.welcome-page p,
+.welcome-page .btn {
+  color: #fff;
+}
+
+.welcome-page .btn {
+  border: 2px solid #fff;
+  background: transparent;
+}
+
+.welcome-page .btn:hover {
+  background-color: rgba(0,0,0, 0.1);
 }
 
 .answers {
@@ -26,6 +43,7 @@
   font-size: 20px;
   display: none;
   margin-top: 35px;
+  color: #fff;
 }
 
 .answer.active .fa {

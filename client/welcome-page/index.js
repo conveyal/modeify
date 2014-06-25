@@ -1,8 +1,6 @@
 var config = require('config');
 var debug = require('debug')(config.name() + ':welcome-page');
-var Location = require('location');
-var page = require('page');
-var session = require('session');
+var modal = require('modal');
 var spin = require('spinner');
 var view = require('view');
 
@@ -10,28 +8,20 @@ var view = require('view');
  * Create `View`
  */
 
-var View = view({
+var View = module.exports = view({
   category: 'planner',
   template: require('./template.html'),
   title: 'Welcome Page'
 });
 
 /**
- * Expose `render`
+ *
  */
 
-module.exports = function(ctx, next) {
-  var plan = ctx.plan;
-
-  // check if plan is full enough to redirect to planner
-  if (plan.welcome_complete()) {
-    ctx.redirect = '/planner';
-  } else {
-    debug('showing welcome page view with plan');
-    ctx.view = new View(plan);
-  }
-
-  next();
+View.prototype.show = function(callback) {
+  this.modal = modal(this.el)
+    .overlay()
+    .show(callback);
 };
 
 /**
@@ -44,116 +34,28 @@ View.prototype.save = function(e) {
 
   var plan = this.model;
   var spinner = spin();
-  var fromEl = this.find('[name="from"]');
-  var toEl = this.find('[name="to"]');
-  var done = function() {
+  var modes = [this.mode('bike'), this.mode('bus'), this.mode('train'), this.mode('car'), this.mode('walk')];
+
+  if (!modes.reduce(function(a, b) {
+    return a || b;
+  })) {
+    window.alert('Please select at least one option.');
+  } else {
+    plan.original_modes(modes);
+
     debug('<-- saved');
     spinner.remove();
-  };
 
-  if (!plan.original_modes()) {
-    var modes = [this.mode('bike'), this.mode('bus'), this.mode('train'), this.mode(
-      'car'), this.mode('walk')];
-    if (!modes.reduce(function(a, b) {
-      return a || b;
-    })) {
-      window.alert('Please select at least one option.');
-    } else {
-      plan.original_modes(modes);
-      if (plan.welcome_complete()) page('/planner');
-    }
-    done();
-  } else if (!plan.from_valid()) {
-    this.saveFrom(fromEl.value, function(err) {
-      if (err) {
-        debug(err);
-        window.alert('Please enter a valid address.');
-      }
-      done();
-    });
-  } else {
-    this.saveTo(toEl.value, function(err) {
-      if (err) {
-        debug(err);
-        window.alert('Please enter a valid address.');
-      }
-      done();
-    });
+    this.hide();
   }
 };
 
 /**
- * Save From
+ * Hide
  */
 
-View.prototype.saveFrom = function(address, callback) {
-  var plan = this.model;
-  var location = new Location({
-    address: address,
-    category: 'residence',
-    name: 'Home'
-  });
-
-  location.save(function(err, res) {
-    if (err) {
-      callback(err);
-    } else {
-      var ll = res.body.coordinate;
-
-      plan.set({
-        from: address,
-        from_id: res.body._id,
-        from_ll: ll,
-        from_valid: true
-      });
-
-      if (plan.welcome_complete()) page('/planner');
-      callback();
-    }
-  });
-};
-
-/**
- * Save to
- */
-
-View.prototype.saveTo = function(address, callback) {
-  var plan = this.model;
-  var location = new Location({
-    address: address,
-    category: 'office',
-    name: 'Work'
-  });
-
-  location.save(function(err, res) {
-    if (err) {
-      callback(err);
-    } else {
-      var ll = res.body.coordinate;
-
-      plan.set({
-        to: address,
-        to_id: res.body._id,
-        to_ll: ll,
-        to_valid: true
-      });
-
-      page('/planner');
-      callback();
-    }
-  });
-};
-
-/**
- * Back
- */
-
-View.prototype.back = function() {
-  if (this.model.from_valid()) {
-    this.model.from_valid(false);
-  } else {
-    this.model.original_modes(null);
-  }
+View.prototype.hide = function() {
+  if (this.modal) this.modal.hide();
 };
 
 /**

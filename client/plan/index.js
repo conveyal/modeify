@@ -87,12 +87,13 @@ Plan.on('change', function(plan, name, val) {
       plan.updateRoutes();
     }
   } else if (plan.original_modes() && plan.from_valid() && plan.to_valid()) {
-    plan.attrs.bike = true;
-    plan.attrs.bus = true;
-    plan.attrs.car = false;
-    plan.attrs.train = true;
-    plan.attrs.walk = true;
-    plan.welcome_complete(true);
+    plan.set({
+      bike: true,
+      bus: true,
+      car: true,
+      train: true,
+      walk: true
+    });
   }
 
   // Store in localStorage
