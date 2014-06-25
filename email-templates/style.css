@@ -4,5 +4,67 @@
 }
 
 p {
-	padding-bottom: 10px
+	padding-bottom: 100px
+}
+
+body {
+        font-family: 'Oswald', sans-serif;
+        font-size: 26px;
+      }
+
+.logo {
+	padding: 10px;
+}
+
+.email {
+	padding: 10px;
+	text-decoration:none; 
+	font-size: 10px; 
+	color: #84909d; 
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+.button {
+	text-align: center;
+	text-decoration: none; 
+	color: #ffffff; 
+	font-family:Arial, Helvetica, sans-serif; 
+	font-size: 10px; 
+	font-weight: bold;
+	padding: 5px;
+	border-radius: 2px;
+}
+
+.headline {
+	padding: 30px;
+}
+
+.copy {
+	padding-left: 30px; 
+	padding-right: 20px; 
+	padding-bottom: 20px;
+	font-family:Arial, Helvetica, sans-serif; 
+	font-size: 14px; 
+	line-height: 18px; 
+	color:#383b3d
+}
+
+a {
+	text-decoration: none; 
+	font-weight: bold; 
+	color: #8ec449;
+}
+
+.address {
+	padding-bottom: 7px;
+	font-size: 20px; 
+	color: #8ec449; 
+	text-decoration:none;
+}
+
+.footer {
+	padding: 15px;
+	font-family:Arial, Helvetica, sans-serif; 
+	font-size: 10px; 
+	color: #4f555b;
 }
