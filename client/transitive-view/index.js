@@ -43,18 +43,14 @@ View.prototype.display = function(patterns) {
   var el = this.el;
   this.find('.zoom.in').onclick = function() {
     var currentZoom = transitive.display.zoom.scale();
-    transitive.display.zoom.center([ el.clientWidth, el.clientHeight ]);
-    transitive.display.zoom.scale(currentZoom + 0.25);
+    transitive.display.zoom.scale(currentZoom * 1.25);
     transitive.display.zoom.event(d3.select('.Transitive'));
-    transitive.display.zoom.center(null);
   };
 
   this.find('.zoom.out').onclick = function() {
     var currentZoom = transitive.display.zoom.scale();
-    transitive.display.zoom.center([ 0, 0 ]);
-    transitive.display.zoom.scale(currentZoom - 0.25);
+    transitive.display.zoom.scale(currentZoom * 0.75);
     transitive.display.zoom.event(d3.select('.Transitive'));
-    transitive.display.zoom.center(null);
   };
 
   debug('<-- done displaying patterns');
