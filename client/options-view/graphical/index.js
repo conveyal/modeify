@@ -177,6 +177,29 @@ View.prototype.showHide = function() {
 };
 
 /**
+ * Frequency
+ */
+
+View.prototype.frequency = function() {
+  var plan = session.plan();
+  var timeWindow = (plan.end_time() - plan.start_time() + 1) * 60;
+  if (!this.model.segments || this.model.segments.length === 0) return false;
+
+  var patterns = this.model.segments.reduce(function(memo, segment) {
+    return memo.concat(segment.segmentPatterns);
+  }, []);
+
+  console.log(patterns);
+
+  return Math.round(patterns.reduce(function(memo, pattern) {
+    console.log(timeWindow, pattern.nTrips);
+    var nTrips = timeWindow / pattern.nTrips;
+    if (nTrips < memo) return nTrips;
+    else return memo;
+  }, Infinity));
+};
+
+/**
  * Simple Template
  */
 

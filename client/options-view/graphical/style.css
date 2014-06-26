@@ -10,6 +10,7 @@
 
 .graphical-options .simple .summary {
   width: 100%;
+  padding-bottom: 10px;
 }
 
 .graphical-options .simple .expand {
@@ -23,11 +24,20 @@
 
 .graphical-options .simple .minutes {
   font-size: 16px;
-  padding-left: 10px;
+  margin-left: 10px;
+  position: relative;
+  display: inline-block;
+  height: 44px;
 }
 
 .graphical-options .simple .minutes strong {
   font-size: 22px;
+}
+
+.graphical-options .simple .minutes .frequency {
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
 .graphical-options .simple .fare {
