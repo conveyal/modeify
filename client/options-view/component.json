@@ -8,10 +8,6 @@
     "mbostock/d3": "*",
     "twitter/hogan.js": "*"
   },
-  "images": [
-    "detailed/circle.gif",
-    "detailed/circle.png"
-  ],
   "local": [
     "convert",
     "session",
@@ -19,21 +15,17 @@
     "view"
   ],
   "scripts": [
-    "detailed/index.js",
-    "graphical/index.js",
+    "option/index.js",
     "index.js"
   ],
   "styles": [
-    "detailed/style.css",
-    "graphical/style.css",
+    "option/style.css",
     "style.css"
   ],
   "templates": [
-    "detailed/detail.html",
-    "detailed/template.html",
-    "graphical/detail.html",
-    "graphical/simple.html",
-    "graphical/template.html",
+    "option/detail.html",
+    "option/simple.html",
+    "option/template.html",
     "template.html"
   ]
 }

@@ -34,10 +34,11 @@
   font-size: 22px;
 }
 
-.graphical-options .simple .minutes .frequency {
+.graphical-options .simple .minutes .subheading {
   position: absolute;
   bottom: 0;
   left: 0;
+  color: #84909d;
 }
 
 .graphical-options .simple .fare {
@@ -117,4 +118,12 @@
 
 .graphical-options .details .detail-address .detail-icon {
   background-color: transparent;
+}
+
+.graphical-options .simple .minutes .pollution {
+  color: #e21836;
+}
+
+.graphical-options .simple .minutes .pollution-offset {
+  color: #8ec449;
 }
