@@ -33,7 +33,7 @@ View.prototype.save = function(e) {
       window.alert('Invalid address.');
     } else {
       var changes = {};
-      changes[name] = 'address';
+      changes[name] = address;
       changes[name + '_ll'] = res.body.coordinate;
       changes[name + '_id'] = res.body._id;
       changes[name + '_valid'] = true;
