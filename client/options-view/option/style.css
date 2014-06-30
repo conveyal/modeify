@@ -127,3 +127,32 @@
 .graphical-options .simple .minutes .pollution-offset {
   color: #8ec449;
 }
+
+.fa-north {}
+.fa-northeast {
+  transform: rotate(45deg);
+}
+
+.fa-east {
+  transform: rotate(90deg);
+}
+
+.fa-southeast {
+  transform: rotate(135deg);
+}
+
+.fa-south {
+  transform: rotate(180deg);
+}
+
+.fa-southwest {
+  transform: rotate(215deg);
+}
+
+.fa-west {
+  transform: rotate(270deg);
+}
+
+.fa-northwest {
+  transform: rotate(315deg);
+}

@@ -1,4 +1,4 @@
-var Option = require('./option');
+var OptionView = require('./option');
 var view = require('view');
 
 /**
@@ -12,5 +12,5 @@ var View = module.exports = view(require('./template.html'));
  */
 
 View.prototype['routes-view'] = function() {
-  return Option;
+  return OptionView;
 };

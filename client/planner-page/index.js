@@ -1,4 +1,5 @@
 var config = require('config');
+var Batch = require('batch');
 var debug = require('debug')(config.application() + ':planner-page');
 var each = require('each');
 var FilterView = require('filter-view');
@@ -11,6 +12,13 @@ var session = require('session');
 var TransitiveView = require('transitive-view');
 var view = require('view');
 var WelcomePage = require('welcome-page');
+
+/**
+ * Default from / to addresses
+ */
+
+var FROM = '4301 13th St NW Washington, DC 20011';
+var TO = '2100 Wilson Blvd, Arlington, VA';
 
 /**
  * Create `View`
@@ -54,6 +62,20 @@ module.exports = function(ctx, next) {
 
   // Show the welcome page if welcome complete isn't done
   if (!plan.welcome_complete()) {
+    // Initialize the default locations
+    var batch = new Batch();
+    batch.push(function(done) {
+      plan.setAddress('from', FROM, done);
+    });
+    batch.push(function(done) {
+      plan.setAddress('to', TO, done);
+    });
+    batch.end(function(err) {
+      if (!err) plan.updateRoutes({
+        modes: 'BICYCLE,WALK,TRAINISH,BUS,CAR'
+      });
+    });
+
     var welcome = new WelcomePage(plan);
     welcome.show();
     welcome.modal.on('hide', function() {
@@ -61,7 +83,10 @@ module.exports = function(ctx, next) {
       from.position('left');
       from.show('#from-location');
 
-      document.getElementById('from-location').focus();
+      var fromLocation = document.getElementById('from-location');
+      fromLocation.focus();
+      fromLocation.select();
+
       document.querySelector('.from-next-button').onclick = function() {
         from.hide();
       };
@@ -71,7 +96,10 @@ module.exports = function(ctx, next) {
         to.position('left');
         to.show('#to-location');
 
-        document.getElementById('to-location').focus();
+        var toLocation = document.getElementById('to-location');
+        toLocation.focus();
+        toLocation.select();
+
         document.querySelector('.to-next-button').onclick = function() {
           to.hide();
           plan.welcome_complete(true);

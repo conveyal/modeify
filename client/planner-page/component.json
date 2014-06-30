@@ -4,7 +4,8 @@
     "component/each": "0.2.3",
     "segmentio/overlay": "*",
     "component/tip": "*",
-    "visionmedia/debug": "*"
+    "visionmedia/debug": "*",
+    "visionmedia/batch": "*"
   },
   "local": [
     "config",

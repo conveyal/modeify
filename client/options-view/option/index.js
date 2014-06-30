@@ -4,6 +4,7 @@ var domify = require('domify');
 var hogan = require('hogan.js');
 var session = require('session');
 var svg = require('svg-icons');
+var toSentenceCase = require('to-sentence-case');
 var view = require('view');
 
 /**
@@ -89,28 +90,13 @@ View.prototype.segments = function() {
     // One mode the entire way
     switch (this.model.summary) {
       case 'Bicycle':
-        addDetail({
-          description: 'Bike ' + Math.round(this.model.stats.avg / 60) +
-            ' mins',
-          type: 'bike',
-          segment: true
-        });
+        details += this.narrativeDirections('bike', 'Bike');
         break;
       case 'Car':
-        addDetail({
-          description: 'Drive ' + Math.round(this.model.stats.avg / 60) +
-            ' mins',
-          type: 'car',
-          segment: true
-        });
+        details += this.narrativeDirections('car', 'Drive');
         break;
       case 'Walk':
-        addDetail({
-          description: 'Walk ' + Math.round(this.model.finalWalkTime / 60) +
-            ' mins',
-          type: 'pedestrian',
-          segment: true
-        });
+        details += this.narrativeDirections('pedestrian', 'Walk');
         break;
     }
   } else {
@@ -124,6 +110,57 @@ View.prototype.segments = function() {
   }
 
   return details;
+};
+
+/**
+ * Get a narrative description
+ */
+
+function ndescription(a, dir, dis, st) {
+  return a + ' ' + dir + ' on ' + st + ' for ' + convert.metersToMiles(dis) + ' mile(s)';
+}
+
+/**
+ * Add narrative directions
+ */
+
+View.prototype.narrativeDirections = function(type, action) {
+  var steps = this.model.walkSteps;
+
+  // Add initial narrative step
+  var narrative = detail.render({
+    description: ndescription(action, steps[0].absoluteDirection.toLowerCase(), steps[0].distance, steps[0].streetName),
+    segment: true,
+    type: type
+  });
+
+  var iconDirection = 'east';
+  for (var i = 1; i < steps.length; i++) {
+    switch(steps[i].relativeDirection) {
+      case 'RIGHT':
+        iconDirection = 'east';
+        break;
+      case 'LEFT':
+        iconDirection = 'west';
+        break;
+      case 'CONTINUE':
+        iconDirection = 'north';
+        break;
+      case 'SLIGHTLY_RIGHT':
+        iconDirection = 'northeast';
+        break;
+      case 'SLIGHTLY_LEFT':
+        iconDirection = 'northwest';
+        break;
+    }
+
+    narrative += detail.render({
+      description: toSentenceCase(steps[i].relativeDirection) + ' on ' + steps[i].streetName + ' for ' + convert.metersToMiles(steps[i].distance) + ' mile(s)',
+      direction: iconDirection
+    });
+  }
+
+  return narrative;
 };
 
 /**

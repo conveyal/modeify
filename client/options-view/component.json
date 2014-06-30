@@ -4,6 +4,7 @@
     "component/domify": "*",
     "component/each": "0.2.3",
     "ianstormtaylor/to-capital-case": "0.1.1",
+    "ianstormtaylor/to-sentence-case": "*",
     "ianstormtaylor/reactive": "*",
     "mbostock/d3": "*",
     "twitter/hogan.js": "*"
