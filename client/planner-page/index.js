@@ -123,7 +123,6 @@ View.prototype.reverseCommute = function(e) {
     from: plan.to(),
     from_id: plan.to_id(),
     from_ll: plan.to_ll(),
-    reverse_commute: !plan.reverse_commute(),
     to: plan.from(),
     to_id: plan.from_id(),
     to_ll: plan.from_ll()

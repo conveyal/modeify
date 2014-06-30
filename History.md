@@ -1,4 +1,8 @@
 
+## Latest
+
+* Fixed reverse commute button
+
 ## 0.2.0 — 2014-06-30
 
 * Narrative Directions
