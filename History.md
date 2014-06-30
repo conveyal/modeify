@@ -1,4 +1,10 @@
 
+## 0.2.0 — 2014-06-30
+
+* Narrative Directions
+* Calories burned, fare, CO2 emissions added to options display
+* Updated to latest Transitive.js
+
 ## 0.1.3 — 2014-06-17
 
 * Authenticate ArcGIS requests
