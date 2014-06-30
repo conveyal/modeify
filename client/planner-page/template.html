@@ -4,10 +4,12 @@
 </div>
 <div class="panel">
   <form autosubmit>
-    <div class="title">
+    <h3 class="title">
       Your <strong>Commute</strong>
-      <i class="reverse-commute fa fa-exchange" on-click="reverseCommute"></i>
-    </div>
+      <div class="pull-right">
+        <i class="reverse-commute fa fa-fw fa-exchange" on-click="reverseCommute"></i> <i class="fa fa-fw fa-save" on-click="saveTrip"></i>
+      </div>
+    </h3>
     <div reactive="locations-view"></div>
     <div reactive="filter-view"></div>
     <button type="submit">

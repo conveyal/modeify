@@ -1,13 +1,11 @@
 {
   "name": "welcome-page",
   "dependencies": {
-    "visionmedia/debug": "*",
-    "visionmedia/page.js": "1.3.7"
+    "segmentio/modal": "*",
+    "visionmedia/debug": "*"
   },
   "local": [
     "config",
-    "location",
-    "session",
     "spinner",
     "svg-icons",
     "view"

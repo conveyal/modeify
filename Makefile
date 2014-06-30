@@ -12,10 +12,15 @@ ENV = development
 REPORTER = spec
 
 build: components $(CSS) $(HTML) $(CLIENTJS) $(JSON)
-	@./bin/build-client $(ENV)
+	@./bin/build-client $(NODE_ENV)
 
 beautify:
 	@./node_modules/.bin/js-beautify --quiet --replace $(CLIENTJS) $(LIBJS) $(BINJS) $(TESTJS)
+
+checkenv:
+ifndef NODE_ENV
+	$(error NODE_ENV is undefined)
+endif
 
 clean:
 	@rm -rf build
@@ -46,15 +51,12 @@ package.zip: $(LIBJS)
 	@zip -g package.zip config.json
 
 # Run before each release
-release: build test
-	@./bin/push-to-s3 $(ENV)
+release: checkenv build test
+	@./bin/push-to-s3 $(NODE_ENV)
 
 # Watch & reload server
 serve: server.pid
-server.pid: node_modules
-ifndef NODE_ENV
-	$(error NODE_ENV is undefined)
-endif
+server.pid: checkenv node_modules
 	@nohup ./node_modules/.bin/nodemon > /var/tmp/commute-planner-server.log </dev/null & echo "$$!" > server.pid
 	@echo "Server logs stored in /var/tmp/commute-planner-server.log"
 start: server.pid
@@ -66,4 +68,4 @@ stop:
 test: lint
 	@NODE_ENV=test ./node_modules/.bin/mocha --recursive --require should --reporter $(REPORTER) --timeout 20s --slow 10
 
-.PHONY: beautify convert lint release serve stop test watch
+.PHONY: beautify checkenv convert lint release serve stop test watch

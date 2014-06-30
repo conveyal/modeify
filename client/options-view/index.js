@@ -1,6 +1,4 @@
-var Detailed = require('./detailed');
-var Graphical = require('./graphical');
-var Simple = require('./simple');
+var OptionView = require('./option');
 var view = require('view');
 
 /**
@@ -14,46 +12,5 @@ var View = module.exports = view(require('./template.html'));
  */
 
 View.prototype['routes-view'] = function() {
-  return this.RoutesView || Graphical;
-};
-
-/**
- * Set View
- */
-
-View.prototype.setView = function(namespace, view) {
-  this.RoutesView = view;
-
-  this.removeClass('graphical-options');
-  this.removeClass('detailed-options');
-  this.removeClass('simple-options');
-
-  var self = this;
-  this.model.updateRoutes(function() {
-    self.addClass(namespace);
-  });
-};
-
-/**
- * Graphical
- */
-
-View.prototype.graphical = function() {
-  this.setView('graphical-options', require('./graphical'));
-};
-
-/**
- * Set Active
- */
-
-View.prototype.simple = function() {
-  this.setView('simple-options', Simple);
-};
-
-/**
- * Detailed
- */
-
-View.prototype.detailed = function() {
-  this.setView('detailed-options', Detailed);
+  return OptionView;
 };

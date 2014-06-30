@@ -16,25 +16,15 @@ View.prototype.save = function(e) {
   var el = e.target;
   var name = el.name;
   var address = el.value;
-  var model = this.model;
+  var plan = this.model;
 
   // If the address hasn't changed, return
-  if (address === model[name]()) return;
+  if (address === plan[name]()) return;
 
-  // Create a new location on change
-  var location = new Location({
-    address: address
-  });
-
-  // Creates a new location & saves
-  location.save(function(err, res) {
+  plan.setAddress(name, address, function(err) {
     if (err) {
       debug(err);
       window.alert('Invalid address.');
-    } else {
-      model[name](address);
-      model[name + '_ll'](res.body.coordinate);
-      model[name + '_id'](res.body._id);
     }
   });
 };

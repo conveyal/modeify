@@ -1,7 +1,6 @@
 
 * {
   font-family: 'Open Sans', sans-serif;
-  color: #333;
   font-weight: light;
 }
 
@@ -39,4 +38,25 @@
 .btn-success,
 .btn-danger {
   color: #fff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #84909d;
+}
+
+select {
+  background: transparent;
+  border: none;
+  font-size: 17px;
+  color: #8ec449;
+  -webkit-appearance: none;
+  display: inline-block;
+  background: url(arrow.svg) no-repeat 8px 29px;
+  height: 34px;
+  text-align: center;
+}
+
+select:focus {
+  box-shadow: none;
+  outline: none;
 }

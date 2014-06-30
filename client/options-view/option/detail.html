@@ -7,5 +7,10 @@
   {{#segment}}
     <td class="detail-icon svg-icon-{{type}}" style="background-color: {{color}};"></td>
   {{/segment}}
+  {{#direction}}
+    <td class="detail-icon" style="background-color: {{color}}">
+      <i class="fa fa-arrow-circle-up fa-{{direction}}"></i>
+    </td>
+  {{/direction}}
   <td class="detail-description">{{{description}}}</td>
 </tr>

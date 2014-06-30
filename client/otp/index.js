@@ -1,7 +1,6 @@
 var config = require('config');
 var debug = require('debug')(config.application() + ':otp');
 var each = require('each');
-var jsonp = require('jsonp');
 var Profiler = require('otpprofiler.js');
 var request = require('request');
 var spin = require('spinner');
@@ -67,38 +66,15 @@ function process(data) {
   });
 
   each(options, function(option, index) {
-    // TODO: Remove laater
-    var addWalkTime = 0;
-    var removeSegment = [];
-
     option.id = 'option_' + index;
 
     each(option.segments, function(segment, i) {
-      // TODO: Fix on server side. Currently removing segments with a zero ride time
-      if (segment.rideStats.min === 0) {
-        debug('removing segment %s due to a 0 ride time', i);
-        addWalkTime = segment.walkTime;
-        removeSegment.push(i);
-        return;
-      }
-
-      // TODO: Remove
-      if (addWalkTime) {
-        segment.walkTime += addWalkTime;
-        addWalkTime = 0;
-      }
-
       segment.type = colors.indexOf(segment.routeShortName) === -1 ? 'bus' :
         'train';
 
       segment.fromName = format(segment.fromName);
       segment.routeShortName = format(segment.routeShortName);
       segment.toName = format(segment.toName);
-    });
-
-    // TODO: Remove
-    each(removeSegment, function(i) {
-      option.segments.splice(i, 1);
     });
 
     option.summary = format(option.summary);
@@ -131,30 +107,25 @@ function format(text) {
 }
 
 /**
+ * Words that get replaced
+ */
+
+var wordReplacementTable = {
+  'Mcpherson': 'McPherson',
+  'Pi': 'Pike',
+  'Sq': 'Square',
+  'Nw': 'NW',
+  'Ne': 'NE',
+  'Se': 'SE',
+  'Sw': 'SW',
+  'Noma': 'NoMA',
+  '(new': '(New'
+};
+
+/**
  * Word replacement
  */
 
 function word(w) {
-  switch (w) {
-    case 'Mcpherson':
-      return 'McPherson';
-    case 'Pi':
-      return 'Pike';
-    case 'Sq':
-      return 'Square';
-    case 'Nw':
-      return 'NW';
-    case 'Ne':
-      return 'NE';
-    case 'Se':
-      return 'SE';
-    case 'Sw':
-      return 'SW';
-    case 'Noma':
-      return 'NoMA';
-    case '(new':
-      return '(New';
-  }
-
-  return w;
+  return wordReplacementTable.hasOwnProperty(w) ? wordReplacementTable[w] : w;
 }

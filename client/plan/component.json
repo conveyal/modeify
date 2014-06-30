@@ -12,6 +12,7 @@
     "analytics",
     "config",
     "geocode",
+    "location",
     "journey",
     "otp",
     "session"

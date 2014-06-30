@@ -1,4 +1,5 @@
 var config = require('config');
+var d3 = require('d3');
 var debug = require('debug')(config.name() + ':transitive-view');
 var each = require('each');
 var Transitive = require('transitive');
@@ -24,7 +25,7 @@ var View = module.exports = view(require('./template.html'), function(view,
 View.prototype.display = function(patterns) {
   debug('--> displaying patterns');
 
-  this.el.innerHTML = '<div class="legend"></div>';
+  this.el.innerHTML = require('./legend.html');
 
   if (patterns.journeys && patterns.journeys.length > 0) {
     var transitive = window.transitive = new Transitive({
@@ -38,6 +39,19 @@ View.prototype.display = function(patterns) {
     });
     transitive.render();
   }
+
+  var el = this.el;
+  this.find('.zoom.in').onclick = function() {
+    var currentZoom = transitive.display.zoom.scale();
+    transitive.display.zoom.scale(currentZoom * 1.25);
+    transitive.display.zoom.event(d3.select('.Transitive'));
+  };
+
+  this.find('.zoom.out').onclick = function() {
+    var currentZoom = transitive.display.zoom.scale();
+    transitive.display.zoom.scale(currentZoom * 0.75);
+    transitive.display.zoom.event(d3.select('.Transitive'));
+  };
 
   debug('<-- done displaying patterns');
 };

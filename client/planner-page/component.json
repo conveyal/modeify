@@ -1,16 +1,22 @@
 {
   "name": "planner-page",
   "dependencies": {
-    "component/each": "0.2.3"
+    "component/each": "0.2.3",
+    "segmentio/overlay": "*",
+    "component/tip": "*",
+    "visionmedia/debug": "*",
+    "visionmedia/batch": "*"
   },
   "local": [
+    "config",
     "filter-view",
     "locations-view",
     "options-view",
     "planner-nav",
     "transitive-view",
     "session",
-    "view"
+    "view",
+    "welcome-page"
   ],
   "scripts": [
     "index.js"
@@ -19,7 +25,9 @@
     "style.css"
   ],
   "templates": [
-    "template.html"
+    "from-tip.html",
+    "template.html",
+    "to-tip.html"
   ],
   "images": [
     "reverse.svg"

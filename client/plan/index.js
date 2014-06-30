@@ -4,6 +4,7 @@ var debounce = require('debounce');
 var debug = require('debug')(config.name() + ':plan');
 var geocode = require('geocode');
 var Journey = require('journey');
+var Location = require('location');
 var defaults = require('model-defaults');
 var model = require('model');
 var otp = require('otp');
@@ -26,6 +27,7 @@ var MAX_PATTERNS = localStorage.getItem('max_patterns') || MAX_ROUTES;
 var Plan = module.exports = model('Plan')
   .use(defaults({
     bike: false,
+    bike_speed: 4.1,
     bus: false,
     car: false,
     days: 'M—F',
@@ -38,9 +40,11 @@ var Plan = module.exports = model('Plan')
     to_valid: false,
     train: false,
     walk: false,
+    walk_speed: 1.4,
     welcome_complete: false
   }))
   .attr('bike')
+  .attr('bike_speed')
   .attr('bus')
   .attr('car')
   .attr('days')
@@ -60,14 +64,15 @@ var Plan = module.exports = model('Plan')
   .attr('to_valid')
   .attr('train')
   .attr('walk')
+  .attr('walk_speed')
   .attr('welcome_complete');
 
 /**
  * Filters
  */
 
-var filters = ['bike', 'bus', 'train', 'car', 'walk', 'days',
-  'start_time', 'end_time', 'from_ll', 'to_ll'
+var filters = ['bike', 'bike_speed', 'bus', 'train', 'car', 'walk', 'days',
+  'start_time', 'end_time', 'from_ll', 'to_ll', 'walk_speed'
 ];
 
 /**
@@ -83,12 +88,14 @@ Plan.on('change', function(plan, name, val) {
       plan.updateRoutes();
     }
   } else if (plan.original_modes() && plan.from_valid() && plan.to_valid()) {
-    plan.attrs.bike = true;
-    plan.attrs.bus = true;
-    plan.attrs.car = false;
-    plan.attrs.train = true;
-    plan.attrs.walk = true;
-    plan.welcome_complete(true);
+    plan.attrs.welcome_complete = true;
+    plan.set({
+      bike: true,
+      bus: true,
+      car: true,
+      train: true,
+      walk: true
+    });
   }
 
   // Store in localStorage
@@ -156,88 +163,103 @@ Plan.load = function(ctx, next) {
  * Update routes. Restrict to once every 100ms.
  */
 
-Plan.prototype.updateRoutes = debounce(function(callback) {
+Plan.prototype.updateRoutes = debounce(function(opts, callback) {
+  opts = opts || {};
   callback = callback || function() {};
   debug('--> updating routes');
 
+  if (!this.validCoordinates()) {
+    if (!this.fromIsValid() && this.from().length > 0) this.geocode('from');
+    if (!this.toIsValid() && this.to().length > 0) this.geocode('to');
+    debug('<-- updating routes not completed: from/to ll does not exist');
+    return callback(new Error('Updating routes failed: from/to invalid.'));
+  }
+
   var plan = this;
-  var from = plan.from_ll();
-  var to = plan.to_ll();
-  var startTime = plan.start_time();
-  var endTime = plan.end_time();
-  var date = nextDate(plan.days());
+  var from = opts.from || this.from_ll();
+  var to = opts.to || this.to_ll();
+  var startTime = this.start_time();
+  var endTime = this.end_time();
+  var date = nextDate(this.days());
+  var modes = opts.modes || this.modesCSV();
+  var bikeSpeed = this.bike_speed();
+  var walkSpeed = this.walk_speed();
 
   // Do a minimum 2 hour window
-  if (startTime === 0) startTime += ':00';
-  else startTime = (startTime - 1) + ':30';
-
-  if (endTime === 24) endTime = '23:59';
-  else endTime += ':30';
+  startTime = startTime === 0
+    ? startTime += ':00'
+    : (startTime - 1) + ':30';
+  endTime = endTime === 24
+    ? '23:59'
+    : endTime + ':30';
 
   // Pattern options
   var options = {
     from: {
       lat: from.lat,
       lon: from.lng,
-      name: 'Home'
+      name: 'From'
     },
     to: {
       lat: to.lat,
       lon: to.lng,
-      name: 'Work'
+      name: 'To'
     },
     routes: DEFAULT_ROUTES
   };
 
-  if (plan.validCoordinates()) {
-    debug('--- updating routes from %s to %s on %s between %s and %s',
-      from, to, date, startTime, endTime);
-    otp.profile({
-      from: options.from,
-      to: options.to,
-      startTime: startTime,
-      endTime: endTime,
-      date: date,
-      orderBy: 'AVG',
-      limit: MAX_ROUTES,
-      modes: plan.modesCSV()
-    }, function(err, data) {
-      if (err) {
-        plan.emit('error', err);
-        debug(err);
-        callback(err);
-      } else if (data.options.length < 1) {
-        window.alert('No trips found for route between ' + plan.from() +
-          ' and ' + plan.to() +
-          ' at the requested hours!\n\nIf the trip takes longer than the given time window, it will not display any results.'
-        );
-        plan.routes(null);
-        plan.patterns(null);
-      } else {
-        debug('<-- updated routes');
-        plan.routes(data.options);
+  debug('--- updating routes from %s to %s on %s between %s and %s', from, to, date, startTime, endTime);
+  otp.profile({
+    bikeSpeed: bikeSpeed,
+    from: options.from,
+    to: options.to,
+    startTime: startTime,
+    endTime: endTime,
+    date: date,
+    orderBy: 'AVG',
+    limit: MAX_ROUTES,
+    modes: modes,
+    walkSpeed: walkSpeed
+  }, function(err, data) {
+    if (err) {
+      plan.emit('error', err);
+      debug(err);
+      callback(err);
+    } else if (data.options.length < 1) {
+      window.alert('No trips found for route between ' + plan.from() + ' and ' + plan.to() + ' at the requested hours!\n\nIf the trip takes longer than the given time window, it will not display any results.'
+      );
+      plan.routes(null);
+      plan.patterns(null);
+    } else {
+      debug('<-- updated routes');
+      plan.routes(data.options);
 
-        // Add the profile to the options
-        options.profile = data;
+      // Add the profile to the options
+      options.profile = data;
 
-        // get the patterns
-        otp.patterns(options, function(err, patterns) {
-          if (err) {
-            debug(err);
-            callback(err);
-          } else {
-            plan.patterns(patterns);
-            callback();
-          }
-        });
-      }
-    });
-  } else {
-    if (!plan.fromIsValid() && plan.from().length > 0) plan.geocode('from');
-    if (!plan.toIsValid() && plan.to().length > 0) plan.geocode('to');
-    debug('<-- updating routes not completed: from/to ll does not exist');
-  }
+      // update the patterns
+      plan.updatePatterns(options, callback);
+    }
+  });
 }, 25);
+
+/**
+ * Update Patterns
+ */
+
+Plan.prototype.updatePatterns = function(options, callback) {
+  var plan = this;
+  // get the patterns
+  otp.patterns(options, function(err, patterns) {
+    if (err) {
+      debug(err);
+      callback(err);
+    } else {
+      plan.patterns(patterns);
+      callback(null, patterns);
+    }
+  });
+};
 
 /**
  * Geocode
@@ -336,6 +358,34 @@ Plan.prototype.clearStore = function() {
 
 Plan.prototype.validCoordinates = function() {
   return this.fromIsValid() && this.toIsValid();
+};
+
+/**
+ * Set Address
+ */
+
+Plan.prototype.setAddress = function(name, address, callback) {
+  callback = callback || function(){}; // noop callback
+
+  var plan = this;
+  var location = new Location({
+    address: address
+  });
+
+  location.save(function(err, res) {
+    if (err) {
+      callback(err);
+    } else {
+      var changes = {};
+      changes[name] = address;
+      changes[name + '_ll'] = res.body.coordinate;
+      changes[name + '_id'] = res.body._id;
+      changes[name + '_valid'] = true;
+
+      plan.set(changes);
+      callback(null, res.body);
+    }
+  });
 };
 
 /**

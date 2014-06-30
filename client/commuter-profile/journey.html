@@ -1,7 +1,5 @@
-<li class="clearfix journey">
-  <a href="#" on-click="load">
-    <div><i class="fa fa-fw fa-dot-circle-o from"></i> <span data-text="from"></span></div>
-    <div><i class="fa fa-fw fa-map-marker to"></i> <span data-text="to"></span></div>
-  </a>
-  <a class="pull-right btn btn-danger" href="#" on-click="destroy">&times;</a>
+<li class="journey" on-click="load">
+  <button class="btn btn-danger" on-click="destroy">&times;</button>
+  <div><i class="fa fa-fw fa-dot-circle-o from"></i> {from}</div>
+  <div><i class="fa fa-fw fa-map-marker to"></i> {to}</div>
 </li>

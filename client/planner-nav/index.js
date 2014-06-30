@@ -33,27 +33,12 @@ View.prototype.logout = function() {
 };
 
 /**
- * Save journey
- */
-
-View.prototype.saveJourney = function(e) {
-  var plan = this.model.plan();
-  plan.saveJourney(function(err) {
-    if (err) {
-      debug(err);
-      window.alert('Failed to save journey.\n' + err);
-    } else {
-      window.alert('Saved journey successfully');
-    }
-  });
-};
-
-/**
  * Show Profile
  */
 
 View.prototype.showProfile = function() {
   var commuter = this.model.commuter();
+  var plan = this.model.plan();
   var spinner = spin();
   Journey.all(function(err, journeys) {
     if (err) {
@@ -62,7 +47,8 @@ View.prototype.showProfile = function() {
     } else {
       var profile = new Profile({
         commuter: commuter,
-        journeys: journeys
+        journeys: journeys,
+        plan: plan
       });
       profile.show(function() {
         spinner.stop();

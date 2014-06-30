@@ -10,6 +10,7 @@
 
 .graphical-options .simple .summary {
   width: 100%;
+  padding-bottom: 10px;
 }
 
 .graphical-options .simple .expand {
@@ -23,11 +24,21 @@
 
 .graphical-options .simple .minutes {
   font-size: 16px;
-  padding-left: 10px;
+  margin-left: 10px;
+  position: relative;
+  display: inline-block;
+  height: 44px;
 }
 
 .graphical-options .simple .minutes strong {
   font-size: 22px;
+}
+
+.graphical-options .simple .minutes .subheading {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: #84909d;
 }
 
 .graphical-options .simple .fare {
@@ -47,7 +58,6 @@
 .graphical-options .simple .segment {
   display: inline-block;
   height: 100%;
-  background-color: #5ae3f9;
   color: #fff;
   float: left;
 }
@@ -84,7 +94,7 @@
   font-size: 26px;
   text-align: center;
   vertical-align: middle;
-  color: #fff;
+  color: #333;
   height: 75px;
   background-size: 95%;
   background-repeat: no-repeat;
@@ -102,11 +112,47 @@
 }
 
 .graphical-options .details .detail-address .detail-description {
-  font-family: 'Oswald', sans-serif;
   color: #8ec449;
   vertical-align: middle;
 }
 
 .graphical-options .details .detail-address .detail-icon {
   background-color: transparent;
+}
+
+.graphical-options .simple .minutes .pollution {
+  color: #e21836;
+}
+
+.graphical-options .simple .minutes .pollution-offset {
+  color: #8ec449;
+}
+
+.fa-north {}
+.fa-northeast {
+  transform: rotate(45deg);
+}
+
+.fa-east {
+  transform: rotate(90deg);
+}
+
+.fa-southeast {
+  transform: rotate(135deg);
+}
+
+.fa-south {
+  transform: rotate(180deg);
+}
+
+.fa-southwest {
+  transform: rotate(215deg);
+}
+
+.fa-west {
+  transform: rotate(270deg);
+}
+
+.fa-northwest {
+  transform: rotate(315deg);
 }

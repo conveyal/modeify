@@ -38,3 +38,19 @@
   background-image: url(images/Search.svg);
 }
 
+.svg-icon-cruiser {
+  background-image: url(images/cruiser.svg);
+}
+
+.svg-icon-racer {
+  background-image: url(images/racer.svg);
+}
+
+.svg-icon-speedwalker {
+  background-image: url(images/speedwalker.svg);
+}
+
+.svg-icon-stroller {
+  background-image: url(images/stroller.svg);
+}
+

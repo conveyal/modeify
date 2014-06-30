@@ -1,6 +1,7 @@
 {
   "name": "geocode",
   "dependencies": {
+    "learnboost/jsonp": "*",
     "visionmedia/debug": "*"
   },
   "local": [
