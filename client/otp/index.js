@@ -1,16 +1,9 @@
 var config = require('config');
 var debug = require('debug')(config.application() + ':otp');
-var each = require('each');
+var process = require('./process');
 var Profiler = require('otpprofiler.js');
 var request = require('request');
 var spin = require('spinner');
-var toCapitalCase = require('to-capital-case');
-
-/**
- * Metro Colors
- */
-
-var colors = ['Blue', 'Green', 'Orange', 'Red', 'Yellow'];
 
 /**
  * Create profiler
@@ -51,81 +44,3 @@ module.exports.patterns = function(opts, callback) {
     callback(err, data);
   });
 };
-
-/**
- * Post process profile data
- */
-
-function process(data) {
-  var options = data.options;
-  var numOptions = data.options.length;
-
-  // Sort by avg time
-  options.sort(function(a, b) {
-    return a.stats.avg - b.stats.avg;
-  });
-
-  each(options, function(option, index) {
-    option.id = 'option_' + index;
-
-    each(option.segments, function(segment, i) {
-      segment.type = colors.indexOf(segment.routeShortName) === -1 ? 'bus' :
-        'train';
-
-      segment.fromName = format(segment.fromName);
-      segment.routeShortName = format(segment.routeShortName);
-      segment.toName = format(segment.toName);
-    });
-
-    option.summary = format(option.summary);
-  });
-
-  return data;
-}
-
-/**
- * Format text
- */
-
-function format(text) {
-  if (!text) return;
-
-  // remove metro station
-  text = text.replace('METRO STATION', '');
-
-  // remove hypens
-  text = text.replace(/-/g, ' ');
-
-  // capitalize correctly
-  text = toCapitalCase(text);
-
-  // replace 'Dc*' with 'DC*'
-  text = text.replace('Dc', 'DC');
-
-  // process individual words
-  return text.split(' ').map(word).join(' ');
-}
-
-/**
- * Words that get replaced
- */
-
-var wordReplacementTable = {
-  'Mcpherson': 'McPherson',
-  'Pi': 'Pike',
-  'Sq': 'Square',
-  'Nw': 'NW',
-  'Ne': 'NE',
-  'Se': 'SE',
-  'Sw': 'SW',
-  'Noma': 'NoMA',
-  '(new': '(New'
-};
-
-/**
- * Word replacement
- */
-
-function word(w) {
-  return wordReplacementTable.hasOwnProperty(w) ? wordReplacementTable[w] : w;
-}

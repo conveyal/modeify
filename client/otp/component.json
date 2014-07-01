@@ -8,11 +8,14 @@
   },
   "local": [
     "config",
+    "convert",
     "geocode",
     "request",
     "spinner"
   ],
   "scripts": [
-    "index.js"
+    "index.js",
+    "process.js",
+    "score.js"
   ]
 }
