@@ -25,7 +25,12 @@ var View = module.exports = view(require('./template.html'), function(view,
   model) {
   d3.select(view.el)
     .on('mouseover', function() {
-      window.transitive.focusJourney(model.id);
+      console.log(model.mode);
+      if (model.mode === 'bus' || model.mode === 'subway' || model.mode === 'train') {
+        window.transitive.focusJourney(model.id);
+      } else {
+        window.transitive.focusJourney();
+      }
     });
 });
 

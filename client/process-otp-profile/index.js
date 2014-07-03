@@ -135,7 +135,7 @@ ProcessProfile.prototype.tally = function(o) {
   o.emissions = o.totalDistance / this.factor.mpg * CO2_PER_GALLON;
 
   // Set the primary mode
-  o.mode = o.summary
+  o.mode = o.summary.length < 8
     ? o.summary.toLowerCase()
     : primaryMode(o);
 
