@@ -7,18 +7,10 @@ var Journey = require('journey');
 var Location = require('location');
 var defaults = require('model-defaults');
 var model = require('model');
-var otp = require('otp');
-var session = require('session');
-var store = require('store');
 
-var DEFAULT_ROUTES = require('./routes');
-
-/**
- * Max routes & patterns to show
- */
-
-var MAX_ROUTES = localStorage.getItem('max_routes') || 3;
-var MAX_PATTERNS = localStorage.getItem('max_patterns') || MAX_ROUTES;
+var loadPlan = require('./load');
+var store = require('./store');
+var updateRoutes = require('./update-routes');
 
 /**
  * Expose `Plan`
@@ -67,6 +59,14 @@ var Plan = module.exports = model('Plan')
   .attr('welcome_complete');
 
 /**
+ * Expose `load`
+ */
+
+module.exports.load = function(ctx, next) {
+  loadPlan(Plan, ctx, next);
+};
+
+/**
  * Filters
  */
 
@@ -97,8 +97,11 @@ Plan.on('change', function(plan, name, val) {
     });
   }
 
-  // Store in localStorage
-  if (name !== 'routes' && name !== 'patterns') plan.store(name, val);
+  // Store in localStorage & track the change
+  if (name !== 'routes' && name !== 'patterns') {
+    plan.store();
+    analytics.track('plan.' + name + ' changed', val);
+  }
 });
 
 /**
@@ -114,151 +117,12 @@ Plan.on('change end_time', function(plan, val, prev) {
 });
 
 /**
- * Load plan middleware
- */
-
-Plan.load = function(ctx, next) {
-  var plan = session.plan();
-  if (!plan) {
-    debug('loading plan at %s', ctx.path);
-
-    // check if we have a stored plan
-    var opts = store('plan') || {};
-    if (session.isLoggedIn() && session.commuter()) {
-      var commuter = session.commuter();
-      debug('loading plan for logged in commuter %s', commuter._id());
-
-      // if the stored plan is not the logged in commuters, change
-      if (opts._commuter !== commuter._id()) {
-        debug('load plan from the commuter instead of localStorage');
-
-        opts = commuter.opts();
-        var org = commuter._organization();
-
-        opts.from = commuter.fullAddress() || opts.from;
-        opts.from_ll = commuter.coordinate() || opts.from_ll;
-
-        // if there is an organization attached to this commuter
-        if (org && org.model) {
-          opts.to = org.fullAddress();
-          opts.to_ll = org.coordinate();
-        }
-      }
-    }
-
-    // remove stored patterns & routes
-    delete opts.patterns;
-    delete opts.routes;
-
-    plan = new Plan(opts);
-    session.plan(plan);
-  }
-
-  ctx.plan = plan;
-  next();
-};
-
-/**
- * Update routes. Restrict to once every 100ms.
+ * Update routes. Restrict to once every 25ms.
  */
 
 Plan.prototype.updateRoutes = debounce(function(opts, callback) {
-  opts = opts || {};
-  callback = callback || function() {};
-  debug('--> updating routes');
-
-  if (!this.validCoordinates()) {
-    if (!this.fromIsValid() && this.from().length > 0) this.geocode('from');
-    if (!this.toIsValid() && this.to().length > 0) this.geocode('to');
-    debug('<-- updating routes not completed: from/to ll does not exist');
-    return callback(new Error('Updating routes failed: from/to invalid.'));
-  }
-
-  var plan = this;
-  var from = opts.from || this.from_ll();
-  var to = opts.to || this.to_ll();
-  var startTime = this.start_time();
-  var endTime = this.end_time();
-  var date = nextDate(this.days());
-  var modes = opts.modes || this.modesCSV();
-  var bikeSpeed = this.bike_speed();
-  var walkSpeed = this.walk_speed();
-
-  // Do a minimum 2 hour window
-  startTime = startTime === 0
-    ? startTime += ':00'
-    : (startTime - 1) + ':30';
-  endTime = endTime === 24
-    ? '23:59'
-    : endTime + ':30';
-
-  // Pattern options
-  var options = {
-    from: {
-      lat: from.lat,
-      lon: from.lng,
-      name: 'From'
-    },
-    to: {
-      lat: to.lat,
-      lon: to.lng,
-      name: 'To'
-    },
-    routes: DEFAULT_ROUTES
-  };
-
-  debug('--- updating routes from %s to %s on %s between %s and %s', from, to, date, startTime, endTime);
-  otp.profile({
-    bikeSpeed: bikeSpeed,
-    from: options.from,
-    to: options.to,
-    startTime: startTime,
-    endTime: endTime,
-    date: date,
-    orderBy: 'AVG',
-    limit: MAX_ROUTES,
-    modes: modes,
-    walkSpeed: walkSpeed
-  }, function(err, data) {
-    if (err) {
-      plan.emit('error', err);
-      debug(err);
-      callback(err);
-    } else if (data.options.length < 1) {
-      window.alert('No trips found for route between ' + plan.from() + ' and ' + plan.to() + ' at the requested hours!\n\nIf the trip takes longer than the given time window, it will not display any results.'
-      );
-      plan.routes(null);
-      plan.patterns(null);
-    } else {
-      debug('<-- updated routes');
-      plan.routes(data.options);
-
-      // Add the profile to the options
-      options.profile = data;
-
-      // update the patterns
-      plan.updatePatterns(options, callback);
-    }
-  });
+  updateRoutes(this, opts, callback);
 }, 25);
-
-/**
- * Update Patterns
- */
-
-Plan.prototype.updatePatterns = function(options, callback) {
-  var plan = this;
-  // get the patterns
-  otp.patterns(options, function(err, patterns) {
-    if (err) {
-      debug(err);
-      callback(err);
-    } else {
-      plan.patterns(patterns);
-      callback(null, patterns);
-    }
-  });
-};
 
 /**
  * Geocode
@@ -310,45 +174,6 @@ Plan.prototype.saveJourney = function(callback) {
 
   // Save
   journey.save(callback);
-};
-
-/**
- * Store in localStorage. Restrict this I/O to once every 25ms.
- */
-
-Plan.prototype.store = debounce(function(name) {
-  debug('--> storing plan');
-
-  // convert to "JSON", remove routes & patterns
-  var json = {};
-  for (var key in this.attrs) {
-    if (key === 'routes' || key === 'patterns') continue;
-    json[key] = this.attrs[key];
-  }
-
-  // if we've created a commuter object, save to the commuter
-  var commuter = session.commuter();
-  if (commuter) {
-    json._commuter = commuter._id();
-    commuter.opts(json);
-    commuter.save();
-  }
-
-  // save in local storage
-  store('plan', json);
-
-  // track the change
-  analytics.track('plan.' + name + ' changed', json);
-
-  debug('<-- stored plan');
-}, 25);
-
-/**
- * Clear localStorage
- */
-
-Plan.prototype.clearStore = function() {
-  store('plan', null);
 };
 
 /**
@@ -423,24 +248,15 @@ Plan.prototype.modesCSV = function() {
 };
 
 /**
- * Get next date for day of the week
+ * Store in localStorage. Restrict this I/O to once every 25ms.
  */
 
-function nextDate(dayType) {
-  var now = new Date();
-  var date = now.getDate();
-  var dayOfTheWeek = now.getDay();
-  switch (dayType) {
-    case 'M—F':
-      if (dayOfTheWeek === 0) now.setDate(date + 1);
-      if (dayOfTheWeek === 6) now.setDate(date + 2);
-      break;
-    case 'Sat':
-      now.setDate(date + (6 - dayOfTheWeek));
-      break;
-    case 'Sun':
-      now.setDate(date + (7 - dayOfTheWeek));
-      break;
-  }
-  return now.toISOString().split('T')[0];
-}
+Plan.prototype.store = debounce(function() {
+  store(this);
+}, 25);
+
+/**
+ * Clear localStorage
+ */
+
+Plan.prototype.clearStore = store.clear;

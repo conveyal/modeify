@@ -1,0 +1,9 @@
+{
+  "name": "format-otp-profile",
+  "dependencies": {
+    "ianstormtaylor/to-capital-case": "0.1.1"
+  },
+  "scripts": [
+    "index.js"
+  ]
+}

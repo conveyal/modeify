@@ -11,14 +11,19 @@
   "local": [
     "analytics",
     "config",
+    "format-otp-profile",
     "geocode",
     "location",
+    "process-otp-profile",
     "journey",
     "otp",
     "session"
   ],
   "scripts": [
     "index.js",
-    "routes.js"
+    "load.js",
+    "routes.js",
+    "store.js",
+    "update-routes.js"
   ]
 }

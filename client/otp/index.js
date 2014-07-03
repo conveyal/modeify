@@ -1,6 +1,5 @@
 var config = require('config');
 var debug = require('debug')(config.application() + ':otp');
-var process = require('./process');
 var Profiler = require('otpprofiler.js');
 var request = require('request');
 var spin = require('spinner');
@@ -29,7 +28,7 @@ module.exports.profile = function(query, callback) {
 
     debug('<-- profiled %s options', data.options.length);
     spinner.remove();
-    callback(err, process(data));
+    callback(err, data);
   });
 };
 

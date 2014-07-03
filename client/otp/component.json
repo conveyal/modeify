@@ -1,21 +1,15 @@
 {
   "name": "otp",
   "dependencies": {
-    "component/each": "0.2.3",
     "conveyal/otpprofiler.js": "*",
-    "ianstormtaylor/to-capital-case": "0.1.1",
     "visionmedia/debug": "*"
   },
   "local": [
     "config",
-    "convert",
-    "geocode",
     "request",
     "spinner"
   ],
   "scripts": [
-    "index.js",
-    "process.js",
-    "score.js"
+    "index.js"
   ]
 }

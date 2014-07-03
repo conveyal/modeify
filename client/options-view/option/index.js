@@ -57,7 +57,7 @@ View.prototype.segments = function() {
     if (segment.walkTime !== 0) {
       addDetail({
         description: 'Walk ' + Math.round(segment.walkTime / 60) + ' mins',
-        type: 'pedestrian',
+        type: 'walk',
         segment: true
       });
 
@@ -202,8 +202,8 @@ View.prototype.fare = function() {
  */
 
 View.prototype.pollution = function() {
-  if (this.model.summary !== 'Car') return false;
-  return CO2 * (MPG / this.distance()) | 0;
+  if (this.model.mode !== 'car') return false;
+  return this.model.emissions | 0;
 };
 
 /**
@@ -211,8 +211,8 @@ View.prototype.pollution = function() {
  */
 
 View.prototype.pollutionOffset = function() {
-  if (this.model.summary !== 'Bicycle' && this.model.summary !== 'Walk') return false;
-  return CO2 * (MPG / this.distance()) | 0;
+  if (this.model.mode !== 'bicycle' && this.model.mode !== 'walk') return false;
+  return this.model.emissions | 0;
 };
 
 /**
