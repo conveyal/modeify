@@ -189,7 +189,7 @@ Plan.prototype.validCoordinates = function() {
  */
 
 Plan.prototype.setAddress = function(name, address, callback) {
-  callback = callback || function(){}; // noop callback
+  callback = callback || function() {}; // noop callback
 
   // Don't set if they're the same
   if (toLowerCase(this[name]()) === toLowerCase(address)) return callback();
@@ -220,9 +220,7 @@ Plan.prototype.setAddress = function(name, address, callback) {
  */
 
 function toLowerCase(s) {
-  return s
-    ? s.toLowerCase()
-    : '';
+  return s ? s.toLowerCase() : '';
 }
 
 /**

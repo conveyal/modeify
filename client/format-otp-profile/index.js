@@ -1,4 +1,3 @@
-
 var toCapitalCase = require('to-capital-case');
 
 /**
@@ -62,7 +61,7 @@ function format(text) {
 
   text = text
     .replace('METRO STATION', '') // remove metro station
-    .replace(/-/g, ' '); // remove hypens
+  .replace(/-/g, ' '); // remove hypens
 
   // capitalize correctly
   text = toCapitalCase(text);

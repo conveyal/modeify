@@ -15,7 +15,8 @@ var View = module.exports = view(require('./template.html'), function(view,
   model) {
   d3.select(view.el)
     .on('mouseover', function() {
-      if (model.mode === 'bus' || model.mode === 'subway' || model.mode === 'train') {
+      if (model.mode === 'bus' || model.mode === 'subway' || model.mode ===
+        'train') {
         window.transitive.focusJourney(model.id);
       } else {
         window.transitive.focusJourney();
@@ -111,7 +112,8 @@ View.prototype.segments = function() {
  */
 
 function ndescription(a, dir, dis, st) {
-  return a + ' ' + dir + ' on ' + st + ' for ' + convert.metersToMiles(dis) + ' mile(s)';
+  return a + ' ' + dir + ' on ' + st + ' for ' + convert.metersToMiles(dis) +
+    ' mile(s)';
 }
 
 /**
@@ -123,14 +125,15 @@ View.prototype.narrativeDirections = function(type, action) {
 
   // Add initial narrative step
   var narrative = detail.render({
-    description: ndescription(action, steps[0].absoluteDirection.toLowerCase(), steps[0].distance, steps[0].streetName),
+    description: ndescription(action, steps[0].absoluteDirection.toLowerCase(),
+      steps[0].distance, steps[0].streetName),
     segment: true,
     type: type
   });
 
   var iconDirection = 'east';
   for (var i = 1; i < steps.length; i++) {
-    switch(steps[i].relativeDirection) {
+    switch (steps[i].relativeDirection) {
       case 'RIGHT':
         iconDirection = 'east';
         break;
@@ -149,7 +152,9 @@ View.prototype.narrativeDirections = function(type, action) {
     }
 
     narrative += detail.render({
-      description: toSentenceCase(steps[i].relativeDirection) + ' on ' + steps[i].streetName + ' for ' + convert.metersToMiles(steps[i].distance) + ' mile(s)',
+      description: toSentenceCase(steps[i].relativeDirection) + ' on ' +
+        steps[i].streetName + ' for ' + convert.metersToMiles(steps[i].distance) +
+        ' mile(s)',
       direction: iconDirection
     });
   }
@@ -187,9 +192,7 @@ View.prototype.fare = function() {
  */
 
 View.prototype.pollution = function() {
-  return this.model.mode === 'car'
-    ? this.model.emissions | 0
-    : false;
+  return this.model.mode === 'car' ? this.model.emissions | 0 : false;
 };
 
 /**
@@ -197,9 +200,8 @@ View.prototype.pollution = function() {
  */
 
 View.prototype.pollutionOffset = function() {
-  return this.model.mode === 'bicycle' || this.model.mode === 'walk'
-    ? this.model.emissions | 0
-    : false;
+  return this.model.mode === 'bicycle' || this.model.mode === 'walk' ? this.model
+    .emissions | 0 : false;
 };
 
 /**

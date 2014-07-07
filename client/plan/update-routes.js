@@ -52,9 +52,7 @@ function updateRoutes(plan, opts, callback) {
 
   // Convert the hours into strings
   startTime += ':00';
-  endTime += endTime === 24
-    ? ':59'
-    : ':00';
+  endTime += endTime === 24 ? ':59' : ':00';
 
   // Pattern options
   var options = {
@@ -71,7 +69,8 @@ function updateRoutes(plan, opts, callback) {
     routes: DEFAULT_ROUTES
   };
 
-  debug('--- updating routes from %s to %s on %s between %s and %s', from, to, date, startTime, endTime);
+  debug('--- updating routes from %s to %s on %s between %s and %s', from, to,
+    date, startTime, endTime);
   otp.profile({
     bikeSpeed: plan.bike_speed(),
     from: options.from,
@@ -91,7 +90,9 @@ function updateRoutes(plan, opts, callback) {
     } else if (data.options.length < 1) {
       plan.routes(null);
       plan.patterns(null);
-      callback('No trips found for route between ' + plan.from() + ' and ' + plan.to() + ' at the requested hours!\n\nIf the trip takes longer than the given time window, it will not display any results.'
+      callback('No trips found for route between ' + plan.from() + ' and ' +
+        plan.to() +
+        ' at the requested hours!\n\nIf the trip takes longer than the given time window, it will not display any results.'
       );
     } else {
       // Process & format the results

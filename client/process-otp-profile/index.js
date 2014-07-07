@@ -1,4 +1,3 @@
-
 var d3 = require('d3');
 
 /**
@@ -14,8 +13,8 @@ var MINUTE = 60;
  */
 
 var scaleCalories = d3.scale.linear()
-  .domain([ 0, 100, 200 ])
-  .range([ 0, 1, 0 ]);
+  .domain([0, 100, 200])
+  .range([0, 1, 0]);
 
 /**
  * Default factor values
@@ -89,7 +88,7 @@ ProcessProfile.prototype.processOption = function(o) {
 ProcessProfile.prototype.score = function(o) {
   var score = o.time;
 
-  switch(o.mode) {
+  switch (o.mode) {
     case 'car':
       // Add time for parking
       score += this.factor.carParking;
@@ -136,11 +135,9 @@ ProcessProfile.prototype.tally = function(o) {
   o.emissions = this.factor.mpg / o.totalDistance * CO2_PER_GALLON;
 
   // Set the primary mode
-  o.mode = o.summary.length < 8
-    ? o.summary.toLowerCase()
-    : primaryMode(o);
+  o.mode = o.summary.length < 8 ? o.summary.toLowerCase() : primaryMode(o);
 
-  switch(o.mode) {
+  switch (o.mode) {
     case 'car':
       o.totalCost += this.factor.mileageRate * o.totalDistance;
       break;
