@@ -1,6 +1,7 @@
 {
   "name": "locations-view",
   "dependencies": {
+    "component/closest": "*",
     "visionmedia/debug": "*"
   },
   "local": [

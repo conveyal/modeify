@@ -53,13 +53,6 @@ module.exports = function(ctx, next) {
     if (!plan.routes() || !plan.patterns() && plan.welcome_complete()) plan.updateRoutes();
   });
 
-  ctx.view.reactive.bind('autosubmit', function(el) {
-    el.onsubmit = function(e) {
-      e.preventDefault();
-      plan.updateRoutes();
-    };
-  });
-
   // Show the welcome page if welcome complete isn't done
   if (!plan.welcome_complete()) {
     // Initialize the default locations
@@ -67,9 +60,11 @@ module.exports = function(ctx, next) {
     batch.push(function(done) {
       plan.setAddress('from', FROM, done);
     });
+
     batch.push(function(done) {
       plan.setAddress('to', TO, done);
     });
+
     batch.end(function(err) {
       if (!err) plan.updateRoutes({
         modes: 'BICYCLE,WALK,TRAINISH,BUS,CAR'

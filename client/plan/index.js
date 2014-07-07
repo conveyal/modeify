@@ -191,6 +191,9 @@ Plan.prototype.validCoordinates = function() {
 Plan.prototype.setAddress = function(name, address, callback) {
   callback = callback || function(){}; // noop callback
 
+  // Don't set if they're the same
+  if (toLowerCase(this[name]()) === toLowerCase(address)) return callback();
+
   var plan = this;
   var location = new Location({
     address: address
@@ -211,6 +214,16 @@ Plan.prototype.setAddress = function(name, address, callback) {
     }
   });
 };
+
+/**
+ * To Lower Case
+ */
+
+function toLowerCase(s) {
+  return s
+    ? s.toLowerCase()
+    : '';
+}
 
 /**
  * From is valid
