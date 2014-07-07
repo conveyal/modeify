@@ -1,7 +1,6 @@
 var config = require('config');
 var debug = require('debug')(config.name() + ':welcome-page');
 var modal = require('modal');
-var spin = require('spinner');
 var view = require('view');
 
 /**
@@ -33,7 +32,6 @@ View.prototype.save = function(e) {
   debug('--> saving');
 
   var plan = this.model;
-  var spinner = spin();
   var modes = [this.mode('bike'), this.mode('bus'), this.mode('train'), this.mode(
     'car'), this.mode('walk')];
 
@@ -43,9 +41,7 @@ View.prototype.save = function(e) {
     window.alert('Please select at least one option.');
   } else {
     plan.original_modes(modes);
-
     debug('<-- saved');
-    spinner.remove();
 
     this.hide();
   }

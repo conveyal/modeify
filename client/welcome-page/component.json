@@ -6,7 +6,6 @@
   },
   "local": [
     "config",
-    "spinner",
     "svg-icons",
     "view"
   ],

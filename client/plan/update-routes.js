@@ -48,7 +48,7 @@ function updateRoutes(plan, opts, callback) {
   var modes = opts.modes || plan.modesCSV();
 
   // Set the process profile time window
-  processProfile.settings.timeWindow = endTime - startTime;
+  processProfile.settings.timeWindow = (endTime - startTime) * 60;
 
   // Convert the hours into strings
   startTime += ':00';

@@ -187,8 +187,9 @@ View.prototype.fare = function() {
  */
 
 View.prototype.pollution = function() {
-  if (this.model.mode !== 'car') return false;
-  return this.model.emissions | 0;
+  return this.model.mode === 'car'
+    ? this.model.emissions | 0
+    : false;
 };
 
 /**
@@ -196,8 +197,9 @@ View.prototype.pollution = function() {
  */
 
 View.prototype.pollutionOffset = function() {
-  if (this.model.mode !== 'bicycle' && this.model.mode !== 'walk') return false;
-  return this.model.emissions | 0;
+  return this.model.mode === 'bicycle' || this.model.mode === 'walk'
+    ? this.model.emissions | 0
+    : false;
 };
 
 /**
@@ -233,7 +235,6 @@ View.prototype.showHide = function() {
  */
 
 View.prototype.frequency = function() {
-  if (!this.model.segments || this.model.segments.length === 0) return false;
   return Math.round(this.model.frequency);
 };
 
