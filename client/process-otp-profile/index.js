@@ -26,6 +26,7 @@ var DEFAULT_FACTORS = {
   calsBiking: 10,
   calsWalking: 4.4,
   carParking: 5,
+  carParkingCost: 10,
   co2: 0.5,
   cost: 5,
   mileageRate: 0.56, // IRS reimbursement rate per mile http://www.irs.gov/2014-Standard-Mileage-Rates-for-Business,-Medical-and-Moving-Announced
@@ -139,7 +140,7 @@ ProcessProfile.prototype.tally = function(o) {
 
   switch (o.mode) {
     case 'car':
-      o.totalCost += this.factor.mileageRate * o.totalDistance;
+      o.totalCost += this.factor.mileageRate * o.totalDistance + this.factor.carParkingCost;
       break;
     case 'bicycle':
       o.calories = this.factor.calsBiking * o.time;

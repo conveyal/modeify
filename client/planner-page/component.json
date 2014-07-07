@@ -2,6 +2,7 @@
   "name": "planner-page",
   "dependencies": {
     "component/each": "0.2.3",
+    "component/querystring": "*",
     "segmentio/overlay": "*",
     "component/tip": "*",
     "visionmedia/debug": "*",

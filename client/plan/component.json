@@ -5,6 +5,7 @@
     "component/each": "0.2.3",
     "component/model": "*",
     "segmentio/model-defaults": "0.2.0",
+    "visionmedia/batch": "*",
     "visionmedia/debug": "*",
     "yields/store": "0.2.0"
   },

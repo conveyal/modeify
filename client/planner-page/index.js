@@ -7,6 +7,7 @@ var LocationsView = require('locations-view');
 var OptionsView = require('options-view');
 var Overlay = require('overlay');
 var PlannerNav = require('planner-nav');
+var querystring = require('querystring');
 var Tip = require('tip');
 var session = require('session');
 var TransitiveView = require('transitive-view');
@@ -53,19 +54,12 @@ module.exports = function(ctx, next) {
     if (!plan.routes() || !plan.patterns() && plan.welcome_complete()) plan.updateRoutes();
   });
 
+  // Get the locations from the querystring
+  var locations = querystring.parse(window.location.search);
+
   // Show the welcome page if welcome complete isn't done
   if (!plan.welcome_complete()) {
-    // Initialize the default locations
-    var batch = new Batch();
-    batch.push(function(done) {
-      plan.setAddress('from', FROM, done);
-    });
-
-    batch.push(function(done) {
-      plan.setAddress('to', TO, done);
-    });
-
-    batch.end(function(err) {
+    plan.setAddresses(locations.from || FROM, locations.to || TO, function(err) {
       if (!err) plan.updateRoutes({
         modes: 'BICYCLE,WALK,TRAINISH,BUS,CAR'
       });
@@ -101,6 +95,10 @@ module.exports = function(ctx, next) {
           plan.updateRoutes();
         };
       });
+    });
+  } else if (locations.to && locations.from) {
+    plan.setAddresses(locations.to, locations.from, function(err) {
+      if (err) debug(err);
     });
   }
 

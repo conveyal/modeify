@@ -1,4 +1,5 @@
 var analytics = require('analytics');
+var Batch = require('batch');
 var config = require('config');
 var debounce = require('debounce');
 var debug = require('debug')(config.name() + ':plan');
@@ -95,6 +96,10 @@ Plan.on('change', function(plan, name, val) {
       train: true,
       walk: true
     });
+  }
+
+  if (name === 'from' || name === 'to') {
+    window.history.replaceState(null, '', '?from=' + plan.from() + '&to=' + plan.to());
   }
 
   // Store in localStorage & track the change
@@ -213,6 +218,25 @@ Plan.prototype.setAddress = function(name, address, callback) {
       callback(null, res.body);
     }
   });
+};
+
+/**
+ * Set both addresses
+ */
+
+Plan.prototype.setAddresses = function(from, to, callback) {
+  // Initialize the default locations
+  var batch = new Batch();
+  var plan = this;
+  batch.push(function(done) {
+    plan.setAddress('from', from, done);
+  });
+
+  batch.push(function(done) {
+    plan.setAddress('to', to, done);
+  });
+
+  batch.end(callback);
 };
 
 /**
