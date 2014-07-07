@@ -47,6 +47,7 @@ module.exports = ProcessProfile;
 function ProcessProfile(factors) {
   this.factor = factors || DEFAULT_FACTORS;
   this.settings = {};
+  this.scaleCalories = scaleCalories;
 }
 
 /**
@@ -112,7 +113,7 @@ ProcessProfile.prototype.score = function(o) {
   score += o.totalCost * this.factor.cost;
 
   // Subtract time for calories burned
-  score -= scaleCalories(o.calories) * this.factor.calories;
+  score -= this.scaleCalories(o.calories) * this.factor.calories;
 
   // Add time for CO2 emissions
   score += o.emissions * this.factor.co2;

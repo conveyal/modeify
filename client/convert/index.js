@@ -18,6 +18,12 @@ exports.metersToMiles = function(meters) {
 };
 
 /**
+ * Expose `milesToString`
+ */
+
+exports.milesToString = milesToString;
+
+/**
  * Miles to string
  */
 

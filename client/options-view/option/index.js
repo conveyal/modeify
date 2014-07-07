@@ -8,16 +8,6 @@ var toSentenceCase = require('to-sentence-case');
 var view = require('view');
 
 /**
- * Constants
- */
-
-var CAL_PER_MIN_BIKE = 4.4; // Calories burned per minute biking
-var CAL_PER_MIN_WALK = 4.4; // Calories burned per minute walking
-var CO2 = 8.887; // Kilograms of CO2 burned per gallon of gasoline
-var IRS_PER_VMT = 0.56; // IRS cost per vehicle mile traveled
-var MPG = 21.4; // Average miles per gallon of American passenger vehicles
-
-/**
  * Expose `View`
  */
 
@@ -25,7 +15,6 @@ var View = module.exports = view(require('./template.html'), function(view,
   model) {
   d3.select(view.el)
     .on('mouseover', function() {
-      console.log(model.mode);
       if (model.mode === 'bus' || model.mode === 'subway' || model.mode === 'train') {
         window.transitive.focusJourney(model.id);
       } else {
@@ -93,14 +82,14 @@ View.prototype.segments = function() {
 
   if (segments.length === 0) {
     // One mode the entire way
-    switch (this.model.summary) {
-      case 'Bicycle':
+    switch (this.model.mode) {
+      case 'bicycle':
         details += this.narrativeDirections('bike', 'Bike');
         break;
-      case 'Car':
+      case 'car':
         details += this.narrativeDirections('car', 'Drive');
         break;
-      case 'Walk':
+      case 'walk':
         details += this.narrativeDirections('pedestrian', 'Walk');
         break;
     }
@@ -173,7 +162,7 @@ View.prototype.narrativeDirections = function(type, action) {
  */
 
 View.prototype.average = function() {
-  return Math.round(this.model.stats.avg / 60);
+  return Math.round(this.model.time);
 };
 
 /**
@@ -181,25 +170,16 @@ View.prototype.average = function() {
  */
 
 View.prototype.fare = function() {
-  if (this.model.fares && this.model.fares.length > 0) {
-    var total = this.model.fares.reduce(function(total, fare) {
-      return total + fare.peak;
-    }, 0);
-    return '$' + total.toFixed(2);
-  } else {
-    switch (this.model.summary) {
-      case 'Car':
-        if (this.model.walkSteps) {
-          return '$' + (this.distance() * IRS_PER_VMT).toFixed(2);
-        }
-        return '';
-      case 'Bicycle':
-        return ((this.model.stats.avg / 60 * CAL_PER_MIN_BIKE) | 0) + ' cals';
-      case 'Walk':
-        return ((this.model.stats.avg / 60 * CAL_PER_MIN_WALK) | 0) + ' cals';
-    }
+  switch (this.model.mode) {
+    case 'car':
+      return '$' + this.model.totalCost.toFixed(2);
+    case 'bicycle':
+      return (this.model.calories | 0) + ' cals';
+    case 'walk':
+      return (this.model.calories | 0) + ' cals';
+    default:
+      return '$' + this.model.totalCost.toFixed(2);
   }
-  return '';
 };
 
 /**
@@ -225,9 +205,7 @@ View.prototype.pollutionOffset = function() {
  */
 
 View.prototype.distance = function() {
-  return convert.metersToMiles(this.model.walkSteps.reduce(function(total, step) {
-    return total + step.distance;
-  }, 0));
+  return convert.milesToString(this.model.totalDistance);
 };
 
 /**
@@ -255,19 +233,8 @@ View.prototype.showHide = function() {
  */
 
 View.prototype.frequency = function() {
-  var plan = session.plan();
-  var timeWindow = (plan.end_time() - plan.start_time() + 1) * 60;
   if (!this.model.segments || this.model.segments.length === 0) return false;
-
-  var patterns = this.model.segments.reduce(function(memo, segment) {
-    return memo.concat(segment.segmentPatterns);
-  }, []);
-
-  return Math.round(patterns.reduce(function(memo, pattern) {
-    var nTrips = timeWindow / pattern.nTrips;
-    if (nTrips < memo) return nTrips;
-    else return memo;
-  }, Infinity));
+  return Math.round(this.model.frequency);
 };
 
 /**

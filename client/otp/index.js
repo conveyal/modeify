@@ -1,7 +1,6 @@
 var config = require('config');
 var debug = require('debug')(config.application() + ':otp');
 var Profiler = require('otpprofiler.js');
-var request = require('request');
 var spin = require('spinner');
 
 /**
