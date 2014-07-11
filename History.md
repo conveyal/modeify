@@ -1,7 +1,8 @@
 
-## Latest
+## 0.2.1 — 2014-07-11
 
 * Fixed reverse commute button
+* Use OTP profile score lib
 
 ## 0.2.0 — 2014-06-30
 
