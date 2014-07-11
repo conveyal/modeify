@@ -2,7 +2,7 @@ var config = require('config');
 var debug = require('debug')(config.name() + ':plan:update-routes');
 var formatProfile = require('format-otp-profile');
 var otp = require('otp');
-var ProcessProfile = require('process-otp-profile');
+var ProcessProfile = require('otp-profile-score');
 
 var DEFAULT_ROUTES = require('./routes');
 

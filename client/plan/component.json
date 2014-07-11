@@ -4,6 +4,7 @@
     "component/debounce": "0.0.3",
     "component/each": "0.2.3",
     "component/model": "*",
+    "conveyal/otp-profile-score": "*",
     "segmentio/model-defaults": "0.2.0",
     "visionmedia/batch": "*",
     "visionmedia/debug": "*",

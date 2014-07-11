@@ -121,7 +121,7 @@ View.prototype.setWalkSpeed = function(e) {
   if (e.target.classList.contains('stroller')) {
     this.model.plan.walk_speed(1.4);
   } else {
-    this.model.plan.walk_speed(2.1);
+    this.model.plan.walk_speed(1.75);
   }
 };
 
@@ -134,7 +134,7 @@ View.prototype.setBikeSpeed = function(e) {
   if (e.target.classList.contains('cruiser')) {
     this.model.plan.bike_speed(4.1);
   } else {
-    this.model.plan.bike_speed(6.05);
+    this.model.plan.bike_speed(5.125);
   }
 };
 
