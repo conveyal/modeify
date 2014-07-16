@@ -34,8 +34,12 @@ module.exports = function(reactive) {
       v) {
       return v;
     };
+
+    var view = this.view;
     el.onchange = function(e) {
-      model[name](parse(value(el)));
+      var val = parse(value(el));
+      model[name](val);
+      view.emit('selected', name, val);
     };
   });
 };

@@ -14,6 +14,12 @@ var store = require('./store');
 var updateRoutes = require('./update-routes');
 
 /**
+ * Debounce updates to once every 50ms
+ */
+
+var DEBOUNCE_UPDATES = 25;
+
+/**
  * Expose `Plan`
  */
 
@@ -68,45 +74,19 @@ module.exports.load = function(ctx, next) {
 };
 
 /**
- * Filters
- */
-
-var filters = ['bike', 'bike_speed', 'bus', 'train', 'car', 'walk', 'days',
-  'start_time', 'end_time', 'from_ll', 'to_ll', 'walk_speed'
-];
-
-/**
  * Sync plans with localStorage
  */
 
 Plan.on('change', function(plan, name, val) {
   debug('plan.%s changed to %s', name, val);
 
-  // if the type is a filter, trigger `updateRoutes`
-  if (plan.welcome_complete()) {
-    if (filters.indexOf(name) !== -1) {
-      plan.updateRoutes();
-    }
-  } else if (plan.original_modes() && plan.from_valid() && plan.to_valid()) {
-    plan.attrs.welcome_complete = true;
-    plan.set({
-      bike: true,
-      bus: true,
-      car: true,
-      train: true,
-      walk: true
-    });
-  }
-
   if (name === 'from' || name === 'to') {
-    window.history.replaceState(null, '', '?from=' + plan.from() + '&to=' + plan.to());
+    window.history.replaceState(null, '', '?from=' + plan.from() + '&to=' +
+      plan.to());
   }
 
   // Store in localStorage & track the change
-  if (name !== 'routes' && name !== 'patterns') {
-    plan.store();
-    analytics.track('plan.' + name + ' changed', val);
-  }
+  if (name !== 'routes' && name !== 'patterns') plan.store();
 });
 
 /**
@@ -127,7 +107,7 @@ Plan.on('change end_time', function(plan, val, prev) {
 
 Plan.prototype.updateRoutes = debounce(function(opts, callback) {
   updateRoutes(this, opts, callback);
-}, 25);
+}, DEBOUNCE_UPDATES);
 
 /**
  * Geocode
@@ -253,9 +233,7 @@ function toLowerCase(s) {
 
 Plan.prototype.fromIsValid = function() {
   var from = this.from_ll();
-  var valid = !!from && !!from.lat && !!from.lng;
-  this.from_valid(valid);
-  return valid;
+  return !!from && !!from.lat && !!from.lng;
 };
 
 /**
@@ -288,7 +266,7 @@ Plan.prototype.modesCSV = function() {
 
 Plan.prototype.store = debounce(function() {
   store(this);
-}, 25);
+}, DEBOUNCE_UPDATES);
 
 /**
  * Clear localStorage

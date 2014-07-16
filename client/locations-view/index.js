@@ -8,13 +8,20 @@ var view = require('view');
  * Expose `View`
  */
 
-var View = module.exports = view(require('./template.html'), function(view) {
+var View = module.exports = view(require('./template.html'), function(view,
+  plan) {
   view.on('rendered', function() {
     closest(view.el, 'form').onsubmit = function(e) {
       e.preventDefault();
 
-      view.save(view.find('input[name="to"]'));
-      view.save(view.find('input[name="from"]'));
+      plan.setAddresses(view.find('input[name="from"]').value, view.find(
+        'input[name="to"]').value, function(err) {
+        if (err) {
+          debug(err);
+        } else {
+          plan.updateRoutes();
+        }
+      });
     };
   });
 });
@@ -31,7 +38,7 @@ View.prototype.addressChanged = function(e) {
  * Geocode && Save
  */
 
-View.prototype.save = function(el) {
+View.prototype.save = function(el, callback) {
   this.model.setAddress(el.name, el.value, function(err) {
     if (err) {
       debug(err);

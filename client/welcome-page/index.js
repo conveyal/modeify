@@ -40,10 +40,18 @@ View.prototype.save = function(e) {
   })) {
     window.alert('Please select at least one option.');
   } else {
-    plan.original_modes(modes);
-    debug('<-- saved');
-
     this.hide();
+
+    plan.set({
+      bike: true,
+      bus: true,
+      car: true,
+      train: true,
+      walk: true,
+      original_modes: modes
+    });
+
+    debug('<-- saved');
   }
 };
 

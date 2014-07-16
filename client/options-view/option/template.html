@@ -5,10 +5,10 @@
       <span class="minutes">
         <strong>{average} min</strong> avg commute
         <span class="subheading" data-visible="frequency">every {frequency} mins</span>
-        <span class="subheading pollution" data-visible="pollution">{pollution} kg of CO<sub>2</sub> polluted</span>
+        <span class="subheading pollution" data-visible="pollution">{pollution} kg of CO<sub>2</sub></span>
         <span class="subheading pollution-offset" data-visible="pollutionOffset">{pollutionOffset} kg of CO<sub>2</sub> offset</span>
       </span>
-      <strong class="fare" data-text="fare"></strong>
+      <strong class="fare" data-text="fare" on-click="showFareBreakdown"></strong>
     </div>
     <div class="segments" data-html="simpleSegments"></div>
   </div>

@@ -1,9 +1,5 @@
-/**
- * Dependencies
- */
-
-var analytics = require('analytics');
 var Page404 = require('404-page');
+var analytics = require('analytics');
 var config = require('config');
 var debug = require('debug')(config.name() + ':router-utils');
 var page = require('page');

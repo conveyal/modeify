@@ -36,6 +36,8 @@ var View = view({
  */
 
 module.exports = function(ctx, next) {
+  debug('render');
+
   var plan = ctx.plan;
   var views = {
     'filter-view': new FilterView(plan),
@@ -51,58 +53,81 @@ module.exports = function(ctx, next) {
       view.emit('rendered', view);
     });
 
-    if (!plan.routes() || !plan.patterns() && plan.welcome_complete()) plan.updateRoutes();
+    // Get the locations from the querystring
+    var locations = querystring.parse(window.location.search);
+
+    // Show the welcome page if welcome complete isn't done
+    if (!plan.welcome_complete()) {
+      plan.setAddresses(locations.from || FROM, locations.to || TO, function(
+        err) {
+        if (err) {
+          debug(err);
+        } else {
+          plan.updateRoutes({
+            modes: 'BICYCLE,WALK,TRAINISH,BUS,CAR'
+          });
+        }
+      });
+
+      ctx.view.showWelcomeWizard();
+    } else if (locations.to && locations.from) {
+      debug('load in locations from query parameters');
+
+      plan.setAddresses(locations.from, locations.to, function(err) {
+        if (err) {
+          debug(err);
+        } else {
+          plan.updateRoutes();
+        }
+      });
+    } else {
+      plan.updateRoutes();
+    }
   });
 
-  // Get the locations from the querystring
-  var locations = querystring.parse(window.location.search);
-
-  // Show the welcome page if welcome complete isn't done
-  if (!plan.welcome_complete()) {
-    plan.setAddresses(locations.from || FROM, locations.to || TO, function(err) {
-      if (!err) plan.updateRoutes({
-        modes: 'BICYCLE,WALK,TRAINISH,BUS,CAR'
-      });
-    });
-
-    var welcome = new WelcomePage(plan);
-    welcome.show();
-    welcome.modal.on('hide', function() {
-      var from = new Tip(require('./from-tip.html'));
-      from.position('left');
-      from.show('#from-location');
-
-      var fromLocation = document.getElementById('from-location');
-      fromLocation.focus();
-      fromLocation.select();
-
-      document.querySelector('.from-next-button').onclick = function() {
-        from.hide();
-      };
-
-      from.on('hide', function() {
-        var to = new Tip(require('./to-tip.html'));
-        to.position('left');
-        to.show('#to-location');
-
-        var toLocation = document.getElementById('to-location');
-        toLocation.focus();
-        toLocation.select();
-
-        document.querySelector('.to-next-button').onclick = function() {
-          to.hide();
-          plan.welcome_complete(true);
-          plan.updateRoutes();
-        };
-      });
-    });
-  } else if (locations.to && locations.from) {
-    plan.setAddresses(locations.to, locations.from, function(err) {
-      if (err) debug(err);
-    });
-  }
-
   next();
+};
+
+/**
+ * Show Welcome Wizard
+ */
+
+View.prototype.showWelcomeWizard = function() {
+  debug('welcome incomplete, show welcome wizard');
+
+  var plan = session.plan();
+  var welcome = new WelcomePage(plan);
+  welcome.show();
+  welcome.modal.on('hide', function() {
+    var from = new Tip(require('./from-tip.html'));
+    from.position('left');
+    from.show('#from-location');
+
+    var fromLocation = document.getElementById('from-location');
+    fromLocation.focus();
+    fromLocation.select();
+
+    document.querySelector('.from-next-button').onclick = function() {
+      from.hide();
+      plan.updateRoutes();
+    };
+
+    from.on('hide', function() {
+      var to = new Tip(require('./to-tip.html'));
+      to.position('left');
+      to.show('#to-location');
+
+      var toLocation = document.getElementById('to-location');
+      toLocation.focus();
+      toLocation.select();
+
+      document.querySelector('.to-next-button').onclick = function() {
+        to.hide();
+        plan.welcome_complete(true);
+        plan.updateRoutes();
+      };
+    });
+  });
 };
 
 /**
@@ -120,6 +145,7 @@ View.prototype.reverseCommute = function(e) {
     to_id: plan.from_id(),
     to_ll: plan.from_ll()
   });
+  plan.updateRoutes();
 };
 
 /**

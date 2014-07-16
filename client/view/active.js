@@ -34,8 +34,11 @@ module.exports = function(reactive) {
 
     this.change(function() {
       var val = this.value(name);
+
       if (val) el.classList.add('active');
       else el.classList.remove('active');
+
+      view.emit('active', name, val);
     });
   });
 };

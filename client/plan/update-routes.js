@@ -1,3 +1,4 @@
+var analytics = require('analytics');
 var config = require('config');
 var debug = require('debug')(config.name() + ':plan:update-routes');
 var formatProfile = require('format-otp-profile');
@@ -40,8 +41,8 @@ function updateRoutes(plan, opts, callback) {
     return callback('Updating routes failed, invalid addresses.');
   }
 
-  var from = opts.from || plan.from_ll();
-  var to = opts.to || plan.to_ll();
+  var from = plan.from_ll();
+  var to = plan.to_ll();
   var startTime = plan.start_time();
   var endTime = plan.end_time();
   var date = nextDate(plan.days());
@@ -69,8 +70,10 @@ function updateRoutes(plan, opts, callback) {
     routes: DEFAULT_ROUTES
   };
 
-  debug('--- updating routes from %s to %s on %s between %s and %s', from, to,
+  debug('--> updating routes from %s to %s on %s between %s and %s', plan.from(),
+    plan.to(),
     date, startTime, endTime);
+
   otp.profile({
     bikeSpeed: plan.bike_speed(),
     from: options.from,
@@ -95,6 +98,31 @@ function updateRoutes(plan, opts, callback) {
         ' at the requested hours!\n\nIf the trip takes longer than the given time window, it will not display any results.'
       );
     } else {
+      // Track the commute
+      analytics.track('commute', {
+        from: {
+          address: plan.from(),
+          coordinate: from
+        },
+        to: {
+          address: plan.to(),
+          coordinate: to
+        },
+        modes: modes,
+        time: {
+          start: startTime,
+          end: endTime
+        },
+        date: date,
+        scoring: {
+          factors: processProfile.factors,
+          settings: processProfile.settings
+        },
+        bikeSpeed: plan.bike_speed(),
+        walkSpeed: plan.walk_speed(),
+        results: data.options.length
+      });
+
       // Process & format the results
       data.options = processProfile.processOptions(data.options);
       data.options = formatProfile(data.options);

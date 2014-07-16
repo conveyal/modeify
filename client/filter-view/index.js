@@ -12,8 +12,16 @@ var View = module.exports = view(require('./template.html'));
  * On construct
  */
 
-View.on('construct', function(view) {
+View.on('construct', function(view, plan) {
   view.reactive.use(require('reactive-select'));
+
+  view.on('active', function() {
+    plan.updateRoutes();
+  });
+
+  view.on('selected', function() {
+    plan.updateRoutes();
+  });
 });
 
 /**
