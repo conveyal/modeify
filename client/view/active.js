@@ -29,6 +29,9 @@ module.exports = function(reactive) {
         view.model[val](newVal);
       }
 
+      // emit active on
+      view.emit('active', name, newVal);
+
       document.activeElement.blur();
     });
 
@@ -37,8 +40,6 @@ module.exports = function(reactive) {
 
       if (val) el.classList.add('active');
       else el.classList.remove('active');
-
-      view.emit('active', name, val);
     });
   });
 };

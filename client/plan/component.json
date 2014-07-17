@@ -1,11 +1,12 @@
 {
   "name": "plan",
   "dependencies": {
-    "component/debounce": "0.0.3",
-    "component/each": "0.2.3",
+    "component/debounce": "*",
+    "component/each": "*",
     "component/model": "*",
     "conveyal/otp-profile-score": "*",
     "segmentio/model-defaults": "0.2.0",
+    "mbostock/d3": "*",
     "visionmedia/batch": "*",
     "visionmedia/debug": "*",
     "yields/store": "0.2.0"
@@ -19,6 +20,7 @@
     "process-otp-profile",
     "journey",
     "otp",
+    "route",
     "session"
   ],
   "scripts": [

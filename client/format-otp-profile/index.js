@@ -10,17 +10,7 @@ var colors = ['Blue', 'Green', 'Orange', 'Red', 'Yellow'];
  * Expose `formatOptions`
  */
 
-module.exports = formatOptions;
-
-/**
- * Format a list of options
- */
-
-function formatOptions(opts) {
-  for (var i = 0; i < opts.length; i++) opts[i] = formatOption(opts[i]);
-
-  return opts;
-}
+module.exports = formatOption;
 
 /**
  * Format a given option summary and it's segments

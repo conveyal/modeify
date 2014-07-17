@@ -35,7 +35,7 @@ var detail = hogan.compile(require('./detail.html'));
  */
 
 View.prototype.segments = function() {
-  var segments = this.model.segments;
+  var segments = this.model.segments();
   var details = '';
 
   // Add a detail
@@ -83,7 +83,7 @@ View.prototype.segments = function() {
 
   if (segments.length === 0) {
     // One mode the entire way
-    switch (this.model.mode) {
+    switch (this.model.mode()) {
       case 'bicycle':
         details += this.narrativeDirections('bike', 'Bike');
         break;
@@ -97,7 +97,7 @@ View.prototype.segments = function() {
   } else {
     // Final Walk Segment
     addDetail({
-      description: 'Walk ' + (this.model.finalWalkTime / 60 | 0) +
+      description: 'Walk ' + (this.model.finalWalkTime() / 60 | 0) +
         ' mins',
       type: 'pedestrian',
       segment: true
@@ -121,7 +121,7 @@ function ndescription(a, dir, dis, st) {
  */
 
 View.prototype.narrativeDirections = function(type, action) {
-  var steps = this.model.walkSteps;
+  var steps = this.model.walkSteps();
 
   // Add initial narrative step
   var narrative = detail.render({
@@ -167,7 +167,7 @@ View.prototype.narrativeDirections = function(type, action) {
  */
 
 View.prototype.average = function() {
-  return Math.round(this.model.time);
+  return Math.round(this.model.time());
 };
 
 /**
@@ -175,15 +175,15 @@ View.prototype.average = function() {
  */
 
 View.prototype.fare = function() {
-  switch (this.model.mode) {
-    case 'car':
-      return '$' + this.model.totalCost.toFixed(2);
+  switch (this.model.mode()) {
     case 'bicycle':
-      return (this.model.calories | 0) + ' cals';
     case 'walk':
-      return (this.model.calories | 0) + ' cals';
+      return (this.model.calories() * 250 / 1000).toFixed(0) + 'k cals';
     default:
-      return '$' + this.model.totalCost.toFixed(2);
+      var yearlyTotal = this.model.totalCost() * 250;
+      if (yearlyTotal > 1000) yearlyTotal = (yearlyTotal / 1000).toFixed(2) + 'k';
+      else yearlyTotal = yearlyTotal.toFixed(0);
+      return '$' + yearlyTotal;
   }
 };
 
@@ -192,7 +192,7 @@ View.prototype.fare = function() {
  */
 
 View.prototype.pollution = function() {
-  return this.model.mode === 'car' ? this.model.emissions | 0 : false;
+  return this.model.mode() === 'car' ? this.model.emissions() | 0 : false;
 };
 
 /**
@@ -200,8 +200,8 @@ View.prototype.pollution = function() {
  */
 
 View.prototype.pollutionOffset = function() {
-  return this.model.mode === 'bicycle' || this.model.mode === 'walk' ? this.model
-    .emissions | 0 : false;
+  return this.model.mode() === 'bicycle' || this.model.mode() === 'walk' ? this.model
+    .emissions() | 0 : false;
 };
 
 /**
@@ -209,7 +209,7 @@ View.prototype.pollutionOffset = function() {
  */
 
 View.prototype.distance = function() {
-  return convert.milesToString(this.model.totalDistance);
+  return convert.milesToString(this.model.totalDistance());
 };
 
 /**
@@ -237,7 +237,7 @@ View.prototype.showHide = function() {
  */
 
 View.prototype.frequency = function() {
-  return Math.round(this.model.frequency);
+  return Math.round(this.model.frequency());
 };
 
 /**
@@ -252,27 +252,27 @@ var simpleTemplate = hogan.compile(require('./simple.html'));
 
 View.prototype.simpleSegments = function() {
   var route = this.model;
-  var total = route.stats.avg;
+  var total = route.stats().avg;
   var segments = '';
 
   // If no segments, return the single mode
-  if (route.segments.length === 0) {
+  if (route.segments().length === 0) {
     var opts = {
       backgroundColor: '#5ae3f9',
       svg: svg('pedestrian'),
       width: 100
     };
 
-    if (route.summary === 'Bicycle') {
+    if (route.summary() === 'Bicycle') {
       opts.svg = svg('bike');
-    } else if (route.summary === 'Car') {
+    } else if (route.summary() === 'Car') {
       opts.svg = svg('car');
     }
 
     return simpleTemplate.render(opts);
   }
 
-  route.segments.forEach(function(segment) {
+  route.segments().forEach(function(segment) {
     // Add Walk Segment
     segments += simpleTemplate.render({
       backgroundColor: '#5ae3f9',
@@ -295,7 +295,7 @@ View.prototype.simpleSegments = function() {
   segments += simpleTemplate.render({
     backgroundColor: '#5ae3f9',
     svg: svg('pedestrian'),
-    width: route.finalWalkTime / total * 100
+    width: route.finalWalkTime() / total * 100
   });
 
   return segments;
