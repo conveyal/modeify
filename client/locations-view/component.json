@@ -6,7 +6,7 @@
   },
   "local": [
     "config",
-    "location",
+    "geocode",
     "session",
     "svg-icons",
     "view"

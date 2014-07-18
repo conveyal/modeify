@@ -155,6 +155,9 @@ function updateRoutes(plan, opts, callback) {
       // Add the profile to the options
       options.profile = data;
 
+      // Save the URL
+      plan.saveURL();
+
       // update the patterns
       updatePatterns(plan, options, callback);
     }

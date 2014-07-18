@@ -80,11 +80,6 @@ module.exports.load = function(ctx, next) {
 Plan.on('change', function(plan, name, val) {
   debug('plan.%s changed to %s', name, val);
 
-  if (name === 'from' || name === 'to') {
-    window.history.replaceState(null, '', '?from=' + plan.from() + '&to=' +
-      plan.to());
-  }
-
   // Store in localStorage & track the change
   if (name !== 'routes' && name !== 'patterns') plan.store();
 });
@@ -273,3 +268,11 @@ Plan.prototype.store = debounce(function() {
  */
 
 Plan.prototype.clearStore = store.clear;
+
+/**
+ * Save URL
+ */
+
+Plan.prototype.saveURL = function() {
+  window.history.replaceState(null, '', '?from=' + this.from() + '&to=' + this.to());
+};

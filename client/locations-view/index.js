@@ -1,7 +1,7 @@
 var closest = require('closest');
 var config = require('config');
 var debug = require('debug')(config.application() + ':locations-view');
-var Location = require('location');
+var geocode = require('geocode');
 var view = require('view');
 
 /**
@@ -30,7 +30,8 @@ var View = module.exports = view(require('./template.html'), function(view,
  * Address Changed
  */
 
-View.prototype.addressChanged = function(e) {
+View.prototype.blurInput = function(e) {
+  e.target.parentElement.classList.remove('highlight');
   this.save(e.target);
 };
 
@@ -44,6 +45,24 @@ View.prototype.save = function(el, callback) {
       debug(err);
       window.alert('Invalid address.');
     }
+  });
+};
+
+/**
+ * Highlight the selected input
+ */
+
+View.prototype.focusInput = function(e) {
+  e.target.parentElement.classList.add('highlight');
+};
+
+/**
+ * Suggest
+ */
+
+View.prototype.suggest = function(e) {
+  geocode.suggest(e.target.value, function(err, suggestions) {
+    console.log(err, suggestions);
   });
 };
 

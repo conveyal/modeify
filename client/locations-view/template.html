@@ -1,9 +1,13 @@
 <div class="locations">
-  <input id="from-location" type="text" class="svg-icon-house home" placeholder="home address" on-blur="addressChanged" name="from" data-value="from">
-  <i class="clear fa fa-times" on-click="clear" data-value="from"></i>
-  <div class="border"></div>
+  <div class="input-group">
+    <i class="fa fa-fw fa-dot-circle-o"></i>
+    <input id="from-location" type="text" name="from" placeholder="home address" data-value="from" on-blur="blurInput" on-focus="focusInput" on-input="suggest">
+    <i class="clear fa fa-times" on-click="clear"></i>
+  </div>
 
-  <input id="to-location" type="text" class="svg-icon-office work" placeholder="work address" on-blur="addressChanged" name="to" data-value="to">
-  <i class="clear fa fa-times" on-click="clear" data-value="to"></i>
-  <div class="border"></div>
+  <div class="input-group">
+    <i class="fa fa-fw fa-map-marker"></i>
+    <input id="to-location" type="text" name="to" placeholder="work address" data-value="to" on-blur="blurInput" on-focus="focusInput" on-input="suggest">
+    <i class="clear fa fa-times" on-click="clear"></i>
+  </div>
 </div>

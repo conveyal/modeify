@@ -30,14 +30,10 @@
 }
 
 .time-information {
-  margin-top: 3%;
   background-color: #F2F4F5;
-  font-family: 'Open Sans', sans-serif;
-  font-weight: light;
   color: #84909D;
   font-size: 11px;
-  clear: both;
-  padding: 2%;
+  padding: 8px;
   text-align: center;
   margin-bottom: 0;
 }
@@ -65,4 +61,5 @@
 
 .mode-filters .active .ring {
   border: 3px solid #8ec449;
+  background-color: rgba(0,0,0, 0.05);
 }
