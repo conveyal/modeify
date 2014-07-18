@@ -88,6 +88,17 @@
   width: 28%;
 }
 
+.graphical-options .simple button:hover {
+  background-color: #95a1ad;
+  border: 1px solid #95a1ad;
+  border-radius: 2px;
+  outline: none;
+}
+
+.graphical-options .simple button:active {
+  outline: none;
+}
+
 .graphical-options .simple .fare {
   font-weight: 200;
   font-size: 14px;
