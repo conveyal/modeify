@@ -1,0 +1,9 @@
+{
+  "name": "mouse-position",
+  "dependencies": {
+    "component/raf": "*"
+  },
+  "scripts": [
+    "index.js"
+  ]
+}
