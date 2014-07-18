@@ -32,8 +32,16 @@
 }
 
 .graphical-options .simple .shield {
-  width: 10%;
-  margin-left: 2%;
+  background-color: #173964;
+  border: 1px solid #173964;
+  border-radius: 2px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  vertical-align: top;
+  width: 20%;
+  padding: 1px 6px 1px 6px;
+  margin-left: 1%;
 }
 
 .graphical-options .simple .minutes {
@@ -42,9 +50,8 @@
   display: inline-block;
   margin-left: 2%;
   font-weight: 300;
-  line-height: 20px;
   width: 50%;
-
+  line-height: 16px;
 }
 
 .graphical-options .simple .minutes strong {
@@ -57,9 +64,8 @@
   left: 0;
   font-weight: 200;
   font-size: 14px;
-  line-height: 14px;
   margin: 0;
-  padding: 0;
+  padding-top: 2%;
   display:  block;
 }
 
@@ -84,7 +90,7 @@
   font-size: 12px;
   text-align: center;
   margin-top: 3%;
-  padding:1%;
+  padding:0;
   width: 28%;
 }
 
