@@ -92,11 +92,14 @@
   font-size: 14px;
   border-bottom: 1px dotted #b7c2c4;
   display: inline-block;
+  vertical-align: top;
 }
 
 .graphical-options .simple i {
   color: #8ec449;
   margin-left: 1%;
+  vertical-align: top;
+  padding-top: 3px;
 }
 
 .graphical-options .simple .segments {
