@@ -6,11 +6,15 @@
 .graphical-options .route {
   list-style-type: none;
   cursor: pointer;
+  box-shadow: 1px 1px 4px #CCC;
+  margin: 3%;
+  padding: 2%;
 }
 
 .graphical-options .simple .summary {
   width: 100%;
-  padding-bottom: 10px;
+  padding-bottom: 5%;
+  padding-top: 5%;
 }
 
 .graphical-options .simple .expand {
@@ -22,30 +26,77 @@
   color: #84909d;
 }
 
+.graphical-options .simple .mode {
+  width: 10%;
+  margin-left: 2%;
+}
+
+.graphical-options .simple .shield {
+  width: 10%;
+  margin-left: 2%;
+}
+
 .graphical-options .simple .minutes {
   font-size: 16px;
-  margin-left: 10px;
   position: relative;
   display: inline-block;
-  height: 44px;
+  margin-left: 2%;
+  font-weight: 300;
+  line-height: 20px;
+  width: 50%;
+
 }
 
 .graphical-options .simple .minutes strong {
-  font-size: 22px;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .graphical-options .simple .minutes .subheading {
+  bottom: 0;
+  left: 0;
+  font-weight: 200;
+  font-size: 14px;
+  line-height: 14px;
+  margin: 0;
+  padding: 0;
+  display:  block;
+}
+
+.graphical-options .simple .minutes .subheading walking-time {
   position: absolute;
   bottom: 0;
   left: 0;
-  color: #84909d;
+  font-weight: 200;
+  color: #b7c2c4;
+  padding-top: 2%;
+  font-size: 10px;
+  line-height: 8px;
+}
+
+.graphical-options .simple button {
+  color: #fff;
+  background-color: #84909d;
+  border: 1px solid #84909d;
+  border-radius: 2px;
+  font-weight: 400;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 3%;
+  padding:1%;
+  width: 28%;
 }
 
 .graphical-options .simple .fare {
-  color: #84909d;
-  float: right;
-  margin-top: 13px;
-  margin-right: 10px;
+  font-weight: 200;
+  font-size: 14px;
+  border-bottom: 1px dotted #b7c2c4;
+  display: inline-block;
+}
+
+.graphical-options .simple i {
+  color: #8ec449;
+  margin-left: 1%;
 }
 
 .graphical-options .simple .segments {
@@ -59,7 +110,6 @@
   display: inline-block;
   height: 100%;
   color: #fff;
-  float: left;
 }
 
 .graphical-options .simple .segment .inner-text {

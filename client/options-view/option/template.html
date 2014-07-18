@@ -1,17 +1,25 @@
 <li class="route">
   <div class="simple" on-click="showHide">
     <div class="summary">
-      <i class="expand fa fa-fw fa-plus-circle"></i>
+      <span class="mode"><!-- add icon font for modes --></span>
+      <span class="shield"><!-- add icon font for modes --></span>
       <span class="minutes">
-        <strong>{average} min</strong> avg commute
+        <strong>{average} min</strong> avg
         <span class="subheading" data-visible="frequency">every {frequency} mins</span>
         <span class="subheading pollution" data-visible="pollution">{pollution} kg of CO<sub>2</sub></span>
-        <span class="subheading pollution-offset" data-visible="pollutionOffset">{pollutionOffset} kg of CO<sub>2</sub> offset</span>
+        <span class="subheading pollution-offset" data-visible="pollutionOffset">{pollutionOffset} kg of CO<sub>2
+        </sub> offset</span>
+        <span class="subheading walking-time"><!-- add walking time data --></span>
+        <button class="save">save<!-- add save button --></button>
       </span>
-      <strong class="fare" data-text="fare" on-click="showFareBreakdown"></strong>
+      <span class="fare" data-text="fare" on-click="showFareBreakdown"> <!-- can't get to align to top -->
+      </span>
+      <i class="fa fa-info"></i>
+
+      
     </div>
-    <div class="segments" data-html="simpleSegments"></div>
-  </div>
+    <div class="modes">
+    </div>
   <table class="details hidden">
     <thead>
       <tr class="detail-address">
