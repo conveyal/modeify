@@ -1,4 +1,10 @@
 
+## Latest
+
+* Added icons.css to use instead of SVGs
+* Added API access for geocoding suggestions
+* Added dropdown for address suggestions
+
 ## 0.2.1 — 2014-07-11
 
 * Fixed reverse commute button
