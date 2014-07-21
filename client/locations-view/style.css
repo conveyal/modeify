@@ -1,25 +1,61 @@
 
 .locations {
   border-top: 1px solid #f2f4f5;
+  font-size: 17px;
 }
 
-.locations .border {
+.locations .suggestions {
+  margin-bottom: 0;
+  position: absolute;
+  z-index: 1;
+  background-color: #fff;
+  margin-left: 22px;
+  padding-left: 0;
+}
+
+.locations .suggestion {
+  list-style-type: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 250px;
+  display: block;
+  overflow: hidden;
+  padding: 10px;
+  border-left: 1px solid #84909d;
+  border-right: 1px solid #84909d;
+  border-bottom: 1px solid #f2f4f5;
+  cursor: pointer;
+  color: #84909d;
+}
+
+.locations .suggestion:last-of-type {
+  border-bottom-color: #84909d;
+}
+
+.locations .suggestion:hover {
+  background-color: #84909d;
+  color: #fff;
+}
+
+.locations .input-group {
+  border-bottom: 1px solid #f2f4f5;
+  padding-left: 10px;
   width: 100%;
-  height: 1px;
-  background-color: #f2f4f5;
-  float: left;
+}
+
+.locations .input-group.highlight {
+  border-left: 5px solid #333;
+  padding-left: 5px;
+  border-bottom-color: #84909d;
 }
 
 .locations input {
-  font-size: 17px;
-  padding: 10px 10px 10px 40px;
+  padding: 10px;
   color: #8ec449;
   box-shadow: none;
   border: none;
-  width: 90%;
-  height: 100%;
-  background-repeat: no-repeat;
-  background-position: 8px center;
+  width: 260px;
+  text-overflow: ellipsis;
 }
 
 .locations .clear {
@@ -27,27 +63,7 @@
 	color: #84909d;
 }
 
-.locations .home {
-  background-size: 18px 17px;
-}
-
-.locations .work {
-  background-size: 18px 15px;
-}
-
 .locations input:focus {
   box-shadow: none;
   outline: none;
-  border-left: 5px solid #333;
-  height: 100%;
-}
-
-.locations ::-webkit-input-placeholder,
-.locations :-moz-placeholder,
-.locations ::-moz-placeholder,
-.locations :-ms-input-placeholder {
-  padding-top: 4px;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
-  font-weight: light;
 }

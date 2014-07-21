@@ -1,0 +1,13 @@
+{
+  "name": "route",
+  "dependencies": {
+    "component/model": "*",
+    "visionmedia/debug": "*"
+  },
+  "local": [
+    "config"
+  ],
+  "scripts": [
+    "index.js"
+  ]
+}

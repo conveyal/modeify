@@ -19,6 +19,7 @@
     "index.js"
   ],
   "styles": [
+    "icons.css",
     "style.css"
   ],
   "images": [

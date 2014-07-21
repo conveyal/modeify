@@ -1,9 +1,11 @@
 var analytics = require('analytics');
 var config = require('config');
+var d3 = require('d3');
 var debug = require('debug')(config.name() + ':plan:update-routes');
 var formatProfile = require('format-otp-profile');
 var otp = require('otp');
 var ProcessProfile = require('otp-profile-score');
+var Route = require('route');
 
 var DEFAULT_ROUTES = require('./routes');
 
@@ -21,10 +23,24 @@ var MAX_PATTERNS = localStorage.getItem('max_patterns') || MAX_ROUTES;
 var processProfile = new ProcessProfile();
 
 /**
+ * Scale calories
+ */
+
+processProfile.scaleCalories = d3.scale.linear()
+  .domain([0, 100, 200])
+  .range([0, 1, -1]);
+
+/**
  * Expose `updateRoutes`
  */
 
 module.exports = updateRoutes;
+
+/**
+ * Last run
+ */
+
+var lastRun = {};
 
 /**
  * Update routes
@@ -125,13 +141,22 @@ function updateRoutes(plan, opts, callback) {
 
       // Process & format the results
       data.options = processProfile.processOptions(data.options);
-      data.options = formatProfile(data.options);
 
+      var routes = [];
+      for (var i = 0; i < data.options.length; i++) {
+        // Create a new Route object for each option
+        routes.push(new Route(formatProfile(data.options[i])));
+      }
+
+      // Save the routes
+      plan.routes(routes);
       debug('<-- updated routes');
-      plan.routes(data.options);
 
       // Add the profile to the options
       options.profile = data;
+
+      // Save the URL
+      plan.saveURL();
 
       // update the patterns
       updatePatterns(plan, options, callback);

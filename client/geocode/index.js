@@ -8,6 +8,7 @@ var get = require('request').get;
  */
 
 module.exports = geocode;
+module.exports.suggest = suggest;
 
 /**
  * Geocode
@@ -21,6 +22,23 @@ function geocode(address, callback) {
       callback(err, res);
     } else {
       debug('<-- geocoding complete %j', res.body);
+      callback(null, res.body);
+    }
+  });
+}
+
+/**
+ * Suggestions!
+ */
+
+function suggest(text, callback) {
+  debug('--> getting suggestion for %s', text);
+  get('/geocode/suggest/' + text, function(err, res) {
+    if (err) {
+      debug('<-- suggestion error %s', err);
+      callback(err, res);
+    } else {
+      debug('<-- got %s suggestions', res.body.length);
       callback(null, res.body);
     }
   });
