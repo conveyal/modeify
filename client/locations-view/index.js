@@ -50,10 +50,13 @@ View.prototype.blurInput = function(e) {
  */
 
 View.prototype.save = function(el, callback) {
+  var plan = this.model;
   this.model.setAddress(el.name, el.value, function(err) {
     if (err) {
       debug(err);
       window.alert('Invalid address.');
+    } else {
+      plan.updateRoutes();
     }
   });
 };
