@@ -2,7 +2,7 @@ var raf = require('raf');
 
 var body = document.body;
 var docEl = document.documentElement;
-var eve = undefined;
+var eve;
 
 /**
  * Expose `mouse`
@@ -38,7 +38,7 @@ function updateloop() {
  */
 
 function update() {
-  if (eve === undefined) return;
+  if (!eve) return;
 
   if (eve.pageX || eve.pageY) {
     mouse.x = eve.pageX;
