@@ -5,8 +5,9 @@
 
 .graphical-options .route {
   list-style-type: none;
+  background-color: #fff;
   cursor: pointer;
-  box-shadow: 1px 1px 4px #CCC;
+  border: 1px solid #84909d;
   margin: 3%;
   padding: 2%;
 }
@@ -43,20 +44,21 @@
   border: 1px solid #173964;
   border-radius: 2px;
   font-size: 11px;
+  line-height: 20px;
   font-weight: 600;
   color: #fff;
   vertical-align: top;
   width: 20%;
   padding: 1px 6px 1px 6px;
+  margin-right: 1%;
 }
 
 .graphical-options .simple .minutes {
   font-size: 16px;
-  position: relative;
   display: inline-block;
   margin-left: 2%;
   font-weight: 300;
-  width: 50%;
+  width: 45%;
   line-height: 16px;
 }
 
@@ -87,6 +89,8 @@
   display:  block;
 }
 
+/* button not there for now
+
 .graphical-options .simple button {
   color: #fff;
   background-color: #84909d;
@@ -110,6 +114,8 @@
 .graphical-options .simple button:active {
   outline: none;
 }
+
+*/
 
 .graphical-options .simple .fare {
   font-weight: 200;
