@@ -27,8 +27,15 @@
 }
 
 .graphical-options .simple .mode {
-  width: 10%;
   margin-left: 2%;
+}
+
+.graphical-options .simple .fs1 {
+  color: #84909d;
+  font-size: 20px;
+  line-height: 0;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .graphical-options .simple .shield {
@@ -41,7 +48,6 @@
   vertical-align: top;
   width: 20%;
   padding: 1px 6px 1px 6px;
-  margin-left: 1%;
 }
 
 .graphical-options .simple .minutes {
