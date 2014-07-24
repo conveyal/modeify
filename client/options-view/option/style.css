@@ -33,6 +33,7 @@
 .graphical-options .simple .fs1 {
   color: #84909d;
   font-size: 20px;
+  line-height: 0;
   display: inline-block;
   vertical-align: top;
 }
