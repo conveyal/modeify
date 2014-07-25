@@ -56,13 +56,13 @@ release: checkenv build test
 
 # Watch & reload server
 serve: server.pid
-server.pid: checkenv node_modules
+server.pid: checkenv node_modules stop
 	@nohup ./node_modules/.bin/nodemon > /var/tmp/commute-planner-server.log </dev/null & echo "$$!" > server.pid
 	@echo "Server logs stored in /var/tmp/commute-planner-server.log"
-start: server.pid
 
 stop:
-	@kill `cat server.pid` && rm server.pid
+	@kill `cat server.pid` || true
+	@rm -f server.pid
 
 # Run mocha test suite
 test: lint
