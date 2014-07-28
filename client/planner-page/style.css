@@ -1,7 +1,7 @@
 
 .panel {
   position: absolute;
-  background-color: #fff;
+  background-color: #f0f2f2;
   border-left: 1px solid #84909d;
   z-index: 1;
   top: 44px;
@@ -38,6 +38,7 @@
 .panel .title {
   margin: 8px;
   color: #84909d;
+  font-size: 20px;
 }
 
 .panel .title .fa {

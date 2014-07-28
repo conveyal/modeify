@@ -1,7 +1,6 @@
 
 .locations {
   border-top: 1px solid #f2f4f5;
-  font-size: 17px;
 }
 
 .locations .suggestions {
@@ -61,6 +60,7 @@
 .locations .clear {
 	cursor: pointer;
 	color: #84909d;
+  width: 3%;
 }
 
 .locations input:focus {
