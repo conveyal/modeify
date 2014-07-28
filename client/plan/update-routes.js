@@ -26,9 +26,7 @@ var processProfile = new ProcessProfile();
  * Scale calories
  */
 
-processProfile.scaleCalories = d3.scale.linear()
-  .domain([0, 100, 200])
-  .range([0, 1, -1]);
+processProfile.scaleCalories = d3.scale.sqrt().domain([0, 100, 150]).range([0, 1, 0]).exponent(2);
 
 /**
  * Expose `updateRoutes`

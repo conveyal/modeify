@@ -1,7 +1,7 @@
 {
   "name": "transitive-view",
   "dependencies": {
-    "component/color-parser": "0.1.0",
+    "component/color-parser": "*",
     "component/each": "*",
     "conveyal/transitive.js": "*",
     "mbostock/d3": "*",
