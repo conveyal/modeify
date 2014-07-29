@@ -9,19 +9,22 @@
   position: absolute;
   height: 35px;
   border: 1px solid #84909d;
-  left: -1px;
-  bottom: 43px;
+  left: 10px;
+  bottom: 53px;
   width: 100px;
   background-color: #fff;
-  box-shadow: 0 0 7px #eee;
   z-index: 150;
+}
+
+.Transitive .legend svg {
+  width: 100%;
 }
 
 .Transitive .map-zoom {
   position: absolute;
   height: 35px;
-  right: -1px;
-  bottom: 43px;
+  right: 10px;
+  bottom: 50px;
   z-index: 150;
 }
 
@@ -33,11 +36,19 @@
 }
 
 .Transitive .map-zoom button:hover,
-.Transitive .map-zoom button:active {
+.Transitive .map-zoom button:active,
+.Transitive .map-zoom button:focus {
   background-color: #7aae38;
   outline: none;
 }
 
 .Transitive .transitive-line {
   stroke-linecap: round;
+  filter: dropshadow(0 0 0 10px rgba(255, 255, 255, 0.5));
+}
+
+.Transitive > .schematic-map .transitive-stop-label,
+.Transitive > .schematic-map .transitive-multi-label,
+.Transitive > .schematic-map .transitive-place-label {
+  text-shadow: -2px -2px 0 rgba(255, 255, 255, 0.5), 2px -2px 0 rgba(255, 255, 255, 0.5), -2px 2px 0 rgba(255, 255, 255, 0.5), 2px 2px 0 rgba(255, 255, 255, 0.5);
 }
