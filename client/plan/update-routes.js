@@ -7,8 +7,6 @@ var otp = require('otp');
 var ProcessProfile = require('otp-profile-score');
 var Route = require('route');
 
-var DEFAULT_ROUTES = require('./routes');
-
 /**
  * Max routes & patterns to show
  */
@@ -80,8 +78,7 @@ function updateRoutes(plan, opts, callback) {
       lat: to.lat,
       lon: to.lng,
       name: 'To'
-    },
-    routes: DEFAULT_ROUTES
+    }
   };
 
   debug('--> updating routes from %s to %s on %s between %s and %s', plan.from(),
