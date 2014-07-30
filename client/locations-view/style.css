@@ -67,3 +67,42 @@
   box-shadow: none;
   outline: none;
 }
+
+
+
+.time-filters {
+  padding-top: 5px;
+  font-size: 14px;
+}
+
+.time-filters select {
+  width: 20%;
+}
+
+.time-filters label {
+  font-weight: light;
+  color: #000;
+  margin: 0;
+  padding-left: 8px;
+  padding-right: 3px;
+}
+
+.time-filters .calendar {
+  height: 14px;
+  width: 16px;
+  text-align: center;
+  background: url(images/calendar.svg);
+  background-repeat: no-repeat;
+  background-size: 16px;
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+.time-information {
+  background-color: #F2F4F5;
+  color: #84909D;
+  padding: 8px;
+  text-align: center;
+  margin-bottom: 0;
+}
