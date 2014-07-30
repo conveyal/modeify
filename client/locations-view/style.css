@@ -1,6 +1,7 @@
 
 .locations {
   margin-top: 5px;
+  margin-bottom:10px;
 }
 
 .locations .fs1 .icon-start {
@@ -89,32 +90,26 @@
 
 
 .time-filters {
-  padding-top: 5px;
   font-size: 14px;
+  display: inline-block;
+  background-color: #84909d;
+  border-radius: 3px;
+  padding: 2%;
+  width: 42%;
+  margin-left: 14%;
+  margin-top: 2%
 }
 
 .time-filters select {
-  width: 20%;
+  width: 10%;
+  font-weight: light;
 }
 
 .time-filters label {
   font-weight: light;
-  color: #000;
+  color: #fff;
   margin: 0;
-  padding-left: 8px;
-  padding-right: 3px;
-}
-
-.time-filters .calendar {
-  height: 14px;
-  width: 16px;
-  text-align: center;
-  background: url(images/calendar.svg);
-  background-repeat: no-repeat;
-  background-size: 16px;
-  display: inline-block;
-  margin-left: 10px;
-  margin-right: 5px;
+  text-decoration: 1px dotted #bcf96e;
 }
 
 .time-information {
@@ -124,3 +119,37 @@
   text-align: center;
   margin-bottom: 0;
 }
+
+.reverse-commute {
+  background-color: #84909d;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 18px;
+  padding: 5px 3px 3px 3px;
+  width: 18%;
+  display: inline-block;
+  text-align: center;
+  margin-top: 2%;
+}
+
+.submit {
+  background-color: #84909d;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 18px;
+  padding: 5px 3px 3px 3px;
+  width: 18%;
+  display: inline-block;
+  text-align: center;
+  margin-top: 2%;
+}
+
+.reverse-commute .fs1 {
+  color: #fff;
+
+}
+
+.submit .fs1 {
+  color: #fff;
+}
+

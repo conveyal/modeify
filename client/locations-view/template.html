@@ -13,7 +13,7 @@
     <ul class="suggestions"></ul>
   </div>
 
-    <div class="time-filters">
+  <div class="time-filters">
     <span class="calendar"></span>
     <select select-value="days" style="width: 40px">
       <option value="M—F">M - F</option>
@@ -21,11 +21,17 @@
       <option value="Sun">Sun.</option>
     </select>
 
-    <label class="date-text">from</label>
     <select select-value="start_time" select-options="startTimes" select-parse-value="parseInt"></select>
 
-    <label class="date-text">to</label>
     <select select-value="end_time" select-options="endTimes" select-parse-value="parseInt"></select>
+  </div>
+
+  <div class ="reverse-commute">
+    <a class="fs1"><span class="icon-reverse"></a>
+  </div>
+
+  <div class ="submit">
+    <a class="fs1"><span class="icon-search"></a>
   </div>
   
 </div>
