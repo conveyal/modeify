@@ -42,7 +42,7 @@ View.prototype.display = function(patterns) {
 
   var el = this.el;
   this.find('.zoom.in').onclick = function() {
-    el.dispatchEvent(new WheelEvent('wheel', {
+    el.dispatchEvent(new window.WheelEvent('wheel', {
       view: window,
       bubbles: true,
       cancelable: true,
@@ -53,7 +53,7 @@ View.prototype.display = function(patterns) {
   };
 
   this.find('.zoom.out').onclick = function() {
-    el.dispatchEvent(new WheelEvent('wheel', {
+    el.dispatchEvent(new window.WheelEvent('wheel', {
       view: window,
       bubbles: true,
       cancelable: true,
