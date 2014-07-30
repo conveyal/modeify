@@ -1,12 +1,12 @@
 .mode-filters {
   width: 100%;
-  background-color: #0ce8f2;
+  background-color: #84909d;
   text-align: center;
   padding-top: 4%;
   padding-bottom: 1%;
-  -moz-box-shadow: 0px 1px 1px #8f9daa;
-  -webkit-box-shadow: 0px 1px 1px #8f9daa;
-  box-shadow-bottom: 2px #8f9daa;
+  -moz-box-shadow: 0px 3px 3px #f0f2f2;
+  -webkit-box-shadow: 0px 3px 3px #f0f2f2;
+  box-shadow-bottom: 4px #f0f2f2;
   margin-bottom: 2%
 }
 
@@ -19,7 +19,7 @@
   margin: 0 4%;
   font-size: 30px;
   color: #fff;
-  -webkit-text-stroke: 1px #84909d;
+  -webkit-text-stroke: 1px #42474c;
 
 }
 
