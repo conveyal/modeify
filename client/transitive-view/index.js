@@ -65,23 +65,3 @@ View.prototype.display = function(patterns) {
 
   debug('<-- done displaying patterns');
 };
-
-/*
-  ART green #55b848
-  Maryland green #2c9f4b
-  Montgomery blue #355997
-  Potomac blue #5398a0
-  Fairfax yellow #faff4c
-  Fairfax yellow type #c9b80d
-  VRE red #de003a
-  VRE blue #255393
-
-  Metrobus #173964
-  CaBI #d02228
-  Metro Red #e21836
-  Metro Orange #f7931d
-  Metro Silver #a0a2a0
-  Metro Blue #0076bf
-  Metro Yellow #ffd200
-  Metro Green #00a84f
-*/

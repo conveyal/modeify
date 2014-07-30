@@ -47,6 +47,10 @@
   filter: dropshadow(0 0 0 10px rgba(255, 255, 255, 0.5));
 }
 
+.Transitive .transitive-line-halo {
+  opacity: 0.5;
+}
+
 .Transitive > .schematic-map .transitive-stop-label,
 .Transitive > .schematic-map .transitive-multi-label,
 .Transitive > .schematic-map .transitive-place-label {
