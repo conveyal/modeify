@@ -19,7 +19,7 @@
 .form-control,
 .input-group-addon {
   font-size: 14px;
-  font-weight: 300;
+  font-weight: 400;
   color: #333;
   border-radius: 0;
 }
@@ -47,16 +47,13 @@ h1, h2, h3, h4, h5, h6 {
 select {
   background: transparent;
   border: none;
-  margin-left: 3%;
-  font-size: 14px;
-  color: #fff;
+  font-size: 17px;
+  color: #8ec449;
   -webkit-appearance: none;
   display: inline-block;
+  background: url(arrow.svg) no-repeat 8px 29px;
+  height: 34px;
   text-align: center;
-  border-bottom: 1px dotted #bcf96e;
-  border-radius: 0;
-  text-align: center;
-  text-decoration: none;
 }
 
 select:focus {

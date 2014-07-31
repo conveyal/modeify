@@ -1,25 +1,6 @@
 
 .locations {
-  margin-top: 5px;
-  margin-bottom:10px;
-}
-
-.locations .fs1 .icon-start {
-  display: inline-block;
-  font-size: 30px;
-  float: left;
-  clear: both;
-  margin-top: 3%;
-  margin-left: 3%;
-}
-
-.locations .fs1 .icon-end {
-  display: inline-block;
-  font-size: 30px;
-  float: left;
-  clear: both;
-  margin-top: 4%;
-  margin-left: 3%;
+  border-top: 1px solid #f2f4f5;
 }
 
 .locations .suggestions {
@@ -56,100 +37,33 @@
 }
 
 .locations .input-group {
-  display: inline-block;
-  background-color: #fff;
-  padding: 3% 3% 3% 0;
-  width: 80%;
-  border: 1px solid #84909d;
-  margin-left: 2%;
-  margin-top: 2%;
+  border-bottom: 1px solid #f2f4f5;
+  padding-left: 10px;
+  width: 100%;
+}
+
+.locations .input-group.highlight {
+  border-left: 5px solid #333;
+  padding-left: 5px;
+  border-bottom-color: #84909d;
 }
 
 .locations input {
-  color: #000;
-  display: inline-block;
+  padding: 10px;
+  color: #8ec449;
+  box-shadow: none;
   border: none;
+  width: 260px;
   text-overflow: ellipsis;
-  font-weight: 300;
-  width: 90%;
-  padding-left: 5%;
 }
 
-.locations .fs1 .icon-exit {
+.locations .clear {
 	cursor: pointer;
 	color: #84909d;
-  font-size: 10px;
-  float: right;
-  padding-top: 5px;
+  width: 3%;
 }
 
 .locations input:focus {
-  outline: none; 
+  box-shadow: none;
+  outline: none;
 }
-
-
-
-.time-filters {
-  font-size: 14px;
-  display: inline-block;
-  background-color: #84909d;
-  border-radius: 3px;
-  padding: 2%;
-  width: 42%;
-  margin-left: 14%;
-  margin-top: 2%
-}
-
-.time-filters select {
-  width: 10%;
-  font-weight: light;
-}
-
-.time-filters label {
-  font-weight: light;
-  color: #fff;
-  margin: 0;
-  text-decoration: 1px dotted #bcf96e;
-}
-
-.time-information {
-  background-color: #F2F4F5;
-  color: #84909D;
-  padding: 8px;
-  text-align: center;
-  margin-bottom: 0;
-}
-
-.reverse-commute {
-  background-color: #84909d;
-  border-radius: 3px;
-  color: #fff;
-  font-size: 18px;
-  padding: 5px 3px 3px 3px;
-  width: 18%;
-  display: inline-block;
-  text-align: center;
-  margin-top: 2%;
-}
-
-.submit {
-  background-color: #84909d;
-  border-radius: 3px;
-  color: #fff;
-  font-size: 18px;
-  padding: 5px 3px 3px 3px;
-  width: 18%;
-  display: inline-block;
-  text-align: center;
-  margin-top: 2%;
-}
-
-.reverse-commute .fs1 {
-  color: #fff;
-
-}
-
-.submit .fs1 {
-  color: #fff;
-}
-

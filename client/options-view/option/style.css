@@ -33,12 +33,10 @@
 
 .graphical-options .simple .fs1 {
   color: #84909d;
-  font-size: 22px;
-  line-height: 1px;
+  font-size: 20px;
+  line-height: 0;
   display: inline-block;
   vertical-align: top;
-  margin-top: 0;
-  padding-top: 0;
 }
 
 .graphical-options .simple .shield {
