@@ -47,16 +47,12 @@ h1, h2, h3, h4, h5, h6 {
 select {
   background: transparent;
   border: none;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: bold;
-  color: #8ec449;
+  color: #fff;
   -webkit-appearance: none;
-  display: inline-block;
-  width: 20%;
-  padding-left: 2%;
-  border-bottom: 2px dotted #fff;
-  border-radius: none;
-  text-align: center;
+  border-radius: 0;
+  text-align: left;
 }
 
 select:focus {

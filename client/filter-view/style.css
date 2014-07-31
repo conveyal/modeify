@@ -1,26 +1,35 @@
 
 
 .time-filters {
-  padding-top: 5px;
+  padding: 2%;
   padding-left: 4%;
   font-size: 14px;
   margin-left: 3%;
   margin-right: 2%;
   margin-top: 2%;
-  background-color: #84909D;
+  background-color: #b7c2c4;
   border-radius: 3px; 
 }
 
+.time-filters i{
+  margin-right: 2%;
+  color: #fff;
+  background-color: #000;
+  border-radius: 30px;
+  text-align: center;
+  padding: 1% 3% 1% 3%;
+}
+
 .time-filters select {
-  width: 20%;
+  width: 21%;
 }
 
 .time-filters label {
-  font-weight: light;
+  font-weight: 300;
   color: #000;
   margin: 0;
-  padding-left: 8px;
-  padding-right: 3px;
+  padding-left: 3%;
+  padding-right: 1%;
 }
 
 .time-information {
@@ -33,18 +42,24 @@
 
 
 .mode-filters {
-  width: 100%;
-  padding: 15px 0 10px;
+  width: 67%;
+  background-color: #8ec449;
+  border-radius: 3px;
+  margin: 2% 0 5% 3%;
+  display: inline-block;
 }
 
 .mode-filters .fs1 {
   display: inline-block;
+  margin-left: 1%;
+  color: #719939;
   background-size: 100%;
   background-position: center center;
   background-repeat: no-repeat;
   cursor: pointer;
-  margin: 0 15px 0 25px;
   font-size: 25px;
+  vertical-align: middle;
+  padding: 3% 3% 0 2%;
 }
 
 .mode-filters .mode .ring {
@@ -56,4 +71,19 @@
 .mode-filters .active .ring {
   border: 3px solid #8ec449;
   background-color: rgba(0,0,0, 0.05);
+}
+
+.submit {
+  display: inline-block;
+  float: right;
+  background-color: #000;
+  border-radius: 3px;
+  color: #fff;
+  width: 26%;
+  margin-right: 2%;
+  margin-top: 2%;
+  padding-top: 3%;
+  padding-bottom: 1%;
+  text-align: center;
+  font-size: 20px;
 }
