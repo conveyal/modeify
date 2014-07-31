@@ -1,15 +1,36 @@
 <div class="locations">
+  <span class="fs1"><span class="icon-start"></span></span>
   <div class="input-group from">
-    <span class="fs1"><span class="icon-start"></span></span>
     <input id="from-location" type="text" name="from" placeholder="home address" data-value="from" on-blur="blurInput" on-focus="focusInput" on-input="suggest">
-    <i class="clear fa fa-times" on-click="clear"></i>
+    <span class="fs1"><span class="icon-exit" on-click="clear"></span></span>
+     <ul class="suggestions"></ul>
+  </div>
+  
+  <span class="fs1"><span class="icon-end"></span></span>
+  <div class="input-group to">
+    <input id="to-location" type="text" name="to" placeholder="work address" data-value="to" on-blur="blurInput" on-focus="focusInput" on-input="suggest">
+    <span class="fs1"><span class="icon-exit" on-click="clear"></span></span>
     <ul class="suggestions"></ul>
   </div>
 
-  <div class="input-group to">
-    <span class="fs1"><span class="icon-end"></span></span>
-    <input id="to-location" type="text" name="to" placeholder="work address" data-value="to" on-blur="blurInput" on-focus="focusInput" on-input="suggest">
-    <i class="clear fa fa-times" on-click="clear"></i>
-    <ul class="suggestions"></ul>
+  <div class="time-filters">
+    <select select-value="days" style="width: 40px">
+      <option value="M—F">M - F</option>
+      <option value="Sat">Sat.</option>
+      <option value="Sun">Sun.</option>
+    </select>
+
+    <select select-value="start_time" select-options="startTimes" select-parse-value="parseInt"></select>to
+
+    <select select-value="end_time" select-options="endTimes" select-parse-value="parseInt"></select>
   </div>
+
+  <div class ="reverse-commute">
+    <a class="fs1"><span class="icon-reverse"></a>
+  </div>
+
+  <div class ="submit">
+    <a class="fs1"><span class="icon-search"></a>
+  </div>
+  
 </div>

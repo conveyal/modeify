@@ -3,22 +3,23 @@ nav {
   margin-top: 0;
   padding: 0;
   box-shadow: 0 0 7px #eee;
-  background-color: #84909d;
-  background-image: url(v3.png);
+  background-color: #fff;
+  background-image: url(logo.svg);
   background-repeat: no-repeat;
-  background-size: auto 24px;
+  background-size: auto 30px;
   background-position: 15px;
   height: 44px;
+  border-bottom: 1px solid #84909d;
 }
 
 nav div {
   margin-right: 15px;
-  color: #fff;
+  color: #84909d;
 }
 
 nav a {
-  color: #fff;
-  color: #fff;
+  color: #84909d;
+  color: #84909d;
   height: 44px;
   display: inline-block;
   padding: 13px 0 0 8px;
@@ -26,6 +27,7 @@ nav a {
 }
 
 nav a:hover {
-  color: #fff;
+  color: #84909d;
   text-decoration: underline;
 }
+
