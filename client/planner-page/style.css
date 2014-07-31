@@ -1,7 +1,7 @@
 
 .panel {
   position: absolute;
-  background-color: #f0f2f2;
+  background-color: #fff;
   border-left: 1px solid #84909d;
   z-index: 1;
   top: 44px;
@@ -11,6 +11,8 @@
   width: 320px;
   overflow-y: scroll;
   margin-bottom: 0;
+  margin-top: 0;
+  margin-right: 0
   box-shadow: none;
 }
 
@@ -33,12 +35,6 @@
 
 .panel form button:hover i {
   color: #fff;
-}
-
-.panel .title {
-  margin: 8px;
-  color: #84909d;
-  font-size: 20px;
 }
 
 .panel .title .fa {
