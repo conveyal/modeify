@@ -3,6 +3,13 @@
   border-top: 1px solid #f2f4f5;
 }
 
+.locations .fs1 {
+  float: left;
+  color: #000;
+  font-size: 25px;
+  padding-top: 4px;
+}
+
 .locations .suggestions {
   margin-bottom: 0;
   position: absolute;
@@ -37,9 +44,12 @@
 }
 
 .locations .input-group {
-  border-bottom: 1px solid #f2f4f5;
   padding-left: 10px;
-  width: 100%;
+  width: 95%;
+  background-color: #fff;
+  margin-top: 2%;
+  margin-left: 3%;
+  border: 1px solid #84909d;
 }
 
 .locations .input-group.highlight {
@@ -53,8 +63,9 @@
   color: #8ec449;
   box-shadow: none;
   border: none;
-  width: 260px;
+  width: 245px;
   text-overflow: ellipsis;
+  background-color: #fff;
 }
 
 .locations .clear {

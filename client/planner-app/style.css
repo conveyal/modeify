@@ -47,12 +47,15 @@ h1, h2, h3, h4, h5, h6 {
 select {
   background: transparent;
   border: none;
-  font-size: 17px;
+  font-size: 14px;
+  font-weight: bold;
   color: #8ec449;
   -webkit-appearance: none;
   display: inline-block;
-  background: url(arrow.svg) no-repeat 8px 29px;
-  height: 34px;
+  width: 20%;
+  padding-left: 2%;
+  border-bottom: 2px dotted #fff;
+  border-radius: none;
   text-align: center;
 }
 

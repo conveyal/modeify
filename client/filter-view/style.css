@@ -2,7 +2,13 @@
 
 .time-filters {
   padding-top: 5px;
+  padding-left: 4%;
   font-size: 14px;
+  margin-left: 3%;
+  margin-right: 2%;
+  margin-top: 2%;
+  background-color: #84909D;
+  border-radius: 3px; 
 }
 
 .time-filters select {
@@ -15,18 +21,6 @@
   margin: 0;
   padding-left: 8px;
   padding-right: 3px;
-}
-
-.time-filters .calendar {
-  height: 14px;
-  width: 16px;
-  text-align: center;
-  background: url(images/calendar.svg);
-  background-repeat: no-repeat;
-  background-size: 16px;
-  display: inline-block;
-  margin-left: 10px;
-  margin-right: 5px;
 }
 
 .time-information {
