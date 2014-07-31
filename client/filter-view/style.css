@@ -1,13 +1,46 @@
+
+
+.time-filters {
+  padding-top: 5px;
+  font-size: 14px;
+}
+
+.time-filters select {
+  width: 20%;
+}
+
+.time-filters label {
+  font-weight: light;
+  color: #000;
+  margin: 0;
+  padding-left: 8px;
+  padding-right: 3px;
+}
+
+.time-filters .calendar {
+  height: 14px;
+  width: 16px;
+  text-align: center;
+  background: url(images/calendar.svg);
+  background-repeat: no-repeat;
+  background-size: 16px;
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+.time-information {
+  background-color: #F2F4F5;
+  color: #84909D;
+  padding: 8px;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+
 .mode-filters {
   width: 100%;
-  background-color: #0ce8f2;
-  text-align: center;
-  padding-top: 4%;
-  padding-bottom: 1%;
-  -moz-box-shadow: 0px 1px 1px #8f9daa;
-  -webkit-box-shadow: 0px 1px 1px #8f9daa;
-  box-shadow-bottom: 2px #8f9daa;
-  margin-bottom: 2%
+  padding: 15px 0 10px;
 }
 
 .mode-filters .fs1 {
@@ -16,11 +49,8 @@
   background-position: center center;
   background-repeat: no-repeat;
   cursor: pointer;
-  margin: 0 4%;
-  font-size: 30px;
-  color: #fff;
-  -webkit-text-stroke: 1px #84909d;
-
+  margin: 0 15px 0 25px;
+  font-size: 25px;
 }
 
 .mode-filters .mode .ring {
