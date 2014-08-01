@@ -11,34 +11,34 @@ var profiler = new Profiler({
   host: '/api/otp'
 });
 
+
 /**
- * Expose `profile`
+ * Expose `journey`
  */
 
-module.exports.profile = function(query, callback) {
+module.exports = function profile(query, callback) {
   debug('--> profiling %s', JSON.stringify(query));
   var spinner = spin();
   profiler.profile(query, function(err, data) {
-    if (!data) {
-      data = {
-        options: []
-      };
+    if (err || !data) {
+      spinner.stop();
+      debug('<-- error profiling', err);
+      callback(err);
+    } else {
+      query.profile = data;
+      profiler.journey(query, function(err, journey) {
+        spinner.stop();
+        if (err) {
+          debug('<-- error profiling', err);
+          callback(err);
+        } else {
+          debug('<-- profiled %s options', data.options.length);
+          callback(null, {
+            journey: journey,
+            options: data.options
+          });
+        }
+      });
     }
-
-    debug('<-- profiled %s options', data.options.length);
-    spinner.remove();
-    callback(err, data);
-  });
-};
-
-/**
- * Expose `patterns`
- */
-
-module.exports.patterns = function(opts, callback) {
-  var spinner = spin();
-  profiler.journey(opts, function(err, data) {
-    spinner.remove();
-    callback(err, data);
   });
 };

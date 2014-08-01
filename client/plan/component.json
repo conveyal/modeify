@@ -14,6 +14,7 @@
   "local": [
     "analytics",
     "config",
+    "convert",
     "format-otp-profile",
     "geocode",
     "location",

@@ -1,27 +1,18 @@
-<li class="route">
+<li class="option">
   <div class="simple" on-click="showHide">
-    <div class="summary">
-      <span class="mode"><span class="fs1"><span class="icon-bike"></span></span></span>
-      <span class="shield">53</span> <!-- add data for route type/number and color -->
-      <span class="minutes">
-        <strong>{average} min</strong> avg
-        <span class="subheading" data-visible="frequency">every {frequency} mins</span>
-        <span class="subheading pollution" data-visible="pollution">{pollution} kg of CO<sub>2</sub></span>
-        <span class="subheading pollution-offset" data-visible="pollutionOffset">{pollutionOffset} kg of CO<sub>2
-        </sub> offset</span>
-        <span class="walking-time">3 mins walking<!-- add walking time data --></span>
-        <!-- remove button for now
-        <button class="save">save</button>
-      ---->
-      </span>
-      <span class="fare-group">
-        <span class="fare" data-text="fare" on-click="showFareBreakdown"> 
-        </span>
-        <i class="fa fa-info"></i> 
-    </span>
+    <table class="segments"><tbody data-html="simpleSegments"></tbody></table>
+
+    <div class="minutes-column">
+      <h4><strong>{average} min</strong> avg</h4>
+      <div class="walking-time" data-visible="totalWalkTime">{totalWalkTime} mins of walking</div>
+      <div data-visible="frequency">{frequency} trip(s) per hour</div>
+      <!--<div class="pollution" data-visible="pollution">{pollution} kg of CO<sub>2</sub></div>
+      <div class="pollution-offset" data-visible="pollutionOffset">{pollutionOffset} kg of CO<sub>2</sub> offset</div>-->
+      <div class="distance" data-visible="distance">{distance} miles</div>
     </div>
-    <div class="modes">
-    </div>
+
+    <div class="fare" data-text="fare" on-click="showFareBreakdown"></div>
+  </div>
   <table class="details hidden">
     <thead>
       <tr class="detail-address">

@@ -1,10 +1,4 @@
 
-.options {
+.Options {
   overflow-x: hidden;
-  background-color: #f0f2f2;
-}
-
-.options .title {
-	font-size: 20px;
-	color: black;
 }

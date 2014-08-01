@@ -5,7 +5,8 @@
     "visionmedia/debug": "*"
   },
   "local": [
-    "config"
+    "config",
+    "session"
   ],
   "scripts": [
     "index.js"

@@ -1,5 +1,6 @@
 var analytics = require('analytics');
 var config = require('config');
+var convert = require('convert');
 var d3 = require('d3');
 var debug = require('debug')(config.name() + ':plan:update-routes');
 var formatProfile = require('format-otp-profile');
@@ -12,7 +13,6 @@ var Route = require('route');
  */
 
 var MAX_ROUTES = localStorage.getItem('max_routes') || 3;
-var MAX_PATTERNS = localStorage.getItem('max_patterns') || MAX_ROUTES;
 
 /**
  * New ProcessProfile object
@@ -82,7 +82,7 @@ function updateRoutes(plan, opts, callback) {
     plan.to(),
     date, startTime, endTime);
 
-  otp.profile({
+  otp({
     bikeSpeed: plan.bike_speed(),
     from: options.from,
     to: options.to,
@@ -98,7 +98,7 @@ function updateRoutes(plan, opts, callback) {
       plan.emit('error', err);
       debug(err);
       callback(err);
-    } else if (data.options.length < 1) {
+    } else if (!data || data.options.length < 1) {
       plan.routes(null);
       plan.patterns(null);
       callback('No trips found for route between ' + plan.from() + ' and ' +
@@ -124,6 +124,7 @@ function updateRoutes(plan, opts, callback) {
         date: date,
         scoring: {
           factors: processProfile.factors,
+          rates: processProfile.rates,
           settings: processProfile.settings
         },
         bikeSpeed: plan.bike_speed(),
@@ -134,41 +135,23 @@ function updateRoutes(plan, opts, callback) {
       // Process & format the results
       data.options = processProfile.processOptions(data.options);
 
-      var routes = [];
+      // Populate segments
+      populateSegments(data.options, data.journey);
+
       for (var i = 0; i < data.options.length; i++) {
         // Create a new Route object for each option
-        routes.push(new Route(formatProfile(data.options[i])));
+        data.options[i] = new Route(formatProfile(data.options[i]));
       }
 
-      // Save the routes
-      plan.routes(routes);
-      debug('<-- updated routes');
-
-      // Add the profile to the options
-      options.profile = data;
-
-      // Save the URL
+       // Save the URL
       plan.saveURL();
 
-      // update the patterns
-      updatePatterns(plan, options, callback);
-    }
-  });
-}
+      // Save the routes
+      plan.journey(data.journey);
+      plan.options(data.options);
 
-/**
- * Update Patterns
- */
-
-function updatePatterns(plan, options, callback) {
-  // get the patterns
-  otp.patterns(options, function(err, patterns) {
-    if (err) {
-      debug(err);
-      callback(err);
-    } else {
-      plan.patterns(patterns);
-      callback(null, patterns);
+      debug('<-- updated routes');
+      callback(null, data);
     }
   });
 }
@@ -194,4 +177,38 @@ function nextDate(dayType) {
       break;
   }
   return now.toISOString().split('T')[0];
+}
+
+function populateSegments(options, journey) {
+  for (var i = 0; i < options.length; i++) {
+    var option = options[i];
+    for (var j = 0; j < option.segments.length; j++) {
+      var segment = option.segments[j];
+      var route = getSegmentRoute(segment, journey);
+      if (!route) {
+        console.log(segment, journey);
+        continue;
+      }
+
+      segment.color = convert.routeToColor(route);
+      segment.shield = getRouteShield(route);
+    }
+  }
+}
+
+function getSegmentRoute(segment, journey) {
+  for (var i = 0; i < journey.routes.length; i++) {
+    var route = journey.routes[i];
+    if (route.route_id.toLowerCase() === segment.route.toLowerCase()) return route;
+  }
+}
+
+function getRouteShield(route) {
+  switch (route.agency_id.toLowerCase()) {
+    case 'dc':
+      if (route.route_type === 1) return 'M';
+      return route.route_short_name; // For buses
+    default:
+      return route.route_short_name;
+  }
 }

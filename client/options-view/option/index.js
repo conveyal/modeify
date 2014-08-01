@@ -1,7 +1,9 @@
+var colorParser = require('color-parser');
 var convert = require('convert');
 var d3 = require('d3');
 var domify = require('domify');
 var hogan = require('hogan.js');
+var luminosity = require('luminosity');
 var session = require('session');
 var svg = require('svg-icons');
 var toSentenceCase = require('to-sentence-case');
@@ -15,12 +17,7 @@ var View = module.exports = view(require('./template.html'), function(view,
   model) {
   d3.select(view.el)
     .on('mouseover', function() {
-      if (model.mode === 'bus' || model.mode === 'subway' || model.mode ===
-        'train') {
-        window.transitive.focusJourney(model.id);
-      } else {
-        window.transitive.focusJourney();
-      }
+      window.transitive.focusJourney(model.id());
     });
 });
 
@@ -31,7 +28,7 @@ var View = module.exports = view(require('./template.html'), function(view,
 var detail = hogan.compile(require('./detail.html'));
 
 /**
- * Details
+ * Details, details
  */
 
 View.prototype.segments = function() {
@@ -200,7 +197,7 @@ View.prototype.pollution = function() {
  */
 
 View.prototype.pollutionOffset = function() {
-  return this.model.mode() === 'bicycle' || this.model.mode() === 'walk' ? this.model
+  return this.model.mode() === 'bicycle' || this.model.mode() === 'walk' ? -this.model
     .emissions() | 0 : false;
 };
 
@@ -229,15 +226,6 @@ View.prototype.to = function() {
 
 View.prototype.showHide = function() {
   this.find('.details').classList.toggle('hidden');
-  this.find('.segments').classList.toggle('hidden');
-};
-
-/**
- * Frequency
- */
-
-View.prototype.frequency = function() {
-  return Math.round(this.model.frequency());
 };
 
 /**
@@ -251,52 +239,40 @@ var simpleTemplate = hogan.compile(require('./simple.html'));
  */
 
 View.prototype.simpleSegments = function() {
-  var route = this.model;
-  var total = route.stats().avg;
-  var segments = '';
+  var html = '';
+  var segments = this.model.segments();
 
-  // If no segments, return the single mode
-  if (route.segments().length === 0) {
-    var opts = {
-      backgroundColor: '#5ae3f9',
-      svg: svg('pedestrian'),
-      width: 100
-    };
+  segments.forEach(function(segment) {
+    var rgb = colorParser(segment.color);
+    rgb = [ rgb.r, rgb.g, rgb.b ];
 
-    if (route.summary() === 'Bicycle') {
-      opts.svg = svg('bike');
-    } else if (route.summary() === 'Car') {
-      opts.svg = svg('car');
-    }
+    html += simpleTemplate.render({
+      color: segment.color,
+      light: luminosity.light(rgb) ? 'light' : 'dark',
+      mode: modeToIcon(segment.mode),
+      name: segment.shield
+    });
+  });
 
-    return simpleTemplate.render(opts);
+  if (segments.length === 0) {
+    html += simpleTemplate.render({
+      color: 'transparent',
+      mode: modeToIcon(this.model.mode()),
+      name: ' '
+    });
   }
 
-  route.segments().forEach(function(segment) {
-    // Add Walk Segment
-    segments += simpleTemplate.render({
-      backgroundColor: '#5ae3f9',
-      svg: svg('pedestrian'),
-      width: segment.walkTime / total * 100
-    });
-
-    var opts = {
-      backgroundColor: 'gray',
-      text: segment.routeShortName,
-      width: (segment.waitStats.avg + segment.rideStats.avg) / total * 100
-    };
-
-    if (segment.mode !== 'BUS')
-      opts.backgroundColor = segment.routeShortName.toLowerCase();
-
-    segments += simpleTemplate.render(opts);
-  });
-
-  segments += simpleTemplate.render({
-    backgroundColor: '#5ae3f9',
-    svg: svg('pedestrian'),
-    width: route.finalWalkTime() / total * 100
-  });
-
-  return segments;
+  return html;
 };
+
+function modeToIcon(m) {
+  m = m.toLowerCase();
+  switch (m) {
+    case 'bicycle':
+      return 'bike';
+    case 'subway':
+      return 'train';
+    default:
+      return m;
+  }
+}

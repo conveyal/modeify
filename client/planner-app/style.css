@@ -1,7 +1,14 @@
 
+:root {
+  --black: #111;
+  --light-gray: #b7c2c4;
+  --gray: #84909d;
+  --green: #8ec449;
+  --red: #e21836;
+}
+
 * {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: light;
+  font-family: sans-serif;
 }
 
 #main {
@@ -18,9 +25,6 @@
 .dropdown-menu,
 .form-control,
 .input-group-addon {
-  font-size: 14px;
-  font-weight: 400;
-  color: #333;
   border-radius: 0;
 }
 
@@ -33,23 +37,16 @@
   text-align: center;
 }
 
-.btn-info,
-.btn-primary,
-.btn-success,
-.btn-danger {
-  color: #fff;
-}
-
 h1, h2, h3, h4, h5, h6 {
-  color: #84909d;
+  color: var(--gray);
+  font-weight: normal;
 }
 
 select {
   background: transparent;
   border: none;
-  font-size: 15px;
-  font-weight: bold;
   color: #fff;
+  font-weight: bold;
   -webkit-appearance: none;
   border-radius: 0;
   text-align: left;
