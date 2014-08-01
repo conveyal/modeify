@@ -42,15 +42,25 @@ View.prototype.display = function(patterns) {
 
   var el = this.el;
   this.find('.zoom.in').onclick = function() {
-    var currentZoom = transitive.display.zoom.scale();
-    transitive.display.zoom.scale(currentZoom * 1.25);
-    transitive.display.zoom.event(d3.select('.Transitive'));
+    el.dispatchEvent(new window.WheelEvent('wheel', {
+      view: window,
+      bubbles: true,
+      cancelable: true,
+      clientX: el.clientWidth / 2,
+      clientY: el.clientHeight * 0.7,
+      deltaY: -300
+    }));
   };
 
   this.find('.zoom.out').onclick = function() {
-    var currentZoom = transitive.display.zoom.scale();
-    transitive.display.zoom.scale(currentZoom * 0.75);
-    transitive.display.zoom.event(d3.select('.Transitive'));
+    el.dispatchEvent(new window.WheelEvent('wheel', {
+      view: window,
+      bubbles: true,
+      cancelable: true,
+      clientX: el.clientWidth / 2,
+      clientY: el.clientHeight * 0.7,
+      deltaY: 300
+    }));
   };
 
   debug('<-- done displaying patterns');

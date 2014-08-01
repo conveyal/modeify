@@ -56,16 +56,24 @@ release: checkenv build test
 
 # Watch & reload server
 serve: server.pid
-server.pid: checkenv node_modules
+server.pid: checkenv node_modules stop
 	@nohup ./node_modules/.bin/nodemon > /var/tmp/commute-planner-server.log </dev/null & echo "$$!" > server.pid
 	@echo "Server logs stored in /var/tmp/commute-planner-server.log"
-start: server.pid
 
 stop:
-	@kill `cat server.pid` && rm server.pid
+	@kill `cat server.pid` || true
+	@rm -f server.pid
 
 # Run mocha test suite
 test: lint
-	@NODE_ENV=test ./node_modules/.bin/mocha --recursive --require should --reporter $(REPORTER) --timeout 20s --slow 10
+	@NODE_ENV=test node_modules/.bin/mocha --recursive --require should --reporter $(REPORTER) --timeout 20s --slow 10
+
+test-cov: lint
+	@NODE_ENV=test node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha -- \
+		--recursive \
+		--reporter dot \
+		--require should \
+		--slow 10 \
+		--timeout 20s
 
 .PHONY: beautify checkenv convert lint release serve stop test watch

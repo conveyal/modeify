@@ -17,7 +17,6 @@
     "format-otp-profile",
     "geocode",
     "location",
-    "process-otp-profile",
     "journey",
     "otp",
     "route",
@@ -26,7 +25,6 @@
   "scripts": [
     "index.js",
     "load.js",
-    "routes.js",
     "store.js",
     "update-routes.js"
   ]

@@ -1,70 +1,79 @@
 
-.hi {
-  font-size: 2em;
-}
-
-p {
-	padding-bottom: 100px
-}
-
 body {
-        font-family: 'Oswald', sans-serif;
-        font-size: 26px;
-      }
+	font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color: #333;
+  background-color: #f2f4f5;
+}
 
-.logo {
-	padding: 10px;
+.main {
+	border: 1px solid #84909d;
+	background-color: #fff;
+	padding-bottom: 15px;
+}
+
+table {
+	border: none;
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+}
+
+.nav {
+	border-top: 6px solid #333;
+}
+
+.nav td {
+	padding: 15px 15px 15px 10px;
+}
+
+h1 {
+	padding-left: 20px;
+	padding-right: 20px;
 }
 
 .email {
 	padding: 10px;
-	text-decoration:none; 
-	font-size: 10px; 
-	color: #84909d; 
-	font-family:Arial, Helvetica, sans-serif;
+	text-decoration:none;
+	color: #84909d;
 }
 
 .button {
-	text-align: center;
-	text-decoration: none; 
-	color: #ffffff; 
-	font-family:Arial, Helvetica, sans-serif; 
-	font-size: 10px; 
+	text-decoration: none;
+	color: #ffffff;
 	font-weight: bold;
 	padding: 5px;
 	border-radius: 2px;
-}
-
-.headline {
-	padding: 30px;
+	background-color: #84909d;
 }
 
 .copy {
-	padding-left: 30px; 
-	padding-right: 20px; 
-	padding-bottom: 20px;
-	font-family:Arial, Helvetica, sans-serif; 
-	font-size: 14px; 
-	line-height: 18px; 
-	color:#383b3d
+	line-height: 18px;
+	color: #383b3d;
+	margin-left: 20px;
+	margin-right: 20px;
 }
 
 a {
-	text-decoration: none; 
-	font-weight: bold; 
+	text-decoration: none;
+	font-weight: bold;
 	color: #8ec449;
 }
 
 .address {
 	padding-bottom: 7px;
-	font-size: 20px; 
-	color: #8ec449; 
+	font-size: 20px;
+	color: #8ec449;
 	text-decoration:none;
+}
+
+.logos {
+	margin-bottom: 15px;
+	max-width: 100%;
 }
 
 .footer {
 	padding: 15px;
-	font-family:Arial, Helvetica, sans-serif; 
-	font-size: 10px; 
 	color: #4f555b;
+	text-align: center;
 }
