@@ -44,7 +44,7 @@
 
 .locations .input-group {
   padding-left: 10px;
-  width: 95%;
+  width: 94%;
   background-color: #fff;
   margin-top: 2%;
   margin-left: 3%;
@@ -62,7 +62,7 @@
   color: #8ec449;
   box-shadow: none;
   border: none;
-  width: 245px;
+  width: 242px;
   text-overflow: ellipsis;
   background-color: #fff;
 }
