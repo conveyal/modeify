@@ -1,4 +1,12 @@
 
+:root {
+  --black: #333;
+  --lightgray: #b7c2c4;
+  --gray: #84909d;
+  --green: #8ec449;
+  --red: #e21836;
+}
+
 .locations {
   margin-top: 3%;
 }
@@ -7,6 +15,7 @@
   float: left;
   font-size: 25px;
   padding-top: 4px;
+  color: var(--black);
 }
 
 .locations .suggestions {
@@ -47,18 +56,18 @@
   width: 94%;
   background-color: #fff;
   margin-top: 2%;
-  margin-left: 1%;
-  border: 1px solid #84909d;
+  margin-left: 3%;
+  border: 1px solid var(--gray);
 }
 
 .locations .input-group.highlight {
   border-left: 5px solid #333;
   padding-left: 6px;
-  border-bottom-color: #84909d;
+  border-bottom-color: var(--gray);
 }
 
 .locations input {
-  padding: 12px 10px 11px;
+  padding: 12px 10px 11px 5px;
   color: #8ec449;
   box-shadow: none;
   border: none;
@@ -69,7 +78,7 @@
 
 .locations .clear {
 	cursor: pointer;
-	color: #84909d;
+	color: var(--gray);
   width: 3%;
 }
 

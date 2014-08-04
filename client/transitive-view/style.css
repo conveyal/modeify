@@ -30,15 +30,16 @@
 
 .Transitive .map-zoom button {
   color: #fff;
-  background-color: #8ec449;
+  background-color: var(--gray);
   border: none;
+  border-radius: 2px;
   padding: 6px 12px;
 }
 
 .Transitive .map-zoom button:hover,
 .Transitive .map-zoom button:active,
 .Transitive .map-zoom button:focus {
-  background-color: #7aae38;
+  background-color: color(var(--gray) shade(10%));
   outline: none;
 }
 

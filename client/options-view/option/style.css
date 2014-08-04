@@ -26,15 +26,19 @@
 }
 
 .Options .simple .segments .mode {
-  font-size: 20px;
+  font-size: 25px;
   color: var(--gray);
-  padding-right: 8px;
+  padding-right: 1px;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .Options .simple .segments .shield {
-  font-size: 12px;
-  padding: 5px;
-  width: 32px;
+  font-size: 11px;
+  margin-top: 5px;
+  margin-right: 3px;
+  width: 26px;
+  padding-top: 1px;
   overflow: hidden;
   display: inline-block;
   text-overflow: ellipsis;
@@ -51,8 +55,12 @@
   display: inline-block;
   vertical-align: top;
   width: 120px;
-  margin-left: 8px;
+  margin-left: 20px;
+  margin-bottom: 5px;
   white-space: nowrap;
+  font-size: 11px;
+  font-weight: 300;
+  line-height: 13px;
   color: var(--gray);
 }
 
@@ -60,6 +68,7 @@
   margin: 0 0 5px;
   font-weight: lighter;
   color: var(--black);
+  line-height: 15px;
 }
 
 .Options .simple .minutes-column .pollution {
@@ -71,9 +80,11 @@
 }
 
 .Options .simple .fare {
-  border-bottom: 1px dotted var(--light-gray);
+  border-bottom: 1px dotted var(--green);
+  font-weight: 300;
   display: inline-block;
   float: right;
+  margin-right: 2%;
 }
 
 /* button not there for now
@@ -106,7 +117,7 @@
 
 .Options .details {
   border-left: 5px solid #333;
-  background-color: #eee;
+  background-color: #fff;
   width: 100%;
   table-layout: fixed;
   border-collapse: separate;
