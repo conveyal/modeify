@@ -61,7 +61,7 @@
 }
 
 .locations .input-group.highlight {
-  border-left: 5px solid #333;
+  border-left: 5px solid var(--black);
   padding-left: 6px;
   border-bottom-color: var(--gray);
 }
