@@ -99,8 +99,8 @@ function updateRoutes(plan, opts, callback) {
       debug(err);
       callback(err);
     } else if (!data || data.options.length < 1) {
-      plan.routes(null);
-      plan.patterns(null);
+      plan.journey(null);
+      plan.options(null);
       callback('No trips found for route between ' + plan.from() + ' and ' +
         plan.to() +
         ' at the requested hours!\n\nIf the trip takes longer than the given time window, it will not display any results.'
