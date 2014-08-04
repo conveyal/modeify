@@ -11,10 +11,10 @@ var view = require('view');
 
 var View = module.exports = view(require('./template.html'), function(view,
   model) {
-  var patterns = model.patterns();
-  if (patterns && patterns.stops.length > 0) view.display(patterns);
-  model.on('change patterns', function(patterns) {
-    if (patterns) view.display(patterns);
+  var journey = model.journey();
+  if (journey && journey.stops.length > 0) view.display(journey);
+  model.on('change journey', function(journey) {
+    if (journey) view.display(journey);
   });
 });
 
@@ -22,16 +22,16 @@ var View = module.exports = view(require('./template.html'), function(view,
  * Display
  */
 
-View.prototype.display = function(patterns) {
-  debug('--> displaying patterns');
+View.prototype.display = function(journey) {
+  debug('--> displaying journey');
 
   this.el.innerHTML = require('./legend.html');
 
-  if (patterns.journeys && patterns.journeys.length > 0) {
+  if (journey.journeys && journey.journeys.length > 0) {
     var transitive = window.transitive = new Transitive({
       el: this.el,
       legendEl: this.find('.legend'),
-      data: patterns,
+      data: journey,
       gridCellSize: 200,
       mapboxId: config.mapbox_map_id(),
       useDynamicRendering: true,

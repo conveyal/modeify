@@ -33,7 +33,7 @@ var Plan = module.exports = model('Plan')
     end_time: 9,
     from: '',
     from_valid: false,
-    routes: [],
+    options: [],
     start_time: 7,
     to: '',
     to_valid: false,
@@ -52,9 +52,9 @@ var Plan = module.exports = model('Plan')
   .attr('from_id')
   .attr('from_ll')
   .attr('from_valid')
+  .attr('journey')
+  .attr('options')
   .attr('original_modes')
-  .attr('patterns')
-  .attr('routes')
   .attr('start_time')
   .attr('to')
   .attr('to_id')
@@ -81,7 +81,7 @@ Plan.on('change', function(plan, name, val) {
   debug('plan.%s changed to %s', name, val);
 
   // Store in localStorage & track the change
-  if (name !== 'routes' && name !== 'patterns') plan.store();
+  if (name !== 'options' && name !== 'journey') plan.store();
 });
 
 /**
@@ -135,8 +135,7 @@ Plan.prototype.geocode = function(dest, callback) {
 Plan.prototype.saveJourney = function(callback) {
   var opts = {};
   for (var key in this.attrs) {
-    if (key === 'routes' || key === 'patterns' || key.indexOf('to') === 0 ||
-      key.indexOf('from') === 0) {
+    if (key === 'options' || key === 'journey' || key.indexOf('to') === 0 || key.indexOf('from') === 0) {
       continue;
     }
     opts[key] = this.attrs[key];

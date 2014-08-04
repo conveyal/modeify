@@ -11,6 +11,6 @@ var View = module.exports = view(require('./template.html'));
  * Set the routes view
  */
 
-View.prototype['routes-view'] = function() {
+View.prototype['options-view'] = function() {
   return OptionView;
 };

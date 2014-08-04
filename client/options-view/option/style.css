@@ -1,97 +1,84 @@
 
-.graphical-options .routes {
+.Options ul {
   padding-left: 0;
+  color: var(--black);
+  font-size: 15px;
 }
 
-.graphical-options .route {
+.Options .option {
   list-style-type: none;
   background-color: #fff;
+  border: 1px solid var(--gray);
+  margin: 8px;
+}
+
+.Options .simple {
+  padding: 15px 12px 10px;
   cursor: pointer;
-  border: 1px solid #84909d;
-  margin: 3%;
-  padding: 2%;
 }
 
-.graphical-options .simple .summary {
-  width: 100%;
-  padding-bottom: 5%;
-  padding-top: 5%;
-}
-
-.graphical-options .simple .expand {
-  padding: 10px;
-  font-size: 22px;
-}
-
-.graphical-options .route:hover .simple .expand {
-  color: #84909d;
-}
-
-.graphical-options .simple .mode {
-  margin-left: 2%;
-}
-
-.graphical-options .simple .fs1 {
-  color: #84909d;
-  font-size: 20px;
-  line-height: 0;
+.Options .simple .segments {
   display: inline-block;
-  vertical-align: top;
 }
 
-.graphical-options .simple .shield {
-  background-color: #173964;
-  border: 1px solid #173964;
-  border-radius: 2px;
+.Options .simple .segments .segment {
+  margin-bottom: 5px;
+}
+
+.Options .simple .segments .mode {
+  font-size: 20px;
+  color: var(--gray);
+  padding-right: 8px;
+}
+
+.Options .simple .segments .shield {
   font-size: 12px;
-  line-height: 20px;
-  font-weight: 600;
-  color: #fff;
-  vertical-align: top;
-  width: 20%;
-  padding: 2px 6px 2px 6px;
-  margin-right: 1%;
-}
-
-.graphical-options .simple .minutes {
-  font-size: 16px;
+  padding: 5px;
+  width: 32px;
+  overflow: hidden;
   display: inline-block;
-  margin-left: 2%;
-  font-weight: 300;
-  width: 45%;
-  line-height: 16px;
+  text-overflow: ellipsis;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
 }
 
-.graphical-options .simple .minutes strong {
-  font-size: 20px;
-  font-weight: 600;
+.Options .simple .segments .shield.light {
+  color: var(--black);
 }
 
-.graphical-options .simple .minutes .subheading {
-  bottom: 0;
-  left: 0;
-  font-weight: 200;
-  font-size: 14px;
-  margin: 0;
-  padding-top: 2%;
-  display:  block;
+.Options .simple .minutes-column {
+  display: inline-block;
+  vertical-align: top;
+  width: 120px;
+  margin-left: 8px;
+  white-space: nowrap;
+  color: var(--gray);
 }
 
-.graphical-options .simple .minutes .walking-time {
-  bottom: 0;
-  left: 0;
-  font-weight: 200;
-  font-size: 10px;
-  line-height: 14px;
-  color: #b7c2c4;
-  margin: 0;
-  padding: 0;
-  display:  block;
+.Options .simple .minutes-column h4 {
+  margin: 0 0 5px;
+  font-weight: lighter;
+  color: var(--black);
+}
+
+.Options .simple .minutes-column .pollution {
+  color: var(--red);
+}
+
+.Options .simple .minutes-column .pollution-offset {
+  color: var(--green);
+}
+
+.Options .simple .fare {
+  border-bottom: 1px dotted var(--light-gray);
+  display: inline-block;
+  float: right;
 }
 
 /* button not there for now
 
-.graphical-options .simple button {
+.Options .simple button {
   color: #fff;
   background-color: #84909d;
   border: 1px solid #84909d;
@@ -104,74 +91,29 @@
   width: 28%;
 }
 
-.graphical-options .simple button:hover {
+.Options .simple button:hover {
   background-color: #95a1ad;
   border: 1px solid #95a1ad;
   border-radius: 2px;
   outline: none;
 }
 
-.graphical-options .simple button:active {
+.Options .simple button:active {
   outline: none;
 }
 
 */
 
-.graphical-options .simple .fare {
-  font-weight: 200;
-  font-size: 14px;
-  border-bottom: 1px dotted #b7c2c4;
-  display: inline-block;
-  vertical-align: top;
-}
-
-.graphical-options .simple .fare-group i {
-  color: #8ec449;
-  margin-left: 1%;
-  vertical-align: top;
-  padding-top: 3px;
-}
-
-.graphical-options .simple .segments {
-  width: 100%;
-  padding: 0 18px;
-  height: 40px;
-  box-size: border-box;
-}
-
-.graphical-options .simple .segment {
-  display: inline-block;
-  height: 100%;
-  color: #fff;
-}
-
-.graphical-options .simple .segment .inner-text {
-  padding: 10px 5px;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: #fff;
-  font-weight: bold;
-}
-
-.graphical-options .simple .segment svg {
-  width: 30px;
-  height: 100%;
-  padding: 2px;
-  fill: #fff;
-}
-
-.graphical-options .details {
+.Options .details {
   border-left: 5px solid #333;
   background-color: #eee;
-  font-size: 17px;
   width: 100%;
   table-layout: fixed;
   border-collapse: separate;
   border-spacing: 12px 0;
 }
 
-.graphical-options .details .detail-icon {
+.Options .details .detail-icon {
   width: 30px;
   background-color: #5ae3f9;
   font-size: 26px;
@@ -189,26 +131,18 @@
   background-color: transparent;
 }
 
-.graphical-options .details .detail-icon svg {
+.Options .details .detail-icon svg {
   width: 30px;
   fill: #fff;
 }
 
-.graphical-options .details .detail-address .detail-description {
+.Options .details .detail-address .detail-description {
   color: #8ec449;
   vertical-align: middle;
 }
 
-.graphical-options .details .detail-address .detail-icon {
+.Options .details .detail-address .detail-icon {
   background-color: transparent;
-}
-
-.graphical-options .simple .minutes .pollution {
-  color: #e21836;
-}
-
-.graphical-options .simple .minutes .pollution-offset {
-  color: #8ec449;
 }
 
 .fa-north {}

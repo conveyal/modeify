@@ -2,11 +2,13 @@
   "name": "options-view",
   "dependencies": {
     "component/domify": "*",
+    "component/color-parser": "*",
     "component/each": "0.2.3",
     "ianstormtaylor/to-capital-case": "0.1.1",
     "ianstormtaylor/to-sentence-case": "*",
     "ianstormtaylor/reactive": "*",
     "mbostock/d3": "*",
+    "ramitos/luminosity": "*",
     "twitter/hogan.js": "*"
   },
   "local": [
