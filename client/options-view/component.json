@@ -7,7 +7,7 @@
     "ianstormtaylor/to-capital-case": "0.1.1",
     "ianstormtaylor/to-sentence-case": "*",
     "ianstormtaylor/reactive": "*",
-    "mbostock/d3": "*",
+    "mbostock/d3": "v3.4.11",
     "ramitos/luminosity": "*",
     "twitter/hogan.js": "*"
   },

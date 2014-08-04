@@ -2,7 +2,6 @@
   "name": "filter-view",
   "dependencies": {
     "component/value": "*",
-    "mbostock/d3": "*",
     "visionmedia/debug": "*"
   },
   "local": [
