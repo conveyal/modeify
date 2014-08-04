@@ -21,8 +21,5 @@
   "styles": [
     "icons.css",
     "style.css"
-  ],
-  "images": [
-    "arrow.svg"
   ]
 }

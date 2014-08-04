@@ -29,8 +29,5 @@
     "from-tip.html",
     "template.html",
     "to-tip.html"
-  ],
-  "images": [
-    "reverse.svg"
   ]
 }
