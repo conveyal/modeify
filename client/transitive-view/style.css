@@ -54,5 +54,8 @@
 .Transitive > .schematic-map .transitive-stop-label,
 .Transitive > .schematic-map .transitive-multi-label,
 .Transitive > .schematic-map .transitive-place-label {
-  text-shadow: -2px -2px 0 rgba(255, 255, 255, 0.5), 2px -2px 0 rgba(255, 255, 255, 0.5), -2px 2px 0 rgba(255, 255, 255, 0.5), 2px 2px 0 rgba(255, 255, 255, 0.5);
+  text-shadow: -2px -2px 0 rgba(255, 255, 255, 0.5),
+                2px -2px 0 rgba(255, 255, 255, 0.5),
+                -2px 2px 0 rgba(255, 255, 255, 0.5),
+                 2px 2px 0 rgba(255, 255, 255, 0.5);
 }

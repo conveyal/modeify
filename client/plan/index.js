@@ -1,4 +1,3 @@
-var analytics = require('analytics');
 var Batch = require('batch');
 var config = require('config');
 var debounce = require('debounce');

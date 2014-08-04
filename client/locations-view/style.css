@@ -16,18 +16,18 @@
   background-color: #fff;
   margin-left: 22px;
   padding-left: 0;
+  border-left: 1px solid var(--gray);
+  border-right: 1px solid var(--gray);
 }
 
 .locations .suggestion {
   list-style-type: none;
   white-space: nowrap;
   text-overflow: ellipsis;
-  width: 265px;
+  width: 263px;
   display: block;
   overflow: hidden;
   padding: 10px;
-  border-left: 1px solid var(--gray);
-  border-right: 1px solid var(--gray);
   border-bottom: 1px solid #f2f4f5;
   cursor: pointer;
   color: var(--gray);
@@ -37,7 +37,7 @@
   border-bottom-color: var(--gray);
 }
 
-.locations .suggestion:hover {
+.locations .suggestion.highlight {
   background-color: var(--gray);
   color: #fff;
 }
