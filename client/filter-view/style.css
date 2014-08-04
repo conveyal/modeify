@@ -19,8 +19,10 @@
   background-color: #000;
   border-radius: 50%;
   padding-top: 1%;
-  width: 20px;
-  height: 20px; 
+  padding-bottom: 1%;
+  width: 18px;
+  height: 18px; 
+  vertical-align: middle;
 }
 
 .time-filters select {
