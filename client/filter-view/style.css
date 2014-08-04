@@ -47,7 +47,8 @@
 
 .mode-filters {
   width: 67%;
-  background-color: #8ec449;
+  /* Comments */
+  background-color: var(--green);
   border-radius: 3px;
   margin: 2% 0 5% 3%;
   display: inline-block;
