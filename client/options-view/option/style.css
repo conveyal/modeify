@@ -58,18 +58,19 @@
   margin-left: 20px;
   margin-bottom: 5px;
   white-space: nowrap;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 300;
-  line-height: 14px;
+  line-height: 16px;
   color: var(--lightgray);
 }
 
 
 .Options .simple .minutes-column h4 {
+  padding-top: 8px;
   margin: 0 0 5px;
   font-weight: lighter;
   color: var(--black);
-  line-height: 15px;
+  line-height: 11px;
 }
 
 .Options .simple .minutes-column h4 .avg {
@@ -77,7 +78,6 @@
   font-weight: lighter;
   font-size: 15px;
   color: var(--black);
-  line-height: 16px;
 }
 
 .Options .simple .minutes-column .pollution {
@@ -126,18 +126,17 @@
 */
 
 .Options .details {
-  border-top: 1px solid var(--gray);
-  background-color: #fff;
+  border-top: 1px solid var(--lightgray);
   table-layout: fixed;
   border-collapse: separate;
   padding-top: 1%;
-  margin-top: 0;
+  margin: 0 5%;
   vertical-align: top;
   font-size: 14px;
   color: var(--lightgray);
   line-height: 16px;
   font-weight: 300;
-  padding: 15px;
+  padding: 10px;
 }
 
 .Options .details .detail-icon {
