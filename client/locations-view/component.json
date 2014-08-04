@@ -2,6 +2,7 @@
   "name": "locations-view",
   "dependencies": {
     "component/closest": "*",
+    "component/each": "*",
     "twitter/hogan.js": "*",
     "visionmedia/debug": "*"
   },
