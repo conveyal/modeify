@@ -1,10 +1,10 @@
+
 .locations {
   margin-top: 3%;
 }
 
 .locations .fs1 {
   float: left;
-  color: #000;
   font-size: 25px;
   padding-top: 4px;
 }
@@ -22,23 +22,23 @@
   list-style-type: none;
   white-space: nowrap;
   text-overflow: ellipsis;
-  width: 250px;
+  width: 265px;
   display: block;
   overflow: hidden;
   padding: 10px;
-  border-left: 1px solid #84909d;
-  border-right: 1px solid #84909d;
+  border-left: 1px solid var(--gray);
+  border-right: 1px solid var(--gray);
   border-bottom: 1px solid #f2f4f5;
   cursor: pointer;
-  color: #84909d;
+  color: var(--gray);
 }
 
 .locations .suggestion:last-of-type {
-  border-bottom-color: #84909d;
+  border-bottom-color: var(--gray);
 }
 
 .locations .suggestion:hover {
-  background-color: #84909d;
+  background-color: var(--gray);
   color: #fff;
 }
 
@@ -53,12 +53,12 @@
 
 .locations .input-group.highlight {
   border-left: 5px solid #333;
-  padding-left: 5px;
+  padding-left: 6px;
   border-bottom-color: #84909d;
 }
 
 .locations input {
-  padding: 10px;
+  padding: 12px 10px 11px;
   color: #8ec449;
   box-shadow: none;
   border: none;
