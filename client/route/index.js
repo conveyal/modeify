@@ -45,13 +45,9 @@ function setFrequency(route) {
   var end = session.plan().end_time();
   var tripsPerBlock = route.segments().reduce(function(min, segment) {
     var nTrips = segment.segmentPatterns.reduce(function(max, pattern) {
-      return pattern.nTrips > max
-        ? pattern.nTrips
-        : max;
+      return pattern.nTrips > max ? pattern.nTrips : max;
     }, -Infinity);
-    return nTrips < min
-      ? nTrips
-      : min;
+    return nTrips < min ? nTrips : min;
   }, Infinity);
 
   route.frequency(Math.round(tripsPerBlock / (end - start)));

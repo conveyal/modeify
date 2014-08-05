@@ -24,7 +24,9 @@ var processProfile = new ProcessProfile();
  * Scale calories
  */
 
-processProfile.scaleCalories = d3.scale.sqrt().domain([0, 100, 150]).range([0, 1, 0]).exponent(2);
+processProfile.scaleCalories = d3.scale.sqrt().domain([0, 100, 150]).range([0,
+  1, 0
+]).exponent(2);
 
 /**
  * Expose `updateRoutes`
@@ -148,7 +150,7 @@ function updateRoutes(plan, opts, callback) {
         data.options[i] = new Route(formatProfile(data.options[i]));
       }
 
-       // Save the URL
+      // Save the URL
       plan.saveURL();
 
       // Save the routes
@@ -204,7 +206,8 @@ function populateSegments(options, journey) {
 function getSegmentRoute(segment, journey) {
   for (var i = 0; i < journey.routes.length; i++) {
     var route = journey.routes[i];
-    if (route.route_id.toLowerCase() === segment.route.toLowerCase()) return route;
+    if (route.route_id.toLowerCase() === segment.route.toLowerCase()) return
+      route;
   }
 }
 

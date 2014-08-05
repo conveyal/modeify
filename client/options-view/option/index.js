@@ -178,7 +178,8 @@ View.prototype.fare = function() {
       return (this.model.calories() * 250 / 1000).toFixed(0) + 'k cals';
     default:
       var yearlyTotal = this.model.totalCost() * 250;
-      if (yearlyTotal > 1000) yearlyTotal = (yearlyTotal / 1000).toFixed(2) + 'k';
+      if (yearlyTotal > 1000) yearlyTotal = (yearlyTotal / 1000).toFixed(2) +
+        'k';
       else yearlyTotal = yearlyTotal.toFixed(0);
       return '$' + yearlyTotal;
   }
@@ -197,7 +198,8 @@ View.prototype.pollution = function() {
  */
 
 View.prototype.pollutionOffset = function() {
-  return this.model.mode() === 'bicycle' || this.model.mode() === 'walk' ? -this.model
+  return this.model.mode() === 'bicycle' || this.model.mode() === 'walk' ? -
+    this.model
     .emissions() | 0 : false;
 };
 
@@ -244,7 +246,7 @@ View.prototype.simpleSegments = function() {
 
   segments.forEach(function(segment) {
     var rgb = colorParser(segment.color);
-    rgb = [ rgb.r, rgb.g, rgb.b ];
+    rgb = [rgb.r, rgb.g, rgb.b];
 
     html += simpleTemplate.render({
       color: segment.color,

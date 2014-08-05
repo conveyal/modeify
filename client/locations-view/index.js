@@ -17,7 +17,8 @@ var View = module.exports = view(require('./template.html'), function(view,
     closest(view.el, 'form').onsubmit = function(e) {
       e.preventDefault();
 
-      plan.setAddresses(view.find('.from input').value, view.find('.to input').value, function(err) {
+      plan.setAddresses(view.find('.from input').value, view.find(
+        '.to input').value, function(err) {
         if (err) {
           debug(err);
         } else {
@@ -142,7 +143,8 @@ View.prototype.suggest = function(e) {
   var view = this;
 
   // If the text is too short or does not contain a space yet, return
-  if (text.length < 4 || text.indexOf(' ') === -1 || text.lastIndexOf(' ') + 1 === text.length) return;
+  if (text.length < 4 || text.indexOf(' ') === -1 || text.lastIndexOf(' ') + 1 ===
+    text.length) return;
 
   // Get a suggestion!
   geocode.suggest(text, function(err, suggestions) {

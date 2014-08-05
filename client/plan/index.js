@@ -134,7 +134,8 @@ Plan.prototype.geocode = function(dest, callback) {
 Plan.prototype.saveJourney = function(callback) {
   var opts = {};
   for (var key in this.attrs) {
-    if (key === 'options' || key === 'journey' || key.indexOf('to') === 0 || key.indexOf('from') === 0) {
+    if (key === 'options' || key === 'journey' || key.indexOf('to') === 0 ||
+      key.indexOf('from') === 0) {
       continue;
     }
     opts[key] = this.attrs[key];

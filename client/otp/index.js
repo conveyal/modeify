@@ -10,7 +10,6 @@ var profiler = new Profiler({
   host: '/api/otp'
 });
 
-
 /**
  * Expose `journey`
  */

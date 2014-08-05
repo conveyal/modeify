@@ -111,7 +111,9 @@ View.prototype.showWelcomeWizard = function() {
       from.hide();
     };
 
-    fromLocation.onblur = function() { from.hide(); };
+    fromLocation.onblur = function() {
+      from.hide();
+    };
 
     from.on('hide', function() {
       var to = new Tip(require('./to-tip.html'));
