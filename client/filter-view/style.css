@@ -15,12 +15,8 @@
   margin-right: 2%;
   color: #fff;
   text-align: center;
-  font-size: 13px;
-  background-color: var(--black);
-  border-radius: 50%;
-  padding-top: 1%;
-  width: 18px;
-  height: 18px;
+  font-size: 21px;
+  color: var(--black);
 }
 
 .time-filters select {

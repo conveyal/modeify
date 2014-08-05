@@ -49,7 +49,7 @@ View.prototype.segments = function() {
       addDetail({
         description: 'Walk ' + Math.round(segment.walkTime / 60) + ' mins',
         type: 'walk',
-        segment: true
+        iconSegment: true
       });
 
       addDetail({
@@ -96,7 +96,7 @@ View.prototype.segments = function() {
       description: 'Walk ' + (this.model.finalWalkTime() / 60 | 0) +
         ' mins',
       type: 'walk',
-      segment: true
+      iconSegment: true
     });
   }
 
@@ -123,7 +123,7 @@ View.prototype.narrativeDirections = function(type, action) {
   var narrative = detail.render({
     description: ndescription(action, steps[0].absoluteDirection.toLowerCase(),
       steps[0].distance, steps[0].streetName),
-    segment: true,
+    iconSegment: true,
     type: type
   });
 

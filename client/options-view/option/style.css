@@ -158,16 +158,19 @@
 }
 
 .Options .details .detail-icon {
-  width: 30px;
+  height: 50px;
   font-size: 26px;
   text-align: center;
   vertical-align: middle;
   color: var(--black);
+}
+
+.Options .details .route i {
+  color: var(--black);
   height: 50px;
-  background-size: 95%;
-  background-repeat: no-repeat;
-  background-position: center center;
-  padding-right: 5px;
+  background-color: var(--gray);
+  border-radius: 5px;
+  border: none;
 }
 
 .Options .details .detail-icon i {
@@ -186,7 +189,7 @@
 }
 
 .Options .details .detail-address .detail-description {
-  color: #8ec449;
+  color: var(--green);
   vertical-align: middle;
   font-size: 15px;
   font-weight: bold;
@@ -195,6 +198,17 @@
 .Options .details .detail-address .detail-icon {
   background-color: transparent;
 }
+
+.Options .details .transfer i {
+  color: #fff;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: black;
+  vertical-align: top;
+  background-color: var(--gray);
+  border-radius: 35%;
+}
+
+
 
 
 
