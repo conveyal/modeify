@@ -18,23 +18,6 @@
 
 }
 
-.panel form button {
-  width: 100%;
-  background-color: #fff;
-  border: 1px solid #84909d;
-  border-left: none;
-  border-right: none;
-  padding: 5px 0;
-}
-
-.panel form button:hover {
-  background-color: #84909d;
-}
-
-.panel form button:hover i {
-  color: #fff;
-}
-
 .panel .title {
   margin: 8px;
   color: #455A71;

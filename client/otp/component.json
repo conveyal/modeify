@@ -5,8 +5,7 @@
     "visionmedia/debug": "*"
   },
   "local": [
-    "config",
-    "spinner"
+    "config"
   ],
   "scripts": [
     "index.js"

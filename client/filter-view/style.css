@@ -68,6 +68,10 @@
   text-decoration: none;
 }
 
+.mode-filters a:active {
+  box-shadow: 0 0 0 4px var(--gray);
+}
+
 .submit {
   cursor: pointer;
   display: inline-block;
@@ -78,10 +82,11 @@
   width: 25%;
   margin-right: 3%;
   margin-top: 2%;
-  padding-top: 3%;
-  padding-bottom: 3%;
+  padding-top: 5px;
+  padding-bottom: 5px;
   text-align: center;
   font-size: 20px;
+  border: none;
 }
 
 .submit:hover,
@@ -90,4 +95,5 @@
   color: #fff;
   text-decoration: none;
   background-color: color(var(--gray) shade(10%));
+  outline: none;
 }

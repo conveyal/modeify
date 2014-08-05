@@ -44,7 +44,10 @@ var lastRun = {};
 
 function updateRoutes(plan, opts, callback) {
   opts = opts || {};
-  callback = callback || function() {};
+  callback = function() {
+    plan.emit('updating options complete');
+    callback && callback.apply(null, arguments);
+  };
 
   if (!plan.validCoordinates()) {
     if (!plan.fromIsValid() && plan.from().length > 0) plan.geocode('from');
@@ -52,6 +55,9 @@ function updateRoutes(plan, opts, callback) {
 
     return callback('Updating routes failed, invalid addresses.');
   }
+
+  // For event handlers
+  plan.emit('updating options');
 
   var from = plan.from_ll();
   var to = plan.to_ll();
@@ -95,7 +101,6 @@ function updateRoutes(plan, opts, callback) {
     walkSpeed: plan.walk_speed()
   }, function(err, data) {
     if (err) {
-      plan.emit('error', err);
       debug(err);
       callback(err);
     } else if (!data || data.options.length < 1) {

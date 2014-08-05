@@ -2,7 +2,6 @@ var config = require('config');
 var debug = require('debug')(config.application() + ':commuter-profile');
 var modal = require('modal');
 var request = require('request');
-var spin = require('spinner');
 var view = require('view');
 
 /**

@@ -3,7 +3,6 @@ var debug = require('debug')(config.application() + ':planner-nav');
 var Journey = require('journey');
 var page = require('page');
 var Profile = require('commuter-profile');
-var spin = require('spinner');
 var view = require('view');
 
 /**
@@ -39,7 +38,6 @@ View.prototype.logout = function() {
 View.prototype.showProfile = function() {
   var commuter = this.model.commuter();
   var plan = this.model.plan();
-  var spinner = spin();
   Journey.all(function(err, journeys) {
     if (err) {
       debug(err);
@@ -50,9 +48,7 @@ View.prototype.showProfile = function() {
         journeys: journeys,
         plan: plan
       });
-      profile.show(function() {
-        spinner.stop();
-      });
+      profile.show(function() {});
     }
   });
 };

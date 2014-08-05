@@ -22,6 +22,19 @@ View.on('construct', function(view, plan) {
   view.on('selected', function() {
     plan.updateRoutes();
   });
+
+  var submitButton = view.find('.submit i');
+  plan.on('updating options', function() {
+    submitButton.classList.remove('fa-search');
+    submitButton.classList.add('fa-refresh');
+    submitButton.classList.add('fa-spin');
+  });
+
+  plan.on('updating options complete', function() {
+    submitButton.classList.add('fa-search');
+    submitButton.classList.remove('fa-refresh');
+    submitButton.classList.remove('fa-spin');
+  });
 });
 
 /**

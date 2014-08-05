@@ -1,7 +1,6 @@
 var config = require('config');
 var debug = require('debug')(config.application() + ':otp');
 var Profiler = require('otp-profiler');
-var spin = require('spinner');
 
 /**
  * Create profiler
@@ -18,16 +17,13 @@ var profiler = new Profiler({
 
 module.exports = function profile(query, callback) {
   debug('--> profiling %s', JSON.stringify(query));
-  var spinner = spin();
   profiler.profile(query, function(err, data) {
     if (err || !data) {
-      spinner.remove();
       debug('<-- error profiling', err);
       callback(err);
     } else {
       query.profile = data;
       profiler.journey(query, function(err, journey) {
-        spinner.remove();
         if (err) {
           debug('<-- error profiling', err);
           callback(err);
