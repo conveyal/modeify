@@ -40,7 +40,11 @@ View.prototype.blurInput = function(e) {
   var highlight = this.find('.suggestion.highlight');
   if (highlight) e.target.value = highlight.innerText;
 
-  suggestionList.innerHTML = '';
+  suggestionList.classList.add('empty');
+  setTimeout(function() {
+    suggestionList.innerHTML = '';
+  }, 250);
+
   inputGroup.classList.remove('highlight');
   this.save(e.target);
 };
@@ -145,19 +149,25 @@ View.prototype.suggest = function(e) {
     if (err) {
       debug(err);
     } else {
-      suggestionList.innerHTML = suggestionsTemplate.render({
-        suggestions: suggestions
-      });
+      if (suggestions && suggestions.length > 0) {
+        suggestionList.innerHTML = suggestionsTemplate.render({
+          suggestions: suggestions
+        });
 
-      each(view.findAll('.suggestion'), function(li) {
-        li.onmouseover = function(e) {
-          li.classList.add('highlight');
-        };
+        each(view.findAll('.suggestion'), function(li) {
+          li.onmouseover = function(e) {
+            li.classList.add('highlight');
+          };
 
-        li.onmouseout = function(e) {
-          li.classList.remove('highlight');
-        };
-      });
+          li.onmouseout = function(e) {
+            li.classList.remove('highlight');
+          };
+        });
+
+        suggestionList.classList.remove('empty');
+      } else {
+        suggestionList.classList.add('empty');
+      }
     }
   });
 };

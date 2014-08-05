@@ -1,20 +1,12 @@
 
-:root {
-  --black: #333;
-  --lightgray: #b7c2c4;
-  --gray: #84909d;
-  --green: #8ec449;
-  --red: #e21836;
-}
-
 .locations {
   margin-top: 3%;
 }
 
-.locations .fs1 {
+.locations [class*="icon-"] {
   float: left;
   font-size: 25px;
-  padding-top: 4px;
+  padding-top: 7px;
   color: var(--black);
 }
 
@@ -27,13 +19,24 @@
   padding-left: 0;
   border-left: 1px solid var(--gray);
   border-right: 1px solid var(--gray);
+
+  max-height: 1000px;
+  opacity: 1;
+  visibility: visible;
+  transition: max-height 0.25s, opacity 0.25s, visibility 0.25s;
+}
+
+.locations .suggestions.empty {
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .locations .suggestion {
   list-style-type: none;
   white-space: nowrap;
   text-overflow: ellipsis;
-  width: 263px;
+  width: 266px;
   display: block;
   overflow: hidden;
   padding: 10px;
@@ -52,7 +55,7 @@
 }
 
 .locations .input-group {
-  padding-left: 5px;
+  padding-left: 7px;
   width: 94%;
   background-color: #fff;
   margin-top: 2%;
@@ -62,7 +65,7 @@
 
 .locations .input-group.highlight {
   border-left: 5px solid var(--black);
-  padding-left: 6px;
+  padding-left: 3px;
   border-bottom-color: var(--gray);
 }
 
