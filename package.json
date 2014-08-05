@@ -1,7 +1,7 @@
 {
   "private": true,
   "main": "server.js",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "dependencies": {
     "analytics-node": "^1.0.1",
     "async": "~0.9.0",

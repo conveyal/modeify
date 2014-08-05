@@ -1,9 +1,10 @@
 
-## Latest
+## 0.3.0 — 2014-08-05
 
 * Added icons.css to use instead of SVGs
 * Added API access for geocoding suggestions
 * Added dropdown for address suggestions
+* Lots of design changes
 
 ## 0.2.1 — 2014-07-11
 
