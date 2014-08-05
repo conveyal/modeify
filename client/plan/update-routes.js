@@ -24,9 +24,10 @@ var processProfile = new ProcessProfile();
  * Scale calories
  */
 
-processProfile.scaleCalories = d3.scale.sqrt().domain([0, 100, 150]).range([0,
-  1, 0
-]).exponent(2);
+var scaleCalories = d3.scale.sqrt()
+  .domain([0, 100, 150])
+  .range([0, 1, 0 ])
+  .exponent(2);
 
 /**
  * Expose `updateRoutes`
@@ -192,10 +193,8 @@ function populateSegments(options, journey) {
     for (var j = 0; j < option.segments.length; j++) {
       var segment = option.segments[j];
       var route = getSegmentRoute(segment, journey);
-      if (!route) {
-        console.log(segment, journey);
-        continue;
-      }
+      if (!route) continue;
+
 
       segment.color = convert.routeToColor(route);
       segment.shield = getRouteShield(route);
