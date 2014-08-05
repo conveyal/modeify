@@ -44,16 +44,16 @@ var lastRun = {};
 
 function updateRoutes(plan, opts, callback) {
   opts = opts || {};
-  callback = function() {
+  var done = function() {
     plan.emit('updating options complete');
-    callback && callback.apply(null, arguments);
+    if (callback) callback.apply(null, arguments);
   };
 
   if (!plan.validCoordinates()) {
     if (!plan.fromIsValid() && plan.from().length > 0) plan.geocode('from');
     if (!plan.toIsValid() && plan.to().length > 0) plan.geocode('to');
 
-    return callback('Updating routes failed, invalid addresses.');
+    return done('Updating routes failed, invalid addresses.');
   }
 
   // For event handlers
@@ -102,11 +102,11 @@ function updateRoutes(plan, opts, callback) {
   }, function(err, data) {
     if (err) {
       debug(err);
-      callback(err);
+      done(err);
     } else if (!data || data.options.length < 1) {
       plan.journey(null);
       plan.options(null);
-      callback('No trips found for route between ' + plan.from() + ' and ' +
+      done('No trips found for route between ' + plan.from() + ' and ' +
         plan.to() +
         ' at the requested hours!\n\nIf the trip takes longer than the given time window, it will not display any results.'
       );
@@ -156,7 +156,7 @@ function updateRoutes(plan, opts, callback) {
       plan.options(data.options);
 
       debug('<-- updated routes');
-      callback(null, data);
+      done(null, data);
     }
   });
 }

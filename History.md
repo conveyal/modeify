@@ -1,4 +1,8 @@
 
+## Latest
+
+* Improved the intro flow
+
 ## 0.3.0 — 2014-08-05
 
 * Added icons.css to use instead of SVGs

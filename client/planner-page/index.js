@@ -101,7 +101,7 @@ View.prototype.showWelcomeWizard = function() {
   welcome.modal.on('hide', function() {
     var from = new Tip(require('./from-tip.html'));
     from.position('left');
-    from.show('#from-location');
+    from.show('.input-group.from');
 
     var fromLocation = document.getElementById('from-location');
     fromLocation.focus();
@@ -109,22 +109,27 @@ View.prototype.showWelcomeWizard = function() {
 
     document.querySelector('.from-next-button').onclick = function() {
       from.hide();
-      plan.updateRoutes();
     };
+
+    fromLocation.onblur = function() { from.hide(); };
 
     from.on('hide', function() {
       var to = new Tip(require('./to-tip.html'));
       to.position('left');
-      to.show('#to-location');
+      to.show('.input-group.to');
 
       var toLocation = document.getElementById('to-location');
       toLocation.focus();
       toLocation.select();
 
+      toLocation.onblur = function() {
+        to.hide();
+        plan.welcome_complete(true);
+      };
+
       document.querySelector('.to-next-button').onclick = function() {
         to.hide();
         plan.welcome_complete(true);
-        plan.updateRoutes();
       };
     });
   });
