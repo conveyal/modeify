@@ -206,8 +206,8 @@ function populateSegments(options, journey) {
 function getSegmentRoute(segment, journey) {
   for (var i = 0; i < journey.routes.length; i++) {
     var route = journey.routes[i];
-    if (route.route_id.toLowerCase() === segment.route.toLowerCase()) return
-      route;
+    if (route.route_id.toLowerCase() === segment.route.toLowerCase())
+      return route;
   }
 }
 
