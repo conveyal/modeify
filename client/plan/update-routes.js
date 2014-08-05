@@ -71,7 +71,7 @@ function updateRoutes(plan, opts, callback) {
 
   // Convert the hours into strings
   startTime += ':00';
-  endTime += endTime === 24 ? ':59' : ':00';
+  endTime = endTime === 24 ? '23:59' : endTime + ':00';
 
   // Pattern options
   var options = {
