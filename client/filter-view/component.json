@@ -18,9 +18,5 @@
   ],
   "templates": [
     "template.html"
-  ],
-  "images": [
-    "images/arrow.svg",
-    "images/calendar.svg"
   ]
 }
