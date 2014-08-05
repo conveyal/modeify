@@ -21,13 +21,13 @@ module.exports = function profile(query, callback) {
   var spinner = spin();
   profiler.profile(query, function(err, data) {
     if (err || !data) {
-      spinner.stop();
+      spinner.remove();
       debug('<-- error profiling', err);
       callback(err);
     } else {
       query.profile = data;
       profiler.journey(query, function(err, journey) {
-        spinner.stop();
+        spinner.remove();
         if (err) {
           debug('<-- error profiling', err);
           callback(err);
