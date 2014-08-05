@@ -12,6 +12,10 @@
   margin: 8px;
 }
 
+.Options .option.expanded {
+  border-bottom: none;
+}
+
 .Options .simple {
   padding: 15px 12px 10px;
   cursor: pointer;
@@ -125,7 +129,21 @@
 
 */
 
-.Options .details {
+.Options .option.expanded .details {
+  max-height: 1000px;
+  opacity: 1;
+  visibility: visible;
+  border-bottom: 1px solid var(--gray);
+}
+
+.Options .option .details {
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: max-height 0.25s, opacity 0.25s, visibility 0.25s;
+}
+
+.Options .details table {
   border-top: 1px solid var(--lightgray);
   table-layout: fixed;
   border-collapse: separate;

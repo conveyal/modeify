@@ -225,7 +225,7 @@ View.prototype.to = function() {
  */
 
 View.prototype.showHide = function() {
-  this.find('.details').classList.toggle('hidden');
+  this.el.classList.toggle('expanded');
 };
 
 /**

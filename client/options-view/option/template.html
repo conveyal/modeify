@@ -11,23 +11,25 @@
 
     <div class="fare" data-text="fare" on-click="showFareBreakdown"></div>
   </div>
-  <table class="details hidden">
-    <thead>
-      <tr class="detail-address">
-        <th class="detail-icon">
-          <span class="fs1"><span class="icon-start"></span></span>
-        </th>
-        <th class="detail-description" data-text="from"></th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr class="detail-address">
-        <td class="detail-icon">
-          <span class="fs1"><span class="icon-end"></span></span>
-        </td>
-        <td class="detail-description" data-text="to"></td>
-      </tr>
-    </tfoot>
-    <tbody data-html="segments"></tbody>
-  </table>
+  <div class="details">
+    <table>
+      <thead>
+        <tr class="detail-address">
+          <th class="detail-icon">
+            <span class="fs1"><span class="icon-start"></span></span>
+          </th>
+          <th class="detail-description" data-text="from"></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr class="detail-address">
+          <td class="detail-icon">
+            <span class="fs1"><span class="icon-end"></span></span>
+          </td>
+          <td class="detail-description" data-text="to"></td>
+        </tr>
+      </tfoot>
+      <tbody data-html="segments"></tbody>
+    </table>
+  </div>
 </li>
