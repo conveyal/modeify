@@ -88,7 +88,7 @@ View.prototype.segments = function() {
         details += this.narrativeDirections('car', 'Drive');
         break;
       case 'walk':
-        details += this.narrativeDirections('pedestrian', 'Walk');
+        details += this.narrativeDirections('walk', 'Walk');
         break;
     }
   } else {
@@ -96,7 +96,7 @@ View.prototype.segments = function() {
     addDetail({
       description: 'Walk ' + (this.model.finalWalkTime() / 60 | 0) +
         ' mins',
-      type: 'pedestrian',
+      type: 'walk',
       segment: true
     });
   }
@@ -270,6 +270,8 @@ function modeToIcon(m) {
   switch (m) {
     case 'bicycle':
       return 'bike';
+    case 'pedestrian':
+      return 'walk';
     case 'subway':
       return 'train';
     default:
