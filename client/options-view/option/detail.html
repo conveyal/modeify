@@ -4,8 +4,13 @@
       <i class="fa fa-circle"></i>
     </td>
   {{/transfer}}
+  {{#iconSegment}}
+    <td class="detail-icon icon-{{type}}"></td>
+  {{/iconSegment}}
   {{#segment}}
-    <td class="detail-icon icon-{{type}}" style="background-color: {{color}};"></td>
+     <td class="detail-icon route">
+      <i class="fa fa-square" style="color: {{color}}"></i>
+    </td>
   {{/segment}}
   {{#direction}}
     <td class="detail-icon" style="background-color: {{color}}">
