@@ -1,11 +1,17 @@
 
 .welcome-page {
   text-align: center;
-  padding: 50px;
+  padding: 20px;
   background-color: var(--green);
   border: 2px solid #fff;
+  width: 320px;
 }
 
+.welcome-page h1 {
+  font-size: 3em;
+}
+
+.welcome-page h1,
 .welcome-page h3,
 .welcome-page p,
 .welcome-page .btn {
@@ -22,7 +28,7 @@
 }
 
 .answers {
-  padding: 50px 0;
+  padding: 20px 0;
 }
 
 .answer {
@@ -30,7 +36,7 @@
   cursor: pointer;
   font-size: 30px;
   color: var(--darkgreen);
-  width: 20%;
+  width: 50px;
   text-align: center;
 }
 
