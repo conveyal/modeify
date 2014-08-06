@@ -20,8 +20,17 @@
           <i class="fa fa-fw fa-times"></i> <i class="fa fa-fw fa-dollar"></i><input type="text" value="0.56"> <a href="http://www.irs.gov/2014-Standard-Mileage-Rates-for-Business,-Medical-and-Moving-Announced" title="IRS's Standard Mileage Rate" target="_blank">per vehicle mile traveled</a><br>
           <i class="fa fa-fw fa-plus"></i> <i class="fa fa-fw fa-dollar"></i><input type="text" value="10.00"> for parking)<br>
         </div>
-        <div data-visible="hasFare">
+        <div data-visible="hasTransit">
+          <div>Fare cost calculations:</div>
           <i class="fa fa-fw fa-plus"></i> <i class="fa fa-fw fa-dollar"></i> for fare
+        </div>
+        <div data-visible="hasBiking">
+          <div>Calories burned per mile:</div>
+          <input type="text" value="10"> miles per hour<br>
+          <i class="fa fa-fw fa-times"></i> <input type="text" value="150">
+          (<input type="text" data-value="distance" disabled> miles biked<br>
+          <i class="fa fa-fw fa-times"></i> <input type="text" value="10"> miles per hour<br>
+          <i class="fa fa-fw fa-times"></i> <input type="text" value="55"> calories burned per mile)
         </div>
         <div><i class="fa fa-fw fa-times"></i> <input type="text" value="235"> trips (work days per year)</div>
       </div>

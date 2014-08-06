@@ -175,14 +175,6 @@ View.prototype.hasCost = function() {
 };
 
 /**
- * Has calories
- */
-
-View.prototype.hasCalories = function() {
-  return this.model.calories() > 0;
-};
-
-/**
  * Fare
  */
 
@@ -272,6 +264,14 @@ View.prototype.simpleSegments = function() {
 
   return html;
 };
+
+/**
+ * Has what?
+ */
+
+View.prototype.hasCar = function() { return this.model.mode() === 'car'; };
+View.prototype.hasTransit = function() { return this.model.mode() === 'subway' || this.model.mode() === 'bus'; };
+View.prototype.hasCalories = function() { return this.model.calories() > 0; };
 
 function modeToIcon(m) {
   m = m.toLowerCase();
