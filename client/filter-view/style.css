@@ -54,7 +54,7 @@
 
 .mode-filters a {
   display: inline-block;
-  color: #719939;
+  color: var(--darkgreen);
   cursor: pointer;
   font-size: 25px;
   padding: 7px;
@@ -68,8 +68,8 @@
   text-decoration: none;
 }
 
-.mode-filters a:active {
-  box-shadow: 0 0 0 4px var(--gray);
+.mode-filters a.active:active {
+  color: var(--darkgreen);
 }
 
 .submit {

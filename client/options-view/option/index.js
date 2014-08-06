@@ -5,7 +5,6 @@ var domify = require('domify');
 var hogan = require('hogan.js');
 var luminosity = require('luminosity');
 var session = require('session');
-var svg = require('svg-icons');
 var toSentenceCase = require('to-sentence-case');
 var view = require('view');
 

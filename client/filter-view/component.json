@@ -7,7 +7,6 @@
   "local": [
     "config",
     "reactive-select",
-    "svg-icons",
     "view"
   ],
   "scripts": [
