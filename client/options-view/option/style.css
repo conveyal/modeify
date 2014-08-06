@@ -149,17 +149,40 @@
   border-collapse: separate;
   padding-top: 1%;
   margin: 0 5%;
-  vertical-align: top;
   font-size: 14px;
+  vertical-align: top;
   color: var(--lightgray);
   line-height: 16px;
   font-weight: 300;
   padding: 10px;
 }
 
+.Options .details .detail-transfer-board {
+  background-color: var(--black);
+  width: 15px;
+  padding-left: 1px;
+  text-align: center;
+  margin-left: 4px;
+  margin-top: 30px;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  height: 50px;
+}
+
+.Options .details .detail-route-bg {
+  background-color: var(--black);
+  width: 15px;
+  padding-left: 1px;
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 27px;
+  margin-left: 4px;
+}
+
 .Options .details .detail-icon {
   height: 50px;
   font-size: 26px;
+  padding-right: 5px;
   text-align: center;
   vertical-align: middle;
   color: var(--black);
@@ -168,8 +191,6 @@
 .Options .details .route i {
   color: var(--black);
   height: 50px;
-  background-color: var(--gray);
-  border-radius: 5px;
   border: none;
 }
 
@@ -204,13 +225,7 @@
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: black;
   vertical-align: top;
-  background-color: var(--gray);
-  border-radius: 35%;
 }
-
-
-
-
 
 .fa-north {}
 .fa-northeast {
