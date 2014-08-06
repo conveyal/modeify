@@ -167,6 +167,22 @@ View.prototype.average = function() {
 };
 
 /**
+ * Has cost
+ */
+
+View.prototype.hasCost = function() {
+  return this.model.totalCost() > 0;
+};
+
+/**
+ * Has calories
+ */
+
+View.prototype.hasCalories = function() {
+  return this.model.calories() > 0;
+};
+
+/**
  * Fare
  */
 

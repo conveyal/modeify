@@ -250,6 +250,10 @@
   vertical-align: top;
 }
 
+/**
+ * Scoring Information
+ */
+
 .Options .scoring-information {
   margin: 0 15px 15px;
 }
@@ -267,6 +271,10 @@
 .Options .scoring-information input:focus {
   outline: none;
 }
+
+/**
+ * Font awesome rotations
+ */
 
 .fa-north {}
 .fa-northeast {

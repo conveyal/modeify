@@ -11,8 +11,11 @@ var view = require('view');
 
 var View = module.exports = view(require('./template.html'), function(view,
   model) {
-  var journey = model.journey();
-  if (journey && journey.stops.length > 0) view.display(journey);
+  view.on('rendered', function() {
+    var journey = model.journey();
+    if (journey) view.display(journey);
+  });
+
   model.on('change journey', function(journey) {
     if (journey) view.display(journey);
   });
@@ -25,9 +28,9 @@ var View = module.exports = view(require('./template.html'), function(view,
 View.prototype.display = function(journey) {
   debug('--> displaying journey');
 
-  this.el.innerHTML = require('./legend.html');
-
   if (journey.journeys && journey.journeys.length > 0) {
+    this.el.innerHTML = require('./legend.html');
+
     var transitive = window.transitive = new Transitive({
       el: this.el,
       legendEl: this.find('.legend'),
