@@ -276,31 +276,33 @@
  * Font awesome rotations
  */
 
-.fa-north {}
-.fa-northeast {
-  transform: rotate(45deg);
-}
-
-.fa-east {
-  transform: rotate(90deg);
-}
-
-.fa-southeast {
-  transform: rotate(135deg);
-}
-
-.fa-south {
-  transform: rotate(180deg);
-}
-
-.fa-southwest {
-  transform: rotate(215deg);
-}
-
-.fa-west {
+.fa-north {
   transform: rotate(270deg);
 }
 
-.fa-northwest {
+.fa-northeast {
   transform: rotate(315deg);
+}
+
+.fa-east {
+}
+
+.fa-southeast {
+  transform: rotate(45deg);
+}
+
+.fa-south {
+  transform: rotate(90deg);
+}
+
+.fa-southwest {
+    transform: rotate(135deg);
+}
+
+.fa-west {
+  transform: rotate(180deg);
+}
+
+.fa-northwest {
+  transform: rotate(225deg);
 }
