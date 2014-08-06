@@ -42,18 +42,21 @@
 }
 
 .tip {
-  background-color: #8ec449;
-  color: #fff;
-  padding: 0 0 0 10px;
+  background-color: #fff;
+  color: var(--black);
+  border: 1px solid var(--black);
+  border-radius: 2px;
+  text-align: center;
+  padding: 3px 5px 3px 10px;
+  margin: 2px;
+  box-shadow: 1px 1px 1px var(--black);
 }
 
 .tip .btn {
   background-color: transparent;
-  color: #fff;
-  margin-left: 10px;
-  padding: 10px 12px;
+  text-align: center
 }
 
 .tip .btn:hover {
-  background-color: rgba(0,0,0,0.1);
+  color: color(var(--black) shade(10%));
 }
