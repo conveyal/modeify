@@ -2,7 +2,7 @@
 .welcome-page {
   text-align: center;
   padding: 50px;
-  background-color: #8ec449;
+  background-color: var(--green);
   border: 2px solid #fff;
 }
 
@@ -27,25 +27,19 @@
 
 .answer {
   display: inline-block;
-  padding-bottom: 57px;
   cursor: pointer;
+  font-size: 30px;
+  color: var(--darkgreen);
+  width: 20%;
+  text-align: center;
 }
 
+.answer:hover,
+.answer:active,
 .answer.active {
-  padding-bottom: 0;
-}
-
-.answer .svg-icon {
-  padding: 20px 30px;
-}
-
-.answer .fa {
-  font-size: 20px;
-  display: none;
-  margin-top: 35px;
   color: #fff;
 }
 
-.answer.active .fa {
-  display: inline-block;
+.answer.active:active {
+  color: var(--darkgreen);
 }
