@@ -26,7 +26,7 @@ var processProfile = new ProcessProfile();
 
 var scaleCalories = d3.scale.sqrt()
   .domain([0, 100, 150])
-  .range([0, 1, 0 ])
+  .range([0, 1, 0])
   .exponent(2);
 
 /**
@@ -194,7 +194,6 @@ function populateSegments(options, journey) {
       var segment = option.segments[j];
       var route = getSegmentRoute(segment, journey);
       if (!route) continue;
-
 
       segment.color = convert.routeToColor(route);
       segment.shield = getRouteShield(route);

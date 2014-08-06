@@ -3,12 +3,6 @@ var debug = require('debug')(config.name() + ':map');
 var page = require('page');
 
 /**
- * Leaflet
- */
-
-// var L = window.L;
-
-/**
  * Expose `map`
  */
 

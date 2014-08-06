@@ -206,9 +206,7 @@ View.prototype.fare = function() {
 
 View.prototype.calories = function() {
   var total = this.model.calories() * this.days();
-  return total > 1000
-    ? (total / 1000).toFixed(0) + 'k'
-    : total.toFixed(0);
+  return total > 1000 ? (total / 1000).toFixed(0) + 'k' : total.toFixed(0);
 };
 
 /**
