@@ -1,7 +1,10 @@
 <tr class="detail-segment detail-{{type}}">
   {{#transfer}}
     <td class="detail-icon transfer">
+      <div class="detail-transfer-board  {{transfer}}transfer{{transfer}}">
       <i class="fa fa-circle"></i>
+    </div>
+    </td>
     </td>
   {{/transfer}}
   {{#iconSegment}}
@@ -9,7 +12,9 @@
   {{/iconSegment}}
   {{#segment}}
      <td class="detail-icon route">
+      <div class="detail-route-bg  {{color}}route{{color}}">
       <i class="fa fa-square" style="color: {{color}}"></i>
+    </div>
     </td>
   {{/segment}}
   {{#direction}}
