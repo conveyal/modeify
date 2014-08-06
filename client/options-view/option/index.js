@@ -185,21 +185,14 @@ View.prototype.fare = function() {
 };
 
 /**
- * Pollution
+ * Calories
  */
 
-View.prototype.pollution = function() {
-  return this.model.mode() === 'car' ? this.model.emissions() | 0 : false;
-};
-
-/**
- * Pollution Offset
- */
-
-View.prototype.pollutionOffset = function() {
-  return this.model.mode() === 'bicycle' || this.model.mode() === 'walk' ? -
-    this.model
-    .emissions() | 0 : false;
+View.prototype.calories = function() {
+  var total = this.model.calories() * this.days();
+  return total > 1000
+    ? (total / 1000).toFixed(0) + 'k'
+    : total.toFixed(0);
 };
 
 /**

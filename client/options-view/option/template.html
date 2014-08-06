@@ -12,7 +12,30 @@
     <div class="fare" data-text="fare" on-click="showFareBreakdown"></div>
   </div>
   <div class="details">
-    <table>
+    <form class="scoring-information">
+      <table>
+        <thead>
+          <tr>
+            <th>Cost</th>
+            <th>Cals</th>
+            <th>CO<sub>2</sub></th>
+          </tr>
+        </thead>
+        <tbody>
+          <td data-text="fare"></td>
+          <td data-text="calories"></td>
+          <td data-text="emissions"></td>
+        </tbody>
+      </table>
+      <div data-visible="hasCar">
+        (<input type="text" data-value="distance" disabled> miles driven<br>
+        <i class="fa fa-fw fa-times"></i> <i class="fa fa-fw fa-dollar"></i><input type="text" value="0.56"> <a href="http://www.irs.gov/2014-Standard-Mileage-Rates-for-Business,-Medical-and-Moving-Announced" title="IRS's Standard Mileage Rate" target="_blank">per vehicle mile traveled</a><br>
+        <i class="fa fa-fw fa-plus"></i> <i class="fa fa-fw fa-dollar"></i><input type="text" value="10.00"> for parking)<br>
+      </div>
+
+      <div><i class="fa fa-fw fa-times"></i> <input type="text" value="235"> times per year (work days)</div>
+    </form>
+    <table class="narrative-directions">
       <thead>
         <tr class="detail-address">
           <th class="detail-icon">
