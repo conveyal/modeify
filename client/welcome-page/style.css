@@ -1,43 +1,79 @@
 
 .welcome-page {
   text-align: center;
-  padding: 50px;
-  background-color: var(--green);
-  border: 2px solid #fff;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid var(--black);
+  width: 500px;
+  height: 295px;
 }
 
-.welcome-page h3,
-.welcome-page p,
+.welcome-page h1 {
+  color: var(--black);
+  font-size: 30px;
+  padding-top: 10px;
+  margin: 0;
+  text-align: center;
+}
+
 .welcome-page .btn {
+  color: #fff;
+  margin: 0;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.welcome-page p{
+  color: var(--gray);
+  font-size: 16px;
+  font-weight: 200;
+  margin-top: 1%;
+  text-align: center;
+}
+
+.welcome-page .body-text {
+  color: var(--gray );
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 300;
+  margin-bottom: 2%;
+  margin-left: 5%;
+  margin-top: 5px;
+  text-align: left;
+}
+
+
+.welcome-page .btn {
+  float: right;
+  padding: 6px 15px 5px 15px;
+  border-radius: 2px;
+  background: var(--green);
+  text-align: right;
   color: #fff;
 }
 
-.welcome-page .btn {
-  border: 2px solid #fff;
-  background: transparent;
-}
-
 .welcome-page .btn:hover {
-  background-color: rgba(0,0,0, 0.1);
+  background-color: color(var(--green) shade(10%));
 }
 
 .answers {
-  padding: 50px 0;
+  margin: 20px 50px;
+  padding: 5px 0;
 }
 
 .answer {
   display: inline-block;
   cursor: pointer;
-  font-size: 30px;
-  color: var(--darkgreen);
-  width: 20%;
+  font-size: 36px;
+  color: var(--white);
+  width: 18%;
   text-align: center;
 }
 
 .answer:hover,
 .answer:active,
 .answer.active {
-  color: #fff;
+  color: var(--green);
 }
 
 .answer.active:active {
