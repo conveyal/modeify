@@ -157,6 +157,17 @@
   padding: 10px;
 }
 
+.Options .details .detail-transfer-bg {
+  background-color: var(--black);
+  width: 15px;
+  padding-left: 1px;
+  text-align: center;
+  margin-left: 4px;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  height: 50px;
+}
+
 .Options .details .detail-transfer-board {
   background-color: var(--black);
   width: 15px;
@@ -166,6 +177,18 @@
   margin-top: 30px;
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
+  height: 50px;
+}
+
+.Options .details .detail-transfer-alight {
+  background-color: var(--black);
+  width: 15px;
+  padding-left: 1px;
+  padding-top: 40px;
+  margin-left: 4px;
+  margin-bottom: 45px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
   height: 50px;
 }
 
