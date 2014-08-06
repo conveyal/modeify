@@ -250,31 +250,32 @@
   vertical-align: top;
 }
 
-.fa-north {}
+.fa-north {
+  transform: rotate(270deg);
+}
 .fa-northeast {
-  transform: rotate(45deg);
+  transform: rotate(315deg);
 }
 
 .fa-east {
-  transform: rotate(90deg);
 }
 
 .fa-southeast {
-  transform: rotate(135deg);
+  transform: rotate(45deg);
 }
 
 .fa-south {
-  transform: rotate(180deg);
+  transform: rotate(90deg);
 }
 
 .fa-southwest {
-  transform: rotate(215deg);
+    transform: rotate(135deg);
 }
 
 .fa-west {
-  transform: rotate(270deg);
+  transform: rotate(180deg);
 }
 
 .fa-northwest {
-  transform: rotate(315deg);
+  transform: rotate(225deg);
 }
