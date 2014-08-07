@@ -1,7 +1,7 @@
 {
   "name": "otp",
   "dependencies": {
-    "conveyal/otp-profiler": "*",
+    "conveyal/otp-profiler": "0.4.1",
     "visionmedia/debug": "*"
   },
   "local": [
