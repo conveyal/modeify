@@ -1,6 +1,6 @@
 
 .commuter-profile {
-  width: 600px;
+  width: 620px;
   height: 600px;
   border: 1px solid var(--black);
 }
@@ -15,6 +15,13 @@
   font-weight: 300;
   font-size: 12px;
   color: var(--gray);
+}
+
+.commuter-profile .fa-times-top {
+  float: right;
+  color: var(--gray);
+  font-size: 20px;
+  margin: 15px;
 }
 
 .commuter-profile h4 {
@@ -59,14 +66,34 @@
 
 .commuter-profile form {
   padding: 0 10px 0;
+  outline: none;
+}
+
+.commuter-profile .classa.btn {
+  background-color: var(--gray);
+  border: none;
+  width: 15%;
+  display: inline-block;
+  text-align: center;
+  height: 30px;
+  line-height: 0;
+  font-size: 20px;
+  margin: 0;
+  vertical-align: top;
+  border-radius: 2px;
+  font-weight: bold;
 }
 
 .commuter-profile .form-control {
   margin-left: 15px;
-  border: 1px solid var(--gray);  
-  width: 200px;
+  border: 1px solid var(--gray);
+  color: var(--green);
+  font-size: 14px;
+  font-weight: 300;  
+  width: 60%;
   height: 30px;
   outline: none;
+  display: inline-block;
 }
 
 .commuter-profile input {
@@ -101,8 +128,10 @@
 }
 
 .commuter-profile .journey {
+  width: 85%;
   list-style-type: none;
   margin-bottom: 10px;
+  margin-left: 15px;
   cursor: pointer;
   padding: 10px;
   border: 1px solid #84909d;
@@ -112,7 +141,7 @@
 
 .commuter-profile .journey:hover {
   padding-left: 6px;
-  border-left: 5px solid #333;
+  border-left: 5px solid var(--black);
 }
 
 .commuter-profile .journey div {
@@ -124,8 +153,9 @@
   color: #8ec449;
 }
 
-.commuter-profile .journey div .fa {
-  color: #333;
+.commuter-profile .journey div i {
+  color: var(--black);
+  font-size: 16px;
 }
 
 .commuter-profile .journey button {
