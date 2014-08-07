@@ -1,27 +1,72 @@
 
 .commuter-profile {
   width: 600px;
-  border: 1px solid #84909d;
+  height: 600px;
+  border: 1px solid var(--black);
 }
 
 .commuter-profile h3 {
-  margin: 10px 10px;
+  margin: 15px 15px;
+  font-size: 22px;
+  color: var(--black);
+}
+
+.commuter-profile small {
+  font-weight: 300;
+  font-size: 12px;
+  color: var(--gray);
 }
 
 .commuter-profile h4 {
-  border-left: 5px solid #333;
-  background-color: #eee;
-  padding: 10px;
-  color: #333;
+  margin: 10px 15px;
+  font-weight: bold;
+  font-size: 16px;
+  color: var(--black);
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--white);
 }
 
 .commuter-profile .alert {
   border-left: none;
-  padding: 8px 15px;
+  padding: 5px 25px;
+}
+
+.commuter-profile .alert-danger {
+  background-color: #fff;
+  border: none;
+  color: var(--gray);
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.commuter-profile .alert-warning {
+  background-color: #fff;
+  border: none;
+  color: var(--gray);
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.commuter-profile .alert-link {
+  background-color: #fff;
+  border: none;
+  color: var(--gray);
+  font-size: 14px;
+  line-height: 17px;
 }
 
 .commuter-profile form {
   padding: 0 10px 0;
+}
+
+.commuter-profile .form-control {
+  margin-left: 15px;
+  border: 1px solid var(--gray);  
+  width: 200px;
+  height: 30px;
+  outline: none;
 }
 
 .commuter-profile input {
