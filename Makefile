@@ -26,12 +26,6 @@ clean:
 	@rm -rf build
 	@rm -rf components
 
-convert: $(SVG)
-	@echo $(SVG)
-
-%.svg:
-	@echo $<
-
 components: node_modules component.json $(JSON)
 	@./node_modules/.bin/component install --dev --verbose
 

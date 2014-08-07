@@ -200,17 +200,15 @@ Plan.prototype.setAddress = function(name, address, callback) {
 
 Plan.prototype.setAddresses = function(from, to, callback) {
   // Initialize the default locations
-  var batch = new Batch();
   var plan = this;
-  batch.push(function(done) {
-    plan.setAddress('from', from, done);
-  });
 
-  batch.push(function(done) {
-    plan.setAddress('to', to, done);
-  });
-
-  batch.end(callback);
+  Batch()
+    .push(function(done) {
+      plan.setAddress('from', from, done);
+    })
+    .push(function(done) {
+      plan.setAddress('to', to, done);
+    }).end(callback);
 };
 
 /**

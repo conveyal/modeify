@@ -189,7 +189,7 @@ View.prototype.fare = function() {
  */
 
 View.prototype.calories = function() {
-  var total = this.model.calories() * this.days();
+  var total = this.model.calories() * 250;
   return total > 1000
     ? (total / 1000).toFixed(0) + 'k'
     : total.toFixed(0);
@@ -237,8 +237,13 @@ View.prototype.simpleSegments = function() {
   var segments = this.model.segments();
 
   segments.forEach(function(segment) {
-    var rgb = colorParser(segment.color);
-    rgb = [rgb.r, rgb.g, rgb.b];
+    var rgb = [ 192, 192, 192 ];
+    if (segment.color) {
+      rgb = colorParser(segment.color);
+      rgb = [rgb.r, rgb.g, rgb.b];
+    } else {
+      segment.color = 'gray';
+    }
 
     html += simpleTemplate.render({
       color: segment.color,
