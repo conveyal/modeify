@@ -278,7 +278,16 @@ View.prototype.simpleSegments = function() {
 
 View.prototype.hasCar = function() { return this.model.mode() === 'car'; };
 View.prototype.hasTransit = function() { return this.model.mode() === 'subway' || this.model.mode() === 'bus'; };
-View.prototype.hasCalories = function() { return this.model.calories() > 0; };
+View.prototype.hasBiking = function() { return this.model.mode() === 'bicycle'; };
+View.prototype.hasWalking = function() {
+  switch (this.model.mode()) {
+    case 'bicycle':
+    case 'car':
+      return false;
+    default:
+      return true;
+  }
+};
 
 function modeToIcon(m) {
   m = m.toLowerCase();
@@ -292,4 +301,43 @@ function modeToIcon(m) {
     default:
       return m;
   }
+}
+
+/*
+  watts = speed * (k1 + k2 * speed * speed)
+
+  Where:
+
+  W = power in watts
+    1 W = 1 joule/sec
+    69.78W = 1000 calories/min = 1 kilocal/min = 1 Calorie/min
+    1 Calorie = 4186 joules
+  Cv = speed of cyclist in meters/sec
+    1 mph = .447 meters/sec
+    1 mph = 1.609 kilometeres/hr
+  K1 3.509
+  K2 0.2581
+
+  reference: http://www.cptips.com/formula.htm
+*/
+
+function caloriesBurnedBiking(speed, minutes) {
+  var k1 = 3.509;
+  var k2 = 0.2581;
+  var watts = speed * (k1 + k2 * speed * speed);
+  var kcaloriesPerMin = watts / 69.78;
+  return kcaloriesPerMin * minutes;
+}
+
+/**
+ * Find MET scores here: http://appliedresearch.cancer.gov/atus-met/met.php
+ *
+ * Cycling: 8.0
+ * Walking: 3.8
+ */
+
+function bikeCal(kg, hours) { return caloriesBurned(8.0, kg, hours); }
+function walkCal(kg, hours) { return caloriesBurned(3.8, kg, hours); }
+function caloriesBurned(met, kg, hours) {
+  return met * kg * hours;
 }

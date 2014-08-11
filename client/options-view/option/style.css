@@ -265,10 +265,20 @@
   width: 50px;
   padding: 4px 0;
   font-weight: bold;
+  cursor: pointer;
+}
+
+.Options .scoring-information input[disabled] {
+  color: var(--black);
+  cursor: default;
 }
 
 .Options .scoring-information input:focus {
   outline: none;
+}
+
+.Options .scoring-information section {
+  padding-top: 5px;
 }
 
 /**

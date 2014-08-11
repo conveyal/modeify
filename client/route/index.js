@@ -1,6 +1,7 @@
 var config = require('config');
 var debug = require('debug')(config.application() + ':route');
 var model = require('model');
+var defaults = require('model-defaults');
 var session = require('session');
 
 /**
@@ -8,13 +9,22 @@ var session = require('session');
  */
 
 var Route = module.exports = model('Route')
+  .use(defaults({
+    bikeSpeed: 4.1,
+    parkingCost: 10,
+    vmtRate: 0.56,
+    walkSpeed: 1.4
+  }))
   .attr('id')
+  .attr('bikeSpeed')
   .attr('calories')
   .attr('emissions')
   .attr('factors')
+  .attr('fares')
   .attr('finalWalkTime')
   .attr('frequency')
   .attr('mode')
+  .attr('parkingCost')
   .attr('score')
   .attr('segments')
   .attr('stats')
@@ -23,6 +33,10 @@ var Route = module.exports = model('Route')
   .attr('totalCost')
   .attr('totalDistance')
   .attr('totalWalkTime')
+  .attr('transitFare')
+  .attr('vmtRate')
+  .attr('walkDistance')
+  .attr('walkSpeed')
   .attr('walkSteps');
 
 /**
@@ -32,6 +46,8 @@ var Route = module.exports = model('Route')
 Route.on('construct', function(route) {
   setFrequency(route);
   setTotalWalkTime(route);
+  setTransitFare(route);
+  setWalkDistance(route);
 });
 
 /**
@@ -63,5 +79,32 @@ function setTotalWalkTime(route) {
   var segments = route.segments();
   var totalWalkTime = route.finalWalkTime();
   for (var i = 0; i < segments.length; i++) totalWalkTime += segments[i].walkTime;
+
   route.totalWalkTime(Math.round(totalWalkTime / 60));
+}
+
+/**
+ * Transit Fares
+ */
+
+function setTransitFare(route) {
+  if (!route.fares() || route.fares().length === 0) return route.transitFare(0);
+
+  var fares = route.fares();
+  var totalFare = 0;
+  for (var i = 0; i < fares.length; i++) totalFare += fares[i].peak;
+
+  route.transitFare(totalFare);
+}
+
+/**
+ * Set Walk Distance
+ */
+
+function setWalkDistance(route) {
+  var segments = route.segments();
+  var totalWalkTime = route.finalWalkTime();
+  for (var i = 0; i < segments.length; i++) totalWalkTime += segments[i].walkTime;
+
+  route.walkDistance((totalWalkTime / route.walkSpeed() * 0.000621371).toFixed(2));
 }
