@@ -29,13 +29,13 @@
 
       <section class="speed-preference">
         <h4>Speed <br><small>Set your preferred bike and walk speeds.</small></h4>
-        <div class="walk-speed">
-          <button class="stroller svg-icon-stroller" on-click="setWalkSpeed">Stroller</button>
-          <button class="speedwalker svg-icon-speedwalker" on-click="setWalkSpeed">Speed walker</button>
+        <div class="walk-speed"><p>Walk speed</p>
+          <button class="stroller" on-click="setWalkSpeed"><span class="icon-walk"></span></button>
+          <button class="speedwalker" on-click="setWalkSpeed"><span class="icon-speedwalker"></span></button>
         </div>
-        <div class="bike-speed">
-          <button class="cruiser svg-icon-cruiser" on-click="setBikeSpeed">Cruiser</button>
-          <button class="racer svg-icon-racer" on-click="setBikeSpeed">Racer</button>
+        <div class="bike-speed"><p>Bike speed</p>
+          <button class="cruiser" on-click="setBikeSpeed"><span class="icon-cruiserbike"></span></button>
+          <button class="racer" on-click="setBikeSpeed"><span class="icon-racerbike"></span></button>
         </div>
       </section>
 
