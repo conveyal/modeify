@@ -144,7 +144,6 @@
 }
 
 .Options .details .narrative-directions {
-  border-top: 1px solid var(--lightgray);
   table-layout: fixed;
   border-collapse: separate;
   margin: 0 5%;
@@ -254,17 +253,32 @@
  */
 
 .Options .scoring-information {
-  margin: 0 15px 15px;
+  margin: 0 10px 10px;
+  padding: 15px;
+  background-color: var(--white);
+  font-size: 13px;
+  line-height: 14px;
+  font-weight: 300;
+}
+
+.Options .scoring-information strong {
+  font-size: 14px;
+}
+
+.Options .scoring-information i {
+  margin-left: 5px;
 }
 
 .Options .scoring-information input {
   border: none;
-  border-bottom: 1px dotted var(--green);
+  font-weight: 500;
+  background-color: #fff;
   color: var(--green);
   text-align: center;
+  padding: 5px;
   width: 50px;
-  padding: 4px 0;
-  font-weight: bold;
+  border: 1px solid var(--black);
+  font-size: 14px;
   cursor: pointer;
 }
 
