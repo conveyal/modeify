@@ -9,31 +9,27 @@
       <div class="distance" data-visible="distance">{distance} miles</div>
     </div>
 
-    <div class="fare" data-text="fare" on-click="showFareBreakdown"></div>
+    <div class="fare" data-text="fare"></div>
   </div>
   <div class="details">
     <form class="scoring-information">
-      <div class="cost-information" data-visible="hasCost">
-        <div data-visible="hasCar">
-          <div>Car cost calculation:</div>
-          (<input type="text" data-value="distance" disabled> miles driven<br>
-          <i class="fa fa-fw fa-times"></i> <i class="fa fa-fw fa-dollar"></i><input type="text" value="0.56"> <a href="http://www.irs.gov/2014-Standard-Mileage-Rates-for-Business,-Medical-and-Moving-Announced" title="IRS's Standard Mileage Rate" target="_blank">per vehicle mile traveled</a><br>
-          <i class="fa fa-fw fa-plus"></i> <i class="fa fa-fw fa-dollar"></i><input type="text" value="10.00"> for parking)<br>
-        </div>
-        <div data-visible="hasTransit">
-          <div>Fare cost calculations:</div>
-          <i class="fa fa-fw fa-plus"></i> <i class="fa fa-fw fa-dollar"></i> for fare
-        </div>
-        <div data-visible="hasBiking">
-          <div>Calories burned per mile:</div>
-          <input type="text" value="10"> miles per hour<br>
-          <i class="fa fa-fw fa-times"></i> <input type="text" value="150">
-          (<input type="text" data-value="distance" disabled> miles biked<br>
-          <i class="fa fa-fw fa-times"></i> <input type="text" value="10"> miles per hour<br>
-          <i class="fa fa-fw fa-times"></i> <input type="text" value="55"> calories burned per mile)
-        </div>
-        <div><i class="fa fa-fw fa-times"></i> <input type="text" value="235"> trips (work days per year)</div>
-      </div>
+      <p>Cost &amp; calories are multiplied by <input type="text" value="235"> trips (work days per year) to get the number seen above</p>
+      <section data-visible="hasCar">
+        <p><input type="text" data-value="distance" disabled> miles driven</p>
+        <p>times <i class="fa fa-dollar"></i><input type="text" data-value="vmtRate"> <a href="http://www.irs.gov/2014-Standard-Mileage-Rates-for-Business,-Medical-and-Moving-Announced" title="IRS's Standard Mileage Rate" target="_blank">per vehicle mile traveled</a></p>
+        <p>plus <i class="fa fa-dollar"></i><input type="text" data-value="parkingCost"> for parking</p>
+      </section>
+      <section data-visible="hasTransit">
+        <p><i class="fa fa-dollar"></i><input type="text" data-value="transitFare"> for transit fare</p>
+      </section>
+      <section data-visible="hasBiking">
+        <p><input type="text" data-value="bikeSpeed"> miles per hour biking</p>
+        <p><input type="text" data-value="distance" disabled> miles biked</p>
+      </section>
+      <section data-visible="hasWalking">
+        <p><input type="text" data-value="walkSpeed"> miles per hour walking</p>
+        <p><input type="text" data-value="walkDistance" disabled> miles walked</p>
+      </section>
     </form>
     <table class="narrative-directions">
       <thead>
