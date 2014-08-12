@@ -194,16 +194,17 @@ function populateSegments(options, journey) {
       var patternId = segment.segmentPatterns[0].patternId;
       if (!patternId) continue;
 
-      var routeId = getRouteId(patternId.toLowerCase(), journey.patterns);
+      var routeId = getRouteId(patternId, journey.patterns);
       if (!routeId) continue;
 
       var route = getRoute(routeId, journey.routes);
       if (!route) continue;
 
+      console.log(route);
       segment.color = convert.routeToColor(route);
-      segment.longName = route.longName;
+      segment.longName = route.route_long_name;
       segment.shield = getRouteShield(route);
-      segment.shortName = route.shortName;
+      segment.shortName = route.route_short_name;
     }
   }
 }
@@ -211,14 +212,14 @@ function populateSegments(options, journey) {
 function getRouteId(patternId, patterns) {
   for (var i = 0; i < patterns.length; i++) {
     var pattern = patterns[i];
-    if (pattern.pattern_id.toLowerCase() === patternId) return pattern.pattern_id;
+    if (pattern.pattern_id === patternId) return pattern.route_id;
   }
 }
 
 function getRoute(routeId, routes) {
   for (var i = 0; i < routes.length; i++) {
     var route = routes[i];
-    if (route.route_id.toLowerCase() === routeId) return route;
+    if (route.route_id === routeId) return route;
   }
 }
 
