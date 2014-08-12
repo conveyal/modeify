@@ -136,13 +136,14 @@
 .commuter-profile .speed-preference button.hover {
   color: var(--green);
   outline: none;
+  border-radius: 50%;
 }
 
 .commuter-profile .speed-preference button.selected {
   color: #dcffb0;
   outline: none;
   background-color: var(--green);
-  border-radius: 3px;
+  border-radius: 50%;
 }
 
 .commuter-profile .journeys {
