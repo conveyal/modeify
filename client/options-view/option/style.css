@@ -282,6 +282,28 @@
   cursor: pointer;
 }
 
+.Options .scoring-information button {
+  background-color: var(--gray);
+  text-align: center;
+  color: #fff;
+  border-radius: 2px;
+  width: 35px;
+  padding: 4px 4px 3px 0;
+  font-size: 14px;
+  cursor: pointer;
+  outline: 0;
+  box-shadow: 0;
+  border: 0;
+}
+
+.Options .scoring-information button:hover {
+  background-color: color(var(--gray) shade(10%));
+}
+
+.Options .scoring-information button:active {
+  background-color: color(var(--gray) shade(10%));
+}
+
 .Options .scoring-information input[disabled] {
   color: var(--black);
   cursor: default;
