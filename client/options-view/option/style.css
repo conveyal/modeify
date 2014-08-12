@@ -255,9 +255,9 @@
 .Options .scoring-information {
   margin: 0 10px 10px;
   padding: 15px;
-  background-color: var(--white);
+  background-color: rgba(220,255,176,0.4) ;
   font-size: 13px;
-  line-height: 14px;
+  line-height: 13px;
   font-weight: 300;
 }
 

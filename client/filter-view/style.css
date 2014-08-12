@@ -60,7 +60,7 @@
 .mode-filters a:hover,
 .mode-filters a:visited,
 .mode-filters a.active {
-  color: #dcffb0;
+  color: var(--lightgreen);
   text-decoration: none;
 }
 
