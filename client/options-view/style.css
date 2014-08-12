@@ -27,12 +27,12 @@
 }
 
 .Options .annual-day-trigger:hover {
-	color: color(var(--gray) shade(10%));
+	color:  var(--black);
 	font-weight: 500;
 
 }
 
 .Options .annual-day-trigger:active {
-	color: color(var(--gray) shade(10%));
+	color: var(--black);
 	font-weight: 500;
 }

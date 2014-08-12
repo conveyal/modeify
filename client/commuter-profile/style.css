@@ -210,6 +210,25 @@
   padding-bottom: 15px;
 }
 
+.commuter-profile .speed-preference p {
+  margin: 0;
+  margin-top: 15px;
+}
+
+.commuter-profile .speed-preference .speed-description {
+  margin: 0;
+  color: var(--gray);
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 16px;
+  margin-bottom: 15px;
+}
+
+.commuter-profile .speed-preference .speed-description strong {
+  color: var(--green);
+  font-weight: 500;
+}
+
 .Modal {
   background-color: white;
   top: 54px;
