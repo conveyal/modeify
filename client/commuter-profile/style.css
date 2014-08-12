@@ -139,7 +139,7 @@
 }
 
 .commuter-profile .speed-preference button.selected {
-  color: #fff;
+  color: #dcffb0;
   outline: none;
   background-color: var(--green);
   border-radius: 3px;

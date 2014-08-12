@@ -13,11 +13,12 @@
 	margin-right: 15px;
 	padding-top: 5px;
 	color: var(--lightgray);
+	font-weight: 300;
 }
 
 .Options .annual-day-trigger {
 	font-weight: 400;
-	font-size: 13px;
+	font-size: 14px;
 	border-radius: 2px;
 	color: var(--lightgray);
 	outline: none;
