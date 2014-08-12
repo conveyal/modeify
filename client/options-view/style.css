@@ -1,4 +1,36 @@
 
 .Options {
   overflow: hidden;
+  margin-top: 10px;
+}
+
+.Options .title {
+  display: inline-block;
+}
+
+
+.Options .pull-right {
+	margin-right: 5px;
+	padding-top: 5px;
+}
+
+.Options .annual-day-trigger {
+	background-color: var(--gray);
+	margin-right: 5px;
+	padding: 5px;
+	font-weight: 400;
+	font-size: 12px;
+	border-radius: 2px;
+	color: #fff;
+	outline: none;
+	box-shadow: none;
+	clear: both;
+}
+
+.Options .annual-day-trigger:hover {
+	background-color: var(--black);
+}
+
+.Options .annual-day-trigger:active {
+	background-color: var(--black);
 }
