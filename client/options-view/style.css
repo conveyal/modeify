@@ -17,8 +17,8 @@
 .Options .annual-day-trigger {
 	background-color: var(--gray);
 	margin-right: 5px;
-	padding: 5px;
-	font-weight: 400;
+	padding: 4px 7px;
+	font-weight: 300;
 	font-size: 12px;
 	border-radius: 2px;
 	color: #fff;
