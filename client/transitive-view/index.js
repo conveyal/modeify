@@ -31,16 +31,21 @@ View.prototype.display = function(journey) {
   if (journey.journeys && journey.journeys.length > 0) {
     this.el.innerHTML = require('./legend.html');
 
-    var transitive = window.transitive = new Transitive({
-      el: this.el,
-      legendEl: this.find('.legend'),
-      data: journey,
-      gridCellSize: 200,
-      mapboxId: config.mapbox_map_id(),
-      useDynamicRendering: true,
-      styles: require('./style')
-    });
-    transitive.render();
+    try {
+      var transitive = window.transitive = new Transitive({
+        el: this.el,
+        legendEl: this.find('.legend'),
+        data: journey,
+        gridCellSize: 200,
+        mapboxId: config.mapbox_map_id(),
+        useDynamicRendering: true,
+        styles: require('./style')
+      });
+      transitive.render();
+    } catch(e) {
+      debug('<-- failed to display journey');
+      return;
+    }
   }
 
   var el = this.el;
