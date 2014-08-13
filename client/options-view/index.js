@@ -14,3 +14,4 @@ var View = module.exports = view(require('./template.html'));
 View.prototype['options-view'] = function() {
   return OptionView;
 };
+

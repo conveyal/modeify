@@ -33,6 +33,8 @@ var Plan = module.exports = model('Plan')
     from: '',
     from_valid: false,
     options: [],
+    per_day: false,
+    per_year: true,
     start_time: 7,
     to: '',
     to_valid: false,
@@ -54,6 +56,8 @@ var Plan = module.exports = model('Plan')
   .attr('journey')
   .attr('options')
   .attr('original_modes')
+  .attr('per_day')
+  .attr('per_year')
   .attr('start_time')
   .attr('to')
   .attr('to_id')
@@ -93,6 +97,18 @@ Plan.on('change start_time', function(plan, val, prev) {
 
 Plan.on('change end_time', function(plan, val, prev) {
   if (val <= plan.start_time()) plan.start_time(val - 1);
+});
+
+/**
+ * Keey per day/year in sync
+ */
+
+Plan.on('change per_day', function(plan, val) {
+  if (val) plan.per_year(false);
+});
+
+Plan.on('change per_year', function(plan, val) {
+  if (val) plan.per_day(false);
 });
 
 /**

@@ -9,6 +9,12 @@ var toSentenceCase = require('to-sentence-case');
 var view = require('view');
 
 /**
+ * Constants
+ */
+
+var METERS_TO_MILES = 0.000621371;
+
+/**
  * Templates
  */
 
@@ -62,7 +68,7 @@ View.prototype.segments = function() {
     // Check for a walking distance
     if (segment.walkTime !== 0) {
       addDetail({
-        description: 'Walk ' + Math.round(segment.walkTime / 60) + ' mins',
+        description: 'Walk ' + Math.round(segment.walkTime / 60) + ' min',
         type: 'walk',
         iconSegment: true
       });
@@ -94,7 +100,7 @@ View.prototype.segments = function() {
     // Final Walk Segment
     addDetail({
       description: 'Walk ' + (egress[0].time / 60 | 0) +
-        ' mins',
+        ' min',
       type: 'walk',
       iconSegment: true
     });
@@ -139,7 +145,7 @@ function narrativeDirections(type, action, steps) {
     narrative += detailTemplate.render({
       description: toSentenceCase(steps[i].relativeDirection) + ' on ' +
         steps[i].streetName + ' for ' + convert.metersToMiles(steps[i].distance) +
-        ' mile(s)',
+        ' mi',
       direction: iconDirection
     });
   }
@@ -200,17 +206,17 @@ View.prototype.frequency = function() {
 
 View.prototype.driveDistance = function() {
   if (this.model.modes().indexOf('car') === -1) return false;
-  return Math.round(this.model.driveDistance() * 2) / 2;
+  return Math.round(convert.metersToMiles(this.model.driveDistance()) * 2) / 2;
 };
 
 View.prototype.bikeDistance = function() {
   if (this.model.modes().indexOf('bicycle') === -1) return false;
-  return Math.round(this.model.bikeDistance() * 2) / 2;
+  return Math.round(convert.metersToMiles(this.model.bikeDistance()) * 2) / 2;
 };
 
 View.prototype.walkDistance = function() {
   if (this.model.modes().indexOf('walk') === -1) return false;
-  return Math.round(this.model.walkDistance() * 2) / 2;
+  return Math.round(convert.metersToMiles(this.model.walkDistance()) * 2) / 2;
 };
 
 /**
@@ -237,8 +243,17 @@ View.prototype.showHide = function() {
  */
 
 View.prototype.simpleSegments = function() {
+  var accessMode = this.model.access()[0].mode.toLowerCase();
   var html = '';
   var segments = this.model.transit();
+
+  if (accessMode !== 'walk' || segments.length === 0) {
+    html += simpleTemplate.render({
+      color: 'transparent',
+      mode: modeToIcon(accessMode),
+      name: ' '
+    });
+  }
 
   segments.forEach(function(segment) {
     var rgb = [ 192, 192, 192 ];
@@ -256,16 +271,6 @@ View.prototype.simpleSegments = function() {
       name: segment.shield
     });
   });
-
-  if (segments.length === 0) {
-    this.model.modes().forEach(function(mode) {
-      html += simpleTemplate.render({
-        color: 'transparent',
-        mode: modeToIcon(mode),
-        name: ' '
-      });
-    });
-  }
 
   return html;
 };
@@ -318,5 +323,5 @@ function modeToIcon(m) {
 
 function ndescription(a, dir, dis, st) {
   return a + ' ' + dir + ' on ' + st + ' for ' + convert.metersToMiles(dis) +
-    ' mile(s)';
+    ' mi';
 }
