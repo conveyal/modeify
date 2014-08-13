@@ -9,10 +9,10 @@
       <div class="distance" data-visible="walkDistance">{walkDistance} mi walking</div>
     </div>
 
-
-    <div class="fare" data-text="fare"></div>
-    <div class="fare" data-visible="calculatedCost" title="per year">$ {calculatedCost}</div>
-    <dic class="fare" data-visible="calculatedCalories" title="per year">{calculatedCalories} cals</div>
+    <div class="fare-column">
+      <div class="fare" data-visible="calculatedCost" title="per year">${calculatedCost}</div>
+      <dic class="fare" data-visible="calculatedCalories" title="per year">{calculatedCalories} cals</div>
+    </div>
     <div class="expand">...</div>
 
   </div>
@@ -25,7 +25,7 @@
         <p>plus <i class="fa fa-dollar"></i><input type="text" data-value="parkingCost"> for parking</p>
       </section>
       <section data-visible="hasTransit">
-        <p><input type="text" data-value="transitFare"><i class="fa fa-dollar"></i> for transit fare</p>
+        <p><input type="text" data-value="transitCost"><i class="fa fa-dollar"></i> for transit fare</p>
       </section>
       <section data-visible="hasBiking">
         <p><input type="text" data-value="bikeSpeed"> miles per hour biking</p>

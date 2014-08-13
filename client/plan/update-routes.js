@@ -9,16 +9,12 @@ var ProcessProfile = require('otp-profile-score');
 var Route = require('route');
 
 /**
- * Max routes & patterns to show
- */
-
-var MAX_ROUTES = localStorage.getItem('max_routes') || 3;
-
-/**
  * New ProcessProfile object
  */
 
-var processProfile = new ProcessProfile();
+var processProfile = new ProcessProfile({
+  bikeParking: 5
+});
 
 /**
  * Scale calories
@@ -92,8 +88,6 @@ function updateRoutes(plan, opts, callback) {
     startTime: startTime,
     endTime: endTime,
     date: date,
-    orderBy: 'AVG',
-    limit: MAX_ROUTES,
     modes: modes,
     walkSpeed: plan.walk_speed()
   }, function(err, data) {
@@ -133,23 +127,24 @@ function updateRoutes(plan, opts, callback) {
         results: data.options.length
       });
 
+      console.log(data);
+
       // Process & format the results
       data.options = processProfile.processOptions(data.options);
 
       // Populate segments
       populateSegments(data.options, data.journey);
 
-      for (var i = 0; i < data.options.length; i++) {
-        // Create a new Route object for each option
+      // Create a new Route object for each option
+      for (var i = 0; i < data.options.length; i++)
         data.options[i] = new Route(formatProfile(data.options[i]));
-      }
 
       // Save the URL
       plan.saveURL();
 
       // Save the routes
-      plan.journey(data.journey);
       plan.options(data.options);
+      plan.journey(data.journey);
 
       debug('<-- updated routes');
       done(null, data);
@@ -200,7 +195,6 @@ function populateSegments(options, journey) {
       var route = getRoute(routeId, journey.routes);
       if (!route) continue;
 
-      console.log(route);
       segment.color = convert.routeToColor(route);
       segment.longName = route.route_long_name;
       segment.shield = getRouteShield(route);

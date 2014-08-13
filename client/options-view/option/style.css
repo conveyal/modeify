@@ -92,13 +92,9 @@
   color: var(--green);
 }
 
-.Options .simple .fare {
-  border-bottom: 1px dotted var(--green);
-  font-weight: 300;
-  display: inline-block;
+.Options .simple .fare-column {
   float: right;
-  font-size: 15px;
-  margin-right: 2%;
+  text-align: right;
 }
 
 /* button not there for now
