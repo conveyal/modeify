@@ -43,7 +43,7 @@ View.prototype.display = function(journey) {
       });
       transitive.render();
     } catch(e) {
-      debug('<-- failed to display journey');
+      debug('<-- failed to display journey: %s', e.message);
       return;
     }
   }
