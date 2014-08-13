@@ -8,10 +8,7 @@
   --red: #e21836;
   --white: #edeff0;
   --lightgreen: #dcffb0;
-}
-
-* {
-  font-family: sans-serif;
+  --border-radius: 2px;
 }
 
 #main {
