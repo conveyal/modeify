@@ -183,6 +183,15 @@ View.prototype.calculatedCost = function() {
 };
 
 /**
+ * Transit Cost
+ */
+
+View.prototype.transitCost = function() {
+  if (!this.model.transitCost()) return false;
+  return this.model.transitCost().toFixed(2);
+};
+
+/**
  * Calories
  */
 

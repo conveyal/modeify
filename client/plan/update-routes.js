@@ -192,13 +192,16 @@ function populateSegments(options, journey) {
       var routeId = getRouteId(patternId, journey.patterns);
       if (!routeId) continue;
 
+      routeId = routeId.split(':');
+      var agency = routeId[0].toLowerCase();
+      routeId = routeId[0] + ':' + routeId[1];
       var route = getRoute(routeId, journey.routes);
       if (!route) continue;
 
-      segment.color = convert.routeToColor(route);
       segment.longName = route.route_long_name;
-      segment.shield = getRouteShield(route);
       segment.shortName = route.route_short_name;
+      segment.color = convert.routeToColor(agency, route);
+      segment.shield = getRouteShield(agency, route);
     }
   }
 }
@@ -217,8 +220,8 @@ function getRoute(routeId, routes) {
   }
 }
 
-function getRouteShield(route) {
-  switch (route.agency_id.toLowerCase()) {
+function getRouteShield(agency, route) {
+  switch (agency) {
     case 'dc':
       if (route.route_type === 1) return 'M';
       return route.route_short_name; // For buses

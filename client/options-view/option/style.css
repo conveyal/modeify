@@ -10,6 +10,7 @@
   background-color: #fff;
   border-radius: 3px;
   margin: 8px;
+  border-bottom: 1px solid var(--gray);
 }
 
 .Options .option.expanded {
@@ -100,6 +101,10 @@
 /**
  * Expanded
  */
+
+.Options .option.expanded {
+  border-bottom: none;
+}
 
 .Options .option.expanded .details {
   max-height: 10000px;
