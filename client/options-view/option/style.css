@@ -17,8 +17,8 @@
 }
 
 .Options .simple {
-  padding: 15px 12px 10px;
   cursor: pointer;
+  padding: 10px 15px;
 }
 
 .Options .simple .segments {
@@ -97,33 +97,9 @@
   text-align: right;
 }
 
-/* button not there for now
-
-.Options .simple button {
-  color: #fff;
-  background-color: #84909d;
-  border: 1px solid #84909d;
-  border-radius: 2px;
-  font-weight: 400;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 3%;
-  padding:0;
-  width: 28%;
-}
-
-.Options .simple button:hover {
-  background-color: #95a1ad;
-  border: 1px solid #95a1ad;
-  border-radius: 2px;
-  outline: none;
-}
-
-.Options .simple button:active {
-  outline: none;
-}
-
-*/
+/**
+ * Expanded
+ */
 
 .Options .option.expanded .details {
   max-height: 10000px;
@@ -142,106 +118,72 @@
 .Options .details .narrative-directions {
   table-layout: fixed;
   border-collapse: separate;
-  margin: 0 5%;
   font-size: 14px;
   vertical-align: top;
   color: var(--lightgray);
   line-height: 16px;
   font-weight: 300;
-  padding: 10px;
+  padding: 10px 25px;
 }
 
-.Options .details .detail-transfer-bg {
-  background-color: var(--black);
+.narrative-directions .transfer {
   width: 15px;
-  padding-left: 1px;
   text-align: center;
-  margin-left: 4px;
+  margin-left: 5px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.Options .details .transfer.board {
+  margin-top: 14px;
+  padding-top: 0;
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
-  height: 50px;
 }
 
-.Options .details .detail-transfer-board {
-  background-color: var(--black);
-  width: 15px;
-  padding-left: 1px;
-  text-align: center;
-  margin-left: 4px;
-  margin-top: 30px;
-  border-top-right-radius: 15px;
-  border-top-left-radius: 15px;
-  height: 50px;
-}
-
-.Options .details .detail-transfer-alight {
-  background-color: var(--black);
-  width: 15px;
-  padding-left: 1px;
-  padding-top: 40px;
-  margin-left: 4px;
-  margin-bottom: 45px;
+.Options .details .transfer.alight {
+  margin-bottom: 14px;
+  padding-bottom: 0;
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
-  height: 50px;
 }
 
 .Options .details .detail-route-bg {
   background-color: var(--black);
   width: 15px;
-  padding-left: 1px;
-  text-align: center;
-  vertical-align: middle;
-  padding-top: 27px;
-  margin-left: 4px;
+  padding-top: 44px;
+  margin-left: 5px;
 }
 
-.Options .details .detail-icon {
-  height: 50px;
-  font-size: 26px;
-  padding-right: 5px;
-  text-align: center;
-  vertical-align: middle;
+.narrative-directions .icon {
+  height: 44px;
+  font-size: 25px;
   color: var(--black);
+  text-align: center;
 }
 
-.Options .details .route i {
-  color: var(--black);
-  height: 50px;
-  border: none;
+.narrative-directions .segment > .icon > .transfer > i {
+  color: #fff;
+  font-size: 16px;
+  display: block;
+  text-shadow: 0px 0px 1px #000;
 }
 
-.Options .details .detail-icon i {
+.narrative-directions .segment > .icon > .fa {
   color: var(--lightgray);
   font-size: 16px;
+  vertical-align: top;
 }
 
-.details .detail-transfer .detail-icon {
-  font-size: 35px;
-  background-color: transparent;
+.Options .details .description {
+  padding-left: 25px;
 }
 
-.Options .details .detail-icon svg {
-  width: 30px;
-  fill: #fff;
-}
-
-.Options .details .detail-address .detail-description {
+.Options .details .address .description {
   color: var(--green);
   vertical-align: middle;
   font-size: 15px;
   font-weight: bold;
-}
-
-.Options .details .detail-address .detail-icon {
-  background-color: transparent;
-}
-
-.Options .details .transfer i {
-  color: #fff;
-  -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: black;
-  vertical-align: top;
 }
 
 /**
@@ -249,8 +191,7 @@
  */
 
 .Options .scoring-information {
-  margin: 0 10px 10px;
-  padding: 15px;
+  padding: 10px 15px;
   background-color: rgba(220,255,176,0.4) ;
   font-size: 13px;
   line-height: 13px;

@@ -62,37 +62,48 @@ View.prototype.segments = function() {
 
   // Add transit segments
   var length = segments.length;
+  var transferType = true;
+  var lastColor = null;
   for (var i = 0; i < length; i++) {
     var segment = segments[i];
+    var color = segment.color;
 
-    // Check for a walking distance
+    // Check for a walking distance to see if you are boarding or transferring
     if (segment.walkTime !== 0) {
       addDetail({
         description: 'Walk ' + Math.round(segment.walkTime / 60) + ' min',
-        type: 'walk',
-        iconSegment: true
+        icon: 'walk'
       });
 
       addDetail({
+        color: color,
         description: segment.fromName,
-        type: 'transfer',
-        transfer: true
+        transfer: 'transfer board'
+      });
+    } else {
+      addDetail({
+        color: 'linear-gradient(to bottom, ' + lastColor + ' 0%, ' + lastColor + ' 50%,' + color + ' 50%, ' + color + ' 100%)',
+        description: segment.fromName,
+        transfer: 'transfer'
       });
     }
 
     addDetail({
+      color: color,
       description: 'Take <strong>' + segment.shortName + '</strong>',
-      color: segment.color,
-      time: Math.round(segment.rideStats.avg / 60),
-      type: modeToIcon(segment.mode),
       segment: true
     });
 
-    addDetail({
-      description: segment.toName,
-      type: 'transfer',
-      transfer: true
-    });
+    // Check if you are debaording
+    if (i + 1 >= length || segments[i + 1].walkTime > 0) {
+      addDetail({
+        color: color,
+        description: segment.toName,
+        transfer: 'transfer alight'
+      });
+    }
+
+    lastColor = color;
   }
 
   var egress = this.model.egress();
@@ -101,8 +112,7 @@ View.prototype.segments = function() {
     addDetail({
       description: 'Walk ' + (egress[0].time / 60 | 0) +
         ' min',
-      type: 'walk',
-      iconSegment: true
+      icon: 'walk'
     });
   }
 
@@ -118,8 +128,7 @@ function narrativeDirections(type, action, steps) {
   var narrative = detailTemplate.render({
     description: ndescription(action, steps[0].absoluteDirection.toLowerCase(),
       steps[0].distance, steps[0].streetName),
-    iconSegment: true,
-    type: type
+    icon: type
   });
 
   var iconDirection = 'east';
