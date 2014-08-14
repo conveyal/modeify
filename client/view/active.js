@@ -13,6 +13,8 @@ module.exports = function(reactive) {
     var view = this.reactive.view;
 
     evnt.bind(el, 'click', function(e) {
+      e.preventDefault();
+
       var el = e.target;
       var val = el.dataset.active;
 
