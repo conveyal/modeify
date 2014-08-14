@@ -1,3 +1,4 @@
+var config = require('config');
 var convert = require('convert');
 var parse = require('color-parser');
 
@@ -28,8 +29,8 @@ exports.places_icon = {
   width: 16,
   height: 16,
   'xlink:href': function(display, data) {
-    if (data.owner.getId() === 'from') return 'build/planner-app/transitive-view/start.svg';
-    if (data.owner.getId() === 'to') return 'build/planner-app/transitive-view/end.svg';
+    if (data.owner.getId() === 'from') return config.s3_bucket() + '/build/planner-app/transitive-view/start.svg';
+    if (data.owner.getId() === 'to') return config.s3_bucket() + '/build/planner-app/transitive-view/end.svg';
   },
   stroke: 1,
   visibility: 'visible'
