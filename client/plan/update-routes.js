@@ -127,8 +127,6 @@ function updateRoutes(plan, opts, callback) {
         results: data.options.length
       });
 
-      console.log(data);
-
       // Process & format the results
       data.options = processProfile.processOptions(data.options);
 
@@ -194,13 +192,15 @@ function populateSegments(options, journey) {
 
       routeId = routeId.split(':');
       var agency = routeId[0].toLowerCase();
+      var line = routeId[1].toLowerCase();
+
       routeId = routeId[0] + ':' + routeId[1];
       var route = getRoute(routeId, journey.routes);
       if (!route) continue;
 
       segment.longName = route.route_long_name;
       segment.shortName = route.route_short_name;
-      segment.color = convert.routeToColor(agency, route);
+      segment.color = convert.routeToColor(route.route_type, agency, line, route.route_color);
       segment.shield = getRouteShield(agency, route);
     }
   }
