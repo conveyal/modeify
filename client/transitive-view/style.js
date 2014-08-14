@@ -18,6 +18,10 @@ exports.segments = {
   }
 };
 
+exports.places = {
+  stroke: 1
+};
+
 exports.places_icon = {
   x: -8,
   y: -8,
@@ -27,5 +31,12 @@ exports.places_icon = {
     if (data.owner.getId() === 'from') return 'build/planner-app/transitive-view/start.svg';
     if (data.owner.getId() === 'to') return 'build/planner-app/transitive-view/end.svg';
   },
+  stroke: 1,
   visibility: 'visible'
+};
+
+exports.multipoints_pattern = exports.multipoints_merged = exports.stops_pattern = exports.stops_merged = {
+  r: function(display, data, index, utils) {
+    return utils.pixels(display.zoom.scale(), 4, 6, 8);
+  }
 };
