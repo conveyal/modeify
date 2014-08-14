@@ -29,8 +29,8 @@ exports.places_icon = {
   width: 16,
   height: 16,
   'xlink:href': function(display, data) {
-    if (data.owner.getId() === 'from') return config.s3_bucket() + '/build/planner-app/transitive-view/start.svg';
-    if (data.owner.getId() === 'to') return config.s3_bucket() + '/build/planner-app/transitive-view/end.svg';
+    if (data.owner.getId() === 'from') return config.static_url() + '/build/planner-app/transitive-view/start.svg';
+    if (data.owner.getId() === 'to') return config.static_url() + '/build/planner-app/transitive-view/end.svg';
   },
   stroke: 1,
   visibility: 'visible'
