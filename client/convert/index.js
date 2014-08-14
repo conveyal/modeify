@@ -39,11 +39,11 @@ function milesToString(miles) {
  * Route to color converter
  */
 
-exports.routeToColor = function(route) {
-  var agency = route.agency_id.toLowerCase();
+exports.routeToColor = function(agency, route) {
+  var line = route.route_id.split(':')[1].toLowerCase();
   switch (agency) {
     case 'dc':
-      if (route.route_type === 1) return colors[route.route_id.toLowerCase()];
+      if (route.route_type === 1) return colors[line];
       return colors.metrobus;
     case 'fairfax connector':
       return '#' + route.color;
