@@ -6,6 +6,7 @@
   border: 1px solid var(--black);
   width: 500px;
   height: 380px;
+  -webkit-font-smoothing: antialiased;
 }
 
 .welcome-page h1 {
