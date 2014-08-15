@@ -10,14 +10,14 @@
 
 
 .Options .pull-right {
-	margin-top: 5px;
+	margin-top: 7px;
 	margin-right: 8px;
-	padding: 5px;
 	font-size: 15px;
 }
 
 .Options .annual-day-trigger {
-	border-radius: 3px;
+	border-radius: 2px;
+	padding: 3px 5px;
 	color: var(--white);
 }
 
@@ -25,5 +25,6 @@
 .Options .annual-day-trigger:active,
 .Options .annual-day-trigger.active {
 	color:  var(--darkergreen);
-  text-decoration: none;
+	background-color: var(--mgreen);
+  	text-decoration: none;
 }
