@@ -180,28 +180,33 @@ function nextDate(dayType) {
 function populateSegments(options, journey) {
   for (var i = 0; i < options.length; i++) {
     var option = options[i];
-    if (!option.transit) continue;
+    if (!option.transit || option.transit.length < 1) continue;
 
     for (var j = 0; j < option.transit.length; j++) {
       var segment = option.transit[j];
-      var patternId = segment.segmentPatterns[0].patternId;
-      if (!patternId) continue;
 
-      var routeId = getRouteId(patternId, journey.patterns);
-      if (!routeId) continue;
+      for (var k = 0; k < segment.segmentPatterns.length; k++) {
+        var pattern = segment.segmentPatterns[k];
+        var patternId = pattern.patternId;
+        if (!patternId) continue;
 
-      routeId = routeId.split(':');
-      var agency = routeId[0].toLowerCase();
-      var line = routeId[1].toLowerCase();
+        var routeId = getRouteId(patternId, journey.patterns);
+        if (!routeId) continue;
 
-      routeId = routeId[0] + ':' + routeId[1];
-      var route = getRoute(routeId, journey.routes);
-      if (!route) continue;
+        routeId = routeId.split(':');
+        var agency = routeId[0].toLowerCase();
+        var line = routeId[1].toLowerCase();
 
-      segment.longName = route.route_long_name;
-      segment.shortName = route.route_short_name;
-      segment.color = convert.routeToColor(route.route_type, agency, line, route.route_color);
-      segment.shield = getRouteShield(agency, route);
+        routeId = routeId[0] + ':' + routeId[1];
+        var route = getRoute(routeId, journey.routes);
+        if (!route) continue;
+
+        pattern.longName = route.route_long_name;
+        pattern.shortName = route.route_short_name;
+
+        pattern.color = convert.routeToColor(route.route_type, agency, line, route.route_color);
+        pattern.shield = getRouteShield(agency, route);
+      }
     }
   }
 }

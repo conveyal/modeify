@@ -39,6 +39,7 @@ var View = module.exports = view(require('./template.html'), function(view,
 
 View.prototype.segments = function() {
   var segments = this.model.transit();
+  var length = segments.length;
   var details = '';
 
   // Add a detail
@@ -50,30 +51,32 @@ View.prototype.segments = function() {
   var access = this.model.access()[0];
   switch (access.mode.toLowerCase()) {
     case 'bicycle':
-      details += narrativeDirections('bike', 'Bike', access.walkSteps);
+      details += narrativeDirections('bike', 'Bike', access.walkSteps, length !== 0);
       break;
     case 'car':
-      details += narrativeDirections('car', 'Drive', access.walkSteps);
+      details += narrativeDirections('car', 'Drive', access.walkSteps, length !== 0);
       break;
     case 'walk':
-      details += narrativeDirections('walk', 'Walk', access.walkSteps);
+      details += narrativeDirections('walk', 'Walk', access.walkSteps, length !== 0);
       break;
   }
 
   // Add transit segments
-  var length = segments.length;
   var transferType = true;
   var lastColor = null;
   for (var i = 0; i < length; i++) {
     var segment = segments[i];
-    var color = segment.color;
+    var patterns = segment.segmentPatterns;
+    var color = patterns[0].color;
 
     // Check for a walking distance to see if you are boarding or transferring
     if (segment.walkTime !== 0) {
-      addDetail({
-        description: 'Walk ' + Math.round(segment.walkTime / 60) + ' min',
-        icon: 'walk'
-      });
+      if (i > 0) {
+        addDetail({
+          description: 'Walk ' + Math.ceil(segment.walkTime / 60) + ' min',
+          icon: 'walk'
+        });
+      }
 
       addDetail({
         color: color,
@@ -90,7 +93,7 @@ View.prototype.segments = function() {
 
     addDetail({
       color: color,
-      description: 'Take <strong>' + segment.shortName + '</strong>',
+      description: 'Take ' + patterns.filter(patternFilter()).map(patternDescription),
       segment: true
     });
 
@@ -118,6 +121,33 @@ View.prototype.segments = function() {
 
   return details;
 };
+
+/**
+ * Pattern filter
+ */
+
+function patternFilter() {
+  var names = [];
+  return function(p) {
+    if (names.indexOf(p.shortName) === -1) {
+      names.push(p.shortName);
+      return true;
+    } else {
+      return false;
+    }
+  };
+}
+
+/**
+ * Pattern description
+ */
+
+function patternDescription(p, i) {
+  var text = '';
+  if (i > 0) text += ' / ';
+  text += '<strong style="color: ' + p.color + ';">' + p.shortName + '</strong>';
+  return text;
+}
 
 /**
  * Add narrative directions
@@ -274,19 +304,10 @@ View.prototype.simpleSegments = function() {
   }
 
   segments.forEach(function(segment) {
-    var rgb = [ 192, 192, 192 ];
-    if (segment.color) {
-      rgb = colorParser(segment.color);
-      rgb = [rgb.r, rgb.g, rgb.b];
-    } else {
-      segment.color = 'gray';
-    }
-
     html += simpleTemplate.render({
-      color: segment.color,
-      light: luminosity.light(rgb) ? 'light' : 'dark',
+      color: segment.segmentPatterns[0].color,
       mode: modeToIcon(segment.mode),
-      name: segment.shield
+      name: segment.segmentPatterns[0].shield
     });
   });
 

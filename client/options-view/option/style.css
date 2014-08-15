@@ -5,6 +5,10 @@
   font-size: 15px;
 }
 
+.Options .per-year {
+  color: var(--lightgray);
+}
+
 .Options .option {
   list-style-type: none;
   background-color: #fff;
@@ -50,10 +54,6 @@
   color: #fff;
   text-align: center;
   border-radius: 2px;
-}
-
-.Options .simple .segments .shield.light {
-  color: var(--black);
 }
 
 .Options .simple .minutes-column {

@@ -11,6 +11,10 @@
   --border-radius: 2px;
 }
 
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
 #main {
   position: absolute;
   top: 0;
