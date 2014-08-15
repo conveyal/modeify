@@ -4,19 +4,23 @@
 
     <div class="minutes-column">
       <h4><strong>{average} min</strong> <span class="avg">avg</span></h4>
-      <div class="walking-time" data-visible="totalWalkTime">{totalWalkTime} mins of walking</div>
       <div data-visible="frequency">{frequency} trip(s) per hour</div>
-      <div class="distance" data-visible="distance">{distance} miles</div>
+      <div class="distance" data-visible="bikeDistance">{bikeDistance} mi biking</div>
+      <div class="distance" data-visible="walkDistance">{walkDistance} mi walking</div>
     </div>
 
+
     <div class="fare" data-text="fare"></div>
+    <div class="fare" data-visible="calculatedCost" title="per year">$ {calculatedCost}</div>
+    <dic class="fare" data-visible="calculatedCalories" title="per year">{calculatedCalories} cals</div>
     <div class="expand">...</div>
+
   </div>
   <div class="details">
     <form class="scoring-information">
       <p><strong>Cost &amp; calories</strong> are multiplied by <input type="text" value="235"> trips (work days per year) to get the number seen above</p>
       <section data-visible="hasCar">
-        <p><input type="text" data-value="distance" disabled> miles driven</p>
+        <p><input type="text" data-value="driveDistance" disabled> miles driven</p>
         <p>times <i class="fa fa-dollar"></i><input type="text" data-value="vmtRate"> <a href="http://www.irs.gov/2014-Standard-Mileage-Rates-for-Business,-Medical-and-Moving-Announced" title="IRS's Standard Mileage Rate" target="_blank">per vehicle mile traveled</a></p>
         <p>plus <i class="fa fa-dollar"></i><input type="text" data-value="parkingCost"> for parking</p>
       </section>
@@ -25,7 +29,7 @@
       </section>
       <section data-visible="hasBiking">
         <p><input type="text" data-value="bikeSpeed"> miles per hour biking</p>
-        <p><input type="text" data-value="distance" disabled> miles biked</p>
+        <p><input type="text" data-value="bikeDistance" disabled> miles biked</p>
       </section>
       <section data-visible="hasWalking">
         <p><input type="text" data-value="walkSpeed"> miles per hour walking</p>

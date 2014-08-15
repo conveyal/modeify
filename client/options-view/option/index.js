@@ -9,6 +9,13 @@ var toSentenceCase = require('to-sentence-case');
 var view = require('view');
 
 /**
+ * Templates
+ */
+
+var detailTemplate = hogan.compile(require('./detail.html'));
+var simpleTemplate = hogan.compile(require('./simple.html'));
+
+/**
  * Expose `View`
  */
 
@@ -21,22 +28,30 @@ var View = module.exports = view(require('./template.html'), function(view,
 });
 
 /**
- * Detail template
- */
-
-var detail = hogan.compile(require('./detail.html'));
-
-/**
  * Details, details
  */
 
 View.prototype.segments = function() {
-  var segments = this.model.segments();
+  var segments = this.model.transit();
   var details = '';
 
   // Add a detail
   function addDetail(d) {
-    details += detail.render(d);
+    details += detailTemplate.render(d);
+  }
+
+  // Add access segment
+  var access = this.model.access()[0];
+  switch (access.mode.toLowerCase()) {
+    case 'bicycle':
+      details += narrativeDirections('bike', 'Bike', access.walkSteps);
+      break;
+    case 'car':
+      details += narrativeDirections('car', 'Drive', access.walkSteps);
+      break;
+    case 'walk':
+      details += narrativeDirections('walk', 'Walk', access.walkSteps);
+      break;
   }
 
   // Add transit segments
@@ -59,14 +74,11 @@ View.prototype.segments = function() {
       });
     }
 
-    var color = segment.type === 'train' ? segment.routeShortName.toLowerCase() :
-      'gray';
-
     addDetail({
-      description: 'Take <strong>' + segment.routeShortName + '</strong>',
-      color: color,
+      description: 'Take <strong>' + segment.shortName + '</strong>',
+      color: segment.color,
       time: Math.round(segment.rideStats.avg / 60),
-      type: segment.type,
+      type: modeToIcon(segment.mode),
       segment: true
     });
 
@@ -77,23 +89,11 @@ View.prototype.segments = function() {
     });
   }
 
-  if (segments.length === 0) {
-    // One mode the entire way
-    switch (this.model.mode()) {
-      case 'bicycle':
-        details += this.narrativeDirections('bike', 'Bike');
-        break;
-      case 'car':
-        details += this.narrativeDirections('car', 'Drive');
-        break;
-      case 'walk':
-        details += this.narrativeDirections('walk', 'Walk');
-        break;
-    }
-  } else {
+  var egress = this.model.egress();
+  if (egress && egress.length > 0) {
     // Final Walk Segment
     addDetail({
-      description: 'Walk ' + (this.model.finalWalkTime() / 60 | 0) +
+      description: 'Walk ' + (egress[0].time / 60 | 0) +
         ' mins',
       type: 'walk',
       iconSegment: true
@@ -104,23 +104,12 @@ View.prototype.segments = function() {
 };
 
 /**
- * Get a narrative description
- */
-
-function ndescription(a, dir, dis, st) {
-  return a + ' ' + dir + ' on ' + st + ' for ' + convert.metersToMiles(dis) +
-    ' mile(s)';
-}
-
-/**
  * Add narrative directions
  */
 
-View.prototype.narrativeDirections = function(type, action) {
-  var steps = this.model.walkSteps();
-
+function narrativeDirections(type, action, steps) {
   // Add initial narrative step
-  var narrative = detail.render({
+  var narrative = detailTemplate.render({
     description: ndescription(action, steps[0].absoluteDirection.toLowerCase(),
       steps[0].distance, steps[0].streetName),
     iconSegment: true,
@@ -147,7 +136,7 @@ View.prototype.narrativeDirections = function(type, action) {
         break;
     }
 
-    narrative += detail.render({
+    narrative += detailTemplate.render({
       description: toSentenceCase(steps[i].relativeDirection) + ' on ' +
         steps[i].streetName + ' for ' + convert.metersToMiles(steps[i].distance) +
         ' mile(s)',
@@ -156,7 +145,7 @@ View.prototype.narrativeDirections = function(type, action) {
   }
 
   return narrative;
-};
+}
 
 /**
  * Average trip length in minutes
@@ -167,48 +156,61 @@ View.prototype.average = function() {
 };
 
 /**
- * Has cost
+ * Cost
  */
 
-View.prototype.hasCost = function() {
-  return this.model.totalCost() > 0;
-};
-
-/**
- * Fare
- */
-
-View.prototype.fare = function() {
-  switch (this.model.mode()) {
-    case 'bicycle':
-    case 'walk':
-      return (this.model.calories() * 250 / 1000).toFixed(0) + 'k cals';
-    default:
-      var yearlyTotal = this.model.totalCost() * 250;
-      if (yearlyTotal > 1000) yearlyTotal = (yearlyTotal / 1000).toFixed(2) +
-        'k';
-      else yearlyTotal = yearlyTotal.toFixed(0);
-      return '$' + yearlyTotal;
-  }
-};
-
-/**
- * Calories
- */
-
-View.prototype.calories = function() {
-  var total = this.model.calories() * 250;
+View.prototype.calculatedCost = function() {
+  if (this.model.cost() === 0) return false;
+  var total = this.model.cost() * this.model.days();
   return total > 1000
     ? (total / 1000).toFixed(0) + 'k'
     : total.toFixed(0);
 };
 
 /**
- * Distance
+ * Calories
  */
 
-View.prototype.distance = function() {
-  return convert.milesToString(this.model.totalDistance());
+View.prototype.calculatedCalories = function() {
+  if (this.model.calories() === 0) return false;
+  var total = this.model.calories() * this.model.days();
+  return total > 1000
+    ? (total / 1000).toFixed(0) + 'k'
+    : total.toFixed(0);
+};
+
+/**
+ * Frequency
+ */
+
+View.prototype.frequency = function() {
+  var trips = this.model.trips();
+  if (!trips) return false;
+
+  var plan = session.plan();
+  var start = plan.start_time();
+  var end = plan.end_time();
+
+  return Math.round(trips / (end - start));
+};
+
+/**
+ * Walk/Bike distances rounded
+ */
+
+View.prototype.driveDistance = function() {
+  if (this.model.modes().indexOf('car') === -1) return false;
+  return Math.round(this.model.driveDistance() * 2) / 2;
+};
+
+View.prototype.bikeDistance = function() {
+  if (this.model.modes().indexOf('bicycle') === -1) return false;
+  return Math.round(this.model.bikeDistance() * 2) / 2;
+};
+
+View.prototype.walkDistance = function() {
+  if (this.model.modes().indexOf('walk') === -1) return false;
+  return Math.round(this.model.walkDistance() * 2) / 2;
 };
 
 /**
@@ -231,18 +233,12 @@ View.prototype.showHide = function() {
 };
 
 /**
- * Simple Template
- */
-
-var simpleTemplate = hogan.compile(require('./simple.html'));
-
-/**
  * Simple Segments
  */
 
 View.prototype.simpleSegments = function() {
   var html = '';
-  var segments = this.model.segments();
+  var segments = this.model.transit();
 
   segments.forEach(function(segment) {
     var rgb = [ 192, 192, 192 ];
@@ -262,10 +258,12 @@ View.prototype.simpleSegments = function() {
   });
 
   if (segments.length === 0) {
-    html += simpleTemplate.render({
-      color: 'transparent',
-      mode: modeToIcon(this.model.mode()),
-      name: ' '
+    this.model.modes().forEach(function(mode) {
+      html += simpleTemplate.render({
+        color: 'transparent',
+        mode: modeToIcon(mode),
+        name: ' '
+      });
     });
   }
 
@@ -276,18 +274,29 @@ View.prototype.simpleSegments = function() {
  * Has what?
  */
 
-View.prototype.hasCar = function() { return this.model.mode() === 'car'; };
-View.prototype.hasTransit = function() { return this.model.mode() === 'subway' || this.model.mode() === 'bus'; };
-View.prototype.hasBiking = function() { return this.model.mode() === 'bicycle'; };
-View.prototype.hasWalking = function() {
-  switch (this.model.mode()) {
-    case 'bicycle':
-    case 'car':
-      return false;
-    default:
-      return true;
-  }
+View.prototype.hasCost = function() {
+  return this.model.cost() > 0;
 };
+
+View.prototype.hasCar = function() {
+  return this.model.modes().indexOf('car') !== -1;
+};
+
+View.prototype.hasTransit = function() {
+  return this.model.transit().length > 0;
+};
+
+View.prototype.hasBiking = function() {
+  return this.model.modes().indexOf('bicycle') !== -1;
+};
+
+View.prototype.hasWalking = function() {
+  return this.model.modes().indexOf('walk') !== -1;
+};
+
+/**
+ * TODO: this should be aliased in CSS
+ */
 
 function modeToIcon(m) {
   m = m.toLowerCase();
@@ -303,41 +312,11 @@ function modeToIcon(m) {
   }
 }
 
-/*
-  watts = speed * (k1 + k2 * speed * speed)
-
-  Where:
-
-  W = power in watts
-    1 W = 1 joule/sec
-    69.78W = 1000 calories/min = 1 kilocal/min = 1 Calorie/min
-    1 Calorie = 4186 joules
-  Cv = speed of cyclist in meters/sec
-    1 mph = .447 meters/sec
-    1 mph = 1.609 kilometeres/hr
-  K1 3.509
-  K2 0.2581
-
-  reference: http://www.cptips.com/formula.htm
-*/
-
-function caloriesBurnedBiking(speed, minutes) {
-  var k1 = 3.509;
-  var k2 = 0.2581;
-  var watts = speed * (k1 + k2 * speed * speed);
-  var kcaloriesPerMin = watts / 69.78;
-  return kcaloriesPerMin * minutes;
-}
-
 /**
- * Find MET scores here: http://appliedresearch.cancer.gov/atus-met/met.php
- *
- * Cycling: 8.0
- * Walking: 3.8
+ * Get a narrative description
  */
 
-function bikeCal(kg, hours) { return caloriesBurned(8.0, kg, hours); }
-function walkCal(kg, hours) { return caloriesBurned(3.8, kg, hours); }
-function caloriesBurned(met, kg, hours) {
-  return met * kg * hours;
+function ndescription(a, dir, dis, st) {
+  return a + ' ' + dir + ' on ' + st + ' for ' + convert.metersToMiles(dis) +
+    ' mile(s)';
 }

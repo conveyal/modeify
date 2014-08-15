@@ -24,9 +24,9 @@ var processProfile = new ProcessProfile();
  * Scale calories
  */
 
-var scaleCalories = d3.scale.sqrt()
+processProfile.factors.calories = d3.scale.sqrt()
   .domain([0, 100, 150])
-  .range([0, 1, 0])
+  .range([0, -3, 0])
   .exponent(2);
 
 /**
@@ -34,12 +34,6 @@ var scaleCalories = d3.scale.sqrt()
  */
 
 module.exports = updateRoutes;
-
-/**
- * Last run
- */
-
-var lastRun = {};
 
 /**
  * Update routes
@@ -132,8 +126,7 @@ function updateRoutes(plan, opts, callback) {
         date: date,
         scoring: {
           factors: processProfile.factors,
-          rates: processProfile.rates,
-          settings: processProfile.settings
+          rates: processProfile.rates
         },
         bikeSpeed: plan.bike_speed(),
         walkSpeed: plan.walk_speed(),
@@ -187,25 +180,46 @@ function nextDate(dayType) {
   return now.toISOString().split('T')[0];
 }
 
+/**
+ * Populate segments
+ */
+
 function populateSegments(options, journey) {
   for (var i = 0; i < options.length; i++) {
     var option = options[i];
-    for (var j = 0; j < option.segments.length; j++) {
-      var segment = option.segments[j];
-      var route = getSegmentRoute(segment, journey);
+    if (!option.transit) continue;
+
+    for (var j = 0; j < option.transit.length; j++) {
+      var segment = option.transit[j];
+      var patternId = segment.segmentPatterns[0].patternId;
+      if (!patternId) continue;
+
+      var routeId = getRouteId(patternId, journey.patterns);
+      if (!routeId) continue;
+
+      var route = getRoute(routeId, journey.routes);
       if (!route) continue;
 
+      console.log(route);
       segment.color = convert.routeToColor(route);
+      segment.longName = route.route_long_name;
       segment.shield = getRouteShield(route);
+      segment.shortName = route.route_short_name;
     }
   }
 }
 
-function getSegmentRoute(segment, journey) {
-  for (var i = 0; i < journey.routes.length; i++) {
-    var route = journey.routes[i];
-    if (route.route_id.toLowerCase() === segment.route.toLowerCase())
-      return route;
+function getRouteId(patternId, patterns) {
+  for (var i = 0; i < patterns.length; i++) {
+    var pattern = patterns[i];
+    if (pattern.pattern_id === patternId) return pattern.route_id;
+  }
+}
+
+function getRoute(routeId, routes) {
+  for (var i = 0; i < routes.length; i++) {
+    var route = routes[i];
+    if (route.route_id === routeId) return route;
   }
 }
 

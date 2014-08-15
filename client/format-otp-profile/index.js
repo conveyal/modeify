@@ -1,12 +1,6 @@
 var toCapitalCase = require('to-capital-case');
 
 /**
- * Metro Colors
- */
-
-var colors = ['Blue', 'Green', 'Orange', 'Red', 'Yellow'];
-
-/**
  * Expose `formatOptions`
  */
 
@@ -17,26 +11,15 @@ module.exports = formatOption;
  */
 
 function formatOption(o) {
-  // Format the summary
-  o.summary = format(o.summary);
-
   // If there are no segments to format, return
-  if (!o.segments) return o;
-  for (var i = 0; i < o.segments.length; i++) {
-    var segment = o.segments[i];
+  if (!o.transit) return o;
+  for (var i = 0; i < o.transit.length; i++) {
+    var segment = o.transit[i];
 
     segment.fromName = format(segment.fromName);
-    segment.routeShortName = format(segment.routeShortName);
     segment.toName = format(segment.toName);
-
-    switch (segment.mode) {
-      case 'BUS':
-
-        break;
-      case 'SUBWAY':
-
-        break;
-    }
+    segment.longName = format(segment.longName);
+    segment.shortName = format(segment.shortName);
   }
 
   return o;
@@ -51,7 +34,7 @@ function format(text) {
 
   text = text
     .replace('METRO STATION', '') // remove metro station
-  .replace(/-/g, ' '); // remove hypens
+    .replace(/-/g, ' '); // remove hypens
 
   // capitalize correctly
   text = toCapitalCase(text);
