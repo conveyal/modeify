@@ -14,7 +14,7 @@
   background-color: #fff;
   border-radius: 3px;
   margin: 8px;
-  border-bottom: 1px solid var(--gray);
+  border-bottom: 2px solid var(--white);
 }
 
 .Options .option.expanded {
@@ -23,7 +23,6 @@
 
 .Options .simple {
   cursor: pointer;
-  padding: 10px 15px 5px;
 }
 
 .Options .simple .segments {
@@ -37,14 +36,14 @@
 .Options .simple .segments .mode {
   font-size: 26px;
   color: var(--gray);
-  padding-right: 1px;
+  padding: 10px 1px 0 15px;
   display: inline-block;
   vertical-align: top;
 }
 
 .Options .simple .segments .shield {
   font-size: 11px;
-  margin-top: 5px;
+  margin-top: 15px;
   margin-right: 3px;
   width: 26px;
   padding-top: 1px;
@@ -57,6 +56,7 @@
 }
 
 .Options .simple .minutes-column {
+  padding-top: 10px;
   display: inline-block;
   vertical-align: top;
   width: 120px;
@@ -64,23 +64,23 @@
   margin-bottom: 5px;
   white-space: nowrap;
   font-size: 14px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 16px;
-  color: var(--lightgray);
+  color: var(--gray);
 }
 
 
 .Options .simple .minutes-column h4 {
   padding-top: 8px;
   margin: 0 0 5px;
-  font-weight: lighter;
+  font-weight: 400;
   color: var(--black);
   line-height: 11px;
 }
 
 .Options .simple .minutes-column h4 .avg {
   margin: 0 0 5px;
-  font-weight: lighter;
+  font-weight: 400;
   font-size: 15px;
   color: var(--black);
 }
@@ -95,11 +95,20 @@
 
 .Options .simple .fare-column {
   float: right;
-  text-align: right;
+  text-align: center;
+  line-height: 15px;
+  background-color: var(--mgreen);
+  color: var(--darkergreen);
+  font-weight: 500;
+  padding: 5px;
+  border-radius: 2px;
+  font-size: 14px;
 }
 
 .Options .option > .simple > .expand {
-  text-align: center;
+  text-align: left;
+  font-size: 20px;
+  margin-left: 15px;
   color: var(--lightgray);
 }
 
@@ -119,7 +128,7 @@
   max-height: 10000px;
   opacity: 1;
   visibility: visible;
-  border-bottom: 1px solid var(--gray);
+  border-bottom: 2px solid var(--white);
 }
 
 .Options .option .details {
@@ -130,14 +139,16 @@
 }
 
 .Options .details .narrative-directions {
+  border-top: 1px solid var(--white);
+  margin: 15px 10px 1px 10px;
   table-layout: fixed;
   border-collapse: separate;
   font-size: 14px;
   vertical-align: top;
-  color: var(--lightgray);
+  color: var(--gray);
   line-height: 16px;
-  font-weight: 300;
-  padding: 10px 25px;
+  font-weight: 400;
+  padding: 0 15px 20px 15px;
 }
 
 .narrative-directions .transfer {
@@ -205,31 +216,28 @@
  */
 
 .Options .scoring-information {
-  padding: 10px 15px;
-  background-color: rgba(220,255,176,0.4) ;
-  font-size: 13px;
-  line-height: 13px;
-  font-weight: 300;
+  padding: 10px 15px 10px 15px;
+  background-color: rgba(181, 230, 135, 0.5);
+  border-radius: 5px;
+  margin:10px;
+  font-size: 14px;
+  color: var(--darkergreen);
+  font-weight: 400;
 }
 
 .Options .scoring-information strong {
   font-size: 14px;
 }
 
-.Options .scoring-information i {
-  margin-left: 5px;
-}
-
 .Options .scoring-information input {
   border: none;
-  font-weight: 500;
-  background-color: #fff;
-  color: var(--green);
-  text-align: center;
-  padding: 5px;
+  font-weight: 600;
+  background-color: var(--mgreen);
+  color: var(--darkergreen);
+  height: 20px;
   width: 50px;
-  border: 1px solid var(--black);
-  font-size: 14px;
+  text-align: center;
+  font-size: 15px;
   cursor: pointer;
 }
 
@@ -268,6 +276,24 @@
   padding-top: 5px;
 }
 
+/** Feedback on a route */
+
+.Options .feedback {
+  padding: 0 15px;
+  font-size: 14px;
+  margin: 0;
+}
+
+.Options .feedback i {
+  padding-right: 5px;
+  font-size: 16px;
+}
+
+.Options .feedback p {
+  color: var(--gray);
+  font-size: 14px;
+  margin: 5px;
+}
 /**
  * Font awesome rotations
  */
