@@ -7,7 +7,7 @@
   margin-left: 3%;
   margin-right: 3%;
   margin-top: 2%;
-  background-color: #B0B7BE;
+  background-color: var(--lightgray;);
   border-radius: 3px;
 }
 
