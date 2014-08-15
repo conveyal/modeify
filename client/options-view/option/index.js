@@ -93,7 +93,7 @@ View.prototype.segments = function() {
 
     addDetail({
       color: color,
-      description: 'Take ' + patterns.filter(patternFilter()).map(patternDescription),
+      description: 'Take ' + patterns.filter(patternFilter()).map(patternDescription).join(' / '),
       segment: true
     });
 
@@ -126,11 +126,12 @@ View.prototype.segments = function() {
  * Pattern filter
  */
 
-function patternFilter() {
+function patternFilter(by) {
+  by = by || 'shortName';
   var names = [];
   return function(p) {
-    if (names.indexOf(p.shortName) === -1) {
-      names.push(p.shortName);
+    if (names.indexOf(p[by]) === -1) {
+      names.push(p[by]);
       return true;
     } else {
       return false;
@@ -143,10 +144,7 @@ function patternFilter() {
  */
 
 function patternDescription(p, i) {
-  var text = '';
-  if (i > 0) text += ' / ';
-  text += '<strong style="color: ' + p.color + ';">' + p.shortName + '</strong>';
-  return text;
+  return '<strong style="color: ' + p.color + ';">' + p.shortName + '</strong>';
 }
 
 /**
@@ -297,17 +295,31 @@ View.prototype.simpleSegments = function() {
 
   if (accessMode !== 'walk' || segments.length === 0) {
     html += simpleTemplate.render({
-      color: 'transparent',
+      background: 'transparent',
       mode: modeToIcon(accessMode),
       name: ' '
     });
   }
 
   segments.forEach(function(segment) {
+    var patterns = segment.segmentPatterns.filter(patternFilter('color'));
+    var background = patterns[0].color;
+    if (patterns.length > 0) {
+      var percent = 0;
+      var increment = 1 / patterns.length * 100;
+      background = 'linear-gradient(to right';
+      for (var i = 0; i < patterns.length; i++) {
+        var color = patterns[i].color;
+        background += ',' + color + ' ' + percent + '%, ' + color + ' ' + (percent + increment) + '%';
+        percent += increment;
+      }
+      background += ')';
+    }
+
     html += simpleTemplate.render({
-      color: segment.segmentPatterns[0].color,
+      background: background,
       mode: modeToIcon(segment.mode),
-      name: segment.segmentPatterns[0].shield
+      name: patterns[0].shield
     });
   });
 
