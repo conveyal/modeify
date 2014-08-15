@@ -19,7 +19,7 @@
 
 .Options .simple {
   cursor: pointer;
-  padding: 10px 15px;
+  padding: 10px 15px 5px;
 }
 
 .Options .simple .segments {
@@ -96,6 +96,15 @@
 .Options .simple .fare-column {
   float: right;
   text-align: right;
+}
+
+.Options .option > .simple > .expand {
+  text-align: center;
+  color: var(--lightgray);
+}
+
+.Options .option:hover > .simple > .expand {
+  color: var(--black);
 }
 
 /**
