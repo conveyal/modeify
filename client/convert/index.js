@@ -29,9 +29,11 @@ exports.milesToString = milesToString;
 
 function milesToString(miles) {
   if (miles > 10) {
-    return Math.round(miles);
+    return miles.toFixed(0);
+  } else if (miles > 1) {
+    return miles.toFixed(1);
   } else {
-    return Math.round(miles * 10) / 10;
+    return miles.toFixed(2);
   }
 }
 
