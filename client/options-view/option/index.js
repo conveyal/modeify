@@ -80,13 +80,13 @@ View.prototype.segments = function() {
 
       addDetail({
         color: color,
-        description: segment.fromName,
+        description: strong(segment.fromName),
         transfer: 'transfer board'
       });
     } else {
       addDetail({
         color: 'linear-gradient(to bottom, ' + lastColor + ' 0%, ' + lastColor + ' 50%,' + color + ' 50%, ' + color + ' 100%)',
-        description: segment.fromName,
+        description: strong(segment.fromName),
         transfer: 'transfer'
       });
     }
@@ -101,7 +101,7 @@ View.prototype.segments = function() {
     if (i + 1 >= length || segments[i + 1].walkTime > 0) {
       addDetail({
         color: color,
-        description: segment.toName,
+        description: strong(segment.toName),
         transfer: 'transfer alight'
       });
     }
@@ -145,6 +145,10 @@ function patternFilter(by) {
 
 function patternDescription(p, i) {
   return '<strong style="color: ' + p.color + ';">' + p.shortName + '</strong>';
+}
+
+function strong(s) {
+  return '<strong>' + s + '</strong>';
 }
 
 /**

@@ -12,6 +12,7 @@
   --lightergreen: #d6F1B4;
   --mgreen: #B4E37B;
   --border-radius: 3px;
+  --transition-speed: 0.25s;
 }
 
 body {
