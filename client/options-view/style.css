@@ -1,29 +1,17 @@
 
 .Options {
   overflow: hidden;
-  margin-top: 10px;
-}
-
-.Options .title {
-  display: inline-block;
-}
-
-
-.Options .pull-right {
-	margin-top: 7px;
-	margin-right: 8px;
-	font-size: 15px;
 }
 
 .Options .annual-day-trigger {
-	border-radius: 2px;
-	padding: 3px 3px;
+	padding-left: 3px;
 	color: var(--white);
+  font-size: 15px;
 }
 
 .Options .annual-day-trigger:hover,
 .Options .annual-day-trigger:active,
 .Options .annual-day-trigger.active {
 	color:  var(--darkergreen);
-  	text-decoration: none;
+  text-decoration: none;
 }

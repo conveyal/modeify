@@ -1,12 +1,13 @@
 
 .locations {
-  margin-top: 3%;
+  padding: 0 8px;
+  font-size: 15px;
 }
 
 .locations [class*="icon-"] {
   float: left;
   font-size: 25px;
-  padding-top: 7px;
+  padding-top: 9px;
   color: var(--black);
 }
 
@@ -15,10 +16,12 @@
   position: absolute;
   z-index: 1;
   background-color: #fff;
-  margin-left: 22px;
+  margin-left: 20px;
   padding-left: 0;
   border-left: 1px solid var(--gray);
   border-right: 1px solid var(--gray);
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
 
   max-height: 1000px;
   opacity: 1;
@@ -36,10 +39,10 @@
   list-style-type: none;
   white-space: nowrap;
   text-overflow: ellipsis;
-  width: 266px;
+  width: 271px;
   display: block;
   overflow: hidden;
-  padding: 10px;
+  padding: 8px;
   border-bottom: 1px solid #f2f4f5;
   cursor: pointer;
   color: var(--gray);
@@ -47,6 +50,8 @@
 
 .locations .suggestion:last-of-type {
   border-bottom-color: var(--gray);
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
 }
 
 .locations .suggestion.highlight {
@@ -55,26 +60,26 @@
 }
 
 .locations .input-group {
-  padding-left: 7px;
-  width: 94%;
+  padding-left: 8px;
+  width: 100%;
   background-color: #fff;
-  margin-top: 2%;
-  margin-left: 3%;
+  margin-top: 8px;
   border: 1px solid var(--gray);
+  border-radius: var(--border-radius);
 }
 
 .locations .input-group.highlight {
-  border-left: 5px solid var(--black);
-  padding-left: 3px;
+  border-left: 4px solid var(--black);
+  padding-left: 5px;
   border-bottom-color: var(--gray);
 }
 
 .locations input {
-  padding: 12px 10px 11px 5px;
-  color: #8ec449;
+  padding: 13px 10px 12px 5px;
+  color: var(--green);
   box-shadow: none;
   border: none;
-  width: 242px;
+  width: 244px;
   text-overflow: ellipsis;
   background-color: #fff;
 }
@@ -82,7 +87,6 @@
 .locations .clear {
 	cursor: pointer;
 	color: var(--gray);
-  width: 3%;
 }
 
 .locations input:focus {

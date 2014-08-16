@@ -14,12 +14,10 @@
   box-shadow: none;
 }
 
-.panel form {
-
-}
-
 .panel .title {
-  margin: 8px;
+  padding: 0 8px;
+  margin-top: 10px;
+  width: 100%;
   color: #455A71;
   font-size: 20px;
 }
@@ -32,7 +30,7 @@
 .panel .title .fa:hover,
 .panel .title .fa:active,
 .panel .title .fa:visited {
-  color: color(var(--gray) shade(10%));
+  color: color(var(--gray) shade(20%));
 }
 
 .fullscreen {
@@ -58,5 +56,5 @@
 }
 
 .tip .btn:hover {
-  color: color(var(--black) shade(10%));
+  color: color(var(--black) shade(20%));
 }
