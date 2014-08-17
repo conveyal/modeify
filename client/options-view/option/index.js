@@ -51,13 +51,16 @@ View.prototype.segments = function() {
   var access = this.model.access()[0];
   switch (access.mode.toLowerCase()) {
     case 'bicycle':
-      details += narrativeDirections('bike', 'Bike', access.walkSteps, length !== 0);
+      details += narrativeDirections('bike', 'Bike', access.walkSteps, length !==
+        0);
       break;
     case 'car':
-      details += narrativeDirections('car', 'Drive', access.walkSteps, length !== 0);
+      details += narrativeDirections('car', 'Drive', access.walkSteps, length !==
+        0);
       break;
     case 'walk':
-      details += narrativeDirections('walk', 'Walk', access.walkSteps, length !== 0);
+      details += narrativeDirections('walk', 'Walk', access.walkSteps, length !==
+        0);
       break;
   }
 
@@ -85,7 +88,8 @@ View.prototype.segments = function() {
       });
     } else {
       addDetail({
-        color: 'linear-gradient(to bottom, ' + lastColor + ' 0%, ' + lastColor + ' 50%,' + color + ' 50%, ' + color + ' 100%)',
+        color: 'linear-gradient(to bottom, ' + lastColor + ' 0%, ' +
+          lastColor + ' 50%,' + color + ' 50%, ' + color + ' 100%)',
         description: strong(segment.fromName),
         transfer: 'transfer'
       });
@@ -93,7 +97,8 @@ View.prototype.segments = function() {
 
     addDetail({
       color: color,
-      description: 'Take ' + patterns.filter(patternFilter()).map(patternDescription).join(' / '),
+      description: 'Take ' + patterns.filter(patternFilter()).map(
+        patternDescription).join(' / '),
       segment: true
     });
 
@@ -239,7 +244,8 @@ View.prototype.simpleSegments = function() {
       background = 'linear-gradient(to right';
       for (var i = 0; i < patterns.length; i++) {
         var color = patterns[i].color;
-        background += ',' + color + ' ' + percent + '%, ' + color + ' ' + (percent + increment) + '%';
+        background += ',' + color + ' ' + percent + '%, ' + color + ' ' + (
+          percent + increment) + '%';
         percent += increment;
       }
       background += ')';

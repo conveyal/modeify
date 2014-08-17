@@ -14,7 +14,8 @@ exports.segments = {
       case 'TRANSIT':
         var route = segment.patterns[0].route;
         var id = route.route_id.split(':');
-        return convert.routeToColor(route.route_type, id[0].toLowerCase(), id[1].toLowerCase(), route.route_color);
+        return convert.routeToColor(route.route_type, id[0].toLowerCase(), id[1]
+          .toLowerCase(), route.route_color);
     }
   }
 };
@@ -29,15 +30,18 @@ exports.places_icon = {
   width: 16,
   height: 16,
   'xlink:href': function(display, data) {
-    if (data.owner.getId() === 'from') return config.static_url() + '/build/planner-app/transitive-view/start.svg';
-    if (data.owner.getId() === 'to') return config.static_url() + '/build/planner-app/transitive-view/end.svg';
+    if (data.owner.getId() === 'from') return config.static_url() +
+      '/build/planner-app/transitive-view/start.svg';
+    if (data.owner.getId() === 'to') return config.static_url() +
+      '/build/planner-app/transitive-view/end.svg';
   },
   stroke: 1,
   visibility: 'visible'
 };
 
-exports.multipoints_pattern = exports.multipoints_merged = exports.stops_pattern = exports.stops_merged = {
-  r: function(display, data, index, utils) {
-    return utils.pixels(display.zoom.scale(), 4, 6, 8);
-  }
+exports.multipoints_pattern = exports.multipoints_merged = exports.stops_pattern =
+  exports.stops_merged = {
+    r: function(display, data, index, utils) {
+      return utils.pixels(display.zoom.scale(), 4, 6, 8);
+    }
 };

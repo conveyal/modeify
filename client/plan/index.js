@@ -98,7 +98,6 @@ Plan.on('change end_time', function(plan, val, prev) {
   if (val <= plan.start_time()) plan.start_time(val - 1);
 });
 
-
 /**
  * Update routes. Restrict to once every 25ms.
  */

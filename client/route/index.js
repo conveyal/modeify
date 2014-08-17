@@ -65,9 +65,7 @@ Route.prototype.average = function() {
  */
 
 Route.prototype.tripm = function() {
-  return session.plan().per_year()
-    ? this.days()
-    : 1;
+  return session.plan().per_year() ? this.days() : 1;
 };
 
 /**
@@ -77,9 +75,7 @@ Route.prototype.tripm = function() {
 Route.prototype.calculatedCost = function() {
   if (this.cost() === 0) return false;
   var total = this.cost() * this.tripm();
-  return total > 1000
-    ? (total / 1000).toFixed(0) + 'k'
-    : total.toFixed(0);
+  return total > 1000 ? (total / 1000).toFixed(0) + 'k' : total.toFixed(0);
 };
 
 /**
@@ -98,9 +94,7 @@ Route.prototype.transitCosts = function() {
 Route.prototype.calculatedCalories = function() {
   if (this.calories() === 0) return false;
   var total = this.calories() * this.tripm();
-  return total > 1000
-    ? (total / 1000).toFixed(0) + 'k'
-    : total.toFixed(0);
+  return total > 1000 ? (total / 1000).toFixed(0) + 'k' : total.toFixed(0);
 };
 
 /**

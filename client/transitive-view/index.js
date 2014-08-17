@@ -42,7 +42,7 @@ View.prototype.display = function(journey) {
         styles: require('./style')
       });
       transitive.render();
-    } catch(e) {
+    } catch (e) {
       debug('<-- failed to display journey: %s', e.message);
       return;
     }

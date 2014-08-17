@@ -5,7 +5,8 @@ var view = require('view');
  * Expose `View`
  */
 
-var View = module.exports = view(require('./template.html'), function(view, plan) {
+var View = module.exports = view(require('./template.html'), function(view,
+  plan) {
   var year = view.find('.per-year');
   var trip = view.find('.per-trip');
 
@@ -54,4 +55,3 @@ View.prototype.togglePerTrip = function(e) {
   e.preventDefault();
   this.model.per_year(false);
 };
-

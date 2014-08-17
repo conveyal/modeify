@@ -208,7 +208,8 @@ function populateSegments(options, journey) {
         pattern.longName = route.route_long_name;
         pattern.shortName = route.route_short_name;
 
-        pattern.color = convert.routeToColor(route.route_type, agency, line, route.route_color);
+        pattern.color = convert.routeToColor(route.route_type, agency, line,
+          route.route_color);
         pattern.shield = getRouteShield(agency, route);
       }
     }
