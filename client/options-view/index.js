@@ -5,18 +5,28 @@ var view = require('view');
  * Expose `View`
  */
 
-var View = module.exports = view(require('./template.html'), function(view, model) {
+var View = module.exports = view(require('./template.html'), function(view, plan) {
   var year = view.find('.per-year');
   var trip = view.find('.per-trip');
-  model.on('change per_year', function(val) {
-    if (val) {
+
+  var setActive = function(v) {
+    if (v) {
       year.classList.add('active');
       trip.classList.remove('active');
     } else {
       year.classList.remove('active');
       trip.classList.add('active');
     }
+  };
+
+  plan.on('change per_year', function(val) {
+    setActive(val);
+
+    var options = plan.options();
+    for (var i = 0; i < options.length; i++) options[i].updateScoring();
   });
+
+  setActive(plan.per_year());
 });
 
 /**
