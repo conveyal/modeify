@@ -67,12 +67,12 @@
 }
 
 
-.Options .simple .minutes-column h4 {
+.Options .simple .minutes-column h3 {
   margin: 6px 0 8px;
   color: var(--black);
 }
 
-.Options .simple .minutes-column h4 .avg {
+.Options .simple .minutes-column h3 .avg {
   font-size: 15px;
   color: var(--black);
 }
@@ -147,8 +147,8 @@
   width: 15px;
   text-align: center;
   margin-left: 5px;
-  padding-top: 14px;
-  padding-bottom: 14px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .Options .details .transfer.board {
@@ -179,11 +179,12 @@
   text-align: center;
 }
 
-.narrative-directions .segment > .icon > .transfer > i {
-  color: #fff;
-  font-size: 16px;
-  display: block;
-  text-shadow: 0px 0px 1px #000;
+.narrative-directions .transfer > .station {
+  background-color: #fff;
+  height: 15px;
+  width: 15px;
+  border-radius: 15px;
+  border: 2px solid var(--black);
 }
 
 .narrative-directions .segment > .icon > .fa {

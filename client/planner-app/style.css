@@ -26,7 +26,6 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  -webkit-font-smoothing: antialiased;
 }
 
 #main,
@@ -49,6 +48,10 @@ body {
 h1, h2, h3, h4, h5, h6 {
   color: var(--gray);
   font-weight: normal;
+}
+
+h3 {
+  font-size: 20px;
 }
 
 select {

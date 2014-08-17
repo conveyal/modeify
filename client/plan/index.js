@@ -33,7 +33,6 @@ var Plan = module.exports = model('Plan')
     from: '',
     from_valid: false,
     options: [],
-    per_day: false,
     per_year: true,
     start_time: 7,
     to: '',
@@ -99,17 +98,6 @@ Plan.on('change end_time', function(plan, val, prev) {
   if (val <= plan.start_time()) plan.start_time(val - 1);
 });
 
-/**
- * Keey per day/year in sync
- */
-
-Plan.on('change per_day', function(plan, val) {
-  if (val) plan.per_year(false);
-});
-
-Plan.on('change per_year', function(plan, val) {
-  if (val) plan.per_day(false);
-});
 
 /**
  * Update routes. Restrict to once every 25ms.
