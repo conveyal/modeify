@@ -20,6 +20,7 @@
     "template.html"
   ],
   "images": [
-    "logo.svg"
+    "logo.svg",
+    "v3.png"
   ]
 }

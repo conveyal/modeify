@@ -127,6 +127,10 @@ function updateRoutes(plan, opts, callback) {
         results: data.options.length
       });
 
+      data.options.forEach(function(o, i) {
+        o.id = 'option_' + i;
+      });
+
       // Process & format the results
       data.options = processProfile.processOptions(data.options);
 
