@@ -44,6 +44,7 @@ View.prototype.display = function(journey) {
       transitive.render();
     } catch (e) {
       debug('<-- failed to display journey: %s', e.message);
+      console.error(e.stack);
       return;
     }
   }
