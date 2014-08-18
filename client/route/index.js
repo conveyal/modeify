@@ -75,7 +75,13 @@ Route.prototype.tripm = function() {
 Route.prototype.calculatedCost = function() {
   if (this.cost() === 0) return false;
   var total = this.cost() * this.tripm();
-  return total > 1000 ? (total / 1000).toFixed(0) + 'k' : total.toFixed(0);
+  if (total > 1000) {
+    return (total / 1000).toFixed(0) + 'k';
+  } else if (total > 100) {
+    return total.toFixed(0);
+  } else {
+    return total.toFixed(2);
+  }
 };
 
 /**
