@@ -12,11 +12,17 @@
   --lightergreen: #d6F1B4;
   --mgreen: #B4E37B;
   --border-radius: 3px;
-  --transition-speed: 0.25s;
+  --transition-speed: 0.15s;
 }
 
 body {
   -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+b, strong {
+  font-weight: 600;
 }
 
 #main {
@@ -47,18 +53,22 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--gray);
-  font-weight: normal;
+  font-weight: 400;
 }
 
 h3 {
   font-size: 20px;
 }
 
+h4 {
+  font-size: 16px;
+}
+
 select {
   background: transparent;
   border: none;
   color: #fff;
-  font-weight: bold;
+  font-weight: 600;
   -webkit-appearance: none;
   border-radius: 0;
   text-align: left;

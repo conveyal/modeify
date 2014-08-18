@@ -6,7 +6,6 @@
 
 .time-filters {
   width: 100%;
-  font-size: 15px;
   background-color: var(--lightgray);
   border-radius: var(--border-radius);
   height: 44px;

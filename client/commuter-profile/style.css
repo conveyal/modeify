@@ -13,7 +13,7 @@
 
 .commuter-profile small {
   font-weight: 400;
-  font-size: 12px;
+
   color: var(--gray);
 }
 
@@ -42,8 +42,6 @@
   background-color: #fff;
   border: none;
   color: var(--gray);
-  font-weight: 400;
-  font-size: 13px;
   line-height: 16px;
 }
 
@@ -51,8 +49,6 @@
   background-color: #fff;
   border: none;
   color: var(--gray);
-  font-weight: 400;
-  font-size: 13px;
   line-height: 16px;
 }
 
@@ -60,7 +56,6 @@
   background-color: #fff;
   border: none;
   color: var(--gray);
-  font-size: 14px;
   line-height: 17px;
 }
 
@@ -88,8 +83,6 @@
   margin-left: 15px;
   border: 1px solid var(--gray);
   color: var(--green);
-  font-size: 14px;
-  font-weight: 400;  
   width: 60%;
   height: 30px;
   outline: none;
@@ -121,14 +114,12 @@
 }
 
 .commuter-profile .walk-speed p {
-  font-size: 14px;
   font-weight: bold;
   color: var(--gray);
 }
 
 .commuter-profile .bike-speed p {
   margin-top: 20px;
-  font-size: 14px;
   font-weight: bold;
   color: var(--gray);
 }
@@ -227,7 +218,6 @@
 
 .commuter-profile .speed-preference .speed-description strong {
   color: var(--green);
-  font-weight: 500;
 }
 
 .Modal {

@@ -58,11 +58,11 @@ exports.segments = {
       case 'WALK':
         radius = 3;
         fillColor = '#5ae3f9';
-        return utils.defineSegmentCircleMarker(display, segment, radius, fillColor);
+        // return utils.defineSegmentCircleMarker(display, segment, radius, fillColor);
       case 'BICYCLE':
         radius = 2;
         fillColor = '#f00';
-        return utils.defineSegmentCircleMarker(display, segment, radius, fillColor);
+        // return utils.defineSegmentCircleMarker(display, segment, radius, fillColor);
     }
   },
 
@@ -79,7 +79,7 @@ exports.segments = {
 };
 
 
-// start/end icons and eventually points of interest// 
+// start/end icons and eventually points of interest//
 exports.places = {
   stroke: 1
 };
