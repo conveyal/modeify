@@ -19,23 +19,23 @@
   <div class="details">
     <p><strong>You're ready for your trip!</strong> Detailed directions are below.</p>
     <form class="scoring-information">
-      <p><strong>Cost &amp; calories are multiplied by:</strong></p>
-      <p><input type="text" name="days" value="235" on-input="inputChange"> trips (work days per year)</p>
+      <p><strong>We think that you take:</strong></p>
+      <p><input type="text" value="235" name="days" on-input="inputChange"> trips <small>(i.e. work days/year)</small><i class="fa fa-times"></i> </p>
       <section data-visible="hasCar">
-        <p><input type="text" data-value="driveDistances" disabled> miles driven</p>
-        <p>times <i class="fa fa-dollar"></i><input type="text" name="vmtRate" data-value="vmtRate" on-input="inputChange"> <a href="http://www.irs.gov/2014-Standard-Mileage-Rates-for-Business,-Medical-and-Moving-Announced" title="IRS's Standard Mileage Rate" target="_blank">per vehicle mile traveled</a></p>
-        <p>plus <i class="fa fa-dollar"></i><input type="text" name="parkingCost" data-value="parkingCost" on-input="inputChange"> for parking</p>
+        <p><input type="text" data-value="driveDistances" disabled> miles driven<i class="fa fa-times"></i></p>
+        <p><i class="fa fa-dollar"></i><input type="text" data-value="vmtRate" name="vmtRate" on-input="inputChange"> <a href="http://www.irs.gov/2014-Standard-Mileage-Rates-for-Business,-Medical-and-Moving-Announced" title="IRS's Standard Mileage Rate" target="_blank">per vehicle mile traveled<i class="fa fa-times"></i></a></p>
+        <p><i class="fa fa-plus"></i> <i class="fa fa-dollar"></i><input type="text" data-value="parkingCost" name="parkingCost" on-input="inputChange"> for parking</p>
       </section>
       <section data-visible="hasTransit">
-        <p><input type="text" name="transitCost" data-value="transitCosts" on-input="inputChange"><i class="fa fa-dollar"></i> for transit fare</p>
+        <p><input type="text" data-value="transitCosts" name="transitCost" on-input="inputChange"><i class="fa fa-dollar"></i><small>(transit fare)</small><i class="fa fa-times"></i></p>
       </section>
       <section data-visible="hasBiking">
-        <p><input type="text" name="bikeSpeed" data-value="bikeSpeed" on-input="inputChange"> miles per hour biking</p>
-        <p><input type="text" name="bikeDistance" data-value="bikeDistances" disabled> miles biked</p>
+        <p><input type="text" data-value="bikeSpeed" name="bikeSpeed" on-input="inputChange"> mph biking<i class="fa fa-times"></i></p>
+        <p><input type="text" data-value="bikeDistances" disabled> miles biked</p>
       </section>
       <section data-visible="hasWalking">
-        <p><input type="text" name="walkSpeed" data-value="walkSpeed" on-input="inputChange"> miles per hour walking</p>
-        <p><input type="text" name="walkDistance" data-value="walkDistances" disabled> miles walked</p>
+        <p><input type="text" data-value="walkSpeed" name="walkSpeed" on-input="inputChange"> mph walking<i class="fa fa-times"></i></p>
+        <p><input type="text" data-value="walkDistances" disabled> miles walked</i></p>
       </section>
     </form>
     <div class="feedback">
