@@ -48,41 +48,12 @@ exports.segments = {
       case 'CAR':
         return 'butt';
     }
-  },
-
-    // specify the circle marker for 'dotted' line styles
-  'marker-mid': function(display, segment, index, utils) {
-    var radius, fillColor;
-
-    switch(segment.type) {
-      case 'WALK':
-        radius = 3;
-        fillColor = '#5ae3f9';
-        return utils.defineSegmentCircleMarker(display, segment, radius, fillColor);
-      case 'BICYCLE':
-        radius = 2;
-        fillColor = '#f00';
-        return utils.defineSegmentCircleMarker(display, segment, radius, fillColor);
-    }
-  },
-
-  // specify the spacing for marker styling
-  'marker-spacing': function(display, segment) {
-    switch(segment.type) {
-      case 'WALK':
-        return 8;
-      case 'BICYCLE':
-        return 6;
-    }
   }
-
 };
 
 
 // start/end icons and eventually points of interest// 
-exports.places = {
-  stroke: 1
-};
+
 
 exports.places_icon = {
   x: -16,
