@@ -12,11 +12,12 @@ var session = require('session');
 var Route = module.exports = model('Route')
   .use(defaults({
     days: 235,
-    bikeSpeed: 4.1,
+    bikeSpeed: 10,
     parkingCost: 10,
     transit: [],
     vmtRate: 0.56,
-    walkSpeed: 1.4
+    walkSpeed: 3,
+    weight: 75
   }))
   .attr('id')
   .attr('access')
@@ -41,7 +42,8 @@ var Route = module.exports = model('Route')
   .attr('vmtRate')
   .attr('walkCalories')
   .attr('walkDistance')
-  .attr('walkSpeed');
+  .attr('walkSpeed')
+  .attr('weight');
 
 /**
  * Update scoring
@@ -74,7 +76,14 @@ Route.prototype.tripm = function() {
 
 Route.prototype.calculatedCost = function() {
   if (this.cost() === 0) return false;
-  var total = this.cost() * this.tripm();
+  var cost = 0;
+  if (this.transitCost()) cost += this.transitCost();
+  if (this.modes().indexOf('car') !== -1) {
+    cost += this.vmtRate() * this.driveDistances();
+    cost += this.parkingCost();
+  }
+
+  var total = cost * this.tripm();
   if (total > 1000) {
     return (total / 1000).toFixed(0) + 'k';
   } else if (total > 100) {
@@ -99,7 +108,11 @@ Route.prototype.transitCosts = function() {
 
 Route.prototype.calculatedCalories = function() {
   if (this.calories() === 0) return false;
-  var total = this.calories() * this.tripm();
+  var cals = caloriesBurned(3.8, this.weight(), (this.walkDistances() / this.walkSpeed()));
+  if (this.modes().indexOf('bicycle') !== -1) {
+    cals += caloriesBurned(8, this.weight(), (this.bikeDistances() / this.bikeSpeed()));
+  }
+  var total = cals * this.tripm();
   return total > 1000 ? (total / 1000).toFixed(0) + 'k' : total.toFixed(0);
 };
 
@@ -124,15 +137,23 @@ Route.prototype.frequency = function() {
 
 Route.prototype.driveDistances = function() {
   if (this.modes().indexOf('car') === -1) return false;
-  return Math.round(convert.metersToMiles(this.driveDistance()) * 2) / 2;
+  return convert.metersToMiles(this.driveDistance());
 };
 
 Route.prototype.bikeDistances = function() {
   if (this.modes().indexOf('bicycle') === -1) return false;
-  return Math.round(convert.metersToMiles(this.bikeDistance()) * 2) / 2;
+  return convert.metersToMiles(this.bikeDistance());
 };
 
 Route.prototype.walkDistances = function() {
   if (this.modes().indexOf('walk') === -1) return false;
-  return Math.round(convert.metersToMiles(this.walkDistance()) * 2) / 2;
+  return convert.metersToMiles(this.walkDistance());
 };
+
+/**
+ * MET Cals burned
+ */
+
+function caloriesBurned(met, kg, hours) {
+  return met * kg * hours;
+}

@@ -286,6 +286,22 @@ View.prototype.hasWalking = function() {
 };
 
 /**
+ * Input change
+ */
+
+View.prototype.inputChange = function(e) {
+  e.preventDefault();
+  var input = e.target;
+  var name = input.name;
+  var value = parseFloat(input.value);
+
+  if (!isNaN(value)) {
+    this.model[name](value);
+    this.model.updateScoring();
+  }
+};
+
+/**
  * TODO: this should be aliased in CSS
  */
 
