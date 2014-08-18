@@ -6,7 +6,7 @@
 .Options .annual-day-trigger {
 	padding-left: 3px;
 	color: var(--white);
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .Options .annual-day-trigger:hover,
