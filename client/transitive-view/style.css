@@ -30,7 +30,7 @@
 
 .Transitive .map-zoom button {
   color: #fff;
-  background-color: var(--gray);
+  background-color: var(--green);
   border: none;
   border-radius: 2px;
   padding: 6px 12px;
@@ -39,7 +39,7 @@
 .Transitive .map-zoom button:hover,
 .Transitive .map-zoom button:active,
 .Transitive .map-zoom button:focus {
-  background-color: color(var(--gray) shade(10%));
+  background-color: color(var(--green) shade(10%));
   outline: none;
 }
 
