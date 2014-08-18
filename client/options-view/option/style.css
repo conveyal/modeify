@@ -196,7 +196,7 @@
 }
 
 .narrative-directions .segment > .icon > .fa {
-  color: var(--lightgray);
+  color: var(--gray);
   font-size: 16px;
   vertical-align: middle;
 }
