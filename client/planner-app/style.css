@@ -11,18 +11,27 @@
   --lightgreen: #dcffb0;
   --lightergreen: #d6F1B4;
   --mgreen: #B4E37B;
+
   --border-radius: 3px;
+
   --transition-speed: 0.15s;
+
+  --font-size: 14px;
+  --font-weight: 400;
+  --bold: 600;
 }
 
 body {
   -webkit-font-smoothing: antialiased;
-  font-size: 14px;
-  font-weight: 400;
+
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+
+  color: var(--black);
 }
 
 b, strong {
-  font-weight: 600;
+  font-weight: var(--bold);
 }
 
 #main {
@@ -39,11 +48,11 @@ b, strong {
 .dropdown-menu,
 .form-control,
 .input-group-addon {
-  border-radius: 0;
+  border-radius: var(--border-radius);
 }
 
 .alert {
-  border-radius: 0;
+  border-radius: var(--border-radius);
   margin-bottom: 10px;
 }
 
@@ -52,8 +61,7 @@ b, strong {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: var(--gray);
-  font-weight: 400;
+  font-weight: var(--font-weight);
 }
 
 h3 {

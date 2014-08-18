@@ -1,71 +1,89 @@
 <div class="commuter-profile">
-  <i class="fa fa-times fa-times-top"></i>
-  <h3 data-visible="anonymous">Your <strong>Settings</strong> <light>|</light> <small class="login">anonymous</small></h3>
-  <h3 data-hidden="anonymous">Your <strong>Settings</strong> | <small data-text="email"></small></h3>
+  <h3>
+    Your <strong>Settings</strong>
+    <span class="email" data-text="email" data-hidden="anonymous"></span>
+
+    <a class="pull-right" href="#" on-click="hide">
+      <i class="fa fa-times fa-times-top"></i>
+    </a>
+  </h3>
 
   <div class="row">
-    <div class="col-sm-6">
-      <section>
-        <h4>Account</h4>
+    <section class="col-sm-6">
+      <h4>
+        <strong>Account</strong>
+        <br><span class="subtitle">Manage your email address and password.</span>
+      </h4>
 
-        <div data-visible="anonymous">
-          <div class="alert alert-danger">Add an email address so you don't lose your settings.</div>
-          <div class="alert alert-warning">Already have an account? <a href="/login" class="alert-link">Click here to login.</a></div>
-          <form on-submit="submitEmailAddress">
-            <input type="email" name="email" class="form-control" placeholder="Email">
-            <input type="submit" class="btn btn-block btn-success classa" value="+ ">
-          </form>
-        </div>
-
-        <div data-hidden="anonymous">
-          <div data-hidden="profileComplete">
-            <div class="alert alert-warning">
-              If you do not add a password, you will only be able to log in with the link found in your email.
-            </div>
-            <button class="btn btn-block btn-success" on-click="submitAddPassword"><i class="fa fa-key"></i> Add Password</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="speed-preference">
-        <h4>Speed <br><small>Set your preferred bike and walk speeds.</small></h4>
-        <div class="walk-speed"><p>Walk speed</p>
-          <p class="speed-description"> Are you a <strong><a href="speed-popup.html">Stroller</a></strong> or a <strong><a href="speed-popup.html">Speedwalker</a></strong>?</p>
-          <button class="stroller" on-click="setWalkSpeed"><span class="icon-walk"></span></button>
-          <button class="speedwalker" on-click="setWalkSpeed"><span class="icon-speedwalker"></span></button>
-        </div>
-        <div class="bike-speed"><p>Bike speed</p>
-          <p class="speed-description"> Are you a <strong><a href="speed-popup.html">Cruiser</a></strong> or a <strong><a href="speed-popup.html">Racer</a></strong>?</p>
-          <button class="cruiser" on-click="setBikeSpeed"><span class="icon-cruiserbike"></span></button>
-          <button class="racer" on-click="setBikeSpeed"><span class="icon-racerbike"></span></button>
-        </div>
-      </section>
-
-      <section class="walk-time-preference" style="display: none;">
-        <h4>Walk Time <br><small>Maximum walk time.</small></h4>
-        <form>
-          <select disabled>
-            <option value="5">5 min</option>
-            <option value="10">10 min</option>
-            <option value="15">15 min</option>
-            <option value="20">20 min</option>
-            <option value="25">25 min</option>
-            <option value="30">30 min</option>
-            <option value="35">35 min</option>
-            <option value="40">40 min</option>
-            <option value="45">45 min</option>
-            <option value="50">50 min</option>
-            <option value="55">55 min</option>
-            <option value="60">60 min</option>
-          </select>
+      <div data-visible="anonymous">
+        <div class="alert alert-danger">Add an email address so you don't lose your settings.</div>
+        <div class="alert alert-warning">Already have an account? <a href="/login" class="alert-link">Click here to login.</a></div>
+        <form on-submit="submitEmailAddress">
+          <input type="email" name="email" class="form-control" placeholder="Email">
+          <button type="submit" class="btn"><i class="fa fa-plus"></i></button>
         </form>
-      </section>
-    </div>
-    <div class="col-sm-6">
-      <section>
-        <h4>Saved Trips <br><small>Review your saved journeys.</small></h4>
-        <ul class="journeys" data-each="journeys"></ul>
-      </section>
-    </div>
+      </div>
+
+      <div data-hidden="anonymous">
+        <div data-hidden="profileComplete">
+          <div class="alert alert-warning">
+            If you do not add a password, you will only be able to log in with the link found in your email.
+          </div>
+          <button class="btn" on-click="submitAddPassword"><i class="fa fa-key"></i> Add Password</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="col-sm-6 speed-preference">
+      <h4>
+        <strong>Speed</strong>
+        <br><span class="subtitle">Set your preferred bike and walk speeds.</span>
+      </h4>
+
+      <div class="walk-speed">
+        <p class="speed-description"> Are you a <strong><a href="speed-popup.html">Stroller</a></strong> or a <strong><a href="speed-popup.html">Speedwalker</a></strong>?</p>
+        <button class="stroller icon-walk" on-click="setWalkSpeed"></button>
+        <button class="speedwalker icon-speedwalker" on-click="setWalkSpeed"></button>
+      </div>
+      <div class="bike-speed">
+        <p class="speed-description"> Are you a <strong><a href="speed-popup.html">Cruiser</a></strong> or a <strong><a href="speed-popup.html">Racer</a></strong>?</p>
+        <button class="cruiser icon-cruiserbike" on-click="setBikeSpeed"></button>
+        <button class="racer icon-racerbike" on-click="setBikeSpeed"></button>
+      </div>
+    </section>
+  </div>
+
+  <div class="row">
+    <section class="col-sm-6">
+      <h4>
+        <strong>Saved Trips</strong>
+        <br><span class="subtitle">Review your saved journeys.</span>
+      </h4>
+      <ul class="journeys" data-each="journeys"></ul>
+      <p style="text-align:center;" data-hidden="hasJourneys"><strong>No saved journeys!</strong></p>
+    </section>
+
+    <section class="col-sm-6 walk-time-preference" style="display: none;">
+      <h4>
+        <strong>Walk Time</strong>
+        <br><span class="subtitle">Maximum walk time.</span>
+      </h4>
+      <form>
+        <select disabled>
+          <option value="5">5 min</option>
+          <option value="10">10 min</option>
+          <option value="15">15 min</option>
+          <option value="20">20 min</option>
+          <option value="25">25 min</option>
+          <option value="30">30 min</option>
+          <option value="35">35 min</option>
+          <option value="40">40 min</option>
+          <option value="45">45 min</option>
+          <option value="50">50 min</option>
+          <option value="55">55 min</option>
+          <option value="60">60 min</option>
+        </select>
+      </form>
+    </section>
   </div>
 </div>

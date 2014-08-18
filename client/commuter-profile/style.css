@@ -1,102 +1,67 @@
 
 .commuter-profile {
-  width: 620px;
+  width: 640px;
   height: 600px;
-  border: 1px solid var(--black);
+  border: 1px solid var(--gray);
+  border-radius: var(--border-radius);
+  padding: 15px;
+  background-color: white;
 }
 
 .commuter-profile h3 {
-  margin: 15px 15px;
-  font-size: 22px;
-  color: var(--black);
+  margin: 0;
 }
 
-.commuter-profile small {
-  font-weight: 400;
-
-  color: var(--gray);
+.commuter-profile .email {
+  font-size: var(--font-size);
 }
 
-.commuter-profile .fa-times-top {
+.commuter-profile h3 .fa {
   float: right;
-  color: var(--gray);
   font-size: 20px;
-  margin: 15px;
+  color: var(--gray)
+}
+
+.commuter-profile h3 .fa:hover,
+.commuter-profile h3 .fa:active {
+  color: color(var(--gray) shade(20%));
 }
 
 .commuter-profile h4 {
-  margin: 10px 15px;
-  font-weight: bold;
-  font-size: 16px;
-  color: var(--black);
-  padding-bottom: 2px;
+  margin: 25px 0 10px;
+  padding-bottom: 5px;
   border-bottom: 1px solid var(--white);
 }
 
-.commuter-profile .alert {
-  border-left: none;
-  padding: 5px 25px;
-}
-
-.commuter-profile .alert-danger {
-  background-color: #fff;
-  border: none;
-  color: var(--gray);
-  line-height: 16px;
-}
-
-.commuter-profile .alert-warning {
-  background-color: #fff;
-  border: none;
-  color: var(--gray);
-  line-height: 16px;
-}
-
-.commuter-profile .alert-link {
-  background-color: #fff;
-  border: none;
-  color: var(--gray);
-  line-height: 17px;
-}
-
-.commuter-profile form {
-  padding: 0 10px 0;
-  outline: none;
-}
-
-.commuter-profile .classa.btn {
-  background-color: var(--gray);
-  border: none;
-  width: 15%;
-  display: inline-block;
-  text-align: center;
-  height: 30px;
-  line-height: 0;
-  font-size: 20px;
-  margin: 0;
-  vertical-align: top;
-  border-radius: 2px;
-  font-weight: bold;
+.commuter-profile h4 .subtitle {
+  font-size: var(--font-size);
 }
 
 .commuter-profile .form-control {
-  margin-left: 15px;
+  height: 44px;
+}
+
+.commuter-profile form > button {
+  background-color: var(--gray);
+  border: none;
+  width: 70px;
+  color: #fff;
+  font-size: 20px;
+  height: 44px;
+  margin-top: -2px;
+}
+
+.commuter-profile form > button:hover {
+  background-color: color(var(--gray) shade(20%));
+  color: #fff;
+}
+
+.commuter-profile .form-control {
   border: 1px solid var(--gray);
   color: var(--green);
-  width: 60%;
-  height: 30px;
+  width: 215px;
   outline: none;
   display: inline-block;
-}
-
-.commuter-profile input {
-  margin-bottom: 10px;
-}
-
-.commuter-profile .speed-preference div {
-  text-align: bottom;
-  vertical-align: bottom;
-  margin-left: 25px;
 }
 
 .commuter-profile .speed-preference button {
@@ -104,27 +69,16 @@
   background-color: transparent;
   margin: 0;
   border: none;
-  font-size: 50px;
+  font-size: 40px;
   line-height: 0;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   color: var(--white);
   margin-right: 20px;
   outline: none;
 }
 
-.commuter-profile .walk-speed p {
-  font-weight: bold;
-  color: var(--gray);
-}
-
-.commuter-profile .bike-speed p {
-  margin-top: 20px;
-  font-weight: bold;
-  color: var(--gray);
-}
-
-.commuter-profile .speed-preference button.hover {
+.commuter-profile .speed-preference button:hover {
   color: var(--green);
   outline: none;
   border-radius: 50%;
@@ -137,28 +91,52 @@
   border-radius: 50%;
 }
 
+.commuter-profile .bike-speed p {
+  margin-top: 20px;
+}
+
+.commuter-profile .speed-preference > div {
+  text-align: center;
+}
+
+.commuter-profile .speed-preference > div > p {
+  text-align: left;
+}
+
+.commuter-profile .speed-preference .speed-description {
+  margin-bottom: 15px;
+}
+
+.commuter-profile .speed-preference .speed-description strong {
+  color: var(--green);
+}
+
+/**
+ * Journeys
+ */
+
 .commuter-profile .journeys {
   padding-left: 0;
 }
 
 .commuter-profile .journey {
-  width: 90%;
+  width: 100%;
   list-style-type: none;
   margin-bottom: 10px;
-  margin-left: 15px;
   cursor: pointer;
-  padding: 10px;
+  padding: 8px;
   border: 1px solid #84909d;
+  border-radius: var(--border-radius);
   box-shadow: 1px 1px 1px #84909d;
+  position: relative;
 }
 
 .commuter-profile .journey:hover {
-  padding-left: 6px;
+  padding-left: 4px;
   border-left: 5px solid var(--black);
 }
 
 .commuter-profile .journey div {
-  display: inline-block;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -174,20 +152,24 @@
 .commuter-profile .journey button {
   display: none;
   position: absolute;
-  right: 10px;
-  height: 72px;
-  margin-top: -10px;
-}
-
-.commuter-profile .journey:hover button {
-  display: block;
-  margin-right: 20px;
+  top: 0;
+  right: -1px;
+  height: 100%;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
   width: 20px;
   background-color: var(--gray);
   padding-right: 20px;
   border: none;
 }
 
+.commuter-profile .journey:hover button {
+  display: block;
+}
+
+.commuter-profile .journey button:hover {
+  background-color: color(var(--gray) shade(20%));
+}
 
 .commuter-profile .from {
   color: var(--black);
@@ -202,26 +184,11 @@
   padding-bottom: 15px;
 }
 
-.commuter-profile .speed-preference p {
-  margin: 0;
-  margin-top: 15px;
-}
-
-.commuter-profile .speed-preference .speed-description {
-  margin: 0;
-  color: var(--gray);
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 16px;
-  margin-bottom: 15px;
-}
-
-.commuter-profile .speed-preference .speed-description strong {
-  color: var(--green);
-}
+/**
+ * Modal
+ */
 
 .Modal {
-  background-color: white;
   top: 54px;
   overflow-x: hidden;
   overflow-y: scroll;

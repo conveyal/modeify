@@ -107,7 +107,8 @@ View.prototype.profileComplete = function() {
  * Hide
  */
 
-View.prototype.hide = function() {
+View.prototype.hide = function(e) {
+  if (e) e.preventDefault();
   if (this.modal) this.modal.hide();
 };
 
@@ -116,7 +117,6 @@ View.prototype.hide = function() {
  */
 
 View.prototype.setWalkSpeed = function(e) {
-  console.log('setting walk speed', e);
   if (e.target.classList.contains('stroller')) {
     this.model.plan.walk_speed(1.4);
   } else {
@@ -129,7 +129,6 @@ View.prototype.setWalkSpeed = function(e) {
  */
 
 View.prototype.setBikeSpeed = function(e) {
-  console.log('setting bike speed', e);
   if (e.target.classList.contains('cruiser')) {
     this.model.plan.bike_speed(4.1);
   } else {
@@ -143,4 +142,13 @@ View.prototype.setBikeSpeed = function(e) {
 
 View.prototype['journeys-view'] = function() {
   return require('./journey');
+};
+
+/**
+ * Has journeyrs
+ */
+
+View.prototype.hasJourneys = function() {
+  console.log(this.model);
+  return this.model.journeys.length() > 0;
 };
