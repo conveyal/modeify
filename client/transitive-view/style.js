@@ -2,13 +2,15 @@ var config = require('config');
 var convert = require('convert');
 var parse = require('color-parser');
 
+
 exports.segments = {
   stroke: function(display, segment) {
     if (!segment.focused) return;
 
+// taking this value and testing other values for that property //
     switch (segment.type) {
       case 'CAR':
-        return '#888';
+        return '#000';
       case 'WALK':
         return 'none';
       case 'TRANSIT':
@@ -20,6 +22,7 @@ exports.segments = {
   }
 };
 
+// start/end icons and eventually points of interest// 
 exports.places = {
   stroke: 1
 };
