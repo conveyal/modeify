@@ -75,14 +75,9 @@ exports.segments = {
         return 6;
     }
   }
-
 };
-
 
 // start/end icons and eventually points of interest//
-exports.places = {
-  stroke: 1
-};
 
 exports.places_icon = {
   x: -16,
