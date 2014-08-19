@@ -46,6 +46,8 @@ Row.prototype.load = function(e) {
     to_id: to._id,
     to_ll: to.coordinate
   });
+
+  plan.updateRoutes();
 };
 
 /**

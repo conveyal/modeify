@@ -26,7 +26,7 @@ var View = module.exports = view(require('./template.html'), function(view,
     stroller.classList.remove('selected');
     speedwalker.classList.remove('selected');
 
-    if (plan.walk_speed() === 1.4) stroller.classList.add('selected');
+    if (plan.walk_speed() < 1.5) stroller.classList.add('selected');
     else speedwalker.classList.add('selected');
   }
 
@@ -34,7 +34,7 @@ var View = module.exports = view(require('./template.html'), function(view,
     cruiser.classList.remove('selected');
     racer.classList.remove('selected');
 
-    if (plan.bike_speed() === 4.1) cruiser.classList.add('selected');
+    if (plan.bike_speed() < 4.2) cruiser.classList.add('selected');
     else racer.classList.add('selected');
   }
 });
@@ -149,6 +149,5 @@ View.prototype['journeys-view'] = function() {
  */
 
 View.prototype.hasJourneys = function() {
-  console.log(this.model);
   return this.model.journeys.length() > 0;
 };
