@@ -3,7 +3,7 @@
   "dependencies": {
     "component/color-parser": "*",
     "component/each": "*",
-    "conveyal/transitive.js": "8a5f074122179674606fa2e71cb70ce5f46f070a",
+    "conveyal/transitive.js": "*",
     "mbostock/d3": "*",
     "visionmedia/debug": "*"
   },
