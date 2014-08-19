@@ -8,9 +8,10 @@
 .Transitive .legend {
   position: absolute;
   height: 35px;
-  border: 1px solid #84909d;
-  left: 10px;
-  bottom: 53px;
+  border: 1px solid var(--black);
+  border-radius: var(--border-radius);
+  left: 8px;
+  bottom: 8px;
   width: 100px;
   background-color: #fff;
   z-index: 150;
@@ -23,8 +24,8 @@
 .Transitive .map-zoom {
   position: absolute;
   height: 35px;
-  right: 10px;
-  bottom: 50px;
+  right: 8px;
+  bottom: 8px;
   z-index: 150;
 }
 
@@ -32,14 +33,14 @@
   color: #fff;
   background-color: var(--green);
   border: none;
-  border-radius: 2px;
-  padding: 6px 12px;
+  border-radius: var(--border-radius);
+  padding: 7.5px 12px;
 }
 
 .Transitive .map-zoom button:hover,
 .Transitive .map-zoom button:active,
 .Transitive .map-zoom button:focus {
-  background-color: color(var(--green) shade(10%));
+  background-color: color(var(--green) shade(20%));
   outline: none;
 }
 

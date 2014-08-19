@@ -1,16 +1,20 @@
 
 :root {
   --black: #455A71;
-  --lightgray: #B5C1CE;
+
   --gray: #84909d;
-  --green: #8ec449;
-  --darkgreen: #719939;
-  --darkergreen: #639428;
-  --red: #e21836;
+  --lightgray: #B5C1CE;
+  --light-gray: #edeff0;
+
   --white: #bcc4ce;
+
+  --darkergreen: #639428;
+  --darkgreen: #719939;
+  --green: #8ec449; --mgreen: #B4E37B;
   --lightgreen: #dcffb0;
   --lightergreen: #d6F1B4;
-  --mgreen: #B4E37B;
+
+  --red: #e21836;
 
   --border-radius: 3px;
 

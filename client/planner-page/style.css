@@ -1,29 +1,35 @@
 
 .panel {
   position: absolute;
-  background-color: #edeff0;
-  border-left: 1px solid #84909d;
+  background-color: var(--light-gray);
+  border: none;
   z-index: 1;
-  top: 44px;
+  top: 0;
   bottom: 0;
   right: 0;
   border-radius: 0;
   width: 320px;
-  overflow-y: scroll;
+  overflow: hidden;
   margin-bottom: 0;
-  box-shadow: none;
+}
+
+.scrollable {
+  border-left: 1px solid var(--gray);
+  overflow-y: scroll;
+  height: 100%;
+  padding-bottom: 44px;
 }
 
 .panel .title {
   padding: 0 8px;
   margin-top: 10px;
   width: 100%;
-  color: #455A71;
+  color: var(--black);
 }
 
 .panel .title .fa {
   cursor: pointer;
-	color: #84909d;
+	color: var(--gray);
 }
 
 .panel .title .fa:hover,

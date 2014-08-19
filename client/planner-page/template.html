@@ -1,17 +1,19 @@
-<div reactive="planner-nav"></div>
 <div class="fullscreen">
   <div reactive="transitive-view"></div>
 </div>
 <div class="panel">
-  <form autosubmit>
-    <h3 class="title">
-      Your <strong>Commute</strong>
-      <div class="pull-right">
-        <i class="reverse-commute fa fa-fw fa-exchange" on-click="reverseCommute"></i> <i class="fa fa-fw fa-save" on-click="saveTrip"></i>
-      </div>
-    </h3>
-    <div reactive="locations-view"></div>
-    <div reactive="filter-view"></div>
-  </form>
-  <div reactive="options-view"></div>
+  <div reactive="planner-nav"></div>
+  <div id="scrollable" class="scrollable">
+    <form autosubmit id="locations-form">
+      <h3 class="title">
+        Your <strong>Commute</strong>
+        <div class="pull-right">
+          <i class="reverse-commute fa fa-fw fa-exchange" on-click="reverseCommute"></i> <i class="fa fa-fw fa-save" on-click="saveTrip"></i>
+        </div>
+      </h3>
+      <div reactive="locations-view"></div>
+      <div reactive="filter-view"></div>
+    </form>
+    <div reactive="options-view"></div>
+  </div>
 </div>

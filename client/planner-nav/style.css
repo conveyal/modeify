@@ -1,32 +1,25 @@
 
 nav {
-  margin-top: 0;
-  padding: 0;
-  box-shadow: 0 0 7px #eee;
-  background-color: #84909d;
+  box-shadow: 0 0 2px 0 var(--black);
+  border-bottom: 1px solid var(--gray);
+  background-color: var(--lightgray);
   background-image: url(v3.png);
   background-repeat: no-repeat;
-  background-size: auto 24px;
-  background-position: 15px;
+  background-size: auto 28px;
+  background-position: 4px 8px;
   height: 44px;
-  font-weight: 400;
-}
-
-nav div {
-  margin-right: 15px;
-  color: #fff;
-}
-
-nav a {
-  color: #fff;
-  color: #fff;
-  height: 44px;
-  display: inline-block;
-  padding: 13px 0 0 8px;
   cursor: pointer;
 }
 
-nav a:hover {
+nav h3 {
+  margin: 0 8px 0 0;
+  line-height: 44px;
+}
+
+nav h3 a {
   color: #fff;
-  text-decoration: underline;
+}
+
+nav h3 a:hover {
+  color: var(--gray);
 }

@@ -12,6 +12,17 @@ var view = require('view');
 var View = module.exports = view(require('./template.html'));
 
 /**
+ * Scroll to top
+ */
+
+View.prototype.scrollToTop = function(e) {
+  e.preventDefault();
+  document
+    .getElementById('scrollable')
+    .scrollTop = 0;
+};
+
+/**
  * Application Name
  */
 
@@ -23,7 +34,8 @@ View.prototype.application = function() {
  * Logout
  */
 
-View.prototype.logout = function() {
+View.prototype.logout = function(e) {
+  if (e) e.preventDefault();
   if (window.confirm('Are you sure you want to sign out?')) {
     this.model.logout(function(err) {
       page('/');
@@ -35,7 +47,8 @@ View.prototype.logout = function() {
  * Show Profile
  */
 
-View.prototype.showProfile = function() {
+View.prototype.showProfile = function(e) {
+  if (e) e.preventDefault();
   var commuter = this.model.commuter();
   var plan = this.model.plan();
   Journey.all(function(err, journeys) {
