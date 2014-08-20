@@ -1,55 +1,22 @@
 
 .welcome-page {
   text-align: center;
-  padding: 20px;
+  padding: 15px;
   background-color: #fff;
-  border: 1px solid var(--black);
-  width: 500px;
-  height: 380px;
-  -webkit-font-smoothing: antialiased;
+  border: 1px solid var(--gray);
+  border-radius: var(--border-radius);
+  max-width: 320px;
 }
 
-.welcome-page h1 {
-  color: var(--black);
-  font-size: 30px;
-  padding-top: 10px;
-  margin: 0;
-  text-align: center;
-}
-
-.welcome-page .btn {
-  color: #fff;
-  margin: 0;
-  font-weight: 600;
-  font-size: 16px;
-}
-
-.welcome-page p{
-  color: var(--gray);
-  font-size: 16px;
-  font-weight: 200;
-  margin-top: 1%;
-  text-align: center;
-}
-
-.welcome-page .body-text {
-  color: var(--gray );
-  font-size: 14px;
-  line-height: 17px;
-  font-weight: 400;
-  margin-bottom: 2%;
-  margin-left: 5%;
-  margin-top: 5px;
+.welcome-page p {
+  margin-left: 8px;
+  margin-right: 8px;
   text-align: left;
 }
 
 
 .welcome-page .btn {
-  float: right;
-  padding: 6px 15px 5px 15px;
-  border-radius: 2px;
   background: var(--green);
-  text-align: right;
   color: #fff;
 }
 
@@ -57,9 +24,12 @@
   background-color: color(var(--green) shade(10%));
 }
 
+.welcome-page .btn:active {
+  background-color: color(var(--green) shade(20%));
+}
+
 .answers {
-  margin: 20px 50px;
-  padding: 5px 0;
+  margin: 20px 0;
 }
 
 .answer {
@@ -67,16 +37,14 @@
   cursor: pointer;
   font-size: 36px;
   color: var(--white);
-  width: 18%;
-  text-align: center;
+  padding: 0 8px;
 }
 
 .answer:hover,
-.answer:active,
 .answer.active {
   color: var(--green);
 }
 
-.answer.active:active {
-  color: var(--darkgreen);
+.answer:active {
+  color: color(var(--green) shade(20%));
 }
