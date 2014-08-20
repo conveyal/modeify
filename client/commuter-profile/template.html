@@ -16,12 +16,12 @@
       </h4>
 
       <div data-visible="anonymous">
-        <div class="alert alert-danger">Add an email address so you don't lose your settings.</div>
-        <div class="alert alert-warning">Already have an account? <a href="/login" class="alert-link">Click here to login.</a></div>
+        <div>Add an email address so you don't lose your settings.</div>
         <form on-submit="submitEmailAddress">
           <input type="email" name="email" class="form-control" placeholder="Email">
           <button type="submit" class="btn btn-block">Register Email</button>
         </form>
+        <div class="alert alert-warning">Already have an account? <a href="/login" class="alert-link">Click here to login.</a></div>
       </div>
 
       <div data-hidden="anonymous">
@@ -41,12 +41,12 @@
       </h4>
 
       <div class="walk-speed">
-        <p class="speed-description"> Are you a <strong><a href="speed-popup.html">Stroller</a></strong> or a <strong><a href="speed-popup.html">Speedwalker</a></strong>?</p>
+        <p class="speed-description"> Are you a <strong>Stroller</strong> (2 mph) or a <strong>Speedwalker</strong> (4 mph)? Choose below:</p>
         <button class="stroller icon-walk" on-click="setWalkSpeed" title="Stroller"></button>
         <button class="speedwalker icon-speedwalker" on-click="setWalkSpeed" title="Speedwalker"></button>
       </div>
       <div class="bike-speed">
-        <p class="speed-description"> Are you a <strong><a href="speed-popup.html">Cruiser</a></strong> or a <strong><a href="speed-popup.html">Racer</a></strong>?</p>
+        <p class="speed-description"> Are you a <strong>Cruiser</strong> (6 mph) or a <strong>Racer</strong>? (10 mph)? Choose below: </p>
         <button class="cruiser icon-cruiserbike" on-click="setBikeSpeed" title="Cruiser"></button>
         <button class="racer icon-racerbike" on-click="setBikeSpeed" title="Racer"></button>
       </div>

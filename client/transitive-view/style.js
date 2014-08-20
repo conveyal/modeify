@@ -2,6 +2,9 @@ var config = require('config');
 var convert = require('convert');
 var parse = require('color-parser');
 
+exports.places = {
+  fill: 'none'
+};
 
 exports.segments = {
   stroke: function(display, segment) {
@@ -81,10 +84,10 @@ exports.segments = {
 // start/end icons and eventually points of interest//
 
 exports.places_icon = {
-  x: -16,
-  y: -16,
-  width: 32,
-  height: 32,
+  x: -20,
+  y: -20,
+  width: 40,
+  height: 40,
   'xlink:href': function(display, data) {
     if (data.owner.getId() === 'from') return config.static_url() +
       '/build/planner-app/transitive-view/start.svg';
