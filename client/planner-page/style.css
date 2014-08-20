@@ -17,7 +17,7 @@
   border-left: 1px solid var(--gray);
   overflow-y: scroll;
   height: 100%;
-  padding-bottom: 44px;
+  padding-top: 44px;
 }
 
 .panel .title {

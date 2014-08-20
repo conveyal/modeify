@@ -1,7 +1,6 @@
 
 nav {
   box-shadow: 0 0 2px 0 var(--gray);
-  border-bottom: 2px solid var(--gray);
   background-color: var(--gray);
   background-image: url(v3.png);
   background-repeat: no-repeat;
@@ -9,6 +8,9 @@ nav {
   background-position: 4px 8px;
   height: 44px;
   cursor: pointer;
+  width: 320px;
+  position: absolute;
+  top: 0;
 }
 
 nav h3 {
