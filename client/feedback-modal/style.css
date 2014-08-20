@@ -11,15 +11,6 @@
   margin-top: 0;
 }
 
-.Feedback > form > input[type="submit"] {
-  background-color: var(--gray);
-  border: none;
-  color: #fff;
-  height: 44px;
+.Feedback > form > button {
   margin-top: 10px;
-}
-
-.Feedback > form > input[type="submit"]:hover {
-  background-color: color(var(--gray) shade(20%));
-  color: #fff;
 }

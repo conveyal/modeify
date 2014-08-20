@@ -35,22 +35,8 @@
   font-size: var(--font-size);
 }
 
-.commuter-profile .form-control {
-  height: 44px;
-}
-
 .commuter-profile form > button {
-  background-color: var(--gray);
-  border: none;
-  color: #fff;
-  font-size: 20px;
-  height: 44px;
-  margin-top: -2px;
-}
-
-.commuter-profile form > button:hover {
-  background-color: color(var(--gray) shade(20%));
-  color: #fff;
+  margin-top: 10px;
 }
 
 .commuter-profile .form-control {

@@ -14,20 +14,6 @@
   text-align: left;
 }
 
-
-.welcome-page .btn {
-  background: var(--green);
-  color: #fff;
-}
-
-.welcome-page .btn:hover {
-  background-color: color(var(--green) shade(10%));
-}
-
-.welcome-page .btn:active {
-  background-color: color(var(--green) shade(20%));
-}
-
 .answers {
   margin: 20px 0;
 }

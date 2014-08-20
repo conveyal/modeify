@@ -18,7 +18,7 @@
 
   --border-radius: 3px;
 
-  --transition-speed: 0.15s;
+  --transition-speed: 0.10s;
 
   --font-size: 14px;
   --font-weight: 400;
@@ -36,6 +36,35 @@ body {
 
 b, strong {
   font-weight: var(--bold);
+}
+
+a {
+  color: var(--green);
+}
+
+a:active,
+a:hover {
+  color: color(var(--green) shade(20%));
+  border-bottom: 1px solid var(--green);
+  text-decoration: none;
+}
+
+.btn,
+.btn:active,
+.btn:focus,
+.btn:hover,
+.btn:visited {
+  background: var(--green);
+  color: #fff;
+  outline: none;
+}
+
+.btn:hover {
+  background-color: color(var(--green) shade(10%));
+}
+
+.btn:active {
+  background-color: color(var(--green) shade(20%));
 }
 
 #main {
