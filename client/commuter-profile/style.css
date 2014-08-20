@@ -1,7 +1,6 @@
 
 .commuter-profile {
   width: 640px;
-  height: 600px;
   border: 1px solid var(--gray);
   border-radius: var(--border-radius);
   padding: 15px;

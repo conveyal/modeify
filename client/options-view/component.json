@@ -13,6 +13,7 @@
   },
   "local": [
     "convert",
+    "feedback-modal",
     "session",
     "view"
   ],

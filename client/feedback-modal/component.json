@@ -1,20 +1,22 @@
 {
-  "name": "welcome-page",
+  "name": "feedback-modal",
   "dependencies": {
     "segmentio/modal": "*",
     "visionmedia/debug": "*"
   },
   "local": [
+    "analytics",
     "config",
+    "session",
     "view"
+  ],
+  "templates": [
+    "template.html"
   ],
   "scripts": [
     "index.js"
   ],
   "styles": [
     "style.css"
-  ],
-  "templates": [
-    "template.html"
   ]
 }

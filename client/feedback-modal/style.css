@@ -1,0 +1,25 @@
+
+.Feedback {
+  border: 1px solid var(--gray);
+  border-radius: var(--border-radius);
+  padding: 15px;
+  background-color: white;
+}
+
+
+.Feedback > h3 {
+  margin-top: 0;
+}
+
+.Feedback > form > input[type="submit"] {
+  background-color: var(--gray);
+  border: none;
+  color: #fff;
+  height: 44px;
+  margin-top: 10px;
+}
+
+.Feedback > form > input[type="submit"]:hover {
+  background-color: color(var(--gray) shade(20%));
+  color: #fff;
+}

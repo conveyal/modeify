@@ -2,6 +2,7 @@ var colorParser = require('color-parser');
 var convert = require('convert');
 var d3 = require('d3');
 var domify = require('domify');
+var Feedback = require('feedback-modal');
 var hogan = require('hogan.js');
 var luminosity = require('luminosity');
 var session = require('session');
@@ -32,6 +33,16 @@ var View = module.exports = view(require('./template.html'), function(view,
       window.transitive.focusJourney(model.id());
     });
 });
+
+/**
+ * View
+ */
+
+View.prototype.feedback = function(e) {
+  e.preventDefault();
+  var feedback = new Feedback(this.model);
+  feedback.show();
+};
 
 /**
  * Details, details
