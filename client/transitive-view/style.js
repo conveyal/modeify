@@ -10,7 +10,7 @@ exports.segments = {
 // taking this value and testing other values for that property //
     switch (segment.type) {
       case 'CAR':
-        return '#510E61';
+        return '#f3da01';
       case 'WALK':
         return 'none';
       case 'TRANSIT':
@@ -50,33 +50,6 @@ exports.segments = {
     }
   },
 
-    // specify the circle marker for 'dotted' line styles
-  'marker-mid': function(display, segment, index, utils) {
-    var radius, fillColor;
-
-    switch(segment.type) {
-      case 'WALK':
-        radius = 3;
-        fillColor = '#5ae3f9';
-        break;
-        // return utils.defineSegmentCircleMarker(display, segment, radius, fillColor);
-      case 'BICYCLE':
-        radius = 2;
-        fillColor = '#f00';
-        break;
-        // return utils.defineSegmentCircleMarker(display, segment, radius, fillColor);
-    }
-  },
-
-  // specify the spacing for marker styling
-  'marker-spacing': function(display, segment) {
-    switch(segment.type) {
-      case 'WALK':
-        return 8;
-      case 'BICYCLE':
-        return 6;
-    }
-  },
 
   // specify the circle marker for 'dotted' line styles
   'marker-mid': function(display, segment, index, utils) {
@@ -84,11 +57,11 @@ exports.segments = {
 
     switch(segment.type) {
       case 'WALK':
-        radius = 10;
+        radius = 3;
         fillColor = '#5ae3f9';
         return utils.defineSegmentCircleMarker(display, segment, radius, fillColor);
       case 'BICYCLE':
-        radius = 2;
+        radius = 3;
         fillColor = '#f00';
         return utils.defineSegmentCircleMarker(display, segment, radius, fillColor);
     }
@@ -98,9 +71,9 @@ exports.segments = {
   'marker-spacing': function(display, segment) {
     switch(segment.type) {
       case 'WALK':
-        return 8;
+        return 10;
       case 'BICYCLE':
-        return 6;
+        return 10;
     }
   }
 };
