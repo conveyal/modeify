@@ -3,6 +3,10 @@
   margin: 0;
 }
 
+.commuter-profile .alert-warning {
+  margin-top: 10px;
+}
+
 .commuter-profile .email {
   font-size: var(--font-size);
 }
@@ -26,6 +30,7 @@
 
 .commuter-profile h4 .subtitle {
   font-size: var(--font-size);
+  color: var(--gray);
 }
 
 .commuter-profile form > button {
@@ -80,10 +85,6 @@
 
 .commuter-profile .speed-preference .speed-description {
   margin-bottom: 15px;
-}
-
-.commuter-profile .speed-preference .speed-description strong {
-  color: var(--green);
 }
 
 /**
