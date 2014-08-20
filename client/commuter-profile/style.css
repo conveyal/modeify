@@ -1,11 +1,4 @@
 
-.commuter-profile {
-  border: 1px solid var(--gray);
-  border-radius: var(--border-radius);
-  padding: 15px;
-  background-color: white;
-}
-
 .commuter-profile h3 {
   margin: 0;
 }
@@ -164,24 +157,4 @@
 .commuter-profile .walk-time-preference form {
   text-align: center;
   padding-bottom: 15px;
-}
-
-/**
- * Modal
- */
-
-.Modal {
-  top: 54px;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  max-width: none;
-}
-
-.Modal.hide {
-  opacity: 0;
-}
-
-.Overlay {
-  background: radial-gradient(ellipse at center, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%);
-  z-index: 151;
 }

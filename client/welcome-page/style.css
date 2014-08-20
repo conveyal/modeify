@@ -1,11 +1,6 @@
 
 .welcome-page {
   text-align: center;
-  padding: 15px;
-  background-color: #fff;
-  border: 1px solid var(--gray);
-  border-radius: var(--border-radius);
-  max-width: 320px;
 }
 
 .welcome-page p {

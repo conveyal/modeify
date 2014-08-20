@@ -1,14 +1,13 @@
 {
   "name": "feedback-modal",
   "dependencies": {
-    "segmentio/modal": "*",
     "visionmedia/debug": "*"
   },
   "local": [
     "analytics",
     "config",
-    "session",
-    "view"
+    "modal",
+    "session"
   ],
   "templates": [
     "template.html"

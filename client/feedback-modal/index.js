@@ -3,39 +3,21 @@ var config = require('config');
 var debug = require('debug')(config.application() + ':feedback-modal');
 var modal = require('modal');
 var session = require('session');
-var view = require('view');
 
 /**
- * Expose `View`
+ * Expose `Modal`
  */
 
-var View = module.exports = view(require('./template.html'));
-
-/**
- *
- */
-
-View.prototype.show = function(callback) {
-  this.modal = modal(this.el)
-    .overlay()
-    .closable()
-    .show(callback);
-};
-
-/**
- * Hide
- */
-
-View.prototype.hide = function(e) {
-  if (e) e.preventDefault();
-  if (this.modal) this.modal.hide();
-};
+var Modal = module.exports = modal({
+  closable: true,
+  template: require('./template.html')
+});
 
 /**
  * Submit
  */
 
-View.prototype.submit = function(e) {
+Modal.prototype.submit = function(e) {
   e.preventDefault();
   var feedback = this.find('textarea').value + '';
   if (!feedback || feedback.length < 1) {
@@ -46,10 +28,10 @@ View.prototype.submit = function(e) {
     delete plan.options;
     delete plan.journey;
 
-    analytics.track('Submitted feedback', {
+    analytics.track('Submitted option feedback', {
       feedback: feedback.trim(),
-      plan: plan,
-      route: this.model.toJSON()
+      option: this.model.toJSON(),
+      plan: plan
     });
 
     window.alert('Thanks! We appreciate the feedback!');

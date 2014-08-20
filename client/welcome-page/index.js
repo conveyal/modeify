@@ -1,33 +1,22 @@
 var config = require('config');
 var debug = require('debug')(config.name() + ':welcome-page');
 var modal = require('modal');
-var view = require('view');
 
 /**
- * Create `View`
+ * Create `Modal`
  */
 
-var View = module.exports = view({
+var Modal = module.exports = modal({
   category: 'planner',
   template: require('./template.html'),
   title: 'Welcome Page'
 });
 
 /**
- *
- */
-
-View.prototype.show = function(callback) {
-  this.modal = modal(this.el)
-    .overlay()
-    .show(callback);
-};
-
-/**
  * Save
  */
 
-View.prototype.save = function(e) {
+Modal.prototype.save = function(e) {
   e.preventDefault();
   debug('--> saving');
 
@@ -56,17 +45,9 @@ View.prototype.save = function(e) {
 };
 
 /**
- * Hide
- */
-
-View.prototype.hide = function() {
-  if (this.modal) this.modal.hide();
-};
-
-/**
  * Get mode
  */
 
-View.prototype.mode = function(name) {
+Modal.prototype.mode = function(name) {
   return this.find('[data-active="' + name + '"]').classList.contains('active');
 };

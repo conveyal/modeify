@@ -1,19 +1,17 @@
 {
-  "name": "welcome-page",
+  "name": "modal",
   "dependencies": {
+    "segmentio/modal": "*",
     "visionmedia/debug": "*"
   },
   "local": [
     "config",
-    "modal"
+    "view"
   ],
   "scripts": [
     "index.js"
   ],
   "styles": [
     "style.css"
-  ],
-  "templates": [
-    "template.html"
   ]
 }

@@ -1,0 +1,31 @@
+/**
+ * Modal
+ */
+
+.Modal {
+  top: 54px;
+
+  border: 1px solid var(--gray);
+  border-radius: var(--border-radius);
+  padding: 15px;
+  background-color: white;
+
+  overflow-y: scroll;
+
+  overflow-x: hidden;
+  max-width: 320px;
+  width: 100%;
+}
+
+.Modal.hide {
+  opacity: 0;
+}
+
+/**
+ * Overlay
+ */
+
+.Overlay {
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%);
+  z-index: 151;
+}

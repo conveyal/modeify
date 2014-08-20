@@ -2,14 +2,17 @@ var config = require('config');
 var debug = require('debug')(config.application() + ':commuter-profile');
 var modal = require('modal');
 var request = require('request');
-var view = require('view');
 
 /**
- * Expose `View`
+ * Expose `Modal`
  */
 
-var View = module.exports = view(require('./template.html'), function(view,
-  model) {
+var Modal = module.exports = modal({
+  closable: true,
+  width: '640px',
+  template: require('./template.html')
+}, function(view, model) {
+
   var plan = model.plan;
   var stroller = view.find('.stroller');
   var speedwalker = view.find('.speedwalker');
@@ -40,21 +43,10 @@ var View = module.exports = view(require('./template.html'), function(view,
 });
 
 /**
- *
- */
-
-View.prototype.show = function(callback) {
-  this.modal = modal(this.el)
-    .overlay()
-    .closable()
-    .show(callback);
-};
-
-/**
  * Submit Add Password
  */
 
-View.prototype.submitAddPassword = function() {
+Modal.prototype.submitAddPassword = function() {
   var email = this.email();
   request.post('/users/change-password-request', {
     email: email
@@ -73,7 +65,7 @@ View.prototype.submitAddPassword = function() {
  * Submit Email Address
  */
 
-View.prototype.submitEmailAddress = function(e) {
+Modal.prototype.submitEmailAddress = function(e) {
   e.preventDefault();
   var email = this.find('input[name=email]').value;
   request.post('/users/change-password-request', {
@@ -93,30 +85,21 @@ View.prototype.submitEmailAddress = function(e) {
  * Proxy values
  */
 
-View.prototype.anonymous = function() {
+Modal.prototype.anonymous = function() {
   return this.model.commuter._user().anonymous;
 };
-View.prototype.email = function() {
+Modal.prototype.email = function() {
   return this.model.commuter._user().email;
 };
-View.prototype.profileComplete = function() {
+Modal.prototype.profileComplete = function() {
   return this.model.commuter._user().email_confirmed;
-};
-
-/**
- * Hide
- */
-
-View.prototype.hide = function(e) {
-  if (e) e.preventDefault();
-  if (this.modal) this.modal.hide();
 };
 
 /**
  * Set Walk Speed
  */
 
-View.prototype.setWalkSpeed = function(e) {
+Modal.prototype.setWalkSpeed = function(e) {
   if (e.target.classList.contains('stroller')) {
     this.model.plan.walk_speed(1.4);
   } else {
@@ -128,7 +111,7 @@ View.prototype.setWalkSpeed = function(e) {
  * Set Bike Speed
  */
 
-View.prototype.setBikeSpeed = function(e) {
+Modal.prototype.setBikeSpeed = function(e) {
   if (e.target.classList.contains('cruiser')) {
     this.model.plan.bike_speed(4.1);
   } else {
@@ -137,10 +120,10 @@ View.prototype.setBikeSpeed = function(e) {
 };
 
 /**
- * Journey View
+ * Journey Modal
  */
 
-View.prototype['journeys-view'] = function() {
+Modal.prototype['journeys-view'] = function() {
   return require('./journey');
 };
 
@@ -148,6 +131,6 @@ View.prototype['journeys-view'] = function() {
  * Has journeyrs
  */
 
-View.prototype.hasJourneys = function() {
+Modal.prototype.hasJourneys = function() {
   return this.model.journeys.length() > 0;
 };

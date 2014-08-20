@@ -1,12 +1,4 @@
 
-.Feedback {
-  border: 1px solid var(--gray);
-  border-radius: var(--border-radius);
-  padding: 15px;
-  background-color: white;
-}
-
-
 .Feedback > h3 {
   margin-top: 0;
 }

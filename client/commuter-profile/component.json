@@ -1,12 +1,12 @@
 {
   "name": "commuter-profile",
   "dependencies": {
-    "segmentio/modal": "*",
     "visionmedia/debug": "*"
   },
   "local": [
     "config",
     "journey",
+    "modal",
     "request",
     "session",
     "view"
