@@ -1,8 +1,8 @@
 
 nav {
-  box-shadow: 0 0 2px 0 var(--black);
-  border-bottom: 1px solid var(--gray);
-  background-color: var(--lightgray);
+  box-shadow: 0 0 2px 0 var(--gray);
+  border-bottom: 2px solid var(--gray);
+  background-color: var(--gray);
   background-image: url(v3.png);
   background-repeat: no-repeat;
   background-size: auto 28px;
