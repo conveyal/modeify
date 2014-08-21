@@ -42,7 +42,6 @@
 }
 
 .Options .simple .segments .shield {
-  font-size: 15px;
   margin-left: 6px;
   margin-top: 6px;
   width: 32px;
@@ -135,16 +134,16 @@
   table-layout: fixed;
   border-collapse: separate;
   color: var(--gray);
-  padding: 10px 15px;
+  padding: 8px 0;
   line-height: 16px;
 }
 
-.Options .details .narrative-directions tr:nth-child(even) {
-  background-color: #F4FCE8;
+.Options .details .narrative-directions tr:nth-child(odd) {
+  background-color: var(--lightestgreen);
 }
 
-.Options .details .narrative-directions tr:nth-child(odd) {
-  background-color: #FFF;
+.Options .details .narrative-directions tr.address {
+  background-color: #fff;
 }
 
 .narrative-directions .transfer {
@@ -181,6 +180,7 @@
   font-size: 25px;
   color: var(--black);
   text-align: center;
+  padding-left: 16px;
 }
 
 .narrative-directions .transfer > .station {
@@ -199,9 +199,9 @@
 
 .Options .details .description {
   text-align: left;
-  font-size: 14px;
   vertical-align: middle;
   padding-left: 25px;
+  padding-right: 16px;
 }
 
 .Options .details .address .description {
