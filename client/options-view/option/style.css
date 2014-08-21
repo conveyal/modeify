@@ -245,12 +245,6 @@
   font-size: 16px;
 }
 
-.Options .scoring-information input[disabled] {
-  border-bottom: none;
-  color: var(--darkergreen);
-  cursor: default;
-}
-
 .Options .scoring-information input:focus {
   outline: none;
 }

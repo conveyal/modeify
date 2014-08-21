@@ -47,12 +47,12 @@ b, strong {
 }
 
 a {
-  color: var(--green);
+  color: var(--darkergreen);
 }
 
 a:active,
 a:hover {
-  color: color(var(--green) shade(20%));
+  color: color(var(--darkergreen) shade(20%));
 }
 
 .btn,
