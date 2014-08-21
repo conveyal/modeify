@@ -1,22 +1,18 @@
 
 .Options {
   overflow: hidden;
-  clear: both;
 }
 
 .Options .pull-right {
 	background-color: var(--green);
-	margin-top: 10;
-	float: right;
-	height: 33px;
-	padding: 2px 5px 0 5px;
-	border-top-left-radius: 2px;
-	border-top-right-radius: 2px;
-	z-index: -100;
+	padding: 4px 8px 7px 4px;
+	border-top-left-radius: var(--border-radius);
+	border-top-right-radius: var(--border-radius);
+	z-index: 0;
 }
 
 .Options .annual-day-trigger {
-	padding-left: 3px;
+	padding-left: 4px;
 	color: var(--darkgreen);
   font-size: 14px;
 }
