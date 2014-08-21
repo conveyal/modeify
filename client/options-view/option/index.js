@@ -32,6 +32,8 @@ var View = module.exports = view(require('./template.html'), function(view,
     .on('mouseover', function() {
       window.transitive.focusJourney(model.id());
     });
+
+  Array.prototype.slice.call(view.findAll('input')).forEach(setInputSize);
 });
 
 /**
@@ -310,7 +312,18 @@ View.prototype.inputChange = function(e) {
     this.model[name](value);
     this.model.updateScoring();
   }
+
+  setInputSize(input);
 };
+
+/**
+ * Set input size
+ */
+
+function setInputSize(i) {
+  var length = i.value.length;
+  i.setAttribute('size', length > 2 ? length - 2 : 1);
+}
 
 /**
  * TODO: this should be aliased in CSS

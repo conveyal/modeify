@@ -2,7 +2,6 @@
 .Options ul {
   padding-left: 0;
   color: var(--black);
-  font-size: 15px;
 }
 
 .Options .per-year {
@@ -62,7 +61,6 @@
   width: 120px;
   margin-left: 16px;
   white-space: nowrap;
-  font-size: 15px;
   color: var(--gray);
 }
 
@@ -73,7 +71,6 @@
 }
 
 .Options .simple .minutes-column h3 .avg {
-  font-size: 15px;
   color: var(--black);
 }
 
@@ -82,7 +79,6 @@
   text-align: right;
   background-color: var(--mgreen);
   color: var(--darkergreen);
-  font-weight: 500;
   padding: 8px;
   border-top-right-radius: var(--border-radius);
   border-bottom-left-radius: var(--border-radius);
@@ -218,19 +214,10 @@
  */
 
 .Options .scoring-information {
-  padding: 10px 15px;
+  padding: 16px;
   background-color: var(--mgreen);
   color: var(--darkergreen);
-  margin: 0 8px;
-  border-radius: 3px;
-}
-
-.Options .scoring-information strong {
-  font-size: 14px;
-}
-
-.Options .scoring-information small {
-  font-weight: 600;
+  line-height: 2em;
 }
 
 .Options .scoring-information i {
@@ -239,53 +226,33 @@
   color: var(--lightgreen);
 }
 
+.Options .scoring-information p {
+  margin: 0;
+}
+
 .Options .scoring-information input {
   border: none;
   background-color: transparent;
   border-bottom: 1px dashed var(--lightgreen);
-  height: 20px;
-  width: 50px;
+  width: auto;
   text-align: center;
   cursor: pointer;
+  font-weight: var(--bold);
+  font-size: 16px;
 }
 
-.Options .scoring-information input:disabled {
-  border-bottom: none;
-}
-
-.Options .scoring-information button {
-  background-color: var(--gray);
-  text-align: center;
-  color: #fff;
-  border-radius: 2px;
-  width: 40px;
-  padding: 5px 6px 5px 0;
-  font-size: 14px;
-  cursor: pointer;
-  outline: 0;
-  box-shadow: 0;
-  border: 0;
-}
-
-.Options .scoring-information button:hover {
-  background-color: color(var(--gray) shade(10%));
-}
-
-.Options .scoring-information button:active {
-  background-color: color(var(--gray) shade(10%));
+.Options .scoring-information strong {
+  font-size: 16px;
 }
 
 .Options .scoring-information input[disabled] {
-  color: var(--black);
+  border-bottom: none;
+  color: var(--darkergreen);
   cursor: default;
 }
 
 .Options .scoring-information input:focus {
   outline: none;
-}
-
-.Options .scoring-information section {
-
 }
 
 /** Feedback on a route */
