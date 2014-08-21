@@ -30,12 +30,8 @@
   padding: 16px 0 0 16px;
 }
 
-.Options .simple .segments .segment {
-  margin-bottom: 5px;
-}
-
 .Options .simple .segments .mode {
-  font-size: 26px;
+  font-size: 25px;
   color: var(--gray);
   display: inline-block;
   vertical-align: top;
@@ -134,8 +130,7 @@
   table-layout: fixed;
   border-collapse: separate;
   color: var(--gray);
-  padding: 8px 0;
-  line-height: 16px;
+  padding: 4px 0;
 }
 
 .Options .details .narrative-directions tr:nth-child(odd) {
@@ -162,7 +157,7 @@
 }
 
 .Options .details .transfer.alight {
-  margin-bottom: 14px;
+  margin-bottom: 17px;
   padding-bottom: 0;
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
@@ -180,7 +175,7 @@
   font-size: 25px;
   color: var(--black);
   text-align: center;
-  padding-left: 16px;
+  padding-left: 25px;
 }
 
 .narrative-directions .transfer > .station {
@@ -200,8 +195,7 @@
 .Options .details .description {
   text-align: left;
   vertical-align: middle;
-  padding-left: 25px;
-  padding-right: 16px;
+  padding: 4px 25px;
 }
 
 .Options .details .address .description {
