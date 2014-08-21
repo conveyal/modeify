@@ -24,8 +24,8 @@
 .Transitive .map-zoom {
   position: absolute;
   height: 35px;
-  right: 8px;
-  bottom: 8px;
+  left: 8px;
+  top: 8px;
   z-index: 150;
 }
 

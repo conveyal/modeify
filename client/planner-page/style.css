@@ -1,20 +1,19 @@
 
 .panel {
   position: absolute;
-  background-color: var(--light-gray);
-  border: none;
+  background-color: color(var(--light-gray) alpha(75%));
   z-index: 1;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  border-radius: 0;
-  width: 320px;
+  top: 8px;
+  bottom: 8px;
+  right: 8px;
+  border: 1px solid var(--gray);
+  border-radius: var(--border-radius);
+  width: 322px;
   overflow: hidden;
   margin-bottom: 0;
 }
 
 .scrollable {
-  border-left: 1px solid var(--gray);
   overflow-y: scroll;
   height: 100%;
   padding-top: 44px;
@@ -39,9 +38,9 @@
 }
 
 .fullscreen {
-  margin-right: 320px;
   position: relative;
   height: 100%;
+  z-index: 0;
 }
 
 .tip {

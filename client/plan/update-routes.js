@@ -134,6 +134,19 @@ function updateRoutes(plan, opts, callback) {
       // Process & format the results
       data.options = processProfile.processOptions(data.options);
 
+      // TODO: Remove
+      data.options = data.options.filter(function(o) {
+        var a = o.access[0];
+        switch (a.mode) {
+          case 'BICYCLE':
+            if (a.time < 300) return false;
+            break;
+          case 'WALK':
+            if (a.time > 2700) return false;
+        }
+        return true;
+      });
+
       // Populate segments
       populateSegments(data.options, data.journey);
 

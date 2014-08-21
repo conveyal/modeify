@@ -118,6 +118,7 @@
   opacity: 1;
   visibility: visible;
   border-bottom: 2px solid var(--white);
+  border-radius: var(--border-radius);
 }
 
 .Options .option .details {
