@@ -14,7 +14,10 @@
   margin: 8px;
   border-radius: var(--border-radius);
   border-bottom: 2px solid var(--white);
-  box-shadow: 0 0 2px 0 var(--white);
+}
+
+.Options .option:first-of-type {
+  border-top-right-radius: 0;
 }
 
 .Options .option.expanded {
@@ -77,6 +80,10 @@
   padding: 8px;
   border-top-right-radius: var(--border-radius);
   border-bottom-left-radius: var(--border-radius);
+}
+
+.Options .option:first-of-type .simple .fare-column {
+  border-top-right-radius: 0;
 }
 
 .Options .simple .fare-column .per-year {

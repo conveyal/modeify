@@ -1,6 +1,5 @@
 
 nav {
-  box-shadow: 0 0 2px 0 var(--gray);
   background-color: var(--gray);
   background-image: url(v3.png);
   background-repeat: no-repeat;
