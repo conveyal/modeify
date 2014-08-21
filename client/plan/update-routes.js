@@ -1,29 +1,10 @@
 var analytics = require('analytics');
 var config = require('config');
 var convert = require('convert');
-var d3 = require('d3');
 var debug = require('debug')(config.name() + ':plan:update-routes');
 var formatProfile = require('format-otp-profile');
 var otp = require('otp');
-var ProcessProfile = require('otp-profile-score');
 var Route = require('route');
-
-/**
- * New ProcessProfile object
- */
-
-var processProfile = new ProcessProfile({
-  bikeParking: 5
-});
-
-/**
- * Scale calories
- */
-
-processProfile.factors.calories = d3.scale.sqrt()
-  .domain([0, 100, 150])
-  .range([0, -3, 0])
-  .exponent(2);
 
 /**
  * Expose `updateRoutes`
@@ -58,6 +39,7 @@ function updateRoutes(plan, opts, callback) {
   var endTime = plan.end_time();
   var date = nextDate(plan.days());
   var modes = opts.modes || plan.modesCSV();
+  var scorer = plan.scorer();
 
   // Convert the hours into strings
   startTime += ':00';
@@ -82,14 +64,14 @@ function updateRoutes(plan, opts, callback) {
     date, startTime, endTime);
 
   otp({
-    bikeSpeed: plan.bike_speed(),
+    bikeSpeed: scorer.rates.bikeSpeed,
     from: options.from,
     to: options.to,
     startTime: startTime,
     endTime: endTime,
     date: date,
     modes: modes,
-    walkSpeed: plan.walk_speed()
+    walkSpeed: scorer.rates.walkSpeed
   }, function(err, data) {
     if (err) {
       debug(err);
@@ -119,11 +101,9 @@ function updateRoutes(plan, opts, callback) {
         },
         date: date,
         scoring: {
-          factors: processProfile.factors,
-          rates: processProfile.rates
+          factors: scorer.factors,
+          rates: scorer.rates
         },
-        bikeSpeed: plan.bike_speed(),
-        walkSpeed: plan.walk_speed(),
         results: data.options.length
       });
 
@@ -132,7 +112,7 @@ function updateRoutes(plan, opts, callback) {
       });
 
       // Process & format the results
-      data.options = processProfile.processOptions(data.options);
+      data.options = scorer.processOptions(data.options);
 
       // TODO: Remove
       data.options = data.options.filter(function(o) {
@@ -157,7 +137,7 @@ function updateRoutes(plan, opts, callback) {
       // Save the URL
       plan.saveURL();
 
-      // Save the routes
+      console.log(data.options);
       plan.options(data.options);
       plan.journey(data.journey);
 

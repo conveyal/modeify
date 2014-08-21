@@ -1,5 +1,7 @@
 var config = require('config');
+var d3 = require('d3');
 var debug = require('debug')(config.name() + ':plan:load');
+var ProfileScorer = require('otp-profile-score');
 var session = require('session');
 var store = require('store');
 
@@ -15,6 +17,7 @@ module.exports = load;
 
 function load(Plan, ctx, next) {
   var plan = session.plan();
+
   if (!plan) {
     debug('loading plan at %s', ctx.path);
 
@@ -45,6 +48,17 @@ function load(Plan, ctx, next) {
     // remove stored patterns & routes
     delete opts.patterns;
     delete opts.routes;
+
+    // Create new scorer
+    var scorer = new ProfileScorer();
+    scorer.factors.calories = d3.scale.sqrt()
+      .domain([0, 100, 150])
+      .range([0, -3, 0])
+      .exponent(2);
+
+    scorer.factors = opts.scorer.factors;
+    scorer.rates = opts.scorer.rates;
+    opts.scorer = scorer;
 
     plan = new Plan(opts);
     session.plan(plan);

@@ -309,8 +309,28 @@ View.prototype.inputChange = function(e) {
   var value = parseFloat(input.value);
 
   if (!isNaN(value)) {
-    this.model[name](value);
-    this.model.updateScoring();
+    var plan = session.plan();
+    var scorer = plan.scorer();
+
+    switch (name) {
+      case 'bikeSpeed':
+        scorer.rates.bikeSpeed = convert.mphToMps(value);
+        break;
+      case 'days':
+        plan.days(value);
+        break;
+      case 'parkingCost':
+        scorer.rates.parkingCost = value;
+        break;
+      case 'vmtRate':
+        scorer.rates.mileageRate = value;
+        break;
+      case 'walkSpeed':
+        scorer.rates.walkSpeed = convert.mphToMps(value);
+        break;
+    }
+
+    plan.rescoreOptions();
   }
 
   setInputSize(input);

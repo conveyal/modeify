@@ -57,6 +57,7 @@ var Plan = module.exports = model('Plan')
   .attr('original_modes')
   .attr('per_day')
   .attr('per_year')
+  .attr('scorer')
   .attr('start_time')
   .attr('to')
   .attr('to_id')
@@ -212,6 +213,17 @@ Plan.prototype.setAddresses = function(from, to, callback) {
     .push(function(done) {
       plan.setAddress('to', to, done);
     }).end(callback);
+};
+
+/**
+ * Rescore Options
+ */
+
+Plan.prototype.rescoreOptions = function() {
+  var scorer = this.scorer();
+  var options = this.options();
+
+  options.forEach(function(o) { o.rescore(scorer); });
 };
 
 /**

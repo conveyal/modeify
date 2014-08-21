@@ -1,7 +1,7 @@
 
 .panel {
   position: absolute;
-  background-color: color(var(--light-gray) alpha(75%));
+  background-color: color(var(--light-gray) alpha(90%));
   z-index: 1;
   top: 8px;
   bottom: 8px;
