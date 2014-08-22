@@ -12,34 +12,8 @@ var Modal = module.exports = modal({
   width: '640px',
   template: require('./template.html')
 }, function(view, model) {
-
-  var plan = model.plan;
-  var stroller = view.find('.stroller');
-  var speedwalker = view.find('.speedwalker');
-  var cruiser = view.find('.cruiser');
-  var racer = view.find('.racer');
-
-  selectWalkSpeed();
-  selectBikeSpeed();
-
-  plan.on('change walk_speed', selectWalkSpeed);
-  plan.on('change bike_speed', selectBikeSpeed);
-
-  function selectWalkSpeed() {
-    stroller.classList.remove('selected');
-    speedwalker.classList.remove('selected');
-
-    if (plan.walk_speed() < 1.5) stroller.classList.add('selected');
-    else speedwalker.classList.add('selected');
-  }
-
-  function selectBikeSpeed() {
-    cruiser.classList.remove('selected');
-    racer.classList.remove('selected');
-
-    if (plan.bike_speed() < 4.2) cruiser.classList.add('selected');
-    else racer.classList.add('selected');
-  }
+  view.selectWalkSpeed();
+  view.selectBikeSpeed();
 });
 
 /**
@@ -100,11 +74,16 @@ Modal.prototype.profileComplete = function() {
  */
 
 Modal.prototype.setWalkSpeed = function(e) {
+  var plan = this.model.plan;
+  var scorer = plan.scorer();
   if (e.target.classList.contains('stroller')) {
-    this.model.plan.walk_speed(1.4);
+    scorer.rates.walkSpeed = 1.4;
   } else {
-    this.model.plan.walk_speed(1.75);
+    scorer.rates.walkSpeed = 1.75;
   }
+
+  this.selectWalkSpeed();
+  plan.rescoreOptions();
 };
 
 /**
@@ -112,11 +91,40 @@ Modal.prototype.setWalkSpeed = function(e) {
  */
 
 Modal.prototype.setBikeSpeed = function(e) {
+  var plan = this.model.plan;
+  var scorer = plan.scorer();
   if (e.target.classList.contains('cruiser')) {
-    this.model.plan.bike_speed(4.1);
+    scorer.rates.bikeSpeed = 4.1;
   } else {
-    this.model.plan.bike_speed(5.125);
+    scorer.rates.bikeSpeed = 5.125;
   }
+
+  this.selectBikeSpeed();
+  plan.rescoreOptions();
+};
+
+Modal.prototype.selectWalkSpeed = function() {
+  var plan = this.model.plan;
+  var stroller = this.find('.stroller');
+  var speedwalker = this.find('.speedwalker');
+
+  stroller.classList.remove('selected');
+  speedwalker.classList.remove('selected');
+
+  if (plan.scorer().rates.walkSpeed < 1.5) stroller.classList.add('selected');
+  else speedwalker.classList.add('selected');
+};
+
+Modal.prototype.selectBikeSpeed = function() {
+  var plan = this.model.plan;
+  var cruiser = this.find('.cruiser');
+  var racer = this.find('.racer');
+
+  cruiser.classList.remove('selected');
+  racer.classList.remove('selected');
+
+  if (plan.scorer().rates.bikeSpeed < 4.2) cruiser.classList.add('selected');
+  else racer.classList.add('selected');
 };
 
 /**
