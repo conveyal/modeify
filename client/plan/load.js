@@ -51,6 +51,7 @@ function load(Plan, ctx, next) {
 
     // Create new scorer
     var scorer = new ProfileScorer();
+    console.log(opts);
 
     if (opts.scorer) {
       scorer.factors = opts.scorer.factors;
