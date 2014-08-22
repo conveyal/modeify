@@ -10,7 +10,7 @@ exports.segments = {
   stroke: function(display, segment) {
     if (!segment.focused) return;
 
-// taking this value and testing other values for that property //
+    // taking this value and testing other values for that property //
     switch (segment.type) {
       case 'CAR':
         return '#f3da01';
@@ -24,20 +24,21 @@ exports.segments = {
     }
   },
 
-    // override the default stroke width
+  // override the default stroke width
   'stroke-width': function(display, segment, index, utils) {
     switch (segment.type) {
       case 'CAR':
         return utils.pixels(display.zoom.scale(), 2, 4, 6) + 'px';
       case 'TRANSIT':
         // bus segments:
-        if (segment.mode === 3) return utils.pixels(display.zoom.scale(), 2, 4, 8) + 'px';
+        if (segment.mode === 3) return utils.pixels(display.zoom.scale(), 2, 4,
+          8) + 'px';
         // all others:
         return utils.pixels(display.zoom.scale(), 4, 8, 12) + 'px';
     }
   },
 
-   // specify the dash-array
+  // specify the dash-array
   'stroke-dasharray': function(display, segment) {
     switch (segment.type) {
       case 'CAR':
@@ -45,34 +46,35 @@ exports.segments = {
     }
   },
 
-   // specify the line cap type
-  'stroke-linecap' : function(display, segment) {
+  // specify the line cap type
+  'stroke-linecap': function(display, segment) {
     switch (segment.type) {
       case 'CAR':
         return 'butt';
     }
   },
 
-
   // specify the circle marker for 'dotted' line styles
   'marker-mid': function(display, segment, index, utils) {
     var radius, fillColor;
 
-    switch(segment.type) {
+    switch (segment.type) {
       case 'WALK':
         radius = 3;
         fillColor = '#5ae3f9';
-        return utils.defineSegmentCircleMarker(display, segment, radius, fillColor);
+        return utils.defineSegmentCircleMarker(display, segment, radius,
+          fillColor);
       case 'BICYCLE':
         radius = 3;
         fillColor = '#f00';
-        return utils.defineSegmentCircleMarker(display, segment, radius, fillColor);
+        return utils.defineSegmentCircleMarker(display, segment, radius,
+          fillColor);
     }
   },
 
   // specify the spacing for marker styling
   'marker-spacing': function(display, segment) {
-    switch(segment.type) {
+    switch (segment.type) {
       case 'WALK':
         return 10;
       case 'BICYCLE':

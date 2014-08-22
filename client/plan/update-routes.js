@@ -138,6 +138,7 @@ function updateRoutes(plan, opts, callback) {
       plan.saveURL();
 
       console.log(data.options);
+
       plan.options(data.options);
       plan.journey(data.journey);
 

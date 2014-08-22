@@ -51,13 +51,17 @@ function load(Plan, ctx, next) {
 
     // Create new scorer
     var scorer = new ProfileScorer();
+
+    if (opts.scorer) {
+      scorer.factors = opts.scorer.factors;
+      scorer.rates = opts.scorer.rates;
+    }
+
     scorer.factors.calories = d3.scale.sqrt()
       .domain([0, 100, 150])
       .range([0, -3, 0])
       .exponent(2);
 
-    scorer.factors = opts.scorer.factors;
-    scorer.rates = opts.scorer.rates;
     opts.scorer = scorer;
 
     plan = new Plan(opts);

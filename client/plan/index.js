@@ -223,7 +223,9 @@ Plan.prototype.rescoreOptions = function() {
   var scorer = this.scorer();
   var options = this.options();
 
-  options.forEach(function(o) { o.rescore(scorer); });
+  options.forEach(function(o) {
+    o.rescore(scorer);
+  });
 };
 
 /**

@@ -35,6 +35,7 @@ var Route = module.exports = model('Route')
   .attr('transfers')
   .attr('transitCost')
   .attr('transit')
+  .attr('trips')
   .attr('walkCalories')
   .attr('walkDistance');
 
@@ -44,7 +45,8 @@ var Route = module.exports = model('Route')
 
 Route.prototype.rescore = function(scorer) {
   var data = scorer.processOption(this.toJSON());
-  for (var i in data) if (this.hasOwnProperty(i)) this[i](data[i]);
+  for (var i in data)
+    if (this.hasOwnProperty(i)) this[i](data[i]);
 
   this.emit('change average', this.average());
   this.emit('change calculatedCost', this.calculatedCost());
