@@ -25,7 +25,6 @@ var DEBOUNCE_UPDATES = 25;
 var Plan = module.exports = model('Plan')
   .use(defaults({
     bike: false,
-    bike_speed: 4.1,
     bus: false,
     car: false,
     days: 'M—F',
@@ -38,12 +37,11 @@ var Plan = module.exports = model('Plan')
     to: '',
     to_valid: false,
     train: false,
+    tripsPerYear: 235,
     walk: false,
-    walk_speed: 1.4,
     welcome_complete: false
   }))
   .attr('bike')
-  .attr('bike_speed')
   .attr('bus')
   .attr('car')
   .attr('days')
@@ -64,8 +62,8 @@ var Plan = module.exports = model('Plan')
   .attr('to_ll')
   .attr('to_valid')
   .attr('train')
+  .attr('tripsPerYear')
   .attr('walk')
-  .attr('walk_speed')
   .attr('welcome_complete');
 
 /**

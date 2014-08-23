@@ -46,12 +46,13 @@ var Route = module.exports = model('Route')
 Route.prototype.rescore = function(scorer) {
   var data = scorer.processOption(this.toJSON());
   for (var i in data)
-    if (this.hasOwnProperty(i)) this[i](data[i]);
+    if (this.hasOwnProperty(i) && i !== 'transitCost') this[i](data[i]);
 
   this.emit('change average', this.average());
   this.emit('change calculatedCost', this.calculatedCost());
   this.emit('change calculatedCalories', this.calculatedCalories());
-  this.emit('change days', this.days());
+  this.emit('change transitCosts', this.transitCosts());
+  this.emit('change tripsPerYear', this.tripsPerYear());
   this.emit('change parkingCost', this.parkingCost());
   this.emit('change vmtRate', this.vmtRate());
 };
@@ -68,8 +69,8 @@ Route.prototype.average = function() {
  * Days
  */
 
-Route.prototype.days = function() {
-  return session.plan().days();
+Route.prototype.tripsPerYear = function() {
+  return session.plan().tripsPerYear();
 };
 
 /**
@@ -78,7 +79,7 @@ Route.prototype.days = function() {
 
 Route.prototype.tripm = function() {
   var plan = session.plan();
-  return plan.per_year() ? plan.days() : 1;
+  return plan.per_year() ? plan.tripsPerYear() : 1;
 };
 
 /**
@@ -96,7 +97,7 @@ Route.prototype.calculatedCost = function() {
 
   var total = cost * this.tripm();
   if (total > 1000) {
-    return (total / 1000).toFixed(0) + 'k';
+    return (total / 1000).toFixed(1) + 'k';
   } else if (total > 100) {
     return total.toFixed(0);
   } else {
@@ -124,7 +125,7 @@ Route.prototype.calculatedCalories = function() {
     cals += caloriesBurned(8, this.weight(), (this.bikeDistances() / this.bikeSpeed()));
   }
   var total = cals * this.tripm();
-  return total > 1000 ? (total / 1000).toFixed(0) + 'k' : total.toFixed(0);
+  return total > 1000 ? (total / 1000).toFixed(1) + 'k' : total.toFixed(0);
 };
 
 /**
@@ -194,7 +195,7 @@ Route.prototype.weight = function() {
 };
 
 Route.prototype.parkingCost = function() {
-  return session.plan().scorer().rates.parkingCost;
+  return session.plan().scorer().rates.carParkingCost;
 };
 
 /**

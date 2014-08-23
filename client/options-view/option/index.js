@@ -316,11 +316,14 @@ View.prototype.inputChange = function(e) {
       case 'bikeSpeed':
         scorer.rates.bikeSpeed = convert.mphToMps(value);
         break;
-      case 'days':
-        plan.days(value);
+      case 'tripsPerYear':
+        plan.tripsPerYear(value);
         break;
       case 'parkingCost':
         scorer.rates.parkingCost = value;
+        break;
+      case 'transitCost':
+        this.model.transitCost(value);
         break;
       case 'vmtRate':
         scorer.rates.mileageRate = value;
