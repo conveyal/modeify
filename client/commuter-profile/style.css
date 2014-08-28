@@ -148,6 +148,7 @@
 }
 
 .commuter-profile .from {
+  margin-top: 5px;
   color: var(--black);
 }
 
