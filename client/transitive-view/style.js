@@ -6,9 +6,8 @@ exports.places = {
   fill: 'none'
 };
 
-var STYLES = {};
 
-STYLES.segments = {
+exports.segments = {
 
   // override the default stroke color
   stroke: function(display, segment) {
@@ -61,7 +60,7 @@ STYLES.segments = {
       case 'BICYCLE':
         return 'round';
     }
-  },
+  }
 
   // specify the circle marker for 'dotted' line styles
   /*'marker-mid': function(display, segment, index, utils) {
@@ -96,7 +95,7 @@ STYLES.segments = {
 
 /** style overrides for segment-based labels **/
 
-STYLES.segment_label_containers = {
+exports.segment_label_containers = {
 
   // specify the fill color for the label bubble
   fill: function(display, label) {
@@ -123,8 +122,7 @@ exports.places_icon = {
   visibility: 'visible'
 };
 
-exports.multipoints_pattern = exports.multipoints_merged = exports.stops_pattern =
-  exports.stops_merged = {
+exports.multipoints_merged = exports.stops_merged = {
     r: function(display, data, index, utils) {
       return utils.pixels(display.zoom.scale(), 4, 6, 8);
     }
