@@ -17,7 +17,7 @@ exports.segments = {
       case 'CAR':
         return '#888';
       case 'WALK':
-        return '#5492C0';
+        return '#0BC8F4';
       case 'BICYCLE':
         return '#f00';
 
@@ -28,15 +28,15 @@ exports.segments = {
   'stroke-width': function(display, segment, index, utils) {
     switch (segment.type) {
       case 'CAR':
-        return utils.pixels(display.zoom.scale(), 2, 4, 6) + 'px';
+        return utils.pixels(display.zoom.scale(), 3, 5, 7) + 'px';
       case 'WALK':
       case 'BICYCLE':
-        return '4px';
+        return '5px';
       case 'TRANSIT':
         // bus segments:
-        if (segment.mode === 3) return utils.pixels(display.zoom.scale(), 2, 4, 8) + 'px';
+        if (segment.mode === 3) return utils.pixels(display.zoom.scale(), 2, 5, 8) + 'px';
         // all others:
-        return utils.pixels(display.zoom.scale(), 4, 8, 12) + 'px';
+        return utils.pixels(display.zoom.scale(), 5, 9, 12) + 'px';
     }
   },
 
@@ -47,7 +47,7 @@ exports.segments = {
         return '3,2';
       case 'WALK':
       case 'BICYCLE':
-        return '0.01,10';
+        return '0.01,8';
     }
   },
 
