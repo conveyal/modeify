@@ -47,7 +47,7 @@ exports.segments = {
         return '3,2';
       case 'WALK':
       case 'BICYCLE':
-        return '0.01,6';
+        return '0.01,10';
     }
   },
 
