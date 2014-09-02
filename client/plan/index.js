@@ -25,7 +25,6 @@ var DEBOUNCE_UPDATES = 25;
 var Plan = module.exports = model('Plan')
   .use(defaults({
     bike: false,
-    bike_speed: 4.1,
     bus: false,
     car: false,
     days: 'M—F',
@@ -38,12 +37,11 @@ var Plan = module.exports = model('Plan')
     to: '',
     to_valid: false,
     train: false,
+    tripsPerYear: 235,
     walk: false,
-    walk_speed: 1.4,
     welcome_complete: false
   }))
   .attr('bike')
-  .attr('bike_speed')
   .attr('bus')
   .attr('car')
   .attr('days')
@@ -57,14 +55,15 @@ var Plan = module.exports = model('Plan')
   .attr('original_modes')
   .attr('per_day')
   .attr('per_year')
+  .attr('scorer')
   .attr('start_time')
   .attr('to')
   .attr('to_id')
   .attr('to_ll')
   .attr('to_valid')
   .attr('train')
+  .attr('tripsPerYear')
   .attr('walk')
-  .attr('walk_speed')
   .attr('welcome_complete');
 
 /**
@@ -212,6 +211,21 @@ Plan.prototype.setAddresses = function(from, to, callback) {
     .push(function(done) {
       plan.setAddress('to', to, done);
     }).end(callback);
+};
+
+/**
+ * Rescore Options
+ */
+
+Plan.prototype.rescoreOptions = function() {
+  var scorer = this.scorer();
+  var options = this.options();
+
+  options.forEach(function(o) {
+    o.rescore(scorer);
+  });
+
+  this.store();
 };
 
 /**

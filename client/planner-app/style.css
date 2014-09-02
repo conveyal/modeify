@@ -4,19 +4,20 @@
  */
 
 :root {
-  --black: #455A71;
+  --black: #455a71;
 
   --gray: #84909d;
-  --lightgray: #B5C1CE;
+  --lightgray: #b5c1ce;
   --light-gray: #edeff0;
 
   --white: #bcc4ce;
 
   --darkergreen: #639428;
   --darkgreen: #719939;
-  --green: #8ec449; --mgreen: #B4E37B;
+  --green: #8ec449; --mgreen: #b4e37b;
   --lightgreen: #dcffb0;
-  --lightergreen: #d6F1B4;
+  --lightergreen: #d6f1b4;
+  --lightestgreen: #f4fce8;
 
   --red: #e21836;
 
@@ -47,12 +48,12 @@ b, strong {
 }
 
 a {
-  color: var(--green);
+  color: var(--darkergreen);
 }
 
 a:active,
 a:hover {
-  color: color(var(--green) shade(20%));
+  color: color(var(--darkergreen) shade(20%));
 }
 
 .btn,

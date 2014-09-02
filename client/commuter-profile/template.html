@@ -16,7 +16,7 @@
       </h4>
 
       <div data-visible="anonymous">
-        <div>Add an email address so you don't lose your settings.</div>
+        <div class="alert alert-danger">Add an email address so you don't lose your settings.</div>
         <form on-submit="submitEmailAddress">
           <input type="email" name="email" class="form-control" placeholder="Email">
           <button type="submit" class="btn btn-block">Register Email</button>
@@ -26,10 +26,8 @@
 
       <div data-hidden="anonymous">
         <div data-hidden="profileComplete">
-          <div class="alert alert-warning">
-            If you do not add a password, you will only be able to log in with the link found in your email.
-          </div>
-          <button class="btn" on-click="submitAddPassword"><i class="fa fa-key"></i> Add Password</button>
+          <div class="alert alert-warning">If you do not add a password, you will only be able to log in with the link found in your email.</div>
+          <button class="btn btn-block" on-click="submitAddPassword"><i class="fa fa-key"></i> Add Password</button>
         </div>
       </div>
     </section>

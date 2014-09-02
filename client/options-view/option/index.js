@@ -32,6 +32,8 @@ var View = module.exports = view(require('./template.html'), function(view,
     .on('mouseover', function() {
       window.transitive.focusJourney(model.id());
     });
+
+  Array.prototype.slice.call(view.findAll('input')).forEach(setInputSize);
 });
 
 /**
@@ -40,8 +42,7 @@ var View = module.exports = view(require('./template.html'), function(view,
 
 View.prototype.feedback = function(e) {
   e.preventDefault();
-  var feedback = new Feedback(this.model);
-  feedback.show();
+  Feedback(this.model).show();
 };
 
 /**
@@ -307,10 +308,44 @@ View.prototype.inputChange = function(e) {
   var value = parseFloat(input.value);
 
   if (!isNaN(value)) {
-    this.model[name](value);
-    this.model.updateScoring();
+    var plan = session.plan();
+    var scorer = plan.scorer();
+
+    switch (name) {
+      case 'bikeSpeed':
+        scorer.rates.bikeSpeed = convert.mphToMps(value);
+        break;
+      case 'tripsPerYear':
+        plan.tripsPerYear(value);
+        break;
+      case 'parkingCost':
+        scorer.rates.parkingCost = value;
+        break;
+      case 'transitCost':
+        this.model.transitCost(value);
+        break;
+      case 'vmtRate':
+        scorer.rates.mileageRate = value;
+        break;
+      case 'walkSpeed':
+        scorer.rates.walkSpeed = convert.mphToMps(value);
+        break;
+    }
+
+    plan.rescoreOptions();
   }
+
+  setInputSize(input);
 };
+
+/**
+ * Set input size
+ */
+
+function setInputSize(i) {
+  var length = i.value.length;
+  i.setAttribute('size', length > 2 ? length - 2 : 1);
+}
 
 /**
  * TODO: this should be aliased in CSS

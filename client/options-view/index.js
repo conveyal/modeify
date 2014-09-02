@@ -23,8 +23,7 @@ var View = module.exports = view(require('./template.html'), function(view,
   plan.on('change per_year', function(val) {
     setActive(val);
 
-    var options = plan.options();
-    for (var i = 0; i < options.length; i++) options[i].updateScoring();
+    plan.rescoreOptions();
   });
 
   setActive(plan.per_year());

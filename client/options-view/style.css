@@ -1,7 +1,6 @@
 
 .Options {
   overflow: hidden;
-  clear: both;
 }
 
 .Options .pull-right {
@@ -11,13 +10,12 @@
 	float: right;
 	height: 33px;
 	padding: 2px 7px 0 5px;
-	border-top-left-radius: 2px;
-	border-top-right-radius: 2px;
-	z-index: -100;
+	border-top-left-radius: var(--border-radius);
+	border-top-right-radius: var(--border-radius);
 }
 
 .Options .annual-day-trigger {
-	padding-left: 3px;
+	padding-left: 4px;
 	color: var(--darkgreen);
 	background-repeat: no-repeat;
   	font-size: 14px;

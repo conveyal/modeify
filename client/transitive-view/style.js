@@ -12,7 +12,6 @@ exports.segments = {
   // override the default stroke color
   stroke: function(display, segment) {
     if (!segment.focused) return;
-
     switch (segment.type) {
       case 'CAR':
         return '#888';
@@ -53,7 +52,7 @@ exports.segments = {
   },
 
   // specify the line cap type
-  'stroke-linecap' : function(display, segment) {
+  'stroke-linecap': function(display, segment) {
     switch (segment.type) {
       case 'CAR':
         return 'butt';
@@ -67,21 +66,23 @@ exports.segments = {
   /*'marker-mid': function(display, segment, index, utils) {
     var radius, fillColor;
 
-    switch(segment.type) {
+    switch (segment.type) {
       case 'WALK':
         radius = 3;
         fillColor = '#5ae3f9';
-        return utils.defineSegmentCircleMarker(display, segment, radius, fillColor);
+        return utils.defineSegmentCircleMarker(display, segment, radius,
+          fillColor);
       case 'BICYCLE':
         radius = 2;
         fillColor = '#f00';
-        return utils.defineSegmentCircleMarker(display, segment, radius, fillColor);
+        return utils.defineSegmentCircleMarker(display, segment, radius,
+          fillColor);
     }
   },
 
   // specify the spacing for marker styling
   'marker-spacing': function(display, segment) {
-    switch(segment.type) {
+    switch (segment.type) {
       case 'WALK':
         return 8;
       case 'BICYCLE':

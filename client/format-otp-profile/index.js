@@ -57,7 +57,6 @@ var wordReplacementTable = {
   'Mcpherson': 'McPherson',
   'Pi': 'Pike',
   'Sq': 'Square',
-  'North': 'N',
   'Nw': 'NW',
   'Northwest': 'NW',
   'Ne': 'NE',

@@ -2,7 +2,6 @@
 .Options ul {
   padding-left: 0;
   color: var(--black);
-  font-size: 15px;
 }
 
 .Options .per-year {
@@ -15,7 +14,10 @@
   margin: 8px;
   border-radius: var(--border-radius);
   border-bottom: 2px solid var(--white);
-  box-shadow: 0 0 2px 0 var(--white);
+}
+
+.Options .option:first-of-type {
+  border-top-right-radius: 0;
 }
 
 .Options .option.expanded {
@@ -24,6 +26,7 @@
 
 .Options .simple {
   cursor: pointer;
+  position: relative;
 }
 
 .Options .simple .segments {
@@ -31,19 +34,14 @@
   padding: 16px 0 0 16px;
 }
 
-.Options .simple .segments .segment {
-  margin-bottom: 5px;
-}
-
 .Options .simple .segments .mode {
-  font-size: 26px;
+  font-size: 25px;
   color: var(--gray);
   display: inline-block;
   vertical-align: top;
 }
 
 .Options .simple .segments .shield {
-  font-size: 15px;
   margin-left: 6px;
   margin-top: 6px;
   width: 32px;
@@ -59,10 +57,8 @@
   padding-top: 16px;
   display: inline-block;
   vertical-align: top;
-  width: 120px;
   margin-left: 16px;
   white-space: nowrap;
-  font-size: 15px;
   color: var(--gray);
 }
 
@@ -73,19 +69,23 @@
 }
 
 .Options .simple .minutes-column h3 .avg {
-  font-size: 15px;
   color: var(--black);
 }
 
 .Options .simple .fare-column {
-  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
   text-align: right;
   background-color: var(--mgreen);
   color: var(--darkergreen);
-  font-weight: 500;
   padding: 8px;
   border-top-right-radius: var(--border-radius);
   border-bottom-left-radius: var(--border-radius);
+}
+
+.Options .option:first-of-type .simple .fare-column {
+  border-top-right-radius: 0;
 }
 
 .Options .simple .fare-column .per-year {
@@ -120,6 +120,7 @@
   opacity: 1;
   visibility: visible;
   border-bottom: 2px solid var(--white);
+  border-radius: var(--border-radius);
 }
 
 .Options .option .details {
@@ -139,16 +140,15 @@
   table-layout: fixed;
   border-collapse: separate;
   color: var(--gray);
-  padding: 10px 15px;
-  line-height: 16px;
-}
-
-.Options .details .narrative-directions tr:nth-child(even) {
-  background-color: #F4FCE8;
+  padding: 4px 0;
 }
 
 .Options .details .narrative-directions tr:nth-child(odd) {
-  background-color: #FFF;
+  background-color: var(--lightestgreen);
+}
+
+.Options .details .narrative-directions tr.address {
+  background-color: #fff;
 }
 
 .narrative-directions .transfer {
@@ -160,14 +160,14 @@
 }
 
 .Options .details .transfer.board {
-  margin-top: 14px;
+  margin-top: 18px;
   padding-top: 0;
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
 }
 
 .Options .details .transfer.alight {
-  margin-bottom: 14px;
+  margin-bottom: 17px;
   padding-bottom: 0;
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
@@ -185,6 +185,7 @@
   font-size: 25px;
   color: var(--black);
   text-align: center;
+  padding-left: 25px;
 }
 
 .narrative-directions .transfer > .station {
@@ -203,9 +204,8 @@
 
 .Options .details .description {
   text-align: left;
-  font-size: 14px;
   vertical-align: middle;
-  padding-left: 25px;
+  padding: 4px 25px;
 }
 
 .Options .details .address .description {
@@ -218,19 +218,10 @@
  */
 
 .Options .scoring-information {
-  padding: 10px 15px;
+  padding: 16px;
   background-color: var(--mgreen);
   color: var(--darkergreen);
-  margin: 0 8px;
-  border-radius: 3px;
-}
-
-.Options .scoring-information strong {
-  font-size: 14px;
-}
-
-.Options .scoring-information small {
-  font-weight: 600;
+  line-height: 2em;
 }
 
 .Options .scoring-information i {
@@ -239,53 +230,27 @@
   color: var(--lightgreen);
 }
 
+.Options .scoring-information p {
+  margin: 0;
+}
+
 .Options .scoring-information input {
   border: none;
   background-color: transparent;
   border-bottom: 1px dashed var(--lightgreen);
-  height: 20px;
-  width: 50px;
+  width: auto;
   text-align: center;
   cursor: pointer;
+  font-weight: var(--bold);
+  font-size: 16px;
 }
 
-.Options .scoring-information input:disabled {
-  border-bottom: none;
-}
-
-.Options .scoring-information button {
-  background-color: var(--gray);
-  text-align: center;
-  color: #fff;
-  border-radius: 2px;
-  width: 40px;
-  padding: 5px 6px 5px 0;
-  font-size: 14px;
-  cursor: pointer;
-  outline: 0;
-  box-shadow: 0;
-  border: 0;
-}
-
-.Options .scoring-information button:hover {
-  background-color: color(var(--gray) shade(10%));
-}
-
-.Options .scoring-information button:active {
-  background-color: color(var(--gray) shade(10%));
-}
-
-.Options .scoring-information input[disabled] {
-  color: var(--black);
-  cursor: default;
+.Options .scoring-information strong {
+  font-size: 16px;
 }
 
 .Options .scoring-information input:focus {
   outline: none;
-}
-
-.Options .scoring-information section {
-
 }
 
 /** Feedback on a route */

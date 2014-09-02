@@ -18,6 +18,14 @@ exports.metersToMiles = function(meters) {
 };
 
 /**
+ * MPH to m/s
+ */
+
+exports.mphToMps = function(mph) {
+  return mph * 0.44704;
+};
+
+/**
  * Expose `milesToString`
  */
 
