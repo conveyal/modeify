@@ -26,6 +26,7 @@
 
 .Options .simple {
   cursor: pointer;
+  position: relative;
 }
 
 .Options .simple .segments {
@@ -56,7 +57,6 @@
   padding-top: 16px;
   display: inline-block;
   vertical-align: top;
-  width: 120px;
   margin-left: 16px;
   white-space: nowrap;
   color: var(--gray);
@@ -73,7 +73,9 @@
 }
 
 .Options .simple .fare-column {
-  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
   text-align: right;
   background-color: var(--mgreen);
   color: var(--darkergreen);
