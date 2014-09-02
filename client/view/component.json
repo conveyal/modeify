@@ -6,7 +6,7 @@
     "ianstormtaylor/reactive": "*",
     "segmentio/reactive-child": "0.0.1",
     "segmentio/reactive-disabled": "0.0.1",
-    "segmentio/view": "0.4.0",
+    "trevorgerhardt/view": "*",
     "visionmedia/debug": "*"
   },
   "local": [
