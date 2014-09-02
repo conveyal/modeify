@@ -108,7 +108,7 @@ function updateRoutes(plan, opts, callback) {
       });
 
       data.options.forEach(function(o, i) {
-        o.id = 'option_' + i;
+        o.id = data.journey.journeys[i].journey_id;
       });
 
       // Process & format the results

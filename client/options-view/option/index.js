@@ -42,8 +42,7 @@ var View = module.exports = view(require('./template.html'), function(view,
 
 View.prototype.feedback = function(e) {
   e.preventDefault();
-  var feedback = new Feedback(this.model);
-  feedback.show();
+  Feedback(this.model).show();
 };
 
 /**
