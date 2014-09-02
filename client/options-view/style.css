@@ -5,13 +5,9 @@
 
 .Options .pull-right {
 	background-color: var(--green);
-	margin-top: 10;
-	float: right;
-	height: 33px;
-	padding: 2px 7px 0 5px;
+	padding: 2px 7px 9px 5px;
 	border-top-left-radius: var(--border-radius);
 	border-top-right-radius: var(--border-radius);
-	z-index: -100;
 }
 
 .Options .annual-day-trigger {
