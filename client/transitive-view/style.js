@@ -18,7 +18,7 @@ exports.segments = {
       case 'WALK':
         return '#0BC8F4';
       case 'BICYCLE':
-        return '#f00';
+        return '#ef3026';
 
     }
   },
@@ -29,6 +29,7 @@ exports.segments = {
       case 'CAR':
         return utils.pixels(display.zoom.scale(), 3, 5, 7) + 'px';
       case 'WALK':
+        return '6px';
       case 'BICYCLE':
         return '5px';
       case 'TRANSIT':
@@ -45,9 +46,9 @@ exports.segments = {
       case 'CAR':
         return '3,2';
       case 'WALK':
-        return '0.01,6';
+        return '0.01,10';
       case 'BICYCLE':
-        return '5,8';
+        return '3,2';
     }
   },
 
@@ -57,8 +58,9 @@ exports.segments = {
       case 'CAR':
         return 'butt';
       case 'WALK':
+         return 'round';
       case 'BICYCLE':
-        return 'round';
+        return 'butt';
     }
   }
 
