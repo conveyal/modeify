@@ -5,7 +5,8 @@
 }
 
 .Options .pull-right {
-	background-color: var(--green);
+	background-image: url(tab.png);
+	background-repeat: no-repeat;
 	margin-top: 10;
 	float: right;
 	height: 33px;
@@ -18,7 +19,8 @@
 .Options .annual-day-trigger {
 	padding-left: 3px;
 	color: var(--darkgreen);
-  font-size: 14px;
+	background-repeat: no-repeat;
+  	font-size: 14px;
 }
 
 .Options .annual-day-trigger:hover,
