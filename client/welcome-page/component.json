@@ -4,6 +4,7 @@
     "visionmedia/debug": "*"
   },
   "local": [
+    "alert",
     "config",
     "modal"
   ],
