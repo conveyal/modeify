@@ -219,7 +219,7 @@
 
 .Options .scoring-information {
   padding: 16px;
-  background-color: var(--mgreen);
+  background-color: rgba(180,227,123,0.9);
   color: var(--darkergreen);
   line-height: 2em;
 }
@@ -227,7 +227,7 @@
 .Options .scoring-information i {
   padding-left: 5px;
   padding-right: 5px;
-  color: var(--lightgreen);
+  color: var(--green);
 }
 
 .Options .scoring-information p {

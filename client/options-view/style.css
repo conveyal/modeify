@@ -29,6 +29,6 @@
 .Options .annual-day-trigger:hover,
 .Options .annual-day-trigger:active,
 .Options .annual-day-trigger.active {
-	color:  var(--black);
+	color:  var(--gray);
   text-decoration: none;
 }

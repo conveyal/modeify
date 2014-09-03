@@ -6,6 +6,10 @@ exports.places = {
   fill: 'none'
 };
 
+exports.segment_labels = {
+  'font-weight': 'bold'
+};
+
 exports.segments = {
 
   // override the default stroke color
