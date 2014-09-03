@@ -1,0 +1,12 @@
+{
+  "name": "text-modal",
+  "local": [
+    "modal"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}

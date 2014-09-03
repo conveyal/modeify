@@ -1,21 +1,21 @@
 {
   "name": "planner-page",
   "dependencies": {
-    "component/each": "0.2.3",
+    "component/each": "*",
     "component/querystring": "*",
     "segmentio/overlay": "*",
     "component/tip": "*",
-    "visionmedia/debug": "*",
     "visionmedia/batch": "*"
   },
   "local": [
-    "config",
     "filter-view",
     "locations-view",
+    "log",
     "options-view",
     "planner-nav",
     "transitive-view",
     "session",
+    "text-modal",
     "view",
     "welcome-page"
   ],

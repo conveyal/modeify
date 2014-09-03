@@ -1,15 +1,15 @@
-var config = require('config');
 var Batch = require('batch');
-var debug = require('debug')(config.application() + ':planner-page');
 var each = require('each');
 var FilterView = require('filter-view');
 var LocationsView = require('locations-view');
+var log = require('log')('planner-page');
 var OptionsView = require('options-view');
 var Overlay = require('overlay');
 var PlannerNav = require('planner-nav');
 var querystring = require('querystring');
-var Tip = require('tip');
 var session = require('session');
+var textModal = require('text-modal');
+var Tip = require('tip');
 var TransitiveView = require('transitive-view');
 var view = require('view');
 var WelcomePage = require('welcome-page');
@@ -36,7 +36,7 @@ var View = view({
  */
 
 module.exports = function(ctx, next) {
-  debug('render');
+  log.info('render');
 
   var plan = ctx.plan;
   var views = {
@@ -61,7 +61,7 @@ module.exports = function(ctx, next) {
       plan.setAddresses(locations.from || FROM, locations.to || TO, function(
         err) {
         if (err) {
-          debug(err);
+          log.error('%j', err);
         } else {
           plan.updateRoutes({
             modes: 'BICYCLE,WALK,TRAINISH,BUS,CAR'
@@ -71,11 +71,11 @@ module.exports = function(ctx, next) {
 
       ctx.view.showWelcomeWizard();
     } else if (locations.to && locations.from) {
-      debug('load in locations from query parameters');
+      log.info('load in locations from query parameters');
 
       plan.setAddresses(locations.from, locations.to, function(err) {
         if (err) {
-          debug(err);
+          log.error('%j', err);
         } else {
           plan.updateRoutes();
         }
@@ -93,7 +93,7 @@ module.exports = function(ctx, next) {
  */
 
 View.prototype.showWelcomeWizard = function() {
-  debug('welcome incomplete, show welcome wizard');
+  log.info('welcome incomplete, show welcome wizard');
 
   var plan = session.plan();
   var welcome = new WelcomePage(plan);
@@ -163,10 +163,10 @@ View.prototype.saveTrip = function(e) {
   var plan = session.plan();
   plan.saveJourney(function(err) {
     if (err) {
-      debug(err);
-      window.alert('Failed to save journey.\n' + err);
+      log.error('%j', err);
+      textModal('Failed to save journey.\n' + err);
     } else {
-      window.alert('Saved journey successfully');
+      textModal('Saved journey successfully');
     }
   });
 };

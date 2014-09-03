@@ -21,6 +21,15 @@
   opacity: 0;
 }
 
+.Modal .close {
+  color: var(--gray);
+}
+
+.Modal .close:hover,
+.Modal .close:active {
+  color: color(var(--gray) shade(20%));
+}
+
 /**
  * Overlay
  */
