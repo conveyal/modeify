@@ -1,14 +1,14 @@
-var config = require('config');
-var debug = require('debug')(config.application() + ':commuter-profile:journey');
+var Alert = require('alert');
+var log = require('log')('commuter-profile:journey');
+var modal = require('modal');
 var session = require('session');
-var template = require('./journey.html');
 var view = require('view');
 
 /**
  * Expose `Row`
  */
 
-var Row = module.exports = view(template);
+var Row = module.exports = view(require('./journey.html'));
 
 /**
  * From
@@ -32,6 +32,7 @@ Row.prototype.to = function() {
 
 Row.prototype.load = function(e) {
   e.preventDefault();
+  if (this.destroying) return;
 
   var locations = this.model.locations();
   var plan = session.plan();
@@ -48,6 +49,7 @@ Row.prototype.load = function(e) {
   });
 
   plan.updateRoutes();
+  modal.hide();
 };
 
 /**
@@ -56,12 +58,17 @@ Row.prototype.load = function(e) {
 
 Row.prototype.destroy = function(e) {
   e.preventDefault();
+  this.destroying = true;
 
+  var alerts = document.querySelector('.journey-alerts');
   var self = this;
   this.model.destroy(function(err) {
     if (err) {
-      debug(err);
-      window.alert('Failed to remove journey.');
+      log.error('%j', err);
+      alerts.appendChild(Alert({
+        type: 'warning',
+        text: 'Failed to remove journey.'
+      }).el);
     } else {
       self.el.remove();
     }

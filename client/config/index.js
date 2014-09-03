@@ -1,7 +1,3 @@
-/**
- * Dependencies
- */
-
 var each = require('each');
 
 /**

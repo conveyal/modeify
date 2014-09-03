@@ -1,25 +1,21 @@
-/**
- * Dependencies
- */
-
 var Alert = require('alert');
 var config = require('config');
 var debug = require('debug')(config.name() + ':alerts');
 var domify = require('domify');
 var each = require('each');
-var template = require('./template.html');
 
 /**
  * Alerts
  */
 
 var alerts = [];
+var el = document.getElementById('alerts');
 
 /**
  * Append el
  */
 
-document.body.insertBefore(domify(template), document.body.firstChild);
+document.body.insertBefore(domify(require('./template.html')), document.body.firstChild);
 
 /**
  * Expose `render` middleware
@@ -29,12 +25,11 @@ module.exports = function(ctx, next) {
   debug('displaying');
 
   // remove all alerts
-  var el = document.getElementById('alerts');
   el.innerHTML = '';
 
   // create all alerts in local storage
   each(alerts, function(info) {
-    new Alert(info);
+    newAlert(info);
   });
 
   // reset local storage
@@ -47,7 +42,7 @@ module.exports = function(ctx, next) {
       case 'info':
       case 'success':
       case 'warning':
-        new Alert({
+        newAlert({
           type: name,
           text: val
         });
@@ -71,5 +66,15 @@ module.exports.push = function(info) {
  */
 
 module.exports.show = function(info) {
-  return new Alert(info);
+  return newAlert(info);
 };
+
+/**
+ * Alert!
+ */
+
+function newAlert(o) {
+  var al = new Alert(o);
+  el.appendChild(al.el);
+  return al;
+}

@@ -1,5 +1,5 @@
-var config = require('config');
-var debug = require('debug')(config.name() + ':welcome-page');
+var Alert = require('alert');
+var log = require('log')('welcome-page');
 var modal = require('modal');
 
 /**
@@ -18,8 +18,9 @@ var Modal = module.exports = modal({
 
 Modal.prototype.save = function(e) {
   e.preventDefault();
-  debug('--> saving');
+  log.info('--> saving');
 
+  var alerts = this.find('.alerts');
   var plan = this.model;
   var modes = [this.mode('bike'), this.mode('bus'), this.mode('train'), this.mode(
     'car'), this.mode('walk')];
@@ -27,7 +28,10 @@ Modal.prototype.save = function(e) {
   if (!modes.reduce(function(a, b) {
     return a || b;
   })) {
-    window.alert('Please select at least one option.');
+    alerts.appendChild(Alert({
+      type: 'warning',
+      text: 'Please select at least one option.'
+    }).el);
   } else {
     this.hide();
 
@@ -40,7 +44,7 @@ Modal.prototype.save = function(e) {
       original_modes: modes
     });
 
-    debug('<-- saved');
+    log.info('<-- saved');
   }
 };
 

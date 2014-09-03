@@ -1,11 +1,9 @@
 {
   "name": "commuter-profile",
-  "dependencies": {
-    "visionmedia/debug": "*"
-  },
   "local": [
-    "config",
+    "alert",
     "journey",
+    "log",
     "modal",
     "request",
     "session",

@@ -3,7 +3,7 @@
     Your <strong>Settings</strong>
     <span class="email" data-text="email" data-hidden="anonymous"></span>
 
-    <a class="pull-right" href="#" on-click="hide">
+    <a class="close pull-right" href="#" on-click="hide">
       <i class="fa fa-times fa-times-top"></i>
     </a>
   </h3>
@@ -16,7 +16,9 @@
       </h4>
 
       <div data-visible="anonymous">
-        <div class="alert alert-danger">Add an email address so you don't lose your settings.</div>
+        <div class="email-alerts">
+          <div class="alert alert-danger">Add an email address so you don't lose your settings.</div>
+        </div>
         <form on-submit="submitEmailAddress">
           <input type="email" name="email" class="form-control" placeholder="Email">
           <button type="submit" class="btn btn-block">Register Email</button>
@@ -26,7 +28,9 @@
 
       <div data-hidden="anonymous">
         <div data-hidden="profileComplete">
-          <div class="alert alert-warning">If you do not add a password, you will only be able to log in with the link found in your email.</div>
+          <div class="password-alerts">
+            <div class="alert alert-warning">If you do not add a password, you will only be able to log in with the link found in your email.</div>
+          </div>
           <button class="btn btn-block" on-click="submitAddPassword"><i class="fa fa-key"></i> Add Password</button>
         </div>
       </div>
@@ -57,6 +61,7 @@
         <strong>Saved Trips</strong>
         <br><span class="subtitle">Review your saved journeys.</span>
       </h4>
+      <div class="journey-alerts"></div>
       <ul class="journeys" data-each="journeys"></ul>
       <p style="text-align:center;" data-hidden="hasJourneys"><strong>No saved journeys!</strong></p>
     </section>

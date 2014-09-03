@@ -11,17 +11,6 @@
   font-size: var(--font-size);
 }
 
-.commuter-profile h3 .fa {
-  float: right;
-  font-size: 20px;
-  color: var(--gray)
-}
-
-.commuter-profile h3 .fa:hover,
-.commuter-profile h3 .fa:active {
-  color: color(var(--gray) shade(20%));
-}
-
 .commuter-profile h4 {
   margin: 25px 0 10px;
   padding-bottom: 5px;
@@ -101,9 +90,8 @@
   margin-bottom: 10px;
   cursor: pointer;
   padding: 8px;
-  border: 1px solid #84909d;
+  border: 1px solid var(--black);
   border-radius: var(--border-radius);
-  box-shadow: 1px 1px 1px #84909d;
   position: relative;
 }
 

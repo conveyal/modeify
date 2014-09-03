@@ -1,5 +1,5 @@
-var config = require('config');
-var debug = require('debug')(config.application() + ':commuter-profile');
+var Alert = require('alert');
+var log = require('log')('commuter-profile');
 var modal = require('modal');
 var request = require('request');
 
@@ -21,16 +21,23 @@ var Modal = module.exports = modal({
  */
 
 Modal.prototype.submitAddPassword = function() {
+  var alerts = this.find('.password-alerts');
   var email = this.email();
   request.post('/users/change-password-request', {
     email: email
   }, function(err, res) {
     if (err) {
-      console.error(err);
-      window.alert('Error submitting password change request.');
+      log.error('%j', err);
+      alerts.appendChild(Alert({
+        type: 'warning',
+        text: 'Error submitting password change request.'
+      }).el);
     } else {
-      window.alert('An email has been sent to ' + email +
-        ' with instructions to add a password.');
+      alerts.appendChild(Alert({
+        type: 'success',
+        text: 'An email has been sent to ' + email +
+        ' with instructions to add a password.'
+      }).el);
     }
   });
 };
@@ -41,16 +48,23 @@ Modal.prototype.submitAddPassword = function() {
 
 Modal.prototype.submitEmailAddress = function(e) {
   e.preventDefault();
+  var alerts = this.find('.email-alerts');
   var email = this.find('input[name=email]').value;
   request.post('/users/change-password-request', {
     email: email
   }, function(err, res) {
     if (err) {
-      console.error(err, email);
-      window.alert('Failed to add email address.');
+      log.error('%j %s', err, email);
+      alerts.appendChild(Alert({
+        type: 'warning',
+        text: 'Failed to add email address.'
+      }).el);
     } else {
-      window.alert('An email has been sent to ' + email +
-        ' with instructions to add a password and confirm your account.');
+      alerts.appendChild(Alert({
+        type: 'success',
+        text: 'An email has been sent to ' + email +
+        ' with instructions to add a password and confirm your account.'
+      }).el);
     }
   });
 };

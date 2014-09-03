@@ -1,15 +1,10 @@
 {
-  "name": "welcome-page",
+  "name": "text-modal",
   "local": [
-    "alert",
-    "log",
     "modal"
   ],
   "scripts": [
     "index.js"
-  ],
-  "styles": [
-    "style.css"
   ],
   "templates": [
     "template.html"
