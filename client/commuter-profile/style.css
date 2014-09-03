@@ -101,9 +101,8 @@
   margin-bottom: 10px;
   cursor: pointer;
   padding: 8px;
-  border: 1px solid #84909d;
+  border: 1px solid var(--black);
   border-radius: var(--border-radius);
-  box-shadow: 1px 1px 1px #84909d;
   position: relative;
 }
 

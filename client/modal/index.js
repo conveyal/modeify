@@ -3,6 +3,12 @@ var modal = require('modal');
 var view = require('view');
 
 /**
+ * Store the active modal
+ */
+
+var active = null;
+
+/**
  * Expose `modal`
  */
 
@@ -16,7 +22,7 @@ module.exports = function(opts, fn) {
   Modal.prototype.show = function(fn) {
     log.info('showing modal');
 
-    this.modal = modal(this.el).overlay();
+    this.modal = active = modal(this.el).overlay();
 
     if (opts.width) this.modal.el.style['max-width'] = opts.width;
     if (opts.closable) this.modal.closable();
@@ -46,7 +52,17 @@ module.exports = function(opts, fn) {
 
     if (e) e.preventDefault();
     if (this.modal) this.modal.hide();
+
+    active = null;
   };
 
   return Modal;
+};
+
+/**
+ * Hide any active modal
+ */
+
+module.exports.hide = function(e) {
+  if (active) active.hide(e);
 };
