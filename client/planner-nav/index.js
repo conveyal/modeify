@@ -1,4 +1,5 @@
 var config = require('config');
+var confirmModal = require('confirm-modal');
 var Journey = require('journey');
 var log = require('log')('planner-nav');
 var page = require('page');
@@ -37,11 +38,15 @@ View.prototype.application = function() {
 
 View.prototype.logout = function(e) {
   if (e) e.preventDefault();
-  if (window.confirm('Are you sure you want to sign out?')) {
-    this.model.logout(function(err) {
+  var self = this;
+  confirmModal({
+    text: 'Are you sure you want to sign out?',
+    confirmText: 'Sign Out'
+  }, function() {
+    self.model.logout(function(err) {
       page('/');
     });
-  }
+  });
 };
 
 /**

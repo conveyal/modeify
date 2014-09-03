@@ -22,9 +22,9 @@ Modal.prototype.confirm = function(e) {
  * Expose `confirm`
  */
 
-module.exports = function(opts) {
+module.exports = function(opts, callback) {
   var m = Modal({
-    confirmCallback: opts.confirmCallback,
+    confirmCallback: callback,
     confirmText: opts.confirmText || 'Ok',
     text: opts.text
   });
