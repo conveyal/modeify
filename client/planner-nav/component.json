@@ -5,6 +5,7 @@
   },
   "local": [
     "commuter-profile",
+    "config",
     "journey",
     "log",
     "text-modal",

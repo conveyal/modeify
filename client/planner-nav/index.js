@@ -1,6 +1,6 @@
 var config = require('config');
 var Journey = require('journey');
-var log = require('planner-nav');
+var log = require('log')('planner-nav');
 var page = require('page');
 var Profile = require('commuter-profile');
 var textModal = require('text-modal');

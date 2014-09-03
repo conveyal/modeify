@@ -7,7 +7,7 @@
   },
   "local": [
     "geocode",
-    "local",
+    "log",
     "mouse-position",
     "text-modal",
     "view"
