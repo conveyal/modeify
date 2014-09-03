@@ -3,13 +3,13 @@
   "dependencies": {
     "component/closest": "*",
     "component/each": "*",
-    "twitter/hogan.js": "*",
-    "visionmedia/debug": "*"
+    "twitter/hogan.js": "*"
   },
   "local": [
-    "config",
     "geocode",
+    "local",
     "mouse-position",
+    "text-modal",
     "view"
   ],
   "scripts": [

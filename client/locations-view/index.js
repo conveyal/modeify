@@ -1,10 +1,10 @@
 var closest = require('closest');
-var config = require('config');
-var debug = require('debug')(config.application() + ':locations-view');
 var each = require('each');
 var geocode = require('geocode');
 var hogan = require('hogan.js');
+var log = require('log')('locations-view');
 var mouse = require('mouse-position');
+var textModal = require('text-modal');
 var view = require('view');
 
 /**
@@ -20,7 +20,7 @@ var View = module.exports = view(require('./template.html'), function(view,
       plan.setAddresses(view.find('.from input').value, view.find(
         '.to input').value, function(err) {
         if (err) {
-          debug(err);
+          log.error('%j', err);
         } else {
           plan.updateRoutes();
         }
@@ -34,7 +34,7 @@ var View = module.exports = view(require('./template.html'), function(view,
  */
 
 View.prototype.blurInput = function(e) {
-  debug('input blurred, saving changes');
+  log.info('input blurred, saving changes');
   var inputGroup = e.target.parentNode;
   var suggestionList = inputGroup.getElementsByTagName('ul')[0];
 
@@ -108,8 +108,8 @@ View.prototype.save = function(el, callback) {
 
   this.model.setAddress(el.name, el.value, function(err) {
     if (err) {
-      debug(err);
-      window.alert('Invalid address.');
+      log.error('%j', err);
+      textModal('Invalid address.');
     } else {
       plan.updateRoutes();
     }
@@ -149,7 +149,7 @@ View.prototype.suggest = function(e) {
   // Get a suggestion!
   geocode.suggest(text, function(err, suggestions) {
     if (err) {
-      debug(err);
+      log.error('%j', err);
     } else {
       if (suggestions && suggestions.length > 0) {
         suggestionList.innerHTML = suggestionsTemplate.render({
