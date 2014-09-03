@@ -1,8 +1,9 @@
 var config = require('config');
-var debug = require('debug')(config.application() + ':planner-nav');
 var Journey = require('journey');
+var log = require('planner-nav');
 var page = require('page');
 var Profile = require('commuter-profile');
+var textModal = require('text-modal');
 var view = require('view');
 
 /**
@@ -53,8 +54,8 @@ View.prototype.showProfile = function(e) {
   var plan = this.model.plan();
   Journey.all(function(err, journeys) {
     if (err) {
-      debug(err);
-      window.alert('Failed to load journeys.');
+      log.error('%j', err);
+      textModal('Failed to load journeys.');
     } else {
       var profile = new Profile({
         commuter: commuter,
