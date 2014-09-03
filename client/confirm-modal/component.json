@@ -1,0 +1,12 @@
+{
+  "name": "confirm-modal",
+  "local": [
+    "modal"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}
