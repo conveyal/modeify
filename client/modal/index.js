@@ -1,5 +1,4 @@
-var config = require('config');
-var debug = require('debug')(config.application() + ':modal');
+var log = require('log')('modal');
 var modal = require('modal');
 var view = require('view');
 
@@ -15,7 +14,7 @@ module.exports = function(opts, fn) {
    */
 
   Modal.prototype.show = function(fn) {
-    debug('showing modal');
+    log.info('showing modal');
 
     this.modal = modal(this.el).overlay();
 
@@ -43,7 +42,7 @@ module.exports = function(opts, fn) {
    */
 
   Modal.prototype.hide = function(e) {
-    debug('hiding modal');
+    log.info('hiding modal');
 
     if (e) e.preventDefault();
     if (this.modal) this.modal.hide();

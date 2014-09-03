@@ -6,7 +6,6 @@ exports.places = {
   fill: 'none'
 };
 
-
 exports.segments = {
 
   // override the default stroke color
@@ -33,7 +32,8 @@ exports.segments = {
         return '5px';
       case 'TRANSIT':
         // bus segments:
-        if (segment.mode === 3) return utils.pixels(display.zoom.scale(), 2, 5, 8) + 'px';
+        if (segment.mode === 3) return utils.pixels(display.zoom.scale(), 2, 5,
+          8) + 'px';
         // all others:
         return utils.pixels(display.zoom.scale(), 5, 9, 12) + 'px';
     }
@@ -92,14 +92,13 @@ exports.segments = {
 
 };
 
-
 /** style overrides for segment-based labels **/
 
 exports.segment_label_containers = {
 
   // specify the fill color for the label bubble
   fill: function(display, label) {
-    if(!label.isFocused()) return;
+    if (!label.isFocused()) return;
 
     return '#008';
   }
@@ -123,7 +122,7 @@ exports.places_icon = {
 };
 
 exports.multipoints_merged = exports.stops_merged = {
-    r: function(display, data, index, utils) {
-      return utils.pixels(display.zoom.scale(), 4, 6, 8);
-    }
+  r: function(display, data, index, utils) {
+    return utils.pixels(display.zoom.scale(), 4, 6, 8);
+  }
 };

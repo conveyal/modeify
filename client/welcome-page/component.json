@@ -1,11 +1,8 @@
 {
   "name": "welcome-page",
-  "dependencies": {
-    "visionmedia/debug": "*"
-  },
   "local": [
     "alert",
-    "config",
+    "log",
     "modal"
   ],
   "scripts": [

@@ -1,0 +1,15 @@
+{
+  "name": "log",
+  "dependencies": {
+    "visionmedia/debug": "*",
+    "yields/fmt": "*"
+  },
+  "local": [
+    "analytics",
+    "config",
+    "request"
+  ],
+  "scripts": [
+    "index.js"
+  ]
+}

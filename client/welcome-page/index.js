@@ -1,6 +1,5 @@
 var Alert = require('alert');
-var config = require('config');
-var debug = require('debug')(config.name() + ':welcome-page');
+var log = require('log')('welcome-page');
 var modal = require('modal');
 
 /**
@@ -19,7 +18,7 @@ var Modal = module.exports = modal({
 
 Modal.prototype.save = function(e) {
   e.preventDefault();
-  debug('--> saving');
+  log.info('--> saving');
 
   var alerts = this.find('.alerts');
   var plan = this.model;
@@ -45,7 +44,7 @@ Modal.prototype.save = function(e) {
       original_modes: modes
     });
 
-    debug('<-- saved');
+    log.info('<-- saved');
   }
 };
 

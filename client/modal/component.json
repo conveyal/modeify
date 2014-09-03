@@ -1,11 +1,10 @@
 {
   "name": "modal",
   "dependencies": {
-    "segmentio/modal": "*",
-    "visionmedia/debug": "*"
+    "segmentio/modal": "*"
   },
   "local": [
-    "config",
+    "log",
     "view"
   ],
   "scripts": [

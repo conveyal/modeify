@@ -56,6 +56,7 @@ module.exports.del = function(url, callback) {
  */
 
 function response(name, callback) {
+  callback = callback || function() {};
   return function(err, res) {
     debug('<-- %s > %s', name, err || res.error || res.status);
     callback(err || res.error, res);
