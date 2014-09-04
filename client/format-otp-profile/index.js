@@ -67,6 +67,7 @@ var wordReplacementTable = {
   'Sw': 'SW',
   'Southwest': 'SW',
   'Noma': 'NoMA',
+  'Noma-gallaudet': 'NoMA-Gallaudet',
   '(new': '(New'
 };
 

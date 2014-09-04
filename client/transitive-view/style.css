@@ -61,3 +61,8 @@
                 -2px 2px 0 rgba(255, 255, 255, 0.5),
                  2px 2px 0 rgba(255, 255, 255, 0.5);
 }
+
+.Transitive > .schematic-map .transitive-place-circle {
+  fill: none;
+  stroke-width: 0;
+}

@@ -122,7 +122,7 @@ exports.places_icon = {
     if (data.owner.getId() === 'to') return config.static_url() +
       '/build/planner-app/transitive-view/end.svg';
   },
-  stroke: 1,
+  stroke: 0,
   visibility: 'visible'
 };
 
