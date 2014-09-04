@@ -11,7 +11,6 @@ exports.segment_labels = {
 };
 
 exports.segments = {
-
   // override the default stroke color
   stroke: function(display, segment) {
     if (!segment.focused) return;
