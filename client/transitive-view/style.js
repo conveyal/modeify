@@ -21,6 +21,17 @@ exports.segments = {
         return '#0BC8F4';
       case 'BICYCLE':
         return '#ef3026';
+      case 'TRANSIT':
+        if(segment.mode === 1 && segment.patterns[0].route.route_short_name) {
+          switch(segment.patterns[0].route.route_short_name.toLowerCase()) {
+            case 'red': return '#f00';
+            case 'yellow': return '#ff0';
+            case 'green': return '#0f0';
+            case 'blue': return '#00f';
+            case 'orange': return '#f80';
+            case 'silver': return '#888';
+          }
+        }
 
     }
   },
