@@ -24,12 +24,12 @@ exports.segments = {
       case 'TRANSIT':
         if(segment.mode === 1 && segment.patterns[0].route.route_short_name) {
           switch(segment.patterns[0].route.route_short_name.toLowerCase()) {
-            case 'red': return '#f00';
-            case 'yellow': return '#ff0';
-            case 'green': return '#0f0';
-            case 'blue': return '#00f';
-            case 'orange': return '#f80';
-            case 'silver': return '#888';
+            case 'red': return '#e21836';
+            case 'yellow': return '#ffd200';
+            case 'green': return '#00a84f';
+            case 'blue': return '#0076bf';
+            case 'orange': return '#f7931d';
+            case 'silver': return '#a0a2a0';
           }
         }
 
