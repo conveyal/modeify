@@ -2,6 +2,15 @@ var config = require('config');
 var convert = require('convert');
 var parse = require('color-parser');
 
+var transitColorTable = {
+  red: '#e21836',
+  yellow: '#ffd200',
+  green: '#00a84f',
+  blue: '#0076bf',
+  orange: '#f7931d',
+  silver: '#a0a2a0'
+};
+
 exports.places = {
   fill: 'none'
 };
@@ -23,16 +32,8 @@ exports.segments = {
         return '#ef3026';
       case 'TRANSIT':
         if(segment.mode === 1 && segment.patterns[0].route.route_short_name) {
-          switch(segment.patterns[0].route.route_short_name.toLowerCase()) {
-            case 'red': return '#e21836';
-            case 'yellow': return '#ffd200';
-            case 'green': return '#00a84f';
-            case 'blue': return '#0076bf';
-            case 'orange': return '#f7931d';
-            case 'silver': return '#a0a2a0';
-          }
+          return transitColorTable[segment.patterns[0].route.route_short_name.toLowerCase()];
         }
-
     }
   },
 
