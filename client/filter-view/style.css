@@ -11,6 +11,7 @@
   height: 44px;
   padding: 8px 8px 8px 19px;
   line-height: 28px;
+  white-space: nowrap;
 }
 
 .time-filters select {
