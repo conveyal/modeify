@@ -10,13 +10,23 @@
   padding: 15px;
   background-color: white;
 
-  overflow-y: scroll;
-  -moz-scrollbar: none;
-  -ms-overflow-style: none;
-
+  overflow-y: hidden;
   overflow-x: hidden;
   max-width: 320px;
   width: 100%;
+}
+
+.Modal > div {
+  overflow-y: scroll;
+  -moz-scrollbar: none;
+  -ms-overflow-style: none;
+}
+
+@-moz-document url-prefix() {
+  .Modal > div {
+    padding-right: 25px;
+    margin-right: -40px;
+  }
 }
 
 .Modal.hide {
