@@ -88,16 +88,7 @@ Modal.prototype.profileComplete = function() {
  */
 
 Modal.prototype.setWalkSpeed = function(e) {
-  var plan = this.model.plan;
-  var scorer = plan.scorer();
-  if (e.target.classList.contains('stroller')) {
-    scorer.rates.walkSpeed = 1.4;
-  } else {
-    scorer.rates.walkSpeed = 1.75;
-  }
-
-  this.selectWalkSpeed();
-  plan.rescoreOptions();
+  this.setSpeed('walkSpeed', 1.4, 1.75, e.target.classList.contains('stroller'));
 };
 
 /**
@@ -105,40 +96,47 @@ Modal.prototype.setWalkSpeed = function(e) {
  */
 
 Modal.prototype.setBikeSpeed = function(e) {
+  this.setSpeed('bikeSpeed', 4.1, 5.125, e.target.classList.contains('cruiser'));
+};
+
+/**
+ * Set the speed
+ */
+
+Modal.prototype.setSpeed = function(name, slow, fast, isSlow) {
   var plan = this.model.plan;
   var scorer = plan.scorer();
-  if (e.target.classList.contains('cruiser')) {
-    scorer.rates.bikeSpeed = 4.1;
+  if (isSlow) {
+    scorer.rates[name] = slow;
   } else {
-    scorer.rates.bikeSpeed = 5.125;
+    scorer.rates[name] = fast;
   }
 
   this.selectBikeSpeed();
+  this.selectWalkSpeed();
   plan.rescoreOptions();
 };
 
 Modal.prototype.selectWalkSpeed = function() {
-  var plan = this.model.plan;
-  var stroller = this.find('.stroller');
-  var speedwalker = this.find('.speedwalker');
-
-  stroller.classList.remove('selected');
-  speedwalker.classList.remove('selected');
-
-  if (plan.scorer().rates.walkSpeed < 1.5) stroller.classList.add('selected');
-  else speedwalker.classList.add('selected');
+  this.selectSpeed('walkSpeed', this.find('.stroller'), this.find('.speedwalker'), 1.5);
 };
 
 Modal.prototype.selectBikeSpeed = function() {
+  this.selectSpeed('bikeSpeed', this.find('.cruiser'), this.find('.racer'), 4.2);
+};
+
+/**
+ * Select Speed
+ */
+
+Modal.prototype.selectSpeed = function(name, slow, fast, speed) {
   var plan = this.model.plan;
-  var cruiser = this.find('.cruiser');
-  var racer = this.find('.racer');
 
-  cruiser.classList.remove('selected');
-  racer.classList.remove('selected');
+  slow.classList.remove('selected');
+  fast.classList.remove('selected');
 
-  if (plan.scorer().rates.bikeSpeed < 4.2) cruiser.classList.add('selected');
-  else racer.classList.add('selected');
+  if (plan.scorer().rates[name] < speed) slow.classList.add('selected');
+  else fast.classList.add('selected');
 };
 
 /**
