@@ -117,9 +117,16 @@ select {
   border: none;
   color: #fff;
   font-weight: 600;
+
+  -moz-appearance: none;
   -webkit-appearance: none;
+
   border-radius: 0;
   text-align: left;
+}
+
+select::-ms-expand {
+  display: none;
 }
 
 select:focus {
