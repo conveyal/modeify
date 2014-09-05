@@ -15,6 +15,9 @@
 
 .scrollable {
   overflow-y: scroll;
+  -moz-scrollbar: none;
+  -ms-overflow-style: none;
+
   height: 100%;
   padding-top: 44px;
 }

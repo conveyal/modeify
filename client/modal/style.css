@@ -11,10 +11,16 @@
   background-color: white;
 
   overflow-y: scroll;
+  -moz-scrollbar: none;
+  -ms-overflow-style: none;
 
   overflow-x: hidden;
   max-width: 320px;
   width: 100%;
+}
+
+.Modal > div:first-of-type {
+
 }
 
 .Modal.hide {
