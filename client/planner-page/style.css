@@ -49,16 +49,18 @@
   border: 1px solid var(--black);
   border-radius: var(--border-radius);
   text-align: center;
-  padding: 3px 5px 3px 10px;
-  margin: 2px;
+  padding: 4px 5px 4px 10px;
+  margin: var(--border-radius);
   box-shadow: 1px 1px 1px var(--black);
 }
 
 .tip .btn {
+  color: var(--black);
   background-color: transparent;
   text-align: center
 }
 
 .tip .btn:hover {
   color: color(var(--black) shade(20%));
+  background-color: transparent;
 }
