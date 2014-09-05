@@ -118,6 +118,7 @@ select {
   color: #fff;
   font-weight: 600;
 
+  appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
 

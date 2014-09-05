@@ -19,6 +19,12 @@
   padding-right: 6px;
 }
 
+@-moz-document url-prefix() {
+  .time-filters select {
+    width: 65px;
+  }
+}
+
 .time-filters select:last-of-type {
   padding-right: 0;
 }
