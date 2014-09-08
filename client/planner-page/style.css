@@ -30,6 +30,10 @@
   padding-top: 44px;
 }
 
+.scrollable::-webkit-scrollbar {
+  width: 0 !important;
+}
+
 @-moz-document url-prefix() {
   .scrollable {
     padding-right: 25px;
