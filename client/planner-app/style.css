@@ -31,6 +31,12 @@
 }
 
 /**
+ * Custom Media Queries
+ */
+
+@custom-media --narrow-window screen and (max-width: 400px);
+
+/**
  * Application Styling
  */
 
@@ -117,9 +123,17 @@ select {
   border: none;
   color: #fff;
   font-weight: 600;
+
+  appearance: none;
+  -moz-appearance: none;
   -webkit-appearance: none;
+
   border-radius: 0;
   text-align: left;
+}
+
+select::-ms-expand {
+  display: none;
 }
 
 select:focus {

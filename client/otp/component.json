@@ -1,11 +1,12 @@
 {
   "name": "otp",
   "dependencies": {
-    "conveyal/otp-profiler": "*",
-    "visionmedia/debug": "*"
+    "component/querystring": "*",
+    "conveyal/otp-profiler": "*"
   },
   "local": [
-    "config"
+    "config",
+    "log"
   ],
   "scripts": [
     "index.js"

@@ -28,6 +28,7 @@
   "templates": [
     "from-tip.html",
     "template.html",
+    "time-tip.html",
     "to-tip.html"
   ]
 }

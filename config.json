@@ -51,7 +51,7 @@
     "base_url": "http://arlington.conveyal.com",
     "mapbox_map_id": "conveyal.ie3o67m0",
     "otp": {
-      "host": "ec2-23-22-158-225.compute-1.amazonaws.com",
+      "host": "ec2-54-234-252-174.compute-1.amazonaws.com",
       "path": "/otp/routers/default",
       "port": 80
     },

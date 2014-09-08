@@ -22,6 +22,14 @@ var FROM = '4301 13th St NW Washington, DC 20011';
 var TO = '2100 Wilson Blvd, Arlington, VA';
 
 /**
+ * Tool tip position
+ */
+
+var toolTipPosition = window.innerWidth < 400
+  ? 'top'
+  : 'left';
+
+/**
  * Create `View`
  */
 
@@ -95,46 +103,64 @@ module.exports = function(ctx, next) {
 View.prototype.showWelcomeWizard = function() {
   log.info('welcome incomplete, show welcome wizard');
 
+  // Tool Tips
+  var fromTip = new Tip(require('./from-tip.html'));
+  var toTip = new Tip(require('./to-tip.html'));
+  var timeTip = new Tip(require('./time-tip.html'));
+
+  fromTip.position(toolTipPosition);
+  toTip.position(toolTipPosition);
+  timeTip.position(toolTipPosition);
+
   var plan = session.plan();
   var welcome = new WelcomePage(plan);
   welcome.show();
-  welcome.modal.on('hide', function() {
-    var from = new Tip(require('./from-tip.html'));
-    from.position('left');
-    from.show('.input-group.from');
+  welcome.modal.on('hide', showFrom);
+
+  function showFrom() {
+    fromTip.show('.input-group.from');
 
     var fromLocation = document.getElementById('from-location');
     fromLocation.focus();
     fromLocation.select();
 
     document.querySelector('.from-next-button').onclick = function() {
-      from.hide();
+      fromTip.hide();
     };
 
     fromLocation.onblur = function() {
-      from.hide();
+      fromTip.hide();
     };
 
-    from.on('hide', function() {
-      var to = new Tip(require('./to-tip.html'));
-      to.position('left');
-      to.show('.input-group.to');
+    fromTip.on('hide', showTo);
+  }
 
-      var toLocation = document.getElementById('to-location');
-      toLocation.focus();
-      toLocation.select();
+  function showTo() {
+    toTip.show('.input-group.to');
 
-      toLocation.onblur = function() {
-        to.hide();
-        plan.welcome_complete(true);
-      };
+    var toLocation = document.getElementById('to-location');
+    toLocation.focus();
+    toLocation.select();
 
-      document.querySelector('.to-next-button').onclick = function() {
-        to.hide();
-        plan.welcome_complete(true);
-      };
-    });
-  });
+    toLocation.onblur = function() {
+      toTip.hide();
+    };
+
+    document.querySelector('.to-next-button').onclick = function() {
+      toTip.hide();
+    };
+
+    toTip.on('hide', showTime);
+  }
+
+  function showTime() {
+    timeTip.show('.time-filters');
+
+    document.querySelector('.time-next-button').onclick = function() {
+      timeTip.hide();
+      plan.welcome_complete(true);
+    };
+  }
 };
 
 /**

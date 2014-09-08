@@ -7,14 +7,44 @@
 
   border: 1px solid var(--gray);
   border-radius: var(--border-radius);
-  padding: 15px;
   background-color: white;
 
-  overflow-y: scroll;
-
+  overflow-y: hidden;
   overflow-x: hidden;
   max-width: 320px;
   width: 100%;
+}
+
+.Modal > div {
+  padding: 15px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100%;
+  -moz-scrollbar: none;
+  -ms-overflow-style: none;
+}
+
+.Modal > div::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+/* Cause FF ugh... */
+@-moz-document url-prefix() {
+  .Modal > div {
+    padding-right: 25px;
+    margin-right: -40px;
+  }
+}
+
+@media (--narrow-window) {
+  .Modal {
+    max-width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    transform: none;
+  }
 }
 
 .Modal.hide {
