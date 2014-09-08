@@ -51,11 +51,27 @@
 .panel .title .fa {
   cursor: pointer;
 	color: var(--gray);
+  font-size: 21px;
+  vertical-align: top;
 }
+
+.panel .title .icon-reverse {
+  cursor: pointer;
+  color: var(--gray);
+  font-size: 22px;
+  vertical-align: top;
+}
+
 
 .panel .title .fa:hover,
 .panel .title .fa:active,
 .panel .title .fa:visited {
+  color: color(var(--gray) shade(20%));
+}
+
+.panel .title .icon-reverse:hover,
+.panel .title .icon-reverse:active,
+.panel .title .icon-reverse:visited {
   color: color(var(--gray) shade(20%));
 }
 
