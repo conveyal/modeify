@@ -72,6 +72,13 @@
   box-shadow: 1px 1px 1px var(--black);
 }
 
+@media (--narrow-window) {
+  .tip {
+    margin: 0;
+    box-shadow: 0 3px 3px var(--black);
+  }
+}
+
 .tip .btn {
   color: var(--black);
   background-color: transparent;

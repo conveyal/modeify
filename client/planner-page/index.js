@@ -108,9 +108,9 @@ View.prototype.showWelcomeWizard = function() {
   var toTip = new Tip(require('./to-tip.html'));
   var timeTip = new Tip(require('./time-tip.html'));
 
-  fromTip.position('top');
-  toTip.position('top');
-  timeTip.position('top');
+  fromTip.position(toolTipPosition);
+  toTip.position(toolTipPosition);
+  timeTip.position(toolTipPosition);
 
   var plan = session.plan();
   var welcome = new WelcomePage(plan);

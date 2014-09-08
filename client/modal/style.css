@@ -7,7 +7,6 @@
 
   border: 1px solid var(--gray);
   border-radius: var(--border-radius);
-  padding: 15px;
   background-color: white;
 
   overflow-y: hidden;
@@ -17,7 +16,10 @@
 }
 
 .Modal > div {
+  padding: 15px;
   overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100%;
   -moz-scrollbar: none;
   -ms-overflow-style: none;
 }
