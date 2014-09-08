@@ -13,6 +13,14 @@
   margin-bottom: 0;
 }
 
+@media (--narrow-window) {
+  .panel {
+    top: 0;
+    bottom: 0;
+    right: -1px;
+  }
+}
+
 .scrollable {
   overflow-y: scroll;
   -moz-scrollbar: none;

@@ -22,6 +22,14 @@ var FROM = '4301 13th St NW Washington, DC 20011';
 var TO = '2100 Wilson Blvd, Arlington, VA';
 
 /**
+ * Tool tip position
+ */
+
+var toolTipPosition = window.innerWidth < 400
+  ? 'top'
+  : 'left';
+
+/**
  * Create `View`
  */
 
@@ -100,9 +108,9 @@ View.prototype.showWelcomeWizard = function() {
   var toTip = new Tip(require('./to-tip.html'));
   var timeTip = new Tip(require('./time-tip.html'));
 
-  fromTip.position('left');
-  toTip.position('left');
-  timeTip.position('left');
+  fromTip.position('top');
+  toTip.position('top');
+  timeTip.position('top');
 
   var plan = session.plan();
   var welcome = new WelcomePage(plan);

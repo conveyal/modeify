@@ -22,10 +22,22 @@
   -ms-overflow-style: none;
 }
 
+/* Cause FF ugh... */
 @-moz-document url-prefix() {
   .Modal > div {
     padding-right: 25px;
     margin-right: -40px;
+  }
+}
+
+@media (--narrow-window) {
+  .Modal {
+    max-width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    transform: none;
   }
 }
 
