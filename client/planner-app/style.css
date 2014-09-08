@@ -31,6 +31,12 @@
 }
 
 /**
+ * Custom Media Queries
+ */
+
+@custom-media --narrow-window screen and (max-width: 400px);
+
+/**
  * Application Styling
  */
 
