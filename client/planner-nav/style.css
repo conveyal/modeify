@@ -1,7 +1,7 @@
 
 nav {
-  background-color: var(--gray);
-  /*background-image: url(v3.png); for production*/
+  background-color: var(--black);
+  background-image: url(logo_sm.png);
   background-repeat: no-repeat;
   background-size: auto 28px;
   background-position: 4px 8px;
