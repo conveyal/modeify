@@ -6,7 +6,7 @@
   top: 8px;
   bottom: 8px;
   right: 8px;
-  border: 1px solid var(--gray);
+  border: 1px solid var(--black);
   border-radius: var(--border-radius);
   width: 322px;
   overflow: hidden;

@@ -8,7 +8,7 @@
 .Transitive .legend {
   position: absolute;
   height: 35px;
-  border: 1px solid var(--gray);
+  border: 1px solid var(--black);
   border-radius: var(--border-radius);
   left: 8px;
   bottom: 8px;
@@ -31,7 +31,7 @@
 
 .Transitive .map-zoom button {
   color: #fff;
-  background-color: var(--gray);
+  background-color: var(--black);
   border: none;
   border-radius: var(--border-radius);
   padding: 7.5px 12px;
