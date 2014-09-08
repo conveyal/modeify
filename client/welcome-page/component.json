@@ -13,5 +13,8 @@
   ],
   "templates": [
     "template.html"
+  ],
+  "images": [
+    "logo_lg_dk.png"
   ]
 }

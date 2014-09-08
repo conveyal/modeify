@@ -22,7 +22,6 @@
     "template.html"
   ],
   "images": [
-    "logo.svg",
-    "v3.png"
+    "logo_sm.png"
   ]
 }
