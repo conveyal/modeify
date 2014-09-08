@@ -40,7 +40,7 @@
 .Transitive .map-zoom button:hover,
 .Transitive .map-zoom button:active,
 .Transitive .map-zoom button:focus {
-  background-color: color(var(--gray) shade(20%));
+  background-color: color(var(--black) shade(20%));
   outline: none;
 }
 
