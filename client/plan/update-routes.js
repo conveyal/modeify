@@ -107,14 +107,19 @@ function updateRoutes(plan, opts, callback) {
         results: data.options.length
       });
 
+      // Add ids to options
       data.options.forEach(function(o, i) {
-        o.id = data.journey.journeys[i].journey_id;
+        if (o.transit && o.transit.length > 0) {
+          o.id = i + '_transit';
+        } else {
+          o.id = i;
+        }
       });
 
       // Process & format the results
       data.options = scorer.processOptions(data.options);
 
-      // TODO: Remove
+      // TODO: Remove....wait why?
       data.options = data.options.filter(function(o) {
         var a = o.access[0];
         switch (a.mode) {

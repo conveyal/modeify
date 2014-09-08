@@ -30,7 +30,9 @@ var View = module.exports = view(require('./template.html'), function(view,
   model) {
   d3.select(view.el)
     .on('mouseover', function() {
-      window.transitive.focusJourney(model.id());
+      var id = model.id() + '';
+      if (id.indexOf('transit') === -1) id = id + '_' + model.access()[0].mode.toLowerCase();
+      window.transitive.focusJourney(id);
     });
 
   Array.prototype.slice.call(view.findAll('input')).forEach(setInputSize);
