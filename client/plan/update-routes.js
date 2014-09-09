@@ -1,8 +1,7 @@
 var analytics = require('analytics');
-var config = require('config');
 var convert = require('convert');
-var debug = require('debug')(config.name() + ':plan:update-routes');
 var formatProfile = require('format-otp-profile');
+var log = require('log')('plan:update-routes');
 var otp = require('otp');
 var Route = require('route');
 
@@ -59,7 +58,7 @@ function updateRoutes(plan, opts, callback) {
     }
   };
 
-  debug('--> updating routes from %s to %s on %s between %s and %s', plan.from(),
+  log.info('--> updating routes from %s to %s on %s between %s and %s', plan.from(),
     plan.to(),
     date, startTime, endTime);
 
@@ -74,7 +73,7 @@ function updateRoutes(plan, opts, callback) {
     walkSpeed: scorer.rates.walkSpeed
   }, function(err, data) {
     if (err) {
-      debug(err);
+      log.error('%j', err);
       done(err);
     } else if (!data || data.options.length < 1) {
       plan.journey(null);
@@ -145,7 +144,7 @@ function updateRoutes(plan, opts, callback) {
       plan.options(data.options);
       plan.journey(data.journey);
 
-      debug('<-- updated routes');
+      log.info('<-- updated routes');
       done(null, data);
     }
   });

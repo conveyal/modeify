@@ -1,10 +1,9 @@
 var Batch = require('batch');
-var config = require('config');
 var debounce = require('debounce');
-var debug = require('debug')(config.name() + ':plan');
 var geocode = require('geocode');
 var Journey = require('journey');
 var Location = require('location');
+var log = require('log')('plan');
 var defaults = require('model-defaults');
 var model = require('model');
 
@@ -79,7 +78,7 @@ module.exports.load = function(ctx, next) {
  */
 
 Plan.on('change', function(plan, name, val) {
-  debug('plan.%s changed to %s', name, val);
+  log.info('plan.%s changed to %s', name, val);
 
   // Store in localStorage & track the change
   if (name !== 'options') plan.store();

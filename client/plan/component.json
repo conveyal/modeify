@@ -8,12 +8,10 @@
     "segmentio/model-defaults": "0.2.0",
     "mbostock/d3": "*",
     "visionmedia/batch": "*",
-    "visionmedia/debug": "*",
     "yields/store": "0.2.0"
   },
   "local": [
     "analytics",
-    "config",
     "convert",
     "format-otp-profile",
     "geocode",

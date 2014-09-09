@@ -1,5 +1,4 @@
-var config = require('config');
-var debug = require('debug')(config.name() + ':plan:store');
+var log = require('log')('plan:store');
 var session = require('session');
 var store = require('store');
 
@@ -14,7 +13,7 @@ module.exports = storePlan;
  */
 
 function storePlan(plan) {
-  debug('--> storing plan');
+  log.info('--> storing plan');
 
   // convert to "JSON", remove routes & patterns
   var json = {};
@@ -33,7 +32,7 @@ function storePlan(plan) {
 
   // save in local storage
   store('plan', json);
-  debug('<-- stored plan');
+  log.info('<-- stored plan');
 
   return json;
 }
