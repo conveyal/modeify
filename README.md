@@ -47,16 +47,12 @@ When `NODE_ENV` is set to `development` the server will rebuild the client side 
 
 #### `npm start`
 
-Runs `node bin/server`. Environment variables must be set.
-
-#### `make serve`
-
 Runs the server as a daemon with automatic restarts by [nodemon](http://nodemon.io/). Outputs logs to `/var/tmp/commute-planner-server.log`. Stores the `pid` in `server.pid`
 
-##### `make stop`
+#### `npm stop`
 
 Kills the server and cleans up the `.pid`.
 
 ## Pushing to S3
 
-Configure [s3cmd](http://s3tools.org/s3cmd) and run `make release`, it will build using production and sync the `build` directory with your S3 Bucket.
+Configure [s3cmd](http://s3tools.org/s3cmd) and run `make release NODE_ENV={staging|production}`, it will build using the environment specified and sync the `build` directory with your S3 Bucket.
