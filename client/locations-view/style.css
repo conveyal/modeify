@@ -10,6 +10,14 @@
   color: var(--black);
 }
 
+.locations .icon-start {
+  color: var(--green);
+}
+
+.locations .icon-end {
+  color: var(--gold);
+}
+
 .locations .suggestions {
   margin-bottom: 0;
   position: absolute;
