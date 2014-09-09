@@ -1,4 +1,18 @@
-# Commute Planner [![Build Status](https://travis-ci.org/conveyal/commute-planner.png)](https://travis-ci.org/conveyal/commute-planner) [![Code Climate](https://codeclimate.com/github/conveyal/commute-planner.png)](https://codeclimate.com/github/conveyal/commute-planner) [![Dependency Status](https://david-dm.org/conveyal/commute-planner.png)](https://david-dm.org/conveyal/commute-planner)
+# Commute Planner
+
+[![NPM version][npm-image]][npm-url]
+[![Build status][travis-image]][travis-url]
+[![Code Climate][code-climate-image]][code-climate-url]
+[![Dependency Status][david-image]][david-url]
+
+[npm-image]: https://img.shields.io/npm/v/otp-profile-score.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/otp-profile-score
+[travis-image]: https://img.shields.io/travis/conveyal/otp-profile-score.svg?style=flat-square
+[travis-url]: https://travis-ci.org/conveyal/otp-profile-score
+[code-climate-image]: http://img.shields.io/codeclimate/github/conveyal/commute-planner.svg?style=flat-square
+[code-climate-url]: https://codeclimate.com/github/conveyal/commute-planner
+[david-image]: http://img.shields.io/david/conveyal/otp-profile-score.svg?style=flat-square
+[david-url]: https://david-dm.org/conveyal/otp-profile-score
 
 A web-based UI for delivering personalized commute information to travelers. Supported by the [Mobility Lab](http://mobilitylab.org/) [Transit Tech Initiative](http://mobilitylab.org/tech/transit-tech-initiative/).
 
