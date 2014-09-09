@@ -25,9 +25,7 @@ var TO = '2100 Wilson Blvd, Arlington, VA';
  * Tool tip position
  */
 
-var toolTipPosition = window.innerWidth < 400
-  ? 'top'
-  : 'left';
+var toolTipPosition = window.innerWidth < 400 ? 'top' : 'left';
 
 /**
  * Create `View`

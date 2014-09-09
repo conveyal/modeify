@@ -31,7 +31,7 @@ exports.segments = {
       case 'BICYCLE':
         return '#ef3026';
       case 'TRANSIT':
-        if(segment.mode === 1 && segment.patterns[0].route.route_short_name) {
+        if (segment.mode === 1 && segment.patterns[0].route.route_short_name) {
           return transitColorTable[segment.patterns[0].route.route_short_name.toLowerCase()];
         }
     }
@@ -73,7 +73,7 @@ exports.segments = {
       case 'CAR':
         return 'butt';
       case 'WALK':
-         return 'round';
+        return 'round';
       case 'BICYCLE':
         return 'butt';
     }

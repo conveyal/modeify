@@ -36,7 +36,7 @@ Modal.prototype.submitAddPassword = function() {
       alerts.appendChild(Alert({
         type: 'success',
         text: 'An email has been sent to ' + email +
-        ' with instructions to add a password.'
+          ' with instructions to add a password.'
       }).el);
     }
   });
@@ -63,7 +63,7 @@ Modal.prototype.submitEmailAddress = function(e) {
       alerts.appendChild(Alert({
         type: 'success',
         text: 'An email has been sent to ' + email +
-        ' with instructions to add a password and confirm your account.'
+          ' with instructions to add a password and confirm your account.'
       }).el);
     }
   });
@@ -118,7 +118,8 @@ Modal.prototype.setSpeed = function(name, slow, fast, isSlow) {
 };
 
 Modal.prototype.selectWalkSpeed = function() {
-  this.selectSpeed('walkSpeed', this.find('.stroller'), this.find('.speedwalker'), 1.5);
+  this.selectSpeed('walkSpeed', this.find('.stroller'), this.find(
+    '.speedwalker'), 1.5);
 };
 
 Modal.prototype.selectBikeSpeed = function() {

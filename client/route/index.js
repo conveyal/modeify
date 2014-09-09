@@ -45,8 +45,12 @@ var Route = module.exports = model('Route')
 
 Route.prototype.rescore = function(scorer) {
   var data = scorer.processOption(this.toJSON());
-  for (var i in data)
-    if (this.hasOwnProperty(i) && i !== 'transitCost') this[i](data[i]);
+
+  for (var i in data) {
+    if (this.hasOwnProperty(i) && i !== 'transitCost') {
+      this[i](data[i]);
+    }
+  }
 
   this.emit('change average', this.average());
   this.emit('change calculatedCost', this.calculatedCost());
@@ -148,18 +152,20 @@ Route.prototype.frequency = function() {
  */
 
 Route.prototype.driveDistances = function() {
-  if (this.modes().indexOf('car') === -1) return false;
-  return convert.metersToMiles(this.driveDistance());
+  return this.distances('car', 'driveDistance');
 };
 
 Route.prototype.bikeDistances = function() {
-  if (this.modes().indexOf('bicycle') === -1) return false;
-  return convert.metersToMiles(this.bikeDistance());
+  return this.distances('bicycle', 'bikeDistance');
 };
 
 Route.prototype.walkDistances = function() {
-  if (this.modes().indexOf('walk') === -1) return false;
-  return convert.metersToMiles(this.walkDistance());
+  return this.distances('walk', 'walkDistance');
+};
+
+Route.prototype.distances = function(mode, val) {
+  if (this.modes().indexOf(mode) === -1) return false;
+  return convert.metersToMiles(this[val]());
 };
 
 /**
