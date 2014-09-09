@@ -1,6 +1,5 @@
 var alerts = require('alerts');
-var config = require('config');
-var debug = require('debug')(config.name() + ':managers-page');
+var log = require('log')('managers-page');
 var page = require('page');
 var request = require('request');
 var session = require('session');
@@ -28,7 +27,7 @@ module.exports = function(ctx, next) {
     $query: 'type:administrator OR type:manager'
   }, function(err, managers, res) {
     if (err || !res.ok) {
-      debug(err || res.error || res.text);
+      log.error(err || res.error || res.text);
       window.alert(err || res.text || 'Failed to load managers.');
     } else {
       var tbody = ctx.view.find('tbody');
@@ -55,7 +54,7 @@ View.prototype.create = function(e) {
   });
   user.save(function(err) {
     if (err) {
-      debug(err);
+      log.error(err);
       window.alert('Failed to create manager.');
     } else {
       alerts.push({
@@ -76,7 +75,7 @@ ManagerView.prototype.destroy = function(e) {
   if (window.confirm('Delete this manager?')) {
     this.model.destroy(function(err) {
       if (err) {
-        debug(err);
+        log.error(err);
         window.alert('Failed to delete manager.');
       } else {
         alerts.push({
@@ -99,7 +98,7 @@ ManagerView.prototype.resetPassword = function(e) {
       email: this.model.email()
     }, function(err, res) {
       if (err || !res.ok) {
-        debug(err || res.error || res.text);
+        log.error(err || res.error || res.text);
         window.alert('Failed to send reset password request.');
       } else {
         alerts.show({
@@ -116,10 +115,9 @@ ManagerView.prototype.resetPassword = function(e) {
  */
 
 ManagerView.prototype.makeAdmin = function(e) {
-  this.model.type('administrator');
-  this.model.save(function(err) {
+  this.switchTo('administrator', function(err) {
     if (err) {
-      debug(err);
+      log.error(err);
     } else {
       alerts.push({
         type: 'success',
@@ -135,10 +133,9 @@ ManagerView.prototype.makeAdmin = function(e) {
  */
 
 ManagerView.prototype.removeAdmin = function(e) {
-  this.model.type('manager');
-  this.model.save(function(err) {
+  this.switchTo('manager', function(err) {
     if (err) {
-      debug(err);
+      log.error(err);
     } else {
       alerts.push({
         type: 'success',
@@ -147,6 +144,15 @@ ManagerView.prototype.removeAdmin = function(e) {
       page('/manager/managers');
     }
   });
+};
+
+/**
+ * Switch to
+ */
+
+ManagerView.prototype.switchTo = function(to, fn) {
+  this.model.type(to);
+  this.model.save(fn);
 };
 
 /**
