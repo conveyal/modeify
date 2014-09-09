@@ -18,6 +18,7 @@
     "format-otp-profile",
     "geocode",
     "location",
+    "log",
     "journey",
     "otp",
     "route",
