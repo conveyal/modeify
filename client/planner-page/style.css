@@ -2,7 +2,7 @@
 .panel {
   position: absolute;
   background-color: color(var(--black) alpha(80%));
-  z-index: 1;
+  z-index: 150;
   top: 8px;
   bottom: 8px;
   right: 8px;
@@ -80,7 +80,6 @@
 .fullscreen {
   position: relative;
   height: 100%;
-  z-index: 0;
 }
 
 .tip {
