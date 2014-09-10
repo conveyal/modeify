@@ -46,8 +46,8 @@ release: checkenv build test
 # Watch & reload server
 serve: server.pid
 server.pid: checkenv node_modules stop
-	@nohup bin/server > /var/tmp/commute-planner-server.log </dev/null & echo "$$!" > server.pid
-	@echo "Server logs stored in /var/tmp/commute-planner-server.log"
+	@nohup bin/server > server.log </dev/null & echo "$$!" > server.pid
+	@echo "Logs stored in server.log"
 
 stop:
 	@kill `cat server.pid` || true
