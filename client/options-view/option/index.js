@@ -34,6 +34,11 @@ var View = module.exports = view(require('./template.html'), function(view,
       if (id.indexOf('transit') === -1) id = id + '_' + model.access()[0]
         .mode.toLowerCase();
       window.transitive.focusJourney(id);
+    })
+    .on('mouseout', function() {
+      if (!view.el.classList.contains('expanded')) {
+        window.transitive.focusJourney();
+      }
     });
 
   Array.prototype.slice.call(view.findAll('input')).forEach(setInputSize);
@@ -230,7 +235,14 @@ View.prototype.to = function() {
  */
 
 View.prototype.showHide = function() {
-  this.el.classList.toggle('expanded');
+  var list = this.el.classList;
+  if (list.contains('expanded')) {
+    list.remove('expanded');
+  } else {
+    var expanded = document.querySelector('.option.expanded');
+    if (expanded) expanded.classList.remove('expanded');
+    list.add('expanded');
+  }
 };
 
 /**
@@ -321,8 +333,8 @@ View.prototype.inputChange = function(e) {
       case 'tripsPerYear':
         plan.tripsPerYear(value);
         break;
-      case 'parkingCost':
-        scorer.rates.parkingCost = value;
+      case 'carParkingCost':
+        scorer.rates.carParkingCost = value;
         break;
       case 'transitCost':
         this.model.transitCost(value);
