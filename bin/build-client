@@ -2,13 +2,10 @@
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-/**
- * Dependencies
- */
-
 var Builder = require('component-builder');
 var component = require('../component.json');
-var config = require('../config/public.json');
+var fs = require('fs');
+var yml2js = require('js-yaml').load;
 var mkdir = require('mkdirp');
 var myth = require('myth');
 var resolve = require('path').resolve;
@@ -16,26 +13,24 @@ var sqwish = require('sqwish');
 var uglify = require('uglify-js');
 var write = require('fs').writeFileSync;
 
+// Convert the YAML config
+
+var config = yml2js(fs.readFileSync(__dirname + '/../config/public.yaml', 'utf8'));
+
 // Set the rest of the public config.
 
 config.env = env;
-for (var key in config[env]) config[key] = config[env][key];
+for (var key in config.environments[env]) config[key] = config.environments[env][key];
 
 // remove unused data
 
-['test', 'development', 'staging', 'production'].forEach(function(e) {
-  if (env !== e) delete config[e];
-});
+delete config.environments;
 
-/**
- * Build all
- */
+// Build all
 
 component.local.forEach(build);
 
-/**
- * Build.
- */
+// Build.
 
 function build(bundle) {
   // Build settings.

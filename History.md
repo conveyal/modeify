@@ -1,4 +1,8 @@
 
+## Latest
+
+* Switch config files to YAML
+
 ## 0.5.0 — 2014-09-10
 
 * Logo!
