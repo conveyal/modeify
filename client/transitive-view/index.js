@@ -33,6 +33,11 @@ View.prototype.display = function(journey) {
 
     try {
       var transitive = window.transitive = new Transitive({
+        displayMargins: {
+          bottom: 43,
+          right: 330,
+          top: 43
+        },
         el: this.el,
         legendEl: this.find('.legend'),
         data: journey,
