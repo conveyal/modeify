@@ -1,9 +1,5 @@
 #!/usr/bin/env node
 
-/**
- * Env
- */
-
 var env = process.env.NODE_ENV = process.argv[2] || process.env.NODE_ENV ||
   'development';
 
