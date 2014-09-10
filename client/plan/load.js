@@ -49,7 +49,7 @@ function loadPlan(Plan) {
   delete opts.patterns;
   delete opts.routes;
 
-  opts.scorer = createScorer(opts.scorer.factors, opts.scorer.rates);
+  opts.scorer = createScorer(opts.scorer);
 
   var plan = new Plan(opts);
   session.plan(plan);
@@ -89,11 +89,13 @@ function loadCommuter(opts) {
  * Create Scorer
  */
 
-function createScorer(factors, rates) {
+function createScorer(opts) {
   var scorer = new ProfileScorer();
 
-  if (factors) scorer.factors = factors;
-  if (rates) scorer.rates = rates;
+  if (opts) {
+    scorer.factors = opts.factors;
+    scorer.rates = opts.rates;
+  }
 
   scorer.factors.calories = defaultCalorieScale;
 
