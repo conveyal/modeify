@@ -6,9 +6,8 @@ LIBJS = $(shell find lib -name '*.js')
 TESTJS = $(shell find test -name '*.js')
 BINJS = $(shell find bin/*)
 JSON = $(shell find client -name '*.json')
-SVG = $(shell find client -name '*.svg')
 
-ENV = development
+NODE_ENV = development
 REPORTER = spec
 
 build: components $(CSS) $(HTML) $(CLIENTJS) $(JSON)
@@ -40,10 +39,6 @@ lint:
 node_modules: package.json
 	@npm install
 
-package.zip: $(LIBJS)
-	@git archive --format=zip HEAD > package.zip
-	@zip -g package.zip config.json
-
 # Run before each release
 release: checkenv build test
 	@./bin/push-to-s3 $(NODE_ENV)
@@ -51,7 +46,7 @@ release: checkenv build test
 # Watch & reload server
 serve: server.pid
 server.pid: checkenv node_modules stop
-	@nohup ./node_modules/.bin/nodemon > /var/tmp/commute-planner-server.log </dev/null & echo "$$!" > server.pid
+	@nohup bin/server > /var/tmp/commute-planner-server.log </dev/null & echo "$$!" > server.pid
 	@echo "Server logs stored in /var/tmp/commute-planner-server.log"
 
 stop:
@@ -70,4 +65,4 @@ test-cov: lint
 		--slow 10 \
 		--timeout 20s
 
-.PHONY: beautify checkenv convert lint release serve stop test watch
+.PHONY: beautify checkenv clean lint release serve start stop test test-cov
