@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var env = process.env.NODE_ENV;
-var port = process.env.PORT || 80;
+var isDev = env === 'development';
 
 // If `NODE_ENV` is not set exit
 
@@ -12,15 +12,32 @@ if (env === undefined) {
 
 // Dependencies
 
-var api = require('../lib/api');
+var execFile = require('child_process').execFile;
 var log = require('../lib/log');
+var nodemon = require('nodemon');
 
-// If environment is `development`, build on load
+// Set up Nodemon
 
-if (env === 'development') require('./build-client');
-
-// Run the server
-
-api.listen(port, function() {
-  log.info('express server listening on port ' + port);
+nodemon({
+  ext: 'js json css html',
+  ignore: ['*.out', '*.pid', '*.swp'],
+  script: 'server.js',
+  verbose: true,
+  watch: ['bin', 'client', 'email-templates', 'lib']
 });
+
+// Beuild on restart
+
+nodemon.on('start', function() {
+  build();
+}).on('restart', function() {
+  build();
+});
+
+// Build the client
+
+function build() {
+  if (isDev) execFile(__dirname + '/build-client', function(err) {
+    if (err) log.error(err);
+  });
+}

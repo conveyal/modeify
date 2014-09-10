@@ -1,7 +1,0 @@
-{
-  "ext": "js json css html",
-  "ignore": [ "*.out", "*.pid", "*.swp" ],
-  "script": "./bin/server",
-  "verbose": true,
-  "watch": [ "bin", "client", "email-templates", "lib" ]
-}

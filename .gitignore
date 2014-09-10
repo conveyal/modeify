@@ -6,19 +6,15 @@ lib-cov
 *.out
 *.pid
 *.gz
+*.zip
 
 .DS_Store
 .env
 
-pids
-logs
-results
+config/env
+# config/public.json - for now...
 
-npm-debug.log
-node_modules
-
-bower_components
-components
 build/
-package.zip
+components
 coverage
+node_modules

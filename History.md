@@ -1,6 +1,17 @@
 
 ## Latest
 
+* Switch config files to YAML
+
+## 0.5.0 — 2014-09-10
+
+* Logo!
+* Name!
+* Consolidated configuration files
+* Lots of bug fixes
+
+## 0.4.0 — 2014-09-04
+
 * Improved the intro flow
 
 ## 0.3.0 — 2014-08-05
