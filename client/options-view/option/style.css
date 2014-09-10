@@ -58,6 +58,7 @@
   display: inline-block;
   vertical-align: top;
   margin-left: 16px;
+  line-height: 18px;
   white-space: nowrap;
   color: var(--gray);
 }
@@ -79,7 +80,9 @@
   text-align: right;
   background-color: var(--mgreen);
   color: var(--darkergreen);
-  padding: 8px;
+  padding: 5px;
+  line-height: 13px;
+  font-size: 13px;
   border-top-right-radius: var(--border-radius);
   border-bottom-left-radius: var(--border-radius);
 }
@@ -183,9 +186,16 @@
 .narrative-directions .icon {
   height: 44px;
   font-size: 25px;
-  color: var(--black);
   text-align: center;
   padding-left: 25px;
+}
+
+.narrative-directions .icon-start {
+  color: var(--green);
+}
+
+.narrative-directions .icon-end {
+  color: var(--gold);
 }
 
 .narrative-directions .transfer > .station {
@@ -209,7 +219,7 @@
 }
 
 .Options .details .address .description {
-  color: var(--green);
+  color: var(--black);
   font-weight: bold;
 }
 

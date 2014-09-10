@@ -61,6 +61,8 @@
   cursor: pointer;
   font-size: 28px;
   padding: 8px 5px;
+  transition: color 0.2s linear;
+
 }
 
 .mode-filters a:active,
@@ -71,10 +73,6 @@
   text-decoration: none;
 }
 
-.mode-filters a.active:active,
-.mode-filters a.active:hover {
-  color: var(--darkgreen);
-}
 
 .submit {
   float: right;
