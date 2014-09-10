@@ -1,18 +1,15 @@
 # Commute Planner
 
-[![NPM version][npm-image]][npm-url]
 [![Build status][travis-image]][travis-url]
 [![Code Climate][code-climate-image]][code-climate-url]
 [![Dependency Status][david-image]][david-url]
 
-[npm-image]: https://img.shields.io/npm/v/otp-profile-score.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/otp-profile-score
-[travis-image]: https://img.shields.io/travis/conveyal/otp-profile-score.svg?style=flat-square
-[travis-url]: https://travis-ci.org/conveyal/otp-profile-score
+[travis-image]: https://img.shields.io/travis/conveyal/commute-planner.svg?style=flat-square
+[travis-url]: https://travis-ci.org/conveyal/commute-planner
 [code-climate-image]: http://img.shields.io/codeclimate/github/conveyal/commute-planner.svg?style=flat-square
 [code-climate-url]: https://codeclimate.com/github/conveyal/commute-planner
-[david-image]: http://img.shields.io/david/conveyal/otp-profile-score.svg?style=flat-square
-[david-url]: https://david-dm.org/conveyal/otp-profile-score
+[david-image]: http://img.shields.io/david/conveyal/commute-planner.svg?style=flat-square
+[david-url]: https://david-dm.org/conveyal/commute-planner
 
 A web-based UI for delivering personalized commute information to travelers. Supported by the [Mobility Lab](http://mobilitylab.org/) [Transit Tech Initiative](http://mobilitylab.org/tech/transit-tech-initiative/).
 
@@ -45,11 +42,15 @@ When `NODE_ENV` is set to `development` the server will rebuild the client side 
 
 ## Running
 
-#### `npm start`
+```bash
+$ npm start
+```
 
 Runs the server as a daemon with automatic restarts by [nodemon](http://nodemon.io/). Outputs logs to `/var/tmp/commute-planner-server.log`. Stores the `pid` in `server.pid`
 
-#### `npm stop`
+```bash
+$ npm stop
+```
 
 Kills the server and cleans up the `.pid`.
 
