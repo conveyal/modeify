@@ -1,5 +1,12 @@
 
-## Latest
+## 0.5.0 — 2014-09-10
+
+* Logo!
+* Name!
+* Consolidated configuration files
+* Lots of bug fixes
+
+## 0.4.0 — 2014-09-04
 
 * Improved the intro flow
 
