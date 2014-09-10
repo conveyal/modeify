@@ -7,7 +7,8 @@
   bottom: 8px;
   right: 8px;
   border-radius: var(--border-radius);
-  width: 322px;
+  border: 0;
+  width: 320px;
   overflow: hidden;
   margin-bottom: 0;
 }

@@ -71,7 +71,6 @@
   width: 100%;
   background-color: #fff;
   margin-top: 8px;
-  border: 1px solid var(--black);
   border-radius: var(--border-radius);
 }
 

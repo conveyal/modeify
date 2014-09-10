@@ -5,7 +5,7 @@
 .Modal {
   top: 54px;
 
-  border: 1px solid var(--black);
+  border: 2px solid var(--black);
   border-radius: var(--border-radius);
   background-color: white;
 

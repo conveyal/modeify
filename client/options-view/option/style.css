@@ -147,7 +147,7 @@
 }
 
 .Options .details .narrative-directions tr:nth-child(odd) {
-  background-color: var(--lightestgreen);
+  background-color: #f2f6f9;
 }
 
 .Options .details .narrative-directions tr.address {
