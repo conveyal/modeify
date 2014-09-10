@@ -25,8 +25,8 @@
   background-color: #fff;
   margin-left: 20px;
   padding-left: 0;
-  border-left: 1px solid var(--gray);
-  border-right: 1px solid var(--gray);
+  border-left: 1px solid var(--black);
+  border-right: 1px solid var(--black);
   border-bottom-left-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
 
@@ -50,19 +50,19 @@
   display: block;
   overflow: hidden;
   padding: 8px;
-  border-bottom: 1px solid #f2f4f5;
+  border-bottom: 1px solid var(--white);
   cursor: pointer;
-  color: var(--gray);
+  color: var(--black);
 }
 
 .locations .suggestion:last-of-type {
-  border-bottom-color: var(--gray);
+  border-bottom-color: var(--black);
   border-bottom-left-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
 }
 
 .locations .suggestion.highlight {
-  background-color: var(--gray);
+  background-color: var(--gold);
   color: #fff;
 }
 
@@ -71,7 +71,7 @@
   width: 100%;
   background-color: #fff;
   margin-top: 8px;
-  border: 1px solid var(--gray);
+  border: 1px solid var(--black);
   border-radius: var(--border-radius);
 }
 
