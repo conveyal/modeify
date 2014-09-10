@@ -12,6 +12,7 @@
     "debug": "*",
     "express": "^4.6.1",
     "hogan.js": "~3.0.1",
+    "js-yaml": "^3.2.2",
     "juice": "~0.4.0",
     "mandrill-api": "~1.0.37",
     "mongoose": "~3.8.4",
