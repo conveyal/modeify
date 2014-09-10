@@ -13,7 +13,7 @@
   background-color: #fff;
   margin: 8px;
   border-radius: var(--border-radius);
-  border-bottom: 2px solid var(--white);
+  border-bottom: 2px solid var(--black);
 }
 
 .Options .option:first-of-type {
@@ -36,7 +36,7 @@
 
 .Options .simple .segments .mode {
   font-size: 25px;
-  color: var(--gray);
+  color: var(--black);
   display: inline-block;
   vertical-align: top;
 }
@@ -122,7 +122,7 @@
   max-height: 10000px;
   opacity: 1;
   visibility: visible;
-  border-bottom: 2px solid var(--white);
+  border-bottom: 2px solid var(--black);
   border-radius: var(--border-radius);
 }
 
@@ -142,7 +142,7 @@
 .Options .details .narrative-directions {
   table-layout: fixed;
   border-collapse: separate;
-  color: var(--gray);
+  color: var(--black);
   padding: 4px 0;
 }
 
@@ -207,7 +207,7 @@
 }
 
 .narrative-directions .segment > .icon > .fa {
-  color: var(--gray);
+  color: var(--black);
   font-size: 16px;
   vertical-align: middle;
 }

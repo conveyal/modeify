@@ -61,8 +61,7 @@
   cursor: pointer;
   font-size: 28px;
   padding: 8px 5px;
-  transition: color 0.2s linear;
-
+  transition: color 0.1s ease-in-out;
 }
 
 .mode-filters a:active,
@@ -76,7 +75,7 @@
 
 .submit {
   float: right;
-  background-color: var(--gray);
+  background-color: var(--gold);
   border-radius: var(--border-radius);
   color: #fff;
   width: 88px;
@@ -91,6 +90,6 @@
 .submit:hover,
 .submit:visited,
 .submit:active {
-  background-color: color(var(--gray) shade(20%));
+  background-color: color(var(--gold) shade(10%));
   outline: none;
 }

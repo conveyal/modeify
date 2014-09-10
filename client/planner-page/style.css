@@ -1,12 +1,11 @@
 
 .panel {
   position: absolute;
-  background-color: color(var(--light-gray) alpha(90%));
+  background-color: color(var(--black) alpha(80%));
   z-index: 150;
   top: 8px;
   bottom: 8px;
   right: 8px;
-  border: 1px solid var(--black);
   border-radius: var(--border-radius);
   width: 322px;
   overflow: hidden;
@@ -46,19 +45,21 @@
   padding: 0 8px;
   margin-top: 10px;
   width: 100%;
-  color: var(--black);
+  color: var(--white);
+  font-size: 16px;
 }
 
 .panel .title .fa {
   cursor: pointer;
-	color: var(--gray);
-  font-size: 21px;
+	color: var(--white);
+  font-size: 20px;
   vertical-align: top;
+  padding-top: 1px;
 }
 
 .panel .title .icon-reverse {
   cursor: pointer;
-  color: var(--gray);
+  color: var(--white);
   font-size: 22px;
   vertical-align: top;
 }
@@ -67,13 +68,13 @@
 .panel .title .fa:hover,
 .panel .title .fa:active,
 .panel .title .fa:visited {
-  color: color(var(--gray) shade(20%));
+  color: color(var(--white) shade(20%));
 }
 
 .panel .title .icon-reverse:hover,
 .panel .title .icon-reverse:active,
 .panel .title .icon-reverse:visited {
-  color: color(var(--gray) shade(20%));
+  color: color(var(--white) shade(20%));
 }
 
 .fullscreen {

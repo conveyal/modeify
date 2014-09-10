@@ -15,12 +15,12 @@
 }
 
 .Options .separator {
-	color: var(--lightgray);
+	color: var(--gray);
 	padding-left: 5px;
 }
 
 .Options .annual-day-trigger {
-	color: var(--lightgray);
+	color: var(--gray);
 	background-repeat: no-repeat;
   	font-size: 14px;
   	line-height: 15px;
@@ -29,6 +29,6 @@
 .Options .annual-day-trigger:hover,
 .Options .annual-day-trigger:active,
 .Options .annual-day-trigger.active {
-	color:  var(--gray);
+	color:  var(--white);
   text-decoration: none;
 }
