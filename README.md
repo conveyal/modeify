@@ -24,7 +24,7 @@ $ cd commute-planner
 
 ### Environment Variables & Config
 
-All environment variables needed can be found in `.env.tmp` and environment specific URLS can be found in `config.json.tmp`. Copy the `.tmp` files to non-temp versions and configure accordingly. Environment variables can also be set machine wide for deployment.
+All environment variables needed can be found in `config/env.tmp` and environment specific URLS can be found in `config/public.json.tmp`. Copy the `.tmp` files to non-temp versions and configure accordingly. Environment variables can also be set machine wide for deployment.
 
 ### MongoDB
 
@@ -32,7 +32,7 @@ Install [locally](http://www.mongodb.org/downloads) or use a service like [Mongo
 
 ### OpenTripPlanner
 
-The planner requires an instance of [OpenTripPlanner](http://opentripplanner.com) running with the GTFS feeds you would like to analyze. Manage your OTP endpoint in `config.json`.
+The planner requires an instance of [OpenTripPlanner](http://opentripplanner.com) running with the GTFS feeds you would like to analyze. Manage your OTP endpoint in `config/public.json`.
 
 ### Component
 
@@ -46,7 +46,7 @@ When `NODE_ENV` is set to `development` the server will rebuild the client side 
 $ npm start
 ```
 
-Runs the server as a daemon with automatic restarts by [nodemon](http://nodemon.io/). Outputs logs to `/var/tmp/commute-planner-server.log`. Stores the `pid` in `server.pid`
+Runs the server as a daemon with automatic restarts by [nodemon](http://nodemon.io/). Outputs logs to `server.log`. Stores the `pid` in `server.pid`
 
 ```bash
 $ npm stop
