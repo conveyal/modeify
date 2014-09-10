@@ -44,7 +44,7 @@
     "uglify-js": "^2.4.12"
   },
   "scripts": {
-    "start": "source .env && make serve",
+    "start": "source config/env && make serve",
     "stop": "make stop",
     "pretest": "npm ls --depth=Infinity > /dev/null",
     "test": "make test"

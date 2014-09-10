@@ -14,7 +14,7 @@ build: components $(CSS) $(HTML) $(CLIENTJS) $(JSON)
 	@./bin/build-client $(NODE_ENV)
 
 beautify:
-	@./node_modules/.bin/js-beautify --quiet --replace $(CLIENTJS) $(LIBJS) $(BINJS) $(TESTJS)
+	@./node_modules/.bin/js-beautify --config config/jsbeautify.json --quiet --replace $(CLIENTJS) $(LIBJS) $(BINJS) $(TESTJS)
 
 checkenv:
 ifndef NODE_ENV
@@ -33,7 +33,7 @@ install: node_modules
 
 # Lint JavaScript with JSHint
 lint:
-	@./node_modules/.bin/jshint $(CLIENTJS) $(LIBJS) $(BINJS) $(TESTJS)
+	@./node_modules/.bin/jshint --config config/jshint.json $(CLIENTJS) $(LIBJS) $(BINJS) $(TESTJS)
 
 # Reinstall if package.json has changed
 node_modules: package.json

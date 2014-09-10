@@ -20,10 +20,10 @@ var nodemon = require('nodemon');
 
 nodemon({
   ext: 'js json css html',
-  ignore: [ '*.out', '*.pid', '*.swp' ],
+  ignore: ['*.out', '*.pid', '*.swp'],
   script: 'server.js',
   verbose: true,
-  watch: [ 'bin', 'client', 'email-templates', 'lib' ]
+  watch: ['bin', 'client', 'email-templates', 'lib']
 });
 
 // Beuild on restart

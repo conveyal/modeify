@@ -8,7 +8,7 @@ var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var Builder = require('component-builder');
 var component = require('../component.json');
-var config = require('../config.json');
+var config = require('../config/public.json');
 var mkdir = require('mkdirp');
 var myth = require('myth');
 var resolve = require('path').resolve;
@@ -19,9 +19,7 @@ var write = require('fs').writeFileSync;
 // Set the rest of the public config.
 
 config.env = env;
-for (var key in config[env]) {
-  config[key] = config[env][key];
-}
+for (var key in config[env]) config[key] = config[env][key];
 
 // remove unused data
 
