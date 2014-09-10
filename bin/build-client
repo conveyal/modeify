@@ -20,7 +20,8 @@ var config = yml2js(fs.readFileSync(__dirname + '/../config/public.yaml', 'utf8'
 // Set the rest of the public config.
 
 config.env = env;
-for (var key in config.environments[env]) config[key] = config.environments[env][key];
+for (var key in config.environments[env])
+  config[key] = config.environments[env][key] || config[key] || '';
 
 // remove unused data
 
