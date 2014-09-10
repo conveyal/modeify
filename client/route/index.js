@@ -57,7 +57,7 @@ Route.prototype.rescore = function(scorer) {
   this.emit('change calculatedCalories', this.calculatedCalories());
   this.emit('change transitCosts', this.transitCosts());
   this.emit('change tripsPerYear', this.tripsPerYear());
-  this.emit('change parkingCost', this.parkingCost());
+  this.emit('change carParkingCost', this.carParkingCost());
   this.emit('change vmtRate', this.vmtRate());
 };
 
@@ -96,7 +96,7 @@ Route.prototype.calculatedCost = function() {
   if (this.transitCost()) cost += this.transitCost();
   if (this.modes().indexOf('car') !== -1) {
     cost += this.vmtRate() * this.driveDistances();
-    cost += this.parkingCost();
+    cost += this.carParkingCost();
   }
 
   var total = cost * this.tripm();
@@ -200,7 +200,7 @@ Route.prototype.weight = function() {
   return session.plan().scorer().rates.weight;
 };
 
-Route.prototype.parkingCost = function() {
+Route.prototype.carParkingCost = function() {
   return session.plan().scorer().rates.carParkingCost;
 };
 

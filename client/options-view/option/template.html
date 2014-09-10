@@ -21,10 +21,11 @@
     <form class="scoring-information">
       <p>We determine cost and calories by taking <input type="text" data-value="tripsPerYear" name="tripsPerYear" on-input="inputChange"> trips (ex: work days per year)</p>
       <section data-visible="hasCar">
-        <p>Driving <strong data-text="driveDistances"></strong> miles at $<input type="text" data-value="vmtRate" name="vmtRate" on-input="inputChange"> <a href="http://www.irs.gov/2014-Standard-Mileage-Rates-for-Business,-Medical-and-Moving-Announced" title="IRS's Standard Mileage Rate" target="_blank">per mile traveled <i class="fa fa-external-link"></i></a> and $<input type="text" data-value="parkingCost" name="parkingCost" on-input="inputChange"> for parking</p>
+        <p>Driving <strong data-text="driveDistances"></strong> miles at $<input type="text" data-value="vmtRate" name="vmtRate" on-input="inputChange"> <a href="http://www.irs.gov/2014-Standard-Mileage-Rates-for-Business,-Medical-and-Moving-Announced" title="IRS's Standard Mileage Rate" target="_blank">per mile traveled <i class="fa fa-external-link"></i></a>
+        and $<input type="text" data-value="carParkingCost" name="carParkingCost" on-input="inputChange"> for parking</p>
       </section>
       <section data-visible="hasTransit">
-        <p>paying $<input type="text" data-value="transitCosts" name="transitCost" on-input="inputChange"> in total transit fare</p>
+        <p>paying $<strong data-text="transitCosts"></strong> in total transit fare</p>
       </section>
       <section data-visible="hasBiking">
         <p>biking <input type="text" data-value="bikeSpeedMph" name="bikeSpeed" on-input="inputChange"> mph for <strong data-text="bikeDistances"></strong> miles</p>
@@ -34,7 +35,7 @@
       </section>
     </form>
     <div class="feedback">
-      <p>What do you think of this <!--narration--> <strong>[transit/biking/walking/driving]</strong> commute? <a href="#" on-click="feedback">Give us your feedback! <i class="fa fa-pencil-square-o"></i></a></p>
+      <p>What do you think of this commute? <a href="#" on-click="feedback">Give us your feedback! <i class="fa fa-pencil-square-o"></i></a></p>
     </div>
     <table class="narrative-directions">
       <thead>
