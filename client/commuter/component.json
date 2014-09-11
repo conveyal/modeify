@@ -4,11 +4,11 @@
     "component/model": "*",
     "segmentio/model-defaults": "0.2.0",
     "segmentio/model-memoize": "0.0.2",
-    "trevorgerhardt/model-query": "0.0.2",
-    "visionmedia/debug": "*"
+    "trevorgerhardt/model-query": "*"
   },
   "local": [
     "config",
+    "log",
     "map",
     "model-geo",
     "request"

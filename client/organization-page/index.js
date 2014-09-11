@@ -1,5 +1,4 @@
-var config = require('config');
-var debug = require('debug')(config.application() + ':organization-page');
+var log = require('log')('organization-page');
 var map = require('map');
 var View = require('./view');
 
@@ -8,7 +7,7 @@ var View = require('./view');
  */
 
 module.exports = function(ctx, next) {
-  debug('attach view');
+  log('attach view');
 
   ctx.organization.commuters = ctx.commuters;
   ctx.view = window.view = new View(ctx.organization);

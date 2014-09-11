@@ -1,7 +1,6 @@
 var Page404 = require('404-page');
 var analytics = require('analytics');
-var config = require('config');
-var debug = require('debug')(config.name() + ':router-utils');
+var log = require('log')('router-utils');
 var page = require('page');
 
 /**
@@ -17,12 +16,12 @@ var view = null;
 
 module.exports.render = function(ctx, next) {
   if (ctx.redirect) {
-    debug('redirecting from %s to %s', ctx.path, ctx.redirect);
+    log('redirecting from %s to %s', ctx.path, ctx.redirect);
     return page(ctx.redirect);
   }
 
   // if no redirect, render the view
-  debug('render %s %s', ctx.path, ctx.view);
+  log('render %s', ctx.path);
 
   // remove old view
   if (view) {
@@ -49,7 +48,7 @@ module.exports.render = function(ctx, next) {
 
 module.exports.redirect = function(to) {
   return function(ctx, next) {
-    debug('redirecting from %s to %s', ctx.path, to);
+    log('redirecting from %s to %s', ctx.path, to);
     page.show(to);
   };
 };

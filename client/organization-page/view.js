@@ -1,13 +1,12 @@
 var alerts = require('alerts');
 var Batch = require('batch');
-var config = require('config');
 var Commuter = require('commuter');
 var csvToArray = require('csv-to-array');
-var debug = require('debug')(config.application() + ':organization-page:view');
 var domify = require('domify');
 var each = require('each');
 var file = require('file');
 var filePicker = require('file-picker');
+var log = require('log')('organization-page:view');
 var Organization = require('organization');
 var page = require('page');
 var request = require('request');
@@ -65,7 +64,7 @@ View.prototype.destroy = function(e) {
   if (window.confirm('Delete organization?')) {
     this.model.destroy(function(err) {
       if (err) {
-        debug(err);
+        log.error('%e', err);
         window.alert(err);
       } else {
         alerts.push({

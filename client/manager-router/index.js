@@ -1,47 +1,40 @@
 var Commuter = require('commuter');
 var commuterForm = require('commuter-form');
-var config = require('config');
-var debug = require('debug')(config.name() + ':manager-router');
+var log = require('log')('manager-router');
 var Organization = require('organization');
 var organizationForm = require('organization-form');
 var p = require('page');
 var session = require('session');
 var utils = require('router-utils');
 
-/**
- * Show alerts
- */
+// Setup
 
-p('*', require('alerts'), function(ctx, next) {
+p('*', function(ctx, next) {
   ctx.manager = true;
   next();
 });
 
-/**
- * If the user is logged in, redirect to orgs, else redirect to login
- */
+// Show alerts
+
+p('*', require('alerts'));
+
+// If the user is logged in, redirect to orgs, else redirect to login
 
 p('/', session.checkIfLoggedIn, utils.redirect('/organizations'));
 
-/**
- * Public links
- */
+// Public links
 
 p('/login', require('login-page'));
 p('/logout', session.logoutMiddleware);
 p('/forgot-password', require('forgot-password-page'));
 p('/change-password/:key', require('change-password-page'));
 
-/**
- * Admin only
- */
+// Admin only
 
 p('/managers', session.checkIfLoggedIn, session.checkIfAdmin, require(
   'managers-page'));
 
-/**
- * Organizations
- */
+// Organizations
 
 p('/organizations*', session.checkIfLoggedIn);
 p('/organizations', require('organizations-page'));
@@ -51,9 +44,7 @@ p('/organizations/:organization/show', Commuter.loadOrg, require(
   'organization-page'));
 p('/organizations/:organization/edit', organizationForm);
 
-/**
- * Commuters
- */
+// Commuters
 
 p('/organizations/:organization/commuters/new', commuterForm);
 p('/organizations/:organization/commuters/:commuter/*', Commuter.load);
@@ -61,8 +52,6 @@ p('/organizations/:organization/commuters/:commuter/show', require(
   'commuter-page'));
 p('/organizations/:organization/commuters/:commuter/edit', commuterForm);
 
-/**
- * Render all
- */
+// Render all
 
 p('*', utils.render);

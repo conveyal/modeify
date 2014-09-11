@@ -1,9 +1,5 @@
-/**
- * Dependencies
- */
-
 var config = require('config');
-var debug = require('debug')(config.name() + ':commuter');
+var log = require('log')('commuter');
 var defaults = require('model-defaults');
 var map = require('map');
 var model = require('model');
@@ -62,7 +58,7 @@ Commuter.loadOrg = function(ctx, next) {
     _organization: ctx.params.organization
   }, function(err, commuters, res) {
     if (err || !res.ok) {
-      debug(err || res.err || res.error);
+      log.error('%e', err || res.error);
       next(err || new Error(res.text));
     } else {
       ctx.commuters = commuters;

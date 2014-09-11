@@ -2,7 +2,7 @@
   "name": "user",
   "dependencies": {
     "component/model": "*",
-    "trevorgerhardt/model-query": "0.0.2",
+    "trevorgerhardt/model-query": "*",
     "visionmedia/debug": "*"
   },
   "local": [

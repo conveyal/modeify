@@ -1,7 +1,6 @@
 {
   "name": "manager-router",
   "dependencies": {
-    "visionmedia/debug": "*",
     "visionmedia/page.js": "1.3.7"
   },
   "local": [
@@ -10,8 +9,8 @@
     "commuter",
     "commuter-form",
     "commuter-page",
-    "config",
     "forgot-password-page",
+    "log",
     "login-page",
     "managers-page",
     "organization",
