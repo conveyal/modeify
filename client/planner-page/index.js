@@ -184,6 +184,7 @@ View.prototype.reverseCommute = function(e) {
  */
 
 View.prototype.saveTrip = function(e) {
+  e.preventDefault();
   var plan = session.plan();
   plan.saveJourney(function(err) {
     if (err) {
