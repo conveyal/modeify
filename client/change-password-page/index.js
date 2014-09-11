@@ -22,23 +22,24 @@ View.prototype.changePassword = function(e) {
   var repeat = this.find('#repeat-password').value;
   if (password !== repeat) return window.alert('Passwords do not match.');
 
-  var key = this.model.key;
+  var self = this;
   request.post('/users/change-password', {
-    change_password_key: key,
+    change_password_key: this.model.key,
     password: password
   }, function(err, res) {
-    if (res.ok) {
+    if (err) {
+      debug(err);
+      debug(err.original);
+      window.alert(
+        'Failed to change password. Use the link sent to your email address.'
+      );
+    } else {
       alerts.push({
         type: 'success',
         text: 'Login using your new password.'
       });
 
-      page(this.back());
-    } else {
-      debug(err);
-      window.alert(
-        'Failed to change password. Use the link sent to your email address.'
-      );
+      page(self.back());
     }
   });
 };

@@ -1,7 +1,3 @@
-/**
- * Dendencies
- */
-
 var reactive = require('reactive');
 var view = require('view');
 
