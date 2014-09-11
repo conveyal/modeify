@@ -1,8 +1,13 @@
 var Alert = require('alert');
-var config = require('config');
-var debug = require('debug')(config.name() + ':alerts');
 var domify = require('domify');
+var log = require('log')('alerts');
 var each = require('each');
+
+/**
+ * Append el
+ */
+
+document.body.insertBefore(domify(require('./template.html')), document.body.firstChild);
 
 /**
  * Alerts
@@ -12,17 +17,11 @@ var alerts = [];
 var el = document.getElementById('alerts');
 
 /**
- * Append el
- */
-
-document.body.insertBefore(domify(require('./template.html')), document.body.firstChild);
-
-/**
  * Expose `render` middleware
  */
 
 module.exports = function(ctx, next) {
-  debug('displaying');
+  log('displaying alerts');
 
   // remove all alerts
   el.innerHTML = '';

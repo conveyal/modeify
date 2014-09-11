@@ -1,13 +1,12 @@
 {
   "name": "alerts",
   "dependencies": {
-    "component/domify": "1.2.2",
-    "component/each": "0.2.3",
-    "visionmedia/debug": "*"
+    "component/domify": "*",
+    "component/each": "*"
   },
   "local": [
     "alert",
-    "config"
+    "log"
   ],
   "scripts": [
     "index.js"
