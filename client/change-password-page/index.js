@@ -1,6 +1,5 @@
 var alerts = require('alerts');
-var config = require('config');
-var debug = require('debug')(config.name() + ':change-password-page');
+var log = require('log')('change-password-page');
 var page = require('page');
 var request = require('request');
 var template = require('./template.html');
@@ -28,8 +27,7 @@ View.prototype.changePassword = function(e) {
     password: password
   }, function(err, res) {
     if (err) {
-      debug(err);
-      debug(err.original);
+      log.error(err);
       window.alert(
         'Failed to change password. Use the link sent to your email address.'
       );
