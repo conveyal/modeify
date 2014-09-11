@@ -5,6 +5,19 @@ var fmt = require('fmt');
 var request = require('request');
 
 /**
+ * Format Errors
+ */
+
+fmt.e = function(e) {
+  var s = e.toString() + '\n';
+  s += e.fileName || '';
+  s += e.lineNumber ? ':' + e.lineNumber : '';
+  s += e.columnNumber ? ':' + e.columnNumber : '';
+  s += e.stack ? '\n' + e.stack : '';
+  return s;
+};
+
+/**
  * Logging levels
  */
 

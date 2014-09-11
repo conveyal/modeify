@@ -2,6 +2,9 @@
 ## Latest
 
 * Switch config files to YAML
+* Remove deprecation warnings from new version of Express
+* Bug fix for change password page
+* Specific `%e` error formatting for logs
 
 ## 0.5.0 — 2014-09-10
 
