@@ -1,4 +1,8 @@
 
+.commuter-profile {
+  margin-bottom: 30px;
+}
+
 .commuter-profile h3 {
   margin: 0;
 }
@@ -14,7 +18,6 @@
 .commuter-profile h4 {
   margin: 25px 0 10px;
   padding-bottom: 5px;
-  border-bottom: 1px solid var(--white);
 }
 
 .commuter-profile h4 .subtitle {
@@ -28,7 +31,7 @@
 
 .commuter-profile .form-control {
   border: 1px solid var(--gray);
-  color: var(--green);
+  color: var(--black);
   outline: none;
   display: inline-block;
 }
@@ -42,7 +45,7 @@
   line-height: 0;
   width: 60px;
   height: 60px;
-  color: var(--white);
+  color: var(--lightgray);
   margin-right: 30px;
   outline: none;
 }
@@ -90,7 +93,8 @@
   margin-bottom: 10px;
   cursor: pointer;
   padding: 8px;
-  border: 1px solid var(--black);
+  border: 1px solid var(--white);
+  box-shadow: 1px 1px 2px #2f3e4c;
   border-radius: var(--border-radius);
   position: relative;
 }
@@ -105,11 +109,16 @@
   overflow: hidden;
   white-space: nowrap;
   width: 100%;
-  color: #8ec449;
+  color: var(--black);
 }
 
-.commuter-profile .journey div i {
-  color: var(--black);
+.commuter-profile .journey .icon-start {
+  color: var(--green);
+  font-size: 16px;
+}
+
+.commuter-profile .journey .icon-end {
+  color: var(--gold);
   font-size: 16px;
 }
 
@@ -117,12 +126,12 @@
   display: none;
   position: absolute;
   top: 0;
-  right: -1px;
+  right: 0px;
   height: 100%;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   width: 20px;
-  background-color: var(--gray);
+  background-color: var(--gold);
   padding-right: 20px;
   border: none;
 }
@@ -132,7 +141,7 @@
 }
 
 .commuter-profile .journey button:hover {
-  background-color: color(var(--gray) shade(20%));
+  background-color: color(var(--gold) shade(20%));
 }
 
 .commuter-profile .from {

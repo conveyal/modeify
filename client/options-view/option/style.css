@@ -13,7 +13,6 @@
   background-color: #fff;
   margin: 8px;
   border-radius: var(--border-radius);
-  border-bottom: 2px solid var(--black);
 }
 
 .Options .option:first-of-type {
@@ -203,7 +202,6 @@
   height: 15px;
   width: 15px;
   border-radius: 15px;
-  border: 2px solid var(--black);
 }
 
 .narrative-directions .segment > .icon > .fa {
@@ -228,10 +226,13 @@
  */
 
 .Options .scoring-information {
-  padding: 16px;
-  background-color: rgba(180,227,123,0.9);
+  padding: 10px 11px 12px 20px;
+  width: 100%;
+  background-color: var(--mgreen);
   color: var(--darkergreen);
-  line-height: 2em;
+  line-height: 20px;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .Options .scoring-information i {
@@ -247,16 +248,17 @@
 .Options .scoring-information input {
   border: none;
   background-color: transparent;
-  border-bottom: 1px dashed var(--lightgreen);
+  border-bottom: 2px dotted var(--lightgreen);
   width: auto;
   text-align: center;
   cursor: pointer;
   font-weight: var(--bold);
-  font-size: 16px;
+  font-size: 13px;
 }
 
 .Options .scoring-information strong {
-  font-size: 16px;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .Options .scoring-information input:focus {

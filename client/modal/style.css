@@ -4,11 +4,9 @@
 
 .Modal {
   top: 54px;
-
-  border: 2px solid var(--black);
   border-radius: var(--border-radius);
   background-color: white;
-
+  box-shadow: 1px 1px 2px #2f3e4c;
   overflow-y: hidden;
   overflow-x: hidden;
   max-width: 320px;
