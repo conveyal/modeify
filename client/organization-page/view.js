@@ -169,7 +169,7 @@ Modal.prototype.upload = function(e) {
 
   batch.end(function(err) {
     if (err) {
-      debug(err);
+      log.error('%e', err);
       window.alert('Error while uploading commuters. ' + err);
     } else {
       alerts.push({
