@@ -10,9 +10,10 @@
   --lightgray: #b5c1ce;
   --light-gray: #edeff0;
 
-  --white: #d7dde2;
+  --white: #e9f5ff;
+  --darkest: #303d49;
 
-  --darkergreen: #639428;
+  --darkergreen: #5e8428;
   --darkgreen: #719939;
   --green: #8ec449; --mgreen: #b4e37b;
   --lightgreen: #dcffb0;
@@ -68,17 +69,17 @@ a:hover {
 .btn:focus,
 .btn:hover,
 .btn:visited {
-  background: var(--green);
+  background: var(--gold);
   color: #fff;
   outline: none;
 }
 
 .btn:hover {
-  background-color: color(var(--green) shade(10%));
+  background-color: color(var(--gold) shade(10%));
 }
 
 .btn:active {
-  background-color: color(var(--green) shade(20%));
+  background-color: color(var(--gold) shade(20%));
 }
 
 #main {

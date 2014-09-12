@@ -25,7 +25,7 @@
   display: inline-block;
   cursor: pointer;
   font-size: 36px;
-  color: var(--white);
+  color: var(--lightgray);
   padding: 0 8px;
 }
 
