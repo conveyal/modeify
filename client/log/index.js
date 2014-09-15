@@ -9,6 +9,7 @@ var request = require('request');
  */
 
 fmt.e = function(e) {
+  e = e || new Error();
   var s = e.fileName || '';
   s += e.lineNumber ? ':' + e.lineNumber : '';
   s += e.columnNumber ? ':' + e.columnNumber + '\n' : '';
@@ -42,7 +43,7 @@ module.exports = function(name) {
     // Save info & above
     if (levels.indexOf(type) >= infoIndex) {
       // Send to analytics
-      analytics.track('log:' + type, {
+      analytics.track(type, {
         text: text,
         type: type
       });

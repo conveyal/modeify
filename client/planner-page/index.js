@@ -42,7 +42,7 @@ var View = view({
  */
 
 module.exports = function(ctx, next) {
-  log.info('render');
+  log('render');
 
   var plan = ctx.plan;
   var views = {
@@ -67,7 +67,7 @@ module.exports = function(ctx, next) {
       plan.setAddresses(locations.from || FROM, locations.to || TO, function(
         err) {
         if (err) {
-          log.error('%j', err);
+          log.error('%e', err);
         } else {
           plan.updateRoutes({
             modes: 'BICYCLE,WALK,TRAINISH,BUS,CAR'
@@ -77,11 +77,11 @@ module.exports = function(ctx, next) {
 
       ctx.view.showWelcomeWizard();
     } else if (locations.to && locations.from) {
-      log.info('load in locations from query parameters');
+      log('load in locations from query parameters');
 
       plan.setAddresses(locations.from, locations.to, function(err) {
         if (err) {
-          log.error('%j', err);
+          log.error('%e', err);
         } else {
           plan.updateRoutes();
         }
@@ -99,7 +99,7 @@ module.exports = function(ctx, next) {
  */
 
 View.prototype.showWelcomeWizard = function() {
-  log.info('welcome incomplete, show welcome wizard');
+  log('welcome incomplete, show welcome wizard');
 
   // Tool Tips
   var fromTip = new Tip(require('./from-tip.html'));
@@ -188,7 +188,7 @@ View.prototype.saveTrip = function(e) {
   var plan = session.plan();
   plan.saveJourney(function(err) {
     if (err) {
-      log.error('%j', err);
+      log.error('%e', err);
       textModal('Failed to save journey.\n' + err);
     } else {
       textModal('Saved journey successfully');

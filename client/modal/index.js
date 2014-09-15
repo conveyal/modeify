@@ -20,7 +20,7 @@ module.exports = function(opts, fn) {
    */
 
   Modal.prototype.show = function(fn) {
-    log.info('showing modal');
+    log('showing modal');
 
     this.modal = active = modal(this.el).overlay();
 
@@ -48,7 +48,7 @@ module.exports = function(opts, fn) {
    */
 
   Modal.prototype.hide = function(e) {
-    log.info('hiding modal');
+    log('hiding modal');
 
     if (e) e.preventDefault();
     if (this.modal) this.modal.hide();

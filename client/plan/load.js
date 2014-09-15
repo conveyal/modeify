@@ -38,7 +38,7 @@ function load(Plan, ctx, next) {
  */
 
 function loadPlan(Plan) {
-  log.info('loading plan');
+  log('loading plan');
 
   // check if we have a stored plan
   var opts = store('plan') || {};
@@ -63,11 +63,11 @@ function loadPlan(Plan) {
 
 function loadCommuter(opts) {
   var commuter = session.commuter();
-  log.info('loading plan for logged in commuter %s', commuter._id());
+  log('loading plan for logged in commuter %s', commuter._id());
 
   // if the stored plan is not the logged in commuters, change
   if (opts._commuter !== commuter._id()) {
-    log.info('load plan from the commuter instead of localStorage');
+    log('load plan from the commuter instead of localStorage');
 
     opts = commuter.opts();
     var org = commuter._organization();

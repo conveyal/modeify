@@ -40,6 +40,8 @@ module.exports = function(reactive) {
     this.change(function() {
       var val = this.value(name);
 
+      console.log(name, val);
+
       if (val) el.classList.add('active');
       else el.classList.remove('active');
     });

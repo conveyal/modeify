@@ -23,9 +23,9 @@ var DEBOUNCE_UPDATES = 25;
 
 var Plan = module.exports = model('Plan')
   .use(defaults({
-    bike: false,
-    bus: false,
-    car: false,
+    bike: true,
+    bus: true,
+    car: true,
     days: 'M—F',
     end_time: 9,
     from: '',
@@ -35,9 +35,9 @@ var Plan = module.exports = model('Plan')
     start_time: 7,
     to: '',
     to_valid: false,
-    train: false,
+    train: true,
     tripsPerYear: 235,
-    walk: false,
+    walk: true,
     welcome_complete: false
   }))
   .attr('bike')
@@ -78,7 +78,7 @@ module.exports.load = function(ctx, next) {
  */
 
 Plan.on('change', function(plan, name, val) {
-  log.info('plan.%s changed to %s', name, val);
+  log('plan.%s changed to %s', name, val);
 
   // Store in localStorage & track the change
   if (name !== 'options') plan.store();

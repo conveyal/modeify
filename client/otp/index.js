@@ -16,8 +16,8 @@ var profiler = new Profiler({
  */
 
 module.exports = function profile(query, callback) {
-  log.info('--> profiling');
-  log.info('--  see raw results here: %s/api/otp/profile?%s', config.base_url(),
+  log('--> profiling');
+  log('--  see raw results here: %s/api/otp/profile?%s', config.base_url(),
     decodeURIComponent(qs.stringify({
       from: query.from.lat + ',' + query.from.lon,
       to: query.to.lat + ',' + query.to.lon,
@@ -40,7 +40,7 @@ module.exports = function profile(query, callback) {
           log.error('<-- error profiling %j', err);
           callback(err);
         } else {
-          log.info('<-- profiled %s options', data.options.length);
+          log('<-- profiled %s options', data.options.length);
           callback(null, {
             journey: journey,
             options: data.options

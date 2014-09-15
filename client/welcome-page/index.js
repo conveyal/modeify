@@ -3,6 +3,12 @@ var log = require('log')('welcome-page');
 var modal = require('modal');
 
 /**
+ * Modes
+ */
+
+var MODES = [ 'bike', 'bus', 'train', 'car', 'walk' ];
+
+/**
  * Create `Modal`
  */
 
@@ -18,12 +24,11 @@ var Modal = module.exports = modal({
 
 Modal.prototype.save = function(e) {
   e.preventDefault();
-  log.info('--> saving');
+  log('--> saving');
 
   var alerts = this.find('.alerts');
-  var plan = this.model;
-  var modes = [this.mode('bike'), this.mode('bus'), this.mode('train'), this.mode(
-    'car'), this.mode('walk')];
+  var self = this;
+  var modes = MODES.map(function(m) { return self.mode(m); });
 
   if (!modes.reduce(function(a, b) {
     return a || b;
@@ -34,17 +39,9 @@ Modal.prototype.save = function(e) {
     }).el);
   } else {
     this.hide();
+    this.model.original_modes(modes);
 
-    plan.set({
-      bike: true,
-      bus: true,
-      car: true,
-      train: true,
-      walk: true,
-      original_modes: modes
-    });
-
-    log.info('<-- saved');
+    log('<-- saved');
   }
 };
 
@@ -54,4 +51,25 @@ Modal.prototype.save = function(e) {
 
 Modal.prototype.mode = function(name) {
   return this.find('[data-active="' + name + '"]').classList.contains('active');
+};
+
+/**
+ * Highjack the mode functions
+ */
+
+MODES.map(function(m) {
+  Modal.prototype[m] = function(v) {
+    this.toggle(m, v);
+  };
+});
+
+/**
+ * Toggle
+ */
+
+Modal.prototype.toggle = function(type, val) {
+  if (val === undefined) return false;
+  var el = this.find('[data-active="' + type + '"]');
+  if (val) el.classList.add('active');
+  else el.classList.remove('active');
 };

@@ -34,7 +34,7 @@ var View = module.exports = view(require('./template.html'), function(view,
  */
 
 View.prototype.blurInput = function(e) {
-  log.info('input blurred, saving changes');
+  log('input blurred, saving changes');
   var inputGroup = e.target.parentNode;
   var suggestionList = inputGroup.getElementsByTagName('ul')[0];
 
@@ -149,7 +149,7 @@ View.prototype.suggest = function(e) {
   // Get a suggestion!
   geocode.suggest(text, function(err, suggestions) {
     if (err) {
-      log.error('%j', err);
+      log.error('%e', err);
     } else {
       if (suggestions && suggestions.length > 0) {
         suggestionList.innerHTML = suggestionsTemplate.render({

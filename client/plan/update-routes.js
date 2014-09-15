@@ -58,7 +58,7 @@ function updateRoutes(plan, opts, callback) {
     }
   };
 
-  log.info('--> updating routes from %s to %s on %s between %s and %s', plan.from(),
+  log('--> updating routes from %s to %s on %s between %s and %s', plan.from(),
     plan.to(),
     date, startTime, endTime);
 
@@ -73,7 +73,7 @@ function updateRoutes(plan, opts, callback) {
     walkSpeed: scorer.rates.walkSpeed
   }, function(err, data) {
     if (err) {
-      log.error('%j', err);
+      log.error('%e', err);
       done(err);
     } else if (!data || data.options.length < 1) {
       plan.journey(null);
@@ -144,7 +144,7 @@ function updateRoutes(plan, opts, callback) {
       plan.options(data.options);
       plan.journey(data.journey);
 
-      log.info('<-- updated routes');
+      log('<-- updated routes');
       done(null, data);
     }
   });

@@ -13,7 +13,7 @@ module.exports = storePlan;
  */
 
 function storePlan(plan) {
-  log.info('--> storing plan');
+  log('--> storing plan');
 
   // convert to "JSON", remove routes & patterns
   var json = {};
@@ -32,7 +32,7 @@ function storePlan(plan) {
 
   // save in local storage
   store('plan', json);
-  log.info('<-- stored plan');
+  log('<-- stored plan');
 
   return json;
 }
