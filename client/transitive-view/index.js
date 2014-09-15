@@ -25,7 +25,7 @@ var View = module.exports = view(require('./template.html'), function(view,
  */
 
 View.prototype.display = function(journey) {
-  debug('--> displaying journey');
+  log('--> displaying journey');
 
   if (journey.journeys && journey.journeys.length > 0) {
     this.el.innerHTML = require('./legend.html');
@@ -47,8 +47,7 @@ View.prototype.display = function(journey) {
       });
       transitive.render();
     } catch (e) {
-      debug('<-- failed to display journey: %s', e.message);
-      console.error(e.stack);
+      log('<-- failed to display journey: %e', e);
       return;
     }
   }
@@ -76,5 +75,5 @@ View.prototype.display = function(journey) {
     }));
   };
 
-  debug('<-- done displaying patterns');
+  log('<-- done displaying patterns');
 };
