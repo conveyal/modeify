@@ -37,7 +37,7 @@ Modal.prototype.submit = function(e) {
     delete plan.options;
     delete plan.journey;
 
-    analytics.track('Submitted option feedback', {
+    analytics.track('Submitted feedback about an option', {
       feedback: feedback.trim(),
       option: this.model.toJSON(),
       plan: plan
