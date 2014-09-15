@@ -4,12 +4,12 @@
     "component/color-parser": "*",
     "component/each": "*",
     "conveyal/transitive.js": "*",
-    "mbostock/d3": "*",
-    "visionmedia/debug": "*"
+    "mbostock/d3": "*"
   },
   "local": [
     "config",
     "convert",
+    "log",
     "view"
   ],
   "scripts": [

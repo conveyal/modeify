@@ -1,7 +1,6 @@
 var config = require('config');
 var d3 = require('d3');
-var debug = require('debug')(config.name() + ':transitive-view');
-var each = require('each');
+var log = require('log')('transitive-view');
 var Transitive = require('transitive');
 var view = require('view');
 
