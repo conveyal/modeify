@@ -1,4 +1,9 @@
 
+## Latest
+
+* Add more event tracking
+* Move test commands to package.json
+
 ## 0.5.1 — 2014-09-12
 
 * Switch config files to YAML
