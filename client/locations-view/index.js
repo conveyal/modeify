@@ -1,3 +1,4 @@
+var analytics = require('analytics');
 var closest = require('closest');
 var each = require('each');
 var geocode = require('geocode');
@@ -11,8 +12,7 @@ var view = require('view');
  * Expose `View`
  */
 
-var View = module.exports = view(require('./template.html'), function(view,
-  plan) {
+var View = module.exports = view(require('./template.html'), function(view, plan) {
   view.on('rendered', function() {
     closest(view.el, 'form').onsubmit = function(e) {
       e.preventDefault();
@@ -20,7 +20,7 @@ var View = module.exports = view(require('./template.html'), function(view,
       plan.setAddresses(view.find('.from input').value, view.find(
         '.to input').value, function(err) {
         if (err) {
-          log.error('%j', err);
+          log.error('%e', err);
         } else {
           plan.updateRoutes();
         }
@@ -106,9 +106,13 @@ View.prototype.save = function(el, callback) {
   var plan = this.model;
   if (plan[el.name]() === el.value) return;
 
+  analytics.track(el.name + ' address changed', {
+    address: el.value
+  });
+
   this.model.setAddress(el.name, el.value, function(err) {
     if (err) {
-      log.error('%j', err);
+      log.error('%e', err);
       textModal('Invalid address.');
     } else {
       plan.updateRoutes();
@@ -167,8 +171,10 @@ View.prototype.suggest = function(e) {
         });
 
         suggestionList.classList.remove('empty');
+        inputGroup.classList.add('suggestions-open');
       } else {
         suggestionList.classList.add('empty');
+        inputGroup.classList.remove('suggestions-open');
       }
     }
   });

@@ -6,6 +6,7 @@
     "twitter/hogan.js": "*"
   },
   "local": [
+    "analytics",
     "geocode",
     "log",
     "mouse-position",

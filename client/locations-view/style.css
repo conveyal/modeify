@@ -46,7 +46,7 @@
   list-style-type: none;
   white-space: nowrap;
   text-overflow: ellipsis;
-  width: 271px;
+  width: 275px;
   display: block;
   overflow: hidden;
   padding: 8px;
@@ -76,8 +76,12 @@
 
 .locations .input-group.highlight {
   border-left: 4px solid var(--black);
-  padding-left: 5px;
+  padding-left: 4px;
   border-bottom-color: var(--gray);
+}
+
+.locations .input-group.suggestions-open {
+  border-bottom-right-radius: 0;
 }
 
 .locations input {
