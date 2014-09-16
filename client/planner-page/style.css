@@ -13,6 +13,16 @@
   margin-bottom: 0;
 }
 
+.panel .gradient {
+  position: absolute;
+  bottom: 0;
+  height: 44px;
+  background: linear-gradient(to bottom,
+    color(var(--black) alpha(0%)) 0%,
+    color(var(--black) alpha(80%)) 100%);
+  width: 100%;
+}
+
 @media (--narrow-window) {
   .panel {
     top: 0;
@@ -29,6 +39,7 @@
 
   height: 100%;
   padding-top: 44px;
+  padding-bottom: 44px;
 }
 
 .scrollable::-webkit-scrollbar {
