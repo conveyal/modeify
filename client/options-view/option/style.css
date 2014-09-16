@@ -88,6 +88,7 @@
 
 .Options .option:first-of-type .simple .fare-column {
   border-top-right-radius: 0;
+  font-style: italic;
 }
 
 .Options .simple .fare-column .per-year {
