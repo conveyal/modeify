@@ -1,11 +1,14 @@
 # Commute Planner
 
 [![Build status][travis-image]][travis-url]
+[![Test coverage][coveralls-image]][coveralls-url]
 [![Code Climate][code-climate-image]][code-climate-url]
 [![Dependency Status][david-image]][david-url]
 
 [travis-image]: https://img.shields.io/travis/conveyal/commute-planner.svg?style=flat-square
 [travis-url]: https://travis-ci.org/conveyal/commute-planner
+[coveralls-image]: https://img.shields.io/coveralls/conveyal/commute-planner.svg?style=flat-square
+[coveralls-url]: https://coveralls.io/r/coveralls/commute-planner?branch=master
 [code-climate-image]: http://img.shields.io/codeclimate/github/conveyal/commute-planner.svg?style=flat-square
 [code-climate-url]: https://codeclimate.com/github/conveyal/commute-planner
 [david-image]: http://img.shields.io/david/conveyal/commute-planner.svg?style=flat-square
