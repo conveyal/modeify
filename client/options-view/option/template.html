@@ -10,7 +10,7 @@
     </div>
 
     <div class="fare-column">
-      <div class="fare" data-visible="calculatedCost" title="per year"><strong>${calculatedCost}</strong></div>
+      <div class="fare" data-visible="calculatedCost" title="per year"><em><strong>${calculatedCost}</strong></em></div>
       <div class="fare" data-visible="calculatedCalories" title="per year"><strong>{calculatedCalories} cals</strong></div>
     </div>
 
@@ -19,7 +19,7 @@
   <div class="details">
     <p><strong>You're ready for your trip!</strong> Detailed directions are below.</p>
     <form class="scoring-information">
-      <p>We determine cost and calories by taking <input type="text" data-value="tripsPerYear" name="tripsPerYear" on-input="inputChange"> trips (ex: work days per year)</p>
+      <p><em>We determine cost and calories by taking <input type="text" data-value="tripsPerYear" name="tripsPerYear" on-input="inputChange"> trips (ex: work days per year)</p>
       <section data-visible="hasCar">
         <p>Driving <strong data-text="driveDistances"></strong> miles at $<input type="text" data-value="vmtRate" name="vmtRate" on-input="inputChange"> <a href="http://www.irs.gov/2014-Standard-Mileage-Rates-for-Business,-Medical-and-Moving-Announced" title="IRS's Standard Mileage Rate" target="_blank">per mile traveled <i class="fa fa-external-link"></i></a>
         and $<input type="text" data-value="carParkingCost" name="carParkingCost" on-input="inputChange"> for parking</p>
@@ -31,7 +31,7 @@
         <p>biking <input type="text" data-value="bikeSpeedMph" name="bikeSpeed" on-input="inputChange"> mph for <strong data-text="bikeDistances"></strong> miles</p>
       </section>
       <section data-visible="hasWalking">
-        <p>walking <input type="text" data-value="walkSpeedMph" name="walkSpeed" on-input="inputChange"> mph for <strong data-text="walkDistances"></strong> miles</i></p>
+        <p>walking <input type="text" data-value="walkSpeedMph" name="walkSpeed" on-input="inputChange"> mph for <strong data-text="walkDistances"></strong> miles</i></em></p>
       </section>
     </form>
     <div class="feedback">
