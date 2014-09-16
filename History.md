@@ -3,6 +3,7 @@
 
 * Add more event tracking
 * Move test commands to package.json
+* Create Feedback model
 
 ## 0.5.1 — 2014-09-12
 

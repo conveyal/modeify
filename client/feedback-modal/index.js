@@ -1,8 +1,8 @@
 var analytics = require('analytics');
 var Alert = require('alert');
-var config = require('config');
-var debug = require('debug')(config.application() + ':feedback-modal');
+var log = require('log')('feedback-modal');
 var modal = require('modal');
+var request = require('request');
 var session = require('session');
 
 /**
@@ -23,6 +23,9 @@ Modal.prototype.submit = function(e) {
   var alerts = this.find('.alerts');
   var button = this.find('button');
   var feedback = this.find('textarea').value + '';
+  var plan = session.plan().toJSON();
+  var results = this.model.toJSON();
+  var self = this;
 
   if (!feedback || feedback.length < 1) {
     alerts.appendChild(Alert({
@@ -32,25 +35,32 @@ Modal.prototype.submit = function(e) {
   } else {
     button.remove();
 
-    var plan = session.plan().toJSON();
-
     delete plan.options;
     delete plan.journey;
 
-    analytics.track('Submitted feedback about an option', {
+    request.post('/feedback', {
       feedback: feedback.trim(),
-      option: this.model.toJSON(),
-      plan: plan
+      plan: plan,
+      results: results
+    }, function(err) {
+      if (err) {
+        log.error('%e', err);
+        alerts.appendChild(Alert({
+          type: 'danger',
+          text: 'Failed to submit feedback.'
+        }).el);
+      } else {
+        analytics.track('Submitted feedback about an option');
+
+        alerts.appendChild(Alert({
+          type: 'success',
+          text: 'Thanks! We appreciate the feedback!'
+        }).el);
+
+        setTimeout(function() {
+          self.hide();
+        }, 2500);
+      }
     });
-
-    alerts.appendChild(Alert({
-      type: 'success',
-      text: 'Thanks! We appreciate the feedback!'
-    }).el);
-
-    var self = this;
-    setTimeout(function() {
-      self.hide();
-    }, 2500);
   }
 };

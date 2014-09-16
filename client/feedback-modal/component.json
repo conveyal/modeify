@@ -1,13 +1,11 @@
 {
   "name": "feedback-modal",
-  "dependencies": {
-    "visionmedia/debug": "*"
-  },
   "local": [
     "alert",
     "analytics",
-    "config",
+    "log",
     "modal",
+    "request",
     "session"
   ],
   "templates": [
