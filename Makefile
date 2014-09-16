@@ -8,7 +8,6 @@ BINJS = $(shell find bin/*)
 JSON = $(shell find client -name '*.json')
 
 NODE_ENV = development
-REPORTER = spec
 
 build: components $(CSS) $(HTML) $(CLIENTJS) $(JSON)
 	@./bin/build-client $(NODE_ENV)
@@ -53,16 +52,4 @@ stop:
 	@kill `cat server.pid` || true
 	@rm -f server.pid
 
-# Run mocha test suite
-test: lint
-	@NODE_ENV=test node_modules/.bin/mocha --recursive --require should --reporter $(REPORTER) --timeout 20s --slow 10
-
-test-cov: lint
-	@NODE_ENV=test node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha -- \
-		--recursive \
-		--reporter dot \
-		--require should \
-		--slow 10 \
-		--timeout 20s
-
-.PHONY: beautify checkenv clean lint release serve start stop test test-cov
+.PHONY: beautify checkenv clean lint release serve start stop
