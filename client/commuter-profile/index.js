@@ -49,22 +49,29 @@ Modal.prototype.submitAddPassword = function() {
 Modal.prototype.submitEmailAddress = function(e) {
   e.preventDefault();
   var alerts = this.find('.email-alerts');
-  var email = this.find('input[name=email]').value;
+  var form = this.find('.register-email-form');
+  var email = form.querySelector('input[name=email]').value;
+  var button = form.querySelector('button');
+
+  button.disabled = true;
   request.post('/users/change-password-request', {
     email: email
   }, function(err, res) {
     if (err) {
-      log.error('%j %s', err, email);
+      log.error('%e %s', err, email);
       alerts.appendChild(Alert({
         type: 'warning',
         text: 'Failed to add email address.'
       }).el);
+      button.disabled = false;
     } else {
+      form.remove();
       alerts.appendChild(Alert({
         type: 'success',
         text: 'An email has been sent to ' + email +
           ' with instructions to add a password and confirm your account.'
       }).el);
+
     }
   });
 };
