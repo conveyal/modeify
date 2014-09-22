@@ -40,7 +40,9 @@ node_modules: package.json
 
 # Run before each release
 release: checkenv build test
-	@./bin/push-to-s3 $(NODE_ENV)
+	@export NODE_ENV=$(NODE_ENV)
+	@aws s3 sync build `./bin/config-val s3_bucket` \
+		--acl public-read
 
 # Watch & reload server
 serve: server.pid

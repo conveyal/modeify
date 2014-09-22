@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+
+var config = require('../lib/config');
+
+for (var i = 0, path = process.argv[2].split('.'), len = path.length; i < len; i++)
+  config = config[path[i]];
+
+process.stdout.write(config);
