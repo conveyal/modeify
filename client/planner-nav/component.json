@@ -20,8 +20,5 @@
   ],
   "templates": [
     "template.html"
-  ],
-  "images": [
-    "logo_sm.png"
   ]
 }

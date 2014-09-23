@@ -130,9 +130,9 @@ exports.places_icon = {
   height: 40,
   'xlink:href': function(display, data) {
     if (data.owner.getId() === 'from') return config.static_url() +
-      '/build/planner-app/transitive-view/start.svg';
+      '/images/transitive/start.svg';
     if (data.owner.getId() === 'to') return config.static_url() +
-      '/build/planner-app/transitive-view/end.svg';
+      '/images/transitive/end.svg';
   },
   stroke: 0,
   visibility: 'visible'

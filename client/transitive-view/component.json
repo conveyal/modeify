@@ -23,9 +23,5 @@
   "templates": [
     "legend.html",
     "template.html"
-  ],
-  "images": [
-    "end.svg",
-    "start.svg"
   ]
 }

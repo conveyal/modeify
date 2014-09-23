@@ -30,7 +30,7 @@ otp:
   port: 8080
 s3_bucket: ''
 segmentio_key: ''
-static_url: ''
+static_url: /assets
 
 # Custom Environments
 environments:
@@ -47,6 +47,7 @@ environments:
     base_url: http://arlington.dev.conveyal.com
     opsworks:
       app_id: 1d2d64dd-5ee0-4867-823b-6072e92e297d
+      stack_id: ea94c5bc-1b73-4e99-a9c4-b5450b40b69a
     s3_bucket: s3://carfreeatoz-staging/
     segmentio_key: qak98wes8c
     static_url: https://s3.amazonaws.com/carfreeatoz-staging
@@ -56,6 +57,7 @@ environments:
     base_url: http://carfreeatoz.com
     opsworks:
       app_id: e6d503e7-2ded-49df-a62b-8ac2c000b963
+      stack_id: 3dfd270f-ac17-47ba-b185-f1ed8743590e
     otp:
       host: ec2-54-234-252-174.compute-1.amazonaws.com
       path: /otp/routers/default

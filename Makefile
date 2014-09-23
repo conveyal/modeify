@@ -13,17 +13,16 @@ build: components $(CSS) $(HTML) $(CLIENTJS) $(JSON)
 	@./bin/build-client $(NODE_ENV)
 
 beautify:
-	@./node_modules/.bin/js-beautify --config config/jsbeautify.json --quiet --replace $(CLIENTJS) $(LIBJS) $(BINJS) $(TESTJS)
+	@./node_modules/.bin/js-beautify \
+		--config config/jsbeautify.json \
+		--replace $(CLIENTJS) $(LIBJS) $(BINJS) $(TESTJS) \
+		--quiet
 
 checkenv:
 ifndef NODE_ENV
 	$(error NODE_ENV is undefined)
 endif
 	@export NODE_ENV=$(NODE_ENV)
-
-clean:
-	@rm -rf build
-	@rm -rf components
 
 components: node_modules component.json $(JSON)
 	@./node_modules/.bin/component install --dev --verbose
@@ -32,14 +31,13 @@ components: node_modules component.json $(JSON)
 deploy: checkenv test
 	@aws opsworks create-deployment \
 		--app-id `./bin/config-val opsworks.app_id` \
+		--stack-id `./bin/config-val opsworks.stack_id` \
 		--command "{\"Name\":\"deploy\"}"
-
-# Install
-install: node_modules
 
 # Lint JavaScript with JSHint
 lint:
-	@./node_modules/.bin/jshint --config config/jshint.json $(CLIENTJS) $(LIBJS) $(BINJS) $(TESTJS)
+	@./node_modules/.bin/jshint \
+		--config config/jshint.json $(CLIENTJS) $(LIBJS) $(BINJS) $(TESTJS)
 
 # Reinstall if package.json has changed
 node_modules: package.json
@@ -48,7 +46,7 @@ node_modules: package.json
 # Run before each release
 release: checkenv test
 	@./bin/build-client $(NODE_ENV)
-	@aws s3 sync build `./bin/config-val s3_bucket` \
+	@aws s3 sync assets `./bin/config-val s3_bucket` \
 		--acl public-read \
 		--delete
 
@@ -62,4 +60,4 @@ stop:
 	@kill `cat server.pid` || true
 	@rm -f server.pid
 
-.PHONY: beautify checkenv clean deploy lint release serve start stop
+.PHONY: beautify checkenv deploy lint release serve stop

@@ -37,7 +37,7 @@ component.local.forEach(build);
 function build(bundle) {
   // Build settings.
 
-  var dest = 'build/' + bundle;
+  var dest = 'assets/build/' + bundle;
   var production = env === 'production';
 
   // Builder.
@@ -46,7 +46,7 @@ function build(bundle) {
   builder.config.local = [bundle];
 
   builder.copyAssetsTo(__dirname + '/../' + dest);
-  builder.prefixUrls(config.static_url + '/' + dest);
+  // builder.prefixUrls(config.static_url + '/build/' + bundle);
   builder.copyFiles(true);
 
   if (!production) {
@@ -66,8 +66,19 @@ function build(bundle) {
 
     if (res.css) {
       var css = myth(res.css);
+      css = css.replace(/\burl *\(([^)]+)\)/g, rewrite);
       if (production) css = sqwish.minify(css);
       write(resolve(dest, 'build.css'), css);
     }
   });
+
+  function rewrite(_, url) {
+    var orig = 'url("' + url + '")';
+    if (isData(url)) return orig;
+    return 'url("' + config.static_url + url + '")';
+  }
+
+  function isData(url) {
+    return url.indexOf('data:') === 0;
+  }
 }
