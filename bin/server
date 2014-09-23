@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 var env = process.env.NODE_ENV;
-var isDev = env === 'development';
 
 // If `NODE_ENV` is not set exit
 
@@ -23,7 +22,7 @@ nodemon({
   ignore: ['*.out', '*.pid', '*.swp'],
   script: 'server.js',
   verbose: true,
-  watch: ['bin', 'client', 'email-templates', 'lib']
+  watch: ['assets/email', 'bin', 'client', 'lib' ]
 });
 
 // Beuild on restart
@@ -37,7 +36,7 @@ nodemon.on('start', function() {
 // Build the client
 
 function build() {
-  if (isDev) execFile(__dirname + '/build-client', function(err) {
+  if (env === 'development') execFile(__dirname + '/build-client', function(err) {
     if (err) log.error(err);
   });
 }
