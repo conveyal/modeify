@@ -25,9 +25,9 @@ api_url: /api
 base_url: http://localhost:5000
 mapbox_map_id: conveyal.ie3o67m0
 otp:
-  host: ec2-23-21-67-127.compute-1.amazonaws.com
+  host: localhost
   path: /otp/routers/default
-  port: 80
+  port: 8080
 s3_bucket: ''
 segmentio_key: ''
 static_url: ''
@@ -45,18 +45,22 @@ environments:
   # Staging / QA
   staging:
     base_url: http://arlington.dev.conveyal.com
-    s3_bucket: arlington.dev.conveyal.com
+    opsworks:
+      app_id: 1d2d64dd-5ee0-4867-823b-6072e92e297d
+    s3_bucket: s3://carfreeatoz-staging/
     segmentio_key: qak98wes8c
-    static_url: https://s3.amazonaws.com/arlington.dev.conveyal.com
+    static_url: https://s3.amazonaws.com/carfreeatoz-staging
 
   # Production envrionment
   production:
-    base_url: http://arlington.conveyal.com
+    base_url: http://carfreeatoz.com
+    opsworks:
+      app_id: e6d503e7-2ded-49df-a62b-8ac2c000b963
     otp:
       host: ec2-54-234-252-174.compute-1.amazonaws.com
       path: /otp/routers/default
       port: 80
-    s3_bucket: arlington.conveyal.com
+    s3_bucket: s3://carfreeatoz/
     segmentio_key: 51cp2qlgkb
-    static_url: https://s3.amazonaws.com/arlington.conveyal.com
+    static_url: https://s3.amazonaws.com/carfreeatoz
 

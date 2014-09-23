@@ -31,7 +31,6 @@ components: node_modules component.json $(JSON)
 # Deploy to OpsWorks
 deploy: checkenv test
 	@aws opsworks create-deployment \
-		--stack-id `./bin/config-val opsworks.stack_id` \
 		--app-id `./bin/config-val opsworks.app_id` \
 		--command "{\"Name\":\"deploy\"}"
 
