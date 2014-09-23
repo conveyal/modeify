@@ -1,14 +1,8 @@
-
 /**
  * Module Dependencies
  */
 
-var expr;
-try {
-  expr = require('props');
-} catch(e) {
-  expr = require('component-props');
-}
+var expr = require('props');
 
 /**
  * Expose `toFunction()`.
@@ -50,7 +44,7 @@ function toFunction(obj) {
 function defaultToFunction(val) {
   return function(obj){
     return val === obj;
-  };
+  }
 }
 
 /**
@@ -64,7 +58,7 @@ function defaultToFunction(val) {
 function regexpToFunction(re) {
   return function(obj){
     return re.test(obj);
-  };
+  }
 }
 
 /**
@@ -92,11 +86,11 @@ function stringToFunction(str) {
  */
 
 function objectToFunction(obj) {
-  var match = {};
+  var match = {}
   for (var key in obj) {
     match[key] = typeof obj[key] === 'string'
       ? defaultToFunction(obj[key])
-      : toFunction(obj[key]);
+      : toFunction(obj[key])
   }
   return function(val){
     if (typeof val !== 'object') return false;
@@ -105,7 +99,7 @@ function objectToFunction(obj) {
       if (!match[key](val[key])) return false;
     }
     return true;
-  };
+  }
 }
 
 /**
@@ -120,33 +114,12 @@ function get(str) {
   var props = expr(str);
   if (!props.length) return '_.' + str;
 
-  var val, i, prop;
-  for (i = 0; i < props.length; i++) {
-    prop = props[i];
+  var val;
+  for(var i = 0, prop; prop = props[i]; i++) {
     val = '_.' + prop;
     val = "('function' == typeof " + val + " ? " + val + "() : " + val + ")";
-
-    // mimic negative lookbehind to avoid problems with nested properties
-    str = stripNested(prop, str, val);
+    str = str.replace(new RegExp(prop, 'g'), val);
   }
 
   return str;
-}
-
-/**
- * Mimic negative lookbehind to avoid problems with nested properties.
- *
- * See: http://blog.stevenlevithan.com/archives/mimic-lookbehind-javascript
- *
- * @param {String} prop
- * @param {String} str
- * @param {String} val
- * @return {String}
- * @api private
- */
-
-function stripNested (prop, str, val) {
-  return str.replace(new RegExp('(\\.)?' + prop, 'g'), function($0, $1) {
-    return $1 ? $0 : val;
-  });
 }
