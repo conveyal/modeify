@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+var env = process.env.NODE_ENV || 'development';
 
 var Builder = require('component-builder');
 var component = require('../component.json');
@@ -8,14 +8,15 @@ var fs = require('fs');
 var yml2js = require('js-yaml').load;
 var mkdir = require('mkdirp');
 var myth = require('myth');
+var read = fs.readFileSync;
 var resolve = require('path').resolve;
 var sqwish = require('sqwish');
 var uglify = require('uglify-js');
-var write = require('fs').writeFileSync;
+var write = fs.writeFileSync;
 
 // Convert the YAML config
 
-var config = yml2js(fs.readFileSync(__dirname + '/../config/public.yaml', 'utf8'));
+var config = yml2js(read(__dirname + '/../config/public.yaml', 'utf8'));
 
 // Set the rest of the public config.
 
@@ -60,7 +61,6 @@ function build(bundle) {
     if (res.js) {
       var js = 'window.CONFIG=' + JSON.stringify(config) + ';' + res.require +
         res.js + ';require("' + bundle + '");';
-      // TODO: Fix if (production) js = uglify.minify(js, { fromString: true }).code;
       write(resolve(dest, 'build.js'), js);
     }
 
