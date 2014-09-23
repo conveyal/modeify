@@ -64,5 +64,5 @@ environments:
       port: 80
     s3_bucket: s3://carfreeatoz/
     segmentio_key: 51cp2qlgkb
-    static_url: https://s3.amazonaws.com/carfreeatoz
+    static_url: https://d3u1zgjvsylgrw.cloudfront.net
 
