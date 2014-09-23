@@ -1,0 +1,38 @@
+
+/**
+ * Comment.
+ */
+
+table {
+  width: 100%;
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+}
+
+abbr {
+  font-feature-settings: "smcp", "c2sc";
+  font-variant-caps: all-small-caps;
+  text-decoration: underline;
+  font-size: 23px;
+}
+
+h1 {
+  font-feature-settings: normal;
+  font-variant: normal;
+}
+
+h1 a {
+  font-feature-settings: inherit;
+  font-variant: inherit;
+}
+
+h2 {
+  font-weight: bold;
+  font-feature-settings: "smcp", "c2sc", "onum";
+  font-variant: all-small-caps oldstyle-nums;
+}
+
+p {
+  font-feature-settings: normal;
+  font-variant-position: normal;
+}

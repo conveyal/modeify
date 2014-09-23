@@ -1,0 +1,64 @@
+{
+  "name": "supertest",
+  "version": "0.13.0",
+  "description": "Super-agent driven library for testing HTTP servers",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "dependencies": {
+    "superagent": "0.18.0",
+    "methods": "1.0.0"
+  },
+  "devDependencies": {
+    "express": "3.1.0",
+    "mocha": "1.19.0",
+    "should": "3.3.1"
+  },
+  "keywords": [
+    "superagent",
+    "request",
+    "tdd",
+    "bdd",
+    "http",
+    "test",
+    "testing"
+  ],
+  "author": {
+    "name": "TJ Holowaychuk"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/visionmedia/supertest.git"
+  },
+  "bugs": {
+    "url": "https://github.com/visionmedia/supertest/issues"
+  },
+  "homepage": "https://github.com/visionmedia/supertest",
+  "_id": "supertest@0.13.0",
+  "_shasum": "4892bafd9beaa9bbcc95fd5a9f04949aef1ce06f",
+  "_from": "supertest@~0.13.0",
+  "_npmVersion": "1.4.9",
+  "_npmUser": {
+    "name": "gjohnson",
+    "email": "gjohnson@recurly.com"
+  },
+  "maintainers": [
+    {
+      "name": "tjholowaychuk",
+      "email": "tj@vision-media.ca"
+    },
+    {
+      "name": "gjohnson",
+      "email": "gjj391@gmail.com"
+    }
+  ],
+  "dist": {
+    "shasum": "4892bafd9beaa9bbcc95fd5a9f04949aef1ce06f",
+    "tarball": "http://registry.npmjs.org/supertest/-/supertest-0.13.0.tgz"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/supertest/-/supertest-0.13.0.tgz",
+  "readme": "ERROR: No README data found!"
+}

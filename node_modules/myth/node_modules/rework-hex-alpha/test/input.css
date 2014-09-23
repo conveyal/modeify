@@ -1,0 +1,22 @@
+
+/**
+ * Comment.
+ */
+
+body {
+  color: #939;
+  color: #ff0000;
+  background: url(images/thing.png) #f303;
+  border-color: #ff330033;
+  background-color: color(#f303 tint(50%));
+}
+
+@media (min-height: 10px) {
+  body {
+    color: #939;
+    color: #ff0000;
+    background: url(images/thing.png) #f303;
+    border-color: #ff330033;
+    background-color: color(#f303 tint(50%));
+  }
+}

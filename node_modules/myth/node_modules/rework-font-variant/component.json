@@ -1,0 +1,13 @@
+{
+  "name": "rework-font-variant",
+  "version": "1.0.0",
+  "repository": "ianstormtaylor/rework-font-variant",
+  "license": "MIT",
+  "description": "Implements the font-variant-* properties for browsers that don't yet support them.",
+  "keywords": ["font-variant", "font", "variant", "rework", "type", "typography", "open", "type", "feature", "font-feature-settings"],
+  "scripts": [
+    "lib/index.js",
+    "lib/properties.js"
+  ],
+  "main": "lib/index.js"
+}
