@@ -19,8 +19,8 @@ var WelcomePage = require('welcome-page');
  * Default from / to addresses
  */
 
-var FROM = config.geocode.start_address;
-var TO = config.geocode.end_address;
+var FROM = config.geocode().start_address;
+var TO = config.geocode().end_address;
 
 /**
  * Tool tip position
