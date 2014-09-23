@@ -14,5 +14,5 @@ lib-cov
 config/env
 # config/public.json - for now...
 
-build/
+assets/build/
 coverage
