@@ -12,22 +12,14 @@ var request = require('./supertest');
  */
 
 var manager = hogan.compile(fs.readFileSync(__dirname +
-  '/../../client/manager.html', 'utf8')).render({
-  application: config.application,
-  static_url: '',
-  SEGMENTIO_KEY: process.env.SEGMENTIO_KEY
-});
+  '/../../client/manager.html', 'utf8')).render(config);
 
 /**
  * Planner
  */
 
 var planner = hogan.compile(fs.readFileSync(__dirname +
-  '/../../client/planner.html', 'utf8')).render({
-  application: config.application,
-  static_url: '',
-  SEGMENTIO_KEY: process.env.SEGMENTIO_KEY
-});
+  '/../../client/planner.html', 'utf8')).render(config);
 
 /**
  * Mocha

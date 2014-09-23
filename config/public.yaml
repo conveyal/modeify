@@ -25,9 +25,9 @@ api_url: /api
 base_url: http://localhost:5000
 mapbox_map_id: conveyal.ie3o67m0
 otp:
-  host: localhost
+  host: ec2-23-21-67-127.compute-1.amazonaws.com
   path: /otp/routers/default
-  port: 8080
+  port: 80
 s3_bucket: ''
 segmentio_key: ''
 static_url: /assets
