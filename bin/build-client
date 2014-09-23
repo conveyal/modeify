@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var env = process.env.NODE_ENV || 'development';
+var env = process.env.NODE_ENV || process.argv[2] || 'development';
 
 var Builder = require('component-builder');
 var component = require('../component.json');
@@ -16,7 +16,7 @@ var write = fs.writeFileSync;
 
 // Convert the YAML config
 
-var config = yml2js(read(__dirname + '/../config/public.yaml', 'utf8'));
+var config = yml2js(read(__dirname + '/../config/config.yaml', 'utf8'));
 
 // Set the rest of the public config.
 

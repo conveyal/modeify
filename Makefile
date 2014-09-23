@@ -7,8 +7,6 @@ TESTJS = $(shell find test -name '*.js')
 BINJS = $(shell find bin/*)
 JSON = $(shell find client -name '*.json')
 
-NODE_ENV = development
-
 build: components $(CSS) $(HTML) $(CLIENTJS) $(JSON)
 	@./bin/build-client $(NODE_ENV)
 
@@ -22,13 +20,12 @@ checkenv:
 ifndef NODE_ENV
 	$(error NODE_ENV is undefined)
 endif
-	@export NODE_ENV=$(NODE_ENV)
 
 components: node_modules component.json $(JSON)
 	@./node_modules/.bin/component install --dev --verbose
 
 # Deploy to OpsWorks
-deploy: checkenv test
+deploy: checkenv setenv
 	@aws opsworks create-deployment \
 		--app-id `./bin/config-val opsworks.app_id` \
 		--stack-id `./bin/config-val opsworks.stack_id` \
@@ -48,11 +45,12 @@ node_modules: package.json
 	@npm install
 
 # Run before each release
-release: checkenv test
+release: checkenv setenv
 	@./bin/build-client $(NODE_ENV)
 	@aws s3 sync assets `./bin/config-val s3_bucket` \
-		--acl public-read \
-		--delete
+		--acl public-read
+	@aws s3 cp config/config.yaml `./bin/config-val s3_bucket` \
+		--acl public-read
 
 # Watch & reload server
 serve: server.pid
@@ -60,8 +58,11 @@ server.pid: checkenv node_modules stop
 	@nohup bin/server > server.log </dev/null & echo "$$!" > server.pid
 	@echo "Logs stored in server.log"
 
+setenv:
+	@export NODE_ENV=$(NODE_ENV)
+
 stop:
 	@kill `cat server.pid` || true
 	@rm -f server.pid
 
-.PHONY: beautify checkenv deploy lint release serve stop
+.PHONY: beautify checkenv deploy lint release serve setenv stop

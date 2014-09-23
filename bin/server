@@ -12,7 +12,6 @@ if (env === undefined) {
 // Dependencies
 
 var execFile = require('child_process').execFile;
-var log = require('../lib/log');
 var nodemon = require('nodemon');
 
 // Set up Nodemon
@@ -37,6 +36,6 @@ nodemon.on('start', function() {
 
 function build() {
   if (env === 'development') execFile(__dirname + '/build-client', function(err) {
-    if (err) log.error(err);
+    if (err) console.error(err);
   });
 }

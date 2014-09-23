@@ -11,8 +11,9 @@ lib-cov
 .DS_Store
 .env
 
+config/config.yaml
 config/env
-# config/public.json - for now...
 
-assets/build/
+assets/build
+
 coverage
