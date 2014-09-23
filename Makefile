@@ -19,6 +19,7 @@ checkenv:
 ifndef NODE_ENV
 	$(error NODE_ENV is undefined)
 endif
+	@export NODE_ENV=$(NODE_ENV)
 
 clean:
 	@rm -rf build
@@ -26,6 +27,13 @@ clean:
 
 components: node_modules component.json $(JSON)
 	@./node_modules/.bin/component install --dev --verbose
+
+# Deploy to OpsWorks
+deploy: checkenv test
+	@aws opsworks create-deployment \
+		--stack-id `./bin/config-val opsworks.stack_id` \
+		--app-id `./bin/config-val opsworks.app_id` \
+		--command "{\"Name\":\"deploy\"}"
 
 # Install
 install: node_modules
@@ -39,10 +47,11 @@ node_modules: package.json
 	@npm install
 
 # Run before each release
-release: checkenv build test
-	@export NODE_ENV=$(NODE_ENV)
+release: checkenv test
+	@./bin/build-client $(NODE_ENV)
 	@aws s3 sync build `./bin/config-val s3_bucket` \
-		--acl public-read
+		--acl public-read \
+		--delete
 
 # Watch & reload server
 serve: server.pid
@@ -54,4 +63,4 @@ stop:
 	@kill `cat server.pid` || true
 	@rm -f server.pid
 
-.PHONY: beautify checkenv clean lint release serve start stop
+.PHONY: beautify checkenv clean deploy lint release serve start stop
