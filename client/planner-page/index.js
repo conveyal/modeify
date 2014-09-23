@@ -1,4 +1,5 @@
 var Batch = require('batch');
+var config = require('config');
 var each = require('each');
 var FilterView = require('filter-view');
 var LocationsView = require('locations-view');
@@ -18,8 +19,8 @@ var WelcomePage = require('welcome-page');
  * Default from / to addresses
  */
 
-var FROM = '4301 13th St NW Washington, DC 20011';
-var TO = '2100 Wilson Blvd, Arlington, VA';
+var FROM = config.geocode.start_address;
+var TO = config.geocode.end_address;
 
 /**
  * Tool tip position
