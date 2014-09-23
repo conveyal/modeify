@@ -1,9 +1,12 @@
 
-## Latest
+## 0.6.0 — 2014-09-23
 
 * Add more event tracking
 * Move test commands to package.json
 * Create Feedback model
+* Check in `components` & `node_modules`
+* Move images, email templates, and build into assets directory
+* Use AWS CLI to push to S3 instead of custom script
 
 ## 0.5.1 — 2014-09-12
 
