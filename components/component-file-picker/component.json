@@ -1,0 +1,17 @@
+{
+  "name": "file-picker",
+  "repo": "component/file-picker",
+  "description": "File picker component",
+  "author": "Damian Suarez <rdsuarez@gmail.com>",
+  "version": "0.2.0",
+  "keywords": [],
+  "dependencies": {
+    "component/event": "0.1.0"
+  },
+  "development": {
+    "component/object-url": "*"
+  },
+  "scripts": [
+    "index.js"
+  ]
+}

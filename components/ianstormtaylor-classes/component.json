@@ -1,0 +1,22 @@
+{
+  "name": "classes",
+  "repo": "ianstormtaylor/classes",
+  "license": "MIT",
+  "version": "0.1.0",
+  "description": "Quickly mixin class helper methods to a view.",
+  "keywords": [
+    "classes",
+    "mixin",
+    "view",
+    "el"
+  ],
+  "dependencies": {
+    "jkroso/classes": "1.1.0"
+  },
+  "development": {
+    "component/assert": "*"
+  },
+  "scripts": [
+    "index.js"
+  ]
+}

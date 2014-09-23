@@ -15,6 +15,5 @@ config/env
 # config/public.json - for now...
 
 build/
-components
 coverage
 node_modules

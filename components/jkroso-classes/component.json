@@ -1,0 +1,27 @@
+{
+  "name": "classes",
+  "repo": "jkroso/classes",
+  "description": "x-browser class manipulation",
+  "version": "1.1.0",
+  "keywords": [
+    "dom",
+    "html",
+    "classList",
+    "class",
+    "ui"
+  ],
+  "dependencies": {
+    "component/indexof": "0.0.1"
+  },
+  "development": {
+    "visionmedia/mocha": "1.12.0",
+    "component/assert": "0.2.0",
+    "jkroso/serve": "1.5.0"
+  },
+  "scripts": [
+    "index.js",
+    "fallback.js",
+    "modern.js"
+  ],
+  "license": "MIT"
+}

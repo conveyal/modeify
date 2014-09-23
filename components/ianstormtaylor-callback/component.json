@@ -1,0 +1,21 @@
+{
+  "name": "callback",
+  "repo": "ianstormtaylor/callback",
+  "license": "MIT",
+  "version": "0.0.1",
+  "description": "Sugar for couthly calling functions back.",
+  "keywords": [
+    "callback",
+    "function",
+    "fn"
+  ],
+  "dependencies": {
+    "timoxley/next-tick": "*"
+  },
+  "development": {
+    "component/assert": "*"
+  },
+  "scripts": [
+    "index.js"
+  ]
+}

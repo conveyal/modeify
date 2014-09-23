@@ -1,0 +1,91 @@
+.Modal {
+  position: fixed;
+  opacity: 1;
+  z-index: 1001;
+  max-width: 500px;
+  top: 30%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+
+/**
+ * So transitions actually work
+ */
+
+.Modal.hidden {
+  display: block;
+}
+
+
+/**
+ * Default show/hide effect
+ */
+
+.Modal[effect="toggle"].hidden {
+  display: none;
+}
+
+
+/**
+ * Slide in from the bottom
+ */
+
+.Modal[effect="slide-in-bottom"] {
+  top: 30%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(0);
+  -moz-transform: translateX(-50%) translateY(0);
+  transform: translateX(-50%) translateY(0);
+  transition: all .4s cubic-bezier(0.560, 0.185, 0.315, 1.150);
+}
+
+.Modal[effect="slide-in-bottom"].hidden {
+  -webkit-transform: translateX(-50%) translateY(30%);
+  -moz-transform: translateX(-50%) translateY(30%);
+  transform: translateX(-50%) translateY(30%);
+  opacity: 0;
+}
+
+
+/**
+ * Sticky-up
+ */
+
+.Modal[effect="sticky-up"] {
+  top: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(0);
+  -moz-transform: translateX(-50%) translateY(0);
+  transform: translateX(-50%) translateY(0);
+  transition: all .4s ease-in-out;
+}
+
+.Modal[effect="sticky-up"].hidden {
+  -webkit-transform: translateX(-50%) translateY(-100%);
+  -moz-transform: translateX(-50%) translateY(-100%);
+  transform: translateX(-50%) translateY(-100%);
+}
+
+
+/**
+ * Fade in and scale up from the middle
+ */
+
+.Modal[effect="fade-and-scale"] {
+  top: 30%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(0) scale(1);
+  -moz-transform: translateX(-50%) translateY(0) scale(1);
+  transform: translateX(-50%) translateY(0) scale(1);
+  transition: all .4s cubic-bezier(0.560, 0.185, 0.315, 1.150);
+}
+
+.Modal[effect="fade-and-scale"].hidden {
+  -webkit-transform: translateX(-50%) translateY(0%) scale(0.5);
+  -moz-transform: translateX(-50%) translateY(0%) scale(0.5);
+  transform: translateX(-50%) translateY(0%) scale(0.5);
+  opacity: 0;
+}

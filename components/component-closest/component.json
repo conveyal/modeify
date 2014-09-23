@@ -1,0 +1,14 @@
+{
+  "name": "closest",
+  "description": "Find the closest ancestor matching a selector string",
+  "version": "0.1.4",
+  "repo": "component/closest",
+  "dependencies": {
+    "component/matches-selector": "0.1.5"
+  },
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "license": "MIT"
+}

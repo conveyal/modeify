@@ -1,0 +1,15 @@
+{
+  "name": "once",
+  "repo": "component/once",
+  "description": "Make a function or method callable only once",
+  "version": "0.0.1",
+  "keywords": [
+    "cache"
+  ],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "scripts": [
+    "index.js"
+  ]
+}

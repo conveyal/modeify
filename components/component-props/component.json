@@ -1,0 +1,19 @@
+{
+  "name": "props",
+  "repo": "component/props",
+  "description": "Parse immediate identifiers from a js expression",
+  "version": "1.0.2",
+  "keywords": [
+    "template",
+    "engine",
+    "parse",
+    "parser"
+  ],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}

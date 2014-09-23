@@ -1,0 +1,32 @@
+{
+  "name": "overlay",
+  "repo": "segmentio/overlay",
+  "description": "A simple overlay UI component.",
+  "version": "0.2.3",
+  "keywords": [
+    "overlay",
+    "mask",
+    "screen"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "component/emitter": "*",
+    "component/domify": "*",
+    "segmentio/showable": "0.1.1",
+    "ianstormtaylor/classes": "0.1.0"
+  },
+  "development": {
+    "component/assert": "*",
+    "ianstormtaylor/trigger-event": "*"
+  },
+  "scripts": [
+    "lib/index.js"
+  ],
+  "styles": [
+    "lib/index.css"
+  ],
+  "templates": [
+    "lib/index.html"
+  ],
+  "main": "lib/index.js"
+}

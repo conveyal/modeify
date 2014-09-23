@@ -1,0 +1,20 @@
+{
+  "name": "luminosity",
+  "version": "0.0.1",
+  "description": "color luminosity tools",
+  "repo": "ramitos/luminosity",
+  "keywords": [
+    "light",
+    "dark",
+    "contrast",
+    "luminosity"
+  ],
+  "homepage": "https://github.com/ramitos/luminosity",
+  "license": "MIT",
+  "author": "Sérgio Ramos <mail@sergioramos.me> (http://sergioramos.me)",
+  "twitter": "@ramitos",
+  "main": "src/luminosity.js",
+  "scripts": [
+    "src/luminosity.js"
+  ]
+}

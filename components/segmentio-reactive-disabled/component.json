@@ -1,0 +1,14 @@
+{
+  "name": "reactive-disabled",
+  "repo": "segmentio/reactive-disabled",
+  "description": "Toggle the disabled attribute of an element",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}

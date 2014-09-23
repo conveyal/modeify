@@ -1,0 +1,32 @@
+{
+  "name": "css",
+  "repo": "component/css",
+  "description": "jquery's css()",
+  "version": "0.0.6",
+  "keywords": [],
+  "dependencies": {
+    "component/each": "*",
+    "visionmedia/debug": "*",
+    "ianstormtaylor/to-camel-case": "0.2.1",
+    "component/within-document": "0.0.1"
+  },
+  "development": {
+    "component/domify": "*",
+    "component/assert": "*",
+    "component/load-styles": "*"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js",
+    "lib/css.js",
+    "lib/prop.js",
+    "lib/swap.js",
+    "lib/style.js",
+    "lib/hooks.js",
+    "lib/styles.js",
+    "lib/vendor.js",
+    "lib/support.js",
+    "lib/computed.js"
+  ]
+}

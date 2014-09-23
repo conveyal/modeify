@@ -1,0 +1,22 @@
+{
+  "name": "to-sentence-case",
+  "repo": "ianstormtaylor/to-sentence-case",
+  "license": "MIT",
+  "version": "0.1.1",
+  "description": "Convert a string to a sentence case.",
+  "keywords": [
+    "sentence",
+    "case",
+    "sentencecase",
+    "string"
+  ],
+  "dependencies": {
+    "ianstormtaylor/to-no-case": "0.1.1"
+  },
+  "development": {
+    "component/assert": "*"
+  },
+  "scripts": [
+    "index.js"
+  ]
+}

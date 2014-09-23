@@ -1,0 +1,16 @@
+{
+  "name": "within-element",
+  "repo": "component/within-element",
+  "description": "check if an element is within the element",
+  "version": "0.1.0",
+  "keywords": [
+    "dom",
+    "element"
+  ],
+  "dependencies": {},
+  "development": {},
+  "scripts": [
+    "index.js"
+  ],
+  "license": "MIT"
+}

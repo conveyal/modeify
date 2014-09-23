@@ -1,0 +1,17 @@
+{
+  "name": "showable",
+  "description": "Make a view showable and hideable",
+  "scripts": [
+    "index.js"
+  ],
+  "dependencies": {
+    "timoxley/next-tick": "*",
+    "yields/after-transition": "*",
+    "segmentio/on-escape": "*"
+  },
+  "development": {
+    "component/assert": "*",
+    "component/emitter": "*"
+  },
+  "repo": "https://raw.githubusercontent.com/segmentio/showable"
+}
