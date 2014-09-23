@@ -21,7 +21,7 @@ nodemon({
   ignore: ['*.out', '*.pid', '*.swp'],
   script: 'server.js',
   verbose: true,
-  watch: ['assets/email', 'bin', 'client', 'lib' ]
+  watch: ['assets/email', 'bin', 'client', 'lib']
 });
 
 // Beuild on restart

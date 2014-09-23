@@ -6,7 +6,7 @@ var modal = require('modal');
  * Modes
  */
 
-var MODES = [ 'bike', 'bus', 'train', 'car', 'walk' ];
+var MODES = ['bike', 'bus', 'train', 'car', 'walk'];
 
 /**
  * Create `Modal`
@@ -28,7 +28,9 @@ Modal.prototype.save = function(e) {
 
   var alerts = this.find('.alerts');
   var self = this;
-  var modes = MODES.map(function(m) { return self.mode(m); });
+  var modes = MODES.map(function(m) {
+    return self.mode(m);
+  });
 
   if (!modes.reduce(function(a, b) {
     return a || b;

@@ -12,7 +12,8 @@ var view = require('view');
  * Expose `View`
  */
 
-var View = module.exports = view(require('./template.html'), function(view, plan) {
+var View = module.exports = view(require('./template.html'), function(view,
+  plan) {
   view.on('rendered', function() {
     closest(view.el, 'form').onsubmit = function(e) {
       e.preventDefault();
