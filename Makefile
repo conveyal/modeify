@@ -33,6 +33,10 @@ deploy: checkenv test
 		--app-id `./bin/config-val opsworks.app_id` \
 		--stack-id `./bin/config-val opsworks.stack_id` \
 		--command "{\"Name\":\"deploy\"}"
+	@aws opsworks create-deployment \
+		--app-id `./bin/config-val opsworks.app_id` \
+		--stack-id `./bin/config-val opsworks.stack_id` \
+		--command "{\"Name\":\"start\"}"
 
 # Lint JavaScript with JSHint
 lint:
