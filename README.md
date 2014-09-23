@@ -27,7 +27,7 @@ $ cd commute-planner
 
 ### Environment Variables & Config
 
-All environment variables needed can be found in `config/env.tmp` and environment specific URLS can be found in `config/public.json.tmp`. Copy the `.tmp` files to non-temp versions and configure accordingly. Environment variables can also be set machine wide for deployment.
+All environment variables needed can be found in `config/env.tmp` and environment specific URLS can be found in `config/public.yaml`. Copy the `.tmp` files to non-temp versions and configure accordingly. Environment variables can also be set machine wide for deployment.
 
 ### MongoDB
 
@@ -35,7 +35,7 @@ Install [locally](http://www.mongodb.org/downloads) or use a service like [Mongo
 
 ### OpenTripPlanner
 
-The planner requires an instance of [OpenTripPlanner](http://opentripplanner.com) running with the GTFS feeds you would like to analyze. Manage your OTP endpoint in `config/public.json`.
+The planner requires an instance of [OpenTripPlanner](http://opentripplanner.com) running with the GTFS feeds you would like to analyze. Manage your OTP endpoint in `config/public.yaml`.
 
 ### Component
 
@@ -59,4 +59,4 @@ Kills the server and cleans up the `.pid`.
 
 ## Pushing to S3
 
-Configure [s3cmd](http://s3tools.org/s3cmd) and run `make release NODE_ENV={staging|production}`, it will build using the environment specified and sync the `build` directory with your S3 Bucket.
+Configure the [aws](http://docs.aws.amazon.com/cli/latest/reference/) CLI tool and run `make release NODE_ENV={staging|production}`, it will build using the environment specified and sync the `assets` directory with your S3 Bucket set in `config/public.yaml`.
