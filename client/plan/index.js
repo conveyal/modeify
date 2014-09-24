@@ -31,7 +31,7 @@ var Plan = module.exports = model('Plan')
     from: '',
     from_valid: false,
     options: [],
-    per_year: true,
+    per_year: false,
     start_time: 7,
     to: '',
     to_valid: false,
