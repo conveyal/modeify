@@ -12,6 +12,7 @@ lib-cov
 .env
 
 config/config.yaml
+config/deployments
 config/env
 
 assets/build
