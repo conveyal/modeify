@@ -17,6 +17,8 @@
 .Options .separator {
 	color: var(--darkest);
 	padding-left: 5px;
+	font-size: 14px;
+	font-weight: bold;
 }
 
 .Options .annual-day-trigger {
