@@ -50,7 +50,6 @@ module.exports = function(opts, fn) {
   Modal.prototype.hide = function(e) {
     log('hiding modal');
 
-    if (e) e.preventDefault();
     if (this.modal) this.modal.hide();
 
     active = null;
