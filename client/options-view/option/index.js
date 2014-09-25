@@ -93,7 +93,7 @@ View.prototype.segments = function() {
     var color = patterns[0].color;
 
     // Check for a walking distance to see if you are boarding or transferring
-    if (segment.walkTime !== 0) {
+    if (segment.walkTime !== 0 || i === 0) {
       if (i > 0) {
         addDetail({
           description: 'Walk ' + Math.ceil(segment.walkTime / 60) + ' min',
