@@ -50,6 +50,7 @@ function milesToString(miles) {
  */
 
 exports.routeToColor = function(type, agency, line, color) {
+  console.log(type, agency, line, color);
   switch (agency) {
     case 'dc':
       if (type === 1 || type === 'TRANSIT') return colors[line];
@@ -58,7 +59,7 @@ exports.routeToColor = function(type, agency, line, color) {
       if (color.chartAt(0) === '#') return color;
       return '#' + color;
     default:
-      return colors[agency];
+      return colors[agency] || '#' + color;
   }
 };
 
