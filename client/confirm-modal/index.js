@@ -16,6 +16,7 @@ var Modal = modal({
 Modal.prototype.confirm = function(e) {
   e.preventDefault();
   this.model.confirmCallback.apply(this, e);
+  this.hide();
 };
 
 /**
