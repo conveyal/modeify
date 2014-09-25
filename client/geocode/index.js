@@ -1,6 +1,4 @@
-var config = require('config');
-var debug = require('debug')(config.name() + ':geocode');
-var jsonp = require('jsonp');
+var log = require('log')('geocode');
 var get = require('request').get;
 
 /**
@@ -15,13 +13,13 @@ module.exports.suggest = suggest;
  */
 
 function geocode(address, callback) {
-  debug('--> geocoding %s', address);
+  log('--> geocoding %s', address);
   get('/geocode/' + address, function(err, res) {
     if (err) {
-      debug('<-- geocoding error %s', err);
+      log('<-- geocoding error %s', err);
       callback(err, res);
     } else {
-      debug('<-- geocoding complete %j', res.body);
+      log('<-- geocoding complete %j', res.body);
       callback(null, res.body);
     }
   });
@@ -32,35 +30,14 @@ function geocode(address, callback) {
  */
 
 function suggest(text, callback) {
-  debug('--> getting suggestion for %s', text);
+  log('--> getting suggestion for %s', text);
   get('/geocode/suggest/' + text, function(err, res) {
     if (err) {
-      debug('<-- suggestion error %s', err);
+      log('<-- suggestion error %s', err);
       callback(err, res);
     } else {
-      debug('<-- got %s suggestions', res.body.length);
+      log('<-- got %s suggestions', res.body.length);
       callback(null, res.body);
     }
   });
 }
-
-/**
- * From IP Address
- */
-
-module.exports.fromIp = function(callback) {
-  debug('--> geocode from current IP address');
-  jsonp('ipinfo.io', function(err, data) {
-    if (err) {
-      debug('<-- geocoding error %s', err);
-      callback(err, data);
-    } else {
-      debug('<-- geocoding complete %j', data);
-      var ll = data.loc.split(',');
-      callback(null, {
-        lat: ll[0],
-        lng: ll[1]
-      });
-    }
-  });
-};
