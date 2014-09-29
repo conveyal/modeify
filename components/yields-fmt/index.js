@@ -1,5 +1,13 @@
 
 /**
+ * toString.
+ */
+
+var toString = window.JSON
+  ? JSON.stringify
+  : function(_){ return String(_); };
+
+/**
  * Export `fmt`
  */
 
@@ -9,7 +17,7 @@ module.exports = fmt;
  * Formatters
  */
 
-fmt.o = JSON.stringify;
+fmt.o = toString;
 fmt.s = String;
 fmt.d = parseInt;
 

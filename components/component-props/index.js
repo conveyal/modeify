@@ -1,15 +1,22 @@
+/**
+ * Global Names
+ */
+
+var globals = /\b(this|Array|Date|Object|Math|JSON)\b/g;
 
 /**
  * Return immediate identifiers parsed from `str`.
  *
  * @param {String} str
+ * @param {String|Function} map function or prefix
  * @return {Array}
  * @api public
  */
 
-module.exports = function(str, prefix){
+module.exports = function(str, fn){
   var p = unique(props(str));
-  if (prefix) return prefixed(str, p, prefix);
+  if (fn && 'string' == typeof fn) fn = prefixed(fn);
+  if (fn) return map(str, p, fn);
   return p;
 };
 
@@ -24,26 +31,27 @@ module.exports = function(str, prefix){
 function props(str) {
   return str
     .replace(/\.\w+|\w+ *\(|"[^"]*"|'[^']*'|\/([^/]+)\//g, '')
-    .match(/[a-zA-Z_]\w*/g)
+    .replace(globals, '')
+    .match(/[$a-zA-Z_]\w*/g)
     || [];
 }
 
 /**
- * Return `str` with `props` prefixed with `prefix`.
+ * Return `str` with `props` mapped with `fn`.
  *
  * @param {String} str
  * @param {Array} props
- * @param {String} prefix
+ * @param {Function} fn
  * @return {String}
  * @api private
  */
 
-function prefixed(str, props, prefix) {
+function map(str, props, fn) {
   var re = /\.\w+|\w+ *\(|"[^"]*"|'[^']*'|\/([^/]+)\/|[a-zA-Z_]\w*/g;
   return str.replace(re, function(_){
-    if ('(' == _[_.length - 1]) return prefix + _;
+    if ('(' == _[_.length - 1]) return fn(_);
     if (!~props.indexOf(_)) return _;
-    return prefix + _;
+    return fn(_);
   });
 }
 
@@ -64,4 +72,14 @@ function unique(arr) {
   }
 
   return ret;
+}
+
+/**
+ * Map with prefix `str`.
+ */
+
+function prefixed(str) {
+  return function(_){
+    return str + _;
+  };
 }
