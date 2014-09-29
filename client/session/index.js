@@ -1,8 +1,7 @@
 var analytics = require('analytics');
 var cookie = require('cookie');
 var Commuter = require('commuter');
-var config = require('config');
-var debug = require('debug')(config.application() + ':session');
+var log = require('log')('session');
 var defaults = require('model-defaults');
 var model = require('model');
 var Organization = require('organization');
@@ -36,7 +35,7 @@ var Session = model('Session')
  */
 
 Session.prototype.logout = function(next) {
-  debug('--> logging out');
+  log('--> logging out');
 
   var plan = session.plan();
   if (plan) plan.clearStore();
@@ -52,7 +51,7 @@ Session.prototype.logout = function(next) {
     cookie('commuter', null);
     cookie('user', null);
 
-    debug('<-- logged out %s', res.text);
+    log('<-- logged out %s', res.text);
     if (next) next(err, res);
   });
 };
@@ -62,7 +61,7 @@ Session.prototype.logout = function(next) {
  */
 
 Session.prototype.login = function(data) {
-  debug('--> login');
+  log('--> login');
 
   var commuter = null;
   var type = null;
@@ -70,7 +69,7 @@ Session.prototype.login = function(data) {
 
   // is this a commuter object with a reference to a user?
   if (data._user) {
-    debug('--- login as %s', data._user.email);
+    log('--- login as %s', data._user.email);
 
     // Create the commuter object
     commuter = new Commuter(data);
@@ -93,7 +92,7 @@ Session.prototype.login = function(data) {
   session.isManager(type !== 'commuter');
   session.isLoggedIn(true);
 
-  debug('<-- login complete');
+  log('<-- login complete');
 };
 
 /**
@@ -101,14 +100,14 @@ Session.prototype.login = function(data) {
  */
 
 Session.on('change user', function(session, user, prev) {
-  debug('--> identifying user');
+  log('--> identifying user');
   if (user && user._id) {
     analytics.identify(user._id(), user.toJSON());
-    debug('<-- tracking %s', user.email());
+    log('<-- tracking %s', user.email());
   } else if (user !== prev) {
     var id = 'guest-' + uid(9);
     analytics.identify(id);
-    debug('<-- tracking %s', id);
+    log('<-- tracking %s', id);
   }
 });
 
@@ -123,15 +122,15 @@ var session = window.session = module.exports = new Session();
  */
 
 session.loginWithLink = function(ctx, next) {
-  debug('--> logging in with link %s', ctx.params.link);
+  log('--> logging in with link %s', ctx.params.link);
   ctx.redirect = '/planner';
   request.get('/login/' + ctx.params.link, function(err, res) {
     if (res.ok && res.body) {
       session.login(res.body);
-      debug('<-- successfully logged in with link');
+      log('<-- successfully logged in with link');
       next();
     } else {
-      debug('<-- failed to login with link: %s', err || res.text);
+      log.warn('<-- failed to login with link: %e', err);
       next(err || new Error(res.text));
     }
   });
@@ -142,14 +141,14 @@ session.loginWithLink = function(ctx, next) {
  */
 
 session.loginAnonymously = function(next) {
-  debug('--> logging in anonymously');
+  log('--> logging in anonymously');
   request.get('/login-anonymously', function(err, res) {
     if (res.ok && res.body) {
       session.login(res.body);
-      debug('<-- logged in anonymously');
+      log('<-- logged in anonymously');
       next();
     } else {
-      debug('<-- failed to log in anonymously: %s', err || res.error || res.text);
+      log.warn('<-- failed to log in anonymously: %e', err || res.error);
       next(err || res.error || res.text);
     }
   });
@@ -160,14 +159,14 @@ session.loginAnonymously = function(next) {
  */
 
 session.commuterIsLoggedIn = function(ctx, next) {
-  debug('--> checking if commuter is logged in %s', ctx.path);
+  log('--> checking if commuter is logged in %s', ctx.path);
   request.get('/commuter-is-logged-in', function(err, res) {
     if (res.ok && res.body) {
       session.login(res.body);
-      debug('<-- commuter is logged in');
+      log('<-- commuter is logged in');
       next();
     } else {
-      debug('<-- commuter is not logged in: %s', err || res.error || res.text);
+      log.warn('<-- commuter is not logged in: %e', err || res.error);
       session.loginAnonymously(next);
     }
   });
@@ -178,7 +177,7 @@ session.commuterIsLoggedIn = function(ctx, next) {
  */
 
 session.logoutMiddleware = function(ctx) {
-  debug('logout %s', ctx.path);
+  log('logout %s', ctx.path);
 
   session.logout();
   request.get('/logout', function(err, res) {
@@ -192,7 +191,7 @@ session.logoutMiddleware = function(ctx) {
  */
 
 session.checkIfLoggedIn = function(ctx, next) {
-  debug('check if user is logged in %s', ctx.path);
+  log('check if user is logged in %s', ctx.path);
 
   if (session.user()) {
     next();
@@ -213,7 +212,7 @@ session.checkIfLoggedIn = function(ctx, next) {
  */
 
 session.checkIfAdmin = function(ctx, next) {
-  debug('is admin %s', ctx.path);
+  log('is admin %s', ctx.path);
   if (session.user().type() !== 'administrator') {
     page('/manager/organizations');
   } else {
@@ -226,7 +225,7 @@ session.checkIfAdmin = function(ctx, next) {
  */
 
 session.checkIfManager = function(ctx, next) {
-  debug('is manager %s', ctx.path);
+  log('is manager %s', ctx.path);
   if (session.user().type() === 'commuter') {
     page('/manager/login');
   } else {

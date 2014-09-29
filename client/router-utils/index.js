@@ -32,6 +32,7 @@ module.exports.render = function(ctx, next) {
   // if no view has been created or ther was an error, create an error page
   if (!ctx.view || ctx.error) ctx.view = new Page404(ctx.error || {});
 
+  // Store the new view
   view = ctx.view;
 
   $main.innerHTML = '';

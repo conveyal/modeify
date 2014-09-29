@@ -12,6 +12,7 @@
     "analytics",
     "commuter",
     "config",
+    "log",
     "organization",
     "request",
     "user"
