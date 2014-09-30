@@ -123,6 +123,7 @@ function updateRoutes(plan, opts, callback) {
         var a = o.access[0];
         switch (a.mode) {
           case 'BICYCLE':
+          case 'CAR':
             if (a.time < 300) return false;
             break;
           case 'WALK':

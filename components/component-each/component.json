@@ -2,7 +2,7 @@
   "name": "each",
   "repo": "component/each",
   "description": "Array / object / string iteration utility",
-  "version": "0.2.4",
+  "version": "0.2.3",
   "keywords": [
     "object",
     "string",
@@ -11,8 +11,8 @@
     "utility"
   ],
   "dependencies": {
-    "component/type": "1.0.0",
-    "component/to-function": "2.0.5"
+    "component/to-function": "2.0.0",
+    "component/type": "1.0.0"
   },
   "development": {},
   "scripts": [

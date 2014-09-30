@@ -54,7 +54,7 @@ release: checkenv setenv
 
 # Watch & reload server
 serve: server.pid
-server.pid: checkenv node_modules stop
+server.pid: checkenv stop
 	@nohup bin/server > server.log </dev/null & echo "$$!" > server.pid
 	@echo "Logs stored in server.log"
 

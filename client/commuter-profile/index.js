@@ -65,6 +65,7 @@ Modal.prototype.submitEmailAddress = function(e) {
       }).el);
       button.disabled = false;
     } else {
+      alerts.innerHTML = null;
       form.remove();
       alerts.appendChild(Alert({
         type: 'success',
