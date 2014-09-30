@@ -57,9 +57,12 @@ exports.routeToColor = function(type, agency, line, color) {
     case 'fairfax connector':
       if (color.chartAt(0) === '#') return color;
       return '#' + color;
-    default:
-      return colors[agency] || '#' + color;
   }
+
+  if (colors[agency] || color)
+    return colors[agency] || '#' + color;
+
+  return '#fff';
 };
 
 /**
@@ -67,6 +70,7 @@ exports.routeToColor = function(type, agency, line, color) {
  */
 
 var colors = {
+  '1': '#55b848', // ART TODO: Dont have hacky agency
   'agency#1': '#55b848', // ART
   'agency#3': '#2c9f4b', // Maryland Commute Bus
   art: '#55b848',
