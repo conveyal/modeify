@@ -62,7 +62,7 @@ exports.routeToColor = function(type, agency, line, color) {
   if (colors[agency] || color)
     return colors[agency] || '#' + color;
 
-  return '#fff';
+  return '#333';
 };
 
 /**
