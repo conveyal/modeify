@@ -18,5 +18,6 @@ config/deployments
 config/env
 
 assets/build
+assets/otp
 
 coverage
