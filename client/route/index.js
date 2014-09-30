@@ -144,7 +144,7 @@ Route.prototype.frequency = function() {
   var start = plan.start_time();
   var end = plan.end_time();
 
-  return Math.round(trips / (end - start));
+  return Math.round(60 / (trips / (end - start)));
 };
 
 /**
