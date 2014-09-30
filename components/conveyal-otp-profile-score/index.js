@@ -143,8 +143,6 @@ ProfileScore.prototype.score = function(o) {
  */
 
 ProfileScore.prototype.tally = function(o) {
-  o.time = o.stats.avg / 60;
-
   // Defaults
   o.bikeCalories = 0;
   o.calories = 0;
@@ -163,7 +161,9 @@ ProfileScore.prototype.tally = function(o) {
   var access = o.access[0];
   var accessDistance = walkStepsDistance(access);
   var accessMode = access.mode.toLowerCase();
+
   o.modes.push(accessMode);
+  o.time = access.time / 60;
   switch (accessMode) {
     case 'car':
       o.driveDistance = accessDistance;
@@ -175,25 +175,23 @@ ProfileScore.prototype.tally = function(o) {
       break;
     case 'bicycle':
       o.bikeDistance = accessDistance;
-      o.time = (o.bikeDistance / this.rates.bikeSpeed) / 60; // seconds to minutes
       o.bikeCalories = caloriesBurned(CYCLING_MET, this.rates.weight, o.time /
         60);
       break;
     case 'walk':
-      o.walkDistance += accessDistance;
-      o.time = (o.walkDistance / this.rates.walkSpeed) / 60; // seconds to minutes
+      o.walkDistance = accessDistance;
       break;
   }
 
   // Tally egress
   if (o.egress && o.egress.length > 0) {
     if (o.modes.indexOf('walk') === -1) o.modes.push('walk');
+    o.time += o.egress[0].time / 60;
     o.walkDistance += walkStepsDistance(o.egress[0]);
   }
 
   // Tally transit
   if (o.transit && o.transit.length > 0) {
-    o.time = 0;
     o.transitCost = 0;
     o.trips = Infinity;
 
@@ -204,8 +202,8 @@ ProfileScore.prototype.tally = function(o) {
       var trips = segment.segmentPatterns[0].nTrips;
       if (trips < o.trips) o.trips = trips;
 
-      // Add wait time & transit time
-      o.time += (segment.waitStats.avg + segment.rideStats.avg) / 60;
+      // Add walk time, wait time, & ride time
+      o.time += (segment.walkTime + segment.waitStats.avg + segment.rideStats.avg) / 60;
 
       // Increment the total walk distance
       o.walkDistance += segment.walkDistance;
@@ -216,7 +214,6 @@ ProfileScore.prototype.tally = function(o) {
     });
 
     o.cost += o.transitCost;
-    o.time += (o.walkDistance / this.rates.walkSpeed) / 60;
   }
 
   // Set the walking calories burned

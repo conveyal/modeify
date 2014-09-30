@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -37,6 +36,7 @@ module.exports = function(el){
  */
 
 function ClassList(el) {
+  if (!el) throw new Error('A DOM element reference is required');
   this.el = el;
   this.list = el.classList;
 }
@@ -112,26 +112,45 @@ ClassList.prototype.removeMatching = function(re){
 };
 
 /**
- * Toggle class `name`.
+ * Toggle class `name`, can force state via `force`.
+ *
+ * For browsers that support classList, but do not support `force` yet,
+ * the mistake will be detected and corrected.
  *
  * @param {String} name
+ * @param {Boolean} force
  * @return {ClassList}
  * @api public
  */
 
-ClassList.prototype.toggle = function(name){
+ClassList.prototype.toggle = function(name, force){
   // classList
   if (this.list) {
-    this.list.toggle(name);
+    if ("undefined" !== typeof force) {
+      if (force !== this.list.toggle(name, force)) {
+        this.list.toggle(name); // toggle again to correct
+      }
+    } else {
+      this.list.toggle(name);
+    }
     return this;
   }
 
   // fallback
-  if (this.has(name)) {
-    this.remove(name);
+  if ("undefined" !== typeof force) {
+    if (!force) {
+      this.remove(name);
+    } else {
+      this.add(name);
+    }
   } else {
-    this.add(name);
+    if (this.has(name)) {
+      this.remove(name);
+    } else {
+      this.add(name);
+    }
   }
+
   return this;
 };
 
@@ -143,8 +162,9 @@ ClassList.prototype.toggle = function(name){
  */
 
 ClassList.prototype.array = function(){
-  var arr = this.el.className.split(re);
-  if ('' === arr[0]) arr.pop();
+  var str = this.el.className.replace(/^\s+|\s+$/g, '');
+  var arr = str.split(re);
+  if ('' === arr[0]) arr.shift();
   return arr;
 };
 
