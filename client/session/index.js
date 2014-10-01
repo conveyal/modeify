@@ -166,7 +166,7 @@ session.commuterIsLoggedIn = function(ctx, next) {
       log('<-- commuter is logged in');
       next();
     } else {
-      log.warn('<-- commuter is not logged in: %e', err || res.error);
+      log('<-- commuter is not logged in: %e', err || res.error);
       session.loginAnonymously(next);
     }
   });
@@ -193,7 +193,7 @@ session.logoutMiddleware = function(ctx) {
 session.checkIfLoggedIn = function(ctx, next) {
   log('check if user is logged in %s', ctx.path);
 
-  if (session.user()) {
+  if (session.isLoggedIn()) {
     next();
   } else {
     request.get('/is-logged-in', function(err, res) {

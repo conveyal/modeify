@@ -35,10 +35,10 @@ View.prototype.login = function(e) {
         type: 'success',
         text: 'Welcome back!'
       });
-      session.login(res.body);
 
+      session.login(res.body);
       if (isManager) page('/manager/organizations');
-      else page('/planner');
+      else page('/');
     } else {
       debug(err || res.error || res.text);
       window.alert(res.text || 'Failed to login.');

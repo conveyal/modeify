@@ -31,13 +31,13 @@ module.exports = function profile(query, callback) {
 
   profiler.profile(query, function(err, data) {
     if (err || !data) {
-      log.error('<-- error profiling %j', err);
+      log.error('<-- error profiling %e', err);
       callback(err);
     } else {
       query.profile = data;
       profiler.journey(query, function(err, journey) {
         if (err) {
-          log.error('<-- error profiling %j', err);
+          log.error('<-- error profiling %e', err);
           callback(err);
         } else {
           log('<-- profiled %s options', data.options.length);

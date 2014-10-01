@@ -117,7 +117,7 @@ View.prototype.showWelcomeWizard = function() {
   welcome.modal.on('hide', showFrom);
 
   function showFrom() {
-    fromTip.show('.input-group.from');
+    /* fromTip.show('.input-group.from');
 
     var fromLocation = document.getElementById('from-location');
     fromLocation.focus();
@@ -131,7 +131,7 @@ View.prototype.showWelcomeWizard = function() {
       fromTip.hide();
     };
 
-    fromTip.on('hide', showTo);
+    fromTip.on('hide', showTo); */
   }
 
   function showTo() {

@@ -54,11 +54,11 @@ Modal.prototype.submitEmailAddress = function(e) {
   var button = form.querySelector('button');
 
   button.disabled = true;
-  request.post('/users/change-password-request', {
+  request.post('/commuters/add-email', {
     email: email
   }, function(err, res) {
     if (err) {
-      log.error('%e %s', err, email);
+      log.warn('%e %s', err);
       alerts.appendChild(Alert({
         type: 'warning',
         text: 'Failed to add email address.'
@@ -72,7 +72,6 @@ Modal.prototype.submitEmailAddress = function(e) {
         text: 'An email has been sent to ' + email +
           ' with instructions to add a password and confirm your account.'
       }).el);
-
     }
   });
 };
@@ -82,7 +81,7 @@ Modal.prototype.submitEmailAddress = function(e) {
  */
 
 Modal.prototype.anonymous = function() {
-  return this.model.commuter._user().anonymous;
+  return this.model.commuter.anonymous();
 };
 Modal.prototype.email = function() {
   return this.model.commuter._user().email;

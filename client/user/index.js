@@ -1,9 +1,4 @@
-/**
- * Dependencies
- */
-
 var config = require('config');
-var debug = require('debug')(config.name() + ':user');
 var model = require('model');
 
 /**
