@@ -1,0 +1,11 @@
+#!/bin/sh
+
+cd "$(dirname "$0")"
+
+./build-client $1
+
+aws s3 sync ../assets `./config-val $1 s3_bucket` \
+  --acl public-read
+
+aws s3 cp ../config/config.yaml `./config-val $1 s3_bucket` \
+  --acl public-read

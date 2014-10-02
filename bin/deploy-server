@@ -1,0 +1,13 @@
+#!/bin/sh
+
+cd "$(dirname "$0")"
+
+aws opsworks create-deployment \
+  --app-id `./config-val $1 opsworks.app_id` \
+  --stack-id `./config-val $1 opsworks.stack_id` \
+  --command "{\"Name\":\"deploy\"}"
+
+aws opsworks create-deployment \
+  --app-id `./config-val $1 opsworks.app_id` \
+  --stack-id `./config-val $1 opsworks.stack_id` \
+  --command "{\"Name\":\"start\"}"

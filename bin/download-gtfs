@@ -1,0 +1,17 @@
+#!/bin/sh
+
+##### NOTE: CSV file must end with a blank line! #####
+
+cd "$(dirname "$0")"
+
+# Make the data directory if it didn't exist
+mkdir -p ../assets/otp/data
+
+[ ! -f $1 ] && { echo "$1 file not found"; exit 99; }
+
+while IFS=, read name url
+do
+  slug=`echo $name | sed -e 's/[^[:alnum:]]/-/g' | tr -s '-' | tr A-Z a-z`
+  timestamp=`date "+%Y-%m-%d"`
+  wget -O ../assets/otp/data/$slug-$timestamp.zip $url
+done < $1

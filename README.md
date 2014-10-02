@@ -1,18 +1,18 @@
-# Commute Planner
+# Modeify
 
 [![Build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
 [![Code Climate][code-climate-image]][code-climate-url]
 [![Dependency Status][david-image]][david-url]
 
-[travis-image]: https://img.shields.io/travis/conveyal/commute-planner.svg?style=flat-square
-[travis-url]: https://travis-ci.org/conveyal/commute-planner
-[coveralls-image]: https://img.shields.io/coveralls/conveyal/commute-planner.svg?style=flat-square
-[coveralls-url]: https://coveralls.io/r/coveralls/commute-planner?branch=master
-[code-climate-image]: http://img.shields.io/codeclimate/github/conveyal/commute-planner.svg?style=flat-square
-[code-climate-url]: https://codeclimate.com/github/conveyal/commute-planner
-[david-image]: http://img.shields.io/david/conveyal/commute-planner.svg?style=flat-square
-[david-url]: https://david-dm.org/conveyal/commute-planner
+[travis-image]: https://img.shields.io/travis/conveyal/modeify.svg?style=flat-square
+[travis-url]: https://travis-ci.org/conveyal/modeify
+[coveralls-image]: https://img.shields.io/coveralls/conveyal/modeify.svg?style=flat-square
+[coveralls-url]: https://coveralls.io/r/coveralls/modeify?branch=master
+[code-climate-image]: http://img.shields.io/codeclimate/github/conveyal/modeify.svg?style=flat-square
+[code-climate-url]: https://codeclimate.com/github/conveyal/modeify
+[david-image]: http://img.shields.io/david/conveyal/modeify.svg?style=flat-square
+[david-url]: https://david-dm.org/conveyal/modeify
 
 A web-based UI for delivering personalized commute information to travelers. Supported by the [Mobility Lab](http://mobilitylab.org/) [Transit Tech Initiative](http://mobilitylab.org/tech/transit-tech-initiative/).
 
@@ -21,8 +21,8 @@ A web-based UI for delivering personalized commute information to travelers. Sup
 Clone to your local directory to begin.
 
 ```bash
-$ git clone git@github.com:conveyal/commute-planner.git
-$ cd commute-planner
+$ git clone git@github.com:conveyal/modeify.git
+$ cd modeify
 ```
 
 ### Environment Variables & Config
@@ -39,7 +39,7 @@ The planner requires an instance of [OpenTripPlanner](http://opentripplanner.com
 
 ### Component
 
-Commute Planner uses [Component](https://github.com/component) to manage client side dependencies and building. Running `make` installs the necesary node modules, downloads the components, and builds the client side JavaScript and CSS.
+Modeify uses [Component](https://github.com/componentjs/component) to manage client side dependencies and building. Running `make` installs the necesary node modules, downloads the components, and builds the client side JavaScript and CSS.
 
 When `NODE_ENV` is set to `development` the server will rebuild the client side dependencies on each change.
 

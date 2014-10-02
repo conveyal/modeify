@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var env = process.env.NODE_ENV || process.argv[2] || 'development';
+var env = process.argv[2] || process.env.NODE_ENV || 'development';
 
 var Builder = require('component-builder');
 var component = require('../component.json');
@@ -46,7 +46,6 @@ function build(bundle) {
   builder.config.local = [bundle];
 
   builder.copyAssetsTo(__dirname + '/../' + dest);
-  // builder.prefixUrls(config.static_url + '/build/' + bundle);
   builder.copyFiles(true);
 
   if (!production) {
@@ -61,14 +60,14 @@ function build(bundle) {
     if (res.js) {
       var js = 'window.CONFIG=' + JSON.stringify(config) + ';' + res.require +
         res.js + ';require("' + bundle + '");';
-      write(resolve(dest, 'build.js'), js);
+      write(resolve(__dirname + '/../' + dest, 'build.js'), js);
     }
 
     if (res.css) {
       var css = myth(res.css);
       css = css.replace(/\burl *\(([^)]+)\)/g, rewrite);
       if (production) css = sqwish.minify(css);
-      write(resolve(dest, 'build.css'), css);
+      write(resolve(__dirname + '/../' + dest, 'build.css'), css);
     }
   });
 
