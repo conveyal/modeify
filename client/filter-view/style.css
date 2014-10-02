@@ -60,7 +60,8 @@
   color: var(--darkgreen);
   cursor: pointer;
   font-size: 28px;
-  padding: 8px 5px;
+  padding: 8px;
+  margin: 0 2px;
   transition: color 0.1s ease-in-out;
 }
 
