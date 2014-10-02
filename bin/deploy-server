@@ -2,12 +2,17 @@
 
 cd "$(dirname "$0")"
 
+APP=`./config-val $1 opsworks.app_id`
+STACK=`./config-val $1 opsworks.stack_id`
+
+echo "Deploying to Opsworks..."
 aws opsworks create-deployment \
-  --app-id `./config-val $1 opsworks.app_id` \
-  --stack-id `./config-val $1 opsworks.stack_id` \
+  --app-id $APP \
+  --stack-id $STACK \
   --command "{\"Name\":\"deploy\"}"
 
+echo "Starting Opsworks servers..."
 aws opsworks create-deployment \
-  --app-id `./config-val $1 opsworks.app_id` \
-  --stack-id `./config-val $1 opsworks.stack_id` \
+  --app-id $APP \
+  --stack-id $STACK \
   --command "{\"Name\":\"start\"}"

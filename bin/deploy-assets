@@ -2,10 +2,15 @@
 
 cd "$(dirname "$0")"
 
+BUCKET=`./config-val $1 s3_bucket`
+
+echo "Building client assets..."
 ./build-client $1
 
-aws s3 sync ../assets `./config-val $1 s3_bucket` \
+echo "Syncing assets to $BUCKET"
+aws s3 sync ../assets $BUCKET \
   --acl public-read
 
-aws s3 cp ../config/config.yaml `./config-val $1 s3_bucket` \
+echo "Syncing config to $BUCKET"
+aws s3 cp ../config/config.yaml $BUCKET \
   --acl public-read
