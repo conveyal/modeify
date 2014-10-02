@@ -8,7 +8,7 @@
 [travis-image]: https://img.shields.io/travis/conveyal/modeify.svg?style=flat-square
 [travis-url]: https://travis-ci.org/conveyal/modeify
 [coveralls-image]: https://img.shields.io/coveralls/conveyal/modeify.svg?style=flat-square
-[coveralls-url]: https://coveralls.io/r/coveralls/modeify?branch=master
+[coveralls-url]: https://coveralls.io/r/conveyal/modeify?branch=master
 [code-climate-image]: http://img.shields.io/codeclimate/github/conveyal/modeify.svg?style=flat-square
 [code-climate-url]: https://codeclimate.com/github/conveyal/modeify
 [david-image]: http://img.shields.io/david/conveyal/modeify.svg?style=flat-square
