@@ -117,6 +117,7 @@ View.prototype.showWelcomeWizard = function() {
   welcome.modal.on('hide', showFrom);
 
   function showFrom() {
+    plan.welcome_complete(true);
     /* fromTip.show('.input-group.from');
 
     var fromLocation = document.getElementById('from-location');

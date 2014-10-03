@@ -11,6 +11,5 @@ echo "Syncing assets to $BUCKET"
 aws s3 sync ../assets $BUCKET \
   --acl public-read
 
-echo "Syncing config to $BUCKET"
 aws s3 cp ../config/config.yaml $BUCKET \
   --acl public-read
