@@ -16,7 +16,7 @@ lib-cov
 .DS_Store
 .env
 
-build/Makefile
+**/build/Makefile
 
 config/config.yaml
 config/deployments
