@@ -66,10 +66,14 @@
 }
 
 .mode-filters a:active,
-.mode-filters a:hover,
 .mode-filters a:visited,
 .mode-filters a.active {
   color: var(--lightgreen);
+  text-decoration: none;
+}
+
+.mode-filters a:hover{
+  color: var(--darkergreen);
   text-decoration: none;
 }
 
