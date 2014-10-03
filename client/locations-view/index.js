@@ -40,9 +40,10 @@ View.prototype.blurInput = function(e) {
   var suggestionList = inputGroup.getElementsByTagName('ul')[0];
 
   var highlight = this.find('.suggestion.highlight');
-  if (highlight) e.target.value = highlight.innerText;
+  if (highlight) e.target.value = highlight.innerText || '';
 
   suggestionList.classList.add('empty');
+
   setTimeout(function() {
     suggestionList.innerHTML = '';
   }, 250);
@@ -58,44 +59,64 @@ View.prototype.blurInput = function(e) {
 View.prototype.keydownInput = function(e) {
   var el = e.target;
   var key = e.keyCode;
+  var enterKey = key === 13;
+  var upKey = key === 38;
+  var downKey = key === 40;
 
   // Currently highlighted suggestion
-  var current = this.find('.suggestion.highlight');
+  var highlightedSuggestion = this.find('.suggestion.highlight');
 
-  // Save?
-  if (key === 13) {
+  if (enterKey) {
     this.blurInput(e);
-  } else if (key === 38 || key === 40) {
-    // Up
-    if (key === 38 && current) {
-      if (current.previousElementSibling) {
-        current.previousElementSibling.classList.add('highlight');
-      } else {
-        el.value = this.currentLocation;
-        el.setSelectionRange(el.value.length - 1, el.value.length);
-      }
-      current.classList.remove('highlight');
+  } else if (!downKey && !upKey) {
+    if (highlightedSuggestion) {
+      el.value = this.currentLocation || '';
+      setCursor(el, el.value.length);
+      highlightedSuggestion.classList.remove('highlight');
+    } else { // Just typing
+      this.currentLocation = el.value || '';
     }
-
-    // Down
-    if (key === 40) {
-      if (!current) {
-        var suggestion = this.find('.suggestion');
-        if (suggestion) suggestion.classList.add('highlight');
-      } else if (current.nextElementSibling) {
-        current.nextElementSibling.classList.add('highlight');
-        current.classList.remove('highlight');
-      }
+  } else {
+    if (upKey) {
+      this.pressUp(highlightedSuggestion, el);
+    } else if (downKey) {
+      this.pressDown(highlightedSuggestion, el);
     }
 
     var newHighlight = this.find('.suggestion.highlight');
     if (newHighlight) el.value = newHighlight.innerText;
-  } else if (current) {
-    el.value = this.currentLocation;
-    el.selectionStart = el.selectionEnd = el.value.length;
-    current.classList.remove('highlight');
-  } else {
-    this.currentLocation = el.value;
+  }
+};
+
+/**
+ * Press Up
+ */
+
+View.prototype.pressUp = function(highlightedSuggestion, el) {
+  if (highlightedSuggestion) {
+    var aboveHighlightedSuggestion = highlightedSuggestion.previousElementSibling;
+
+    if (aboveHighlightedSuggestion) {
+      aboveHighlightedSuggestion.classList.add('highlight');
+    } else {
+      el.value = this.currentLocation || '';
+      setCursor(el, el.value.length);
+    }
+    highlightedSuggestion.classList.remove('highlight');
+  }
+};
+
+/**
+ * Press Down
+ */
+
+View.prototype.pressDown = function(highlightedSuggestion, el) {
+  if (!highlightedSuggestion) {
+    var suggestion = this.find('.suggestion');
+    if (suggestion) suggestion.classList.add('highlight');
+  } else if (highlightedSuggestion.nextElementSibling) {
+    highlightedSuggestion.nextElementSibling.classList.add('highlight');
+    highlightedSuggestion.classList.remove('highlight');
   }
 };
 
@@ -192,3 +213,25 @@ View.prototype.clear = function(e) {
   input.value = '';
   input.focus();
 };
+
+/**
+ * Set cursor
+ */
+
+function setCursor(node, pos){
+  node = (typeof node === "string" || node instanceof String) ? document.getElementById(node) : node;
+
+  if (!node) return;
+
+  if (node.createTextRange) {
+    var textRange = node.createTextRange();
+    textRange.collapse(true);
+    textRange.moveEnd(pos);
+    textRange.moveStart(pos);
+    textRange.select();
+  } else if (node.setSelectionRange){
+    node.setSelectionRange(pos, pos);
+  }
+
+  return false;
+}
