@@ -9,9 +9,14 @@ lib-cov
 *.zip
 *.node
 *.o
+*.o.d
+*.gypi
+*.mk
 
 .DS_Store
 .env
+
+build/Makefile
 
 config/config.yaml
 config/deployments
