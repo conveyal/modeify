@@ -40,7 +40,7 @@ View.prototype.blurInput = function(e) {
   var suggestionList = inputGroup.getElementsByTagName('ul')[0];
 
   var highlight = this.find('.suggestion.highlight');
-  if (highlight) e.target.value = highlight.innerText || '';
+  if (highlight) e.target.value = highlight.textContent || '';
 
   suggestionList.classList.add('empty');
 
@@ -84,7 +84,7 @@ View.prototype.keydownInput = function(e) {
     }
 
     var newHighlight = this.find('.suggestion.highlight');
-    if (newHighlight) el.value = newHighlight.innerText;
+    if (newHighlight) el.value = newHighlight.textContent || '';
   }
 };
 

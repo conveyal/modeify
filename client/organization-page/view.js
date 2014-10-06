@@ -151,9 +151,9 @@ Modal.prototype.upload = function(e) {
 
     // get the other data
     var data = {
-      address: el.querySelector('.address').innerText || '',
-      email: (el.querySelector('.email').innerText || '').toLowerCase(),
-      name: el.querySelector('.name').innerText || ''
+      address: el.querySelector('.address').textContent || '',
+      email: (el.querySelector('.email').textContent || '').toLowerCase(),
+      name: el.querySelector('.name').textContent || ''
     };
 
     batch.push(function(done) {
