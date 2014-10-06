@@ -1,6 +1,6 @@
-var debug = require('debug')('forgot-password-page');
+var log = require('log')('forgot-password-page');
+var page = require('page');
 var request = require('request');
-var template = require('./template.html');
 var value = require('value');
 var create = require('view');
 
@@ -8,7 +8,7 @@ var create = require('view');
  * Create view
  */
 
-var View = create(template);
+var View = create(require('./template.html'));
 
 /**
  * Send password change request
@@ -24,8 +24,9 @@ View.prototype.sendChangeRequest = function(e) {
     if (res.ok) {
       window.alert(
         'Check your inbox for instructions to change your password.');
+      page(self.back());
     } else {
-      debug(err || res.error || res.text);
+      log(err || res.error || res.text);
       window.alert(err || res.text ||
         'Failed to send change password request.');
     }

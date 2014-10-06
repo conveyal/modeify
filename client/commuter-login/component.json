@@ -1,12 +1,10 @@
 {
-  "name": "login-page",
+  "name": "commuter-login",
   "dependencies": {
-    "visionmedia/debug": "*",
     "visionmedia/page.js": "*"
   },
   "local": [
-    "alerts",
-    "config",
+    "log",
     "request",
     "session",
     "view"

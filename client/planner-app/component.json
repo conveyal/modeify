@@ -6,9 +6,9 @@
     "visionmedia/page.js": "*"
   },
   "local": [
+    "commuter-login",
     "change-password-page",
     "forgot-password-page",
-    "login-page",
     "plan",
     "planner-page",
     "router-utils",

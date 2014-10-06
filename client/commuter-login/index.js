@@ -1,18 +1,14 @@
-var alerts = require('alerts');
-var config = require('config');
-var debug = require('debug')(config.name() + ':login-page');
+var log = require('log')('login-page');
 var page = require('page');
 var request = require('request');
 var session = require('session');
 var view = require('view');
 
-var template = require('./template.html');
-
 /**
  * Create `View`
  */
 
-var View = view(template);
+var View = view(require('./template.html'));
 
 /**
  * On button click
@@ -24,19 +20,14 @@ View.prototype.login = function(e) {
   var password = this.find('#password').value;
   var self = this;
 
-  request.post('/login', {
+  request.post('/commuter-login', {
     email: email,
     password: password
   }, function(err, res) {
     if (res.ok) {
-      alerts.push({
-        type: 'success',
-        text: 'Welcome back!'
-      });
       session.login(res.body);
-      page('/manager/organizations');
+      page('/planner');
     } else {
-      debug(err || res.error || res.text);
       window.alert(res.text || 'Failed to login.');
     }
   });

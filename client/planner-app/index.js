@@ -5,7 +5,7 @@ var utils = require('router-utils');
 var session = require('session');
 
 page('/', utils.redirect('/planner'));
-page('/login', require('login-page'));
+page('/login', require('commuter-login'));
 page('/forgot-password', require('forgot-password-page'));
 page('/change-password/:key', require('change-password-page'));
 page('/planner', session.commuterIsLoggedIn, Plan.load, require('planner-page'));

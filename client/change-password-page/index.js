@@ -2,14 +2,13 @@ var alerts = require('alerts');
 var log = require('log')('change-password-page');
 var page = require('page');
 var request = require('request');
-var template = require('./template.html');
 var create = require('view');
 
 /**
  * Create view
  */
 
-var View = create(template);
+var View = create(require('./template.html'));
 
 /**
  * On button click
