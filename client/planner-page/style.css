@@ -49,7 +49,7 @@
 @-moz-document url-prefix() {
   .scrollable {
     padding-right: 25px;
-    margin-right: -40px;
+    margin-right: -25px;
   }
 }
 
