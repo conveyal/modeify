@@ -27,7 +27,7 @@
   .panel {
     top: 0;
     bottom: 0;
-    right: -1px;
+    right: 0;
     border-radius: 0;
   }
 }
