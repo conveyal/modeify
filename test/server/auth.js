@@ -156,11 +156,12 @@ describe('/api/auth', function() {
         .expect(200, done);
     });
 
-    it('200 for commuter-is-logged-in after loggin in with the link', function(done) {
-      agent
-        .get('/api/commuter-is-logged-in')
-        .expect(200, done);
-    });
+    it('200 for commuter-is-logged-in after loggin in with the link',
+      function(done) {
+        agent
+          .get('/api/commuter-is-logged-in')
+          .expect(200, done);
+      });
 
     it('404 with invalid link', function(done) {
       request

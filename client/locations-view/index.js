@@ -218,8 +218,9 @@ View.prototype.clear = function(e) {
  * Set cursor
  */
 
-function setCursor(node, pos){
-  node = (typeof node === "string" || node instanceof String) ? document.getElementById(node) : node;
+function setCursor(node, pos) {
+  node = (typeof node === "string" || node instanceof String) ? document.getElementById(
+    node) : node;
 
   if (!node) return;
 
@@ -229,7 +230,7 @@ function setCursor(node, pos){
     textRange.moveEnd(pos);
     textRange.moveStart(pos);
     textRange.select();
-  } else if (node.setSelectionRange){
+  } else if (node.setSelectionRange) {
     node.setSelectionRange(pos, pos);
   }
 

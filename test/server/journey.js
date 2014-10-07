@@ -17,7 +17,6 @@ var od = {
   }]
 };
 
-
 var agent = supertest.agent();
 var locations = null;
 

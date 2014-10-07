@@ -201,7 +201,7 @@ session.checkIfLoggedIn = function(ctx, next) {
         page('/manager/login');
       } else {
         session.login(res.body);
-        if (!session.isManager()) window.location =  '/';
+        if (!session.isManager()) window.location = '/';
         else next();
       }
     });
