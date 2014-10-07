@@ -20,15 +20,18 @@ View.prototype.login = function(e) {
   var password = this.find('#password').value;
   var self = this;
 
-  request.post('/commuter-login', {
-    email: email,
-    password: password
-  }, function(err, res) {
-    if (res.ok) {
-      session.login(res.body);
-    } else {
-      window.alert(res.text || 'Failed to login.');
-    }
+  session.logout(function(err) {
+    log('logged out %e', err);
+    request.post('/commuter-login', {
+      email: email,
+      password: password
+    }, function(err, res) {
+      if (res.ok) {
+        session.login(res.body);
+      } else {
+        window.alert(res.text || 'Failed to login.');
+      }
+    });
   });
 };
 
