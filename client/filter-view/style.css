@@ -75,14 +75,14 @@
 .mode-filters a:visited,
 .mode-filters a.active {
   color: var(--lightgreen);
-  background-color: var(--darkergreen);
+  background-color: var(--darkgreen);
   border-radius: 15px;
   text-decoration: none;
 }
 
 .mode-filters a:hover{
   color: var(--lightgreen);
-  background-color: var(--darkergreen);
+  background-color: var(--darkgreen);
   border-radius: 15px;
   text-decoration: none;
 }
