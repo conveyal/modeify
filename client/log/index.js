@@ -9,7 +9,7 @@ var request = require('request');
  */
 
 fmt.e = function(e) {
-  e = e || new Error();
+  e = e || 'No error';
   var s = e.fileName || '';
   s += e.lineNumber ? ':' + e.lineNumber : '';
   s += e.columnNumber ? ':' + e.columnNumber + '\n' : '';

@@ -1,7 +1,4 @@
-/**
- * Dependencies
- */
-
+var cleardb = require('./cleardb');
 var user = require('./default-admin');
 var commuter = require('./default-commuter');
 var org = require('./default-organization');

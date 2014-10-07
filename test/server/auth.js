@@ -1,4 +1,6 @@
 var admin = require('./default-admin');
+var cleardb = require('./cleardb');
+var commuter = require('./default-commuter');
 var request = require('./supertest');
 
 /**
@@ -12,7 +14,9 @@ var agent = request.agent();
  */
 
 describe('/api/auth', function() {
+  before(cleardb);
   before(admin.login);
+  before(commuter.create);
 
   describe('POST /login', function() {
     it('404 with no email or password', function(done) {
@@ -93,7 +97,25 @@ describe('/api/auth', function() {
 
     it('200 from is-logged-in', function(done) {
       agent
-        .get('/api/is-logged-in')
+        .get('/api/commuter-is-logged-in')
+        .expect(200, done);
+    });
+  });
+
+  describe('GET /commuter-login', function() {
+    it('200 login for correct commuter credentials', function(done) {
+      agent
+        .post('/api/commuter-login')
+        .send({
+          email: commuter.info._user.email,
+          password: 'password'
+        })
+        .expect(200, done);
+    });
+
+    it('200 from commuter-is-logged-in', function(done) {
+      agent
+        .get('/api/commuter-is-logged-in')
         .expect(200, done);
     });
   });

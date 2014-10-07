@@ -1,7 +1,3 @@
-/**
- * Dependencies
- */
-
 var Org = require('../../lib/organization/model');
 
 /**
@@ -21,7 +17,7 @@ var info = module.exports.info = {
  */
 
 module.exports.create = function(done) {
-  if (module.exports.info._id) return done();
+  if (module.exports.info._id) return done(null, module.exports.info);
 
   Org.findOrCreate(info, function(err, org) {
     if (err) {

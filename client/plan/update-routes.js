@@ -121,14 +121,12 @@ function updateRoutes(plan, opts, callback) {
       // TODO: Remove....wait why?
       data.options = data.options.filter(function(o) {
         var a = o.access[0];
-        switch (a.mode) {
-          case 'BICYCLE':
-          case 'CAR':
-            if (a.time < 300) return false;
-            break;
-          case 'WALK':
-            if (a.time > 2700) return false;
-        }
+        if (a.mode === 'BICYCLE' && a.time < 300)
+          return false;
+        if (a.mode === 'CAR' && a.time < 600)
+          return false;
+        if (a.mode === 'WALK' && a.time > 3600)
+          return false;
         return true;
       });
 

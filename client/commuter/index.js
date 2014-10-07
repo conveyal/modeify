@@ -69,6 +69,24 @@ Commuter.loadOrg = function(ctx, next) {
 };
 
 /**
+ * Confirm email address
+ */
+
+Commuter.confirmEmail = function(ctx, next) {
+  var key = ctx.params.key;
+  if (!key) return next();
+
+  request.get('/users/confirm-email/' + key, function(err, res) {
+    if (err || !res.ok) {
+      window.alert(res.text || err.message);
+    } else {
+      window.alert('Email confirmed!');
+    }
+    next();
+  });
+};
+
+/**
  * Return map marker opts
  */
 

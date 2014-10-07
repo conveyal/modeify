@@ -1,4 +1,9 @@
 
+## Latest
+
+* Adjust copy to reflect generic trips instead of just home/work
+* Update authentication system
+
 ## 0.6.0 — 2014-09-23
 
 * Add more event tracking

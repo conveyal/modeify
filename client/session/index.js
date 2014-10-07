@@ -51,6 +51,8 @@ Session.prototype.logout = function(next) {
     cookie('commuter', null);
     cookie('user', null);
 
+    document.cookie = null;
+
     log('<-- logged out %s', res.text);
     if (next) next(err, res);
   });
@@ -179,9 +181,7 @@ session.commuterIsLoggedIn = function(ctx, next) {
 session.logoutMiddleware = function(ctx) {
   log('logout %s', ctx.path);
 
-  session.logout();
-  request.get('/logout', function(err, res) {
-    document.cookie = null;
+  session.logout(function() {
     page('/manager/login');
   });
 };
@@ -193,7 +193,7 @@ session.logoutMiddleware = function(ctx) {
 session.checkIfLoggedIn = function(ctx, next) {
   log('check if user is logged in %s', ctx.path);
 
-  if (session.isLoggedIn()) {
+  if (session.isLoggedIn() && session.isManager()) {
     next();
   } else {
     request.get('/is-logged-in', function(err, res) {
@@ -201,7 +201,8 @@ session.checkIfLoggedIn = function(ctx, next) {
         page('/manager/login');
       } else {
         session.login(res.body);
-        next();
+        if (!session.isManager()) window.location =  '/';
+        else next();
       }
     });
   }
