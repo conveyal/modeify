@@ -36,27 +36,27 @@
 }
 
 .answers {
-  margin: 10px 0;
+  margin: 10px 15px;
 }
 
 .answer {
   display: inline-block;
   cursor: pointer;
-  font-size: 33px;
+  font-size: 30px;
   background-color: transparent;
   color: var(--lightgray);
-  padding: 0 8px;
+  padding: 2px;
 }
 
 .answer:hover,
 .answer.active {
   color: var(--white);
   background-color: var(--black);
-  border-radius: var(--border-radius);
+  border-radius: 20px;
 }
 
 .answer:active {
-  color: color(var(--black) shade(20%));
+  color: color(#fff) shade(20%));
   background-color: var(--black);
-  border-radius: var(--border-radius);
+  border-radius: 20px;
 }
