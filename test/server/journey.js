@@ -19,6 +19,7 @@ var od = {
 
 var agent = supertest.agent();
 var locations = null;
+var journey = null;
 
 /**
  * BDD
@@ -53,6 +54,7 @@ describe(base, function() {
             od.locations[1].address.should.equal(res.body.locations[1].original_address);
 
             locations = res.body.locations;
+            journey = res.body;
             done();
           });
       });
@@ -73,5 +75,33 @@ describe(base, function() {
             done();
           });
       });
+  });
+
+  describe('GET /', function() {
+    it('401 if not logged in', function(done) {
+      supertest
+        .get(base)
+        .expect(401, done);
+    });
+
+    it('200 if logged in', function(done) {
+      agent
+        .get(base)
+        .expect(200, done);
+    });
+  });
+
+  describe('DEL /:id', function() {
+    it('401 and fail to delete a journey', function(done) {
+      supertest
+        .del(base + '/' + journey._id)
+        .expect(401, done);
+    });
+
+    it('204 and delete the journey', function(done) {
+      agent
+        .del(base + '/' + journey._id)
+        .expect(204, done);
+    });
   });
 });
