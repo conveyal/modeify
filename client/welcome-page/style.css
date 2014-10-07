@@ -9,14 +9,17 @@
   text-align: left;
 }
 
-.welcome-page h3, h4 {
+.welcome-page h3 {
   margin: 0;
   padding: 0;
+  font-size: 20px;
 }
 
 .welcome-page h4 {
   font-size: 16px;
   font-weight: 300;
+  margin: 5px 0 0 0;
+  padding: 0;
 }
 
 .welcome-page .logo {
