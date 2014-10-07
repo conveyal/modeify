@@ -53,6 +53,12 @@ describe('/api/auth', function() {
           done();
         });
     });
+
+    it('400 for commuter-is-logged-in', function(done) {
+      agent
+        .get('/api/commuter-is-logged-in')
+        .expect(400, done);
+    });
   });
 
   describe('GET /is-logged-in', function() {
@@ -62,7 +68,7 @@ describe('/api/auth', function() {
         .expect(401, done);
     });
 
-    it('s200 wth a cookie passed', function(done) {
+    it('200 wth a cookie passed', function(done) {
       agent
         .get('/api/is-logged-in')
         .expect(200, done);
@@ -95,14 +101,29 @@ describe('/api/auth', function() {
         });
     });
 
-    it('200 from is-logged-in', function(done) {
+    it('200 from commuter-is-logged-in', function(done) {
       agent
         .get('/api/commuter-is-logged-in')
         .expect(200, done);
     });
+
+    it('401 from is-logged-in', function(done) {
+      agent
+        .get('/api/is-logged-in')
+        .expect(401, done);
+    });
   });
 
   describe('GET /commuter-login', function() {
+    it('400 for invalid email', function(done) {
+      request
+        .post('/api/commuter-login')
+        .send({
+          email: 'fakeemailz@fakesy.com'
+        })
+        .expect(400, done);
+    });
+
     it('200 login for correct commuter credentials', function(done) {
       agent
         .post('/api/commuter-login')
@@ -113,10 +134,40 @@ describe('/api/auth', function() {
         .expect(200, done);
     });
 
+    it('400 for invalid password', function(done) {
+      request
+        .post('/api/commuter-login')
+        .send({
+          email: commuter.info._user.email,
+          password: 'wrongpassword'
+        })
+        .expect(400, done);
+    });
+
     it('200 from commuter-is-logged-in', function(done) {
       agent
         .get('/api/commuter-is-logged-in')
         .expect(200, done);
+    });
+  });
+
+  describe('GET /login/:link', function() {
+    it('200 login with correct link', function(done) {
+      agent
+        .get('/api/login/' + commuter.info.link)
+        .expect(200, done);
+    });
+
+    it('200 for commuter-is-logged-in after loggin in with the link', function(done) {
+      agent
+        .get('/api/commuter-is-logged-in')
+        .expect(200, done);
+    });
+
+    it('404 with invalid link', function(done) {
+      request
+        .get('/api/login/asdfafdsf')
+        .expect(404, done);
     });
   });
 });
