@@ -1,6 +1,5 @@
 var base = '/api/journeys';
 var supertest = require('./supertest');
-var user = require('./default-admin');
 
 /**
  * OD
@@ -18,10 +17,8 @@ var od = {
   }]
 };
 
-/**
- * Location 2
- */
 
+var agent = supertest.agent();
 var locations = null;
 
 /**
@@ -29,11 +26,15 @@ var locations = null;
  */
 
 describe(base, function() {
-  before(user.login);
+  before(function(done) {
+    agent
+      .get('/api/login-anonymously')
+      .expect(200, done);
+  });
 
   describe('POST /', function() {
     it('400 fail to create a journey without 2 locations', function(done) {
-      user.agent
+      agent
         .post(base)
         .send({
           locations: []
@@ -41,12 +42,12 @@ describe(base, function() {
         .expect(400, done);
     });
 
-    it('200 successfuly create a journey with just addresses for locations',
+    it('201 successfuly create a journey with just addresses for locations',
       function(done) {
-        user.agent
+        agent
           .post(base)
           .send(od)
-          .expect(200)
+          .expect(201)
           .end(function(err, res) {
             if (err) return done(err);
             od.locations[0].address.should.equal(res.body.locations[0].original_address);
@@ -57,14 +58,14 @@ describe(base, function() {
           });
       });
 
-    it('200 successfully create a journey with pre-created locations',
+    it('201 successfully create a journey with pre-created locations',
       function(done) {
-        user.agent
+        agent
           .post(base)
           .send({
             locations: [locations[1], locations[0]]
           })
-          .expect(200)
+          .expect(201)
           .end(function(err, res) {
             if (err) return done(err);
             od.locations[1].address.should.equal(res.body.locations[0].original_address);

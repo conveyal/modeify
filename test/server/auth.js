@@ -4,12 +4,6 @@ var commuter = require('./default-commuter');
 var request = require('./supertest');
 
 /**
- * Agent to use
- */
-
-var agent = request.agent();
-
-/**
  * Mocha
  */
 
@@ -19,6 +13,8 @@ describe('/api/auth', function() {
   before(commuter.create);
 
   describe('POST /login', function() {
+    var agent = request.agent();
+
     it('404 with no email or password', function(done) {
       request.post('/api/login')
         .expect(404, done);
@@ -47,21 +43,9 @@ describe('/api/auth', function() {
       agent
         .post('/api/login')
         .send(admin.info)
-        .expect(200)
-        .end(function(err, res) {
-          if (err) return done(err);
-          done();
-        });
+        .expect(200, done);
     });
 
-    it('400 for commuter-is-logged-in', function(done) {
-      agent
-        .get('/api/commuter-is-logged-in')
-        .expect(400, done);
-    });
-  });
-
-  describe('GET /is-logged-in', function() {
     it('401 with no cookie passed', function(done) {
       request
         .get('/api/is-logged-in')
@@ -73,9 +57,17 @@ describe('/api/auth', function() {
         .get('/api/is-logged-in')
         .expect(200, done);
     });
+
+    it('401 for commuter-is-logged-in', function(done) {
+      agent
+        .get('/api/commuter-is-logged-in')
+        .expect(401, done);
+    });
   });
 
   describe('GET /logout', function() {
+    var agent = request.agent();
+
     it('204', function(done) {
       agent
         .get('/api/logout')
@@ -90,6 +82,8 @@ describe('/api/auth', function() {
   });
 
   describe('GET /login-anonymously', function() {
+    var agent = request.agent();
+
     it('200 create a user and log you in', function(done) {
       agent
         .get('/api/login-anonymously')
@@ -115,6 +109,8 @@ describe('/api/auth', function() {
   });
 
   describe('GET /commuter-login', function() {
+    var agent = request.agent();
+
     it('400 for invalid email', function(done) {
       request
         .post('/api/commuter-login')
@@ -152,6 +148,8 @@ describe('/api/auth', function() {
   });
 
   describe('GET /login/:link', function() {
+    var agent = request.agent();
+
     it('200 login with correct link', function(done) {
       agent
         .get('/api/login/' + commuter.info.link)

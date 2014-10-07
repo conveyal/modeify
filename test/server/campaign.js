@@ -1,7 +1,3 @@
-/**
- * Dependencies
- */
-
 var user = require('./default-admin');
 var campaign = require('./default-campaign');
 var org = require('./default-organization');
