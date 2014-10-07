@@ -53,15 +53,14 @@
   padding: 2px;
 }
 
-.answer:hover,
 .answer.active {
   color: var(--white);
-  background-color: var(--black);
+  background-color: var(--gray);
   border-radius: 20px;
 }
 
-.answer:active {
-  color: color(#fff) shade(20%));
+.answer:hover {
+  color: var(--white);
   background-color: var(--black);
   border-radius: 20px;
 }
