@@ -4,15 +4,7 @@ var commuter = require('./default-commuter');
 var org = require('./default-organization');
 var request = require('./supertest');
 
-/**
- * Base URL
- */
-
 var base = '/api/commuters';
-
-/**
- * BDD
- */
 
 describe(base, function() {
   before(user.login);
@@ -120,6 +112,46 @@ describe(base, function() {
           res.body._organization.should.eql(commuter.info._organization);
           done();
         });
+    });
+  });
+
+  describe('POST /:id/add-email', function() {
+    var agent = request.agent();
+    var anon = null;
+
+    before(function(done) {
+      agent
+        .get('/api/login-anonymously')
+        .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err);
+          anon = res.body;
+          done();
+        });
+    });
+
+    it('400 if user already exists', function(done) {
+      user.agent
+        .post(base + '/' + commuter.info._id + '/add-email')
+        .expect(401, done);
+    });
+
+    it('400 if email already exists', function(done) {
+      agent
+        .post(base + '/' + anon._id + '/add-email')
+        .send({
+          email: user.info.email
+        })
+        .expect(400, done);
+    });
+
+    it('200 and add make the user no longer anonymous', function(done) {
+      agent
+        .post(base + '/' + anon._id + '/add-email')
+        .send({
+          email: 'newemai@anon.com'
+        })
+        .expect(204, done);
     });
   });
 
