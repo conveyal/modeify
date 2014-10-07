@@ -53,14 +53,12 @@
   padding: 2px;
 }
 
-.answer.active, .answer.active:hover {
+.answer.active {
   color: var(--white);
-  background-color: var(--gray);
+  background-color: var(--black);
   border-radius: 20px;
 }
 
 .answer:hover {
-  color: var(--white);
-  background-color: var(--black);
-  border-radius: 20px;
+  color: var(--gold);
 }
