@@ -49,7 +49,7 @@
 }
 
 .mode-filters {
-  background-color: var(--green);
+  background-color: var(--lightreen);
   border-radius: var(--border-radius);
   margin-top: 8px;
   display: inline-block;
@@ -57,23 +57,28 @@
 
 .mode-filters a {
   display: inline-block;
-  color: var(--darkgreen);
+  color: var(--lightgreen);
+  border-radius: 15px;
+  background-color: var(--green);
+  text-decoration: none;
   cursor: pointer;
   font-size: 28px;
   padding: 8px;
   margin: 0 2px;
-  transition: color 0.1s ease-in-out;
+  text-shadow: 0px 1px 1px rgba(77,104,35,0.1);
 }
 
 .mode-filters a:active,
 .mode-filters a:visited,
 .mode-filters a.active {
   color: var(--lightgreen);
+  background-color: var(--darkergreen);
   text-decoration: none;
 }
 
 .mode-filters a:hover{
-  color: var(--darkergreen);
+  background-color: var(--darkergreen);
+  border-radius: 15px;
   text-decoration: none;
 }
 
