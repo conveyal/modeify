@@ -7,16 +7,12 @@ var p = require('page');
 var session = require('session');
 var utils = require('router-utils');
 
-// Setup
+// Setup & show alerts
 
 p('*', function(ctx, next) {
   ctx.manager = true;
   next();
-});
-
-// Show alerts
-
-p('*', require('alerts'));
+}, require('alerts'));
 
 // If the user is logged in, redirect to orgs, else redirect to login
 
@@ -36,20 +32,21 @@ p('/managers', session.checkIfLoggedIn, session.checkIfAdmin, require(
 
 // Organizations
 
-p('/organizations*', session.checkIfLoggedIn);
+p('/organizations(.*)', session.checkIfLoggedIn);
 p('/organizations', require('organizations-page'));
 p('/organizations/new', organizationForm);
-p('/organizations/:organization/show', Organization.load, Commuter.loadOrg, require(
+p('/organizations/:organization(.*)', Organization.load);
+p('/organizations/:organization/show', Commuter.loadOrg, require(
   'organization-page'));
-p('/organizations/:organization/edit', Organization.load, organizationForm);
+p('/organizations/:organization/edit', organizationForm);
 
 // Commuters
 
-p('/organizations/:organization/commuters/new', Organization.load, commuterForm);
-p('/organizations/:organization/commuters/:commuter/*', Organization.load, Commuter.load);
-p('/organizations/:organization/commuters/:commuter/show', Organization.load, Commuter.load, require(
+p('/organizations/:organization/commuters/new', commuterForm);
+p('/organizations/:organization/commuters/:commuter(.*)', Commuter.load);
+p('/organizations/:organization/commuters/:commuter/show', require(
   'commuter-page'));
-p('/organizations/:organization/commuters/:commuter/edit', Organization.load, Commuter.load, commuterForm);
+p('/organizations/:organization/commuters/:commuter/edit', commuterForm);
 
 // Render all
 
