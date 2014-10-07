@@ -53,7 +53,7 @@
   padding: 2px;
 }
 
-.answer.active {
+.answer.active, .answer.active:hover {
   color: var(--white);
   background-color: var(--gray);
   border-radius: 20px;
