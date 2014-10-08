@@ -1,7 +1,3 @@
-/**
- * Dependencies
- */
-
 var api = require('../../lib/api');
 var supertest = require('supertest');
 
