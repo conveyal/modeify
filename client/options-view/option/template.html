@@ -5,8 +5,14 @@
     <div class="minutes-column">
       <h3><strong>{average} min</strong> <span class="avg">avg</span></h3>
       <div data-visible="frequency">Every {frequency} minutes</div>
-      <div class="distance" data-visible="bikeDistances">{bikeDistances} mi biking</div>
-      <div class="distance" data-visible="walkDistances">{walkDistances} mi walking</div>
+      <div data-visible="hasTransit">
+        <div class="distance" data-visible="bikeDistances">{bikeTime} min biking</div>
+        <div class="distance" data-visible="walkDistances">{walkTime} min walking</div>
+      </div>
+      <div data-hidden="hasTransit">
+        <div class="distance" data-visible="bikeDistances">{bikeDistances} mi biking</div>
+        <div class="distance" data-visible="walkDistances">{walkDistances} mi walking</div>
+      </div>
     </div>
 
     <div class="fare-column">

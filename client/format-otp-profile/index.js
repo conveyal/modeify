@@ -67,8 +67,6 @@ function format(text) {
     .join(' ')
     .trim();
 
-  console.log(text);
-
   return text;
 }
 

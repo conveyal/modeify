@@ -23,11 +23,13 @@ var Route = module.exports = model('Route')
   .attr('access')
   .attr('bikeCalories')
   .attr('bikeDistance')
+  .attr('bikeTime')
   .attr('calories')
   .attr('cost')
   .attr('driveDistance')
   .attr('egress')
   .attr('emissions')
+  .attr('hasTransit')
   .attr('modes')
   .attr('score')
   .attr('stats')
@@ -37,7 +39,8 @@ var Route = module.exports = model('Route')
   .attr('transit')
   .attr('trips')
   .attr('walkCalories')
-  .attr('walkDistance');
+  .attr('walkDistance')
+  .attr('walkTime');
 
 /**
  * Update scoring
@@ -53,12 +56,14 @@ Route.prototype.rescore = function(scorer) {
   }
 
   this.emit('change average', this.average());
+  this.emit('change bikeTime', this.bikeTime());
   this.emit('change calculatedCost', this.calculatedCost());
   this.emit('change calculatedCalories', this.calculatedCalories());
   this.emit('change transitCosts', this.transitCosts());
   this.emit('change tripsPerYear', this.tripsPerYear());
   this.emit('change carParkingCost', this.carParkingCost());
   this.emit('change vmtRate', this.vmtRate());
+  this.emit('change walkTime', this.walkTime());
 };
 
 /**
@@ -67,6 +72,14 @@ Route.prototype.rescore = function(scorer) {
 
 Route.prototype.average = function() {
   return Math.round(this.time());
+};
+
+/**
+ * Has transit?
+ */
+
+Route.prototype.hasTransit = function() {
+  return this.transit().length > 0;
 };
 
 /**
@@ -178,6 +191,28 @@ Route.prototype.bikeSpeedMph = function() {
 
 Route.prototype.walkSpeedMph = function() {
   return (this.walkSpeed() * MPS_TO_MPH).toFixed(1);
+};
+
+/**
+ * Walk/bike time in minutes
+ */
+
+Route.prototype.bikeTime = function() {
+  var d = this.bikeDistance();
+  var s = this.bikeSpeed();
+  var t = d / s;
+
+  if (t < 60) return '< 1';
+  else return parseInt(t / 60);
+};
+
+Route.prototype.walkTime = function() {
+  var d = this.walkDistance();
+  var s = this.walkSpeed();
+  var t = d / s;
+
+  if (t < 60) return '< 1';
+  else return parseInt(t / 60);
 };
 
 /**
