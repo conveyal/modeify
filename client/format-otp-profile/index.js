@@ -4,7 +4,27 @@ var toCapitalCase = require('to-capital-case');
  * Expose `formatOptions`
  */
 
-module.exports = formatOption;
+module.exports.option = formatOption;
+
+/**
+ * Format Journey
+ */
+
+module.exports.journey = function(journey) {
+  var i;
+  for (i = 0; i < journey.routes.length; i++) {
+    var r = journey.routes[i];
+    r.short_name = format(r.short_name);
+    r.long_name = format(r.long_name);
+  }
+
+  for (i = 0; i < journey.stops.length; i++) {
+    var s = journey.stops[i];
+    s.stop_name = format(s.stop_name);
+  }
+
+  return journey;
+};
 
 /**
  * Format a given option summary and it's segments
@@ -34,19 +54,22 @@ function format(text) {
 
   text = text
     .replace('METRO STATION', '') // remove metro station
+    .replace('METRORAIL STATION', '')
   .replace(/-/g, ' '); // remove hypens
 
   // capitalize correctly
   text = toCapitalCase(text);
 
-  // replace 'Dc*' with 'DC*'
-  text = text.replace('Dc', 'DC');
-
   // process individual words
-  return text
+  text = text
     .split(' ')
     .map(word)
-    .join(' ');
+    .join(' ')
+    .trim();
+
+  console.log(text);
+
+  return text;
 }
 
 /**
@@ -54,21 +77,27 @@ function format(text) {
  */
 
 var wordReplacementTable = {
+  'Av': 'Ave',
+  'Ci': 'Circle',
   'Mcpherson': 'McPherson',
   'Pi': 'Pike',
   'Sq': 'Square',
   'Nw': 'NW',
   'Northwest': 'NW',
   'Ne': 'NE',
+  'Nih': 'NIH',
   'Northeast': 'NE',
   'South': 'S',
   'Se': 'SE',
   'Southeast': 'SE',
   'Sw': 'SW',
   'Southwest': 'SW',
+  'Metro/naval': 'Metro/Naval',
   'Noma': 'NoMA',
   'Noma-gallaudet': 'NoMA-Gallaudet',
-  '(new': '(New'
+  '(new': '(New',
+  'L\'enfant': 'L\'Enfant',
+  '(west)': '(West)'
 };
 
 /**

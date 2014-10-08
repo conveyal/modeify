@@ -113,6 +113,7 @@ function updateRoutes(plan, opts, callback) {
         } else {
           o.id = i;
         }
+        o = formatProfile.option(o);
       });
 
       // Process & format the results
@@ -135,13 +136,13 @@ function updateRoutes(plan, opts, callback) {
 
       // Create a new Route object for each option
       for (var i = 0; i < data.options.length; i++)
-        data.options[i] = new Route(formatProfile(data.options[i]));
+        data.options[i] = new Route(data.options[i]);
 
       // Save the URL
       plan.saveURL();
 
       plan.options(data.options);
-      plan.journey(data.journey);
+      plan.journey(formatProfile.journey(data.journey));
 
       log('<-- updated routes');
       done(null, data);
