@@ -4,6 +4,7 @@ var formatProfile = require('format-otp-profile');
 var log = require('log')('plan:update-routes');
 var otp = require('otp');
 var Route = require('route');
+var textModal = require('text-modal');
 
 /**
  * Expose `updateRoutes`
@@ -78,10 +79,12 @@ function updateRoutes(plan, opts, callback) {
     } else if (!data || data.options.length < 1) {
       plan.journey(null);
       plan.options(null);
-      done('No trips found for route between ' + plan.from() + ' and ' +
+
+      textModal('We\'re sorry! But no trips were found between ' + plan.from() + ' and ' +
         plan.to() +
-        ' at the requested hours!\n\nIf the trip takes longer than the given time window, it will not display any results.'
+        ' during those hours!<br><br> The destinations may be outside the area available for this application.'
       );
+      done();
     } else {
       // Track the commute
       analytics.track('commute', {

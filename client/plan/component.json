@@ -20,7 +20,8 @@
     "journey",
     "otp",
     "route",
-    "session"
+    "session",
+    "text-modal"
   ],
   "scripts": [
     "index.js",
