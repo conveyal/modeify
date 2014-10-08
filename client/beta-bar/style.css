@@ -1,0 +1,13 @@
+
+.BetaBar {
+  background-color: var(--gold);
+  width: 320px;
+  color: #fff;
+  padding: 8px;
+  font-weight: var(--bold);
+}
+
+.BetaBar a {
+  color: #fff;
+  text-decoration: underline;
+}

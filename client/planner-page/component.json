@@ -8,6 +8,7 @@
     "visionmedia/batch": "*"
   },
   "local": [
+    "beta-bar",
     "config",
     "filter-view",
     "locations-view",

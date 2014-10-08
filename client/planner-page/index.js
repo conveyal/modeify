@@ -1,4 +1,5 @@
 var Batch = require('batch');
+var BetaBar = require('beta-bar');
 var config = require('config');
 var each = require('each');
 var FilterView = require('filter-view');
@@ -47,6 +48,7 @@ module.exports = function(ctx, next) {
 
   var plan = ctx.plan;
   var views = {
+    'beta-bar': new BetaBar(),
     'filter-view': new FilterView(plan),
     'locations-view': new LocationsView(plan),
     'options-view': new OptionsView(plan),
