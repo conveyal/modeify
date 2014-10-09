@@ -4,6 +4,8 @@
   color: var(--dark-blue);
   padding: 8px;
   line-height: 16px;
+  font-size: 14px;
+  box-shadow: inset 0 0 2px var(--black);
 }
 
 .BetaBar a {
