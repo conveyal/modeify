@@ -22,5 +22,5 @@ nav h3 a {
 }
 
 nav h3 a:hover {
-  color: var(--white);
+  color: var(--light-blue);
 }

@@ -6,7 +6,7 @@
 
 .time-filters {
   width: 100%;
-  background-color: var(--lightgray);
+  background-color: var(--medium-blue);
   border-radius: var(--border-radius);
   height: 44px;
   padding: 8px 8px 8px 19px;
@@ -17,6 +17,7 @@
 .time-filters select {
   cursor: pointer;
   padding-right: 6px;
+  color: var(--black);
 }
 
 @-moz-document url-prefix() {
@@ -32,11 +33,11 @@
 .time-filters i {
   color: #fff;
   font-size: 20px;
-  color: var(--black);
+  color: var(--darkgreen);
 }
 
 .time-filters label {
-  color: var(--black);
+  color: var(--gray);
   padding-right: 6px;
 }
 
