@@ -55,6 +55,7 @@ function format(text) {
   text = text
     .replace('METRO STATION', '') // remove metro station
     .replace('METRORAIL STATION', '')
+    .replace('(MAIN)', '')
   .replace(/-/g, ' '); // remove hypens
 
   // capitalize correctly
@@ -80,6 +81,7 @@ var wordReplacementTable = {
   'Mcpherson': 'McPherson',
   'Pi': 'Pike',
   'Sq': 'Square',
+  'Md': 'MD',
   'Nw': 'NW',
   'Northwest': 'NW',
   'Ne': 'NE',
@@ -93,6 +95,7 @@ var wordReplacementTable = {
   'Metro/naval': 'Metro/Naval',
   'Noma': 'NoMA',
   'Noma-gallaudet': 'NoMA-Gallaudet',
+  'Park/u': 'Park/U',
   '(new': '(New',
   'L\'enfant': 'L\'Enfant',
   '(west)': '(West)'
