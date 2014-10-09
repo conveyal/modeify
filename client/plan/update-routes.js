@@ -188,10 +188,7 @@ function populateSegments(options, journey) {
       for (var k = 0; k < segment.segmentPatterns.length; k++) {
         var pattern = segment.segmentPatterns[k];
         var patternId = pattern.patternId;
-        if (!patternId) continue;
-
         var routeId = getRouteId(patternId, journey.patterns);
-        if (!routeId) continue;
 
         routeId = routeId.split(':');
         var agency = routeId[0].toLowerCase();
@@ -199,7 +196,6 @@ function populateSegments(options, journey) {
 
         routeId = routeId[0] + ':' + routeId[1];
         var route = getRoute(routeId, journey.routes);
-        if (!route) continue;
 
         pattern.longName = route.route_long_name;
         pattern.shortName = route.route_short_name;
@@ -227,11 +223,12 @@ function getRoute(routeId, routes) {
 }
 
 function getRouteShield(agency, route) {
+  console.log(agency, route);
   switch (agency) {
     case 'dc':
       if (route.route_type === 1) return 'M';
       return route.route_short_name; // For buses
     default:
-      return route.route_short_name;
+      return route.route_short_name || route.route_long_name;
   }
 }
