@@ -379,6 +379,7 @@ function modeToIcon(m) {
       return 'walk';
     case 'rail':
     case 'subway':
+    case 'tram':
       return 'train';
     default:
       return m;
