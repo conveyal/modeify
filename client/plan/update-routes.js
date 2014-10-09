@@ -228,6 +228,6 @@ function getRouteShield(agency, route) {
       if (route.route_type === 1) return 'M';
       return route.route_short_name; // For buses
     default:
-      return route.route_short_name || route.route_long_name;
+      return route.route_short_name || route.route_long_name.toUpperCase();
   }
 }
