@@ -65,6 +65,13 @@ function read(req, res, next, parse, options) {
         err.status = 400
       }
 
+      // echo back charset
+      if (err.type === 'encoding.unsupported') {
+        err = new Error('unsupported charset "' + encoding.toUpperCase() + '"')
+        err.charset = encoding.toLowerCase()
+        err.status = 415
+      }
+
       // read off entire request
       stream.resume()
       onFinished(req, function onfinished() {
@@ -111,7 +118,7 @@ function read(req, res, next, parse, options) {
  */
 
 function contentstream(req, inflate) {
-  var encoding = req.headers['content-encoding'] || 'identity'
+  var encoding = (req.headers['content-encoding'] || 'identity').toLowerCase()
   var err
   var length = req.headers['content-length']
   var stream
@@ -136,7 +143,8 @@ function contentstream(req, inflate) {
       stream.length = length
       break
     default:
-      err = new Error('unsupported content encoding')
+      err = new Error('unsupported content encoding "' + encoding + '"')
+      err.encoding = encoding
       err.status = 415
       throw err
   }
