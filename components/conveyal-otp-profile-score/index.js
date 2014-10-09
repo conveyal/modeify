@@ -68,11 +68,13 @@ ProfileScore.prototype.processOptions = function(options) {
   for (var i = 0; i < options.length; i++) {
     var o = options[i];
 
-    // Split each option by access mode and score individually
-    for (var j = 0; j < o.access.length; j++) {
-      var opt = clone(o);
-      opt.access = [opt.access[j]];
-      processed.push(this.processOption(opt));
+    if (o.access) {
+      // Split each option by access mode and score individually
+      for (var j = 0; j < o.access.length; j++) {
+        var opt = clone(o);
+        opt.access = [opt.access[j]];
+        processed.push(this.processOption(opt));
+      }
     }
   }
 
