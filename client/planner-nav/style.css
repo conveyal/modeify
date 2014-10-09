@@ -10,7 +10,7 @@ nav {
   width: 320px;
   position: absolute;
   top: 0;
-  box-shadow: 0 2px 2px -1px var(--dark-blue);
+  box-shadow: 0 2px 2px -1px var(--darkest);
 }
 
 nav h3 {
@@ -31,7 +31,7 @@ nav h3 a {
   font-size: 12px;
   font-weight: bold;
   vertical-align: top;
-  background-color: var(--dark-blue);
+  background-color: var(--darkest);
   padding: 8px 10px;
   border-radius: var(--border-radius)
 
