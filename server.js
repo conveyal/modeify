@@ -15,4 +15,3 @@ require('./lib/config')(function(err) {
       log.info('express server running on port ' + port);
     });
 });
-

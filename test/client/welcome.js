@@ -1,18 +1,13 @@
 var nightmare = require('./nightmare');
 
 describe.skip('Client > Welcome Screen', function() {
+  before(nightmare.ready);
+
   describe('Toggle Answers', function() {
-    var client = nightmare();
+    var client = nightmare('/index.html');
 
     it('should be able to turn on all answers', function(done) {
       client
-        .screenshot('screenshot.png')
-        .click('.welcome-page .answers .icon-train')
-        .evaluate(function() {
-          return document.querySelector('.welcome-page .answers .icon-train').classList;
-        }, function(el) {
-          console.log(el);
-        })
         .run(done);
     });
   });
