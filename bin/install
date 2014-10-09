@@ -1,3 +1,41 @@
 #!/bin/sh
 
+echo '##### Installing Modeify #####'
+
 cd "$(dirname "$0")"
+
+# OS
+OS=$(uname)
+
+# On Macs
+if [ $OS == "Darwin" ]; then
+  echo 'Checking for Homebrew...'
+  if [ -z $(command -v brew) ]; then
+    echo 'Homebrew must be installed. See http://brew.sh/'
+    exit 1
+  fi
+
+  echo 'Checking for MongoDB...'
+  if [ -z $(command -v mongod) ]l then
+    echo 'Installing MongoDB...'
+    brew install mongodb
+    ln -sfv /usr/local/opt/mongodb/*.plist ~/Library/LaunchAgents
+    launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
+  fi
+
+  echo 'Checking the ulimit...'
+  ULIMIT=$(ulimit)
+  if [ $ULIMIT != "unlimited" ] && [ $ULIMIT < 4096 ]; then
+    echo 'Increasing the ulimit for component(1)...'
+    echo 'kern.maxfiles=20480' | sudo tee -a /etc/sysctl.conf
+    echo 'limit maxfiles 8192 20480\nlimit maxproc 1000 2000' | sudo tee -a /etc/launchd.conf
+    echo 'ulimit -n 4096' | sudo tee -a /etc/profile
+  fi
+fi
+
+# Copy the config files
+echo 'Copying the config files...'
+cp -n ../config/config.yaml.tmp ../config/config.yaml
+cp -n ../config/env.tmp ../config/env
+
+#
