@@ -63,14 +63,14 @@
 
 .panel .title .fa {
   vertical-align: top;
-	color: var(--medium-blue);
+	color: var(--light-blue);
   font-size: 20px;
 }
 
 .panel .title .fa:hover,
 .panel .title .fa:active,
 .panel .title .fa:visited {
-  color: var(--medium-blue);
+  color: color(var(--medium-blue) shade(20%));
   text-decoration: none;
 }
 
