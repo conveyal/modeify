@@ -1,0 +1,12 @@
+{
+  "name": "style-guide",
+  "local": [
+    "view"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}
