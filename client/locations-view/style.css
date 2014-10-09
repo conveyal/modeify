@@ -50,7 +50,7 @@
   display: block;
   overflow: hidden;
   padding: 8px;
-  border-bottom: 1px solid var(--white);
+  border-bottom: 1px solid var(--light-blue);
   cursor: pointer;
   color: var(--black);
 }

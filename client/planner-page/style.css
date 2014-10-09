@@ -57,20 +57,20 @@
   padding: 0 8px;
   margin-top: 10px;
   width: 100%;
-  color: var(--white);
+  color: var(--light-blue);
   font-size: 16px;
 }
 
 .panel .title .fa {
   vertical-align: top;
-	color: var(--white);
+	color: var(--medium-blue);
   font-size: 20px;
 }
 
 .panel .title .fa:hover,
 .panel .title .fa:active,
 .panel .title .fa:visited {
-  color: color(var(--white) shade(20%));
+  color: var(--medium-blue);
   text-decoration: none;
 }
 

@@ -31,7 +31,7 @@
 }
 
 .question {
-  background-color: var(--white);
+  background-color: var(--light-blue);
   margin: 20px 10px; 
   padding: 15px 3px 5px 3px;
   border-radius: var(--border-radius);
@@ -53,7 +53,7 @@
 }
 
 .answer.active {
-  color: var(--white);
+  color: var(--light-blue);
   background-color: var(--black);
   border-radius: 20px;
 }
