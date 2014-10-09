@@ -33,8 +33,8 @@ Modal.prototype.save = function(e) {
   });
 
   if (!modes.reduce(function(a, b) {
-    return a || b;
-  })) {
+      return a || b;
+    })) {
     alerts.appendChild(Alert({
       type: 'warning',
       text: 'Please select at least one option.'

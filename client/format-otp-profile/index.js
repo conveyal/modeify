@@ -56,7 +56,7 @@ function format(text) {
     .replace('METRO STATION', '') // remove metro station
     .replace('METRORAIL STATION', '')
     .replace('(MAIN)', '')
-  .replace(/-/g, ' '); // remove hypens
+    .replace(/-/g, ' '); // remove hypens
 
   // capitalize correctly
   text = toCapitalCase(text);

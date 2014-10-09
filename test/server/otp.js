@@ -22,7 +22,7 @@ describe('/api/otp', function() {
       request
         .get(
           '/api/otp/profile?from=38.86583312290139%2C-77.06398626875051&to=38.90485941802882%2C-77.03453592419277'
-      )
+        )
         .expect(200)
         .end(function(err, res) {
           if (err) return done(err);
