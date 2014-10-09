@@ -2,15 +2,6 @@ var config = require('config');
 var convert = require('convert');
 var parse = require('color-parser');
 
-var transitColorTable = {
-  red: '#e21836',
-  yellow: '#ffd200',
-  green: '#00a84f',
-  blue: '#0076bf',
-  orange: '#f7931d',
-  silver: '#a0a2a0'
-};
-
 exports.places = {
   fill: 'none'
 };
@@ -23,6 +14,7 @@ exports.segments = {
   // override the default stroke color
   stroke: function(display, segment) {
     if (!segment.focused) return;
+
     switch (segment.type) {
       case 'CAR':
         return '#888';
@@ -31,9 +23,11 @@ exports.segments = {
       case 'BICYCLE':
         return '#ef3026';
       case 'TRANSIT':
-        if (segment.mode === 1 && segment.patterns[0].route.route_short_name) {
-          return transitColorTable[segment.patterns[0].route.route_short_name.toLowerCase()];
-        }
+        var route = segment.patterns[0].route;
+        var id = route.route_id.split(':');
+        var agency = id[0].toLowerCase();
+        var line = id[1].toLowerCase();
+        return convert.routeToColor(segment.type, agency, line, route.route_color);
     }
   },
 
