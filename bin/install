@@ -2,25 +2,31 @@
 
 echo '##### Installing Modeify #####'
 
-cd "$(dirname "$0")"
+cd "$(dirname "$0")"/..
 
 # OS
 OS=$(uname)
 
-# On Macs
+# Installation for Macs
 if [ $OS == "Darwin" ]; then
   echo 'Checking for Homebrew...'
   if [ -z $(command -v brew) ]; then
-    echo 'Homebrew must be installed. See http://brew.sh/'
+    echo 'Homebrew must be installed to continue on a Mac. See http://brew.sh/'
     exit 1
   fi
 
   echo 'Checking for MongoDB...'
-  if [ -z $(command -v mongod) ]l then
+  if [ -z $(command -v mongod) ]; then
     echo 'Installing MongoDB...'
     brew install mongodb
     ln -sfv /usr/local/opt/mongodb/*.plist ~/Library/LaunchAgents
     launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
+  fi
+
+  echo 'Checking for Node.js...'
+  if [ -z $(command -v node) ]; then
+    echo 'Installing nodejs...'
+    brew install node
   fi
 
   echo 'Checking the ulimit...'
@@ -35,7 +41,16 @@ fi
 
 # Copy the config files
 echo 'Copying the config files...'
-cp -n ../config/config.yaml.tmp ../config/config.yaml
-cp -n ../config/env.tmp ../config/env
+cp -n config/config.yaml.tmp config/config.yaml
+cp -n config/env.tmp config/env
 
-#
+# Source the .env file
+echo 'Sourcing config/env file...'
+source config/env
+
+# Install & build
+echo 'Rebuilding node dependcies & building client files...'
+make build
+
+# Finish
+echo 'Finished! Start the server with `npm start`'
