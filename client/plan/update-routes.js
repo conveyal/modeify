@@ -223,7 +223,6 @@ function getRoute(routeId, routes) {
 }
 
 function getRouteShield(agency, route) {
-  console.log(agency, route);
   switch (agency) {
     case 'dc':
       if (route.route_type === 1) return 'M';
