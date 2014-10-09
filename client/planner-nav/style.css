@@ -10,6 +10,7 @@ nav {
   width: 320px;
   position: absolute;
   top: 0;
+  box-shadow: 0 2px 2px -1px var(--dark-blue);
 }
 
 nav h3 {
@@ -17,10 +18,27 @@ nav h3 {
   line-height: 44px;
 }
 
+nav h3 i {
+  font-size: 17px;
+  padding-right: 5px;
+  padding-top: 13px;
+  vertical-align: top;
+  text-shadow: 0px 1px 1px rgba(38,46,56,0.8);
+}
+
 nav h3 a {
-  color: #fff;
+  color: var(--light-blue);
+  font-size: 12px;
+  font-weight: bold;
+  vertical-align: top;
+  background-color: var(--dark-blue);
+  padding: 8px 10px;
+  border-radius: var(--border-radius)
+
 }
 
 nav h3 a:hover {
-  color: var(--light-blue);
+  color: color(var(--light-blue) shade(20%));
+  background-color: color(var(--dark-blue) shade(20%));
+  text-decoration: none;
 }
