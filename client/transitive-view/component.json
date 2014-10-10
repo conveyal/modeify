@@ -4,11 +4,13 @@
     "component/color-parser": "*",
     "component/each": "*",
     "conveyal/transitive.js": "*",
-    "mbostock/d3": "*"
+    "mbostock/d3": "*",
+    "yields/fmt": "*"
   },
   "local": [
     "config",
     "convert",
+    "location",
     "log",
     "view"
   ],

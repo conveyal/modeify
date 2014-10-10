@@ -47,6 +47,7 @@
   overflow: hidden;
   display: inline-block;
   text-overflow: ellipsis;
+  white-space: nowrap;
   color: #fff;
   text-align: center;
   border-radius: var(--border-radius);
@@ -88,7 +89,6 @@
 
 .Options .option:first-of-type .simple .fare-column {
   border-top-right-radius: 0;
-  font-style: italic;
 }
 
 .Options .simple .fare-column .per-year {
@@ -179,7 +179,7 @@
 .Options .details .detail-route-bg {
   background-color: var(--black);
   width: 15px;
-  padding-top: 44px;
+  padding-top: 62px;
   margin-left: 5px;
 }
 
@@ -216,6 +216,7 @@
   text-align: left;
   vertical-align: middle;
   padding: 4px 25px;
+  line-height: 18px;
 }
 
 .Options .details .address .description {

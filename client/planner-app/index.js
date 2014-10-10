@@ -15,6 +15,8 @@ page('/confirm-email/:key', Commuter.confirmEmail, utils.redirect('/login'));
 page('/planner', session.commuterIsLoggedIn, Plan.load, require('planner-page'));
 page('/planner/:link', session.loginWithLink);
 
+page('/style-guide', require('style-guide'));
+
 page('*', utils.render);
 
 onLoad(page);

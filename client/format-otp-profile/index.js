@@ -12,15 +12,16 @@ module.exports.option = formatOption;
 
 module.exports.journey = function(journey) {
   var i;
+
   for (i = 0; i < journey.routes.length; i++) {
     var r = journey.routes[i];
-    r.short_name = format(r.short_name);
-    r.long_name = format(r.long_name);
+    r.route_long_name = format(r.route_long_name);
+    r.route_short_name = format(r.route_short_name) || r.route_long_name;
   }
 
   for (i = 0; i < journey.stops.length; i++) {
     var s = journey.stops[i];
-    s.stop_name = format(s.stop_name);
+    s.stop_name = format(s.stop_name) || '';
   }
 
   return journey;
@@ -56,7 +57,7 @@ function format(text) {
     .replace('METRO STATION', '') // remove metro station
     .replace('METRORAIL STATION', '')
     .replace('(MAIN)', '')
-  .replace(/-/g, ' '); // remove hypens
+    .replace(/-/g, ' '); // remove hypens
 
   // capitalize correctly
   text = toCapitalCase(text);
@@ -77,7 +78,9 @@ function format(text) {
 
 var wordReplacementTable = {
   'Av': 'Ave',
+  'Bwi': 'BWI',
   'Ci': 'Circle',
+  'Marc': 'MARC',
   'Mcpherson': 'McPherson',
   'Pi': 'Pike',
   'Sq': 'Square',

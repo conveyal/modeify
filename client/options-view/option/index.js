@@ -155,6 +155,10 @@ function patternFilter(by) {
   by = by || 'shortName';
   var names = [];
   return function(p) {
+    if (by === 'shortName') {
+      p.shortName = p.shortName || p.longName;
+    }
+
     if (names.indexOf(p[by]) === -1) {
       names.push(p[by]);
       return true;
@@ -373,6 +377,7 @@ function modeToIcon(m) {
       return 'bike';
     case 'pedestrian':
       return 'walk';
+    case 'rail':
     case 'subway':
       return 'train';
     default:

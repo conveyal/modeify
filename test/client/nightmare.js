@@ -18,7 +18,10 @@ module.exports = function(opts) {
 
   var address = server.address();
   var url = 'http://localhost:' + address.port + (opts.url || '');
-  var viewport = opts.viewport || { height: 1200, width: 1920 };
+  var viewport = opts.viewport || {
+    height: 1200,
+    width: 1920
+  };
 
   return new Nightmare()
     .viewport(viewport.width, viewport.height)

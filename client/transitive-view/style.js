@@ -78,35 +78,6 @@ exports.segments = {
         return 'butt';
     }
   }
-
-  // specify the circle marker for 'dotted' line styles
-  /*'marker-mid': function(display, segment, index, utils) {
-    var radius, fillColor;
-
-    switch (segment.type) {
-      case 'WALK':
-        radius = 3;
-        fillColor = '#5ae3f9';
-        return utils.defineSegmentCircleMarker(display, segment, radius,
-          fillColor);
-      case 'BICYCLE':
-        radius = 2;
-        fillColor = '#f00';
-        return utils.defineSegmentCircleMarker(display, segment, radius,
-          fillColor);
-    }
-  },
-
-  // specify the spacing for marker styling
-  'marker-spacing': function(display, segment) {
-    switch (segment.type) {
-      case 'WALK':
-        return 8;
-      case 'BICYCLE':
-        return 6;
-    }
-  }*/
-
 };
 
 /** style overrides for segment-based labels **/
@@ -134,6 +105,7 @@ exports.places_icon = {
     if (data.owner.getId() === 'to') return config.static_url() +
       '/images/transitive/end.svg';
   },
+  cursor: 'pointer',
   stroke: 0,
   visibility: 'visible'
 };
