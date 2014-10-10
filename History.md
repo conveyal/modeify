@@ -1,8 +1,20 @@
 
-## Latest
+## 0.7.0 — 2014-10-10
 
 * Adjust copy to reflect generic trips instead of just home/work
 * Update authentication system
+* Switch to New BSD license
+* Update Readme
+* Move Makefile rules into scripts
+* Add "beta" bar
+* Check in `components` & `node_modules`
+* Integrate transitive's ddrag & drop functionality
+* Update dependencies
+* Show walk/bike time instead of distance
+* Update browser support alert
+* Styling changes
+* Add tests
+* Many more..
 
 ## 0.6.0 — 2014-09-23
 
