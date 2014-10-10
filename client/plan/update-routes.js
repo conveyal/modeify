@@ -119,12 +119,12 @@ function updateRoutes(plan, opts, callback) {
       // Process & format the results
       data.options = scorer.processOptions(data.options);
 
-      // TODO: Remove....wait why?
+      /* TODO: Remove....wait why? */
       data.options = data.options.filter(function(o) {
         var a = o.access[0];
-        if (a.mode === 'BICYCLE' && a.time < 300)
+        if (a.mode === 'BICYCLE' && a.time < 240)
           return false;
-        if (a.mode === 'CAR' && a.time < 600)
+        if (a.mode === 'CAR' && a.time < 240)
           return false;
         if (a.mode === 'WALK' && a.time > 3600)
           return false;
