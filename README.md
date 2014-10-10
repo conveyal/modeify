@@ -16,7 +16,7 @@
 
 A web-based UI for delivering personalized commute information to travelers. Supported by the [Mobility Lab](http://mobilitylab.org/) [Transit Tech Initiative](http://mobilitylab.org/tech/transit-tech-initiative/).
 
-## Installation
+## Development
 
 Clone to your local directory to begin.
 
@@ -25,38 +25,93 @@ $ git clone git@github.com:conveyal/modeify.git
 $ cd modeify
 ```
 
+### Node.js & JavaScript
+
+Follow the instructions [here](https://github.com/conveyal/javascript) to setup you're JavaScript development environment.
+
 ### Environment Variables & Config
 
-All environment variables needed can be found in `config/env.tmp` and environment specific URLS can be found in `config/public.yaml`. Copy the `.tmp` files to non-temp versions and configure accordingly. Environment variables can also be set machine wide for deployment.
+All private environment variables needed can be found in `config/env.tmp` and client configuration specific variables can be found in `config/public.yaml`.
+
+**NOTE** Anything in `config/public.yaml` is exposed to the client.
+
+```bash
+modeify $ cp config/env.tmp config/env
+moedify $ cp config/public.yaml.tmp config/public.yaml
+```
 
 ### MongoDB
 
-Install [locally](http://www.mongodb.org/downloads) or use a service like [MongoLab](https://mongolab.com/welcome/). Set `MONGODB_URL` accordingly.
+Install [locally](http://www.mongodb.org/downloads) or use a service like [MongoLab](https://mongolab.com/welcome/). Set `MONGODB_URL` in `config/env` accordingly.
 
 ### OpenTripPlanner
 
 The planner requires an instance of [OpenTripPlanner](http://opentripplanner.com) running with the GTFS feeds you would like to analyze. Manage your OTP endpoint in `config/public.yaml`.
 
-### Component
+### Install
 
-Modeify uses [Component](https://github.com/componentjs/component) to manage client side dependencies and building. Running `make` installs the necesary node modules, downloads the components, and builds the client side JavaScript and CSS.
+All Node.js dependencies are checked in, but still requires a rebuild on each system.
 
-When `NODE_ENV` is set to `development` the server will rebuild the client side dependencies on each change.
+```bash
+modeify $ npm install
+```
+
+Client side dependencies are also all checked in, but the final `.js` & `.css` files need to be built.
+
+```bash
+modeify $ make build
+```
 
 ## Running
 
+The default way is to run the server as a daemon with automatic restarts using [nodemon](http://nodemon.io/) and stores the `pid` in `server.pid`
+
 ```bash
-$ npm start
+modeify $ npm start
 ```
 
-Runs the server as a daemon with automatic restarts by [nodemon](http://nodemon.io/). Outputs logs to `server.log`. Stores the `pid` in `server.pid`
+In development, we store the logs locally.
 
 ```bash
-$ npm stop
+modeify $ tail -f server.log
+```
+
+### Stopping
+
+```bash
+modeify $ npm stop
 ```
 
 Kills the server and cleans up the `.pid`.
 
-## Pushing to S3
+## Deploying
 
-Configure the [aws](http://docs.aws.amazon.com/cli/latest/reference/) CLI tool and run `make release NODE_ENV={staging|production}`, it will build using the environment specified and sync the `assets` directory with your S3 Bucket set in `config/public.yaml`.
+Install & confiugre the [aws](http://docs.aws.amazon.com/cli/latest/reference/) CLI tool.
+
+### S3
+
+Configure your S3 buckets per environment in `config/public.yaml`.
+
+```bash
+modeify $ bin/deploy-assets staging
+```
+
+This builds the client files for staging & syncs the `assets` folder with your specified S3 bucket.
+
+### OpsWorks
+
+Setup an OpsWorks Node.JS application and configure in `config/public.yaml`. The OpsWorks application will need to have all the environent variables set up that are in `config/env`.
+
+**NOTE** This is dependent on files that get deployed to S3.
+
+```bash
+modeify $ bin/deploy-server staging
+```
+
+### Environemnt
+
+Short hand to deploy all at once:
+
+```bash
+modeify $ bin/deploy staging
+```
