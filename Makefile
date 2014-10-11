@@ -28,8 +28,11 @@ node_modules: package.json
 	@npm install
 
 # Watch & reload server
-serve:
+serve: stop
 	@nohup bin/server > server.log </dev/null & echo "$$!" > server.pid
 	@echo "Logs stored in server.log"
+
+stop:
+	@kill `cat server.pid` || true
 
 .PHONY: beautify lint serve
