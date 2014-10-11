@@ -2,21 +2,20 @@
 
 var env = process.argv[2] || process.env.NODE_ENV || 'development';
 
-var Builder = require('component-builder');
+var build = require('component-builder');
+var resolve = require('component-resolver');
 var component = require('../component.json');
 var fs = require('fs');
 var yml2js = require('js-yaml').load;
 var mkdir = require('mkdirp');
 var myth = require('myth');
-var read = fs.readFileSync;
-var resolve = require('path').resolve;
+var path = require('path');
 var sqwish = require('sqwish');
 var uglify = require('uglify-js');
-var write = fs.writeFileSync;
 
 // Convert the YAML config
 
-var config = yml2js(read(__dirname + '/../config/config.yaml', 'utf8'));
+var config = yml2js(fs.readFileSync(__dirname + '/../config/config.yaml', 'utf8'));
 
 // Set the rest of the public config.
 
@@ -30,18 +29,55 @@ delete config.environments;
 
 // Build all
 
-component.local.forEach(build);
+component.locals.forEach(bundle);
 
 // Build.
 
-function build(bundle) {
+function bundle(app) {
   // Build settings.
 
-  var dest = 'assets/build/' + bundle;
-  var production = env === 'production';
+  var dest = 'assets/build/' + app;
+  var development = env !== 'production';
+
+  // mkdirp
+
+  mkdir.sync(__dirname + '/../' + dest);
 
   // Builder.
 
+  resolve({
+    paths: [
+      'client'
+    ],
+    locals: [
+      app
+    ]
+  }, {
+    development: development,
+    install: true,
+    root: __dirname + '/..',
+    verbose: true
+  }, function(err, tree) {
+    if (err) throw err;
+
+    build
+      .scripts(tree, {
+        alias: development,
+        sourceMap: development,
+        sourceUrl: development
+      })
+      .use('json', build.plugins.json())
+      .use('scripts', build.plugins.js())
+      .use('templates', build.plugins.string())
+      .end(function(err, str) {
+        if (err) throw err;
+        var js = 'window.CONFIG=' + JSON.stringify(config) + ';\n' + build.scripts.require + '\n' +
+          str + ';require("' + build.scripts.canonical(tree).canonical + '");\n';
+        fs.writeFileSync(path.resolve(__dirname + '/../' + dest, 'build.js'), js);
+      });
+  });
+
+  /**
   var builder = new Builder(__dirname + '/..');
   builder.config.local = [bundle];
 
@@ -60,14 +96,14 @@ function build(bundle) {
     if (res.js) {
       var js = 'window.CONFIG=' + JSON.stringify(config, null, '  ') + ';' + res.require +
         res.js + ';require("' + bundle + '");';
-      write(resolve(__dirname + '/../' + dest, 'build.js'), js);
+      fs.writeFileSync(path.resolve(__dirname + '/../' + dest, 'build.js'), js);
     }
 
     if (res.css) {
       var css = myth(res.css);
       css = css.replace(/\burl *\(([^)]+)\)/g, rewrite);
       if (production) css = sqwish.minify(css);
-      write(resolve(__dirname + '/../' + dest, 'build.css'), css);
+      fs.writeFileSync(path.resolve(__dirname + '/../' + dest, 'build.css'), css);
     }
   });
 
@@ -80,4 +116,5 @@ function build(bundle) {
   function isData(url) {
     return url.indexOf('data:') === 0;
   }
+  **/
 }
