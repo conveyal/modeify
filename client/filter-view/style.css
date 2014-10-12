@@ -94,7 +94,7 @@
 }
 
 .submit:hover,
-.submit:visited,
+.submit:focus,
 .submit:active {
   background-color: color(var(--gold) shade(10%));
   outline: none;

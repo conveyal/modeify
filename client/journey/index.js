@@ -7,7 +7,6 @@ var model = require('model');
  */
 
 var Journey = module.exports = model('Journey')
-  .use(require('model-memoize'))
   .route(config.api_url() + '/journeys')
   .attr('_id')
   .attr('created_by')

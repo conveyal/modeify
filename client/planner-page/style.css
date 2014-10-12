@@ -69,7 +69,7 @@
 
 .panel .title .fa:hover,
 .panel .title .fa:active,
-.panel .title .fa:visited {
+.panel .title .fa:focus {
   color: color(var(--light-blue) shade(20%));
   text-decoration: none;
 }

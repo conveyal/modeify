@@ -62,6 +62,7 @@ a {
 }
 
 a:active,
+a:focus,
 a:hover {
   color: color(var(--darkergreen) shade(20%));
 }
@@ -69,8 +70,7 @@ a:hover {
 .btn,
 .btn:active,
 .btn:focus,
-.btn:hover,
-.btn:visited {
+.btn:hover {
   background: var(--gold);
   color: #fff;
   outline: none;

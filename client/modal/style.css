@@ -55,7 +55,8 @@
 }
 
 .Modal .close:hover,
-.Modal .close:active {
+.Modal .close:active.
+.Modal .close:focus {
   color: color(var(--gray) shade(20%));
 }
 
