@@ -19,14 +19,14 @@
 
 .Transitive .legendLabel {
   float: left;
-  font-weight: bold;
-  font-size: 14px;
-  margin: 6px 20px 0px 10px;
+  margin: 6px 16px 0px 10px;
+}
+
+.Transitive .legendLabel:last-of-type {
+  margin-right: 0;
 }
 
 .Transitive .legendSvg {
-  width: 30px;
-  height: 34px;
   float: left;
 }
 
