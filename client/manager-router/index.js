@@ -32,10 +32,10 @@ p('/managers', session.checkIfLoggedIn, session.checkIfAdmin, require(
 
 // Organizations
 
-p('/organizations(.*)', session.checkIfLoggedIn);
-p('/organizations', require('organizations-page'));
+p('/organizations/(.*)', session.checkIfLoggedIn);
+p('/organizations/', require('organizations-page'));
 p('/organizations/new', organizationForm);
-p('/organizations/:organization(.*)', Organization.load);
+p('/organizations/:organization/(.*)', Organization.load);
 p('/organizations/:organization/show', Commuter.loadOrg, require(
   'organization-page'));
 p('/organizations/:organization/edit', organizationForm);
@@ -43,7 +43,7 @@ p('/organizations/:organization/edit', organizationForm);
 // Commuters
 
 p('/organizations/:organization/commuters/new', commuterForm);
-p('/organizations/:organization/commuters/:commuter(.*)', Commuter.load);
+p('/organizations/:organization/commuters/:commuter/(.*)', Commuter.load);
 p('/organizations/:organization/commuters/:commuter/show', require(
   'commuter-page'));
 p('/organizations/:organization/commuters/:commuter/edit', commuterForm);
