@@ -83,10 +83,13 @@ Session.prototype.login = function(data) {
     }
 
     type = 'commuter';
+    cookie('commuter', commuter.toJSON());
   } else {
     user = new User(data);
     type = user.type();
   }
+
+  cookie('user', user.toJSON());
 
   session.commuter(commuter);
   session.user(user);

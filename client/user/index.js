@@ -10,6 +10,7 @@ var User = module.exports = model('User')
   .use(require('model-query'))
   .attr('_id')
   .attr('email')
+  .attr('email_confirmed')
   .attr('type')
   .attr('created')
   .attr('modified');

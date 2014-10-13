@@ -154,7 +154,7 @@ describe('/api/users', function() {
     it('400 for an invalid key', function(done) {
       request
         .get('/api/users/confirm-email/asdfasdf')
-        .expect(404, done);
+        .expect(400, done);
     });
 
     it('204 and set email_confirmed to true', function(done) {

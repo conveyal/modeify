@@ -18,10 +18,11 @@ module.exports.get = function(url, params, callback) {
     params = null;
   }
 
-  var name = 'GET ' + url;
+  var href = base + url;
+  var name = 'GET ' + href;
   debug('--> %s', name);
   return superagent
-    .get(base + url)
+    .get(href)
     .query(params)
     .end(response(name, callback));
 };
@@ -31,10 +32,11 @@ module.exports.get = function(url, params, callback) {
  */
 
 module.exports.post = function(url, data, callback) {
-  var name = 'POST ' + url;
+  var href = base + url;
+  var name = 'POST ' + href;
   debug('--> %s', name);
   return superagent
-    .post(base + url)
+    .post(href)
     .send(data)
     .end(response(name, callback));
 };
@@ -44,10 +46,11 @@ module.exports.post = function(url, data, callback) {
  */
 
 module.exports.del = function(url, callback) {
-  var name = 'DELETE ' + url;
+  var href = base + url;
+  var name = 'DELETE ' + href;
   debug('--> %s', name);
   return superagent
-    .del(base + url)
+    .del(href)
     .end(response(name, callback));
 };
 

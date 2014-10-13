@@ -1,7 +1,11 @@
 {
   "name": "commuter-profile",
+  "dependencies": {
+    "visionmedia/page.js": "*"
+  },
   "local": [
     "alert",
+    "confirm-modal",
     "journey",
     "log",
     "modal",

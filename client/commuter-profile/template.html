@@ -27,11 +27,12 @@
       </div>
 
       <div data-hidden="anonymous">
-        <div data-hidden="profileComplete">
-          <div class="password-alerts">
-            <div class="alert alert-warning">If you do not add a password, you will only be able to log in with the link found in your email.</div>
+        <button class="btn btn-block" on-click="logout"><i class="fa fa-sign-out"></i> Log Out</button>
+        <div data-hidden="emailConfirmed">
+          <div class="email-confirmation-alerts">
+            <div class="alert alert-warning">Your email has not been confirmed! You must confirm your email address to be able to log in.</div>
           </div>
-          <button class="btn btn-block" on-click="submitAddPassword"><i class="fa fa-key"></i> Add Password</button>
+          <button class="btn btn-block" on-click="resendEmailConfirmation"><i class="fa fa-envelope"></i> Re-send Confirmation Email</button>
         </div>
       </div>
     </section>

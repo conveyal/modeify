@@ -1,7 +1,10 @@
 var Alert = require('alert');
+var confirmModal = require('confirm-modal');
 var log = require('log')('commuter-profile');
 var modal = require('modal');
+var page = require('page');
 var request = require('request');
+var session = require('session');
 
 /**
  * Expose `Modal`
@@ -20,23 +23,28 @@ var Modal = module.exports = modal({
  * Submit Add Password
  */
 
-Modal.prototype.submitAddPassword = function() {
-  var alerts = this.find('.password-alerts');
+Modal.prototype.resendEmailConfirmation = function(e) {
+  var alerts = this.find('.email-confirmation-alerts');
+  var button = e.target;
   var email = this.email();
+
+  button.disabled = true;
   request.post('/users/change-password-request', {
     email: email
   }, function(err, res) {
     if (err) {
-      log.error('%j', err);
+      log.error('%e', err);
       alerts.appendChild(Alert({
         type: 'warning',
-        text: 'Error submitting password change request.'
+        text: 'Error sending email confirmation.'
       }).el);
     } else {
+      alerts.innerHTML = null;
+      button.remove();
       alerts.appendChild(Alert({
         type: 'success',
         text: 'An email has been sent to ' + email +
-          ' with instructions to add a password.'
+          ' with instructions to complete your account.'
       }).el);
     }
   });
@@ -52,16 +60,17 @@ Modal.prototype.submitEmailAddress = function(e) {
   var form = this.find('.register-email-form');
   var email = form.querySelector('input[name=email]').value;
   var button = form.querySelector('button');
+  var id = session.commuter()._id();
 
   button.disabled = true;
-  request.post('/commuters/add-email', {
+  request.post('/commuters/' + id + '/add-email', {
     email: email
   }, function(err, res) {
     if (err) {
       log.warn('%e %s', err);
       alerts.appendChild(Alert({
         type: 'warning',
-        text: 'Failed to add email address.'
+        text: 'Failed to register. ' + res.text
       }).el);
       button.disabled = false;
     } else {
@@ -77,6 +86,18 @@ Modal.prototype.submitEmailAddress = function(e) {
 };
 
 /**
+ * Log out
+ */
+
+Modal.prototype.logout = function(e) {
+  if (e) e.preventDefault();
+  this.hide();
+  session.logout(function(err) {
+    page('/');
+  });
+};
+
+/**
  * Proxy values
  */
 
@@ -86,7 +107,7 @@ Modal.prototype.anonymous = function() {
 Modal.prototype.email = function() {
   return this.model.commuter._user().email;
 };
-Modal.prototype.profileComplete = function() {
+Modal.prototype.emailConfirmed = function() {
   return this.model.commuter._user().email_confirmed;
 };
 
