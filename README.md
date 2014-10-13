@@ -31,13 +31,13 @@ Follow the instructions [here](https://github.com/conveyal/javascript) to setup 
 
 ### Environment Variables & Config
 
-All private environment variables needed can be found in `config/env.tmp` and client configuration specific variables can be found in `config/public.yaml`.
+All private environment variables needed can be found in `config/env.tmp` and client configuration specific variables can be found in `config/config.yaml`.
 
-**NOTE** Anything in `config/public.yaml` is exposed to the client.
+**NOTE** Anything in `config/config.yaml` is exposed to the client.
 
 ```bash
 modeify $ cp config/env.tmp config/env
-moedify $ cp config/public.yaml.tmp config/public.yaml
+moedify $ cp config/config.yaml.tmp config/config.yaml
 ```
 
 ### MongoDB
@@ -50,7 +50,7 @@ The planner requires an instance of [OpenTripPlanner](http://opentripplanner.com
 
 ### Install
 
-All Node.js dependencies are checked in, but still requires a rebuild on each system.
+All Node.js dependencies are checked in, but still requires a rebuild on each system. Whenever you pull down a new version you'll want to run this also.
 
 ```bash
 modeify $ npm install
