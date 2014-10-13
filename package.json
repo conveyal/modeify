@@ -48,7 +48,7 @@
     "start": "source config/env && make serve",
     "stop": "make stop",
     "postinstall": "npm rebuild",
-    "test": "NODE_ENV=test node_modules/.bin/mocha --recursive --reporter spec --require should --slow 10 --timeout 2m",
+    "test": "NODE_ENV=test node_modules/.bin/mocha --recursive --reporter spec --require should --slow 10 --timeout 4s",
     "test-cov": "NODE_ENV=test node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha -- --recursive --reporter dot --require should --slow 10 --timeout 2m",
     "test-travis": "NODE_ENV=test node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --recursive --reporter dot --require should --slow 10 --timeout 2m"
   }
