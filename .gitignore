@@ -8,6 +8,7 @@ lib-cov
 *.gz
 *.zip
 *.node
+*.node.d
 *.o
 *.o.d
 *.gypi
