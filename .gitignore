@@ -19,6 +19,11 @@ lib-cov
 
 **/build/Makefile
 
+**/bson/build
+**/contextify/build
+**/kerberos/build
+**/weak/build
+
 config/config.yaml
 config/deployments
 config/env
