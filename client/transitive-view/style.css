@@ -12,9 +12,22 @@
   border-radius: var(--border-radius);
   left: 8px;
   bottom: 8px;
-  width: 100px;
   background-color: #fff;
   z-index: 150;
+  padding: 0px 10px;
+}
+
+.Transitive .legendLabel {
+  float: left;
+  font-weight: bold;
+  font-size: 14px;
+  margin: 6px 20px 0px 10px;
+}
+
+.Transitive .legendSvg {
+  width: 30px;
+  height: 34px;
+  float: left;
 }
 
 .Transitive .legend svg {
