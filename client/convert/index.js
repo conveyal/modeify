@@ -55,7 +55,7 @@ exports.routeToColor = function(type, agency, line, color) {
       if (type === 1 || type === 'TRANSIT') return colors[line];
       return colors.metrobus;
     case 'fairfax connector':
-      if (color.chartAt(0) === '#') return color;
+      if (color.charAt(0) === '#') return color;
       return '#' + color;
   }
 
