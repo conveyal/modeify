@@ -1,4 +1,13 @@
 
+## 0.7.1 — 2014-10-14
+
+* Bug fixes
+* Log response time correctly
+* Update docs
+* Don't store full journeys in commuter data
+* Add confirm email/set password combo email
+* Initial implementation of the style guide
+
 ## 0.7.0 — 2014-10-10
 
 * Adjust copy to reflect generic trips instead of just home/work
