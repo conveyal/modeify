@@ -45,6 +45,7 @@
   line-height: 0;
   width: 60px;
   height: 60px;
+  border-radius: 60px;
   color: var(--lightgray);
   margin-right: 30px;
   outline: none;
@@ -53,14 +54,13 @@
 .commuter-profile .speed-preference button:hover {
   color: var(--green);
   outline: none;
-  border-radius: 50%;
+
 }
 
 .commuter-profile .speed-preference button.selected {
   color: var(--lightgreen);
   outline: none;
   background-color: var(--green);
-  border-radius: 50%;
 }
 
 .commuter-profile .bike-speed p {
