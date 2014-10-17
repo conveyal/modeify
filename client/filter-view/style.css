@@ -84,9 +84,13 @@
   text-decoration: none;
 }
 
+/* Version 2 */
+
 .mode-filters-v2 {
   margin-top: 8px;
   display: inline-block;
+  background-color: var(--green);
+  border-radius: var(--border-radius);
 }
 
 .mode-filters-v2 a {
@@ -96,21 +100,174 @@
   border-radius: var(--border-radius);
   cursor: pointer;
   font-size: 28px;
-  padding: 5px 10px;
-  margin: 2px 0;
+  padding: 8px 10px;
 }
 
 .mode-filters-v2 a.active {
-  color: var(--lightgreen);
+  color: #4b6a20;
   background-color: var(--green);
   border-radius: var(--border-radius);
   text-decoration: none;
+  text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
+}
+
+.mode-filters-v2 a:hover:before {
+  content: "\f067";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  font-size: 22px;
+  margin: 0;
+  vertical-align: middle;
+  padding: 0 5px;
+  text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
+
 }
 
 .mode-filters-v2 a:hover{
-  color: #F9D46B;
+  text-decoration: none;
+  position: relative;
+}
+
+/* Version 3 */
+
+
+.mode-filters-v3 {
+  margin-top: 8px;
+  display: inline-block;
+}
+
+.mode-filters-v3 a {
+  font-size: 28px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  transition-property: background;
+  transition-duration: 0.3s;
+  background: var(--green);
+  color: rgba(255, 255, 255, 0.7);
+  border: none;
+  text-shadow: none;
+}
+
+.mode-filters-v3 a.active {
+    box-shadow: inset 0px 1px 3px rgba(94, 132, 40, 0.7);
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
+    background: var(--green);
+    color: #4b6a20; 
+}
+
+.mode-filters-v3 a:hover, a:focus{
+  background: #99e438; 
   text-decoration: none;
 }
+
+/* Version 4 */
+
+.mode-filters-v4 {
+  margin-top: 8px;
+  display: inline-block;
+}
+
+.mode-filters-v4 a {
+  font-size: 28px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  transition-property: background;
+  transition-duration: 0.3s;
+  background: var(--green);
+  color: rgba(255, 255, 255, 0.7);
+  border: none;
+  text-shadow: none;
+}
+
+.mode-filters-v4 a.active {
+    box-shadow: inset 0px 1px 3px rgba(94, 132, 40, 0.7);
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
+    background: var(--green);
+    color: #4b6a20;
+    background-image: url(/images/icons/plus.svg);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
+
+.mode-filters-v4 a:hover, a:focus{
+  background: #99e438; 
+  background-image: url(/images/icons/plus.svg);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  text-decoration: none;
+}
+
+/* Version 5 */
+
+.mode-filters-v5 {
+  margin-top: 8px;
+  display: inline-block;
+  background-color: var(--green);
+  border-radius: var(--border-radius);
+}
+
+.mode-filters-v5 a {
+  display: inline-block;
+  color: var(--lightgreen);
+  cursor: pointer;
+  font-size: 28px;
+  padding: 8px 10px;
+  transition-property: background;
+  transition-duration: 0.3s;
+}
+
+.mode-filters-v5 a.active {
+  border-radius: var(--border-radius);
+  color: #4b6a20;
+  background-image: radial-gradient(bottom, circle, rgba(255,255,255, 0.5),var(--green), var(--green), var(--green),var(--green));
+  text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
+}
+
+.mode-filters-v5 a:hover{
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  background-image: radial-gradient(bottom, circle, var(--lightgreen),var(--green), var(--green), var(--green),var(--green));
+}
+
+/* Version 6 */
+.mode-filters-v6 {
+  margin-top: 8px;
+  display: inline-block;
+}
+
+.mode-filters-v6 a {
+  font-size: 28px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  transition-property: background;
+  transition-duration: 0.3s;
+  background: var(--green);
+  color: rgba(255, 255, 255, 0.7);
+  border: none;
+  text-shadow: none;
+}
+
+.mode-filters-v6 a.active {
+    box-shadow: inset 0px 1px 3px rgba(94, 132, 40, 0.7);
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
+    background: var(--green);
+    color: #4b6a20;
+    background-image: url(/images/icons/check.svg);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
+
+.mode-filters-v6 a:hover, a:focus{
+  background-image: url(/images/icons/check.svg);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  text-decoration: none;
+}
+
+
+
 
 
 
