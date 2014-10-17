@@ -23,8 +23,8 @@
   border-top-right-radius: var(--border-radius);
 }
 
-.Options .option:first-of-type {
-  border-top-right-radius: 0;
+.Options .header .number {
+  font-weight: var(--bold);
 }
 
 .Options .option.expanded {
