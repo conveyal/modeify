@@ -9,8 +9,7 @@ var view = require('view');
  */
 
 var View = module.exports = view(require('./template.html'), function(view,
-  plan) {
-});
+  plan) {});
 
 /**
  * Set the routes view
@@ -49,12 +48,12 @@ View.prototype.optionsCount = function() {
 
 View.prototype.modeList = function() {
   var modes = [];
-  if(this.model.bus() || this.model.train()) modes.push('transit');
-  if(this.model.walk()) modes.push('walking');
-  if(this.model.bike()) modes.push('biking');
-  if(this.model.car()) modes.push('driving');
+  if (this.model.bus() || this.model.train()) modes.push('transit');
+  if (this.model.walk()) modes.push('walking');
+  if (this.model.bike()) modes.push('biking');
+  if (this.model.car()) modes.push('driving');
 
-  if(modes.length > 1) modes[modes.length -1] = ' &amp; ' + modes[modes.length -1];
+  if (modes.length > 1) modes[modes.length - 1] = ' &amp; ' + modes[modes.length - 1];
 
   return modes.join(modes.length > 2 ? ', ' : ' ');
 };

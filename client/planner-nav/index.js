@@ -46,7 +46,6 @@ View.prototype.showProfile = function(e) {
   });
 };
 
-
 /**
  * Show About
  */

@@ -393,7 +393,6 @@ function ndescription(a, dir, dis, st) {
     ' mi';
 }
 
-
 /**
  * Get the option number for display purposes (1-based)
  */
@@ -409,11 +408,11 @@ View.prototype.optionNumber = function() {
 View.prototype.optionModes = function() {
   var modeStr;
 
-  if(this.model.bikeDistance() > 0) modeStr = 'bike';
-  else if(this.model.driveDistance() > 0) modeStr = 'drive';
+  if (this.model.bikeDistance() > 0) modeStr = 'bike';
+  else if (this.model.driveDistance() > 0) modeStr = 'drive';
   else modeStr = 'walk';
 
-  if(this.model.hasTransit()) modeStr += ' to transit';
+  if (this.model.hasTransit()) modeStr += ' to transit';
 
   return modeStr;
 };
