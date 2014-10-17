@@ -27,6 +27,7 @@ module.exports.render = function(ctx, next) {
   if (view) {
     view.off();
     if (view.el && view.el.remove) view.el.remove();
+    if (view.category) $main.classList.remove(view.category);
   }
 
   // if no view has been created or ther was an error, create an error page
@@ -35,12 +36,15 @@ module.exports.render = function(ctx, next) {
   // Store the new view
   view = ctx.view;
 
+  // Add the category as a class
+  if (view.category) $main.classList.add(view.category);
+
   $main.innerHTML = '';
   $main.appendChild(view.el);
   view.emit('rendered', view);
 
   // track the page view
-  analytics.page(ctx.view.category, ctx.view.title);
+  analytics.page(view.category, view.title);
 };
 
 /**
