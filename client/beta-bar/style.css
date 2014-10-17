@@ -1,7 +1,7 @@
 
 .BetaBar {
   background-color: var(--gold);
-  color: var(--dark-blue);
+  color: var(--dark-gold);
   padding: 8px;
   line-height: 16px;
   font-size: 14px;
@@ -9,7 +9,7 @@
 }
 
 .BetaBar a {
-  color: var(--dark-blue);
+  color: var(--dark-gold);
   font-weight: var(--bold);
 }
 
