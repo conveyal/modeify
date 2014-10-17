@@ -2,17 +2,28 @@
   "name": "welcome-flow",
   "local": [
     "analytics",
+    "config",
+    "locations-view",
     "log",
     "modal"
   ],
   "scripts": [
     "index.js",
+    "finding-options/index.js",
+    "introduction/index.js",
+    "locations/index.js",
     "welcome/index.js"
   ],
   "styles": [
-    "style.css"
+    "style.css",
+    "introduction/style.css",
+    "locations/style.css",
+    "welcome/style.css"
   ],
   "templates": [
+    "finding-options/template.html",
+    "introduction/template.html",
+    "locations/template.html",
     "welcome/template.html"
   ]
 }

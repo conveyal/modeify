@@ -1,0 +1,16 @@
+.WelcomeLocations {
+  text-align: center;
+}
+
+.WelcomeLocations .locations {
+  padding: 0;
+  text-align: left;
+}
+
+.WelcomeLocations .locations input {
+  width: 204px;
+}
+
+.WelcomeLocations p {
+  margin: 15px 0;
+}
