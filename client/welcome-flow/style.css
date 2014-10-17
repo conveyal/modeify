@@ -1,0 +1,16 @@
+
+.WelcomeFlow .logo {
+  margin: 5px 0 20px;
+  height: 40px;
+}
+
+.WelcomeFlow h3 {
+  margin-top: 0;
+}
+
+.WelcomeFlow .question {
+  background-color: var(--light-blue);
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: var(--border-radius);
+}
