@@ -77,7 +77,7 @@ module.exports = function(ctx, next) {
     });
 
     // Show the welcome page if welcome complete isn't done
-    if (!plan.welcome_complete())
+    if (!session.commuter().profile().welcome_wizard_complete)
       showWelcomeWizard(session);
   });
 
