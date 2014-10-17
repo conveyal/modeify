@@ -3,8 +3,6 @@
   "dependencies": {
     "component/each": "*",
     "component/querystring": "*",
-    "segmentio/overlay": "*",
-    "component/tip": "*",
     "visionmedia/batch": "*"
   },
   "local": [
@@ -28,9 +26,6 @@
     "style.css"
   ],
   "templates": [
-    "from-tip.html",
-    "template.html",
-    "time-tip.html",
-    "to-tip.html"
+    "template.html"
   ]
 }

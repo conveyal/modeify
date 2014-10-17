@@ -6,12 +6,10 @@ var FilterView = require('filter-view');
 var LocationsView = require('locations-view');
 var log = require('log')('planner-page');
 var OptionsView = require('options-view');
-var Overlay = require('overlay');
 var PlannerNav = require('planner-nav');
 var querystring = require('querystring');
 var session = require('session');
 var textModal = require('text-modal');
-var Tip = require('tip');
 var TransitiveView = require('transitive-view');
 var view = require('view');
 var WelcomePage = require('welcome-page');
@@ -69,33 +67,18 @@ module.exports = function(ctx, next) {
     var from = locations.from || plan.from() || FROM;
     var to = locations.to || plan.to() || TO;
 
+    // Set addresses and update the routes
+    plan.setAddresses(from, to, function(err) {
+      if (err) {
+        log.error('%e', err);
+      } else {
+        plan.updateRoutes();
+      }
+    });
+
     // Show the welcome page if welcome complete isn't done
-    if (!plan.welcome_complete()) {
-      plan.setAddresses(from, to, function(
-        err) {
-        if (err) {
-          log.error('%e', err);
-        } else {
-          plan.updateRoutes({
-            modes: 'BICYCLE,WALK,TRAINISH,BUS,CAR'
-          });
-        }
-      });
-
+    if (!plan.welcome_complete())
       ctx.view.showWelcomeWizard();
-    } else if (locations.to && locations.from) {
-      log('load in locations from query parameters');
-
-      plan.setAddresses(locations.from, locations.to, function(err) {
-        if (err) {
-          log.error('%e', err);
-        } else {
-          plan.updateRoutes();
-        }
-      });
-    } else {
-      plan.updateRoutes();
-    }
   });
 
   next();
@@ -108,15 +91,6 @@ module.exports = function(ctx, next) {
 View.prototype.showWelcomeWizard = function() {
   log('welcome incomplete, show welcome wizard');
 
-  // Tool Tips
-  var fromTip = new Tip(require('./from-tip.html'));
-  var toTip = new Tip(require('./to-tip.html'));
-  var timeTip = new Tip(require('./time-tip.html'));
-
-  fromTip.position(toolTipPosition);
-  toTip.position(toolTipPosition);
-  timeTip.position(toolTipPosition);
-
   var plan = session.plan();
   var welcome = new WelcomePage(plan);
   welcome.show();
@@ -124,48 +98,6 @@ View.prototype.showWelcomeWizard = function() {
 
   function showFrom() {
     plan.welcome_complete(true);
-    /* fromTip.show('.input-group.from');
-
-    var fromLocation = document.getElementById('from-location');
-    fromLocation.focus();
-    fromLocation.select();
-
-    document.querySelector('.from-next-button').onclick = function() {
-      fromTip.hide();
-    };
-
-    fromLocation.onblur = function() {
-      fromTip.hide();
-    };
-
-    fromTip.on('hide', showTo); */
-  }
-
-  function showTo() {
-    toTip.show('.input-group.to');
-
-    var toLocation = document.getElementById('to-location');
-    toLocation.focus();
-    toLocation.select();
-
-    toLocation.onblur = function() {
-      toTip.hide();
-    };
-
-    document.querySelector('.to-next-button').onclick = function() {
-      toTip.hide();
-    };
-
-    toTip.on('hide', showTime);
-  }
-
-  function showTime() {
-    timeTip.show('.time-filters');
-
-    document.querySelector('.time-next-button').onclick = function() {
-      timeTip.hide();
-      plan.welcome_complete(true);
-    };
   }
 };
 
