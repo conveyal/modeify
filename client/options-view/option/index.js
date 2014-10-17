@@ -409,11 +409,11 @@ View.prototype.optionNumber = function() {
 View.prototype.optionModes = function() {
   var modeStr;
 
-  if(this.model.bikeDistance() > 0) modeStr = 'Bike';
-  else if(this.model.driveDistance() > 0) modeStr = 'Drive';
-  else modeStr = 'Walk';
+  if(this.model.bikeDistance() > 0) modeStr = 'bike';
+  else if(this.model.driveDistance() > 0) modeStr = 'drive';
+  else modeStr = 'walk';
 
-  if(this.model.hasTransit()) modeStr += ' to Transit';
+  if(this.model.hasTransit()) modeStr += ' to transit';
 
   return modeStr;
 };

@@ -16,11 +16,11 @@
 }
 
 .Options .header {
-  display: inline-block;
-  font-size: 18px;
-  text-transform: uppercase;
-  color: var(--gray);
-  padding: 10px 0 0 16px;
+  background-color: var(--darkest);
+  color: var(--light-blue);
+  padding: 4px 8px;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
 }
 
 .Options .option:first-of-type {
