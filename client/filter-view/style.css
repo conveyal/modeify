@@ -266,6 +266,76 @@
   text-decoration: none;
 }
 
+/* Version 7 */
+.mode-filters-v7 {
+  margin-top: 8px;
+  display: inline-block;
+}
+
+.mode-filters-v7 a {
+  font-size: 28px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  transition-property: background;
+  transition-duration: 0.3s;
+  background: var(--green);
+  color: rgba(255, 255, 255, 0.7);
+  border: none;
+  text-shadow: none;
+}
+
+.mode-filters-v7 a.active {
+    box-shadow: inset 0px 1px 3px rgba(94, 132, 40, 0.7);
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
+    background: var(--green);
+    color: #4b6a20;
+    background-image: url(/images/icons/little-check.svg);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
+
+.mode-filters-v7 a:hover, a:focus{
+  background-image: url(/images/icons/little-check.svg);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  text-decoration: none;
+}
+
+/* Version 8 */
+.mode-filters-v8 {
+  margin-top: 8px;
+  padding: 8px 0 5px 0;
+  display: inline-block;
+  background-color: var(--green);
+  border-radius: var(--border-radius);
+}
+
+.mode-filters-v8 a {
+  font-size: 28px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  transition-property: background;
+  transition-duration: 0.3s;
+  color: rgba(255, 255, 255, 0.7);
+  border: none;
+  text-shadow: none;
+}
+
+.mode-filters-v8 a.active {
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
+    color: #4b6a20;
+    background-image: url(/images/icons/check.svg);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
+
+.mode-filters-v8 a:hover, a:focus{
+  background-image: url(/images/icons/check.svg);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  text-decoration: none;
+}
+
 
 
 
