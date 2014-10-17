@@ -53,9 +53,12 @@
   }
 }
 
+#locations-form {
+  padding-top: 10px;
+}
+
 .panel .title {
   padding: 0 8px;
-  margin-top: 10px;
   width: 100%;
   color: var(--light-blue);
   font-size: 16px;
