@@ -9,7 +9,8 @@
     "journey",
     "log",
     "text-modal",
-    "view"
+    "view",
+    "about-page"
   ],
   "scripts": [
     "index.js"

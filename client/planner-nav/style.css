@@ -14,27 +14,30 @@ nav {
 }
 
 nav h3 {
-  margin: 0 8px 0 0;
-  line-height: 44px;
+  margin: 8px 8px 0 0;
 }
 
 nav h3 i {
   font-size: 17px;
   padding-right: 5px;
-  padding-top: 13px;
-  vertical-align: top;
+  vertical-align: middle;
   text-shadow: 0px 1px 1px rgba(38,46,56,0.8);
 }
 
+nav h3 .icononly {
+  padding-right: 0px;
+}
+
 nav h3 a {
+  display: inline-block;
   color: var(--light-blue);
   font-size: 12px;
   font-weight: bold;
-  vertical-align: top;
+  vertical-align: middle;
+  height: 30px;
   background-color: var(--darkest);
-  padding: 8px 10px;
+  padding: 7px 10px;
   border-radius: var(--border-radius)
-
 }
 
 nav h3 a:hover {

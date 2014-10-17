@@ -4,6 +4,7 @@ var page = require('page');
 var Profile = require('commuter-profile');
 var textModal = require('text-modal');
 var view = require('view');
+var AboutPage = require('about-page');
 
 /**
  * Expose `View`
@@ -43,4 +44,15 @@ View.prototype.showProfile = function(e) {
       profile.show(function() {});
     }
   });
+};
+
+
+/**
+ * Show About
+ */
+
+View.prototype.showAbout = function(e) {
+  if (e) e.preventDefault();
+  var about = new AboutPage();
+  about.show();
 };

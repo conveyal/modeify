@@ -1,0 +1,15 @@
+{
+  "name": "about-page",
+  "local": [
+    "modal"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}
