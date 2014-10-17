@@ -89,18 +89,18 @@
 .mode-filters-v2 {
   margin-top: 8px;
   display: inline-block;
-  background-color: var(--green);
-  border-radius: var(--border-radius);
 }
 
 .mode-filters-v2 a {
   background-color: var(--green);
   display: inline-block;
-  color: var(--lightgreen);
+  color: #7ba040;
+  transition-property: background;
+  transition-duration: 0.3s;
   border-radius: var(--border-radius);
   cursor: pointer;
   font-size: 28px;
-  padding: 8px 10px;
+  padding: 5px 10px;
 }
 
 .mode-filters-v2 a.active {
@@ -109,6 +109,13 @@
   border-radius: var(--border-radius);
   text-decoration: none;
   text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
+  box-shadow: inset 0px 1px 3px rgba(94, 132, 40, 0.7);
+}
+
+.mode-filters-v2 a:hover{
+  text-decoration: none;
+  position: relative;
+  background-color: #99e438;
 }
 
 .mode-filters-v2 a:hover:before {
@@ -116,19 +123,75 @@
   font-family: FontAwesome;
   font-style: normal;
   font-weight: normal;
-  text-decoration: inherit;
-  font-size: 22px;
+  font-size: 13pt;
+  padding: 0 7px;
   margin: 0;
   vertical-align: middle;
-  padding: 0 5px;
+  text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
+}
+
+.mode-filters-v2 .active:hover:before {
+  content: "\f068";
+  text-decoration: none;
+  color: var(--darkgreen);
+}
+
+/* V2-b */
+
+.mode-filters-v2-b {
+  margin-top: 8px;
+  display: inline-block;
+}
+
+.mode-filters-v2-b a {
+  background-color: var(--green);
+  display: inline-block;
+  color: #4b6a20;
+  text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
+  transition-property: background;
+  transition-duration: 0.3s;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 28px;
+  padding: 5px 10px;
+}
+
+.mode-filters-v2-b a.active {
+  color: var(--lightgreen);
+  background-color: var(--green);
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  text-shadow: 0px 0px 0px rgba(255, 255, 255, 0.3);
+  box-shadow: inset 0px 1px 3px rgba(94, 132, 40, 0.7);
+}
+
+.mode-filters-v2-b a:hover:before {
+  content: "\f067";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  color: var(--lightgreen);
+  font-size: 13pt;
+  padding: 0 7px;
+  margin: 0;
+  vertical-align: middle;
+  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.3);
+}
+
+.mode-filters-v2-b .active:hover:before {
+  content: "\f068";
+  color: #4b6a20;
   text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
 
 }
 
-.mode-filters-v2 a:hover{
+.mode-filters-v2-b a:hover{
   text-decoration: none;
+  background-color: #99e438;
   position: relative;
 }
+
 
 /* Version 3 */
 
@@ -335,7 +398,6 @@
   background-position: 0 0;
   text-decoration: none;
 }
-
 
 
 
