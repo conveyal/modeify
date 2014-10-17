@@ -15,7 +15,8 @@ var Commuter = module.exports = model('Commuter')
     name: '',
     link: '',
     labels: [],
-    opts: {}
+    opts: {},
+    profile: {}
   }))
   .use(require('model-geo'))
   .use(require('model-query'))
@@ -29,6 +30,7 @@ var Commuter = module.exports = model('Commuter')
   .attr('link')
   .attr('labels')
   .attr('opts')
+  .attr('profile')
   .attr('status');
 
 /**
@@ -118,4 +120,14 @@ Commuter.prototype.statusLabel = function() {
     case 'clicked':
       return 'success';
   }
+};
+
+/**
+ * Update profile
+ */
+
+Commuter.prototype.updateProfile = function(name, val) {
+  var profile = this.profile();
+  profile[name] = val;
+  this.profile(profile);
 };

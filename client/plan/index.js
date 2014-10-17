@@ -37,8 +37,7 @@ var Plan = module.exports = model('Plan')
     to_valid: false,
     train: true,
     tripsPerYear: 235,
-    walk: true,
-    welcome_complete: false
+    walk: true
   }))
   .attr('bike')
   .attr('bus')
@@ -51,7 +50,6 @@ var Plan = module.exports = model('Plan')
   .attr('from_valid')
   .attr('journey')
   .attr('options')
-  .attr('original_modes')
   .attr('per_day')
   .attr('per_year')
   .attr('scorer')
@@ -62,8 +60,7 @@ var Plan = module.exports = model('Plan')
   .attr('to_valid')
   .attr('train')
   .attr('tripsPerYear')
-  .attr('walk')
-  .attr('welcome_complete');
+  .attr('walk');
 
 /**
  * Expose `load`
