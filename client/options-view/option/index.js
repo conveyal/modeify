@@ -394,3 +394,28 @@ function ndescription(a, dir, dis, st) {
   return a + ' ' + dir + ' on ' + st + ' for ' + convert.metersToMiles(dis) +
     ' mi';
 }
+
+
+/**
+ * Get the option number for display purposes (1-based)
+ */
+
+View.prototype.optionNumber = function() {
+  return this.model.index + 1;
+};
+
+/**
+ * Construct a simple mode-based descriptor (e.g. "Drive to Transit")
+ */
+
+View.prototype.optionModes = function() {
+  var modeStr;
+
+  if(this.model.bikeDistance() > 0) modeStr = 'Bike';
+  else if(this.model.driveDistance() > 0) modeStr = 'Drive';
+  else modeStr = 'Walk';
+
+  if(this.model.hasTransit()) modeStr += ' to Transit';
+
+  return modeStr;
+};
