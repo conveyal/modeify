@@ -29,9 +29,14 @@ var View = module.exports = view(require('./template.html'), function(view,
 View.prototype.display = function(journey) {
   log('--> displaying journey');
   var self = this;
+  var el = this.el;
 
   if (journey.journeys && journey.journeys.length > 0) {
-    this.el.innerHTML = require('./legend.html');
+    el.innerHTML = require('./legend.html');
+
+    var legend = this.find('.legend');
+    var zoomIn = this.find('.zoom.in');
+    var zoomOut = this.find('.zoom.out');
 
     try {
       var transitive = window.transitive = new Transitive({
@@ -41,8 +46,8 @@ View.prototype.display = function(journey) {
           top: 43
         },
         draggableTypes: ['PLACE'],
-        el: this.el,
-        legendEl: this.find('.legend'),
+        el: el,
+        legendEl: legend,
         data: journey,
         gridCellSize: 200,
         mapboxId: config.mapbox_map_id(),
@@ -58,36 +63,39 @@ View.prototype.display = function(journey) {
       transitive.on('place.to.dragend', function(place) {
         self.placeChanged('to', place);
       });
+
+      if (zoomIn) {
+        zoomIn.onclick = function() {
+          el.dispatchEvent(new window.WheelEvent('wheel', {
+            view: window,
+            bubbles: true,
+            cancelable: true,
+            clientX: el.clientWidth / 2,
+            clientY: el.clientHeight * 0.7,
+            deltaY: -300
+          }));
+        };
+      }
+
+      if (zoomOut) {
+        zoomOut.onclick = function() {
+          el.dispatchEvent(new window.WheelEvent('wheel', {
+            view: window,
+            bubbles: true,
+            cancelable: true,
+            clientX: el.clientWidth / 2,
+            clientY: el.clientHeight * 0.7,
+            deltaY: 300
+          }));
+        };
+      }
+
+      log('<-- done displaying patterns');
     } catch (e) {
       log('<-- failed to display journey: %e', e);
       return;
     }
   }
-
-  var el = this.el;
-  this.find('.zoom.in').onclick = function() {
-    el.dispatchEvent(new window.WheelEvent('wheel', {
-      view: window,
-      bubbles: true,
-      cancelable: true,
-      clientX: el.clientWidth / 2,
-      clientY: el.clientHeight * 0.7,
-      deltaY: -300
-    }));
-  };
-
-  this.find('.zoom.out').onclick = function() {
-    el.dispatchEvent(new window.WheelEvent('wheel', {
-      view: window,
-      bubbles: true,
-      cancelable: true,
-      clientX: el.clientWidth / 2,
-      clientY: el.clientHeight * 0.7,
-      deltaY: 300
-    }));
-  };
-
-  log('<-- done displaying patterns');
 };
 
 /**

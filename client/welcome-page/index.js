@@ -35,6 +35,7 @@ Modal.prototype.save = function(e) {
   if (!modes.reduce(function(a, b) {
       return a || b;
     })) {
+    alerts.innerHTML = '';
     alerts.appendChild(Alert({
       type: 'warning',
       text: 'Please select at least one option.'
