@@ -87,7 +87,7 @@
   color: var(--black);
   box-shadow: none;
   border: none;
-  width: 246px;
+  width: 250px;
   text-overflow: ellipsis;
   background-color: #fff;
 }
