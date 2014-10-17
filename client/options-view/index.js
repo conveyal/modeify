@@ -7,26 +7,6 @@ var view = require('view');
 
 var View = module.exports = view(require('./template.html'), function(view,
   plan) {
-  var year = view.find('.per-year');
-  var trip = view.find('.per-trip');
-
-  var setActive = function(v) {
-    if (v) {
-      year.classList.add('active');
-      trip.classList.remove('active');
-    } else {
-      year.classList.remove('active');
-      trip.classList.add('active');
-    }
-  };
-
-  plan.on('change per_year', function(val) {
-    setActive(val);
-
-    plan.rescoreOptions();
-  });
-
-  setActive(plan.per_year());
 });
 
 /**
