@@ -17,7 +17,7 @@
     "session",
     "text-modal",
     "view",
-    "welcome-page"
+    "welcome-flow"
   ],
   "scripts": [
     "index.js"

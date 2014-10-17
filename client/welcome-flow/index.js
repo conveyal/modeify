@@ -12,17 +12,26 @@ var MODES = ['bike', 'bus', 'train', 'car', 'walk'];
  * Create `Modal`
  */
 
-var Modal = module.exports = modal({
+var Welcome = modal({
   category: 'planner',
   template: require('./template.html'),
   title: 'Welcome Page'
 });
 
 /**
+ * Show Modal
+ */
+
+module.exports = function(plan) {
+  var welcome = new Welcome(plan);
+  welcome.show();
+};
+
+/**
  * Save
  */
 
-Modal.prototype.save = function(e) {
+Welcome.prototype.save = function(e) {
   e.preventDefault();
   log('--> saving');
 
@@ -52,7 +61,7 @@ Modal.prototype.save = function(e) {
  * Get mode
  */
 
-Modal.prototype.mode = function(name) {
+Welcome.prototype.mode = function(name) {
   return this.find('[data-active="' + name + '"]').classList.contains('active');
 };
 
@@ -61,7 +70,7 @@ Modal.prototype.mode = function(name) {
  */
 
 MODES.map(function(m) {
-  Modal.prototype[m] = function(v) {
+  Welcome.prototype[m] = function(v) {
     this.toggle(m, v);
   };
 });
@@ -70,7 +79,7 @@ MODES.map(function(m) {
  * Toggle
  */
 
-Modal.prototype.toggle = function(type, val) {
+Welcome.prototype.toggle = function(type, val) {
   if (val === undefined) return false;
   var el = this.find('[data-active="' + type + '"]');
   if (val) el.classList.add('active');

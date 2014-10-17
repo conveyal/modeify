@@ -14,8 +14,7 @@
     "planner-page",
     "router-utils",
     "session",
-    "style-guide",
-    "welcome-page"
+    "style-guide"
   ],
   "scripts": [
     "index.js"

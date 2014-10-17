@@ -12,7 +12,7 @@ var session = require('session');
 var textModal = require('text-modal');
 var TransitiveView = require('transitive-view');
 var view = require('view');
-var WelcomePage = require('welcome-page');
+var showWelcomeWizard = require('welcome-flow');
 
 /**
  * Default from / to addresses
@@ -78,27 +78,10 @@ module.exports = function(ctx, next) {
 
     // Show the welcome page if welcome complete isn't done
     if (!plan.welcome_complete())
-      ctx.view.showWelcomeWizard();
+      showWelcomeWizard(session);
   });
 
   next();
-};
-
-/**
- * Show Welcome Wizard
- */
-
-View.prototype.showWelcomeWizard = function() {
-  log('welcome incomplete, show welcome wizard');
-
-  var plan = session.plan();
-  var welcome = new WelcomePage(plan);
-  welcome.show();
-  welcome.modal.on('hide', showFrom);
-
-  function showFrom() {
-    plan.welcome_complete(true);
-  }
 };
 
 /**
@@ -116,6 +99,7 @@ View.prototype.reverseCommute = function(e) {
     to_id: plan.from_id(),
     to_ll: plan.from_ll()
   });
+
   plan.updateRoutes();
 };
 
