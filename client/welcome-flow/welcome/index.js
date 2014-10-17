@@ -33,4 +33,5 @@ Welcome.prototype.clickedAnswer = function(e) {
 
 Welcome.prototype.recordAnswer = function(answer) {
   this.model.updateProfile('initial_mode_of_transportation', answer);
+  this.model.save();
 };

@@ -1,37 +1,16 @@
 
-.welcome-page {
-  text-align: center;
-  padding: 20px;
-}
-
-.welcome-page h2 {
-  margin-top: 0;
-}
-
-.welcome-page h3 {
-  margin-top: 0;
-}
-
-.welcome-page h4 {
-  padding: 0 15px;
-}
-
-.welcome-page .logo {
-  background-image: url(/images/logo/1074x170.png);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: auto 100%;
+.WelcomeFlow .logo {
+  margin: 5px 0 20px;
   height: 40px;
-  margin: 20px 0;
 }
 
-.question {
+.WelcomeFlow h3 {
+  margin-top: 0;
+}
+
+.WelcomeFlow .question {
   background-color: var(--light-blue);
   padding: 15px;
   margin-top: 20px;
   border-radius: var(--border-radius);
-}
-
-.welcome-page .answers {
-  margin-top: 15px;
 }

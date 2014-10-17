@@ -36,8 +36,10 @@ var View = module.exports = view(require('./template.html'), function(view,
 
 View.prototype.blurInput = function(e) {
   log('input blurred, saving changes');
+
   var inputGroup = e.target.parentNode;
   var suggestionList = inputGroup.getElementsByTagName('ul')[0];
+  inputGroup.classList.remove('suggestions-open');
 
   var highlight = this.find('.suggestion.highlight');
   if (highlight) e.target.value = highlight.textContent || '';

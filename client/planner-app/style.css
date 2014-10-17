@@ -111,6 +111,13 @@ a:hover {
   height: 35px;
 }
 
+.logo {
+  background-image: url(/images/logo/1074x170.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+}
+
 .alert {
   border-radius: var(--border-radius);
   margin-bottom: 10px;
