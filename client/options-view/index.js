@@ -40,7 +40,7 @@ View.prototype.togglePerTrip = function(e) {
 };
 
 View.prototype.optionsSummary = function() {
-  return 'We Found <strong>' + this.optionsCount() + '</strong> ' +this.modeList() + ' ' + this.optionsPlural() + ':';
+  return 'We found <strong>' + this.optionsCount() + '</strong> ' + this.modeList() + ' ' + this.optionsPlural();
 };
 
 View.prototype.optionsCount = function() {
@@ -49,16 +49,16 @@ View.prototype.optionsCount = function() {
 
 View.prototype.modeList = function() {
   var modes = [];
-  if(this.model.bus() || this.model.train()) modes.push('Transit');
-  if(this.model.walk()) modes.push('Walking');
-  if(this.model.bike()) modes.push('Biking');
-  if(this.model.car()) modes.push('Driving');
+  if(this.model.bus() || this.model.train()) modes.push('transit');
+  if(this.model.walk()) modes.push('walking');
+  if(this.model.bike()) modes.push('biking');
+  if(this.model.car()) modes.push('driving');
 
-  if(modes.length > 1) modes[modes.length -1] = 'and ' + modes[modes.length -1];
+  if(modes.length > 1) modes[modes.length -1] = ' &amp; ' + modes[modes.length -1];
 
   return modes.join(modes.length > 2 ? ', ' : ' ');
 };
 
 View.prototype.optionsPlural = function() {
-  return 'Option' + (this.model.options().length > 1 ? 's' : '');
+  return 'option' + (this.model.options().length > 1 ? 's' : '');
 };

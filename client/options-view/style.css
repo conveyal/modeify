@@ -9,18 +9,3 @@
 	font-size: 14px;
 	font-weight: bold;
 }
-
-.Options .annual-day-trigger {
-	color: var(--darkest);
-	background-repeat: no-repeat;
-	font-size: 14px;
-	line-height: 15px;
-}
-
-.Options .annual-day-trigger:hover,
-.Options .annual-day-trigger:active,
-.Options .annual-day-trigger:focus,
-.Options .annual-day-trigger.active {
-	color:  #fff;
-  text-decoration: none;
-}
