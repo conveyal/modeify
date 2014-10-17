@@ -38,7 +38,7 @@
 
 .Options .simple .segments {
   display: inline-block;
-  padding: 16px 0 0 16px;
+  padding: 10px 0 0 16px;
 }
 
 .Options .simple .segments .mode {
@@ -62,7 +62,7 @@
 }
 
 .Options .simple .minutes-column {
-  padding-top: 16px;
+  padding-top: 10px;
   display: inline-block;
   vertical-align: top;
   margin-left: 16px;
