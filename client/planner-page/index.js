@@ -66,12 +66,12 @@ module.exports = function(ctx, next) {
     var locations = querystring.parse(window.location.search);
 
     // If no querystring, see if we have them in the plan already
-    locations.from = plan.from();
-    locations.to = plan.to();
+    var from = locations.from || plan.from() || FROM;
+    var to = locations.to || plan.to() || TO;
 
     // Show the welcome page if welcome complete isn't done
     if (!plan.welcome_complete()) {
-      plan.setAddresses(locations.from || FROM, locations.to || TO, function(
+      plan.setAddresses(from, to, function(
         err) {
         if (err) {
           log.error('%e', err);
