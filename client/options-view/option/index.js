@@ -258,13 +258,11 @@ View.prototype.simpleSegments = function() {
   var html = '';
   var segments = this.model.transit();
 
-  if (accessMode !== 'walk' || segments.length === 0) {
-    html += simpleTemplate.render({
-      background: 'transparent',
-      mode: modeToIcon(accessMode),
-      name: ' '
-    });
-  }
+  html += simpleTemplate.render({
+    background: 'transparent',
+    mode: modeToIcon(accessMode),
+    name: ' '
+  });
 
   segments.forEach(function(segment) {
     var patterns = segment.segmentPatterns.filter(patternFilter('color'));
