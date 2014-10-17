@@ -9,13 +9,15 @@
     "ianstormtaylor/reactive": "*",
     "mbostock/d3": "v3.4.11",
     "ramitos/luminosity": "*",
-    "twitter/hogan.js": "*"
+    "twitter/hogan.js": "*",
+    "visionmedia/debug": "*"
   },
   "local": [
     "convert",
     "feedback-modal",
     "session",
-    "view"
+    "view",
+    "config"
   ],
   "scripts": [
     "option/index.js",
