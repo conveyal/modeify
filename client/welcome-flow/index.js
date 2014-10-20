@@ -1,3 +1,4 @@
+var introJs = require('intro.js').introJs;
 var log = require('log')('welcome-flow');
 var LocationsView = require('locations-view');
 
@@ -5,6 +6,8 @@ var FindingOptions = require('./finding-options');
 var Introduction = require('./introduction');
 var Locations = require('./locations');
 var Welcome = require('./welcome');
+
+window.walkthrough = walkthrough;
 
 /**
  * Show Modal
@@ -48,8 +51,55 @@ module.exports = function(session) {
     commuter.save();
 
     findingOptions.hide();
+    walkthrough();
   });
 
   // Start!
   welcome.show();
 };
+
+/**
+ * Intro JS
+ */
+
+function walkthrough() {
+  var intro = introJs();
+
+  intro.onbeforechange(function(el) {
+    if (el.classList.contains('option')) {
+      var simple = el.querySelector('.simple');
+      simple.click();
+    }
+  });
+
+  intro.setOptions({
+    disableInteraction: false,
+    exitOnEsc: false,
+    exitOnOverlayClick: false,
+    overlayOpacity: 1,
+    scrollToElement: true,
+    showBullets: false,
+    showProgress: false,
+    showStepNumbers: false,
+    skipLable: 'Exit',
+    steps: [
+      {
+        element: document.querySelector('#locations-form'),
+        intro: 'Here you can change addresses, when you are traveling, and the transit modes you\'d like to see.',
+        position: 'bottom'
+      },
+      {
+        element: document.querySelector('.Options'),
+        intro: 'Here are all of your options!',
+        position: 'top'
+      },
+      {
+        element: document.querySelectorAll('.option')[0],
+        intro: 'More details of a specific option.',
+        position: 'top'
+      }
+    ]
+  });
+
+  intro.start();
+}
