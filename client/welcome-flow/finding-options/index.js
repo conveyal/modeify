@@ -29,10 +29,12 @@ FindingOptions.prototype.loadOptions = function() {
   var button = this.find('.btn');
   var loading = this.find('.loading-text');
   var showText = this.find('.show-text');
+  var plan = this.model;
 
-  this.model.updateRoutes({}, function() {
+  plan.updateRoutes({}, function() {
     loading.remove();
     showText.classList.remove('hidden');
     button.classList.remove('disabled');
+    plan.saveJourney();
   });
 };
