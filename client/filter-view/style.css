@@ -176,7 +176,7 @@
     color: #4b6a20;
 }
 
-.mode-filters-v3 a:hover, a:focus{
+.mode-filters-v3 a:hover, .mode-filters-v3 a:focus {
   background: #99e438;
   text-decoration: none;
 }
@@ -444,6 +444,57 @@
   text-decoration: none;
 }
 
+/* Version 12 */
+.mode-filters-v12 {
+  margin-top: 8px;
+  padding: 3px;
+  height: 50px;
+  display: inline-block;
+  background-color: var(--mgreen);
+  border-radius: var(--border-radius);
+}
+
+.mode-filters-v12 a {
+  background-color: var(--green);
+  text-align: center;
+  width: 48px;
+  height: 44px;
+  font-size: 35px;
+  padding-top: 5px;
+  border-radius: var(--border-radius);
+  display: inline-block;
+  transition-property: background;
+  transition-duration: 0.3s;
+  color: rgba(255, 255, 255, 0.7);
+  border: none;
+  text-shadow: none;
+  clear: both;
+}
+
+.mode-filters-v12 i {
+  font-size: 18px;
+  position: relative;
+  top: -36px;
+  left: 14px;
+  z-index: 1000;
+  color: var(--lightgreen);
+  text-shadow: 0px 1px 3px rgba(75, 106, 32, 0.4);
+  padding-right: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.mode-filters-v12 a.active {
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
+    color: #4b6a20;
+   box-shadow: inset 0px 1px 0px var(--darkgreen);
+}
+
+.mode-filters-v12 a:hover, a:focus{
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  text-decoration: none;
+}
 
 .submit {
   float: right;
