@@ -81,7 +81,7 @@ function walkthrough() {
     showBullets: false,
     showProgress: false,
     showStepNumbers: false,
-    skipLable: 'Exit',
+    skipLabel: 'Exit',
     steps: [
       {
         element: document.querySelector('#locations-form'),
