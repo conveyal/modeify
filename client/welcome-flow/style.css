@@ -1,4 +1,15 @@
 
+#main.Welcome {
+  background-image: url(/images/welcome-background.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+}
+
+#main.Welcome > .fullscreen {
+  opacity: 0;
+}
+
 .WelcomeFlow .logo {
   margin: 5px 0 20px;
   height: 40px;
@@ -27,4 +38,8 @@
   border-radius: var(--border-radius);
   font-size: var(--font-size);
   text-shadow: none;
+}
+
+.introjs-overlay {
+  background: rgba(0,0,0,0.75);
 }

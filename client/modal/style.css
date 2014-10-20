@@ -65,6 +65,6 @@
  */
 
 .Overlay {
-  background: radial-gradient(ellipse at center, rgba(255,255,255,0.90) 0%, rgba(255,255,255,1) 100%);
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.50) 0%, rgba(255,255,255,1) 100%);
   z-index: 200;
 }

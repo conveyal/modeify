@@ -16,6 +16,9 @@ window.walkthrough = walkthrough;
 module.exports = function(session) {
   var commuter = session.commuter();
   var plan = session.plan();
+  var main = document.querySelector('#main');
+
+  main.classList.add('Welcome');
 
   var findingOptions = new FindingOptions(plan);
   var locations = new Locations({
@@ -50,6 +53,7 @@ module.exports = function(session) {
     commuter.updateProfile('welcome_wizard_complete', true);
     commuter.save();
 
+    main.classList.remove('Welcome');
     findingOptions.hide();
     walkthrough();
   });
@@ -77,7 +81,7 @@ function walkthrough() {
     exitOnEsc: false,
     exitOnOverlayClick: false,
     overlayOpacity: 1,
-    scrollToElement: true,
+    scrollToElement: false,
     showBullets: false,
     showProgress: false,
     showStepNumbers: false,
