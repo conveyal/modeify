@@ -16,7 +16,8 @@ module.exports = function(session) {
 
   var findingOptions = new FindingOptions(plan);
   var locations = new Locations({
-    'locations-view': new LocationsView(plan)
+    'locations-view': new LocationsView(plan),
+    plan: plan
   });
   var introduction = new Introduction();
   var welcome = new Welcome(commuter);
