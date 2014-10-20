@@ -80,28 +80,6 @@
   color: var(--black);
 }
 
-.Options .simple .fare-column {
-  position: absolute;
-  top: 0;
-  right: 0;
-  text-align: right;
-  background-color: var(--mgreen);
-  color: var(--darkergreen);
-  padding: 5px;
-  line-height: 13px;
-  font-size: 13px;
-  border-top-right-radius: var(--border-radius);
-  border-bottom-left-radius: var(--border-radius);
-}
-
-.Options .option:first-of-type .simple .fare-column {
-  border-top-right-radius: 0;
-}
-
-.Options .simple .fare-column .per-year {
-  color: #fff;
-}
-
 .Options .option .show-hide {
   text-align: right;
   padding-right: 8px;
@@ -146,11 +124,10 @@
   table-layout: fixed;
   border-collapse: separate;
   color: var(--black);
-  padding: 4px 0;
 }
 
 .Options .details .narrative-directions tr:nth-child(odd) {
-  background-color: #f2f6f9;
+  background-color: var(--lightest-blue);
 }
 
 .Options .details .narrative-directions tr.address {
@@ -190,7 +167,7 @@
   height: 44px;
   font-size: 25px;
   text-align: center;
-  padding-left: 25px;
+  padding-left: 16px;
 }
 
 .narrative-directions .icon-start {
@@ -218,7 +195,7 @@
 .Options .details .description {
   text-align: left;
   vertical-align: middle;
-  padding: 4px 25px;
+  padding: 6px 16px;
   line-height: 18px;
 }
 
