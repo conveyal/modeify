@@ -32,7 +32,6 @@
 }
 
 .Options .simple {
-  cursor: pointer;
   position: relative;
 }
 
@@ -103,30 +102,15 @@
   color: #fff;
 }
 
-.Options .option > .simple > .expand {
-  text-align: center;
-  margin: 8px 0;
-  color: var(--lightgray);
+.Options .option .show-hide {
+  text-align: right;
+  padding-right: 8px;
+  margin-bottom: 8px;
+  display: block;
 }
 
-.Options .option:hover > .simple > .expand {
-  color: var(--black);
-}
-
-.Options .option.expanded > .simple > .expand > .fa {
-  transform: rotate(180deg);
-}
-
-.Options .option .hide-details {
-  display: none;
-}
-
-.Options .option.expanded .show-details {
-  display: none;
-}
-
-.Options .option.expanded .hide-details {
-  display: inline;
+.Options .option.expanded .simple .show-hide {
+  visibility: hidden;
 }
 
 /**

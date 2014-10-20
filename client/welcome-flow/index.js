@@ -67,7 +67,7 @@ function walkthrough() {
 
   intro.onbeforechange(function(el) {
     if (el.classList.contains('option')) {
-      var simple = el.querySelector('.simple');
+      var simple = el.querySelector('.simple .show-hide');
       simple.click();
     }
   });
@@ -85,7 +85,7 @@ function walkthrough() {
     steps: [
       {
         element: document.querySelector('#locations-form'),
-        intro: 'Here you can change addresses, when you are traveling, and the transit modes you\'d like to see.',
+        intro: 'Here you can change your start and end locations, the day and time you typically travel, and the travel modes you\'d like to see.',
         position: 'bottom'
       },
       {
@@ -97,6 +97,11 @@ function walkthrough() {
         element: document.querySelectorAll('.option')[0],
         intro: 'More details of a specific option.',
         position: 'top'
+      },
+      {
+        element: document.querySelector('.show-profile-button'),
+        intro: 'Click the Profile button to edit your travel preferences, manage your account, or view saved journeys.',
+        position: 'bottom',
       }
     ]
   });
