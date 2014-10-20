@@ -108,7 +108,7 @@ Setup an OpsWorks Node.JS application and configure in `config/public.yaml`. The
 modeify $ bin/deploy-server staging
 ```
 
-### Environemnt
+### Environment
 
 Short hand to deploy all at once:
 
