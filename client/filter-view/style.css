@@ -218,6 +218,7 @@
 .mode-filters-v4 a:hover, .mode-filters-v4 a:focus{
   background: #99e438;
   background-image: url(/images/icons/plus.svg);
+  color: #4b6a20;
   background-repeat: no-repeat;
   background-position: 0 0;
   text-decoration: none;
@@ -448,10 +449,11 @@
    box-shadow: inset 0px 1px 0px var(--darkgreen);
 }
 
-.mode-filters-v11 a:hover, a:focus{
+.mode-filters-v11 a:hover, .mode-filters-v11 a:focus{
   background-repeat: no-repeat;
   background-position: 0 0;
   text-decoration: none;
+  color: #4b6a20;
 }
 
 /* Version 12 */
