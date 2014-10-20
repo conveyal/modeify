@@ -60,25 +60,26 @@ module.exports = function(ctx, next) {
       view.emit('rendered', view);
     });
 
-    // Get the locations from the querystring
-    var locations = querystring.parse(window.location.search);
-
-    // If no querystring, see if we have them in the plan already
-    var from = locations.from || plan.from() || FROM;
-    var to = locations.to || plan.to() || TO;
-
-    // Set addresses and update the routes
-    plan.setAddresses(from, to, function(err) {
-      if (err) {
-        log.error('%e', err);
-      } else {
-        plan.updateRoutes();
-      }
-    });
-
     // Show the welcome page if welcome complete isn't done
-    if (!session.commuter().profile().welcome_wizard_complete)
+    if (!session.commuter().profile().welcome_wizard_complete) {
       showWelcomeWizard(session);
+    } else {
+      // Get the locations from the querystring
+      var locations = querystring.parse(window.location.search);
+
+      // If no querystring, see if we have them in the plan already
+      var from = locations.from || plan.from() || FROM;
+      var to = locations.to || plan.to() || TO;
+
+      // Set addresses and update the routes
+      plan.setAddresses(from, to, function(err) {
+        if (err) {
+          log.error('%e', err);
+        } else {
+          plan.updateRoutes();
+        }
+      });
+    }
   });
 
   next();

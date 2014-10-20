@@ -23,17 +23,23 @@ module.exports = function(session) {
 
   welcome.on('next', function() {
     introduction.show();
-    welcome.hide();
+    setTimeout(function() {
+      welcome.hide();
+    }, 0);
   });
 
   introduction.on('next', function() {
     locations.show();
-    introduction.hide();
+    setTimeout(function() {
+      introduction.hide();
+    }, 0);
   });
 
   locations.on('next', function() {
     findingOptions.show();
-    locations.hide();
+    setTimeout(function() {
+      locations.hide();
+    }, 0);
   });
 
   findingOptions.on('next', function() {

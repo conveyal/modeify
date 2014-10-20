@@ -9,6 +9,12 @@ var view = require('view');
 var active = null;
 
 /**
+ * Events
+ */
+
+var events = [ 'showing', 'show', 'hiding', 'hide' ];
+
+/**
  * Expose `modal`
  */
 
@@ -23,6 +29,13 @@ module.exports = function(opts, fn) {
     log('showing modal');
 
     this.modal = active = modal(this.el).overlay();
+
+    var view = this;
+    events.forEach(function(e) {
+      view.modal.on(e, function() {
+        view.emit(e, arguments);
+      });
+    });
 
     if (opts.width) this.modal.el.style['max-width'] = opts.width;
     if (opts.closable) this.modal.closable();

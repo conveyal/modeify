@@ -1,7 +1,10 @@
 <div class="WelcomeFlow FindingOptions">
   <div class="logo"></div>
-  <h3>Finding your best options...</h3>
+  <h3>Finding your best options &hellip;</h3>
   <h4>We're building a comparison of all of your choices to enable you to make the best decisions.</h4>
   <p><strong>CarFreeAtoZ</strong> is currently in <span class="badge">BETA</span>.</p>
-  <button on-click="next" class="btn btn-block">Show me my choices!</button>
+  <button on-click="next" class="disabled btn btn-block">
+    <span class="show-text hidden">Show my choices!</span>
+    <span class="loading-text"><i class="fa fa-fw fa-refresh fa-spin"></i></span>
+  </button>
 </div>

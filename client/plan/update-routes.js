@@ -77,10 +77,7 @@ function updateRoutes(plan, opts, callback) {
       log.error('%e', err);
       done(err);
     } else if (!data || data.options.length < 1) {
-      textModal('We\'re sorry! But no trips were found between ' + plan.from() + ' and ' +
-        plan.to() +
-        ' during those hours!<br><br> The destinations may be outside the area available for this application.'
-      );
+      textModal('We\'re sorry but no trips were found between ' + plan.from() + ' and ' + plan.to() + '!<br><br> The destinations may be outside the area available for this application.');
       done();
     } else {
       // Track the commute
