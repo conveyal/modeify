@@ -18,3 +18,13 @@
 .WelcomeFlow .btn {
   font-size: 16px;
 }
+
+.introjs-helperLayer {
+  background-color: rgba(255,255,255,.1);
+}
+
+.introjs-button {
+  border-radius: var(--border-radius);
+  font-size: var(--font-size);
+  text-shadow: none;
+}

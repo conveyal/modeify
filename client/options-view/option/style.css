@@ -32,7 +32,6 @@
 }
 
 .Options .simple {
-  cursor: pointer;
   position: relative;
 }
 
@@ -81,52 +80,15 @@
   color: var(--black);
 }
 
-.Options .simple .fare-column {
-  position: absolute;
-  top: 0;
-  right: 0;
+.Options .option .show-hide {
   text-align: right;
-  background-color: var(--mgreen);
-  color: var(--darkergreen);
-  padding: 5px;
-  line-height: 13px;
-  font-size: 13px;
-  border-top-right-radius: var(--border-radius);
-  border-bottom-left-radius: var(--border-radius);
+  padding-right: 8px;
+  margin-bottom: 8px;
+  display: block;
 }
 
-.Options .option:first-of-type .simple .fare-column {
-  border-top-right-radius: 0;
-}
-
-.Options .simple .fare-column .per-year {
-  color: #fff;
-}
-
-.Options .option > .simple > .expand {
-  text-align: center;
-  margin: 8px 0;
-  color: var(--lightgray);
-}
-
-.Options .option:hover > .simple > .expand {
-  color: var(--black);
-}
-
-.Options .option.expanded > .simple > .expand > .fa {
-  transform: rotate(180deg);
-}
-
-.Options .option .hide-details {
-  display: none;
-}
-
-.Options .option.expanded .show-details {
-  display: none;
-}
-
-.Options .option.expanded .hide-details {
-  display: inline;
+.Options .option.expanded .simple .show-hide {
+  visibility: hidden;
 }
 
 /**
@@ -149,9 +111,9 @@
   max-height: 0;
   opacity: 0;
   visibility: hidden;
-  transition: max-height var(--transition-speed),
+  /*transition: max-height var(--transition-speed),
     opacity var(--transition-speed),
-    visibility var(--transition-speed);
+    visibility var(--transition-speed); */
 }
 
 .Options .option .details > p {
@@ -162,11 +124,10 @@
   table-layout: fixed;
   border-collapse: separate;
   color: var(--black);
-  padding: 4px 0;
 }
 
 .Options .details .narrative-directions tr:nth-child(odd) {
-  background-color: #f2f6f9;
+  background-color: var(--lightest-blue);
 }
 
 .Options .details .narrative-directions tr.address {
@@ -206,7 +167,7 @@
   height: 44px;
   font-size: 25px;
   text-align: center;
-  padding-left: 25px;
+  padding-left: 16px;
 }
 
 .narrative-directions .icon-start {
@@ -234,7 +195,7 @@
 .Options .details .description {
   text-align: left;
   vertical-align: middle;
-  padding: 4px 25px;
+  padding: 6px 16px;
   line-height: 18px;
 }
 

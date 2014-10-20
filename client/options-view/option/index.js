@@ -238,14 +238,22 @@ View.prototype.to = function() {
  * Show/hide
  */
 
-View.prototype.showHide = function() {
+View.prototype.showDetails = function(e) {
+  e.preventDefault();
+  var el = this.el;
+  var expanded = document.querySelector('.option.expanded');
+  if (expanded) expanded.classList.remove('expanded');
+  el.classList.add('expanded');
+
+  var scrollable = document.querySelector('.scrollable');
+  scrollable.scrollTop = el.offsetTop - 52;
+};
+
+View.prototype.hideDetails = function(e) {
+  e.preventDefault();
   var list = this.el.classList;
   if (list.contains('expanded')) {
     list.remove('expanded');
-  } else {
-    var expanded = document.querySelector('.option.expanded');
-    if (expanded) expanded.classList.remove('expanded');
-    list.add('expanded');
   }
 };
 

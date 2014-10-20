@@ -1,5 +1,8 @@
 {
   "name": "welcome-flow",
+  "dependencies": {
+    "usablica/intro.js": "*"
+  },
   "local": [
     "analytics",
     "config",

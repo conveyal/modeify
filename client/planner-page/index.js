@@ -8,6 +8,7 @@ var log = require('log')('planner-page');
 var OptionsView = require('options-view');
 var PlannerNav = require('planner-nav');
 var querystring = require('querystring');
+var scrolling = require('scrolling');
 var session = require('session');
 var textModal = require('text-modal');
 var TransitiveView = require('transitive-view');
@@ -22,12 +23,6 @@ var FROM = config.geocode().start_address;
 var TO = config.geocode().end_address;
 
 /**
- * Tool tip position
- */
-
-var toolTipPosition = window.innerWidth < 400 ? 'top' : 'left';
-
-/**
  * Create `View`
  */
 
@@ -35,6 +30,17 @@ var View = view({
   category: 'planner',
   template: require('./template.html'),
   title: 'Planner Page'
+}, function(view, model) {
+  view.scrollable = view.find('.scrollable');
+  view.moreOptions = view.find('.more-options');
+
+  scrolling(view.scrollable, function(e) {
+    view.scrolled(e);
+  });
+
+  model.plan.on('updating options complete', function() {
+    view.scrolled();
+  });
 });
 
 /**
@@ -51,6 +57,7 @@ module.exports = function(ctx, next) {
     'locations-view': new LocationsView(plan),
     'options-view': new OptionsView(plan),
     'planner-nav': new PlannerNav(session),
+    plan: plan,
     'transitive-view': new TransitiveView(plan)
   };
 
@@ -119,6 +126,28 @@ View.prototype.saveTrip = function(e) {
       textModal('Saved journey successfully');
     }
   });
+};
+
+/**
+ * Scroll
+ */
+
+View.prototype.scroll = function(e) {
+  e.preventDefault();
+  this.scrollable.scrollTop += (this.scrollable.scrollHeight / 5);
+};
+
+/**
+ * Scrolled
+ */
+
+View.prototype.scrolled = function(e) {
+  var visibleHeight = this.scrollable.scrollHeight - this.scrollable.clientHeight;
+  if (this.scrollable.scrollTop < visibleHeight) {
+    this.moreOptions.classList.remove('hidden');
+  } else {
+    this.moreOptions.classList.add('hidden');
+  }
 };
 
 /**

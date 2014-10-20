@@ -3,6 +3,7 @@
   "dependencies": {
     "component/each": "*",
     "component/querystring": "*",
+    "pazguille/scrolling": "*",
     "visionmedia/batch": "*"
   },
   "local": [

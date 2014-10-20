@@ -137,9 +137,10 @@ Route.prototype.transitCosts = function() {
 
 Route.prototype.calculatedCalories = function() {
   if (this.calories() === 0) return false;
-  var cals = caloriesBurned(3.8, this.weight(), (this.walkDistances() / this.walkSpeed()));
+
+  var cals = walkingCaloriesBurned(this.walkSpeed(), this.weight(), (this.walkDistances() / this.walkSpeed()));
   if (this.modes().indexOf('bicycle') !== -1) {
-    cals += caloriesBurned(8, this.weight(), (this.bikeDistances() / this.bikeSpeed()));
+    cals += bikingCaloriesBurned(this.bikeSpeed(), this.weight(), (this.bikeDistances() / this.bikeSpeed()));
   }
   var total = cals * this.tripm();
   return total > 1000 ? (total / 1000).toFixed(1) + 'k' : total.toFixed(0);
@@ -240,9 +241,34 @@ Route.prototype.carParkingCost = function() {
 };
 
 /**
- * MET Cals burned
+ * Walking Calories
+ *
+ * CB = [0.0215 x KPH3 - 0.1765 x KPH2 + 0.8710 x KPH + 1.4577] x WKG x T
+ * http://www.shapesense.com/fitness-exercise/calculators/walking-calorie-burn-calculator.aspx
  */
 
-function caloriesBurned(met, kg, hours) {
-  return met * kg * hours;
+function walkingCaloriesBurned(mps, wkg, hours) {
+  var kph = mps / 1000 * 60 * 60;
+  var kph2 = kph * kph;
+  var kph3 = kph2 * kph;
+  return (0.0215 * kph3 - 0.1765 * kph2 + 0.8710 * kph) * wkg * hours;
+}
+
+/**
+ * Biking Calories
+ *
+ * http://en.wikipedia.org/wiki/Bicycle_performance
+ */
+
+var GRADE = 1;
+var GRAVITY = 9.8;
+var K1 = 0.0053; // frictional losses
+var K2 = 0.185; // aerodynamic drag
+var WATTS_TO_CALS_PER_SECOND = 0.2388;
+
+function bikingCaloriesBurned(mps, wkg, hours) {
+  var mps3 = Math.pow(mps, 3);
+  var seconds = hours * 60 * 60;
+  var watts = GRAVITY * wkg * mps * (K1 + GRADE) + K2 * mps3;
+  return watts * WATTS_TO_CALS_PER_SECOND * seconds;
 }
