@@ -1,5 +1,8 @@
 <li class="option">
-  <div class="header"><span class="number">#{optionNumber}</span> {optionModes}</div>
+  <div class="header">
+    <span class="number">#{optionNumber}</span> {optionModes}
+    <a class="pull-right" href="#" on-click="feedback">rate option <i class="fa fa-pencil-square-o"></i></a>
+  </div>
   <div class="simple" on-click="showHide">
     <table class="segments"><tbody data-html="simpleSegments"></tbody></table>
 
@@ -38,9 +41,6 @@
         <p>walking <input type="text" data-value="walkSpeedMph" name="walkSpeed" on-input="inputChange"> mph for <strong data-text="walkDistances"></strong> miles</i></em></p>
       </section>
     </form>
-    <div class="feedback">
-      <p>What do you think of this commute? <a href="#" on-click="feedback">Give us your feedback! <i class="fa fa-pencil-square-o"></i></a></p>
-    </div>
     <table class="narrative-directions">
       <thead>
         <tr class="address">
