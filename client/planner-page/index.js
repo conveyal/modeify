@@ -134,7 +134,7 @@ View.prototype.saveTrip = function(e) {
 
 View.prototype.scroll = function(e) {
   e.preventDefault();
-  this.scrollable.scrollTop += 150;
+  this.scrollable.scrollTop += (this.scrollable.scrollHeight / 5);
 };
 
 /**
