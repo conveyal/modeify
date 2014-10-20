@@ -154,7 +154,7 @@ select {
   background: transparent;
   border: none;
   color: #fff;
-  font-weight: 600;
+  font-weight: var(--bold);
 
   appearance: none;
   -moz-appearance: none;
