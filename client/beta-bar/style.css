@@ -1,19 +1,27 @@
 
 .BetaBar {
-  background-color: var(--gold);
-  color: var(--dark-gold);
+  background-color: var(--medium-blue);
+  color: var(--black);
   padding: 8px;
   line-height: 16px;
   font-size: 14px;
   box-shadow: inset 0 0 2px var(--black);
 }
 
+.BetaBar .beta {
+  background-color: var(--gray);
+  color: #fff;
+  text-decoration: none;
+  padding: 1px 4px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+}
 .BetaBar a {
-  color: var(--dark-gold);
+  color: var(--black);
   font-weight: var(--bold);
+  text-decoration: underline;
 }
 
 .BetaBar a:hover {
-	color: var(--black);
-	text-decoration: none;
+	color: var(--darkest);
 }

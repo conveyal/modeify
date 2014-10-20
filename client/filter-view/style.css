@@ -18,9 +18,9 @@
 .time-filters select {
   cursor: pointer;
   padding-right: 3px;
-  padding-left: 2px;
+  padding-left: 3px;
   color: var(--light-blue);
-  text-decoration: underline;
+  border-bottom: 1px solid var(--light-blue);
 }
 
 @-moz-document url-prefix() {
@@ -41,6 +41,9 @@
 
 .time-filters label {
   color: var(--medium-blue);
+  font-weight: 400;
+  font-size: 16px;
+  padding-left: 3px;
 }
 
 .time-information {
