@@ -137,7 +137,8 @@ Route.prototype.transitCosts = function() {
 
 Route.prototype.calculatedCalories = function() {
   if (this.calories() === 0) return false;
-  var cals = caloriesBurned(3.8, this.weight(), (this.walkDistances() / this.walkSpeed()));
+
+  var cals = walkingCaloriesBurned(this.walkSpeed(), this.weight(), (this.walkDistances() / this.walkSpeed()));
   if (this.modes().indexOf('bicycle') !== -1) {
     cals += caloriesBurned(8, this.weight(), (this.bikeDistances() / this.bikeSpeed()));
   }
@@ -245,4 +246,18 @@ Route.prototype.carParkingCost = function() {
 
 function caloriesBurned(met, kg, hours) {
   return met * kg * hours;
+}
+
+/**
+ * Walking Calories
+ *
+ * CB = [0.0215 x KPH3 - 0.1765 x KPH2 + 0.8710 x KPH + 1.4577] x WKG x T
+ * http://www.shapesense.com/fitness-exercise/calculators/walking-calorie-burn-calculator.aspx
+ */
+
+function walkingCaloriesBurned(mps, wkg, hours) {
+  var kph = mps / 1000 * 60 * 60;
+  var kph2 = kph * kph;
+  var kph3 = kph2 * kph;
+  return (0.0215 * kph3 - 0.1765 * kph2 + 0.8710 * kph) * wkg * hours;
 }
