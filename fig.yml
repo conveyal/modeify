@@ -1,0 +1,11 @@
+web:
+  build: .
+  command: node server.js
+  ports:
+   - "5000:5000"
+  volumes:
+   - .:/code
+  links:
+   - mongo
+mongo:
+  image: mongo:latest
