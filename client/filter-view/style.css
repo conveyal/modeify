@@ -17,10 +17,9 @@
 
 .time-filters select {
   cursor: pointer;
-  padding-right: 3px;
-  padding-left: 3px;
   color: var(--light-blue);
   border-bottom: 1px solid var(--light-blue);
+  font-size: 16px;
 }
 
 @-moz-document url-prefix() {
@@ -33,27 +32,12 @@
   padding-right: 0;
 }
 
-.time-filters i {
-  color: #fff;
-  font-size: 20px;
-  color: var(--darkgreen);
-}
-
 .time-filters label {
-  color: var(--medium-blue);
-  font-weight: 400;
+  color: var(--light-blue);
   font-size: 16px;
-  padding-left: 3px;
+  font-weight: var(--font-weight);
+  margin-bottom: 2px;
 }
-
-.time-information {
-  background-color: #F2F4F5;
-  color: var(--gray);
-  padding: 8px;
-  text-align: center;
-  margin-bottom: 0;
-}
-
 
 .mode-filters-v1 {
   margin-top: 8px;
@@ -189,11 +173,11 @@
     box-shadow: inset 0px 1px 3px rgba(94, 132, 40, 0.7);
     text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
     background: var(--green);
-    color: #4b6a20; 
+    color: #4b6a20;
 }
 
 .mode-filters-v3 a:hover, a:focus{
-  background: #99e438; 
+  background: #99e438;
   text-decoration: none;
 }
 
@@ -227,7 +211,7 @@
 }
 
 .mode-filters-v4 a:hover, a:focus{
-  background: #99e438; 
+  background: #99e438;
   background-image: url(/images/icons/plus.svg);
   background-repeat: no-repeat;
   background-position: 0 0;
