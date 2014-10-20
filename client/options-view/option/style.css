@@ -111,9 +111,9 @@
   max-height: 0;
   opacity: 0;
   visibility: hidden;
-  transition: max-height var(--transition-speed),
+  /*transition: max-height var(--transition-speed),
     opacity var(--transition-speed),
-    visibility var(--transition-speed);
+    visibility var(--transition-speed); */
 }
 
 .Options .option .details > p {

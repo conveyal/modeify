@@ -240,10 +240,13 @@ View.prototype.to = function() {
 
 View.prototype.showDetails = function(e) {
   e.preventDefault();
-  var list = this.el.classList;
+  var el = this.el;
   var expanded = document.querySelector('.option.expanded');
   if (expanded) expanded.classList.remove('expanded');
-  list.add('expanded');
+  el.classList.add('expanded');
+
+  var scrollable = document.querySelector('.scrollable');
+  scrollable.scrollTop = el.offsetTop - 52;
 };
 
 View.prototype.hideDetails = function(e) {
