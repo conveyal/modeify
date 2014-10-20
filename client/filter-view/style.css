@@ -72,12 +72,14 @@
 .mode-filters-v1 a:hover{
   text-decoration: none;
   position: relative;
+  color: #4b6a20;
 }
 
 .mode-filters-v1 a:hover:before {
   content: "\f067";
   font-family: FontAwesome;
   font-style: normal;
+  color: #4b6a20;
   font-weight: normal;
   font-size: 13pt;
   padding: 0 7px;
@@ -127,6 +129,7 @@
   font-style: normal;
   font-weight: normal;
   text-decoration: inherit;
+  color: #4b6a20;
   color: var(--lightgreen);
   font-size: 13pt;
   padding: 0 7px;
@@ -146,6 +149,7 @@
   text-decoration: none;
   background-color: #99e438;
   position: relative;
+  color: #4b6a20;
 }
 
 
@@ -176,8 +180,9 @@
     color: #4b6a20;
 }
 
-.mode-filters-v3 a:hover, a:focus{
+.mode-filters-v3 a:hover, .mode-filters-v3 a:focus{
   background: #99e438;
+  color: #4b6a20;
   text-decoration: none;
 }
 
@@ -210,7 +215,7 @@
     background-position: 0 0;
 }
 
-.mode-filters-v4 a:hover, a:focus{
+.mode-filters-v4 a:hover, .mode-filters-v4 a:focus{
   background: #99e438;
   background-image: url(/images/icons/plus.svg);
   background-repeat: no-repeat;
@@ -247,6 +252,7 @@
 .mode-filters-v5 a:hover{
   border-radius: var(--border-radius);
   text-decoration: none;
+  color: #4b6a20;
   background-image: radial-gradient(bottom, circle, var(--lightgreen),var(--green), var(--green), var(--green),var(--green));
 }
 
@@ -278,10 +284,11 @@
     background-position: 0 0;
 }
 
-.mode-filters-v6 a:hover, a:focus{
+.mode-filters-v6 a:hover, .mode-filters-v6 a:focus{
   background-image: url(/images/icons/check.svg);
   background-repeat: no-repeat;
   background-position: 0 0;
+  color: #4b6a20;
   text-decoration: none;
 }
 
@@ -313,10 +320,11 @@
     background-position: 0 0;
 }
 
-.mode-filters-v7 a:hover, a:focus{
+.mode-filters-v7 a:hover, .mode-filters-v7 a:focus{
   background-image: url(/images/icons/little-check.svg);
   background-repeat: no-repeat;
   background-position: 0 0;
+  color: #4b6a20;
   text-decoration: none;
 }
 
@@ -348,9 +356,10 @@
     background-position: 0 0;
 }
 
-.mode-filters-v8 a:hover, a:focus{
+.mode-filters-v8 a:hover, .mode-filters-v8 a:focus{
   background-image: url(/images/icons/check.svg);
   background-repeat: no-repeat;
+  color: #4b6a20;
   background-position: 0 0;
   text-decoration: none;
 }
@@ -393,10 +402,11 @@
     background-position: 0 0;
 }
 
-.mode-filters-v10 a:hover, a:focus{
+.mode-filters-v10 a:hover, .mode-filters-v10 a:focus{
   background-repeat: no-repeat;
   background-position: 0 0;
   text-decoration: none;
+  color: #4b6a20;
 }
 
 /* Version 11 */
@@ -484,15 +494,18 @@
   padding: 0;
 }
 
+
 .mode-filters-v12 a.active {
     text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
     color: #4b6a20;
    box-shadow: inset 0px 1px 0px var(--darkgreen);
 }
 
-.mode-filters-v12 a:hover, a:focus{
+.mode-filters-v12 a:hover, .mode-filteres-v12 a:focus{
   background-repeat: no-repeat;
   background-position: 0 0;
+  color: #4b6a20;
+  text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
   text-decoration: none;
 }
 
