@@ -68,6 +68,10 @@
   color: #fff;
 }
 
+#locations-form .locations .input-group {
+  border: none;
+}
+
 .locations .input-group {
   padding-left: 6px;
   width: 100%;
