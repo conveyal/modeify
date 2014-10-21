@@ -488,8 +488,8 @@
 .mode-filters-v1 i {
   font-size: 18px;
   position: relative;
-  top: 5px;
-  left: 100px;
+  top: -36px;
+  left: 13px;
   z-index: 1000;
   color: var(--lightgreen);
   text-shadow: 0px 1px 3px rgba(75, 106, 32, 0.4);
@@ -512,6 +512,10 @@
   color: #4b6a20;
   text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
   text-decoration: none;
+}
+
+.mode-filters-v1 i a:hover {
+  display: none;
 }
 
 .submit {
