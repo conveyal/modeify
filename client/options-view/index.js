@@ -8,8 +8,7 @@ var view = require('view');
  * Expose `View`
  */
 
-var View = module.exports = view(require('./template.html'), function(view,
-  plan) {});
+var View = module.exports = view(require('./template.html'));
 
 /**
  * Set the routes view
@@ -18,24 +17,6 @@ var View = module.exports = view(require('./template.html'), function(view,
 View.prototype['options-view'] = function() {
   this.model.emit('change optionsSummary', this.optionsSummary());
   return OptionView;
-};
-
-/**
- * Toggle per year
- */
-
-View.prototype.togglePerYear = function(e) {
-  e.preventDefault();
-  this.model.per_year(true);
-};
-
-/**
- * Toggle per trip
- */
-
-View.prototype.togglePerTrip = function(e) {
-  e.preventDefault();
-  this.model.per_year(false);
 };
 
 View.prototype.optionsSummary = function() {
