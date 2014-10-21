@@ -1,9 +1,9 @@
 var introJs = require('intro.js').introJs;
 var log = require('log')('welcome-flow');
 var LocationsView = require('locations-view');
+var model = require('model');
 
 var FindingOptions = require('./finding-options');
-var Introduction = require('./introduction');
 var Locations = require('./locations');
 var Welcome = require('./welcome');
 
@@ -21,24 +21,22 @@ module.exports = function(session) {
   main.classList.add('Welcome');
 
   var findingOptions = new FindingOptions(plan);
-  var locations = new Locations({
+  var locationsScreenModel = model('LocationsScreen')
+    .attr('locations-view')
+    .attr('plan')
+    .attr('commuter')({
     'locations-view': new LocationsView(plan),
-    plan: plan
+    plan: plan,
+    commuter: commuter
   });
-  var introduction = new Introduction();
+  var locations = new Locations(locationsScreenModel);
   var welcome = new Welcome(commuter);
 
   welcome.on('next', function() {
-    introduction.show();
-    setTimeout(function() {
-      welcome.hide();
-    }, 0);
-  });
-
-  introduction.on('next', function() {
+    locations.model.emit('change initialMode', locations.initialMode());
     locations.show();
     setTimeout(function() {
-      introduction.hide();
+      welcome.hide();
     }, 0);
   });
 
