@@ -1,7 +1,7 @@
 <li class="option">
   <div class="header">
     <span class="number">#{optionNumber}</span> {optionModes}
-    <a class="pull-right" href="#" on-click="feedback">rate option <i class="fa fa-pencil-square-o"></i></a>
+    <a class="pull-right" href="#" on-click="feedback">rate <i class="fa fa-fw fa-pencil-square-o"></i></a>
   </div>
   <div class="simple">
     <table class="segments"><tbody data-html="simpleSegments"></tbody></table>
@@ -10,16 +10,16 @@
       <h3><strong>{average} min</strong> <span class="avg">avg</span></h3>
       <div data-visible="frequency">Every {frequency} minutes</div>
       <div data-visible="hasTransit">
-        <div class="distance" data-visible="bikeDistances">{bikeTime} min biking</div>
+        <div class="distance" data-visible="bikeDistances">{bikeTime} min bike ride</div>
         <div class="distance" data-visible="walkDistances">{walkTime} min walking</div>
       </div>
       <div data-hidden="hasTransit">
-        <div class="distance" data-visible="bikeDistances">{bikeDistances} mi biking</div>
-        <div class="distance" data-visible="walkDistances">{walkDistances} mi walking</div>
+        <div class="distance" data-visible="bikeDistances">{bikeDistances} mi bike ride</div>
+        <div class="distance" data-visible="walkDistances">{walkDistances} mi walk</div>
       </div>
     </div>
 
-    <a href="#" on-click="showDetails" class="show-hide">show details <i class="fa fa-angle-down"></i></a>
+    <a href="#" on-click="showDetails" class="show-hide">details <i class="fa fa-fw fa-angle-down"></i></a>
   </div>
   <div class="details">
     <form class="scoring-information">
@@ -53,6 +53,6 @@
       </tfoot>
       <tbody class="segments" data-html="segments"></tbody>
     </table>
-    <a href="#" on-click="hideDetails" class="show-hide">hide details <i class="fa fa-angle-up"></i></a>
+    <a href="#" on-click="hideDetails" class="show-hide">hide <i class="fa fa-fw fa-angle-up"></i></a>
   </div>
 </li>
