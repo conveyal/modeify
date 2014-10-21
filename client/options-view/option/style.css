@@ -51,6 +51,12 @@
   font-size: 12px;
   display: block;
   text-align: center;
+  margin-top: -8px;
+  margin-bottom: -4px;
+}
+
+.Options .simple .segment:last-of-type .fa-caret-down {
+  display:none;
 }
 
 .Options .simple .segments .shield {
