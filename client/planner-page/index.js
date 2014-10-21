@@ -67,13 +67,11 @@ module.exports = function(ctx, next) {
       view.emit('rendered', view);
     });
 
-    // Show the welcome page if welcome complete isn't done
-    if (!session.commuter().profile().welcome_wizard_complete) {
-      showWelcomeWizard(session);
-    } else {
-      // Get the locations from the querystring
-      var locations = querystring.parse(window.location.search);
+    // Get the locations from the querystring
+    var locations = querystring.parse(window.location.search);
 
+    // If it's a shared URL or welcome is complete skip the welcome screen
+    if ((locations.from && locations.to) || session.commuter().profile().welcome_wizard_complete) {
       // If no querystring, see if we have them in the plan already
       var from = locations.from || plan.from() || FROM;
       var to = locations.to || plan.to() || TO;
@@ -86,6 +84,8 @@ module.exports = function(ctx, next) {
           plan.updateRoutes();
         }
       });
+    } else {
+      showWelcomeWizard(session);
     }
   });
 
