@@ -103,30 +103,29 @@ function updateRoutes(plan, opts, callback) {
         results: data.options.length
       });
 
-      // Add ids to options
       data.options.forEach(function(o, i) {
+        // Add ids to options
         if (o.transit && o.transit.length > 0) {
           o.id = i + '_transit';
         } else {
           o.id = i;
         }
         o = formatProfile.option(o);
+
+        // Filter access modes if they're not reasonable
+        filterMode(o, 'CAR', function(a) {
+          return a.time < 600;
+        });
+        filterMode(o, 'BIKE', function(a) {
+          return a.time < 300;
+        });
+        filterMode(o, 'WALK', function(a) {
+          return a.time > 3600;
+        });
       });
 
-      // Process & format the results
+      // Score the results
       data.options = scorer.processOptions(data.options);
-
-      /* TODO: Remove....wait why? */
-      data.options = data.options.filter(function(o) {
-        var a = o.access[0];
-        if (a.mode === 'BICYCLE' && a.time < 240)
-          return false;
-        if (a.mode === 'CAR' && a.time < 240)
-          return false;
-        if (a.mode === 'WALK' && a.time > 3600)
-          return false;
-        return true;
-      });
 
       // Populate segments
       populateSegments(data.options, data.journey);
@@ -222,4 +221,12 @@ function getRoute(routeId, routes) {
 function getRouteShield(agency, route) {
   if (agency === 'dc' && route.route_type === 1) return 'M';
   return route.route_short_name || route.route_long_name.toUpperCase();
+}
+
+function filterMode(option, mode, filter) {
+  if (option.access && option.access.length > 1) {
+    option.access = option.access.filter(function(a) {
+      return a.mode !== mode || !filter(a);
+    });
+  }
 }
