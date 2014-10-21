@@ -19,7 +19,6 @@
   cursor: pointer;
   color: var(--light-blue);
   border-bottom: 1px solid var(--light-blue);
-  font-size: 15px;
   padding-left: 3px;
   font-weight: var(--font-weight);
 }
@@ -36,8 +35,7 @@
 
 .time-filters label {
   color: var(--light-blue);
-  font-size: 15px;
-  padding-left: 5px;
+  font-size: 14px;
   font-weight: var(--font-weight);
   margin-bottom: 3px;
 }
@@ -69,7 +67,6 @@
   border-radius: var(--border-radius);
   text-decoration: none;
   text-shadow: 0px 0px 0px rgba(255, 255, 255, 0.3);
-  box-shadow: inset 0px 2px 0px var(--darkgreen);
 }
 
 .mode-filters-v12 a:hover{
@@ -505,7 +502,6 @@
     text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
     color: #4b6a20;
     background-color: var(--green);
-   box-shadow: inset 0px 2px 0px var(--darkgreen);
 }
 
 .mode-filters-v1 a:hover, .mode-filters-v1 a:focus{
