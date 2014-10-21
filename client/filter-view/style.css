@@ -19,7 +19,9 @@
   cursor: pointer;
   color: var(--light-blue);
   border-bottom: 1px solid var(--light-blue);
-  font-size: 16px;
+  font-size: 15px;
+  padding-left: 3px;
+  font-weight: var(--font-weight);
 }
 
 @-moz-document url-prefix() {
@@ -34,7 +36,8 @@
 
 .time-filters label {
   color: var(--light-blue);
-  font-size: 16px;
+  font-size: 15px;
+  padding-left: 5px;
   font-weight: var(--font-weight);
   margin-bottom: 3px;
 }

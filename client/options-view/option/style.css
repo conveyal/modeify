@@ -47,6 +47,12 @@
   vertical-align: top;
 }
 
+.Options .simple .segments .fa-caret-down {
+  font-size: 12px;
+  display: block;
+  text-align: center;
+}
+
 .Options .simple .segments .shield {
   margin-left: 6px;
   margin-top: 6px;
