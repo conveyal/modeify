@@ -478,8 +478,8 @@
   border-radius: var(--border-radius);
   display: inline-block;
   transition-property: background;
-  transition-duration: 0.3s;
-  color: rgba(255, 255, 255, 0.7);
+  transition-duration: 0.1s;
+  color:  #4b6a20;
   border: none;
   text-shadow: none;
   clear: both;
@@ -496,6 +496,7 @@
   padding-right: 10px;
   margin: 0;
   padding: 0;
+  visibility: hidden;
 }
 
 
@@ -512,11 +513,13 @@
   color: #4b6a20;
   text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
   text-decoration: none;
+  background-color: var(--mgreen);
 }
 
-.mode-filters-v1 i a:hover {
-  display: none;
+.mode-filters-v1 a.active i {
+  visibility: visible;
 }
+
 
 .submit {
   float: right;
