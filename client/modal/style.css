@@ -5,12 +5,12 @@
 .Modal {
   top: 54px;
   border-radius: var(--border-radius);
-  border: 1px solid var(--gold);
-  background-color: white;
   overflow-y: hidden;
   overflow-x: hidden;
   max-width: 320px;
   width: 100%;
+  background-color: rgba(255,255,255, 0.8);
+
 }
 
 .Modal > div {
@@ -65,6 +65,6 @@
  */
 
 .Overlay {
-  background: radial-gradient(ellipse at center, rgba(255,255,255,0.50) 0%, rgba(255,255,255,1) 100%);
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.3) 100%);
   z-index: 200;
 }
