@@ -17,11 +17,9 @@ nav {
 .dark-button {
   color: var(--light-blue);
   background-color: var(--darkest);
-
   border: none;
   border-radius: var(--border-radius);
-
-  padding: 5px 8px;
+  padding: 5px 4px;
 }
 
 .dark-button:active,
