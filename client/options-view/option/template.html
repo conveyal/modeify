@@ -19,6 +19,22 @@
       </div>
     </div>
 
+    <div class="benefits-badge">
+      <div class="savings" data-visible="hasTransit">
+        <i class="fa fa-dollar"></i> Save $2k per year
+      </div>
+
+      <div data-hidden="hasTransit">
+        <div class="weightloss" data-hidden="hasCar">
+          <i class="fa fa-fire"></i> Burn 12 pounds per year
+        </div>
+
+        <div class="negative-cost" data-visible="hasCar">
+          <i class="fa fa-clock-o"></i> Lose 10 days per year
+        </div>
+      </div>
+    </div>
+
     <a href="#" on-click="showDetails" class="show-hide">details <i class="fa fa-fw fa-angle-down"></i></a>
   </div>
   <div class="details">

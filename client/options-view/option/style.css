@@ -93,14 +93,50 @@
 }
 
 .Options .option .show-hide {
-  text-align: right;
+  text-align: center;
   padding-right: 8px;
   margin-bottom: 8px;
+  margin-top: 12px;
   display: block;
 }
 
 .Options .option.expanded .simple .show-hide {
   visibility: hidden;
+}
+
+/**
+ * Benefits Badge
+ */
+
+.benefits-badge {
+  float: right;
+  color: #fff;
+  margin-top: 8px;
+  width: 80px;
+  font-size: 12px;
+  line-height: 1;
+  text-align: right;
+}
+
+.benefits-badge .savings {
+  background-color: var(--green);
+  padding: 8px 8px 8px 4px;
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+}
+
+.benefits-badge .weightloss {
+  background-color: var(--gold);
+  padding: 8px 8px 8px 4px;
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+}
+
+.benefits-badge .negative-cost {
+  background-color: var(--red);
+  padding: 8px 8px 8px 4px;
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
 }
 
 /**
