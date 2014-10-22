@@ -53,7 +53,7 @@ module.exports = function(session) {
 
     main.classList.remove('Welcome');
     findingOptions.hide();
-    walkthrough();
+    highlightResults();
   });
 
   // Start!
@@ -63,6 +63,40 @@ module.exports = function(session) {
 /**
  * Intro JS
  */
+
+
+function highlightResults() {
+  var intro = introJs();
+
+  intro.onbeforechange(function(el) {
+    if (el.classList.contains('option')) {
+      var simple = el.querySelector('.simple .show-hide');
+      simple.click();
+    }
+  });
+
+  intro.setOptions({
+    disableInteraction: false,
+    exitOnEsc: false,
+    exitOnOverlayClick: false,
+    overlayOpacity: 1,
+    scrollToElement: false,
+    showBullets: false,
+    showProgress: false,
+    showStepNumbers: false,
+    skipLabel: 'Skip',
+    doneLabel: 'Close',
+    steps: [
+      {
+        element: document.querySelector('.Options'),
+        intro: '<strong>Here are your best options!</strong> We\'ve searched all combinations of available travel modes to find the best trips for you, ranked based on their benefits versus driving alone. Use this screen to explore your options and plan any other trips you\'d like to take!',
+        position: 'top'
+      }
+    ]
+  });
+
+  intro.start();
+}
 
 function walkthrough() {
   var intro = introJs();
