@@ -1,10 +1,8 @@
 web:
   build: .
-  command: node server.js
+  command: npm run-script run
   ports:
    - "5000:5000"
-  volumes:
-   - .:/code
   links:
    - mongo
 mongo:

@@ -45,7 +45,8 @@
     "uglify-js": "^2.4.12"
   },
   "scripts": {
-    "start": "source config/env && make serve",
+    "start": ". config/env && make serve",
+    "run": ". config/env && bin/server",
     "stop": "make stop",
     "postinstall": "npm rebuild",
     "test": "NODE_ENV=test node_modules/.bin/mocha --recursive --reporter spec --require should --slow 10 --timeout 4s",
