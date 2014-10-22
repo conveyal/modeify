@@ -1,9 +1,9 @@
 
 #main.Welcome {
-  background-image: url(/images/welcome-background.jpg);
+  background-image: url(/images/photos/metro.png);
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: auto 100%;
+  background-size: 100%;
 }
 
 #main.Welcome > .fullscreen {
@@ -20,10 +20,6 @@
 }
 
 .WelcomeFlow .question {
-  background-color: var(--light-blue);
-  padding: 15px;
-  margin-top: 20px;
-  border-radius: var(--border-radius);
 }
 
 .WelcomeFlow .btn {
