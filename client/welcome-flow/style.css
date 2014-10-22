@@ -1,9 +1,9 @@
 
 #main.Welcome {
-  background-image: url(/images/photos/metro.png);
+  background-image: url(/images/photos/carfreeatoz_ad.jpg);
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
 }
 
 #main.Welcome > .fullscreen {
