@@ -116,7 +116,7 @@ function updateRoutes(plan, opts, callback) {
         filterMode(o, 'CAR', function(a) {
           return a.time < 600;
         });
-        filterMode(o, 'BIKE', function(a) {
+        filterMode(o, 'BICYCLE', function(a) {
           return a.time < 300;
         });
         filterMode(o, 'WALK', function(a) {

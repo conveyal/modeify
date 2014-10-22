@@ -120,24 +120,22 @@ function walkthrough() {
     skipLabel: 'Exit',
     steps: [
       {
+        intro: 'Let\'s take a look at your journey!'
+      },
+      {
         element: document.querySelector('#locations-form'),
         intro: 'Here you can change your start and end locations, the day and time you typically travel, and the travel modes you\'d like to see.',
         position: 'bottom'
       },
       {
         element: document.querySelector('.Options'),
-        intro: 'Here are all of your options!',
+        intro: 'These are the best options we found for your trip. We sorted them using a combination of factors including cost, calories burned, ease, and time.',
         position: 'top'
       },
       {
         element: document.querySelectorAll('.option')[0],
-        intro: 'More details of a specific option.',
+        intro: 'Here you can explore the details of a specifc option including step by step directions and the factors we\'ve used to rate this option.',
         position: 'top'
-      },
-      {
-        element: document.querySelector('.show-profile-button'),
-        intro: 'Click the Profile button to edit your travel preferences, manage your account, or view saved journeys.',
-        position: 'bottom',
       }
     ]
   });
