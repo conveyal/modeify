@@ -13,3 +13,39 @@
   margin-right: 8px;
   text-align: left;
 }
+
+.about-page .accs-footer {
+  border-top: 2px solid #ECA81d;
+  margin: 20px 8px;
+  padding-top: 20px;
+  color: var(--gray);
+}
+
+.about-page .accs-footer ul {
+  list-style-type: none;
+  padding-left: 1.2em;
+}
+
+.about-page .accs-footer-left-column {
+  width: 300px;
+  float: left;
+}
+
+.about-page .accs-footer-right-column {
+  margin-left: 20px;
+  width: 200px;
+  float: left;
+  font-size: 11px;
+}
+
+.about-page .accs-footer-logo {
+  display: block;
+  background-image: url(/images/logo/arlva_footer_logo.png);
+  width: 273px;
+  height: 108px;
+}
+
+.about-page .accs-footer-text {
+  margin-top: 15px;
+  font-size: 10px;
+}
