@@ -6,7 +6,7 @@ OPTS = {
     port:   443,
     prefix: '/api/1.0/',
     method: 'POST',
-    headers: {'Content-Type': 'application/json', 'User-Agent': 'Mandrill-Node/1.0.40'}
+    headers: {'Content-Type': 'application/json', 'User-Agent': 'Mandrill-Node/1.0.41'}
 }
 
 class exports.Mandrill
@@ -761,17 +761,18 @@ class Messages
          - signing_domain {String} a custom domain to use for SPF/DKIM signing instead of mandrill (for "via" or "on behalf of" in email clients)
          - return_path_domain {String} a custom domain to use for the messages's return-path
          - merge {Boolean} whether to evaluate merge tags in the message. Will automatically be set to true if either merge_vars or global_merge_vars are provided.
+         - merge_language {String} the merge tag language to use when evaluating merge tags, either mailchimp or handlebars
          - global_merge_vars {Array} global merge variables to use for all recipients. You can override these per recipient.
              - global_merge_vars[] {Object} a single global merge variable
                  - name {String} the global merge variable's name. Merge variable names are case-insensitive and may not start with _
-                 - content {String} the global merge variable's content
+                 - content {Mixed} the global merge variable's content
          - merge_vars {Array} per-recipient merge variables, which override global merge variables with the same name.
              - merge_vars[] {Object} per-recipient merge variables
                  - rcpt {String} the email address of the recipient that the merge variables should apply to
                  - vars {Array} the recipient's merge variables
                      - vars[] {Object} a single merge variable
                          - name {String} the merge variable's name. Merge variable names are case-insensitive and may not start with _
-                         - content {String} the merge variable's content
+                         - content {Mixed} the merge variable's content
          - tags {Array} an array of string to tag the message with.  Stats are accumulated using tags, though we only store the first 100 we see, so this should not be unique or change frequently.  Tags should be 50 characters or less.  Any tags starting with an underscore are reserved for internal use and will cause errors.
              - tags[] {String} a single tag - must not start with an underscore
          - subaccount {String} the unique id of a subaccount for this message - must already exist or will fail with an error
@@ -844,17 +845,18 @@ class Messages
          - signing_domain {String} a custom domain to use for SPF/DKIM signing instead of mandrill (for "via" or "on behalf of" in email clients)
          - return_path_domain {String} a custom domain to use for the messages's return-path
          - merge {Boolean} whether to evaluate merge tags in the message. Will automatically be set to true if either merge_vars or global_merge_vars are provided.
+         - merge_language {String} the merge tag language to use when evaluating merge tags, either mailchimp or handlebars
          - global_merge_vars {Array} global merge variables to use for all recipients. You can override these per recipient.
              - global_merge_vars[] {Object} a single global merge variable
                  - name {String} the global merge variable's name. Merge variable names are case-insensitive and may not start with _
-                 - content {String} the global merge variable's content
+                 - content {Mixed} the global merge variable's content
          - merge_vars {Array} per-recipient merge variables, which override global merge variables with the same name.
              - merge_vars[] {Object} per-recipient merge variables
                  - rcpt {String} the email address of the recipient that the merge variables should apply to
                  - vars {Array} the recipient's merge variables
                      - vars[] {Object} a single merge variable
                          - name {String} the merge variable's name. Merge variable names are case-insensitive and may not start with _
-                         - content {String} the merge variable's content
+                         - content {Mixed} the merge variable's content
          - tags {Array} an array of string to tag the message with.  Stats are accumulated using tags, though we only store the first 100 we see, so this should not be unique or change frequently.  Tags should be 50 characters or less.  Any tags starting with an underscore are reserved for internal use and will cause errors.
              - tags[] {String} a single tag - must not start with an underscore
          - subaccount {String} the unique id of a subaccount for this message - must already exist or will fail with an error

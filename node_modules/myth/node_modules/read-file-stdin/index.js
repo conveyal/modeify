@@ -1,5 +1,5 @@
 
-var concat = require('stream-to-array');
+var gather = require('gather-stream');
 var fs = require('fs');
 
 /**
@@ -18,5 +18,5 @@ module.exports = read;
 function read (file, callback) {
   if ('function' == typeof file) callback = file, file = null;
   var stream = file ? fs.createReadStream(file) : process.stdin;
-  concat(stream, callback);
+  stream.pipe(gather(callback));
 }

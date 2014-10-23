@@ -24,7 +24,8 @@ var QueryCommand = require('./commands/query_command').QueryCommand
   , mongodb_gssapi_authenticate = require('./auth/mongodb_gssapi.js').authenticate
   , mongodb_sspi_authenticate = require('./auth/mongodb_sspi.js').authenticate
   , mongodb_plain_authenticate = require('./auth/mongodb_plain.js').authenticate
-  , mongodb_x509_authenticate = require('./auth/mongodb_x509.js').authenticate;
+  , mongodb_x509_authenticate = require('./auth/mongodb_x509.js').authenticate
+  , mongodb_scram_authenticate = require('./auth/mongodb_scram.js').authenticate;
 
 var hasKerberos = false;
 // Check if we have a the kerberos library
@@ -411,25 +412,23 @@ Db.prototype.collectionsInfo = function(collectionName, callback) {
  * @api public
  */
 Db.prototype.collectionNames = function(collectionName, options, callback) {
-  var self = this;
   var args = Array.prototype.slice.call(arguments, 0);
   callback = args.pop();
-  collectionName = args.length ? args.shift() : null;
+  name = args.length ? args.shift() : null;
   options = args.length ? args.shift() || {} : {};
 
-  // Ensure no breaking behavior
-  if(collectionName != null && typeof collectionName == 'object') {
-    options = collectionName;
-    collectionName = null;
-  }
+  // Define self
+  var self = this;
+  // Only passed in options
+  if(name != null && typeof name == 'object') options = name, name = null;
 
-  // Let's make our own callback to reuse the existing collections info method
-  self.collectionsInfo(collectionName, function(err, cursor) {
-    if(err != null) return callback(err, null);
-
+  // Fallback to pre 2.8 list collections
+  var fallbackListCollections = function() {
+    // Let's make our own callback to reuse the existing collections info method
+    var cursor = self.collectionsInfo(name);
+    // Get all documents
     cursor.toArray(function(err, documents) {
       if(err != null) return callback(err, null);
-
       // List of result documents that have been filtered
       var filtered_documents = documents.filter(function(document) {
         return !(document.name.indexOf(self.databaseName) == -1 || document.name.indexOf('$') != -1);
@@ -442,7 +441,30 @@ Db.prototype.collectionNames = function(collectionName, options, callback) {
 
       // Return filtered items
       callback(null, filtered_documents);
+    });      
+  }
+
+  // Attempt to execute the collection list
+  self.command({listCollections:1}, function(err, result) {
+    if(err) return fallbackListCollections();
+    // List of result documents that have been filtered
+    var filtered_documents = result.collections.filter(function(document) {
+      if(name && document.name != name) {
+        return false;
+      } else if(document.name.indexOf('$') != -1) {
+        return false;
+      }
+
+      return true;
     });
+
+    // If we are returning only the names
+    if(options.namesOnly) {
+      filtered_documents = filtered_documents.map(function(document) { return document.name });
+    }
+
+    // Return filtered items
+    callback(null, filtered_documents);
   });
 };
 
@@ -661,8 +683,9 @@ Db.prototype.authenticate = function(username, password, options, callback) {
   } else if(options.authMechanism != 'GSSAPI'
     && options.authMechanism != 'MONGODB-CR'
     && options.authMechanism != 'MONGODB-X509'
+    && options.authMechanism != 'SCRAM-SHA-1'
     && options.authMechanism != 'PLAIN') {
-      return callback(new Error("only GSSAPI, PLAIN, MONGODB-X509 or MONGODB-CR is supported by authMechanism"));
+      return callback(new Error("only GSSAPI, PLAIN, MONGODB-X509, SCRAM-SHA-1 or MONGODB-CR is supported by authMechanism"));
   }
 
   // the default db to authenticate against is 'this'
@@ -687,6 +710,8 @@ Db.prototype.authenticate = function(username, password, options, callback) {
     mongodb_plain_authenticate(self, username, password, options, _callback);
   } else if(options.authMechanism == 'MONGODB-X509') {
     mongodb_x509_authenticate(self, username, password, options, _callback);
+  } else if(options.authMechanism == 'SCRAM-SHA-1') {
+    mongodb_scram_authenticate(self, username, password, authdb, options, _callback);
   } else if(options.authMechanism == 'GSSAPI') {
     //
     // Kerberos library is not installed, throw and error
@@ -977,14 +1002,14 @@ Db.prototype.createCollection = function(collectionName, options, callback) {
   safe = options != null && options['safe'] != null ? options['safe'] : safe;
   // Ensure it's at least set to safe
   safe = safe == null ? {w: 1} : safe;
-
   // Check if we have the name
-  this.collectionNames(collectionName, function(err, collections) {
+  this.collectionNames(function(err, collections) {
     if(err != null) return callback(err, null);
 
     var found = false;
     collections.forEach(function(collection) {
-      if(collection.name == self.databaseName + "." + collectionName) found = true;
+      if(collection.name == self.databaseName + "." + collectionName
+        || collection.name == collectionName) found = true;
     });
 
     // If the collection exists either throw an exception (if db in safe mode) or return the existing collection
@@ -1003,12 +1028,11 @@ Db.prototype.createCollection = function(collectionName, options, callback) {
     var cmd = {'create':collectionName};
 
     for(var name in options) {
-      if(options[name] != null && options[name].constructor != Function) cmd[name] = options[name];
+      if(options[name] != null && typeof options[name] != 'function') cmd[name] = options[name];
     }
-
     // Execute the command
     self.command(cmd, options, function(err, result) {
-      if(err) return callback(err, null);
+      if(err && err.code && err.code != 48 && options && options.strict) return callback(err, null);
       try {
         callback(null, new Collection(self, collectionName, self.pkFactory, options));
       } catch(err) {
@@ -1121,14 +1145,16 @@ Db.prototype.command = function(selector, options, callback) {
   this._executeQueryCommand(DbCommand.createDbSlaveOkCommand(execDb, selector, command_options), options, function(err, results, connection) {
     if(options.returnConnection) {
       if(err) return callback(err, null, connection);
-      if(results.documents[0].errmsg)
+      if(results == null || results.documents == null) return callback(new Error("command failed to return result"));
+      if(results.documents[0].errmsg) 
         return callback(utils.toError(results.documents[0]), null, connection);
       callback(null, results.documents[0], connection);
     } else {
       if(err) return callback(err, null);
-      if(results.documents[0].errmsg)
+      if(results == null || results.documents == null) return callback(new Error("command failed to return result"));
+      if(results.documents[0].errmsg) 
         return callback(utils.toError(results.documents[0]), null);
-      callback(null, results.documents[0]);
+      callback(null, results.documents[0]);      
     }
   });
 };
@@ -1227,7 +1253,6 @@ Db.prototype.executeDbAdminCommand = function(command_hash, options, callback) {
  *  - **unique** {Boolean, default:false}, creates an unique index.
  *  - **sparse** {Boolean, default:false}, creates a sparse index.
  *  - **background** {Boolean, default:false}, creates the index in the background, yielding whenever possible.
- *  - **dropDups** {Boolean, default:false}, a unique index cannot be created on a key that has pre-existing duplicate values. If you would like to create the index anyway, keeping the first document the database indexes and deleting all subsequent documents that have duplicate value
  *  - **min** {Number}, for geospatial indexes set the lower bound for the co-ordinates.
  *  - **max** {Number}, for geospatial indexes set the high bound for the co-ordinates.
  *  - **v** {Number}, specify the format version of the indexes.
@@ -1282,6 +1307,7 @@ Db.prototype.createIndex = function(collectionName, fieldOrSpec, options, callba
       // Execute insert command
       self._executeInsertCommand(command, commandOptions, function(err, result) {
         if(err != null) return callback(err, null);
+        if(result == null || result.documents == null) return callback(new Error("command failed to return result"));
 
         result = result && result.documents;
         if (result[0].err) {
@@ -1394,7 +1420,6 @@ var createIndexUsingCreateIndexes = function(self, collectionName, fieldOrSpec, 
  *  - **unique** {Boolean, default:false}, creates an unique index.
  *  - **sparse** {Boolean, default:false}, creates a sparse index.
  *  - **background** {Boolean, default:false}, creates the index in the background, yielding whenever possible.
- *  - **dropDups** {Boolean, default:false}, a unique index cannot be created on a key that has pre-existing duplicate values. If you would like to create the index anyway, keeping the first document the database indexes and deleting all subsequent documents that have duplicate value
  *  - **min** {Number}, for geospatial indexes set the lower bound for the co-ordinates.
  *  - **max** {Number}, for geospatial indexes set the high bound for the co-ordinates.
  *  - **v** {Number}, specify the format version of the indexes.
@@ -1429,8 +1454,6 @@ Db.prototype.ensureIndex = function(collectionName, fieldOrSpec, options, callba
   var command = createCreateIndexCommand(this, collectionName, fieldOrSpec, options);
   var index_name = command.documents[0].name;
 
-  // Default command options
-  var commandOptions = {};
   // Check if the index allready exists
   this.indexInformation(collectionName, writeConcern, function(err, collectionInfo) {
     if(err != null) return callback(err, null);
@@ -1532,36 +1555,28 @@ Db.prototype.reIndex = function(collectionName, options, callback) {
  * @return {null}
  * @api public
  */
-Db.prototype.indexInformation = function(collectionName, options, callback) {
+Db.prototype.indexInformation = function(name, options, callback) {
   if(typeof callback === 'undefined') {
     if(typeof options === 'undefined') {
-      callback = collectionName;
-      collectionName = null;
+      callback = name;
+      name = null;
     } else {
       callback = options;
     }
     options = {};
-  }
+  } 
+
+  // Throw is no name provided
+  if(name == null) throw new Error("A collection name must be provided as first argument");
 
   // If we specified full information
   var full = options['full'] == null ? false : options['full'];
-  // Build selector for the indexes
-  var selector = collectionName != null ? {ns: (this.databaseName + "." + collectionName)} : {};
+  var self = this;
 
-  // Get read preference if we set one
-  var readPreference = _getReadConcern(this, options);
-
-  // Iterate through all the fields of the index
-  var collection = this.collection(DbCommand.SYSTEM_INDEX_COLLECTION);
-  // Perform the find for the collection
-  collection.find(selector).setReadPreference(readPreference).toArray(function(err, indexes) {
-    if(err != null) return callback(err, null);
+  // Process all the results from the index command and collection
+  var processResults = function(indexes) {
     // Contains all the information
     var info = {};
-
-    // if full defined just return all the indexes directly
-    if(full) return callback(null, indexes);
-
     // Process all the indexes
     for(var i = 0; i < indexes.length; i++) {
       var index = indexes[i];
@@ -1572,8 +1587,36 @@ Db.prototype.indexInformation = function(collectionName, options, callback) {
       }
     }
 
+    return info;
+  }
+
+  // Fallback to pre 2.8 getting the index information
+  var fallbackListIndexes = function() {
+    // Build selector for the indexes
+    var selector = name != null ? {ns: (self.databaseName + "." + name)} : {};
+
+    // Get read preference if we set one
+    var readPreference = ReadPreference.PRIMARY;
+
+    // Iterate through all the fields of the index
+    var collection = self.collection(DbCommand.SYSTEM_INDEX_COLLECTION);
+    // Perform the find for the collection
+    collection.find(selector).setReadPreference(readPreference).toArray(function(err, indexes) {
+      if(err != null) return callback(err, null);
+      // if full defined just return all the indexes directly
+      if(full) return callback(null, indexes);
+      // Return all the indexes
+      callback(null, processResults(indexes));
+    });
+  }
+
+  // Attempt to execute the listIndexes command
+  self.command({listIndexes: name}, function(err, result) {
+    if(err) return fallbackListIndexes();
+    // if full defined just return all the indexes directly
+    if(full) return callback(null, result.indexes);
     // Return all the indexes
-    callback(null, info);
+    callback(null, processResults(result.indexes));
   });
 };
 

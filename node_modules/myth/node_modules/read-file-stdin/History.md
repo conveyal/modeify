@@ -1,3 +1,7 @@
+0.1.0 - October 15, 2014
+-------------------------
+* returning a single buffer rather than an array (better for large inputs)
+
 0.0.4 - May 7, 2014
 -------------------------
 * switch from `node-concat-stream` to `stream-to-array`

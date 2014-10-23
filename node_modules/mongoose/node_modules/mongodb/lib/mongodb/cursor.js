@@ -821,6 +821,12 @@ var getMore = function(self, options, callback) {
         return callback(utils.toError("command failed to return results"), null)
       }
 
+      // If we have a timed out query
+      if((result.responseFlag & (1 << 0)) != 0) {
+        self.state = Cursor.CLOSED;
+        return callback(utils.toError("cursor killed or timed out"), null);        
+      }
+
       // If the QueryFailure flag is set
       if((result.responseFlag & (1 << 1)) != 0) {
         self.state = Cursor.CLOSED;
