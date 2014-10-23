@@ -10,9 +10,3 @@ aws opsworks create-deployment \
   --app-id $APP \
   --stack-id $STACK \
   --command "{\"Name\":\"deploy\"}"
-
-echo "Starting Opsworks servers..."
-aws opsworks create-deployment \
-  --app-id $APP \
-  --stack-id $STACK \
-  --command "{\"Name\":\"start\"}"
