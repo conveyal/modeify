@@ -17,12 +17,15 @@
 
 .WelcomeFlow h3 {
   margin-top: 0;
+  text-align: center;
 }
 
 .WelcomeFlow .question {
 }
 
-.WelcomeFlow .btn {
+.WelcomeFlow .btn,
+.WelcomeFlow p,
+.WelcomeFlow ul {
   font-size: 16px;
 }
 

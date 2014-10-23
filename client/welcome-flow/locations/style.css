@@ -5,15 +5,10 @@
 
 .WelcomeLocations .locations {
   padding: 0;
-  text-align: left;
-}
-
-.WelcomeLocations h3 {
-	font-size: 16px;
 }
 
 .WelcomeLocations .locations input {
-  width: 204px;
+  width: 230px;
 }
 
 .WelcomeLocations p {
