@@ -9,7 +9,7 @@ var store = require('store');
  */
 
 var defaultCalorieScale = d3.scale.sqrt()
-  .domain([0, 100, 150])
+  .domain([0, 125, 200])
   .range([0, -3, 0])
   .exponent(2);
 
