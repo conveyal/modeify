@@ -143,8 +143,7 @@ View.prototype.scroll = function(e) {
 
 View.prototype.scrolled = function(e) {
   var lastOption = document.querySelector('.option:last-of-type');
-  var visibleHeight = lastOption.offsetTop - this.scrollable.clientHeight;
-  if (this.scrollable.scrollTop < visibleHeight) {
+  if (lastOption && this.scrollable.scrollTop < (lastOption.offsetTop - this.scrollable.clientHeight)) {
     this.moreOptions.classList.remove('hidden');
   } else {
     this.moreOptions.classList.add('hidden');
