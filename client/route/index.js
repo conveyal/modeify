@@ -17,6 +17,7 @@ var MPS_TO_MPH = 2.23694;
 
 var Route = module.exports = model('Route')
   .use(defaults({
+    carData: false,
     transit: []
   }))
   .attr('id')
@@ -24,6 +25,7 @@ var Route = module.exports = model('Route')
   .attr('bikeCalories')
   .attr('bikeDistance')
   .attr('bikeTime')
+  .attr('carData')
   .attr('calories')
   .attr('cost')
   .attr('costDifference')
@@ -75,6 +77,7 @@ Route.prototype.rescore = function(scorer) {
 
 Route.prototype.setCarData = function(data) {
   var m = this.tripm();
+  this.carData(true);
   this.costDifference(toFixed((data.cost * m - this.cost() * m) / 1000, 1));
   this.pounds(this.calories() * m / 3500 | 0);
   this.timeCost((m * (this.time() / 60 / 24)) | 0);

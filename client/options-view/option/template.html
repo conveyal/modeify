@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <div class="benefits-badges">
+    <div class="benefits-badges" on-click="showDetails" data-visible="carData">
       <div class="benefits-badge savings" data-visible="hasTransit">Save <strong>${costDifference}k</strong> a year</div>
 
       <div data-hidden="hasTransit">
@@ -31,9 +31,13 @@
     <a href="#" on-click="showDetails" class="show-hide">details <i class="fa fa-fw fa-angle-down"></i></a>
   </div>
   <div class="details">
-    <div class="comparison-table">
-
+    <div class="comparison-table hidden">
+      <div class="savings"><i class="fa fa-fw fa-bank"></i> Save ${costDifference}</div>
+      <div class="weightloss"><i class="fa fa-fw fa-heart"></i> Lose {pounds} lbs</div>
+      <div class="personal-time"><i class="fa fa-fw fa-calendar"></i> Gain {timeCost} days</div>
+      <div class="emissions"><i class="fa fa-fw fa-globe"></i> {emissions}</div>
     </div>
+
     <form class="scoring-information">
       <p>We determine savings and weight loss by taking <input type="text" data-value="tripsPerYear" name="tripsPerYear" on-input="inputChange"> trips (ex: work days per year)</p>
       <section data-visible="hasCar">

@@ -138,11 +138,14 @@ function updateRoutes(plan, opts, callback) {
       // Create a new Route object for each option
       for (var i = 0; i < data.options.length; i++) {
         data.options[i] = new Route(data.options[i]);
-        data.options[i].setCarData({
-          cost: driveOption.cost,
-          emissions: driveOption.emissions,
-          time: driveOption.time
-        });
+
+        if (driveOption) {
+          data.options[i].setCarData({
+            cost: driveOption.cost,
+            emissions: driveOption.emissions,
+            time: driveOption.time
+          });
+        }
       }
 
       // Save the URL
