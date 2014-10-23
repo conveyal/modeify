@@ -78,7 +78,7 @@ Route.prototype.rescore = function(scorer) {
 
 Route.prototype.setCarData = function(data) {
   var m = this.tripm();
-  console.log(data);
+
   this.carData(true);
   this.costDifference(toFixed((data.cost * m - this.cost() * m) / 1000, 1));
   this.pounds(this.calories() * m / 3500 | 0);
@@ -91,6 +91,18 @@ Route.prototype.setCarData = function(data) {
  */
 
 Route.prototype.average = function() {
+  if (this.hasTransit() || this.modes().indexOf('car') === -1)
+    return Math.round(this.time());
+  return Math.round(this.time() * 1.35);
+};
+
+/**
+ * Freeflow
+ */
+
+Route.prototype.freeflowTime = function() {
+  if (this.hasTransit() || this.modes().indexOf('car') === -1)
+    return false;
   return Math.round(this.time());
 };
 
