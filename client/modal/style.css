@@ -10,7 +10,7 @@
   max-width: 320px;
   width: 100%;
   background-color: white;
-  box-shadow: 3px 3px 3px var(--black);
+  box-shadow: 0px 0px 4px rgba(43, 55, 66, 0.7);
 }
 
 .Modal > div {
