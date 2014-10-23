@@ -5,7 +5,7 @@
 
 var toString = window.JSON
   ? JSON.stringify
-  : function(_){ return String(_); };
+  : String;
 
 /**
  * Export `fmt`

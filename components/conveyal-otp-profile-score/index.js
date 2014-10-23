@@ -194,6 +194,7 @@ ProfileScore.prototype.tally = function(o) {
 
   // Tally transit
   if (o.transit && o.transit.length > 0) {
+    o.transfers = o.transit.length - 1;
     o.transitCost = 0;
     o.trips = Infinity;
 

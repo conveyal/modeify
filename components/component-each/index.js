@@ -3,7 +3,12 @@
  * Module dependencies.
  */
 
-var type = require('type');
+try {
+  var type = require('type');
+} catch (err) {
+  var type = require('component-type');
+}
+
 var toFunction = require('to-function');
 
 /**
