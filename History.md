@@ -1,4 +1,13 @@
 
+## 0.8.0 — 2014-10-23
+
+* Redo the welcome flow
+* Add a walkthrough with Intro.js
+* Add about page
+* Improve clarity
+* Restyle mode buttons
+* Bug fixes
+
 ## 0.7.1 — 2014-10-14
 
 * Bug fixes
