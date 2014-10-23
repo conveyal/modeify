@@ -143,7 +143,11 @@
  */
 
 .comparison-table {
-  padding: 8px 0;
+  padding-bottom: 10px;
+}
+
+.comparison-table .heading {
+  text-align: center;
 }
 
 .comparison-table > div {
@@ -152,6 +156,10 @@
 
 .comparison-table .fa-bank {
   color: var(--gold);
+}
+
+.comparison-table .fa-calendar {
+  color: #0076bf;
 }
 
 .comparison-table .fa-heart {
