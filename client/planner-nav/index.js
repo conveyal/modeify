@@ -55,3 +55,13 @@ View.prototype.showAbout = function(e) {
   var about = new AboutPage();
   about.show();
 };
+
+
+/**
+ * Show Walk Through
+ */
+
+View.prototype.showWalkThrough = function(e) {
+  if (e) e.preventDefault();
+  window.walkthrough();
+};

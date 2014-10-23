@@ -136,6 +136,11 @@ function walkthrough() {
         element: document.querySelectorAll('.option')[0],
         intro: 'Here you can explore the details of a specifc option including step by step directions and the factors we\'ve used to rate this option.',
         position: 'top'
+      },
+      {
+        element: document.querySelector('.show-profile-button'),
+        intro: 'Click the Profile button to edit your travel preferences, manage your account, or view saved journeys.',
+        position: 'bottom',
       }
     ]
   });
