@@ -37,7 +37,7 @@
 
 .Options .simple .segments {
   display: inline-block;
-  padding: 10px 0 0 16px;
+  padding: 8px 0 0 8px;
 }
 
 .Options .simple .segments .mode {
@@ -84,7 +84,7 @@
 
 
 .Options .simple .minutes-column h3 {
-  margin: 6px 0 8px;
+  margin: 0 0 8px;
   color: var(--black);
 }
 
@@ -94,7 +94,6 @@
 
 .Options .option .show-hide {
   text-align: center;
-  padding-right: 8px;
   margin-bottom: 8px;
   margin-top: 12px;
   display: block;
@@ -108,35 +107,33 @@
  * Benefits Badge
  */
 
-.benefits-badge {
+.benefits-badges {
   float: right;
   color: #fff;
   margin-top: 8px;
-  width: 80px;
-  font-size: 12px;
+  width: 95px;
+  font-size: 14px;
   line-height: 1;
   text-align: right;
+  margin-right: -2px;
 }
 
-.benefits-badge .savings {
+.benefits-badge {
+  padding: 8px 11px 8px 5px;
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+}
+
+.benefits-badge.savings {
   background-color: var(--green);
-  padding: 8px 8px 8px 4px;
-  border-top-left-radius: var(--border-radius);
-  border-bottom-left-radius: var(--border-radius);
 }
 
-.benefits-badge .weightloss {
+.benefits-badge.weightloss {
   background-color: var(--gold);
-  padding: 8px 8px 8px 4px;
-  border-top-left-radius: var(--border-radius);
-  border-bottom-left-radius: var(--border-radius);
 }
 
-.benefits-badge .negative-cost {
+.benefits-badge.negative-cost {
   background-color: var(--red);
-  padding: 8px 8px 8px 4px;
-  border-top-left-radius: var(--border-radius);
-  border-bottom-left-radius: var(--border-radius);
 }
 
 /**

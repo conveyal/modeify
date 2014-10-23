@@ -39,9 +39,9 @@ function milesToString(miles) {
   if (miles > 10) {
     return miles.toFixed(0);
   } else if (miles > 1) {
-    return miles.toFixed(1);
+    return ((miles * 10) | 0) / 10;
   } else {
-    return miles.toFixed(2);
+    return ((miles * 100) | 0) / 100;
   }
 }
 

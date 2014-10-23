@@ -127,12 +127,23 @@ function updateRoutes(plan, opts, callback) {
       // Score the results
       data.options = scorer.processOptions(data.options);
 
+      // Get the car data
+      var driveOption = data.options.filter(function(o) {
+        return o.access[0].mode === 'CAR' && (!o.transit || o.transit.length < 1);
+      })[0];
+
       // Populate segments
       populateSegments(data.options, data.journey);
 
       // Create a new Route object for each option
-      for (var i = 0; i < data.options.length; i++)
+      for (var i = 0; i < data.options.length; i++) {
         data.options[i] = new Route(data.options[i]);
+        data.options[i].setCarData({
+          cost: driveOption.cost,
+          emissions: driveOption.emissions,
+          time: driveOption.time
+        });
+      }
 
       // Save the URL
       plan.saveURL();

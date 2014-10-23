@@ -19,19 +19,12 @@
       </div>
     </div>
 
-    <div class="benefits-badge hidden">
-      <div class="savings" data-visible="hasTransit">
-        <i class="fa fa-dollar"></i> Save $2k per year
-      </div>
+    <div class="benefits-badges">
+      <div class="benefits-badge savings" data-visible="hasTransit">Save <strong>${costDifference}k</strong> a year</div>
 
       <div data-hidden="hasTransit">
-        <div class="weightloss" data-hidden="hasCar">
-          <i class="fa fa-fire"></i> Burn 12 pounds per year
-        </div>
-
-        <div class="negative-cost" data-visible="hasCar">
-          <i class="fa fa-clock-o"></i> Lose 10 days per year
-        </div>
+        <div class="benefits-badge weightloss" data-hidden="hasCar">Burn <strong>{pounds}</strong> pounds a year</div>
+        <div class="benefits-badge negative-cost" data-visible="hasCar">Lose <strong>{timeCost}</strong> days a year</div>
       </div>
     </div>
 
@@ -41,11 +34,11 @@
     <form class="scoring-information">
       <p>We determine cost and calories by taking <input type="text" data-value="tripsPerYear" name="tripsPerYear" on-input="inputChange"> trips (ex: work days per year)</p>
       <section data-visible="hasCar">
-        <p>Driving <strong data-text="driveDistances"></strong> miles at $<input type="text" data-value="vmtRate" name="vmtRate" on-input="inputChange"> <a href="http://www.irs.gov/2014-Standard-Mileage-Rates-for-Business,-Medical-and-Moving-Announced" title="IRS's Standard Mileage Rate" target="_blank">per mile traveled <i class="fa fa-external-link"></i></a>
-        and $<input type="text" data-value="carParkingCost" name="carParkingCost" on-input="inputChange"> for parking</p>
+        <p>Driving <strong data-text="driveDistances"></strong> miles at $ <input type="text" data-value="vmtRate" name="vmtRate" on-input="inputChange"> <a href="http://www.irs.gov/2014-Standard-Mileage-Rates-for-Business,-Medical-and-Moving-Announced" title="IRS's Standard Mileage Rate" target="_blank">per mile traveled <i class="fa fa-external-link"></i></a>
+        and $ <input type="text" data-value="carParkingCost" name="carParkingCost" on-input="inputChange"> for parking</p>
       </section>
       <section data-visible="hasTransit">
-        <p>paying $<strong data-text="transitCosts"></strong> in total transit fare</p>
+        <p>paying $ <strong data-text="transitCosts"></strong> in total transit fare</p>
       </section>
       <section data-visible="hasBiking">
         <p>biking <input type="text" data-value="bikeSpeedMph" name="bikeSpeed" on-input="inputChange"> mph for <strong data-text="bikeDistances"></strong> miles</p>

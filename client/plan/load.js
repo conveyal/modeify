@@ -97,6 +97,7 @@ function createScorer(opts) {
     scorer.rates = opts.rates;
   }
 
+  scorer.factors.co2 = 0;
   scorer.factors.calories = defaultCalorieScale;
 
   return scorer;

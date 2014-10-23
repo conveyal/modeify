@@ -26,14 +26,17 @@ var Route = module.exports = model('Route')
   .attr('bikeTime')
   .attr('calories')
   .attr('cost')
+  .attr('costDifference')
   .attr('driveDistance')
   .attr('egress')
   .attr('emissions')
   .attr('hasTransit')
   .attr('modes')
+  .attr('pounds')
   .attr('score')
   .attr('stats')
   .attr('time')
+  .attr('timeCost')
   .attr('transfers')
   .attr('transitCost')
   .attr('transit')
@@ -64,6 +67,17 @@ Route.prototype.rescore = function(scorer) {
   this.emit('change carParkingCost', this.carParkingCost());
   this.emit('change vmtRate', this.vmtRate());
   this.emit('change walkTime', this.walkTime());
+};
+
+/**
+ * Set car data
+ */
+
+Route.prototype.setCarData = function(data) {
+  var m = this.tripm();
+  this.costDifference(toFixed((data.cost * m - this.cost() * m) / 1000, 1));
+  this.pounds(this.calories() * m / 3500 | 0);
+  this.timeCost((m * (this.time() / 60 / 24)) | 0);
 };
 
 /**
@@ -114,9 +128,9 @@ Route.prototype.calculatedCost = function() {
 
   var total = cost * this.tripm();
   if (total > 1000) {
-    return (total / 1000).toFixed(1) + 'k';
+    return toFixed(total / 1000, 1) + 'k';
   } else if (total > 100) {
-    return total.toFixed(0);
+    return total | 0;
   } else {
     return total.toFixed(2);
   }
@@ -143,7 +157,7 @@ Route.prototype.calculatedCalories = function() {
     cals += bikingCaloriesBurned(this.bikeSpeed(), this.weight(), (this.bikeDistances() / this.bikeSpeed()));
   }
   var total = cals * this.tripm();
-  return total > 1000 ? (total / 1000).toFixed(1) + 'k' : total.toFixed(0);
+  return total > 1000 ? toFixed(total / 1000, 1) + 'k' : total | 0;
 };
 
 /**
@@ -187,11 +201,11 @@ Route.prototype.distances = function(mode, val) {
  */
 
 Route.prototype.bikeSpeedMph = function() {
-  return (this.bikeSpeed() * MPS_TO_MPH).toFixed(1);
+  return toFixed(this.bikeSpeed() * MPS_TO_MPH, 1);
 };
 
 Route.prototype.walkSpeedMph = function() {
-  return (this.walkSpeed() * MPS_TO_MPH).toFixed(1);
+  return toFixed(this.walkSpeed() * MPS_TO_MPH, 1);
 };
 
 /**
@@ -271,4 +285,9 @@ function bikingCaloriesBurned(mps, wkg, hours) {
   var seconds = hours * 60 * 60;
   var watts = GRAVITY * wkg * mps * (K1 + GRADE) + K2 * mps3;
   return watts * WATTS_TO_CALS_PER_SECOND * seconds;
+}
+
+function toFixed(n, f) {
+  var m = Math.pow(10, f);
+  return ((n * m) | 0) / m;
 }
