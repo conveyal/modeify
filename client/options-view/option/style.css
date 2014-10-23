@@ -27,10 +27,6 @@
   font-weight: var(--bold);
 }
 
-.Options .option.expanded {
-  border-bottom: none;
-}
-
 .Options .simple {
   position: relative;
 }
@@ -140,25 +136,17 @@
  * Expanded
  */
 
-.Options .option.expanded {
-  border-bottom: none;
-}
-
 .Options .option.expanded .details {
   max-height: 10000px;
   opacity: 1;
   visibility: visible;
-  border-bottom: 2px solid var(--black);
-  border-radius: var(--border-radius);
 }
 
 .Options .option .details {
   max-height: 0;
   opacity: 0;
   visibility: hidden;
-  /*transition: max-height var(--transition-speed),
-    opacity var(--transition-speed),
-    visibility var(--transition-speed); */
+  padding-bottom: 1px;
 }
 
 .Options .option .details > p {
@@ -254,19 +242,19 @@
  */
 
 .Options .scoring-information {
-  padding: 10px 11px 12px 20px;
-  width: 100%;
+  padding: 12px 16px;
   background-color: var(--mgreen);
   color: var(--darkergreen);
-  line-height: 20px;
-  font-size: 14px;
-  font-weight: 500;
 }
 
-.Options .scoring-information i {
-  padding-left: 5px;
-  padding-right: 5px;
-  color: var(--green);
+.Options .scoring-information a {
+  color: var(--darkergreen);
+}
+
+.Option .scoring-information a:active,
+.Option .scoring-information a:focus,
+.Option .scoring-information a:hover {
+  color: color(var(--darkergreen) shade(20%));
 }
 
 .Options .scoring-information p {
@@ -281,12 +269,6 @@
   text-align: center;
   cursor: pointer;
   font-weight: var(--bold);
-  font-size: 13px;
-}
-
-.Options .scoring-information strong {
-  font-size: 13px;
-  font-weight: 700;
 }
 
 .Options .scoring-information input:focus {
