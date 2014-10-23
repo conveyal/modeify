@@ -32,6 +32,7 @@ var Route = module.exports = model('Route')
   .attr('driveDistance')
   .attr('egress')
   .attr('emissions')
+  .attr('emissionsDifference')
   .attr('hasTransit')
   .attr('modes')
   .attr('pounds')
@@ -77,10 +78,12 @@ Route.prototype.rescore = function(scorer) {
 
 Route.prototype.setCarData = function(data) {
   var m = this.tripm();
+  console.log(data);
   this.carData(true);
   this.costDifference(toFixed((data.cost * m - this.cost() * m) / 1000, 1));
   this.pounds(this.calories() * m / 3500 | 0);
   this.timeCost((m * (this.time() / 60 / 24)) | 0);
+  this.emissionsDifference(data.emissions / 2000 | 0);
 };
 
 /**

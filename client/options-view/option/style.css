@@ -95,8 +95,13 @@
   display: block;
 }
 
-.Options .option.expanded .simple .show-hide {
-  visibility: hidden;
+.Options .option.expanded .simple .show-details,
+.Options .option .simple .hide-details {
+  display: none;
+}
+
+.Options .option.expanded .simple .hide-details {
+  display: block;
 }
 
 /**
@@ -131,6 +136,30 @@
 
 .benefits-badge.negative-cost {
   background-color: var(--red);
+}
+
+/**
+ * Comparison Table
+ */
+
+.comparison-table {
+  padding: 8px 0;
+}
+
+.comparison-table > div {
+  padding: 4px 16px;
+}
+
+.comparison-table .fa-bank {
+  color: var(--gold);
+}
+
+.comparison-table .fa-heart {
+  color: var(--red);
+}
+
+.comparison-table .fa-globe {
+  color: var(--green);
 }
 
 /**
