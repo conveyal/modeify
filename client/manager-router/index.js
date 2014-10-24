@@ -48,6 +48,10 @@ p('/organizations/:organization/commuters/:commuter/show', require(
   'commuter-page'));
 p('/organizations/:organization/commuters/:commuter/edit', commuterForm);
 
+// Feedback
+
+p('/feedback', session.checkIfLoggedIn, require('feedback-table-page'));
+
 // Render all
 
 p('*', utils.render);

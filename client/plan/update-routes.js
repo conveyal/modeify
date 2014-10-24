@@ -33,46 +33,10 @@ function updateRoutes(plan, opts, callback) {
   // For event handlers
   plan.emit('updating options');
 
-  var from = plan.from_ll();
-  var to = plan.to_ll();
-  var startTime = plan.start_time();
-  var endTime = plan.end_time();
-  var date = nextDate(plan.days());
-  var modes = opts.modes || plan.modesCSV();
+  var query = plan.generateQuery();
   var scorer = plan.scorer();
 
-  // Convert the hours into strings
-  startTime += ':00';
-  endTime = endTime === 24 ? '23:59' : endTime + ':00';
-
-  // Pattern options
-  var options = {
-    from: {
-      lat: from.lat,
-      lon: from.lng,
-      name: 'From'
-    },
-    to: {
-      lat: to.lat,
-      lon: to.lng,
-      name: 'To'
-    }
-  };
-
-  log('--> updating routes from %s to %s on %s between %s and %s', plan.from(),
-    plan.to(),
-    date, startTime, endTime);
-
-  otp({
-    bikeSpeed: scorer.rates.bikeSpeed,
-    from: options.from,
-    to: options.to,
-    startTime: startTime,
-    endTime: endTime,
-    date: date,
-    modes: modes,
-    walkSpeed: scorer.rates.walkSpeed
-  }, function(err, data) {
+  otp(query, function(err, data) {
     if (err) {
       log.error('%e', err);
       done(err);
@@ -82,24 +46,7 @@ function updateRoutes(plan, opts, callback) {
     } else {
       // Track the commute
       analytics.track('commute', {
-        from: {
-          address: plan.from(),
-          coordinate: from
-        },
-        to: {
-          address: plan.to(),
-          coordinate: to
-        },
-        modes: modes,
-        time: {
-          start: startTime,
-          end: endTime
-        },
-        date: date,
-        scoring: {
-          factors: scorer.factors,
-          rates: scorer.rates
-        },
+        query: query,
         results: data.options.length
       });
 
@@ -158,29 +105,6 @@ function updateRoutes(plan, opts, callback) {
       done(null, data);
     }
   });
-}
-
-/**
- * Get next date for day of the week
- */
-
-function nextDate(dayType) {
-  var now = new Date();
-  var date = now.getDate();
-  var dayOfTheWeek = now.getDay();
-  switch (dayType) {
-    case 'M—F':
-      if (dayOfTheWeek === 0) now.setDate(date + 1);
-      if (dayOfTheWeek === 6) now.setDate(date + 2);
-      break;
-    case 'Sat':
-      now.setDate(date + (6 - dayOfTheWeek));
-      break;
-    case 'Sun':
-      now.setDate(date + (7 - dayOfTheWeek));
-      break;
-  }
-  return now.toISOString().split('T')[0];
 }
 
 /**

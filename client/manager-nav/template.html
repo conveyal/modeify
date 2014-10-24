@@ -8,17 +8,18 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/manager"><i class="fa fa-users"></i> {application}</a>
+      <a class="navbar-brand" href="/manager"><i class="fa fa-fw fa-users"></i> {application}</a>
     </div>
 
     <div class="collapse navbar-collapse" id="collapsed-navbar">
       <ul class="nav navbar-nav">
-        <li data-visible="isAdmin"><a href="/manager/managers"><i class="fa fa-cogs"></i> Managers</a></li>
-        <li data-visible="isLoggedIn"><a href="/manager/organizations"><i class="fa fa-building-o"></i> Organizations</a></li>
+        <li data-visible="isAdmin"><a href="/manager/managers"><i class="fa fa-fw fa-cogs"></i> Managers</a></li>
+        <li data-visible="isLoggedIn"><a href="/manager/organizations"><i class="fa fa-fw fa-building-o"></i> Organizations</a></li>
+        <li data-visible="isLoggedIn"><a href="/manager/feedback"><i class="fa fa-fw fa-comments"></i> Feedback</a></li>
       </ul>
 
       <div class="nav navbar-nav navbar-right">
-        <a data-visible="isLoggedIn" href="/manager/logout" class="btn btn-default navbar-btn"><i class="fa fa-sign-out"></i> Logout</a>
+        <a data-visible="isLoggedIn" href="/manager/logout" class="btn btn-default navbar-btn"><i class="fa fa-fw fa-sign-out"></i> Logout</a>
       </div>
     </div>
   </div>

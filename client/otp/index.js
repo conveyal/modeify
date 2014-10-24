@@ -1,4 +1,5 @@
 var config = require('config');
+var fmt = require('fmt');
 var log = require('log')('otp');
 var Profiler = require('otp-profiler');
 var qs = require('querystring');
@@ -17,17 +18,7 @@ var profiler = new Profiler({
 
 module.exports = function profile(query, callback) {
   log('--> profiling');
-  log('--  see raw results here: %s/api/otp/profile?%s', config.base_url(),
-    decodeURIComponent(qs.stringify({
-      from: query.from.lat + ',' + query.from.lon,
-      to: query.to.lat + ',' + query.to.lon,
-      bikeSpeed: query.bikeSpeed,
-      startTime: query.startTime,
-      endTime: query.endTime,
-      date: query.date,
-      modes: query.modes,
-      walkSpeed: query.walkSpeed
-    })));
+  log('--  see raw results here: %s', generateUrl(query));
 
   profiler.profile(query, function(err, data) {
     if (err || !data) {
@@ -50,3 +41,23 @@ module.exports = function profile(query, callback) {
     }
   });
 };
+
+/**
+ * OTP Url
+ */
+
+module.exports.url = generateUrl;
+
+function generateUrl(query) {
+  return fmt('%s/api/otp/profile?%s', config.base_url(),
+    decodeURIComponent(qs.stringify({
+      from: query.from.lat + ',' + query.from.lon,
+      to: query.to.lat + ',' + query.to.lon,
+      bikeSpeed: query.bikeSpeed,
+      startTime: query.startTime,
+      endTime: query.endTime,
+      date: query.date,
+      modes: query.modes,
+      walkSpeed: query.walkSpeed
+    })));
+}

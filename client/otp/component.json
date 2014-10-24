@@ -2,7 +2,8 @@
   "name": "otp",
   "dependencies": {
     "component/querystring": "*",
-    "conveyal/otp-profiler": "*"
+    "conveyal/otp-profiler": "*",
+    "yields/fmt": "*"
   },
   "local": [
     "config",

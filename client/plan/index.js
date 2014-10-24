@@ -266,6 +266,42 @@ Plan.prototype.modesCSV = function() {
 };
 
 /**
+ * Generate Query Parameters for this plan
+ */
+
+Plan.prototype.generateQuery = function() {
+  var from = this.from_ll();
+  var to = this.to_ll();
+
+  var startTime = this.start_time();
+  var endTime = this.end_time();
+  var scorer = this.scorer();
+
+  // Convert the hours into strings
+  startTime += ':00';
+  endTime = endTime === 24 ? '23:59' : endTime + ':00';
+
+  return {
+    bikeSpeed: scorer.rates.bikeSpeed,
+    from: {
+      lat: from.lat,
+      lon: from.lng,
+      name: 'From'
+    },
+    to: {
+      lat: to.lat,
+      lon: to.lng,
+      name: 'To'
+    },
+    startTime: startTime,
+    endTime: endTime,
+    date: this.nextDate(),
+    modes: this.modesCSV(),
+    walkSpeed: scorer.rates.walkSpeed
+  };
+};
+
+/**
  * Store in localStorage. Restrict this I/O to once every 25ms.
  */
 
@@ -285,4 +321,27 @@ Plan.prototype.clearStore = store.clear;
 
 Plan.prototype.saveURL = function() {
   window.history.replaceState(null, '', '?from=' + this.from() + '&to=' + this.to());
+};
+
+/**
+ * Get next date for day of the week
+ */
+
+Plan.prototype.nextDate = function() {
+  var now = new Date();
+  var date = now.getDate();
+  var dayOfTheWeek = now.getDay();
+  switch (this.days()) {
+    case 'M—F':
+      if (dayOfTheWeek === 0) now.setDate(date + 1);
+      if (dayOfTheWeek === 6) now.setDate(date + 2);
+      break;
+    case 'Sat':
+      now.setDate(date + (6 - dayOfTheWeek));
+      break;
+    case 'Sun':
+      now.setDate(date + (7 - dayOfTheWeek));
+      break;
+  }
+  return now.toISOString().split('T')[0];
 };

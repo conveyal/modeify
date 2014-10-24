@@ -1,0 +1,22 @@
+{
+  "name": "feedback-table-page",
+  "dependencies": {
+    "component/querystring": "*",
+    "yields/fmt": "*"
+  },
+  "local": [
+    "config",
+    "otp",
+    "plan",
+    "request",
+    "view"
+  ],
+  "scripts": [
+    "feedback.js",
+    "index.js"
+  ],
+  "templates": [
+    "feedback.html",
+    "template.html"
+  ]
+}
