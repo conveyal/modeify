@@ -131,7 +131,7 @@ Plan.prototype.geocode = function(dest, callback) {
 
 Plan.prototype.saveJourney = function(callback) {
   var opts = {};
-  var skipKeys = [ 'options', 'journey', 'scorer' ];
+  var skipKeys = ['options', 'journey', 'scorer'];
   for (var key in this.attrs) {
     if (skipKeys.indexOf(key) !== -1 || key.indexOf('to') === 0 || key.indexOf('from') === 0) {
       continue;

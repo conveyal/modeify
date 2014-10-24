@@ -69,7 +69,7 @@ View.prototype.segments = function() {
 
   // Add access segment
   var access = this.model.access()[0];
-  if(access.walkSteps && access.walkSteps.length > 0) {
+  if (access.walkSteps && access.walkSteps.length > 0) {
     switch (access.mode.toLowerCase()) {
       case 'bicycle':
         details += narrativeDirections('bike', 'Bike', access.walkSteps, length !==

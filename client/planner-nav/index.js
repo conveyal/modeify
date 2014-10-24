@@ -56,7 +56,6 @@ View.prototype.showAbout = function(e) {
   about.show();
 };
 
-
 /**
  * Show Walk Through
  */

@@ -25,10 +25,10 @@ module.exports = function(session) {
     .attr('locations-view')
     .attr('plan')
     .attr('commuter')({
-    'locations-view': new LocationsView(plan),
-    plan: plan,
-    commuter: commuter
-  });
+      'locations-view': new LocationsView(plan),
+      plan: plan,
+      commuter: commuter
+    });
   var locations = new Locations(locationsScreenModel);
   var welcome = new Welcome(commuter);
 
@@ -64,7 +64,6 @@ module.exports = function(session) {
  * Intro JS
  */
 
-
 function highlightResults() {
   var intro = introJs();
 
@@ -86,13 +85,11 @@ function highlightResults() {
     showStepNumbers: false,
     skipLabel: 'Skip',
     doneLabel: 'Close',
-    steps: [
-      {
-        element: document.querySelector('.Options'),
-        intro: '<strong>Here are your best options!</strong> We\'ve searched all combinations of available travel modes to find the best trips for you, ranked based on their benefits versus driving alone. Use this screen to explore your options and plan any other trips you\'d like to take!',
-        position: 'top'
-      }
-    ]
+    steps: [{
+      element: document.querySelector('.Options'),
+      intro: '<strong>Here are your best options!</strong> We\'ve searched all combinations of available travel modes to find the best trips for you, ranked based on their benefits versus driving alone. Use this screen to explore your options and plan any other trips you\'d like to take!',
+      position: 'top'
+    }]
   });
 
   intro.start();
@@ -118,31 +115,25 @@ function walkthrough() {
     showProgress: false,
     showStepNumbers: false,
     skipLabel: 'Exit',
-    steps: [
-      {
-        intro: 'Let\'s take a look at your journey!'
-      },
-      {
-        element: document.querySelector('#locations-form'),
-        intro: 'Here you can change your start and end locations, the day and time you typically travel, and the travel modes you\'d like to see.',
-        position: 'bottom'
-      },
-      {
-        element: document.querySelector('.Options'),
-        intro: 'These are the best options we found for your trip. We sorted them using a combination of factors including cost, calories burned, ease, and time.',
-        position: 'top'
-      },
-      {
-        element: document.querySelectorAll('.option')[0],
-        intro: 'Here you can explore the details of a specifc option including step by step directions and the factors we\'ve used to rate this option.',
-        position: 'top'
-      },
-      {
-        element: document.querySelector('.show-profile-button'),
-        intro: 'Click the Profile button to edit your travel preferences, manage your account, or view saved journeys.',
-        position: 'bottom',
-      }
-    ]
+    steps: [{
+      intro: 'Let\'s take a look at your journey!'
+    }, {
+      element: document.querySelector('#locations-form'),
+      intro: 'Here you can change your start and end locations, the day and time you typically travel, and the travel modes you\'d like to see.',
+      position: 'bottom'
+    }, {
+      element: document.querySelector('.Options'),
+      intro: 'These are the best options we found for your trip. We sorted them using a combination of factors including cost, calories burned, ease, and time.',
+      position: 'top'
+    }, {
+      element: document.querySelectorAll('.option')[0],
+      intro: 'Here you can explore the details of a specifc option including step by step directions and the factors we\'ve used to rate this option.',
+      position: 'top'
+    }, {
+      element: document.querySelector('.show-profile-button'),
+      intro: 'Click the Profile button to edit your travel preferences, manage your account, or view saved journeys.',
+      position: 'bottom',
+    }]
   });
 
   intro.start();

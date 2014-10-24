@@ -16,9 +16,7 @@ Feedback.prototype.link = function() {
 };
 
 Feedback.prototype.summary = function() {
-  return this.model.results
-    ? this.model.results.summary
-    : '';
+  return this.model.results ? this.model.results.summary : '';
 };
 
 Feedback.prototype.name = function() {

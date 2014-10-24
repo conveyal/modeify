@@ -9,10 +9,10 @@ module.exports = function(ctx, next) {
     if (err) {
       window.alert(err);
     } else {
-        ctx.view = new View({
-          feedback: feedback.body
-        });
-        next();
+      ctx.view = new View({
+        feedback: feedback.body
+      });
+      next();
     }
   });
 };

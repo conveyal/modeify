@@ -12,7 +12,7 @@ var active = null;
  * Events
  */
 
-var events = [ 'showing', 'show', 'hiding', 'hide' ];
+var events = ['showing', 'show', 'hiding', 'hide'];
 
 /**
  * Expose `modal`

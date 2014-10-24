@@ -29,12 +29,17 @@ Locations.prototype.next = function(e) {
 };
 
 Locations.prototype.initialMode = function(e) {
-  switch(this.model.get('commuter').get('profile').initial_mode_of_transportation) {
-    case 'drive': return 'driving';
-    case 'carpool': return 'carpooling';
-    case 'bike': return 'biking';
-    case 'walk': return 'walking';
-    case 'transit': return 'taking transit';
+  switch (this.model.get('commuter').get('profile').initial_mode_of_transportation) {
+    case 'drive':
+      return 'driving';
+    case 'carpool':
+      return 'carpooling';
+    case 'bike':
+      return 'biking';
+    case 'walk':
+      return 'walking';
+    case 'transit':
+      return 'taking transit';
   }
   return 'your current mode';
 };
