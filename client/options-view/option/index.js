@@ -69,19 +69,21 @@ View.prototype.segments = function() {
 
   // Add access segment
   var access = this.model.access()[0];
-  switch (access.mode.toLowerCase()) {
-    case 'bicycle':
-      details += narrativeDirections('bike', 'Bike', access.walkSteps, length !==
-        0);
-      break;
-    case 'car':
-      details += narrativeDirections('car', 'Drive', access.walkSteps, length !==
-        0);
-      break;
-    case 'walk':
-      details += narrativeDirections('walk', 'Walk', access.walkSteps, length !==
-        0);
-      break;
+  if(access.walkSteps && access.walkSteps.length > 0) {
+    switch (access.mode.toLowerCase()) {
+      case 'bicycle':
+        details += narrativeDirections('bike', 'Bike', access.walkSteps, length !==
+          0);
+        break;
+      case 'car':
+        details += narrativeDirections('car', 'Drive', access.walkSteps, length !==
+          0);
+        break;
+      case 'walk':
+        details += narrativeDirections('walk', 'Walk', access.walkSteps, length !==
+          0);
+        break;
+    }
   }
 
   // Add transit segments
