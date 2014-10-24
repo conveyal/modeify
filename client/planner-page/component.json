@@ -3,6 +3,7 @@
   "dependencies": {
     "component/each": "*",
     "component/querystring": "*",
+    "eivindfjeldstad/scrollbar-size": "*",
     "pazguille/scrolling": "*",
     "visionmedia/batch": "*"
   },

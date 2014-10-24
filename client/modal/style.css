@@ -26,14 +26,6 @@
   width: 0 !important;
 }
 
-/* Cause FF ugh... */
-@-moz-document url-prefix() {
-  .Modal > div {
-    padding-right: 25px;
-    margin-right: -40px;
-  }
-}
-
 @media (--narrow-window) {
   .Modal {
     max-width: 100%;

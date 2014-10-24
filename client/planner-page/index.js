@@ -8,6 +8,7 @@ var log = require('log')('planner-page');
 var OptionsView = require('options-view');
 var PlannerNav = require('planner-nav');
 var querystring = require('querystring');
+var scrollbarSize = require('scrollbar-size');
 var scrolling = require('scrolling');
 var session = require('session');
 var textModal = require('text-modal');
@@ -42,6 +43,10 @@ var View = view({
     view.scrolled();
   });
 });
+
+View.prototype.scrollbarSize = function() {
+  return scrollbarSize;
+};
 
 /**
  * Expose `render`

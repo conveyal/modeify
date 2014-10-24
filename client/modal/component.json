@@ -1,6 +1,7 @@
 {
   "name": "modal",
   "dependencies": {
+    "eivindfjeldstad/scrollbar-size": "*",
     "segmentio/modal": "*"
   },
   "local": [

@@ -1,0 +1,14 @@
+{
+  "name": "scrollbar-size",
+  "repo": "eivindfjeldstad/scrollbar-size",
+  "description": "Detect scrollbar size",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}

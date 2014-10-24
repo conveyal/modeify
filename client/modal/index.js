@@ -1,5 +1,6 @@
 var log = require('log')('modal');
 var modal = require('modal');
+var scrollbarSize = require('scrollbar-size');
 var view = require('view');
 
 /**
@@ -42,6 +43,14 @@ module.exports = function(opts, fn) {
 
     var el = this.modal.el;
     this.modal.show(function() {
+
+      // Set the scrollbar size
+      var div = el.querySelector('div');
+      var style = window.getComputedStyle(div);
+      var paddingRight = parseInt(style.paddingRight, 10);
+
+      div.style.paddingRight = paddingRight + scrollbarSize + 'px';
+      div.style.marginRight = -scrollbarSize + 'px';
 
       setTimeout(function() {
         var height = el.clientHeight;

@@ -48,13 +48,6 @@
   width: 0 !important;
 }
 
-@-moz-document url-prefix() {
-  .scrollable {
-    padding-right: 25px;
-    margin-right: -40px;
-  }
-}
-
 #locations-form {
   padding-top: 10px;
 }
