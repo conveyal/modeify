@@ -1,4 +1,15 @@
 
+:root {
+  --border-radius: 3px;
+  --gray: #84909d;
+}
+
+/**
+ * Custom Media Queries
+ */
+
+@custom-media --narrow-window screen and (max-width: 400px);
+
 body {
   color: #333;
 }
