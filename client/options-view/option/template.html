@@ -35,15 +35,15 @@
   </div>
   <div class="details">
     <div class="comparison-table">
-      <div class="heading">Instead of driving, you will...</div>
-      <div class="savings"><i class="fa fa-fw fa-bank"></i> Reduce transit costs by <strong>${costDifference}k</strong></div>
-      <div class="weightloss"><i class="fa fa-fw fa-heart"></i> Lose <strong>{pounds} lbs</strong> from the added exercise</div>
+      <div class="heading"><strong>Compared to driving alone, you will&hellip;</strong></div>
+      <div class="savings"><i class="fa fa-fw fa-bank"></i> Reduce annual travel costs by <strong>${costDifference}k</strong></div>
+      <div class="weightloss"><i class="fa fa-fw fa-heart"></i> Lose <strong>{pounds} lbs.</strong> from the added exercise</div>
       <div class="personal-time"><i class="fa fa-fw fa-calendar"></i> Gain <strong>{timeCost} days</strong> of personal time</div>
       <div class="emissions"><i class="fa fa-fw fa-globe"></i> Offset <strong>{emissionsDifference}</strong> ton(s) of CO<sub>2</sub> for the world</div>
     </div>
 
     <form class="scoring-information">
-      <p>We determine savings and weight loss by taking <input type="text" data-value="tripsPerYear" name="tripsPerYear" on-input="inputChange"> trips (ex: work days per year)</p>
+      <p>We determine costs and benefits by taking <input type="text" data-value="tripsPerYear" name="tripsPerYear" on-input="inputChange"> trips (ex: work days per year)</p>
       <section data-visible="hasCar">
         <p>while driving <strong data-text="driveDistances"></strong> miles at $ <input type="text" data-value="vmtRate" name="vmtRate" on-input="inputChange"> <a href="http://www.irs.gov/2014-Standard-Mileage-Rates-for-Business,-Medical-and-Moving-Announced" title="IRS's Standard Mileage Rate" target="_blank">per mile traveled <i class="fa fa-external-link"></i></a>
         and $ <input type="text" data-value="carParkingCost" name="carParkingCost" on-input="inputChange"> for parking</p>
