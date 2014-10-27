@@ -2,8 +2,8 @@
   "name": "transitive-view",
   "dependencies": {
     "component/color-parser": "*",
+    "component/debounce": "*",
     "component/each": "*",
-    "component/throttle": "*",
     "conveyal/transitive.js": "*",
     "mbostock/d3": "*",
     "yields/fmt": "*"

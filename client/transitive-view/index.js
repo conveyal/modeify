@@ -1,9 +1,9 @@
 var config = require('config');
 var d3 = require('d3');
+var debounce = require('debounce');
 var fmt = require('fmt');
 var Location = require('location');
 var log = require('log')('transitive-view');
-var throttle = require('throttle');
 var Transitive = require('transitive');
 var view = require('view');
 
@@ -36,6 +36,9 @@ View.prototype.display = function(journey) {
     el.innerHTML = require('./legend.html');
 
     var legend = this.find('.legend');
+    var placeChanged = debounce(function(name, place) {
+      self.placeChanged(name, place);
+    }, 250, true);
     var zoomIn = this.find('.zoom.in');
     var zoomOut = this.find('.zoom.out');
 
@@ -58,15 +61,11 @@ View.prototype.display = function(journey) {
       transitive.render();
 
       transitive.on('place.from.dragend', function(place) {
-        throttle(function() {
-          self.placeChanged('from', place);
-        }, 250);
+        placeChanged('from', place);
       });
 
       transitive.on('place.to.dragend', function(place) {
-        throttle(function() {
-          self.placeChanged('to', place);
-        }, 250);
+        placeChanged('to', place);
       });
 
       if (zoomIn) {
