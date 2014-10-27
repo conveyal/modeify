@@ -20,13 +20,13 @@
   text-align: center;
 }
 
-.WelcomeFlow .question {
-}
-
-.WelcomeFlow .btn,
 .WelcomeFlow p,
 .WelcomeFlow ul {
   font-size: 16px;
+}
+
+.WelcomeFlow .btn {
+  font-size: 18px;
 }
 
 .introjs-helperLayer {
