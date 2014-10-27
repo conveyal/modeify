@@ -113,7 +113,7 @@ a:hover {
   background-color: var(--land-color);
   background-image: url(/images/logo/1074x170.png);
   background-repeat: no-repeat;
-  background-position: 40% center;
+  background-position: center;
   background-size: auto 48px;
 }
 
