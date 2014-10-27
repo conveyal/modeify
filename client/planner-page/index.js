@@ -56,6 +56,10 @@ module.exports = function(ctx, next) {
   log('render');
 
   var plan = ctx.plan;
+
+  // Set plan to loading
+  plan.loading(true);
+
   var views = {
     'beta-bar': new BetaBar(),
     'filter-view': new FilterView(plan),
