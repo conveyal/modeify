@@ -26,6 +26,15 @@ function updateRoutes(plan, opts, callback) {
     if (callback) callback.apply(null, arguments);
   };
 
+  // Check for valid locations
+  if (!plan.validCoordinates()) {
+    plan.set({
+      options: [],
+      journey: {}
+    });
+    return done('Invalid coordinates.');
+  }
+
   // For event handlers
   plan.loading(true);
   plan.emit('updating options');

@@ -116,10 +116,16 @@ View.prototype.placeChanged = function(name, place) {
   });
 
   location.save(function(err, res) {
+    var changes = {};
+
     if (err) {
-      log('%e', err);
+      changes[name] = 'Address not found';
+      changes[name + '_ll'] = {
+        lat: place.place_lat,
+        lng: place.place_lon
+      };
+      changes[name + '_valid'] = false;
     } else {
-      var changes = {};
       var loc = res.body;
       changes[name] = fmt('%s, %s, %s %s', loc.address, loc.city, loc.state, loc.zip);
       changes[name + '_ll'] = {
@@ -128,8 +134,9 @@ View.prototype.placeChanged = function(name, place) {
       };
       changes[name + '_id'] = loc._id;
       changes[name + '_valid'] = true;
-      plan.set(changes);
-      plan.updateRoutes();
     }
+
+    plan.set(changes);
+    plan.updateRoutes();
   });
 };
