@@ -266,6 +266,19 @@ Plan.prototype.modesCSV = function() {
 };
 
 /**
+ * Set modes from string
+ */
+
+Plan.prototype.setModes = function(csv) {
+  if (!csv || csv.length < 1) return;
+
+  this.bike(csv.indexOf('BICYCLE') !== -1);
+  this.bus(csv.indexOf('BUS') !== -1);
+  this.train(csv.indexOf('TRAINISH') !== -1);
+  this.car(csv.indexOf('CAR') !== -1);
+};
+
+/**
  * Generate Query Parameters for this plan
  */
 
@@ -320,7 +333,15 @@ Plan.prototype.clearStore = store.clear;
  */
 
 Plan.prototype.saveURL = function() {
-  window.history.replaceState(null, '', '?from=' + this.from() + '&to=' + this.to());
+  var url = '?';
+  url += 'from=' + this.from();
+  url += '&to=' + this.to();
+  url += '&modes=' + this.modesCSV();
+  url += '&start_time=' + this.start_time();
+  url += '&end_time=' + this.end_time();
+  url += '&days' + this.days();
+
+  window.history.replaceState(null, '', url);
 };
 
 /**

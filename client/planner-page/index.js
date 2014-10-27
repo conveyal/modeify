@@ -73,13 +73,19 @@ module.exports = function(ctx, next) {
     });
 
     // Get the locations from the querystring
-    var locations = querystring.parse(window.location.search);
+    var query = querystring.parse(window.location.search);
 
     // If it's a shared URL or welcome is complete skip the welcome screen
-    if ((locations.from && locations.to) || session.commuter().profile().welcome_wizard_complete) {
+    if ((query.from && query.to) || session.commuter().profile().welcome_wizard_complete) {
       // If no querystring, see if we have them in the plan already
-      var from = locations.from || plan.from() || FROM;
-      var to = locations.to || plan.to() || TO;
+      var from = query.from || plan.from() || FROM;
+      var to = query.to || plan.to() || TO;
+
+      // Set plan from querystring
+      if (query.modes) plan.setModes(query.modes);
+      if (query.start_time !== undefined) plan.start_time(parseInt(query.start_time, 10));
+      if (query.end_time !== undefined) plan.end_time(parseInt(query.end_time, 10));
+      if (query.days !== undefined) plan.days(query.days);
 
       // Set addresses and update the routes
       plan.setAddresses(from, to, function(err) {
