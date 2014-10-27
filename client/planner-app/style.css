@@ -6,6 +6,12 @@
 :root {
   --black: #455a71;
 
+  --buildings-color: #7c61a0;
+  --land-color: #ecebeb;
+  --park-color: #61c165;
+  --street-color: #3fbfbf;
+  --water-color: #c4e7f2;
+
   --gray: #84909d;
   --lightgray: #b5c1ce;
   --light-gray: #edeff0;
@@ -103,6 +109,12 @@ a:hover {
   width: 100%;
   height: 100%;
   overflow: hidden;
+
+  background-color: var(--land-color);
+  background-image: url(/images/logo/1074x170.png);
+  background-repeat: no-repeat;
+  background-position: 40% center;
+  background-size: auto 48px;
 }
 
 #main,
