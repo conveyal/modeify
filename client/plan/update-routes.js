@@ -21,6 +21,8 @@ function updateRoutes(plan, opts, callback) {
   var done = function(err, res) {
     plan.emit('updating options complete', err, res);
     plan.loading(false);
+    plan.saveURL();
+
     if (callback) callback.apply(null, arguments);
   };
 
@@ -89,9 +91,6 @@ function updateRoutes(plan, opts, callback) {
           });
         }
       }
-
-      // Save the URL
-      plan.saveURL();
 
       // Format the journey
       data.journey = formatProfile.journey(data.journey);
