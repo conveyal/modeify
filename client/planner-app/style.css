@@ -111,10 +111,6 @@ a:hover {
   overflow: hidden;
 
   background-color: var(--land-color);
-  background-image: url(/images/logo/1074x170.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: auto 48px;
 }
 
 #main,

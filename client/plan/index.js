@@ -368,3 +368,26 @@ Plan.prototype.nextDate = function() {
   }
   return now.toISOString().split('T')[0];
 };
+
+/**
+ * Generate `places` for transitive
+ */
+
+Plan.prototype.generatePlaces = function() {
+  var fll = this.from_ll();
+  var from = {
+    place_id: 'from',
+    place_lat: fll.lat,
+    place_lon: fll.lng,
+    place_name: 'From'
+  };
+  var tll = this.to_ll();
+  var to = {
+    place_id: 'to',
+    place_lat: tll.lat,
+    place_lon: tll.lng,
+    place_name: 'To'
+  };
+
+  return [ from, to ];
+};

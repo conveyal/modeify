@@ -96,6 +96,9 @@ module.exports = function(ctx, next) {
         if (err) {
           log.error('%e', err);
         } else {
+          plan.journey({
+            places: plan.generatePlaces()
+          });
           plan.updateRoutes();
         }
       });

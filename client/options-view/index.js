@@ -7,8 +7,8 @@ var view = require('view');
 
 var View = module.exports = view(require('./template.html'), function(view, model) {
   view.lastResponse = {};
-  model.on('updating options complete', function(err, res) {
-    view.lastResponse = res;
+  model.on('updating options complete', function(data) {
+    view.lastResponse = data.res;
     model.emit('change optionsSummary');
   });
 });

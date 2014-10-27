@@ -19,7 +19,11 @@ function updateRoutes(plan, opts, callback) {
   opts = opts || {};
 
   var done = function(err, res) {
-    plan.emit('updating options complete', err, res);
+    plan.emit('updating options complete', {
+      err: err,
+      res: res
+    });
+
     plan.loading(false);
     plan.saveURL();
 
@@ -30,7 +34,9 @@ function updateRoutes(plan, opts, callback) {
   if (!plan.validCoordinates()) {
     plan.set({
       options: [],
-      journey: {}
+      journey: {
+        places: plan.generatePlaces()
+      }
     });
     return done('Invalid coordinates.');
   }
@@ -46,7 +52,9 @@ function updateRoutes(plan, opts, callback) {
     if (err || !data || data.options.length < 1) {
       plan.set({
         options: [],
-        journey: {}
+        journey: {
+          places: plan.generatePlaces()
+        }
       });
       done(err, data);
     } else {

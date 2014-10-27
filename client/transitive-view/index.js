@@ -32,73 +32,71 @@ View.prototype.display = function(journey) {
   var self = this;
   var el = this.el;
 
-  if (journey.journeys && journey.journeys.length > 0) {
-    el.innerHTML = require('./legend.html');
+  el.innerHTML = require('./legend.html');
 
-    var legend = this.find('.legend');
-    var placeChanged = debounce(function(name, place) {
-      self.placeChanged(name, place);
-    }, 250, true);
-    var zoomIn = this.find('.zoom.in');
-    var zoomOut = this.find('.zoom.out');
+  var legend = this.find('.legend');
+  var placeChanged = debounce(function(name, place) {
+    self.placeChanged(name, place);
+  }, 250, true);
+  var zoomIn = this.find('.zoom.in');
+  var zoomOut = this.find('.zoom.out');
 
-    try {
-      var transitive = window.transitive = new Transitive({
-        displayMargins: {
-          bottom: 43,
-          right: 330,
-          top: 43
-        },
-        draggableTypes: ['PLACE'],
-        el: el,
-        legendEl: legend,
-        data: journey,
-        gridCellSize: 200,
-        mapboxId: config.mapbox_map_id(),
-        useDynamicRendering: true,
-        styles: require('./style')
-      });
-      transitive.render();
+  try {
+    var transitive = window.transitive = new Transitive({
+      displayMargins: {
+        bottom: 43,
+        right: 330,
+        top: 43
+      },
+      draggableTypes: ['PLACE'],
+      el: el,
+      legendEl: legend,
+      data: journey,
+      gridCellSize: 200,
+      mapboxId: config.mapbox_map_id(),
+      useDynamicRendering: true,
+      styles: require('./style')
+    });
+    transitive.render();
 
-      transitive.on('place.from.dragend', function(place) {
-        placeChanged('from', place);
-      });
+    transitive.on('place.from.dragend', function(place) {
+      placeChanged('from', place);
+    });
 
-      transitive.on('place.to.dragend', function(place) {
-        placeChanged('to', place);
-      });
+    transitive.on('place.to.dragend', function(place) {
+      placeChanged('to', place);
+    });
 
-      if (zoomIn) {
-        zoomIn.onclick = function() {
-          el.dispatchEvent(new window.WheelEvent('wheel', {
-            view: window,
-            bubbles: true,
-            cancelable: true,
-            clientX: el.clientWidth / 2,
-            clientY: el.clientHeight * 0.7,
-            deltaY: -300
-          }));
-        };
-      }
-
-      if (zoomOut) {
-        zoomOut.onclick = function() {
-          el.dispatchEvent(new window.WheelEvent('wheel', {
-            view: window,
-            bubbles: true,
-            cancelable: true,
-            clientX: el.clientWidth / 2,
-            clientY: el.clientHeight * 0.7,
-            deltaY: 300
-          }));
-        };
-      }
-
-      log('<-- done displaying patterns');
-    } catch (e) {
-      log('<-- failed to display journey: %e', e);
-      return;
+    if (zoomIn) {
+      zoomIn.onclick = function() {
+        el.dispatchEvent(new window.WheelEvent('wheel', {
+          view: window,
+          bubbles: true,
+          cancelable: true,
+          clientX: el.clientWidth / 2,
+          clientY: el.clientHeight * 0.7,
+          deltaY: -300
+        }));
+      };
     }
+
+    if (zoomOut) {
+      zoomOut.onclick = function() {
+        el.dispatchEvent(new window.WheelEvent('wheel', {
+          view: window,
+          bubbles: true,
+          cancelable: true,
+          clientX: el.clientWidth / 2,
+          clientY: el.clientHeight * 0.7,
+          deltaY: 300
+        }));
+      };
+    }
+
+    log('<-- done displaying patterns');
+  } catch (e) {
+    log('<-- failed to display journey: %e', e);
+    return;
   }
 };
 
