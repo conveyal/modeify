@@ -4,7 +4,6 @@ var formatProfile = require('format-otp-profile');
 var log = require('log')('plan:update-routes');
 var otp = require('otp');
 var Route = require('route');
-var textModal = require('text-modal');
 
 /**
  * Expose `updateRoutes`
@@ -20,6 +19,7 @@ function updateRoutes(plan, opts, callback) {
   opts = opts || {};
   var done = function() {
     plan.emit('updating options complete');
+    plan.loading(false);
     if (callback) callback.apply(null, arguments);
   };
 
@@ -31,6 +31,7 @@ function updateRoutes(plan, opts, callback) {
   }
 
   // For event handlers
+  plan.loading(true);
   plan.emit('updating options');
 
   var query = plan.generateQuery();
@@ -38,9 +39,11 @@ function updateRoutes(plan, opts, callback) {
 
   otp(query, function(err, data) {
     if (err || !data || data.options.length < 1) {
-      textModal('We\'re sorry but no trips were found between ' + plan.from() + ' and ' + plan.to() +
-        '!<br><br> The destinations may be outside the area available for this application.');
-      done();
+      plan.set({
+        options: [],
+        journey: {}
+      });
+      done(err, data);
     } else {
       // Track the commute
       analytics.track('commute', {
@@ -96,8 +99,11 @@ function updateRoutes(plan, opts, callback) {
       // Save the URL
       plan.saveURL();
 
-      plan.options(data.options);
-      plan.journey(formatProfile.journey(data.journey));
+      // Format the journey
+      data.journey = formatProfile.journey(data.journey);
+
+      // Store the results
+      plan.set(data);
 
       log('<-- updated routes');
       done(null, data);

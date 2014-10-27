@@ -18,7 +18,7 @@ function storePlan(plan) {
   // convert to "JSON", remove routes & patterns
   var json = {};
   for (var key in plan.attrs) {
-    if (key === 'journey' || key === 'options') continue;
+    if (key === 'journey' || key === 'options' || key === 'scorer') continue;
     json[key] = plan.attrs[key];
   }
 
