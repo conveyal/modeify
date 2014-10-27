@@ -504,7 +504,7 @@ Profiler.prototype.request = function(path, params, callback) {
     .query(params)
     .end(function(err, res) {
       if (err || res.error || !res.ok) {
-        callback(err || res.error || res.text);
+        callback(err || res.error || res.text, res);
       } else {
         callback(null, res.body);
       }
