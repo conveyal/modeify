@@ -4,7 +4,7 @@
       <i class="fa fa-user"></i> {name || 'Commuter'} — {_user().email}
       <a class="btn btn-default pull-right" href="/manager/organizations/{_organization}/show"><i class="fa fa-arrow-left"></i> Back</a>
       <a class="btn btn-warning pull-right" href="/manager/organizations/{_organization}/commuters/{_id}/edit"><i class="fa fa-pencil"></i> Edit</a>
-      <a class="btn btn-danger pull-right" on-click="destroy"><i class="fa fa-times"></i> Delete</a>
+      <a class="btn btn-danger pull-right" on-tap="destroy"><i class="fa fa-times"></i> Delete</a>
     </h3>
     <p>From <i class="fa fa-home"></i> {fuzzyAddress} to <i class="fa fa-building-o"></i> {toLocation}</p>
   </div>
@@ -12,6 +12,6 @@
     <div class="map map-small"></div>
   </div>
   <div class="col-lg-12 col-md-12 col-sm-12">
-    <button class="btn btn-block btn-primary" on-click="sendPlan"><i class="fa fa-envelope"></i> Resend Invitation</button>
+    <button class="btn btn-block btn-primary" on-tap="sendPlan"><i class="fa fa-envelope"></i> Resend Invitation</button>
   </div>
 </div>

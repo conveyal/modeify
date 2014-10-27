@@ -10,6 +10,7 @@ reactive.use(require('./dropdown'));
 reactive.use(require('./each'));
 reactive.use(require('reactive-child'));
 reactive.use(require('reactive-disabled'));
+reactive.use(require('./tap'));
 
 /**
  * Expose `view`

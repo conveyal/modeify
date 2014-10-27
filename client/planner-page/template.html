@@ -4,13 +4,13 @@
     <div id="scrollable" class="scrollable" style="padding-right: {scrollbarSize}px;margin-right:-{scrollbarSize}px;">
       <div reactive="beta-bar"></div>
       <form autosubmit id="locations-form">
-        <div class="title">Describe <strong>your</strong> trip <a class="fa fa-fw icon-reverse pull-right" on-click="reverseCommute" title="Reverse Commute" href="#"></a></div>
+        <div class="title">Describe <strong>your</strong> trip <a class="fa fa-fw icon-reverse pull-right" on-tap="reverseCommute" title="Reverse Commute" href="#"></a></div>
         <div reactive="locations-view"></div>
         <div reactive="filter-view"></div>
       </form>
       <div reactive="options-view"></div>
     </div>
     <div reactive="planner-nav"></div>
-    <a href="#" on-click="scroll" class="hidden more-options">more <i class="fa fa-fw fa-chevron-down"></i></a>
+    <a href="#" on-tap="scroll" class="hidden more-options">more <i class="fa fa-fw fa-chevron-down"></i></a>
   </div>
 </div>

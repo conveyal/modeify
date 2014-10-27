@@ -3,7 +3,7 @@
     Your <strong>Settings</strong>
     <span class="email" data-text="email" data-hidden="anonymous"></span>
 
-    <a class="close pull-right" href="#" on-click="hide">
+    <a class="close pull-right" href="#" on-tap="hide">
       <i class="fa fa-times fa-times-top"></i>
     </a>
   </h3>
@@ -23,16 +23,16 @@
           <input type="email" name="email" class="form-control" placeholder="Email">
           <button type="submit" class="btn btn-block">Register Email</button>
         </form>
-        <div class="alert alert-warning">Already have an account? <a href="/login" class="alert-link" on-click="hide">Click here to login.</a></div>
+        <div class="alert alert-warning">Already have an account? <a href="/login" class="alert-link" on-tap="hide">Click here to login.</a></div>
       </div>
 
       <div data-hidden="anonymous">
-        <button class="btn btn-block" on-click="logout"><i class="fa fa-sign-out"></i> Log Out</button>
+        <button class="btn btn-block" on-tap="logout"><i class="fa fa-sign-out"></i> Log Out</button>
         <div data-hidden="emailConfirmed">
           <div class="email-confirmation-alerts">
             <div class="alert alert-warning">Your email has not been confirmed! You must confirm your email address to be able to log in.</div>
           </div>
-          <button class="btn btn-block" on-click="resendEmailConfirmation"><i class="fa fa-envelope"></i> Re-send Confirmation Email</button>
+          <button class="btn btn-block" on-tap="resendEmailConfirmation"><i class="fa fa-envelope"></i> Re-send Confirmation Email</button>
         </div>
       </div>
     </section>
@@ -45,13 +45,13 @@
 
       <div class="walk-speed">
         <p class="speed-description"> Are you a <strong>Stroller</strong> (2 mph) or a <strong>Speedwalker</strong> (4 mph)? Choose below:</p>
-        <button class="stroller icon-walk" on-click="setWalkSpeed" title="Stroller"></button>
-        <button class="speedwalker icon-speedwalker" on-click="setWalkSpeed" title="Speedwalker"></button>
+        <button class="stroller icon-walk" on-tap="setWalkSpeed" title="Stroller"></button>
+        <button class="speedwalker icon-speedwalker" on-tap="setWalkSpeed" title="Speedwalker"></button>
       </div>
       <div class="bike-speed">
         <p class="speed-description"> Are you a <strong>Cruiser</strong> (6 mph) or a <strong>Racer</strong>? (10 mph)? Choose below: </p>
-        <button class="cruiser icon-cruiserbike" on-click="setBikeSpeed" title="Cruiser"></button>
-        <button class="racer icon-racerbike" on-click="setBikeSpeed" title="Racer"></button>
+        <button class="cruiser icon-cruiserbike" on-tap="setBikeSpeed" title="Cruiser"></button>
+        <button class="racer icon-racerbike" on-tap="setBikeSpeed" title="Racer"></button>
       </div>
     </section>
   </div>

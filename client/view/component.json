@@ -3,6 +3,7 @@
   "dependencies": {
     "component/classes": "1.2.1",
     "component/event": "0.1.3",
+    "component/tap": "*",
     "ianstormtaylor/reactive": "*",
     "segmentio/reactive-child": "0.0.1",
     "segmentio/reactive-disabled": "0.0.1",
@@ -16,6 +17,7 @@
     "active.js",
     "dropdown.js",
     "each.js",
-    "index.js"
+    "index.js",
+    "tap.js"
   ]
 }

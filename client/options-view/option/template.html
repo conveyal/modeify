@@ -1,7 +1,7 @@
 <li class="option">
   <div class="header">
     <span class="number">#{optionNumber}</span> {optionModes}
-    <a class="pull-right" href="#" on-click="feedback">rate <i class="fa fa-fw fa-pencil-square-o"></i></a>
+    <a class="pull-right" href="#" on-tap="feedback">rate <i class="fa fa-fw fa-pencil-square-o"></i></a>
   </div>
   <div class="simple">
     <table class="segments"><tbody data-html="simpleSegments"></tbody></table>
@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <div class="benefits-badges" on-click="showDetails">
+    <div class="benefits-badges" on-tap="showDetails">
       <div class="benefits-badge savings" data-visible="hasTransit">Save <strong>${costDifference}k</strong> a year</div>
 
       <div data-hidden="hasTransit">
@@ -30,8 +30,8 @@
       </div>
     </div>
 
-    <a href="#" on-click="showDetails" class="show-hide show-details">details <i class="fa fa-fw fa-angle-down"></i></a>
-    <a href="#" on-click="hideDetails" class="show-hide hide-details">hide <i class="fa fa-fw fa-angle-up"></i></a>
+    <a href="#" on-tap="showDetails" class="show-hide show-details">details <i class="fa fa-fw fa-angle-down"></i></a>
+    <a href="#" on-tap="hideDetails" class="show-hide hide-details">hide <i class="fa fa-fw fa-angle-up"></i></a>
   </div>
   <div class="details">
     <div class="comparison-table">
@@ -73,6 +73,6 @@
       </tfoot>
       <tbody class="segments" data-html="segments"></tbody>
     </table>
-    <a href="#" on-click="hideDetails" class="show-hide">hide <i class="fa fa-fw fa-angle-up"></i></a>
+    <a href="#" on-tap="hideDetails" class="show-hide">hide <i class="fa fa-fw fa-angle-up"></i></a>
   </div>
 </li>

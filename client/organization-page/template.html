@@ -4,7 +4,7 @@
       <i class="fa fa-building-o"></i> {name}
       <a class="btn btn-default pull-right" href="/manager/organizations"><i class="fa fa-arrow-left"></i> Back</a>
       <a class="btn btn-warning pull-right" href="/manager/organizations/{_id}/edit"><i class="fa fa-pencil"></i> Edit</a>
-      <button class="btn btn-danger pull-right" on-click="destroy"><i class="fa fa-times"></i> Delete</button>
+      <button class="btn btn-danger pull-right" on-tap="destroy"><i class="fa fa-times"></i> Delete</button>
     </h3>
     <p>{contact} — <a href="mailto:{email}">{email}</a></p>
     <p>{address}, {city}, {state} {zip}</p>
@@ -13,7 +13,7 @@
     <div class="map map-small"></div>
   </div>
   <div class="col-lg-12 col-md-12 col-sm-12">
-    <h3>Commuters <span class="label label-primary">{commuterCount}</span> <button class="btn btn-info pull-right" on-click="parseCSV"><i class="fa fa-upload"></i> CSV</button> <a class="btn btn-success pull-right" href="/manager/organizations/{_id}/commuters/new"><i class="fa fa-plus"></i> Add</a></h3>
+    <h3>Commuters <span class="label label-primary">{commuterCount}</span> <button class="btn btn-info pull-right" on-tap="parseCSV"><i class="fa fa-upload"></i> CSV</button> <a class="btn btn-success pull-right" href="/manager/organizations/{_id}/commuters/new"><i class="fa fa-plus"></i> Add</a></h3>
     <table class="table table-striped">
       <thead>
         <tr>
