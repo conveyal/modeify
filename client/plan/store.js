@@ -31,8 +31,12 @@ function storePlan(plan) {
   }
 
   // save in local storage
-  store('plan', json);
-  log('<-- stored plan');
+  try {
+    store('plan', json);
+    log('<-- stored plan');
+  } catch(e) {
+    log.error('<-- failed to store plan %e', e);
+  }
 
   return json;
 }

@@ -79,6 +79,9 @@ module.exports = function(ctx, next) {
     // Get the locations from the querystring
     var query = querystring.parse(window.location.search);
 
+    // Clear plan & cookies for now, plan will re-save automatically on save
+    plan.clearStore();
+
     // If it's a shared URL or welcome is complete skip the welcome screen
     if ((query.from && query.to) || session.commuter().profile().welcome_wizard_complete) {
       // If no querystring, see if we have them in the plan already
