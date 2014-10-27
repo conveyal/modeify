@@ -30,7 +30,7 @@ var Plan = module.exports = model('Plan')
     end_time: 9,
     from: '',
     from_valid: false,
-    loading: false,
+    loading: true,
     options: [],
     per_year: false,
     start_time: 7,
@@ -80,7 +80,7 @@ Plan.on('change', function(plan, name, val) {
   log('plan.%s changed to %s', name, val);
 
   // Store in localStorage & track the change
-  if (name !== 'options' && name !== 'journey') plan.store();
+  if (name !== 'options' && name !== 'journey' && name !== 'loading') plan.store();
 });
 
 /**

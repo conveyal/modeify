@@ -17,18 +17,12 @@ module.exports = updateRoutes;
 
 function updateRoutes(plan, opts, callback) {
   opts = opts || {};
-  var done = function() {
-    plan.emit('updating options complete');
+
+  var done = function(err, res) {
+    plan.emit('updating options complete', err, res);
     plan.loading(false);
     if (callback) callback.apply(null, arguments);
   };
-
-  if (!plan.validCoordinates()) {
-    if (!plan.fromIsValid() && plan.from().length > 0) plan.geocode('from');
-    if (!plan.toIsValid() && plan.to().length > 0) plan.geocode('to');
-
-    return done('Updating routes failed, invalid addresses.');
-  }
 
   // For event handlers
   plan.loading(true);

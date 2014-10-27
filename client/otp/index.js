@@ -21,15 +21,18 @@ module.exports = function profile(query, callback) {
   log('--  see raw results here: %s', generateUrl(query));
 
   profiler.profile(query, function(err, data) {
-    if (err || !data) {
-      log.error('<-- error profiling %e', data);
-      callback(err);
+    if (err) {
+      log.error('<-- error profiling', err);
+      callback(err, data);
+    } else if (!data.options || data.options.length < 1) {
+      log.warning('<-- no options found');
+      callback('No options found', data);
     } else {
       query.profile = data;
       profiler.journey(query, function(err, journey) {
         if (err) {
-          log.error('<-- error profiling %e', err);
-          callback(err);
+          log.error('<-- error profiling', err);
+          callback(err, journey);
         } else {
           log('<-- profiled %s options', data.options.length);
           callback(null, {

@@ -6,8 +6,9 @@ var view = require('view');
  */
 
 var View = module.exports = view(require('./template.html'), function(view, model) {
-  model.on('change options', function() {
-    model.emit('change optionsSummary', view.optionsSummary());
+  model.on('updating options complete', function(err, res) {
+    view.lastResponse = res;
+    model.emit('change optionsSummary');
   });
 });
 
@@ -25,11 +26,17 @@ View.prototype.optionsSummary = function() {
   } else {
     var plan = this.model;
     var msg = 'No results! ';
+    var lastResponse = this.lastResponse || {};
+    var responseText = lastResponse.text || '';
 
-    if (!plan.validCoordinates()) {
-      msg += 'The addresses entered could not be located.';
+    if (responseText.indexOf('VertexNotFoundException') !== -1) {
+      msg += 'The <strong>';
+      msg += responseText.indexOf('[from]') !== -1
+        ? 'from'
+        : 'to';
+      msg += '</strong> address entered is outside the supported region of CarFreeAtoZ.';
     } else if (!plan.bus() || !plan.train()) {
-      msg += 'Try turning all transit modes on.';
+      msg += 'Try turning all <strong>transit</strong> modes on.';
     } else if (!plan.bike()) {
       msg += 'Add biking to see bike-to-transit results.';
     } else if (!plan.car()) {
