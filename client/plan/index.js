@@ -341,7 +341,7 @@ Plan.prototype.saveURL = function() {
   url += '&modes=' + this.modesCSV();
   url += '&start_time=' + this.start_time();
   url += '&end_time=' + this.end_time();
-  url += '&days' + this.days();
+  url += '&days=' + this.days();
 
   window.history.replaceState(null, '', url);
 };
