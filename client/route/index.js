@@ -127,8 +127,7 @@ Route.prototype.tripsPerYear = function() {
  */
 
 Route.prototype.tripm = function() {
-  var plan = session.plan();
-  return plan.per_year() ? plan.tripsPerYear() : 1;
+  return session.plan().tripsPerYear();
 };
 
 /**
