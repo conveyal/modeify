@@ -22,7 +22,7 @@ module.exports = function profile(query, callback) {
 
   profiler.profile(query, function(err, data) {
     if (err || !data) {
-      log.error('<-- error profiling %e', err);
+      log.error('<-- error profiling %e', data);
       callback(err);
     } else {
       query.profile = data;

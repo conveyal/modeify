@@ -37,10 +37,7 @@ function updateRoutes(plan, opts, callback) {
   var scorer = plan.scorer();
 
   otp(query, function(err, data) {
-    if (err) {
-      log.error('%e', err);
-      done(err);
-    } else if (!data || data.options.length < 1) {
+    if (err || !data || data.options.length < 1) {
       textModal('We\'re sorry but no trips were found between ' + plan.from() + ' and ' + plan.to() +
         '!<br><br> The destinations may be outside the area available for this application.');
       done();

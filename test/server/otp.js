@@ -6,16 +6,11 @@ var request = require('./supertest');
 
 describe('/api/otp', function() {
   describe('GET /profile', function() {
-    it('200 and return 0 options', function(done) {
+    it('400 and return 0 options', function(done) {
       request
         .get('/api/otp/profile' +
           '?from=39.76618,-86.441052&to=39.76618,-86.441052')
-        .expect(200)
-        .end(function(err, res) {
-          if (err) return done(err);
-          res.body.options.length.should.equal(0);
-          done();
-        });
+        .expect(400, done);
     });
 
     it('200 and return 11 options', function(done) {
