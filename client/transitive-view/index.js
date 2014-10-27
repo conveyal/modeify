@@ -3,6 +3,7 @@ var d3 = require('d3');
 var fmt = require('fmt');
 var Location = require('location');
 var log = require('log')('transitive-view');
+var throttle = require('throttle');
 var Transitive = require('transitive');
 var view = require('view');
 
@@ -57,11 +58,15 @@ View.prototype.display = function(journey) {
       transitive.render();
 
       transitive.on('place.from.dragend', function(place) {
-        self.placeChanged('from', place);
+        throttle(function() {
+          self.placeChanged('from', place);
+        }, 250);
       });
 
       transitive.on('place.to.dragend', function(place) {
-        self.placeChanged('to', place);
+        throttle(function() {
+          self.placeChanged('to', place);
+        }, 250);
       });
 
       if (zoomIn) {

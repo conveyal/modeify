@@ -3,6 +3,7 @@
   "dependencies": {
     "component/color-parser": "*",
     "component/each": "*",
+    "component/throttle": "*",
     "conveyal/transitive.js": "*",
     "mbostock/d3": "*",
     "yields/fmt": "*"
