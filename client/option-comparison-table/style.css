@@ -1,0 +1,28 @@
+
+.OptionComparisonTable {
+  padding-bottom: 10px;
+}
+
+.OptionComparisonTable .heading {
+  text-align: center;
+}
+
+.OptionComparisonTable > div {
+  padding: 4px 16px;
+}
+
+.OptionComparisonTable .fa-bank {
+  color: var(--gold);
+}
+
+.OptionComparisonTable .fa-calendar {
+  color: var(--metro-blue);
+}
+
+.OptionComparisonTable .fa-heart {
+  color: var(--red);
+}
+
+.OptionComparisonTable .fa-globe {
+  color: var(--green);
+}

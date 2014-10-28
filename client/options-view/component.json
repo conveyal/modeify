@@ -13,11 +13,12 @@
     "visionmedia/debug": "*"
   },
   "local": [
+    "config",
     "convert",
     "feedback-modal",
+    "option-comparison-table",
     "session",
-    "view",
-    "config"
+    "view"
   ],
   "scripts": [
     "option/index.js",

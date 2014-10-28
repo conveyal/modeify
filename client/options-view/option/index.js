@@ -1,4 +1,5 @@
 var colorParser = require('color-parser');
+var ComparisonTable = require('option-comparison-table');
 var convert = require('convert');
 var d3 = require('d3');
 var domify = require('domify');
@@ -428,4 +429,12 @@ View.prototype.optionModes = function() {
   else if (this.model.driveDistance() > 0) modeStr = 'rideshare';
 
   return modeStr;
+};
+
+/**
+ * Comparison Table
+ */
+
+View.prototype.comparisonTable = function() {
+  return new ComparisonTable(this.model);
 };
