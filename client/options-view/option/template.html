@@ -22,11 +22,10 @@
     </div>
 
     <div class="benefits-badges" on-tap="showDetails">
-      <div class="benefits-badge savings" data-visible="hasTransit">Save <strong>${costDifference}k</strong> a year</div>
+      <div class="benefits-badge savings" data-visible="costSavings">Save <strong>${costSavings}</strong> a year</div>
 
-      <div data-hidden="hasTransit">
-        <div class="benefits-badge weightloss" data-hidden="hasCar">Burn <strong>{pounds}</strong> pounds a year</div>
-        <div class="benefits-badge negative-cost" data-visible="hasCar">Lose <strong>{timeCost}</strong> days a year</div>
+      <div data-hidden="costSavings">
+        <div class="benefits-badge time-savings" data-visible="timeSavings">Gain <strong>{timeSavings}</strong> days a year</div>
       </div>
     </div>
 

@@ -17,36 +17,39 @@ var MPS_TO_MPH = 2.23694;
 
 var Route = module.exports = model('Route')
   .use(defaults({
-    carData: false,
-    transit: []
+    costPenalty: false,
+    costSavings: false,
+    timeSavings: false,
+    transit: [],
+    weightLost: false
   }))
   .attr('id')
   .attr('access')
   .attr('bikeCalories')
   .attr('bikeDistance')
   .attr('bikeTime')
-  .attr('carData')
   .attr('calories')
   .attr('cost')
-  .attr('costDifference')
+  .attr('costPenalty')
+  .attr('costSavings')
   .attr('driveDistance')
   .attr('egress')
   .attr('emissions')
   .attr('emissionsDifference')
   .attr('hasTransit')
   .attr('modes')
-  .attr('pounds')
   .attr('score')
   .attr('stats')
   .attr('time')
-  .attr('timeCost')
+  .attr('timeSavings')
   .attr('transfers')
   .attr('transitCost')
   .attr('transit')
   .attr('trips')
   .attr('walkCalories')
   .attr('walkDistance')
-  .attr('walkTime');
+  .attr('walkTime')
+  .attr('weightLost');
 
 /**
  * Update scoring
@@ -79,11 +82,41 @@ Route.prototype.rescore = function(scorer) {
 Route.prototype.setCarData = function(data) {
   var m = this.tripm();
 
-  this.carData(true);
-  this.costDifference(toFixed((data.cost * m - this.cost() * m) / 1000, 1));
-  this.pounds(this.calories() * m / 3500 | 0);
-  this.timeCost((m * (this.time() / 60 / 24)) | 0);
-  this.emissionsDifference(data.emissions / 2000 | 0);
+  var costDifference = data.cost * m - this.cost() * m;
+  var emissions = (data.emissions - this.emissions()) / 2000;
+  var weightLost = this.calories() === 0
+    ? false
+    : convert.caloriesToPounds(this.calories()) * m | 0;
+  var timeSavings = (this.timeInTransit() - (data.time - this.time())) * m;
+
+  console.log(data.time, this.time(), this.timeInTransit());
+
+  if (this.directCar()) {
+    costDifference = data.cost * m / 2;
+    emissions /= 2;
+    timeSavings /= 2; // Assume split driving
+  }
+
+  if (costDifference > 0) this.costSavings(costDifference);
+  if (weightLost) this.weightLost(weightLost);
+  if (timeSavings > 0) this.timeSavings(timeSavings / 60 / 24 | 0);
+  if (emissions > 0) this.emissionsDifference(emissions | 0);
+};
+
+/**
+ * Direct car?
+ */
+
+Route.prototype.directCar = function() {
+  return this.modes().length === 1 && this.hasCar();
+};
+
+/**
+ * Is this a direct bike or walk journey?
+ */
+
+Route.prototype.directBikeOrWalk = function() {
+  return !this.hasTransit() && !this.hasCar();
 };
 
 /**
@@ -107,11 +140,38 @@ Route.prototype.freeflowTime = function() {
 };
 
 /**
- * Has transit?
+ * Time in transit
  */
+
+Route.prototype.timeInTransit = function() {
+  if (!this.hasTransit()) return 0;
+  return this.transit().reduce(function(m, t) {
+    return m + t.waitStats.avg + t.rideStats.avg;
+  }, 0) / 60;
+};
+
+/**
+ * Shorthand helpers
+ */
+
+Route.prototype.hasCost = function() {
+  return this.cost() > 0;
+};
+
+Route.prototype.hasCar = function() {
+  return this.modes().indexOf('car') !== -1;
+};
 
 Route.prototype.hasTransit = function() {
   return this.transit().length > 0;
+};
+
+Route.prototype.hasBiking = function() {
+  return this.modes().indexOf('bicycle') !== -1;
+};
+
+Route.prototype.hasWalking = function() {
+  return this.modes().indexOf('walk') !== -1;
 };
 
 /**

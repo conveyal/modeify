@@ -89,9 +89,9 @@ function updateRoutes(plan, opts, callback) {
       data.options = scorer.processOptions(data.options);
 
       // Get the car data
-      var driveOption = data.options.filter(function(o) {
+      var driveOption = new Route(data.options.filter(function(o) {
         return o.access[0].mode === 'CAR' && (!o.transit || o.transit.length < 1);
-      })[0];
+      })[0]);
 
       // Remove the car option if car is turned off
       if (!plan.car()) {
@@ -107,13 +107,11 @@ function updateRoutes(plan, opts, callback) {
       for (var i = 0; i < data.options.length; i++) {
         data.options[i] = new Route(data.options[i]);
 
-        if (driveOption) {
-          data.options[i].setCarData({
-            cost: driveOption.cost,
-            emissions: driveOption.emissions,
-            time: driveOption.time
-          });
-        }
+        data.options[i].setCarData({
+          cost: driveOption.cost(),
+          emissions: driveOption.emissions(),
+          time: driveOption.average()
+        });
       }
 
       // Format the journey

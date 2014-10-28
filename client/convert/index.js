@@ -26,6 +26,53 @@ exports.mphToMps = function(mph) {
 };
 
 /**
+ * Calories to pounds
+ */
+
+exports.caloriesToPounds = function(cals) {
+  return cals / 3500;
+};
+
+/**
+ * Number to short string
+ */
+
+exports.roundNumberToString = function(n) {
+  if (n > 1000) {
+    return toFixed(n / 1000, 1) + 'k';
+  } else if (n > 100) {
+    return Math.round(n);
+  } else if (n > 10) {
+    return toFixed(n, 1);
+  } else if (n > 1) {
+    return toFixed(n, 2);
+  }
+};
+
+/**
+ * Miles to CO2 tonnage
+ */
+
+exports.milesToCO2 = function(m) {
+
+};
+
+/**
+ * Expose `toFixed`
+ */
+
+exports.toFixed = toFixed;
+
+/**
+ * To fixed without trailing zero
+ */
+
+function toFixed(n, f) {
+  var m = Math.pow(10, f);
+  return ((n * m) | 0) / m;
+}
+
+/**
  * Expose `milesToString`
  */
 

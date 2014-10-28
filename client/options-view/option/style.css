@@ -130,12 +130,8 @@
   background-color: var(--green);
 }
 
-.benefits-badge.weightloss {
+.benefits-badge.time-savings {
   background-color: var(--gold);
-}
-
-.benefits-badge.negative-cost {
-  background-color: var(--red);
 }
 
 /**

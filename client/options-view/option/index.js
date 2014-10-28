@@ -55,6 +55,14 @@ View.prototype.feedback = function(e) {
 };
 
 /**
+ * Cost savings helper
+ */
+
+View.prototype.costSavings = function() {
+  return convert.roundNumberToString(this.model.costSavings());
+};
+
+/**
  * Details, details
  */
 
@@ -301,30 +309,6 @@ View.prototype.simpleSegments = function() {
   });
 
   return html;
-};
-
-/**
- * Has what?
- */
-
-View.prototype.hasCost = function() {
-  return this.model.cost() > 0;
-};
-
-View.prototype.hasCar = function() {
-  return this.model.modes().indexOf('car') !== -1;
-};
-
-View.prototype.hasTransit = function() {
-  return this.model.transit().length > 0;
-};
-
-View.prototype.hasBiking = function() {
-  return this.model.modes().indexOf('bicycle') !== -1;
-};
-
-View.prototype.hasWalking = function() {
-  return this.model.modes().indexOf('walk') !== -1;
 };
 
 /**
