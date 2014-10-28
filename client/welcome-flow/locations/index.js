@@ -1,3 +1,4 @@
+var Alert = require('alert');
 var log = require('log')('welcome-flow:locations');
 var modal = require('modal');
 
@@ -28,12 +29,20 @@ Locations.prototype.next = function(e) {
   var button = this.find('.btn');
   button.classList.add('loading');
 
+  var alerts = this.find('.alerts');
+  alerts.innerHTML = '';
+
   var plan = this.model.plan;
   var self = this;
   plan.updateRoutes({}, function(err, data) {
-    console.log(err, data);
     if (err) {
-      window.alert(err);
+      button.classList.remove('loading');
+      button.classList.add('disabled');
+
+      alerts.appendChild(Alert({
+        type: 'danger',
+        text: err
+      }).el);
     } else {
       self.emit('next');
     }

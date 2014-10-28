@@ -4,6 +4,7 @@ var formatProfile = require('format-otp-profile');
 var log = require('log')('plan:update-routes');
 var otp = require('otp');
 var Route = require('route');
+var session = require('session');
 
 /**
  * Expose `updateRoutes`
@@ -29,8 +30,8 @@ function updateRoutes(plan, opts, callback) {
     });
 
     plan.loading(false);
-    plan.saveURL();
 
+    if (session.commuter().profile().welcome_wizard_complete) plan.saveURL();
     if (callback) callback.call(null, err, res);
   };
 
