@@ -93,6 +93,13 @@ function updateRoutes(plan, opts, callback) {
         return o.access[0].mode === 'CAR' && (!o.transit || o.transit.length < 1);
       })[0];
 
+      // Remove the car option if car is turned off
+      if (!plan.car()) {
+        data.options = data.options.filter(function(o) {
+          return o.access[0].mode !== 'CAR';
+        });
+      }
+
       // Populate segments
       populateSegments(data.options, data.journey);
 
