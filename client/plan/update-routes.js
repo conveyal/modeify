@@ -19,6 +19,10 @@ function updateRoutes(plan, opts, callback) {
   opts = opts || {};
 
   var done = function(err, res) {
+    if (err) {
+      err = generateErrorMessage(plan, res);
+    }
+
     plan.emit('updating options complete', {
       err: err,
       res: res
@@ -27,7 +31,7 @@ function updateRoutes(plan, opts, callback) {
     plan.loading(false);
     plan.saveURL();
 
-    if (callback) callback.apply(null, arguments);
+    if (callback) callback.call(null, err, res);
   };
 
   // Check for valid locations
@@ -186,4 +190,30 @@ function filterMode(option, mode, filter) {
       return a.mode !== mode || !filter(a);
     });
   }
+}
+
+function generateErrorMessage(plan, response) {
+  var msg = 'No results! ';
+  var responseText = response ? response.text : '';
+
+  if (responseText.indexOf('VertexNotFoundException') !== -1) {
+    msg += 'The <strong>';
+    msg += responseText.indexOf('[from]') !== -1 ? 'from' : 'to';
+    msg += '</strong> address entered is outside the supported region of CarFreeAtoZ.';
+  } else if (!plan.validCoordinates()) {
+    msg += plan.fromIsValid() ? 'To' : 'From';
+    msg += ' address could not be found. Please enter a valid address.';
+  } else if (!plan.bus() || !plan.train()) {
+    msg += 'Try turning all <strong>transit</strong> modes on.';
+  } else if (!plan.bike()) {
+    msg += 'Add biking to see bike-to-transit results.';
+  } else if (!plan.car()) {
+    msg += 'Unfortunately we were unable to find non-driving results. Try turning on driving.';
+  } else if (plan.end_time() - plan.start_time() < 2) {
+    msg += 'Make sure the hours you specified are large enough to encompass the length of the journey.';
+  } else if (plan.days() !== 'M—F') {
+    msg += 'Transit runs less often on the weekends. Try switching to a weekday.';
+  }
+
+  return msg;
 }
