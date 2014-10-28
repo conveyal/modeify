@@ -5,5 +5,17 @@
     <p>As an example let's look at your daily commute. <strong>Where do you live and work?</strong></p>
     <div reactive="locations-view"></div>
   </div>
-  <button on-tap="next" class="btn btn-block disabled">Find my best option <i class="fa fa-fw fa-search"></i></button>
+  <button on-tap="next" class="btn btn-block disabled">
+    <span class="find-text">Find my best option <i class="fa fa-fw fa-search"></i></span>
+    <span class="loading-text"><i class="fa fa-fw fa-refresh fa-spin"></i></span>
+  </button>
+  <p>We'll build a <strong>personalized comparison of your travel choices</strong> and find the best trips for:</p>
+  <ul>
+    <li>Reducing costs</li>
+    <li>Staying healthy</li>
+    <li>Going green</li>
+    <li>Gaining productive time</li>
+    <li>Rainy days</li>
+    <li>When a bus or metro line is down</li>
+  </ul>
 </div>

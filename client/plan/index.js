@@ -33,7 +33,6 @@ var Plan = module.exports = model('Plan')
     from_valid: false,
     loading: true,
     options: [],
-    per_year: false,
     start_time: 7,
     to: '',
     to_valid: false,
@@ -53,8 +52,6 @@ var Plan = module.exports = model('Plan')
   .attr('loading')
   .attr('journey')
   .attr('options')
-  .attr('per_day')
-  .attr('per_year')
   .attr('scorer')
   .attr('start_time')
   .attr('to')

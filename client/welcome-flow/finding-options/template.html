@@ -1,17 +1,6 @@
 <div class="WelcomeFlow FindingOptions">
   <div class="logo"></div>
-  <h3><strong>Finding Your Best Option&hellip;</strong></h3>
-  <p>We're building a personalized comparison of your travel choices and finding the best trips for:</p>
-  <ul>
-    <li>Reducing costs</li>
-    <li>Staying healthy</li>
-    <li>Going green</li>
-    <li>Gaining productive time</li>
-    <li>Rainy days</li>
-    <li>When a bus or metro line is down</li>
-  </ul>
-  <button on-tap="next" class="disabled btn btn-block">
-    <span class="show-text hidden">Show my choices</span>
-    <span class="loading-text"><i class="fa fa-fw fa-refresh fa-spin"></i></span>
-  </button>
+  <h3>Your best option is to <span data-text="modeDescriptor"></span></h3>
+  <div reactive="comparisonTable"></div>
+  <button on-tap="next" class="btn btn-block">Show all of my choices</button>
 </div>

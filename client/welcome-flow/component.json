@@ -1,15 +1,15 @@
 {
   "name": "welcome-flow",
   "dependencies": {
-    "usablica/intro.js": "*",
-    "component/model": "*"
+    "usablica/intro.js": "*"
   },
   "local": [
     "analytics",
     "config",
     "locations-view",
     "log",
-    "modal"
+    "modal",
+    "option-comparison-table"
   ],
   "scripts": [
     "index.js",
@@ -20,6 +20,7 @@
   ],
   "styles": [
     "style.css",
+    "finding-options/style.css",
     "introduction/style.css",
     "locations/style.css",
     "welcome/style.css"

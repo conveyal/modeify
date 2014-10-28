@@ -399,23 +399,6 @@ View.prototype.optionNumber = function() {
 };
 
 /**
- * Construct a simple mode-based descriptor (e.g. "Drive to Transit")
- */
-
-View.prototype.optionModes = function() {
-  var modeStr;
-
-  if (this.model.bikeDistance() > 0) modeStr = 'bike';
-  else if (this.model.driveDistance() > 0) modeStr = 'drive';
-  else modeStr = 'walk';
-
-  if (this.model.hasTransit()) modeStr += ' to transit';
-  else if (this.model.driveDistance() > 0) modeStr = 'rideshare';
-
-  return modeStr;
-};
-
-/**
  * Comparison Table
  */
 

@@ -329,6 +329,23 @@ Route.prototype.carParkingCost = function() {
 };
 
 /**
+ * Construct a simple mode-based descriptor (e.g. "Drive to Transit")
+ */
+
+Route.prototype.modeDescriptor = function() {
+  var modeStr;
+
+  if (this.bikeDistance() > 0) modeStr = 'bike';
+  else if (this.driveDistance() > 0) modeStr = 'drive';
+  else modeStr = 'walk';
+
+  if (this.hasTransit()) modeStr += ' to transit';
+  else if (this.driveDistance() > 0) modeStr = 'rideshare';
+
+  return modeStr;
+};
+
+/**
  * Walking Calories
  *
  * CB = [0.0215 x KPH3 - 0.1765 x KPH2 + 0.8710 x KPH + 1.4577] x WKG x T

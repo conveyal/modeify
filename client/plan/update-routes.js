@@ -68,21 +68,21 @@ function updateRoutes(plan, opts, callback) {
         // Add ids to options
         if (o.transit && o.transit.length > 0) {
           o.id = i + '_transit';
+
+          // Filter access modes if they're not reasonable
+          filterMode(o, 'CAR', function(a) {
+            return a.time < 600;
+          });
+          filterMode(o, 'BICYCLE', function(a) {
+            return a.time < 300;
+          });
+          filterMode(o, 'WALK', function(a) {
+            return a.time > 3600;
+          });
         } else {
           o.id = i;
         }
         o = formatProfile.option(o);
-
-        // Filter access modes if they're not reasonable
-        filterMode(o, 'CAR', function(a) {
-          return a.time < 600;
-        });
-        filterMode(o, 'BICYCLE', function(a) {
-          return a.time < 300;
-        });
-        filterMode(o, 'WALK', function(a) {
-          return a.time > 3600;
-        });
       });
 
       // Score the results

@@ -10,7 +10,7 @@ var Locations = module.exports = modal({
   template: require('./template.html'),
   title: 'Locations Modal'
 }, function(view, model) {
-  var plan = model.get('plan');
+  var plan = model.plan;
   plan.on('change', function() {
     if (plan.validCoordinates()) {
       view.enableNext();
@@ -25,11 +25,26 @@ Locations.prototype.enableNext = function() {
 
 Locations.prototype.next = function(e) {
   e.preventDefault();
-  this.emit('next');
+  var button = this.find('.btn');
+  button.classList.add('loading');
+
+  var plan = this.model.plan;
+  var self = this;
+  plan.updateRoutes({}, function(err, data) {
+    console.log(err, data);
+    if (err) {
+      window.alert(err);
+    } else {
+      self.emit('next');
+    }
+  });
 };
 
 Locations.prototype.initialMode = function(e) {
-  switch (this.model.get('commuter').get('profile').initial_mode_of_transportation) {
+  var commuter = this.model.commuter;
+  var profile = commuter.profile();
+
+  switch (profile.initial_mode_of_transportation) {
     case 'drive':
       return 'driving';
     case 'carpool':

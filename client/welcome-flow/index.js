@@ -1,7 +1,6 @@
 var introJs = require('intro.js').introJs;
 var log = require('log')('welcome-flow');
 var LocationsView = require('locations-view');
-var model = require('model');
 
 var FindingOptions = require('./finding-options');
 var Locations = require('./locations');
@@ -20,40 +19,38 @@ module.exports = function(session) {
 
   main.classList.add('Welcome');
 
-  var findingOptions = new FindingOptions(plan);
-  var locationsScreenModel = model('LocationsScreen')
-    .attr('locations-view')
-    .attr('plan')
-    .attr('commuter')({
+  var welcome = new Welcome(commuter);
+
+  welcome.on('next', function() {
+    var locations = new Locations({
       'locations-view': new LocationsView(plan),
       plan: plan,
       commuter: commuter
     });
-  var locations = new Locations(locationsScreenModel);
-  var welcome = new Welcome(commuter);
-
-  welcome.on('next', function() {
-    locations.model.emit('change initialMode', locations.initialMode());
     locations.show();
+
+    locations.on('next', function() {
+      var route = plan.options()[0];
+      var findingOptions = new FindingOptions(route);
+      findingOptions.show();
+
+      findingOptions.on('next', function() {
+        commuter.updateProfile('welcome_wizard_complete', true);
+        commuter.save();
+
+        main.classList.remove('Welcome');
+        findingOptions.hide();
+        highlightResults();
+      });
+
+      setTimeout(function() {
+        locations.hide();
+      }, 0);
+    });
+
     setTimeout(function() {
       welcome.hide();
     }, 0);
-  });
-
-  locations.on('next', function() {
-    findingOptions.show();
-    setTimeout(function() {
-      locations.hide();
-    }, 0);
-  });
-
-  findingOptions.on('next', function() {
-    commuter.updateProfile('welcome_wizard_complete', true);
-    commuter.save();
-
-    main.classList.remove('Welcome');
-    findingOptions.hide();
-    highlightResults();
   });
 
   // Start!

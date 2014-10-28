@@ -10,6 +10,10 @@
   opacity: 0;
 }
 
+.WelcomeFlow {
+  font-size: 16px;
+}
+
 .WelcomeFlow .logo {
   margin: 5px 0 20px;
   height: 40px;
@@ -20,9 +24,8 @@
   text-align: center;
 }
 
-.WelcomeFlow p,
 .WelcomeFlow ul {
-  font-size: 16px;
+  padding-left: 25px;
 }
 
 .WelcomeFlow .btn {
