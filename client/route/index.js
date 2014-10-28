@@ -90,8 +90,8 @@ Route.prototype.setCarData = function(data) {
 
   if (this.directCar()) {
     costDifference = data.cost * m / 2;
-    emissions /= 2;
-    timeSavings /= 2; // Assume split driving
+    emissions = this.emissions() / 2 / 2000;
+    timeSavings = this.average() * m / 2; // Assume split driving
   }
 
   if (costDifference > 0) this.costSavings(costDifference);
