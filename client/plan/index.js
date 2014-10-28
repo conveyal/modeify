@@ -6,6 +6,7 @@ var Location = require('location');
 var log = require('log')('plan');
 var defaults = require('model-defaults');
 var model = require('model');
+var qs = require('querystring');
 
 var loadPlan = require('./load');
 var store = require('./store');
@@ -352,15 +353,7 @@ Plan.prototype.clearStore = store.clear;
  */
 
 Plan.prototype.saveURL = function() {
-  var url = '?';
-  url += 'from=' + this.from();
-  url += '&to=' + this.to();
-  url += '&modes=' + this.modesCSV();
-  url += '&start_time=' + this.start_time();
-  url += '&end_time=' + this.end_time();
-  url += '&days=' + this.days();
-
-  window.history.replaceState(null, '', url);
+  window.history.replaceState(null, '', '?' + this.generateQueryString());
 };
 
 /**
@@ -406,4 +399,19 @@ Plan.prototype.generatePlaces = function() {
     place_lon: tll.lng,
     place_name: 'To'
   }];
+};
+
+/**
+ * Generate QueryString
+ */
+
+Plan.prototype.generateQueryString = function() {
+  return qs.stringify({
+    from: this.from(),
+    to: this.to(),
+    modes: this.modesCSV(),
+    start_time: this.start_time(),
+    end_time: this.end_time(),
+    days: this.days()
+  });
 };

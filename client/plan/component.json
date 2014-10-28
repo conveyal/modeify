@@ -4,6 +4,7 @@
     "component/debounce": "*",
     "component/each": "*",
     "component/model": "*",
+    "component/querystring": "*",
     "conveyal/otp-profile-score": "*",
     "segmentio/model-defaults": "0.2.0",
     "mbostock/d3": "*",

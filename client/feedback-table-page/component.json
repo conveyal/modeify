@@ -1,7 +1,6 @@
 {
   "name": "feedback-table-page",
   "dependencies": {
-    "component/querystring": "*",
     "yields/fmt": "*"
   },
   "local": [
