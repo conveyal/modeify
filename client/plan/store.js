@@ -34,7 +34,7 @@ function storePlan(plan) {
   try {
     store('plan', json);
     log('<-- stored plan');
-  } catch(e) {
+  } catch (e) {
     log.error('<-- failed to store plan %e', e);
   }
 

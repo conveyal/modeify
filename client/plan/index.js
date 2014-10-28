@@ -289,9 +289,9 @@ Plan.prototype.generateQuery = function() {
   var to = this.to_ll();
 
   // Transit modes
-  var accessModes = [ 'WALK' ];
-  var directModes = [ 'CAR', 'WALK' ];
-  var egressModes = [ 'WALK' ];
+  var accessModes = ['WALK'];
+  var directModes = ['CAR', 'WALK'];
+  var egressModes = ['WALK'];
   var transitModes = [];
 
   if (this.bike()) {

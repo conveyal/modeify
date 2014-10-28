@@ -32,20 +32,14 @@ View.prototype.optionsSummary = function() {
 View.prototype.getErrorMessage = function() {
   var plan = this.model;
   var msg = 'No results! ';
-  var responseText = this.lastResponse
-    ? this.lastResponse.text
-    : '';
+  var responseText = this.lastResponse ? this.lastResponse.text : '';
 
   if (responseText.indexOf('VertexNotFoundException') !== -1) {
     msg += 'The <strong>';
-    msg += responseText.indexOf('[from]') !== -1
-      ? 'from'
-      : 'to';
+    msg += responseText.indexOf('[from]') !== -1 ? 'from' : 'to';
     msg += '</strong> address entered is outside the supported region of CarFreeAtoZ.';
   } else if (!plan.validCoordinates()) {
-    msg += plan.fromIsValid()
-      ? 'To'
-      : 'From';
+    msg += plan.fromIsValid() ? 'To' : 'From';
     msg += ' address could not be found. Please enter a valid address.';
   } else if (!plan.bus() || !plan.train()) {
     msg += 'Try turning all <strong>transit</strong> modes on.';
