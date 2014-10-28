@@ -1,16 +1,19 @@
 
 .Welcome {
   text-align: center;
-  padding: 20px;
+  padding: 20px 10px;
   font-size: 16px;
+}
+
+.Welcome .graphic {
+  height: 100px;
   background-image: url(/images/graphics/multimodal.png);
   background-repeat: no-repeat;
-  background-position: 10px 135px;
   background-size: 300px;
 }
 
 .Welcome .question {
-	margin-top: 90px;
+  margin-top: 10px;
 }
 
 .Welcome .answers {
