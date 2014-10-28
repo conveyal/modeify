@@ -268,6 +268,8 @@ View.prototype.simpleSegments = function() {
   var html = '';
   var segments = this.model.transit();
 
+  if (segments.length < 1 && accessMode === 'car') accessMode = 'carshare';
+
   html += simpleTemplate.render({
     background: 'transparent',
     mode: modeToIcon(accessMode),
@@ -423,6 +425,7 @@ View.prototype.optionModes = function() {
   else modeStr = 'walk';
 
   if (this.model.hasTransit()) modeStr += ' to transit';
+  else if (this.model.driveDistance() > 0) modeStr = 'rideshare';
 
   return modeStr;
 };
