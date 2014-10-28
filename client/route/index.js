@@ -85,9 +85,7 @@ Route.prototype.setCarData = function(data) {
 
   var costDifference = data.cost * m - this.cost() * m;
   var emissions = (data.emissions - this.emissions()) / 2000;
-  var weightLost = this.calories() === 0
-    ? false
-    : convert.caloriesToPounds(this.calories()) * m | 0;
+  var weightLost = this.calories() === 0 ? false : convert.caloriesToPounds(this.calories()) * m | 0;
   var timeSavings = (this.timeInTransit() - (data.time - this.time())) * m;
 
   if (this.directCar()) {
