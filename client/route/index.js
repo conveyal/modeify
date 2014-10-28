@@ -19,6 +19,7 @@ var Route = module.exports = model('Route')
   .use(defaults({
     costPenalty: false,
     costSavings: false,
+    modes: [],
     timeSavings: false,
     transit: [],
     weightLost: false
@@ -88,8 +89,6 @@ Route.prototype.setCarData = function(data) {
     ? false
     : convert.caloriesToPounds(this.calories()) * m | 0;
   var timeSavings = (this.timeInTransit() - (data.time - this.time())) * m;
-
-  console.log(data.time, this.time(), this.timeInTransit());
 
   if (this.directCar()) {
     costDifference = data.cost * m / 2;
