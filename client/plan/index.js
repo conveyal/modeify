@@ -288,6 +288,20 @@ Plan.prototype.generateQuery = function() {
   var from = this.from_ll();
   var to = this.to_ll();
 
+  // Transit modes
+  var accessModes = [ 'WALK' ];
+  var directModes = [ 'CAR', 'WALK' ];
+  var egressModes = [ 'WALK' ];
+  var transitModes = [];
+
+  if (this.bike()) {
+    accessModes.push('BICYCLE');
+    directModes.push('BICYCLE');
+  }
+  if (this.bus()) transitModes.push('BUS');
+  if (this.car()) accessModes.push('CAR');
+  if (this.train()) transitModes.push('TRAINISH');
+
   var startTime = this.start_time();
   var endTime = this.end_time();
   var scorer = this.scorer();
@@ -297,21 +311,24 @@ Plan.prototype.generateQuery = function() {
   endTime = endTime === 24 ? '23:59' : endTime + ':00';
 
   return {
+    accessModes: accessModes.join(','),
     bikeSpeed: scorer.rates.bikeSpeed,
+    date: this.nextDate(),
+    directModes: directModes.join(','),
+    egressModes: egressModes.join(','),
+    endTime: endTime,
     from: {
       lat: from.lat,
       lon: from.lng,
       name: 'From'
     },
+    startTime: startTime,
     to: {
       lat: to.lat,
       lon: to.lng,
       name: 'To'
     },
-    startTime: startTime,
-    endTime: endTime,
-    date: this.nextDate(),
-    modes: this.modesCSV(),
+    transitModes: transitModes.join(','),
     walkSpeed: scorer.rates.walkSpeed
   };
 };
