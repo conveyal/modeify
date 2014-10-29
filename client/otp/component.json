@@ -1,6 +1,7 @@
 {
   "name": "otp",
   "dependencies": {
+    "component/clone": "*",
     "component/querystring": "*",
     "conveyal/otp-profiler": "*",
     "yields/fmt": "*"

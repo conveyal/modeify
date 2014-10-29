@@ -1,3 +1,4 @@
+var clone = require('clone');
 var config = require('config');
 var fmt = require('fmt');
 var log = require('log')('otp');
@@ -52,15 +53,9 @@ module.exports = function profile(query, callback) {
 module.exports.url = generateUrl;
 
 function generateUrl(query) {
-  return fmt('%s/api/otp/profile?%s', config.base_url(),
-    decodeURIComponent(qs.stringify({
-      from: query.from.lat + ',' + query.from.lon,
-      to: query.to.lat + ',' + query.to.lon,
-      bikeSpeed: query.bikeSpeed,
-      startTime: query.startTime,
-      endTime: query.endTime,
-      date: query.date,
-      modes: query.modes,
-      walkSpeed: query.walkSpeed
-    })));
+  var data = clone(query);
+  data.from = query.from.lat + ',' + query.from.lon;
+  data.to = query.to.lat + ',' + query.to.lon;
+
+  return fmt('%s/api/otp/profile?%s', config.base_url(), decodeURIComponent(qs.stringify(data)));
 }
