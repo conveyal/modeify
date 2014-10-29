@@ -15,7 +15,7 @@
     "config",
     "convert",
     "feedback-modal",
-    "option-comparison-table",
+    "route-comparison-table",
     "route-summary-view",
     "session",
     "view"

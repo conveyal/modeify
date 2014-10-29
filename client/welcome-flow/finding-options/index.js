@@ -1,4 +1,4 @@
-var ComparisonTable = require('option-comparison-table');
+var ComparisonTable = require('route-comparison-table');
 var log = require('log')('welcome-flow:finding-options');
 var modal = require('modal');
 

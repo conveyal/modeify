@@ -1,0 +1,28 @@
+
+.RouteComparisonTable {
+  padding-bottom: 10px;
+}
+
+.RouteComparisonTable .heading {
+  text-align: center;
+}
+
+.RouteComparisonTable > div {
+  padding: 4px 16px;
+}
+
+.RouteComparisonTable .fa-dollar {
+  color: var(--green);
+}
+
+.RouteComparisonTable .fa-calendar {
+  color: var(--gold);
+}
+
+.RouteComparisonTable .fa-heart {
+  color: var(--red);
+}
+
+.RouteComparisonTable .fa-globe {
+  color: var(--metro-blue);
+}

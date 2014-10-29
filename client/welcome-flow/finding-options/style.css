@@ -1,8 +1,8 @@
 
-.FindingOptions .OptionComparisonTable .heading {
+.FindingOptions .RouteComparisonTable .heading {
 
 }
 
-.FindingOptions .OptionComparisonTable > div {
+.FindingOptions .RouteComparisonTable > div {
   padding: 8px 0;
 }

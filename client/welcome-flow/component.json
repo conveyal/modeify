@@ -10,7 +10,7 @@
     "locations-view",
     "log",
     "modal",
-    "option-comparison-table"
+    "route-comparison-table"
   ],
   "scripts": [
     "index.js",
