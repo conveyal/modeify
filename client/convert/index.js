@@ -97,13 +97,9 @@ function milesToString(miles) {
  */
 
 exports.routeToColor = function(type, agency, line, color) {
-  switch (agency) {
-    case 'dc':
-      if (type === 1 || type === 'TRANSIT') return colors[line];
-      return colors.metrobus;
-    case 'fairfax connector':
-      if (color.charAt(0) === '#') return color;
-      return '#' + color;
+  if (agency === 'dc') {
+    if (type === 1 || type === 'TRANSIT') return colors[line];
+    return colors.metrobus;
   }
 
   if (colors[agency] || color)
@@ -123,6 +119,7 @@ var colors = {
   art: '#55b848',
   blue: '#0076bf',
   cabi: '#d02228',
+  'fairfax connector': '#ffff43',
   green: '#00a84f',
   mcro: '#355997',
   metrobus: '#173964',
