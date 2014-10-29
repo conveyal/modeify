@@ -45,3 +45,7 @@
 .introjs-overlay {
   background: rgba(0,0,0,0.75);
 }
+
+.introjs-disabled {
+  display: none;
+}

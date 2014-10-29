@@ -1,0 +1,9 @@
+{
+  "name": "planner-walkthrough",
+  "dependencies": {
+    "usablica/intro.js": "*"
+  },
+  "scripts": [
+    "index.js"
+  ]
+}

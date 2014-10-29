@@ -1,10 +1,11 @@
+var AboutPage = require('about-page');
+var Profile = require('commuter-profile');
 var Journey = require('journey');
 var log = require('log')('planner-nav');
 var page = require('page');
-var Profile = require('commuter-profile');
+var showWalkThrough = require('planner-walkthrough');
 var textModal = require('text-modal');
 var view = require('view');
-var AboutPage = require('about-page');
 
 /**
  * Expose `View`
@@ -62,5 +63,5 @@ View.prototype.showAbout = function(e) {
 
 View.prototype.showWalkThrough = function(e) {
   if (e) e.preventDefault();
-  window.walkthrough();
+  showWalkThrough();
 };

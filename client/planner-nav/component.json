@@ -4,13 +4,14 @@
     "visionmedia/page.js": "*"
   },
   "local": [
+    "about-page",
     "commuter-profile",
     "confirm-modal",
     "journey",
     "log",
+    "planner-walkthrough",
     "text-modal",
-    "view",
-    "about-page"
+    "view"
   ],
   "scripts": [
     "index.js"
