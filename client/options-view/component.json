@@ -1,7 +1,6 @@
 {
   "name": "options-view",
   "dependencies": {
-    "component/domify": "*",
     "component/color-parser": "*",
     "component/each": "0.2.3",
     "ianstormtaylor/to-capital-case": "0.1.1",
@@ -17,6 +16,7 @@
     "convert",
     "feedback-modal",
     "option-comparison-table",
+    "route-summary-view",
     "session",
     "view"
   ],
@@ -30,7 +30,6 @@
   ],
   "templates": [
     "option/detail.html",
-    "option/simple.html",
     "option/template.html",
     "template.html"
   ]

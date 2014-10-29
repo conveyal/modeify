@@ -1,0 +1,20 @@
+{
+  "name": "route-summary-view",
+  "dependencies": {
+    "twitter/hogan.js": "*"
+  },
+  "local": [
+    "convert",
+    "view"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
+  ],
+  "templates": [
+    "segment.html",
+    "template.html"
+  ]
+}

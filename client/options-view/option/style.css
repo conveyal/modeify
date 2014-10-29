@@ -27,67 +27,6 @@
   font-weight: var(--bold);
 }
 
-.Options .simple {
-  position: relative;
-}
-
-.Options .simple .segments {
-  display: inline-block;
-  padding: 8px 0 0 8px;
-}
-
-.Options .simple .segments .mode {
-  font-size: 25px;
-  color: var(--black);
-  display: inline-block;
-  vertical-align: top;
-}
-
-.Options .simple .segments .fa-caret-down {
-  font-size: 12px;
-  display: block;
-  text-align: center;
-  margin-top: -8px;
-  margin-bottom: -4px;
-}
-
-.Options .simple .segment:last-of-type .fa-caret-down {
-  display:none;
-}
-
-.Options .simple .segments .shield {
-  margin-left: 6px;
-  margin-top: 6px;
-  width: 32px;
-  overflow: hidden;
-  display: inline-block;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: #fff;
-  text-align: center;
-  border-radius: var(--border-radius);
-}
-
-.Options .simple .minutes-column {
-  padding-top: 10px;
-  display: inline-block;
-  vertical-align: top;
-  margin-left: 16px;
-  line-height: 18px;
-  white-space: nowrap;
-  color: var(--gray);
-}
-
-
-.Options .simple .minutes-column h3 {
-  margin: 0 0 8px;
-  color: var(--black);
-}
-
-.Options .simple .minutes-column h3 .avg {
-  color: var(--black);
-}
-
 .Options .option .show-hide {
   text-align: center;
   margin-bottom: 8px;
@@ -102,36 +41,6 @@
 
 .Options .option.expanded .simple .hide-details {
   display: block;
-}
-
-/**
- * Benefits Badge
- */
-
-.benefits-badges {
-  float: right;
-  color: #fff;
-  margin-top: 8px;
-  width: 95px;
-  font-size: 14px;
-  line-height: 1;
-  text-align: right;
-  margin-right: -2px;
-  cursor: pointer;
-}
-
-.benefits-badge {
-  padding: 8px 11px 8px 5px;
-  border-top-left-radius: var(--border-radius);
-  border-bottom-left-radius: var(--border-radius);
-}
-
-.benefits-badge.savings {
-  background-color: var(--green);
-}
-
-.benefits-badge.time-savings {
-  background-color: var(--gold);
 }
 
 /**

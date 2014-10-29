@@ -93,6 +93,27 @@ function milesToString(miles) {
 }
 
 /**
+ * TODO: this should be aliased in CSS
+ */
+
+exports.modeToIcon = function(m) {
+  m = m || '';
+  m = m.toLowerCase();
+  switch (m) {
+    case 'bicycle':
+      return 'bike';
+    case 'pedestrian':
+      return 'walk';
+    case 'rail':
+    case 'subway':
+    case 'tram':
+      return 'train';
+    default:
+      return m;
+  }
+};
+
+/**
  * Route to color converter
  */
 

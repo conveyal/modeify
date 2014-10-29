@@ -4,30 +4,7 @@
     <a class="pull-right" href="#" on-tap="feedback">rate <i class="fa fa-fw fa-pencil-square-o"></i></a>
   </div>
   <div class="simple">
-    <table class="segments"><tbody data-html="simpleSegments"></tbody></table>
-
-    <div class="minutes-column">
-      <h3><strong>{average} min</strong> <span class="avg">avg</span></h3>
-
-      <div data-visible="freeflowTime">{freeflowTime} without traffic</div>
-      <div data-visible="frequency">Every {frequency} minutes</div>
-      <div data-visible="hasTransit">
-        <div class="distance" data-visible="bikeDistances">{bikeTime} min bike ride</div>
-        <div class="distance" data-visible="walkDistances">{walkTime} min walking</div>
-      </div>
-      <div data-hidden="hasTransit">
-        <div class="distance" data-visible="bikeDistances">{bikeDistances} mi bike ride</div>
-        <div class="distance" data-visible="walkDistances">{walkDistances} mi walk</div>
-      </div>
-    </div>
-
-    <div class="benefits-badges" on-tap="showDetails">
-      <div class="benefits-badge savings" data-visible="costSavings">Save <strong>${costSavings}</strong> a year</div>
-
-      <div data-hidden="costSavings">
-        <div class="benefits-badge time-savings" data-visible="timeSavings">Gain <strong>{timeSavings}</strong> day(s) a year</div>
-      </div>
-    </div>
+    <div reactive="routeSummary"></div>
 
     <a href="#" on-tap="showDetails" class="show-hide show-details">details <i class="fa fa-fw fa-angle-down"></i></a>
     <a href="#" on-tap="hideDetails" class="show-hide hide-details">hide <i class="fa fa-fw fa-angle-up"></i></a>
@@ -64,7 +41,7 @@
           <td class="description" data-text="to"></td>
         </tr>
       </tfoot>
-      <tbody class="segments" data-html="segments"></tbody>
+      <tbody class="segments" data-html="segmentDetails"></tbody>
     </table>
     <a href="#" on-tap="hideDetails" class="show-hide">hide <i class="fa fa-fw fa-angle-up"></i></a>
   </div>

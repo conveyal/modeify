@@ -1,11 +1,11 @@
 var colorParser = require('color-parser');
-var ComparisonTable = require('option-comparison-table');
+var RouteComparisonTable = require('option-comparison-table');
 var convert = require('convert');
 var d3 = require('d3');
-var domify = require('domify');
 var Feedback = require('feedback-modal');
 var hogan = require('hogan.js');
 var luminosity = require('luminosity');
+var RouteSummaryView = require('route-summary-view');
 var session = require('session');
 var toSentenceCase = require('to-sentence-case');
 var view = require('view');
@@ -21,7 +21,6 @@ var METERS_TO_MILES = 0.000621371;
  */
 
 var detailTemplate = hogan.compile(require('./detail.html'));
-var simpleTemplate = hogan.compile(require('./simple.html'));
 
 /**
  * Expose `View`
@@ -42,31 +41,14 @@ var View = module.exports = view(require('./template.html'), function(view,
       }
     });
 
-  Array.prototype.slice.call(view.findAll('input')).forEach(setInputSize);
+  [].slice.call(view.findAll('input')).forEach(setInputSize);
 });
-
-/**
- * View
- */
-
-View.prototype.feedback = function(e) {
-  e.preventDefault();
-  Feedback(this.model).show();
-};
-
-/**
- * Cost savings helper
- */
-
-View.prototype.costSavings = function() {
-  return convert.roundNumberToString(this.model.costSavings());
-};
 
 /**
  * Details, details
  */
 
-View.prototype.segments = function() {
+View.prototype.segmentDetails = function() {
   var segments = this.model.transit();
   var length = segments.length;
   var details = '';
@@ -269,49 +251,6 @@ View.prototype.hideDetails = function(e) {
 };
 
 /**
- * Simple Segments
- */
-
-View.prototype.simpleSegments = function() {
-  var accessMode = this.model.access()[0].mode.toLowerCase();
-  var html = '';
-  var segments = this.model.transit();
-
-  if (segments.length < 1 && accessMode === 'car') accessMode = 'carshare';
-
-  html += simpleTemplate.render({
-    background: 'transparent',
-    mode: modeToIcon(accessMode),
-    name: ' '
-  });
-
-  segments.forEach(function(segment) {
-    var patterns = segment.segmentPatterns.filter(patternFilter('color'));
-    var background = patterns[0].color;
-    if (patterns.length > 0) {
-      var percent = 0;
-      var increment = 1 / patterns.length * 100;
-      background = 'linear-gradient(to right';
-      for (var i = 0; i < patterns.length; i++) {
-        var color = patterns[i].color;
-        background += ',' + color + ' ' + percent + '%, ' + color + ' ' + (
-          percent + increment) + '%';
-        percent += increment;
-      }
-      background += ')';
-    }
-
-    html += simpleTemplate.render({
-      background: background,
-      mode: modeToIcon(segment.mode),
-      name: patterns[0].shield
-    });
-  });
-
-  return html;
-};
-
-/**
  * Input change
  */
 
@@ -362,26 +301,6 @@ function setInputSize(i) {
 }
 
 /**
- * TODO: this should be aliased in CSS
- */
-
-function modeToIcon(m) {
-  m = m.toLowerCase();
-  switch (m) {
-    case 'bicycle':
-      return 'bike';
-    case 'pedestrian':
-      return 'walk';
-    case 'rail':
-    case 'subway':
-    case 'tram':
-      return 'train';
-    default:
-      return m;
-  }
-}
-
-/**
  * Get a narrative description
  */
 
@@ -399,9 +318,26 @@ View.prototype.optionNumber = function() {
 };
 
 /**
+ * View
+ */
+
+View.prototype.feedback = function(e) {
+  e.preventDefault();
+  Feedback(this.model).show();
+};
+
+/**
+ * Route summary view
+ */
+
+View.prototype.routeSummary = function() {
+  return new RouteSummaryView(this.model);
+};
+
+/**
  * Comparison Table
  */
 
-View.prototype.comparisonTable = function() {
-  return new ComparisonTable(this.model);
+View.prototype.routeComparisonTable = function() {
+  return new RouteComparisonTable(this.model);
 };
