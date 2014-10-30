@@ -12,15 +12,20 @@ var Locations = module.exports = modal({
   title: 'Locations Modal'
 }, function(view, model) {
   var plan = model.plan;
-  plan.on('change', function() {
-    if (plan.validCoordinates()) {
-      view.enableNext();
-    }
-  });
 
-  var from = plan.from();
-  var to = plan.to();
-  if (from && to && !plan.validCoordinates()) plan.setAddresses(from, to);
+  if (plan.validCoordinates()) {
+    view.enableNext();
+  } else {
+    plan.on('change', function() {
+      if (plan.validCoordinates()) {
+        view.enableNext();
+      }
+    });
+
+    var from = plan.from();
+    var to = plan.to();
+    if (from && to) plan.setAddresses(from, to);
+  }
 });
 
 Locations.prototype.enableNext = function() {
