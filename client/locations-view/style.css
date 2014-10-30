@@ -1,34 +1,71 @@
 
-.locations {
+.Locations {
   padding: 0 8px;
 }
 
-.locations [class*="icon-"] {
-  float: left;
+.Locations [class*="icon-"] {
+  position: absolute;
   font-size: 25px;
-  padding-top: 9px;
-  color: var(--black);
+  top: 10px;
+  left: 8px;
 }
 
-.locations .icon-start {
+.Locations .icon-start {
   color: var(--green);
 }
 
-.locations .icon-end {
+.Locations .icon-end {
   color: var(--gold);
 }
 
-.locations .suggestions {
-  margin-bottom: 0;
+.Locations .input-group {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.Locations .input-group.suggestions-open {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.Locations input {
+  padding: 13px 32px 11px 36px;
+  color: var(--black);
+  box-shadow: none;
+  border: none;
+  width: 100%;
+  text-overflow: ellipsis;
+  background-color: #fff;
+  border-radius: var(--border-radius);
+}
+
+.Locations .clear {
+  cursor: pointer;
+  color: var(--gray);
+  position: absolute;
+  right: 12px;
+  top: 16px;
+}
+
+.Locations input:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+/**
+ * Suggestions
+ */
+
+.Locations .suggestions {
   position: absolute;
   z-index: 151;
   background-color: #fff;
+
+  margin-top: -3px;
   padding-left: 0;
-  border-left: 1px solid var(--black);
-  border-right: 1px solid var(--black);
+
   border-bottom-left-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
-  box-sizing: content-box;
 
   max-height: 1000px;
   opacity: 1;
@@ -36,16 +73,15 @@
   transition: max-height 0.25s, opacity 0.25s, visibility 0.25s;
 
   width: 100%;
-  margin-left: -7px;
 }
 
-.locations .suggestions.empty {
+.Locations .suggestions.empty {
   max-height: 0;
   opacity: 0;
   visibility: hidden;
 }
 
-.locations .suggestion {
+.Locations .suggestion {
   list-style-type: none;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -57,51 +93,13 @@
   color: var(--black);
 }
 
-.locations .suggestion:last-of-type {
+.Locations .suggestion:last-of-type {
   border-bottom-color: var(--black);
   border-bottom-left-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
 }
 
-.locations .suggestion.highlight {
+.Locations .suggestion.highlight {
   background-color: var(--gold);
   color: #fff;
-}
-
-#locations-form .locations .input-group {
-  border: none;
-}
-
-.locations .input-group {
-  padding-left: 6px;
-  width: 100%;
-  background-color: #fff;
-  margin-top: 8px;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--black);
-}
-
-.locations .input-group.suggestions-open {
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.locations input {
-  padding: 13px 10px 12px 5px;
-  color: var(--black);
-  box-shadow: none;
-  border: none;
-  width: 250px;
-  text-overflow: ellipsis;
-  background-color: #fff;
-}
-
-.locations .clear {
-	cursor: pointer;
-	color: var(--gray);
-}
-
-.locations input:focus {
-  box-shadow: none;
-  outline: none;
 }

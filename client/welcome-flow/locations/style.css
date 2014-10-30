@@ -1,10 +1,15 @@
 
-.WelcomeLocations .locations {
+.WelcomeLocations .Locations {
   padding: 0;
 }
 
-.WelcomeLocations .locations input {
-  width: 230px;
+.WelcomeLocations .Locations input {
+  border: 1px solid var(--black);
+}
+
+.WelcomeLocations .Locations .suggestions {
+  border-left: 1px solid var(--black);
+  border-right: 1px solid var(--black);
 }
 
 .WelcomeLocations p {
