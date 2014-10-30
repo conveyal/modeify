@@ -1,7 +1,5 @@
 <div class="RouteSummary">
-  <table class="segments">
-    <tbody data-html="segments"></tbody>
-  </table>
+  <div class="segments" data-html="segments"></div>
 
   <div class="minutes-column">
     <h3><strong>{average} min</strong> <span class="avg">avg</span></h3>
@@ -18,6 +16,6 @@
     </div>
   </div>
 
-  <div class="benefits-badge savings" data-visible="costSavings" on-tap="showDetails">Save <strong>${costSavings}</strong> a year</div>
-  <div class="benefits-badge time-savings" data-visible="timeSavingsAndNoCostSavings" on-tap="showDetails">Gain <strong>{timeSavings}</strong> day(s) a year</div>
+  <div class="benefits-badge savings" data-visible="costSavings">Save <strong>${costSavings}</strong> a year</div>
+  <div class="benefits-badge time-savings" data-visible="timeSavingsAndNoCostSavings">Gain <strong>{timeSavings}</strong> day(s) a year</div>
 </div>
