@@ -1,0 +1,10 @@
+{
+  "name": "color-utils",
+  "dependencies": {
+    "component/color-parser": "*",
+    "ramitos/luminosity": "*"
+  },
+  "scripts": [
+    "index.js"
+  ]
+}

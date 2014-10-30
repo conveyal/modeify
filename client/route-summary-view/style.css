@@ -31,18 +31,21 @@
   display:none;
 }
 
-.RouteSummary > .segments .shield {
-  margin-left: 6px;
-  margin-top: 6px;
-  width: 32px;
-  overflow: hidden;
+.shield {
   display: inline-block;
-  text-overflow: ellipsis;
   white-space: nowrap;
   color: #fff;
   text-align: center;
   border-radius: var(--border-radius);
   font-weight: var(--bold);
+}
+
+.RouteSummary > .segments .shield {
+  margin-left: 6px;
+  margin-top: 6px;
+  width: 32px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .RouteSummary > .minutes-column {

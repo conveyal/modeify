@@ -1,9 +1,7 @@
-var colorParser = require('color-parser');
 var convert = require('convert');
 var d3 = require('d3');
 var Feedback = require('feedback-modal');
 var hogan = require('hogan.js');
-var luminosity = require('luminosity');
 var RouteComparisonTable = require('route-comparison-table');
 var RouteSummaryView = require('route-summary-view');
 var session = require('session');
@@ -110,8 +108,7 @@ View.prototype.segmentDetails = function() {
 
     addDetail({
       color: color,
-      description: 'Take ' + patterns.filter(patternFilter()).map(
-        patternDescription).join(' / '),
+      description: 'Take ' + patterns.filter(patternFilter()).map(patternDescription).join(' / '),
       segment: true
     });
 
@@ -165,8 +162,8 @@ function patternFilter(by) {
  * Pattern description
  */
 
-function patternDescription(p, i) {
-  return '<strong style="color: ' + p.color + ';">' + p.shortName + '</strong>';
+function patternDescription(p) {
+  return '<strong>' + p.shortName + '</strong>';
 }
 
 function strong(s) {

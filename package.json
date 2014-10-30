@@ -16,7 +16,7 @@
     "juice": "~0.5.0",
     "mandrill-api": "^1.0.37",
     "mongoose": "~3.8.4",
-    "monquery": "^0.1.0",
+    "monquery": "^0.2.0",
     "morgan": "^1.0.0",
     "node-logentries": "~0.1.3",
     "node-uuid": "^1.4.1",
