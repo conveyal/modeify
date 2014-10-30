@@ -16,6 +16,15 @@ var SECONDS_TO_HOURS = 1 / 60 / 60;
 var WALKING_MET = 3.8;
 
 /**
+ * CO2 per passenger trip
+ * Metric Tons of CO2 / Rides
+ *
+ * http://www.wmata.com/Images/Mrel/MF_Uploads/sustainability-web-2014-04-22.pdf
+ */
+
+var CO2_PER_TRANSIT_TRIP = 239000000 / 200000000;
+
+/**
  * Default factor values
  */
 
@@ -35,6 +44,7 @@ var DEFAULT_TIME_FACTORS = {
 var DEFAULT_RATES = {
   bikeSpeed: 4.1, // in m/s
   carParkingCost: 10,
+  co2PerTransitTrip: CO2_PER_TRANSIT_TRIP,
   mileageRate: 0.56, // IRS reimbursement rate per mile http://www.irs.gov/2014-Standard-Mileage-Rates-for-Business,-Medical-and-Moving-Announced
   mpg: 21.4,
   walkSpeed: 1.4, // in m/s
@@ -198,6 +208,7 @@ ProfileScore.prototype.tally = function(o) {
     o.transitCost = 0;
     o.trips = Infinity;
 
+    var self = this;
     o.transit.forEach(function(segment) {
       var mode = segment.mode.toLowerCase();
       if (o.modes.indexOf(mode) === -1) o.modes.push(mode);
@@ -210,10 +221,13 @@ ProfileScore.prototype.tally = function(o) {
 
       // Increment the total walk distance
       o.walkDistance += segment.walkDistance;
+
+      // Add CO2 per transit leg
+      o.emissions += self.rates.co2PerTransitTrip;
     });
 
     o.fares.forEach(function(fare) {
-      if (fare) o.transitCost += fare.peak;
+      if (fare && fare.peak) o.transitCost += fare.peak;
     });
 
     o.cost += o.transitCost;
