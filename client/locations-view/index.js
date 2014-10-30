@@ -134,11 +134,11 @@ View.prototype.save = function(el, callback) {
     address: el.value
   });
 
-  this.model.setAddress(el.name, el.value, function(err) {
+  this.model.setAddress(el.name, el.value, function(err, location) {
     if (err) {
       log.error('%e', err);
       textModal('Invalid address.');
-    } else {
+    } else if (location) {
       plan.updateRoutes();
     }
   });

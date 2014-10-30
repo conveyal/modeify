@@ -12,6 +12,15 @@
   border-right: 1px solid var(--black);
 }
 
+.WelcomeLocations .Locations [class*="icon-"] {
+  top: 10px;
+  left: 8px;
+}
+
+.WelcomeLocations .Locations .clear {
+  top: 16px;
+}
+
 .WelcomeLocations p {
   margin: 15px 0;
 }

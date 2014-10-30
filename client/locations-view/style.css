@@ -6,8 +6,8 @@
 .Locations [class*="icon-"] {
   position: absolute;
   font-size: 25px;
-  top: 10px;
-  left: 8px;
+  top: 8px;
+  left: 6px;
 }
 
 .Locations .icon-start {
@@ -44,7 +44,7 @@
   color: var(--gray);
   position: absolute;
   right: 12px;
-  top: 16px;
+  top: 14px;
 }
 
 .Locations input:focus {
