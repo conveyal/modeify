@@ -37,7 +37,7 @@ View.prototype.display = function(journey) {
   var legend = this.find('.legend');
   var placeChanged = debounce(function(name, place) {
     self.placeChanged(name, place);
-  }, 250, true);
+  }, 150, true);
   var zoomIn = this.find('.zoom.in');
   var zoomOut = this.find('.zoom.out');
 
