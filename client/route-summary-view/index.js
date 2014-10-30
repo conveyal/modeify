@@ -34,8 +34,6 @@ View.prototype.segments = function() {
         percent += increment;
       }
       background += ')';
-    } else {
-
     }
 
     segments += segmentTemplate.render({
