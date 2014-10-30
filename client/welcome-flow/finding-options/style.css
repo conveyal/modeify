@@ -1,4 +1,35 @@
 
+.FindingOptions > .RouteSummary > .segments {
+  padding: 0;
+  display: block;
+  text-align: center;
+}
+
+.FindingOptions > .RouteSummary > .segments > .segment {
+  display: inline;
+}
+
+.FindingOptions > .RouteSummary > .segments > .segment > .shield {
+  margin: 6px 6px -4px 0;
+}
+
+.FindingOptions > .RouteSummary > .segments > .segment .fa-caret-down {
+  display: none;
+}
+
+.FindingOptions > .RouteSummary > .segments > .segment .fa-caret-right {
+  display: inline-block;
+}
+
+.FindingOptions > .RouteSummary > .segments > .segment:last-of-type .fa-caret-right {
+  display: none;
+}
+
+.FindingOptions > .RouteSummary > .benefits-badge,
+.FindingOptions > .RouteSummary > .minutes-column {
+  display: none;
+}
+
 .FindingOptions .RouteComparisonTable .heading {
 
 }

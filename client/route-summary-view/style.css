@@ -15,6 +15,10 @@
   vertical-align: top;
 }
 
+.RouteSummary > .segments > .segment > .fa-caret-right {
+  display: none;
+}
+
 .RouteSummary > .segments .fa-caret-down {
   font-size: 12px;
   display: block;
@@ -38,6 +42,7 @@
   color: #fff;
   text-align: center;
   border-radius: var(--border-radius);
+  font-weight: var(--bold);
 }
 
 .RouteSummary > .minutes-column {
@@ -51,13 +56,10 @@
 }
 
 
-.RouteSummary > .minutes-column h3 {
+.RouteSummary > .minutes-column > .heading {
   margin: 0 0 8px;
   color: var(--black);
-}
-
-.RouteSummary > .minutes-column h3 .avg {
-  color: var(--black);
+  font-size: var(--h3);
 }
 
 /**

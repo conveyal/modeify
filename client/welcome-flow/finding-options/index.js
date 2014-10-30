@@ -1,6 +1,7 @@
-var ComparisonTable = require('route-comparison-table');
 var log = require('log')('welcome-flow:finding-options');
 var modal = require('modal');
+var RouteComparisonTable = require('route-comparison-table');
+var RouteSummaryView = require('route-summary-view');
 
 /**
  * Create `Modal`
@@ -17,6 +18,10 @@ FindingOptions.prototype.next = function(e) {
   this.emit('next');
 };
 
-FindingOptions.prototype.comparisonTable = function() {
-  return new ComparisonTable(this.model);
+FindingOptions.prototype.routeComparisonTable = function() {
+  return new RouteComparisonTable(this.model);
+};
+
+FindingOptions.prototype.routeSummaryView = function() {
+  return new RouteSummaryView(this.model);
 };
