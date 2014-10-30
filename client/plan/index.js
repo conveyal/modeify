@@ -168,6 +168,8 @@ Plan.prototype.validCoordinates = function() {
 Plan.prototype.setAddress = function(name, address, callback) {
   callback = callback || function() {}; // noop callback
 
+  if (!address || address.length < 1) return callback();
+
   var plan = this;
   var location = new Location({
     address: address
