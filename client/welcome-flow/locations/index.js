@@ -17,6 +17,10 @@ var Locations = module.exports = modal({
       view.enableNext();
     }
   });
+
+  var from = plan.from();
+  var to = plan.to();
+  if (from && to && !plan.validCoordinates()) plan.setAddresses(from, to);
 });
 
 Locations.prototype.enableNext = function() {
