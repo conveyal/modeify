@@ -23,19 +23,29 @@ View.on('construct', function(view, plan) {
     plan.updateRoutes();
   });
 
-  var submitButton = view.find('.submit i');
-  plan.on('updating options', function() {
+  view.setLoading(plan.loading());
+
+  plan.on('change loading', function(loading) {
+    view.setLoading(loading);
+  });
+});
+
+/**
+ * Set loading
+ */
+
+View.prototype.setLoading = function(loading) {
+  var submitButton = this.find('.submit i');
+  if (loading) {
     submitButton.classList.remove('fa-search');
     submitButton.classList.add('fa-refresh');
     submitButton.classList.add('fa-spin');
-  });
-
-  plan.on('updating options complete', function() {
+  } else {
     submitButton.classList.add('fa-search');
     submitButton.classList.remove('fa-refresh');
     submitButton.classList.remove('fa-spin');
-  });
-});
+  }
+};
 
 /**
  * Start Times
