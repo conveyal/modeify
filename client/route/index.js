@@ -84,13 +84,15 @@ Route.prototype.setCarData = function(data) {
   var m = this.tripm();
 
   var costDifference = data.cost * m - this.cost() * m;
-  var emissions = (data.emissions - this.emissions()) / 2000;
+  var emissions = (data.emissions - this.emissions()) / data.emissions * 100;
   var weightLost = this.calories() === 0 ? false : convert.caloriesToPounds(this.calories()) * m | 0;
   var timeSavings = (this.timeInTransit() - (data.time - this.time())) * m;
 
+  console.log(emissions, data.emissions, this.emissions());
+
   if (this.directCar()) {
     costDifference = data.cost * m / 2;
-    emissions = this.emissions() / 2 / 2000;
+    emissions = 50;
     timeSavings = this.average() * m / 2; // Assume split driving
   }
 
