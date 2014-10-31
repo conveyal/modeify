@@ -7,7 +7,8 @@ var view = require('view');
 var Feedback = module.exports = view(require('./feedback.html'));
 
 Feedback.prototype.link = function() {
-  return fmt('%s/planner?%s', config.base_url(), decodeURIComponent(this.model.plan.generateQueryString()));
+  var plan = new Plan(this.model.plan);
+  return fmt('%s/planner?%s', config.base_url(), decodeURIComponent(plan.generateQueryString()));
 };
 
 Feedback.prototype.summary = function() {
