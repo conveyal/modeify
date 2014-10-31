@@ -11,6 +11,7 @@
 
 .FindingOptions > .RouteSummary > .segments > .segment > .shield {
   margin: 6px 6px -4px 0;
+  height: 22px;
 }
 
 .FindingOptions > .RouteSummary > .segments > .segment .fa-caret-down {

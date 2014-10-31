@@ -36,6 +36,7 @@
   white-space: nowrap;
   color: #fff;
   text-align: center;
+  height: 20px;
   border-radius: var(--border-radius);
   font-weight: var(--bold);
 }

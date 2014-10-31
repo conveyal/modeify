@@ -5,6 +5,7 @@
   },
   "local": [
     "convert",
+    "transitive-view",
     "view"
   ],
   "scripts": [

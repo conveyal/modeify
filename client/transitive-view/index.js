@@ -48,10 +48,6 @@ View.prototype.display = function(journey) {
   log('--> displaying journey');
   var self = this;
   var el = this.el;
-
-  el.innerHTML = require('./legend.html');
-
-  var legend = this.find('.legend');
   var placeChanged = debounce(function(name, place) {
     self.placeChanged(name, place);
   }, 150, true);

@@ -35,7 +35,7 @@ module.exports = Transitive;
  * Expose `version`
  */
 
-module.exports.version = '0.6.0';
+module.exports.version = '0.6.1';
 
 /**
  * Create a new instance of `Transitive`
@@ -212,7 +212,7 @@ Transitive.prototype.updateData = function(data) {
  */
 
 Transitive.prototype.getModeStyles = function(mode) {
-  this.style.getModeStyles(mode, this.display);
+  return this.style.getModeStyles(mode, this.display);
 };
 
 /** Graph Creation/Processing Methods **/

@@ -1,5 +1,6 @@
 var convert = require('convert');
 var hogan = require('hogan.js');
+var transitive = require('transitive-view').transitive;
 var view = require('view');
 
 var segmentTemplate = hogan.compile(require('./segment.html'));
@@ -14,9 +15,9 @@ View.prototype.segments = function() {
   if (transitSegments.length < 1 && accessMode === 'car') accessMode = 'carshare';
 
   segments += segmentTemplate.render({
-    background: 'transparent',
     mode: convert.modeToIcon(accessMode),
-    name: ' '
+    style: getModeStyles(this.model.access()[0].mode),
+    svg: true
   });
 
   transitSegments.forEach(function(segment) {
@@ -73,4 +74,17 @@ function patternFilter(by) {
       return false;
     }
   };
+}
+
+function getModeStyles(mode) {
+  console.log(mode);
+  var styles = transitive.getModeStyles(mode);
+  var s = '';
+  console.log(styles);
+  for (var i in styles) {
+    console.log(i, styles[i]);
+    s += i + ':' + styles[i] + ';';
+  }
+  console.log(s);
+  return s;
 }
