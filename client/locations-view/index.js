@@ -126,15 +126,17 @@ View.prototype.pressDown = function(highlightedSuggestion, el) {
  * Geocode && Save
  */
 
-View.prototype.save = function(el, callback) {
+View.prototype.save = function(el) {
   var plan = this.model;
-  if (plan[el.name]() === el.value) return;
+  var name = el.name;
+  var val = el.value;
+  if (!val || plan[name]() === val) return;
 
-  analytics.track(el.name + ' address changed', {
-    address: el.value
+  analytics.track(name + ' address changed', {
+    address: val
   });
 
-  this.model.setAddress(el.name, el.value, function(err, location) {
+  this.model.setAddress(name, val, function(err, location) {
     if (err) {
       log.error('%e', err);
       textModal('Invalid address.');

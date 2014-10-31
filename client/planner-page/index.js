@@ -60,6 +60,7 @@ module.exports = function(ctx, next) {
   // Set plan to loading
   plan.loading(true);
 
+  // Set up the views
   var views = {
     'beta-bar': new BetaBar(),
     'filter-view': new FilterView(plan),
@@ -88,23 +89,34 @@ module.exports = function(ctx, next) {
       var from = query.from || plan.from() || FROM;
       var to = query.to || plan.to() || TO;
 
+      // Same addresses?
+      var sameAddresses = from === plan.from() && to === plan.to();
+
       // Set plan from querystring
       if (query.modes) plan.setModes(query.modes);
       if (query.start_time !== undefined) plan.start_time(parseInt(query.start_time, 10));
       if (query.end_time !== undefined) plan.end_time(parseInt(query.end_time, 10));
       if (query.days !== undefined) plan.days(query.days);
 
-      // Set addresses and update the routes
-      plan.setAddresses(from, to, function(err) {
-        if (err) {
-          log.error('%e', err);
-        } else {
-          plan.journey({
-            places: plan.generatePlaces()
-          });
-          plan.updateRoutes();
-        }
-      });
+      // If has valid coordinates, load
+      if (plan.validCoordinates() && sameAddresses) {
+        plan.journey({
+          places: plan.generatePlaces()
+        });
+        plan.updateRoutes();
+      } else {
+        // Set addresses and update the routes
+        plan.setAddresses(from, to, function(err) {
+          if (err) {
+            log.error('%e', err);
+          } else {
+            plan.journey({
+              places: plan.generatePlaces()
+            });
+            plan.updateRoutes();
+          }
+        });
+      }
     } else {
       showWelcomeWizard(session);
     }
