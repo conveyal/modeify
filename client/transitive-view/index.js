@@ -24,6 +24,23 @@ var View = module.exports = view(require('./template.html'), function(view,
 });
 
 /**
+ * Expose `transitive` instance on view
+ */
+
+var transitive = View.transitive = window.transitive = new Transitive({
+  displayMargins: {
+    bottom: 43,
+    right: 330,
+    top: 43
+  },
+  draggableTypes: ['PLACE'],
+  gridCellSize: 200,
+  mapboxId: config.mapbox_map_id(),
+  useDynamicRendering: true,
+  styles: require('./style')
+});
+
+/**
  * Display
  */
 
@@ -42,21 +59,8 @@ View.prototype.display = function(journey) {
   var zoomOut = this.find('.zoom.out');
 
   try {
-    var transitive = window.transitive = new Transitive({
-      displayMargins: {
-        bottom: 43,
-        right: 330,
-        top: 43
-      },
-      draggableTypes: ['PLACE'],
-      el: el,
-      legendEl: legend,
-      data: journey,
-      gridCellSize: 200,
-      mapboxId: config.mapbox_map_id(),
-      useDynamicRendering: true,
-      styles: require('./style')
-    });
+    transitive.setElement(el);
+    transitive.updateData(journey);
     transitive.render();
 
     transitive.on('place.from.dragend', function(place) {

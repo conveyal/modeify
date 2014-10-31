@@ -21,6 +21,9 @@ var Label = require('./labeler/label');
 var Legend = require('./legend');
 var TileLayer = require('./tile-layer');
 var PointClusterMap = require('./point/pointclustermap');
+var SphericalMercator = require('./spherical-mercator');
+
+var sm = new SphericalMercator();
 
 /**
  * Expose `Transitive`
@@ -32,7 +35,7 @@ module.exports = Transitive;
  * Expose `version`
  */
 
-module.exports.version = '0.5.0';
+module.exports.version = '0.6.0';
 
 /**
  * Create a new instance of `Transitive`
@@ -97,6 +100,9 @@ Transitive.prototype.getDefaultZoomFactors = function(data) {
 Transitive.prototype.load = function(data) {
   debug('loading', data);
 
+  // check data
+  if (!data) data = {};
+
   // Store data
   this.data = data;
 
@@ -140,21 +146,18 @@ Transitive.prototype.load = function(data) {
 
   // Generate the place objects
   this.places = {};
-  data.places.forEach(function(data) {
+  each(data.places, function(data) {
     var place = this.places[data.place_id] = new Place(data, this);
     this.addVertexPoint(place);
   }, this);
 
   // Generate the internal Journey objects
   this.journeys = {};
-  if (data.journeys) {
-    data.journeys.forEach((function(journeyData) {
-      var journey = new Journey(journeyData, this);
-      this.journeys[journeyData.journey_id] = journey;
-      this.paths.push(journey.path);
-
-    }).bind(this));
-  }
+  each(data.journeys, function(journeyData) {
+    var journey = new Journey(journeyData, this);
+    this.journeys[journeyData.journey_id] = journey;
+    this.paths.push(journey.path);
+  }, this);
 
   // process the path segments
   for (var p = 0; p < this.paths.length; p++) {
@@ -179,6 +182,37 @@ Transitive.prototype.load = function(data) {
   this.loaded = true;
   this.emit('load', this);
   return this;
+};
+
+Transitive.prototype.clearData = function() {
+  this.routes = {};
+  this.stops = {};
+  this.patterns = {};
+  this.places = {};
+  this.journeys = {};
+  this.paths = [];
+  this.baseVertexPoints = [];
+  this.data = null;
+  this.graph = new Graph(this, []);
+  this.labeler.clear();
+  this.render();
+};
+
+Transitive.prototype.updateData = function(data) {
+  if (this.data) this.clearData();
+  this.loaded = false;
+  this.data = data;
+  this.render();
+};
+
+/**
+ * Return the collection of default segment styles for a mode.
+ *
+ * @param {String} an OTP mode string
+ */
+
+Transitive.prototype.getModeStyles = function(mode) {
+  this.style.getModeStyles(mode, this.display);
 };
 
 /** Graph Creation/Processing Methods **/
@@ -643,10 +677,14 @@ Transitive.prototype.initializeDisplay = function() {
  */
 
 Transitive.prototype.setScale = function() {
-  var bounds = this.graph.bounds();
+  var bounds;
+  if (this.options.initialBounds) {
+    bounds = [sm.forward(this.options.initialBounds[0]),
+      sm.forward(this.options.initialBounds[1])
+    ];
+  } else bounds = this.graph.bounds();
 
-  this.display.setScale(this.el.clientHeight, this.el.clientWidth, this.graph.bounds(),
-    this.options);
+  this.display.setScale(this.el.clientHeight, this.el.clientWidth, bounds, this.options);
   this.lastScale = this.display.zoom.scale();
 
   if (this.options.mapboxId) {
@@ -760,7 +798,7 @@ Transitive.prototype.renderTo = function(el) {
 
 Transitive.prototype.refresh = function(panning) {
 
-  this.tileLayer.zoomed();
+  if (this.tileLayer) this.tileLayer.zoomed();
 
   this.graph.vertices.forEach(function(vertex) {
     vertex.point.clearRenderData();
