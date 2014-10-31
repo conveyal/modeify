@@ -2,11 +2,9 @@
   "name": "route",
   "dependencies": {
     "component/model": "*",
-    "segmentio/model-defaults": "*",
-    "visionmedia/debug": "*"
+    "segmentio/model-defaults": "*"
   },
   "local": [
-    "config",
     "convert",
     "session"
   ],

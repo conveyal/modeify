@@ -1,6 +1,4 @@
-var config = require('config');
 var convert = require('convert');
-var debug = require('debug')(config.application() + ':route');
 var model = require('model');
 var defaults = require('model-defaults');
 var session = require('session');
@@ -53,6 +51,14 @@ var Route = module.exports = model('Route')
   .attr('weightLost');
 
 /**
+ * Changes to emit on rescore
+ */
+
+var emitAfterRescore = ['average', 'bikeTime', 'calculatedCost', 'calculatedCalories', 'transitCosts', 'tripsPerYear',
+  'carParkingCost', 'vmtRate', 'walkTime'
+];
+
+/**
  * Update scoring
  */
 
@@ -65,15 +71,10 @@ Route.prototype.rescore = function(scorer) {
     }
   }
 
-  this.emit('change average', this.average());
-  this.emit('change bikeTime', this.bikeTime());
-  this.emit('change calculatedCost', this.calculatedCost());
-  this.emit('change calculatedCalories', this.calculatedCalories());
-  this.emit('change transitCosts', this.transitCosts());
-  this.emit('change tripsPerYear', this.tripsPerYear());
-  this.emit('change carParkingCost', this.carParkingCost());
-  this.emit('change vmtRate', this.vmtRate());
-  this.emit('change walkTime', this.walkTime());
+  for (i in emitAfterRescore) {
+    var attr = emitAfterRescore[i];
+    this.emit('change ' + attr, this[attr]());
+  }
 };
 
 /**
@@ -85,10 +86,7 @@ Route.prototype.setCarData = function(data) {
 
   var costDifference = data.cost * m - this.cost() * m;
   var emissions = (data.emissions - this.emissions()) / data.emissions * 100;
-  var weightLost = this.calories() === 0 ? false : convert.caloriesToPounds(this.calories()) * m | 0;
   var timeSavings = (this.timeInTransit() - (data.time - this.time())) * m;
-
-  console.log(emissions, data.emissions, this.emissions());
 
   if (this.directCar()) {
     costDifference = data.cost * m / 2;
@@ -96,10 +94,21 @@ Route.prototype.setCarData = function(data) {
     timeSavings = this.average() * m / 2; // Assume split driving
   }
 
-  if (costDifference > 0) this.costSavings(costDifference);
-  if (weightLost) this.weightLost(weightLost);
-  if (timeSavings > 0) this.timeSavings(timeSavings / 60 / 24 | 0);
-  if (emissions > 0) this.emissionsDifference(emissions | 0);
+  if (costDifference > 0) {
+    this.costSavings(costDifference);
+  }
+
+  if (this.calories() !== 0) {
+    this.weightLost(parseInt(convert.caloriesToPounds(this.calories()) * m, 10));
+  }
+
+  if (timeSavings > 0) {
+    this.timeSavings(parseInt(timeSavings / 60 / 24, 10));
+  }
+
+  if (emissions > 0) {
+    this.emissionsDifference(parseInt(emissions, 10));
+  }
 };
 
 /**
@@ -123,9 +132,11 @@ Route.prototype.directBikeOrWalk = function() {
  */
 
 Route.prototype.average = function() {
-  if (this.hasTransit() || this.modes().indexOf('car') === -1)
+  if (this.hasTransit() || this.modes().indexOf('car') === -1) {
     return Math.round(this.time());
-  return Math.round(this.time() * 1.35);
+  } else {
+    return Math.round(this.time() * 1.35);
+  }
 };
 
 /**
@@ -133,9 +144,11 @@ Route.prototype.average = function() {
  */
 
 Route.prototype.freeflowTime = function() {
-  if (this.hasTransit() || this.modes().indexOf('car') === -1)
+  if (this.hasTransit() || this.modes().indexOf('car') === -1) {
     return false;
-  return Math.round(this.time());
+  } else {
+    return Math.round(this.time());
+  }
 };
 
 /**
@@ -143,10 +156,13 @@ Route.prototype.freeflowTime = function() {
  */
 
 Route.prototype.timeInTransit = function() {
-  if (!this.hasTransit()) return 0;
-  return this.transit().reduce(function(m, t) {
-    return m + t.waitStats.avg + t.rideStats.avg;
-  }, 0) / 60;
+  if (!this.hasTransit()) {
+    return 0;
+  } else {
+    return this.transit().reduce(function(m, t) {
+      return m + t.waitStats.avg + t.rideStats.avg;
+    }, 0) / 60;
+  }
 };
 
 /**
@@ -194,9 +210,14 @@ Route.prototype.tripm = function() {
  */
 
 Route.prototype.calculatedCost = function() {
-  if (this.cost() === 0) return false;
+  if (this.cost() === 0) {
+    return false;
+  }
+
   var cost = 0;
-  if (this.transitCost()) cost += this.transitCost();
+  if (this.transitCost()) {
+    cost += this.transitCost();
+  }
   if (this.modes().indexOf('car') !== -1) {
     cost += this.vmtRate() * this.driveDistances();
     cost += this.carParkingCost();
@@ -206,7 +227,7 @@ Route.prototype.calculatedCost = function() {
   if (total > 1000) {
     return toFixed(total / 1000, 1) + 'k';
   } else if (total > 100) {
-    return total | 0;
+    return parseInt(total, 10);
   } else {
     return total.toFixed(2);
   }
@@ -217,8 +238,11 @@ Route.prototype.calculatedCost = function() {
  */
 
 Route.prototype.transitCosts = function() {
-  if (!this.transitCost()) return false;
-  return this.transitCost().toFixed(2);
+  if (!this.transitCost()) {
+    return false;
+  } else {
+    return this.transitCost().toFixed(2);
+  }
 };
 
 /**
@@ -226,7 +250,9 @@ Route.prototype.transitCosts = function() {
  */
 
 Route.prototype.calculatedCalories = function() {
-  if (this.calories() === 0) return false;
+  if (this.calories() === 0) {
+    return false;
+  }
 
   var cals = walkingCaloriesBurned(this.walkSpeed(), this.weight(), (this.walkDistances() / this.walkSpeed()));
   if (this.modes().indexOf('bicycle') !== -1) {
@@ -242,7 +268,9 @@ Route.prototype.calculatedCalories = function() {
 
 Route.prototype.frequency = function() {
   var trips = this.trips();
-  if (!trips) return false;
+  if (!trips) {
+    return false;
+  }
 
   var plan = session.plan();
   var start = plan.start_time();
@@ -268,8 +296,11 @@ Route.prototype.walkDistances = function() {
 };
 
 Route.prototype.distances = function(mode, val) {
-  if (this.modes().indexOf(mode) === -1) return false;
-  return convert.metersToMiles(this[val]());
+  if (this.modes().indexOf(mode) === -1) {
+    return false;
+  } else {
+    return convert.metersToMiles(this[val]());
+  }
 };
 
 /**
@@ -289,22 +320,21 @@ Route.prototype.walkSpeedMph = function() {
  */
 
 Route.prototype.bikeTime = function() {
-  var d = this.bikeDistance();
-  var s = this.bikeSpeed();
-  var t = d / s;
-
-  if (t < 60) return '< 1';
-  else return parseInt(t / 60);
+  return timeFromSpeedAndDistance(this.bikeSpeed(), this.bikeDistance());
 };
 
 Route.prototype.walkTime = function() {
-  var d = this.walkDistance();
-  var s = this.walkSpeed();
-  var t = d / s;
-
-  if (t < 60) return '< 1';
-  else return parseInt(t / 60);
+  return timeFromSpeedAndDistance(this.walkSpeed(), this.walkDistance());
 };
+
+function timeFromSpeedAndDistance(s, d) {
+  var t = d / s;
+  if (t < 60) {
+    return '< 1';
+  } else {
+    return parseInt(t / 60, 10);
+  }
+}
 
 /**
  * Retrieve from scorer
@@ -337,12 +367,19 @@ Route.prototype.carParkingCost = function() {
 Route.prototype.modeDescriptor = function() {
   var modeStr;
 
-  if (this.bikeDistance() > 0) modeStr = 'bike';
-  else if (this.driveDistance() > 0) modeStr = 'drive';
-  else modeStr = 'walk';
+  if (this.bikeDistance() > 0) {
+    modeStr = 'bike';
+  } else if (this.driveDistance() > 0) {
+    modeStr = 'drive';
+  } else {
+    modeStr = 'walk';
+  }
 
-  if (this.hasTransit()) modeStr += ' to transit';
-  else if (this.driveDistance() > 0) modeStr = 'rideshare';
+  if (this.hasTransit()) {
+    modeStr += ' to transit';
+  } else if (this.driveDistance() > 0) {
+    modeStr = 'rideshare';
+  }
 
   return modeStr;
 };
