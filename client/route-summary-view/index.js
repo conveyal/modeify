@@ -77,14 +77,10 @@ function patternFilter(by) {
 }
 
 function getModeStyles(mode) {
-  console.log(mode);
   var styles = transitive.getModeStyles(mode);
   var s = '';
-  console.log(styles);
   for (var i in styles) {
-    console.log(i, styles[i]);
     s += i + ':' + styles[i] + ';';
   }
-  console.log(s);
   return s;
 }
