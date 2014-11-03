@@ -35,11 +35,11 @@ exports.segments = {
   'stroke-width': function(display, segment, index, utils) {
     switch (segment.type) {
       case 'CAR':
-        return utils.pixels(display.zoom.scale(), 3, 5, 7) + 'px';
+        return utils.pixels(display.zoom.scale(), 2, 4, 6) + 'px';
       case 'WALK':
         return '6px';
       case 'BICYCLE':
-        return '5px';
+        return '4px';
       case 'TRANSIT':
         // bus segments:
         if (segment.mode === 3) return utils.pixels(display.zoom.scale(), 2, 5,
@@ -53,11 +53,11 @@ exports.segments = {
   'stroke-dasharray': function(display, segment) {
     switch (segment.type) {
       case 'CAR':
-        return '3,2';
+        return '10,8';
       case 'WALK':
         return '0.01,10';
       case 'BICYCLE':
-        return '3,2';
+        return '10,8';
     }
   },
 
