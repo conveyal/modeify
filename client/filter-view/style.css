@@ -19,6 +19,7 @@
 .time-filters select {
   cursor: pointer;
   color: var(--gold);
+  text-decoration: underline;
   font-size: 15px;
   padding-left: 0;
   padding-right: 0;
