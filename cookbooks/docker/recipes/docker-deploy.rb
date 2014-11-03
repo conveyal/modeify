@@ -3,7 +3,7 @@ include_recipe 'deploy'
 
 node[:deploy].each do |application, deploy|
 
-  if node[:opsworks][:instance][:layers].first != deploy[:environment_variables][:layer]
+  if node[:opsworks][:instance][:layers].first != deploy[:environment_variables][:LAYER]
     Chef::Log.debug("Skipping deploy::docker application #{application} as it is not deployed to this layer")
     next
   end
@@ -40,7 +40,7 @@ node[:deploy].each do |application, deploy|
     user "root"
     cwd "#{deploy[:deploy_to]}/current"
     code <<-EOH
-     docker build -t=#{deploy[:application]} . > #{deploy[:application]}-docker.out
+      docker build -t=#{deploy[:application]} . > #{deploy[:application]}-docker.out
     EOH
   end
 
@@ -53,8 +53,11 @@ node[:deploy].each do |application, deploy|
     user "root"
     cwd "#{deploy[:deploy_to]}/current"
     code <<-EOH
-      docker run #{dockerenvs} -p #{node[:opsworks][:instance][:private_ip]}:#{deploy[:environment_variables][:service_port]}:#{deploy[:environment_variables][:container_port]} --name #{deploy[:application]} -d #{deploy[:application]}
+      docker run #{dockerenvs} \
+        --publish #{node[:opsworks][:instance][:private_ip]}:#{deploy[:environment_variables][:SERVICE_PORT]}:#{deploy[:environment_variables][:CONTAINER_PORT]} \
+        --name #{deploy[:application]} \
+        --detach=true \
+        #{deploy[:application]}
     EOH
   end
-
 end

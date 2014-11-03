@@ -1,0 +1,9 @@
+#!/bin/sh
+
+cd "$(dirname "$0")"
+
+echo "Packaging cookbooks..."
+tar cvzf ../assets/cookbooks.tar.gz ../cookbooks
+
+echo "Packaging OTP..."
+tar cvzf ../assets/otp.tar.gz -C ../otp .

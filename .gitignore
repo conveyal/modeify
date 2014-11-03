@@ -13,6 +13,7 @@ lib-cov
 *.o.d
 *.gypi
 *.mk
+*.obj
 
 .DS_Store
 .env
@@ -32,5 +33,3 @@ assets/build
 assets/otp
 
 coverage
-
-assets/images/logo/IMG_2099.png
