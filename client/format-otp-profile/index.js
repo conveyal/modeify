@@ -80,6 +80,7 @@ var wordReplacementTable = {
   'Av': 'Ave',
   'Bwi': 'BWI',
   'Ci': 'Circle',
+  'Lh': 'LH',
   'Marc': 'MARC',
   'Mcpherson': 'McPherson',
   'Pi': 'Pike',
