@@ -18,18 +18,18 @@ lib-cov
 .DS_Store
 .env
 
+# node_modules
 **/build/Makefile
-
 **/bson/build
 **/contextify/build
 **/kerberos/build
 **/weak/build
 
+assets/build
+assets/otp
+
 config/config.yaml
 config/deployments
 config/env
-
-assets/build
-assets/otp
 
 coverage
