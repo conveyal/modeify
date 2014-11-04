@@ -26,6 +26,10 @@
   margin: 15px 0;
 }
 
+.WelcomeLocations h3 {
+  color: var(--darkest);
+}
+
 .WelcomeLocations button {
   margin-top: 15px;
 }
