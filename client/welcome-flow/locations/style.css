@@ -31,6 +31,10 @@
   color: var(--darkest);
 }
 
+.WelcomeLocations .question {
+  margin-bottom: 15px;
+}
+
 .WelcomeLocations button {
   margin-top: 15px;
 }
