@@ -1,4 +1,12 @@
 
+## 0.8.1 — 2014-11-04
+
+* Update mode icons
+* Update copy in the welcome flow and about page
+* Update `components` & `node_modules`
+* Dockerize the OTP deployment to OpsWorks
+* Various bug fixes and performance improvements
+
 ## 0.8.0 — 2014-10-23
 
 * Redo the welcome flow

@@ -6,8 +6,5 @@
   "local": [
     "manager-app",
     "planner-app"
-  ],
-  "dependencies": {
-    "conveyal/transitive.js": "*"
-  }
+  ]
 }
