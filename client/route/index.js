@@ -102,8 +102,8 @@ Route.prototype.setCarData = function(data) {
     this.weightLost(parseInt(convert.caloriesToPounds(this.calories()) * m, 10));
   }
 
-  if (timeSavings > 0) {
-    this.timeSavings(parseInt(timeSavings / 60 / 24, 10));
+  if (timeSavings > 60) {
+    this.timeSavings(parseInt(timeSavings / 60, 10));
   }
 
   if (emissions > 0) {
