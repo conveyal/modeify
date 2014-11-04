@@ -3,6 +3,7 @@
   text-align: center;
   padding: 20px 10px;
   font-size: 16px;
+  background-color: #fff;
 }
 
 .Welcome .graphic {
@@ -22,6 +23,8 @@
 
 .Welcome h3 {
 	font-size: 18px;
+  color: var(--darkest);
+  line-height: 22px;
 }
 
 .Welcome .answer {
