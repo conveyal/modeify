@@ -3,16 +3,10 @@
 cd "$(dirname "$0")"
 
 NODE_APP=$(./config-val $1 opsworks.node_app_id)
-OTP_APP=$(./config-val $1 opsworks.otp_app_id)
 STACK=$(./config-val $1 opsworks.stack_id)
 
 echo "Deploying to Opsworks..."
 aws opsworks create-deployment \
   --app-id $NODE_APP \
-  --stack-id $STACK \
-  --command "{\"Name\":\"deploy\"}"
-
-aws opsworks create-deployment \
-  --app-id $OTP_APP \
   --stack-id $STACK \
   --command "{\"Name\":\"deploy\"}"
