@@ -10,7 +10,7 @@
   height: 100px;
   background-image: url(/images/graphics/multimodal.png);
   background-repeat: no-repeat;
-  background-size: 300px;
+  background-size: 100%;
 }
 
 .Welcome .question {
