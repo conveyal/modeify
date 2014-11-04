@@ -19,13 +19,10 @@
 .time-filters select {
   cursor: pointer;
   color: var(--gold);
-  font-weight: bold;
-  text-decoration: underline;
+  font-weight: var(--bold);
   font-size: 15px;
-  padding-left: 0;
-  padding-right: 0;
-  margin-top: 8px;
-  padding: 3px;
+  padding: 8px 2px 0;
+  border-bottom: 1px solid var(--gold);
 }
 
 @-moz-document url-prefix() {
@@ -36,7 +33,7 @@
 
 .time-filters label {
   color: var(--light-blue);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: var(--font-weight);
   margin-bottom: 3px;
 }
