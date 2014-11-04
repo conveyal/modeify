@@ -40,8 +40,8 @@ module.exports = function walkthrough() {
       position: 'top'
     }, {
       element: document.querySelector('.show-profile-button'),
-      intro: 'Click the Profile button to edit your travel preferences, manage your account, or view saved journeys.',
-      position: 'left',
+      intro: 'Go to your profile to change your travel preferences, manage your account, or view saved journeys.',
+      position: 'bottom',
     }]
   });
 
