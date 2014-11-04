@@ -51,11 +51,10 @@
 }
 
 #locations-form {
-  padding-top: 10px;
+  padding: 8px;
 }
 
 .panel .title {
-  padding: 0 8px;
   width: 100%;
   color: var(--light-blue);
   font-size: 15px;

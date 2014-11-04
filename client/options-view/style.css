@@ -1,6 +1,7 @@
 
 .Options {
   overflow: hidden;
+  padding: 0 8px;
 }
 
 .Options .separator {

@@ -1,8 +1,4 @@
 
-.Locations {
-  padding: 0 8px;
-}
-
 .Locations [class*="icon-"] {
   position: absolute;
   font-size: 25px;
