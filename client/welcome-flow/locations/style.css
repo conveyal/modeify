@@ -24,6 +24,7 @@
 
 .WelcomeLocations p {
   margin: 15px 0;
+  color: var(--darkest);
 }
 
 .WelcomeLocations h3 {
