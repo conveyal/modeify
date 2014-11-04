@@ -17,9 +17,7 @@ var isMobile = window.innerWidth <= 480;
  * Expose `View`
  */
 
-var View = module.exports = view(require('./template.html'), function(view,
-  model) {
-  if (isMobile) return;
+var View = module.exports = view(require('./template.html'), function(view, model) {
 
   view.on('rendered', function() {
     var journey = model.journey();
@@ -54,7 +52,6 @@ var transitive = View.transitive = window.transitive = new Transitive({
 
 View.prototype.display = function(journey) {
   log('--> displaying journey');
-  if (isMobile) return;
 
   var self = this;
   var el = this.el;
