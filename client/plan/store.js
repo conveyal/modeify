@@ -1,3 +1,4 @@
+var localStorageSupported = require('localstorage-supported')();
 var log = require('log')('plan:store');
 var session = require('session');
 var store = require('store');
@@ -14,6 +15,7 @@ module.exports = storePlan;
 
 function storePlan(plan) {
   log('--> storing plan');
+  if (!localStorageSupported) return;
 
   // convert to "JSON", remove routes & patterns
   var json = {};
@@ -46,5 +48,6 @@ function storePlan(plan) {
  */
 
 module.exports.clear = function() {
-  store('plan', null);
+  if (localStorageSupported)
+    store('plan', null);
 };

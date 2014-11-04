@@ -16,6 +16,7 @@
     "convert",
     "format-otp-profile",
     "geocode",
+    "localstorage-supported",
     "location",
     "log",
     "journey",
