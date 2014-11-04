@@ -8,11 +8,19 @@ var Transitive = require('transitive');
 var view = require('view');
 
 /**
+ * Is mobile?
+ */
+
+var isMobile = window.innerWidth <= 480;
+
+/**
  * Expose `View`
  */
 
 var View = module.exports = view(require('./template.html'), function(view,
   model) {
+  if (isMobile) return;
+
   view.on('rendered', function() {
     var journey = model.journey();
     if (journey) view.display(journey);
@@ -46,6 +54,8 @@ var transitive = View.transitive = window.transitive = new Transitive({
 
 View.prototype.display = function(journey) {
   log('--> displaying journey');
+  if (isMobile) return;
+
   var self = this;
   var el = this.el;
   var placeChanged = debounce(function(name, place) {
