@@ -8,7 +8,7 @@ STACK=$(./config-val $1 opsworks.stack_id)
 
 echo "Deploying to Opsworks..."
 aws opsworks create-deployment \
-  --app-id $API_APP \
+  --app-id $NODE_APP \
   --stack-id $STACK \
   --command "{\"Name\":\"deploy\"}"
 
