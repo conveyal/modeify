@@ -6,11 +6,10 @@
 }
 
 .Welcome .graphic {
-  height: 130px;
+  height: 150px;
   background-image: url(/images/graphics/multimodal.png);
   background-repeat: no-repeat;
-  background-size: 260px;
-  margin-left: 5px;
+  background-size: 280px;
 }
 
 .Welcome .question {
