@@ -16,10 +16,10 @@
 
 .WelcomeFlow .logo {
   padding-top: 10px;
-  height: 40px;
+  height: 45px;
   text-align: left;
   background-color: var(--black);
-  border: 5px solid var(--black);
+  border: 7px solid var(--black);
   border-radius: none;
   box-shadow: 0 1px 2px -1px var(--darkest);
 }
