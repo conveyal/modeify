@@ -17,8 +17,9 @@
 }
 
 .Welcome .answers {
-  margin-top: 15px;
   color: #7b491d;
+  margin: auto;
+  margin-top: 15px;
 }
 
 .Welcome h3 {
@@ -28,5 +29,17 @@
 }
 
 .Welcome .answer {
+  padding-left: 25px;
+  margin-top: 7px;
+  padding: 10px;
+  color: #7b491d;
+  font-size: 18px;
+  text-align: left;
+}
+
+.Welcome i {
+  font-size: 25px;
+  padding-right: 25px;
+  float: left;
   padding-left: 15px;
 }
