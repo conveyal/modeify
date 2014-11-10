@@ -23,9 +23,7 @@
 }
 
 .Welcome h3 {
-	font-size: 18px;
-  color: var(--darkest);
-  line-height: 22px;
+  font-size: 18px;
 }
 
 .Welcome .answer {

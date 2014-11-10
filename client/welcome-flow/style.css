@@ -12,6 +12,7 @@
 
 .WelcomeFlow {
   font-size: 16px;
+  color: var(--darkest);
 }
 
 .WelcomeFlow .logo {
@@ -28,6 +29,7 @@
 .WelcomeFlow h3 {
   margin-top: 0;
   text-align: center;
+  line-height: 22px;
 }
 
 .WelcomeFlow ul {
