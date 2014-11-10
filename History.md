@@ -1,4 +1,10 @@
 
+## 0.8.2 — 2014-11-10
+
+* Separate out deploy scripts
+* CSS & HTML formatting changes
+* Reduce length of copy in the comparison table and scoring form
+
 ## 0.8.1 — 2014-11-04
 
 * Update mode icons
