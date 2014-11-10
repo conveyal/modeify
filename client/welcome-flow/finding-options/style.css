@@ -1,38 +1,38 @@
 
-.FindingOptions > .RouteSummary > .segments {
+.FindingOptions .RouteSummary {
+  margin: 15px 0;
+}
+
+.FindingOptions .RouteSummary > .segments {
   padding: 0;
   display: block;
   text-align: center;
 }
 
-.FindingOptions > .RouteSummary > .segments > .segment {
+.FindingOptions .RouteSummary > .segments > .segment {
   display: inline;
 }
 
-.FindingOptions > .RouteSummary > .segments > .segment > .shield {
+.FindingOptions .RouteSummary > .segments > .segment > .shield {
   margin: 6px 6px -4px 0;
   height: 22px;
 }
 
-.FindingOptions > .RouteSummary > .segments > .segment .fa-caret-down {
+.FindingOptions .RouteSummary > .segments > .segment .fa-caret-down {
   display: none;
 }
 
-.FindingOptions > .RouteSummary > .segments > .segment .fa-caret-right {
+.FindingOptions .RouteSummary > .segments > .segment .fa-caret-right {
   display: inline-block;
 }
 
-.FindingOptions > .RouteSummary > .segments > .segment:last-of-type .fa-caret-right {
+.FindingOptions .RouteSummary > .segments > .segment:last-of-type .fa-caret-right {
   display: none;
 }
 
-.FindingOptions > .RouteSummary > .benefits-badge,
-.FindingOptions > .RouteSummary > .minutes-column {
+.FindingOptions .RouteSummary > .benefits-badge,
+.FindingOptions .RouteSummary > .minutes-column {
   display: none;
-}
-
-.FindingOptions .RouteComparisonTable .heading {
-
 }
 
 .FindingOptions .RouteComparisonTable > div {
