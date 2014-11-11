@@ -3,7 +3,6 @@
   "dependencies": {
     "component/each": "*",
     "component/querystring": "*",
-    "eivindfjeldstad/scrollbar-size": "*",
     "pazguille/scrolling": "*",
     "visionmedia/batch": "*"
   },
@@ -16,6 +15,7 @@
     "options-view",
     "planner-nav",
     "transitive-view",
+    "scrollbar-size",
     "session",
     "text-modal",
     "view",
