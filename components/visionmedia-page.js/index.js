@@ -1,8 +1,3 @@
-
-  /* jshint browser:true */
-  /* jshint laxcomma:true */
-  /* jshint -W079 */ // history.location
-  /* jshint -W014 */
   /* globals require, module */
 
 /**
@@ -66,19 +61,21 @@
 
   function page(path, fn) {
     // <callback>
-    if ('function' == typeof path) {
+    if ('function' === typeof path) {
       return page('*', path);
     }
 
     // route <path> to <callback ...>
-    if ('function' == typeof fn) {
+    if ('function' === typeof fn) {
       var route = new Route(path);
       for (var i = 1; i < arguments.length; ++i) {
         page.callbacks.push(route.middleware(arguments[i]));
       }
     // show <path> with [state]
     } else if ('string' == typeof path) {
-      page.show(path, fn);
+      'string' === typeof fn
+        ? page.redirect(path, fn)
+        : page.show(path, fn);
     // start [options]
     } else {
       page.start(path);
@@ -125,7 +122,7 @@
     if (false !== options.click) window.addEventListener('click', onclick, false);
     if (true === options.hashbang) hashbang = true;
     if (!dispatch) return;
-    var url = (hashbang && location.hash.indexOf('#!') === 0)
+    var url = (hashbang && ~location.hash.indexOf('#!'))
       ? location.hash.substr(2) + location.search
       : location.pathname + location.search + location.hash;
     page.replace(url, null, true, dispatch);
@@ -138,9 +135,10 @@
    */
 
   page.stop = function(){
+    if (!running) return;
     running = false;
-    removeEventListener('click', onclick, false);
-    removeEventListener('popstate', onpopstate, false);
+    window.removeEventListener('click', onclick, false);
+    window.removeEventListener('popstate', onpopstate, false);
   };
 
   /**
@@ -155,9 +153,24 @@
 
   page.show = function(path, state, dispatch){
     var ctx = new Context(path, state);
-    ctx.pushState();
     if (false !== dispatch) page.dispatch(ctx);
+    if (false !== ctx.handled) ctx.pushState();
     return ctx;
+  };
+
+  /**
+   * Show `path` with optional `state` object.
+   *
+   * @param {String} from
+   * @param {String} to
+   * @api public
+   */
+  page.redirect = function(from, to) {
+    page(from, function (e) {
+      setTimeout(function() {
+        page.replace(to);
+      });
+    });
   };
 
   /**
@@ -206,8 +219,18 @@
    */
 
   function unhandled(ctx) {
+    if (ctx.handled) return;
+    var current;
+
+    if (hashbang) {
+      current = base + location.hash.replace('#!','');
+    } else {
+      current = location.pathname + location.search;
+    }
+
+    if (current === ctx.canonicalPath) return;
     page.stop();
-    ctx.unhandled = true;
+    ctx.handled = false;
     location.href = ctx.canonicalPath;
   }
 
@@ -262,8 +285,8 @@
   Context.prototype.pushState = function(){
     history.pushState(this.state
       , this.title
-      , hashbang && this.canonicalPath !== '/'
-        ? '#!' + this.canonicalPath
+      , hashbang && this.path !== '/'
+        ? '#!' + this.path
         : this.canonicalPath);
   };
 
@@ -276,8 +299,8 @@
   Context.prototype.save = function(){
     history.replaceState(this.state
       , this.title
-      , hashbang && this.canonicalPath !== '/'
-        ? '#!' + this.canonicalPath
+      , hashbang && this.path !== '/'
+        ? '#!' + this.path
         : this.canonicalPath);
   };
 
@@ -351,7 +374,7 @@
     for (var i = 1, len = m.length; i < len; ++i) {
       var key = keys[i - 1];
 
-      var val = 'string' == typeof m[i]
+      var val = 'string' === typeof m[i]
         ? decodeURIComponent(m[i])
         : m[i];
 
@@ -394,7 +417,7 @@
 
     // ensure non-hash for the same path
     var link = el.getAttribute('href');
-    if (el.pathname == location.pathname && (el.hash || '#' == link)) return;
+    if (el.pathname === location.pathname && (el.hash || '#' === link)) return;
 
     // Check for mailto: in the href
     if (link && link.indexOf("mailto:") > -1) return;
@@ -409,10 +432,11 @@
     var path = el.pathname + el.search + (el.hash || '');
 
     // same page
-    var orig = path + el.hash;
+    var orig = path;
 
     path = path.replace(base, '');
-    if (base && orig == path) return;
+
+    if (base && orig === path) return;
 
     e.preventDefault();
     page.show(orig);

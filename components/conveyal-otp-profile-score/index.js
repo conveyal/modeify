@@ -161,7 +161,9 @@ ProfileScore.prototype.tally = function(o) {
   o.cost = 0;
   o.emissions = 0;
   o.modes = [];
+  o.timeInTransit = 0;
   o.transfers = 0;
+  o.transitCost = 0;
   o.walkCalories = 0;
 
   // Bike/Drive/Walk distances
@@ -216,8 +218,12 @@ ProfileScore.prototype.tally = function(o) {
       var trips = segment.segmentPatterns[0].nTrips;
       if (trips < o.trips) o.trips = trips;
 
+      // Total & add the time in transit
+      var timeInTransit = (segment.waitStats.avg + segment.rideStats.avg) / 60;
+      o.timeInTransit += timeInTransit;
+
       // Add walk time, wait time, & ride time
-      o.time += (segment.walkTime + segment.waitStats.avg + segment.rideStats.avg) / 60;
+      o.time += (segment.walkTime / 60) + timeInTransit;
 
       // Increment the total walk distance
       o.walkDistance += segment.walkDistance;
