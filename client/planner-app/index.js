@@ -18,7 +18,8 @@ page('/planner/:link', session.loginWithLink);
 page('/style-guide', require('style-guide'));
 
 page('/welcome', function(ctx, next) {
-  session.logout(next);
+  session.logout();
+  next();
 }, utils.redirect('/planner'));
 
 page('*', utils.render);

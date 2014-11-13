@@ -171,7 +171,7 @@ session.commuterIsLoggedIn = function(ctx, next) {
       log('<-- commuter is logged in');
       next();
     } else {
-      log('<-- commuter is not logged in: %e', err || res.error);
+      log('<-- commuter is not logged in');
       session.loginAnonymously(next);
     }
   });
