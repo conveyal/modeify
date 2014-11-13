@@ -30,8 +30,8 @@ function updateRoutes(plan, opts, callback) {
     });
 
     plan.loading(false);
+    plan.saveURL();
 
-    if (session.commuter().profile().welcome_wizard_complete) plan.saveURL();
     if (callback) callback.call(null, err, res);
   };
 

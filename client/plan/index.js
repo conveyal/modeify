@@ -335,7 +335,7 @@ Plan.prototype.clearStore = store.clear;
  */
 
 Plan.prototype.saveURL = function() {
-  window.history.replaceState(null, '', '?' + this.generateQueryString());
+  window.history.replaceState(null, '', '/planner?' + this.generateQueryString());
 };
 
 /**
