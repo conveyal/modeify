@@ -20,10 +20,13 @@ Welcome.prototype.clickedAnswer = function(e) {
   log('--> saving');
 
   var el = e.target;
+  while (!el.classList.contains('answer') && el.parentNode) el = el.parentNode;
   var answer = el.dataset.answer || '';
   if (answer && answer.length > 1) {
-    this.recordAnswer(answer);
     this.emit('next');
+    this.recordAnswer(answer);
+  } else {
+    log.warn('-- invalid answer');
   }
 };
 
