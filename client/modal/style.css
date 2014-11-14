@@ -21,10 +21,6 @@
   -ms-overflow-style: none;
 }
 
-.Modal > div::-webkit-scrollbar {
-  width: 0 !important;
-}
-
 @media (--narrow-window) {
   .Modal {
     max-width: 100%;

@@ -46,10 +46,6 @@
   padding-top: 44px;
 }
 
-.scrollable::-webkit-scrollbar {
-  width: 0 !important;
-}
-
 #locations-form {
   padding: 8px;
 }
