@@ -5,7 +5,6 @@
 .Modal {
   top: 54px;
   border-radius: var(--border-radius);
-  overflow-y: hidden;
   overflow-x: hidden;
   max-width: 320px;
   width: 100%;
@@ -17,8 +16,6 @@
   overflow-y: scroll;
   overflow-x: hidden;
   height: 100%;
-  -moz-scrollbar: none;
-  -ms-overflow-style: none;
 }
 
 @media (--narrow-window) {
