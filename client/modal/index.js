@@ -46,8 +46,11 @@ module.exports = function(opts, fn) {
 
       // Set the scrollbar size
       var div = el.querySelector('div');
-      div.style.marginRight = -scrollbarSize + 'px';
-      div.style.paddingRight = scrollbarSize + 'px';
+
+      if (scrollbarSize > 0) {
+        div.style.marginRight = -scrollbarSize + 'px';
+        div.style.paddingRight = scrollbarSize + 'px';
+      }
 
       setTimeout(function() {
         var height = el.clientHeight;

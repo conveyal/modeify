@@ -35,6 +35,11 @@ var View = view({
   view.scrollable = view.find('.scrollable');
   view.moreOptions = view.find('.more-options');
 
+  if (scrollbarSize > 0) {
+    view.scrollable.style.marginRight = -scrollbarSize + 'px';
+    view.scrollable.style.paddingRight = scrollbarSize + 'px';
+  }
+
   scrolling(view.scrollable, function(e) {
     view.scrolled(e);
   });
@@ -43,10 +48,6 @@ var View = view({
     view.scrolled();
   });
 });
-
-View.prototype.scrollbarSize = function() {
-  return scrollbarSize;
-};
 
 /**
  * Expose `render`
