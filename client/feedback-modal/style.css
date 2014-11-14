@@ -1,4 +1,8 @@
 
+.Feedback {
+  padding: 15px;
+}
+
 .Feedback > h3 {
   margin-top: 0;
 }
