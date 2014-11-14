@@ -38,7 +38,7 @@ module.exports = function(opts, fn) {
       });
     });
 
-    if (opts.width) this.modal.el.style['max-width'] = opts.width;
+    if (opts.width) this.modal.el.style.maxWidth = opts.width;
     if (opts.closable) this.modal.closable();
 
     var el = this.modal.el;
@@ -52,6 +52,7 @@ module.exports = function(opts, fn) {
         div.style.paddingRight = scrollbarSize + 'px';
       }
 
+      // Wait until the modal is displayed before setting the height
       setTimeout(function() {
         var height = el.clientHeight;
         var offset = el.offsetTop;
@@ -59,7 +60,7 @@ module.exports = function(opts, fn) {
 
         if ((height + offset) > windowHeight)
           el.style.height = (windowHeight - offset) + 'px';
-      }, 0);
+      }, 10);
 
       if (fn) fn();
     });
