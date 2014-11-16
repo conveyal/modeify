@@ -1,6 +1,8 @@
 {
   "name": "planner-app",
   "dependencies": {
+    "es-shims/es5-shim": "*",
+    "paulmillr/es6-shim": "*",
     "ianstormtaylor/on-load": "*",
     "necolas/normalize.css": "*",
     "visionmedia/page.js": "*"
