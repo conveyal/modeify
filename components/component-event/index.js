@@ -1,3 +1,6 @@
+var bind = window.addEventListener ? 'addEventListener' : 'attachEvent',
+    unbind = window.removeEventListener ? 'removeEventListener' : 'detachEvent',
+    prefix = bind !== 'addEventListener' ? 'on' : '';
 
 /**
  * Bind `el` event `type` to `fn`.
@@ -11,11 +14,7 @@
  */
 
 exports.bind = function(el, type, fn, capture){
-  if (el.addEventListener) {
-    el.addEventListener(type, fn, capture);
-  } else {
-    el.attachEvent('on' + type, fn);
-  }
+  el[bind](prefix + type, fn, capture || false);
   return fn;
 };
 
@@ -31,10 +30,6 @@ exports.bind = function(el, type, fn, capture){
  */
 
 exports.unbind = function(el, type, fn, capture){
-  if (el.removeEventListener) {
-    el.removeEventListener(type, fn, capture);
-  } else {
-    el.detachEvent('on' + type, fn);
-  }
+  el[unbind](prefix + type, fn, capture || false);
   return fn;
 };
