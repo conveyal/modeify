@@ -4,11 +4,13 @@ describe.skip('Client > Welcome Screen', function() {
   before(nightmare.ready);
 
   describe('Toggle Answers', function() {
-    var client = nightmare('/index.html');
-
     it('should be able to turn on all answers', function(done) {
-      client
-        .run(done);
+      nightmare('/welcome')
+        .screenshot('screenshot.png')
+        .run(function(err, res) {
+          console.log(err, res);
+          done(err);
+        });
     });
   });
 });

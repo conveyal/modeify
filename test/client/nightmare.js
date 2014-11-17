@@ -25,7 +25,11 @@ module.exports = function(opts) {
 
   return new Nightmare()
     .viewport(viewport.width, viewport.height)
-    .goto(url);
+    .on('error', function() {
+      console.log(arguments);
+    })
+    .goto(url)
+    .wait();
 };
 
 // Expose `ready`
