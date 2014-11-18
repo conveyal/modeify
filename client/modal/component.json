@@ -3,7 +3,7 @@
   "dependencies": {
     "segmentio/modal": "*"
   },
-  "local": [
+  "locals": [
     "log",
     "scrollbar-size",
     "view"

@@ -3,7 +3,7 @@
   "paths": [
     "client"
   ],
-  "local": [
+  "locals": [
     "manager-app",
     "planner-app"
   ]

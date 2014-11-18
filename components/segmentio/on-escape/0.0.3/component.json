@@ -1,0 +1,28 @@
+{
+  "name": "on-escape",
+  "description": "Attach an escape key handler.",
+  "version": "0.0.3",
+  "keywords": [
+    "esc",
+    "escape",
+    "key",
+    "bind",
+    "unbind",
+    "handler"
+  ],
+  "dependencies": {
+    "component/event": "*",
+    "component/indexof": "*"
+  },
+  "development": {
+    "dependencies": {
+      "component/assert": "*",
+      "ianstormtaylor/trigger-event": "*"
+    }
+  },
+  "license": "MIT",
+  "scripts": [
+    "index.js"
+  ],
+  "repository": "segmentio/on-escape"
+}

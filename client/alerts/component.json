@@ -4,7 +4,7 @@
     "component/domify": "*",
     "component/each": "*"
   },
-  "local": [
+  "locals": [
     "alert",
     "log"
   ],

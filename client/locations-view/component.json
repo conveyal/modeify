@@ -5,7 +5,7 @@
     "component/each": "*",
     "twitter/hogan.js": "*"
   },
-  "local": [
+  "locals": [
     "analytics",
     "geocode",
     "log",

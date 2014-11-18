@@ -1,6 +1,6 @@
 {
   "name": "alert",
-  "local": [
+  "locals": [
     "view"
   ],
   "scripts": [

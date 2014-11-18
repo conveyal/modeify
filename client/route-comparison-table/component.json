@@ -1,6 +1,6 @@
 {
   "name": "route-comparison-table",
-  "local": [
+  "locals": [
     "convert",
     "view"
   ],

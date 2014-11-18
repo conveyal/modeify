@@ -6,7 +6,7 @@
     "conveyal/otp-profiler": "*",
     "yields/fmt": "*"
   },
-  "local": [
+  "locals": [
     "config",
     "log"
   ],

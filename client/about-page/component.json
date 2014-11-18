@@ -1,6 +1,6 @@
 {
   "name": "about-page",
-  "local": [
+  "locals": [
     "modal"
   ],
   "scripts": [

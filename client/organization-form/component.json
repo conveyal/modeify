@@ -5,7 +5,7 @@
     "visionmedia/debug": "*",
     "visionmedia/page.js": "*"
   },
-  "local": [
+  "locals": [
     "alerts",
     "config",
     "organization",

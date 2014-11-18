@@ -1,0 +1,22 @@
+{
+  "name": "on-load",
+  "description": "Callback when the document has loaded.",
+  "version": "0.0.2",
+  "license": "MIT",
+  "keywords": [
+    "load",
+    "callback"
+  ],
+  "dependencies": {
+    "ianstormtaylor/callback": "*"
+  },
+  "development": {
+    "dependencies": {
+      "component/assert": "*"
+    }
+  },
+  "scripts": [
+    "index.js"
+  ],
+  "repository": "ianstormtaylor/on-load"
+}

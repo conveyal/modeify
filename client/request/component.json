@@ -4,7 +4,7 @@
     "visionmedia/debug": "*",
     "visionmedia/superagent": "*"
   },
-  "local": [
+  "locals": [
     "config"
   ],
   "scripts": [

@@ -1,0 +1,20 @@
+{
+  "name": "cookie",
+  "description": "Tiny cookie component",
+  "version": "1.1.1",
+  "keywords": [
+    "cookie"
+  ],
+  "dependencies": {
+    "visionmedia/debug": "*"
+  },
+  "development": {
+    "dependencies": {
+      "component/assert": "*"
+    }
+  },
+  "scripts": [
+    "index.js"
+  ],
+  "repository": "component/cookie"
+}

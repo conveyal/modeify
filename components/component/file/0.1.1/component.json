@@ -1,0 +1,18 @@
+{
+  "name": "file",
+  "description": "File & FileReader wrappers",
+  "version": "0.1.1",
+  "keywords": [
+    "file",
+    "utility"
+  ],
+  "dependencies": {
+    "component/emitter": "*"
+  },
+  "scripts": [
+    "index.js",
+    "file.js",
+    "reader.js"
+  ],
+  "repository": "component/file"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "svg-attributes",
+  "description": "svg attributes",
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "repository": "yields/svg-attributes"
+}

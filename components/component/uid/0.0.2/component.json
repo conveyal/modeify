@@ -1,0 +1,20 @@
+{
+  "name": "uid",
+  "description": "generates unique ids",
+  "version": "0.0.2",
+  "keywords": [
+    "uid",
+    "uuid",
+    "unique",
+    "crypto",
+    "random"
+  ],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "repository": "component/uid"
+}

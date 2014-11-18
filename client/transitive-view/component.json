@@ -8,7 +8,7 @@
     "mbostock/d3": "*",
     "yields/fmt": "*"
   },
-  "local": [
+  "locals": [
     "config",
     "convert",
     "location",

@@ -1,6 +1,6 @@
 {
   "name": "beta-bar",
-  "local": [
+  "locals": [
     "config",
     "view"
   ],

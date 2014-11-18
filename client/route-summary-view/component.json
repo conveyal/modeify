@@ -3,7 +3,7 @@
   "dependencies": {
     "twitter/hogan.js": "*"
   },
-  "local": [
+  "locals": [
     "convert",
     "transitive-view",
     "view"

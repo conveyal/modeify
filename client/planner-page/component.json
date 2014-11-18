@@ -6,7 +6,7 @@
     "pazguille/scrolling": "*",
     "visionmedia/batch": "*"
   },
-  "local": [
+  "locals": [
     "beta-bar",
     "config",
     "filter-view",

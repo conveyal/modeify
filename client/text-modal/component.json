@@ -1,6 +1,6 @@
 {
   "name": "text-modal",
-  "local": [
+  "locals": [
     "modal"
   ],
   "scripts": [

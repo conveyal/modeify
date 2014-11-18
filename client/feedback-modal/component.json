@@ -1,6 +1,6 @@
 {
   "name": "feedback-modal",
-  "local": [
+  "locals": [
     "alert",
     "analytics",
     "log",

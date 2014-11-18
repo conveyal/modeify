@@ -1,0 +1,22 @@
+{
+  "name": "enumerable",
+  "description": "Enumerable mixin",
+  "version": "0.3.2",
+  "keywords": [
+    "enum",
+    "enumerable",
+    "mixin",
+    "iterator",
+    "iteration"
+  ],
+  "dependencies": {
+    "component/to-function": "2.0.3",
+    "juliangruber/isarray": "*"
+  },
+  "development": {},
+  "scripts": [
+    "index.js"
+  ],
+  "license": "MIT",
+  "repository": "component/enumerable"
+}
