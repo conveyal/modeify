@@ -1,6 +1,7 @@
 {
   "name": "modal",
   "dependencies": {
+    "component/raf": "*",
     "segmentio/modal": "*"
   },
   "locals": [

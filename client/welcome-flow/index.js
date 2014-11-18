@@ -30,6 +30,7 @@ module.exports = function(session) {
     locations.on('next', function() {
       var route = plan.options()[0];
       var findingOptions = new FindingOptions(route);
+
       findingOptions.show();
 
       findingOptions.on('next', function() {
@@ -40,15 +41,7 @@ module.exports = function(session) {
         findingOptions.hide();
         highlightResults();
       });
-
-      setTimeout(function() {
-        locations.hide();
-      }, 0);
     });
-
-    setTimeout(function() {
-      welcome.hide();
-    }, 0);
   });
 
   // Start!

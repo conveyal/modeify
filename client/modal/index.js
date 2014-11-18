@@ -1,5 +1,6 @@
 var log = require('log')('modal');
-var modal = require('modal');
+var createModal = require('modal');
+var raf = require('raf');
 var scrollbarSize = require('scrollbar-size');
 var view = require('view');
 
@@ -29,20 +30,31 @@ module.exports = function(opts, fn) {
   Modal.prototype.show = function(fn) {
     log('showing modal');
 
-    this.modal = active = modal(this.el).overlay();
-
+    var modal = this.modal = createModal(this.el).overlay();
+    var el = modal.el;
     var view = this;
+
+    // Bind hide (had to override)
+    modal.hide = this.hide.bind(this);
+
+    // Bubble up all of the events
     events.forEach(function(e) {
       view.modal.on(e, function() {
-        view.emit(e, arguments);
+        view.emit(e);
       });
     });
 
-    if (opts.width) this.modal.el.style.maxWidth = opts.width;
-    if (opts.closable) this.modal.closable();
+    if (opts.width) modal.el.style.maxWidth = opts.width;
+    if (opts.closable) modal.closable();
 
-    var el = this.modal.el;
-    this.modal.show(function() {
+    modal.hidden = false;
+    modal.animating = true;
+    modal.emit('showing');
+
+    // Custom ".show" function adopted from segmentio/showable
+    raf(function(){
+      if (active) active.hide();
+      active = view;
 
       // Set the scrollbar size
       var div = el.querySelector('div');
@@ -53,29 +65,55 @@ module.exports = function(opts, fn) {
       }
 
       // Wait until the modal is displayed before setting the height
-      setTimeout(function() {
+      raf(function() {
         var height = el.clientHeight;
         var offset = el.offsetTop;
         var windowHeight = window.innerHeight;
 
         if ((height + offset) > windowHeight)
           el.style.height = (windowHeight - offset) + 'px';
-      }, 10);
+      });
 
+      modal.animating = false;
+      modal.emit('show');
       if (fn) fn();
     });
+
+    el.classList.remove('hidden');
   };
 
   /**
    * Hide Modal
    */
 
-  Modal.prototype.hide = function(e) {
+  Modal.prototype.hide = function(fn) {
     log('hiding modal');
 
-    if (this.modal) this.modal.hide();
+    // Custom hide adopted from segmentio/showable
+    if (this.modal) {
+      var modal = this.modal;
 
-    active = null;
+      if (modal.hidden === null) {
+        modal.hidden = modal.el.classList.contains('hidden');
+      }
+
+      if (modal.hidden || modal.animating) return this;
+
+      modal.hidden = true;
+      modal.animating = true;
+
+      raf(function() {
+        modal.animating = false;
+        modal.emit('hide');
+        modal._overlay.el.remove();
+        if (fn) fn();
+      });
+
+      modal.el.classList.add('hidden');
+      modal.emit('hiding');
+    }
+
+    return this;
   };
 
   return Modal;
