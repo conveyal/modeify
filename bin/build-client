@@ -55,6 +55,7 @@ function bundle(app) {
   }, {
     development: development,
     install: true,
+    out: __dirname + '/../components',
     root: __dirname + '/..',
     verbose: true
   }, function(err, tree) {
