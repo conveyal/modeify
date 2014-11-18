@@ -25,8 +25,9 @@ module.exports = function(opts) {
 
   return new Nightmare()
     .viewport(viewport.width, viewport.height)
-    .on('error', function() {
-      console.log(arguments);
+    .on('error', function(err, trace) {
+      if (err) console.error(err);
+      if (trace) console.error(trace);
     })
     .goto(url)
     .wait();

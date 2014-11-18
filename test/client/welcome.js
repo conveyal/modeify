@@ -8,7 +8,7 @@ describe.skip('Client > Welcome Screen', function() {
       nightmare('/welcome')
         .screenshot('screenshot.png')
         .run(function(err, res) {
-          console.log(err, res);
+          if (err) console.error(err.stack);
           done(err);
         });
     });
