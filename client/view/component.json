@@ -10,7 +10,7 @@
     "trevorgerhardt/view": "*",
     "visionmedia/debug": "*"
   },
-  "local": [
+  "locals": [
     "config"
   ],
   "scripts": [

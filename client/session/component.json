@@ -8,7 +8,7 @@
     "visionmedia/debug": "*",
     "visionmedia/page.js": "*"
   },
-  "local": [
+  "locals": [
     "analytics",
     "commuter",
     "config",

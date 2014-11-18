@@ -4,7 +4,7 @@
     "ianstormtaylor/on-load": "0.0.2",
     "visionmedia/page.js": "*"
   },
-  "local": [
+  "locals": [
     "manager-nav",
     "manager-router",
     "session"

@@ -4,7 +4,7 @@
     "component/model": "*",
     "segmentio/model-defaults": "*"
   },
-  "local": [
+  "locals": [
     "convert",
     "session"
   ],

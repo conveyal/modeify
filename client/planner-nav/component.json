@@ -3,7 +3,7 @@
   "dependencies": {
     "visionmedia/page.js": "*"
   },
-  "local": [
+  "locals": [
     "about-page",
     "commuter-profile",
     "confirm-modal",

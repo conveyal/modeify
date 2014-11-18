@@ -4,7 +4,7 @@
     "component/value": "*",
     "visionmedia/debug": "*"
   },
-  "local": [
+  "locals": [
     "config",
     "reactive-select",
     "view"

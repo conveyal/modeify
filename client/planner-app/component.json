@@ -7,7 +7,7 @@
     "necolas/normalize.css": "*",
     "visionmedia/page.js": "*"
   },
-  "local": [
+  "locals": [
     "commuter",
     "commuter-login",
     "change-password-page",

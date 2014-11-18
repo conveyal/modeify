@@ -1,6 +1,6 @@
 {
   "name": "geocode",
-  "local": [
+  "locals": [
     "log",
     "request"
   ],

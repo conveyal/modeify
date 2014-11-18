@@ -3,7 +3,7 @@
   "dependencies": {
     "yields/fmt": "*"
   },
-  "local": [
+  "locals": [
     "config",
     "otp",
     "plan",

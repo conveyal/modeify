@@ -1,6 +1,6 @@
 {
   "name": "confirm-modal",
-  "local": [
+  "locals": [
     "modal"
   ],
   "scripts": [

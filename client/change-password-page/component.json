@@ -3,7 +3,7 @@
   "dependencies": {
     "visionmedia/page.js": "*"
   },
-  "local": [
+  "locals": [
     "alerts",
     "log",
     "request",

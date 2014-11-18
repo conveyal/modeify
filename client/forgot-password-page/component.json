@@ -4,7 +4,7 @@
     "component/value": "1.1.0",
     "visionmedia/page.js": "*"
   },
-  "local": [
+  "locals": [
     "log",
     "request",
     "view"

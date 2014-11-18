@@ -1,6 +1,6 @@
 {
   "name": "style-guide",
-  "local": [
+  "locals": [
     "view"
   ],
   "scripts": [

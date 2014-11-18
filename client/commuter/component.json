@@ -6,7 +6,7 @@
     "segmentio/model-memoize": "0.0.2",
     "trevorgerhardt/model-query": "*"
   },
-  "local": [
+  "locals": [
     "config",
     "log",
     "map",

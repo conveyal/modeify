@@ -3,7 +3,7 @@
   "dependencies": {
     "usablica/intro.js": "*"
   },
-  "local": [
+  "locals": [
     "alert",
     "analytics",
     "config",

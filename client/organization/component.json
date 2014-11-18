@@ -7,7 +7,7 @@
     "trevorgerhardt/model-query": "*",
     "visionmedia/debug": "*"
   },
-  "local": [
+  "locals": [
     "alerts",
     "campaign",
     "config",

@@ -4,7 +4,7 @@
     "visionmedia/debug": "*",
     "yields/fmt": "*"
   },
-  "local": [
+  "locals": [
     "analytics",
     "config",
     "request"

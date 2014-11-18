@@ -3,7 +3,7 @@
   "dependencies": {
     "visionmedia/debug": "*"
   },
-  "local": [
+  "locals": [
     "config",
     "view"
   ],

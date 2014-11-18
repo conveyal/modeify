@@ -71,50 +71,31 @@ function bundle(app) {
       .use('templates', build.plugins.string())
       .end(function(err, str) {
         if (err) throw err;
-        var js = 'window.CONFIG=' + JSON.stringify(config) + ';\n' + build.scripts.require + '\n' +
+        var js = 'window.CONFIG=' + JSON.stringify(config, null, '  ') + ';\n' + build.scripts.require + '\n' +
           str + ';require("' + build.scripts.canonical(tree).canonical + '");\n';
+        if (!development) js = uglify.minify(js, { fromString: true }).code;
         fs.writeFileSync(path.resolve(__dirname + '/../' + dest, 'build.js'), js);
       });
+
+    build
+      .styles(tree)
+      .use('styles', build.plugins.css())
+      .end(function(err, str) {
+        if (err) throw err;
+        var css = myth(str);
+        css = css.replace(/\burl *\(([^)]+)\)/g, rewrite);
+        if (!development) css = sqwish.minify(css);
+        fs.writeFileSync(path.resolve(__dirname + '/../' + dest, 'build.css'), css);
+      });
   });
+}
 
-  /**
-  var builder = new Builder(__dirname + '/..');
-  builder.config.local = [bundle];
+function rewrite(_, url) {
+  var orig = 'url("' + url + '")';
+  if (isData(url)) return orig;
+  return 'url("' + config.static_url + url + '")';
+}
 
-  builder.copyAssetsTo(__dirname + '/../' + dest);
-  builder.copyFiles(true);
-
-  if (!production) {
-    builder.development(true);
-    builder.addSourceURLs(true);
-  }
-
-  builder.build(function(err, res) {
-    if (err) throw err;
-    mkdir.sync(__dirname + '/../' + dest);
-
-    if (res.js) {
-      var js = 'window.CONFIG=' + JSON.stringify(config, null, '  ') + ';' + res.require +
-        res.js + ';require("' + bundle + '");';
-      fs.writeFileSync(path.resolve(__dirname + '/../' + dest, 'build.js'), js);
-    }
-
-    if (res.css) {
-      var css = myth(res.css);
-      css = css.replace(/\burl *\(([^)]+)\)/g, rewrite);
-      if (production) css = sqwish.minify(css);
-      fs.writeFileSync(path.resolve(__dirname + '/../' + dest, 'build.css'), css);
-    }
-  });
-
-  function rewrite(_, url) {
-    var orig = 'url("' + url + '")';
-    if (isData(url)) return orig;
-    return 'url("' + config.static_url + url + '")';
-  }
-
-  function isData(url) {
-    return url.indexOf('data:') === 0;
-  }
-  **/
+function isData(url) {
+  return url.indexOf('data:') === 0;
 }

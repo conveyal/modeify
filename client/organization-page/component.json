@@ -10,7 +10,7 @@
     "visionmedia/batch": "*",
     "visionmedia/page.js": "*"
   },
-  "local": [
+  "locals": [
     "alerts",
     "commuter",
     "log",

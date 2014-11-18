@@ -5,7 +5,7 @@
     "trevorgerhardt/model-query": "*",
     "visionmedia/debug": "*"
   },
-  "local": [
+  "locals": [
     "config"
   ],
   "scripts": [
