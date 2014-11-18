@@ -58,7 +58,7 @@ function build(bundle) {
     mkdir.sync(__dirname + '/../' + dest);
 
     if (res.js) {
-      var js = 'window.CONFIG=' + JSON.stringify(config) + ';' + res.require +
+      var js = 'window.CONFIG=' + JSON.stringify(config, null, '  ') + ';' + res.require +
         res.js + ';require("' + bundle + '");';
       write(resolve(__dirname + '/../' + dest, 'build.js'), js);
     }
