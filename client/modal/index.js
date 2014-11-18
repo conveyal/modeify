@@ -106,7 +106,7 @@ module.exports = function(opts, fn) {
         modal.animating = false;
         modal.emit('hide');
         modal._overlay.el.remove();
-        if (fn) fn();
+        if (typeof fn === 'function') fn();
       });
 
       modal.el.classList.add('hidden');

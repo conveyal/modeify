@@ -1,6 +1,6 @@
 {
   "name": "view",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "license": "MIT",
   "description": "Create reactive views easily.",
   "keywords": [
@@ -28,5 +28,5 @@
     "lib/statics.js"
   ],
   "main": "lib/index.js",
-  "repository": "segmentio/view"
+  "repository": "trevorgerhardt/view"
 }

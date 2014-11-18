@@ -34,6 +34,8 @@ function createView (template, fn) {
    */
 
   function View (model, el, options) {
+    if (!(this instanceof View)) return new View(model, el, options);
+
     options = options || {};
     if ('object' == type(el)) options = el, el = null;
     if ('element' == type(model)) options = el, el = model, model = null;
