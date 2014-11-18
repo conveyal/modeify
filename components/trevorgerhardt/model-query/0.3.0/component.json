@@ -1,0 +1,19 @@
+{
+  "name": "model-query",
+  "description": "Simple `Model#all()` queries for component/model",
+  "version": "0.3.0",
+  "keywords": [
+    "model",
+    "query"
+  ],
+  "dependencies": {
+    "component/collection": "*",
+    "component/once": "*"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "repository": "trevorgerhardt/model-query"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "serialize",
+  "description": "Serialize a form for component(1)",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "component/value": "*"
+  },
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "repository": "trevorgerhardt/serialize"
+}

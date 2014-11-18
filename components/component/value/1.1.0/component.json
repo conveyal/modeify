@@ -1,0 +1,27 @@
+{
+  "name": "value",
+  "description": "Set form input values",
+  "version": "1.1.0",
+  "keywords": [
+    "form",
+    "input",
+    "field",
+    "val",
+    "value"
+  ],
+  "dependencies": {
+    "component/type": "*"
+  },
+  "development": {
+    "dependencies": {
+      "component/dom": "*",
+      "component/assert": "*"
+    }
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "repository": "component/value"
+}

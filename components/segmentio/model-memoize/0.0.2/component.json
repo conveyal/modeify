@@ -1,0 +1,26 @@
+{
+  "name": "model-memoize",
+  "description": "Memoizes the model objects returned from the server to reduce outbound requests and speed up initial page loading.",
+  "keywords": [
+    "model",
+    "cache",
+    "memoize"
+  ],
+  "license": "MIT",
+  "version": "0.0.2",
+  "dependencies": {
+    "component/each": "*",
+    "component/type": "*",
+    "component/bind": "*"
+  },
+  "scripts": [
+    "index.js"
+  ],
+  "development": {
+    "dependencies": {
+      "component/assert": "*",
+      "component/model": "*"
+    }
+  },
+  "repository": "segmentio/model-memoize"
+}

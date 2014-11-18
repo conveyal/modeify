@@ -1,0 +1,32 @@
+{
+  "name": "view",
+  "version": "0.4.0",
+  "license": "MIT",
+  "description": "Create reactive views easily.",
+  "keywords": [
+    "view",
+    "model",
+    "el",
+    "reactive",
+    "factory"
+  ],
+  "dependencies": {
+    "component/domify": "*",
+    "component/emitter": "*",
+    "ianstormtaylor/reactive": "*",
+    "component/type": "*",
+    "ianstormtaylor/classes": "*"
+  },
+  "development": {
+    "dependencies": {
+      "component/assert": "*"
+    }
+  },
+  "scripts": [
+    "lib/index.js",
+    "lib/protos.js",
+    "lib/statics.js"
+  ],
+  "main": "lib/index.js",
+  "repository": "segmentio/view"
+}

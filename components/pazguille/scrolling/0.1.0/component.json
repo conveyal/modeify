@@ -1,0 +1,24 @@
+{
+  "name": "scrolling",
+  "description": "Decouple the scroll event from the callback functions.",
+  "version": "0.1.0",
+  "author": "Guille Paz <guille87paz@gmail.com>",
+  "twitter": "@pazguille",
+  "keywords": [
+    "scroll",
+    "scrolling",
+    "event"
+  ],
+  "dependencies": {},
+  "development": {
+    "dependencies": {
+      "bestander/jasmine": "*"
+    }
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "repository": "pazguille/scrolling"
+}
