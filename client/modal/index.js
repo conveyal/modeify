@@ -52,7 +52,7 @@ module.exports = function(opts, fn) {
     modal.emit('showing');
 
     // Custom ".show" function adopted from segmentio/showable
-    raf(function(){
+    raf(function() {
       if (active) active.hide();
       active = view;
 
