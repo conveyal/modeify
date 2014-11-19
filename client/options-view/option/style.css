@@ -173,11 +173,9 @@
   border: none;
   background-color: transparent;
   border-bottom: 2px dotted var(--lightgreen);
-  width: auto;
   text-align: center;
   cursor: pointer;
   font-weight: var(--bold);
-  display: inline-block;
   height: 22px;
 }
 

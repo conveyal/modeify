@@ -6,6 +6,7 @@ var RouteComparisonTable = require('route-comparison-table');
 var RouteSummaryView = require('route-summary-view');
 var session = require('session');
 var toSentenceCase = require('to-sentence-case');
+var ua = require('user-agent');
 var view = require('view');
 
 /**
@@ -293,8 +294,10 @@ View.prototype.inputChange = function(e) {
  */
 
 function setInputSize(i) {
-  var length = i.value.length;
-  i.setAttribute('size', length > 2 ? length - 2 : 1);
+  var size = i.value.length || 1;
+  if (ua.os.name !== 'iOS')
+    size = size > 2 ? size - 2 : 1;
+  i.setAttribute('size', size);
 }
 
 /**

@@ -1,8 +1,8 @@
 {
   "name": "options-view",
   "dependencies": {
-    "component/each": "0.2.3",
-    "ianstormtaylor/to-capital-case": "0.1.1",
+    "component/each": "*",
+    "ianstormtaylor/to-capital-case": "*",
     "ianstormtaylor/to-sentence-case": "*",
     "ianstormtaylor/reactive": "*",
     "mbostock/d3": "v3.4.11",
@@ -16,6 +16,7 @@
     "route-comparison-table",
     "route-summary-view",
     "session",
+    "user-agent",
     "view"
   ],
   "scripts": [
