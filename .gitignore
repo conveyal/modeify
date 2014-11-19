@@ -14,6 +14,7 @@ lib-cov
 *.gypi
 *.mk
 *.obj
+*.ai
 
 .DS_Store
 .env
