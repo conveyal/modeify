@@ -2,6 +2,7 @@
 .WelcomeLocations .Locations {
   padding: 0;
   background-color: #fff;
+  margin: 15px 0;
 }
 
 .WelcomeLocations .Locations input {
@@ -20,19 +21,6 @@
 
 .WelcomeLocations .Locations .clear {
   top: 16px;
-}
-
-.WelcomeLocations p {
-  margin: 15px 0;
-  color: var(--darkest);
-}
-
-.WelcomeLocations h3 {
-  color: var(--darkest);
-}
-
-.WelcomeLocations .question {
-  margin-bottom: 15px;
 }
 
 .WelcomeLocations button {

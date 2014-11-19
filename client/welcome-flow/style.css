@@ -27,9 +27,14 @@
 }
 
 .WelcomeFlow h3 {
-  margin-top: 0;
+  margin: 15px 0;
   text-align: center;
   line-height: 22px;
+}
+
+.WelcomeFlow p {
+  text-align: center;
+  margin: 15px 0;
 }
 
 .WelcomeFlow ul {
