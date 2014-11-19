@@ -1,0 +1,9 @@
+{
+  "name": "user-agent",
+  "dependencies": {
+    "faisalman/ua-parser-js": "*"
+  },
+  "scripts": [
+    "index.js"
+  ]
+}
