@@ -3,7 +3,6 @@
   "dependencies": {
     "component/each": "*",
     "component/querystring": "*",
-    "faisalman/ua-parser-js": "*",
     "pazguille/scrolling": "*",
     "visionmedia/batch": "*"
   },
@@ -19,6 +18,7 @@
     "scrollbar-size",
     "session",
     "text-modal",
+    "user-agent",
     "view",
     "welcome-flow"
   ],
