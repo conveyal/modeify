@@ -182,6 +182,8 @@ View.prototype.suggest = function(e) {
       log.error('%e', err);
     } else {
       if (suggestions && suggestions.length > 0) {
+        suggestions = suggestions.slice(0, 4);
+
         suggestionList.innerHTML = suggestionsTemplate.render({
           suggestions: suggestions
         });
