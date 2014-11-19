@@ -63,8 +63,12 @@ View.prototype.display = function(journey) {
 
   try {
     transitive.setElement(el);
-    transitive.updateData(journey);
-    transitive.render();
+
+    // Only render on non-mobile devices
+    if (!isMobile) {
+      transitive.updateData(journey);
+      transitive.render();
+    }
 
     transitive.on('place.from.dragend', function(place) {
       placeChanged('from', place);
