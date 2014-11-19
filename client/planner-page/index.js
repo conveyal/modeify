@@ -37,10 +37,11 @@ var View = view({
   view.moreOptions = view.find('.more-options');
 
   if (scrollbarSize > 0) {
-    view.scrollable.style.marginRight = -scrollbarSize + 'px';
+    if (ua.os.name === 'Windows' || ua.browser.name !== 'Chrome')
+      view.scrollable.style.marginRight = -scrollbarSize + 'px';
 
     // Scrollbars are fun and implemented the same on every OS/Browser...right
-    if (ua.browser.name !== 'IE' && ua.os.name !== 'Linux' && (ua.os.name !== 'Windows' || ua.browser.name !== 'Firefox'))
+    if (ua.os.name === 'Windows' && ua.browser.name === 'Chrome')
       view.scrollable.style.paddingRight = scrollbarSize + 'px';
   }
 
