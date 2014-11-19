@@ -61,7 +61,6 @@ module.exports = function(opts, fn) {
 
       if (scrollbarSize > 0) {
         div.style.marginRight = -scrollbarSize + 'px';
-        div.style.paddingRight = scrollbarSize + 'px';
       }
 
       // Wait until the modal is displayed before setting the height

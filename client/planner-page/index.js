@@ -13,6 +13,7 @@ var scrolling = require('scrolling');
 var session = require('session');
 var textModal = require('text-modal');
 var TransitiveView = require('transitive-view');
+var UAParser = require('ua-parser-js');
 var view = require('view');
 var showWelcomeWizard = require('welcome-flow');
 
@@ -22,6 +23,12 @@ var showWelcomeWizard = require('welcome-flow');
 
 var FROM = config.geocode().start_address;
 var TO = config.geocode().end_address;
+
+/**
+ * Parse the User Agent
+ */
+
+var ua = new UAParser().getResult();
 
 /**
  * Create `View`
@@ -37,7 +44,9 @@ var View = view({
 
   if (scrollbarSize > 0) {
     view.scrollable.style.marginRight = -scrollbarSize + 'px';
-    view.scrollable.style.paddingRight = scrollbarSize + 'px';
+
+    if (ua.browser.name !== 'IE' && ua.os.name !== 'Linux')
+      view.scrollable.style.paddingRight = scrollbarSize + 'px';
   }
 
   scrolling(view.scrollable, function(e) {
