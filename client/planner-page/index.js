@@ -45,7 +45,8 @@ var View = view({
   if (scrollbarSize > 0) {
     view.scrollable.style.marginRight = -scrollbarSize + 'px';
 
-    if (ua.browser.name !== 'IE' && ua.os.name !== 'Linux')
+    // Scrollbars are fun and implemented the same on every OS/Browser...right
+    if (ua.browser.name !== 'IE' && ua.os.name !== 'Linux' && (ua.os.name !== 'Windows' || ua.browser.name !== 'Firefox'))
       view.scrollable.style.paddingRight = scrollbarSize + 'px';
   }
 
