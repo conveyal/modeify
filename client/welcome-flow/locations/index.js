@@ -58,6 +58,11 @@ Locations.prototype.next = function(e) {
   });
 };
 
+Locations.prototype.skip = function(e) {
+  e.preventDefault();
+  this.emit('skip');
+};
+
 Locations.prototype.initialMode = function(e) {
   var commuter = this.model.commuter;
   var profile = commuter.profile();
