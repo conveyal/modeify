@@ -1,10 +1,19 @@
+var config = require('config');
 var introJs = require('intro.js').introJs;
 var log = require('log')('welcome-flow');
 var LocationsView = require('locations-view');
+var showPlannerWalkthrough = require('planner-walkthrough');
 
 var FindingOptions = require('./finding-options');
 var Locations = require('./locations');
 var Welcome = require('./welcome');
+
+/**
+ * Default from / to addresses
+ */
+
+var FROM = config.geocode().start_address;
+var TO = config.geocode().end_address;
 
 /**
  * Show Modal
@@ -32,14 +41,34 @@ module.exports = function(session) {
       var findingOptions = new FindingOptions(route);
 
       findingOptions.show();
+      main.classList.remove('Welcome');
 
       findingOptions.on('next', function() {
         commuter.updateProfile('welcome_wizard_complete', true);
         commuter.save();
 
-        main.classList.remove('Welcome');
         findingOptions.hide();
         highlightResults();
+      });
+    });
+
+    locations.on('skip', function() {
+      commuter.updateProfile('welcome_wizard_complete', true);
+      commuter.save();
+
+      main.classList.remove('Welcome');
+      locations.hide();
+      showPlannerWalkthrough();
+
+      plan.setAddresses(FROM, TO, function(err) {
+        if (err) {
+          log.error('%e', err);
+        } else {
+          plan.journey({
+            places: plan.generatePlaces()
+          });
+          plan.updateRoutes();
+        }
       });
     });
   });
