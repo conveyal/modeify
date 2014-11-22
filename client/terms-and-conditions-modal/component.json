@@ -1,0 +1,13 @@
+{
+  "name": "terms-and-conditions-modal",
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
+  ],
+  "templates": [
+    "content.md",
+    "template.html"
+  ]
+}

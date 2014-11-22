@@ -1,7 +1,8 @@
 {
   "name": "about-page",
   "locals": [
-    "modal"
+    "modal",
+    "terms-and-conditions-modal"
   ],
   "scripts": [
     "index.js"
