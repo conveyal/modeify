@@ -1,8 +1,8 @@
 var modal = require('modal');
 
 /**
-* Create `Modal`
-*/
+ * Create `Modal`
+ */
 
 var Modal = module.exports = modal({
   closable: true,
