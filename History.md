@@ -1,4 +1,13 @@
 
+## 1.0.0 — 2014-11-24
+
+* Fixed login links in profile
+* Re-added padding to modals
+* Add [expressjs/errorhandler](/expressjs/errorhandler) for use in development
+* Update plan emails to new copy
+* Don't throw errors in `on-tap`
+* Added Terms & Conditions
+
 ## 0.8.3 — 2014-11-21
 
 * Add ability to skip the welcome flow
