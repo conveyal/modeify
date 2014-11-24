@@ -1,4 +1,17 @@
 
+## 0.8.3 — 2014-11-21
+
+* Add ability to skip the welcome flow
+* Restrict suggestions to 4 so that it doesn't overflow modals
+* Fixed annoying scrollbar issues
+* Fixed bug causing iOS browsers to crash
+* Updated client to use `component@1.0.0`
+* Turned on `.js` minification in production
+* Added `es5`/`es6` shims
+* Added `/welcome` page that resets the browser every time
+* Improved intro flow
+* Added query parameters to assets for cache busting
+
 ## 0.8.2 — 2014-11-10
 
 * Separate out deploy scripts

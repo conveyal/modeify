@@ -8,8 +8,7 @@ module.exports = function(reactive) {
       e.stopPropagation();
 
       var fn = view[method];
-      if (!fn) throw new Error('method .' + method + '() missing');
-      view[method](e);
+      if (fn) view[method](e);
     });
   });
 };

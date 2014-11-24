@@ -6,7 +6,9 @@ var build = require('component-builder');
 var resolve = require('component-resolver');
 var component = require('../component.json');
 var fs = require('fs');
+var htmlMinifier = require('html-minifier').minify;
 var yml2js = require('js-yaml').load;
+var marked = require('marked');
 var mkdir = require('mkdirp');
 var myth = require('myth');
 var path = require('path');
@@ -30,6 +32,15 @@ delete config.environments;
 // Build all
 
 component.locals.forEach(bundle);
+
+// HTML Minifier Options
+
+var htmlMinifierOptions = {
+  collapseWhitespace: true,
+  collapseBooleanAttributes: true,
+  removeEmptyAttributes: true,
+  removeOptionalTags: true
+};
 
 // Build.
 
@@ -63,13 +74,15 @@ function bundle(app) {
 
     build
       .scripts(tree, {
-        alias: development,
+        alias: true,
         sourceMap: development,
         sourceUrl: development
       })
       .use('json', build.plugins.json())
       .use('scripts', build.plugins.js())
-      .use('templates', build.plugins.string())
+      .use('templates', templates({
+        development: development
+      }))
       .end(function(err, str) {
         if (err) throw err;
         var js = 'window.CONFIG=' + JSON.stringify(config, null, '  ') + ';\n' + build.scripts.require + '\n' +
@@ -99,4 +112,18 @@ function rewrite(_, url) {
 
 function isData(url) {
   return url.indexOf('data:') === 0;
+}
+
+function templates(options) {
+  return function(file, done) {
+    file.read(function (err, string) {
+      if (err) return done(err);
+      if (file.extension === 'md') string = marked(string);
+      if (!options.development) string = htmlMinifier(string, htmlMinifierOptions);
+
+      file.string = JSON.stringify(string);
+      file.define = true;
+      done();
+    });
+  };
 }

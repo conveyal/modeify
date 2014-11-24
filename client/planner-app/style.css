@@ -63,6 +63,9 @@ body {
   font-weight: var(--font-weight);
 
   color: var(--black);
+
+  background-color: var(--gold); /* for the tint */
+  background-image: linear-gradient(to bottom, var(--land-color) 0%, var(--land-color) 100%); /* for the body */
 }
 
 b, strong {

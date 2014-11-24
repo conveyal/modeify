@@ -1,0 +1,70 @@
+{
+  "name": "transitive",
+  "version": "0.6.2",
+  "description": "A tool for generating dynamic stylized transit maps that are easy to understand.",
+  "keywords": [
+    "d3",
+    "maps",
+    "GTFS"
+  ],
+  "dependencies": {
+    "component/each": "0.2.5",
+    "component/clone": "*",
+    "component/emitter": "1.1.3",
+    "mbostock/d3": "v3.4.11",
+    "javascript/augment": "v4.0.1",
+    "visionmedia/debug": "*",
+    "yields/svg-attributes": "*",
+    "janogonzalez/priorityqueuejs": "*"
+  },
+  "development": {
+    "dependencies": {
+      "component/set": "*",
+      "conveyal/otp-profiler": "*",
+      "yields/select": "*"
+    }
+  },
+  "main": "lib/transitive.js",
+  "scripts": [
+    "lib/graph/index.js",
+    "lib/graph/edge.js",
+    "lib/graph/edgegroup.js",
+    "lib/graph/vertex.js",
+    "lib/styler/index.js",
+    "lib/styler/styles.js",
+    "lib/point/index.js",
+    "lib/point/stop.js",
+    "lib/point/place.js",
+    "lib/point/multipoint.js",
+    "lib/point/turn.js",
+    "lib/point/pointcluster.js",
+    "lib/point/pointclustermap.js",
+    "lib/labeler/index.js",
+    "lib/labeler/label.js",
+    "lib/labeler/pointlabel.js",
+    "lib/labeler/segmentlabel.js",
+    "lib/labeler/labeledgegroup.js",
+    "lib/d3.geo.tile.js",
+    "lib/display.js",
+    "lib/draw-grid.js",
+    "lib/interpolate-line.js",
+    "lib/path.js",
+    "lib/pathsegment.js",
+    "lib/pattern.js",
+    "lib/patterngroup.js",
+    "lib/route.js",
+    "lib/journey.js",
+    "lib/transitive.js",
+    "lib/renderededge.js",
+    "lib/renderedsegment.js",
+    "lib/legend.js",
+    "lib/spherical-mercator.js",
+    "lib/polyline.js",
+    "lib/tile-layer.js",
+    "lib/util.js"
+  ],
+  "styles": [
+    "style.css"
+  ],
+  "repository": "conveyal/transitive.js"
+}
