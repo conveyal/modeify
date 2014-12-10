@@ -16,7 +16,7 @@ beautify:
 		--quiet
 
 components: node_modules component.json $(JSON)
-	@./node_modules/.bin/component install --dev --verbose
+	@./node_modules/.bin/component install --dev
 
 # Lint JavaScript with JSHint
 lint:
