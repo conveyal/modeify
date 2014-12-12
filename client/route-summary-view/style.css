@@ -71,11 +71,12 @@
  */
 
 .RouteSummary > .benefits-badge {
+  padding-left: 5px;
   float: right;
   color: #fff;
   margin-top: 8px;
   width: 95px;
-  font-size: 14px;
+  font-size: 11px;
   line-height: 1;
   text-align: right;
   margin-right: -2px;
@@ -86,9 +87,14 @@
 }
 
 .RouteSummary > .benefits-badge.savings {
-  background-color: var(--green);
+  background-image: url(/images/comparison_graphics/ribbon.png);
+  background-repeat: no-repeat;
 }
 
 .RouteSummary >.benefits-badge.time-savings {
-  background-color: var(--gold);
+    background-image: url(/images/comparison_graphics/time-ribbon.png);
+    background-repeat: no-repeat;
+
+
+
 }
