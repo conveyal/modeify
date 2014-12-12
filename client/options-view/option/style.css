@@ -27,6 +27,39 @@
   font-weight: var(--bold);
 }
 
+.Options .improve {
+  display: inline; 
+  width: 150px;
+  background-color: var(--gray);
+  color: #fff;
+  font-size: 10px;
+  margin: 3px;
+  padding: 3px;
+  border-radius: var(--border-radius);
+}
+
+.Options .show-details {
+  display: inline;
+  width: 80px;
+  background-color: var(--dark-blue);
+  color: #fff;
+  font-size: 10px;
+  margin: 3px;
+  padding: 3px;
+  border-radius: var(--border-radius);
+}
+
+.Options .hide-details {
+ display: inline;
+  width: 80px;
+  background-color: var(--dark-blue);
+  color: #fff;
+  font-size: 10px;
+  margin: 3px;
+  padding: 3px;
+  border-radius: var(--border-radius);
+}
+
 .Options .option .show-hide {
   text-align: center;
   margin-bottom: 8px;

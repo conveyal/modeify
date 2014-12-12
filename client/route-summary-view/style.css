@@ -73,15 +73,14 @@
 .RouteSummary > .benefits-badge {
   padding-left: 5px;
   float: right;
-  color: #fff;
-  margin-top: 8px;
+  color: #4b6a20;
   width: 95px;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1;
   text-align: right;
   margin-right: -2px;
   cursor: pointer;
-  padding: 8px 11px 8px 5px;
+  padding: 11px 11px 8px 15px;
   border-top-left-radius: var(--border-radius);
   border-bottom-left-radius: var(--border-radius);
 }
@@ -94,7 +93,18 @@
 .RouteSummary >.benefits-badge.time-savings {
     background-image: url(/images/comparison_graphics/time-ribbon.png);
     background-repeat: no-repeat;
+}
 
-
-
+.RouteSummary .select-button {
+  background-color: var(--gold);
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  padding: 5px;
+  width: 70px;
+  margin-right: 5px;
+  margin-top: 10px;
+  font-size: 14px;
+  float: right;
+  border-radius: var(--border-radius);
 }
