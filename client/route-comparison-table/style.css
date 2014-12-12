@@ -8,8 +8,28 @@
 }
 
 .RouteComparisonTable > div {
-  padding: 4px 16px;
+  padding: 4px;
 }
+
+.RouteComparisonTable .compare-item {
+	background-color: var(--medium-blue);
+	border-radius: var(--border-radius);
+	margin-top: 3px;
+	width: 100%;
+}
+
+.RouteComparisonTable .money-icon {
+		background-color: var(--lightest-blue);
+		background-image: url(/images/comparison_graphics/money.png);
+		background-repeat: no-repeat;
+		padding: 3px;
+		border-radius: var(--border-radius);
+		width: 55px;
+		height: 30px;
+		display: inline-block;
+		margin: 2px;
+		vertical-align: middle;
+	}
 
 .RouteComparisonTable .fa-dollar {
   color: var(--green);
@@ -21,6 +41,8 @@
 
 .RouteComparisonTable .fa-heart {
   color: var(--red);
+  background-color: var(--lightest-blue);
+
 }
 
 .RouteComparisonTable .fa-globe {
