@@ -3,8 +3,8 @@ var d3 = require('d3');
 var Feedback = require('feedback-modal');
 var hogan = require('hogan.js');
 var RouteComparisonTable = require('route-comparison-table');
-var RouteSummaryView = require('route-summary-view');
 var RouteModal = require('route-modal');
+var routeSummarySegments = require('route-summary-segments');
 var session = require('session');
 var toSentenceCase = require('to-sentence-case');
 var ua = require('user-agent');
@@ -43,6 +43,23 @@ var View = module.exports = view(require('./template.html'), function(view,
 
   [].slice.call(view.findAll('input')).forEach(setInputSize);
 });
+
+/**
+ * Route summary
+ */
+
+View.prototype.segments = function() {
+  return routeSummarySegments(this.model);
+};
+
+View.prototype.costSavings = function() {
+  return convert.roundNumberToString(this.model.costSavings());
+};
+
+View.prototype.timeSavingsAndNoCostSavings = function() {
+  return this.model.timeSavings() && !this.model.costSavings();
+};
+
 
 /**
  * Details, details
@@ -325,14 +342,6 @@ View.prototype.optionNumber = function() {
 View.prototype.feedback = function(e) {
   e.preventDefault();
   Feedback(this.model).show();
-};
-
-/**
- * Route summary view
- */
-
-View.prototype.routeSummary = function() {
-  return new RouteSummaryView(this.model);
 };
 
 /**

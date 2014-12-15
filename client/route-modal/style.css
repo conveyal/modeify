@@ -1,37 +1,29 @@
 
-.RouteModal .RouteSummary {
+.RouteModal .segments {
   margin: 15px 0;
-}
-
-.RouteModal .RouteSummary > .segments {
   padding: 0;
   display: block;
   text-align: center;
 }
 
-.RouteModal .RouteSummary > .segments > .segment {
+.RouteModal .segments > .RouteSegment {
   display: inline;
 }
 
-.RouteModal .RouteSummary > .segments > .segment > .shield {
+.RouteModal .segments > .RouteSegment > .shield {
   margin: 6px 6px -4px 0;
   height: 22px;
 }
 
-.RouteModal .RouteSummary > .segments > .segment .fa-caret-down {
+.RouteModal .segments > .RouteSegment .fa-caret-down {
   display: none;
 }
 
-.RouteModal .RouteSummary > .segments > .segment .fa-caret-right {
+.RouteModal .segments > .RouteSegment .fa-caret-right {
   display: inline-block;
 }
 
-.RouteModal .RouteSummary > .segments > .segment:last-of-type .fa-caret-right {
-  display: none;
-}
-
-.RouteModal .RouteSummary > .benefits-badge,
-.RouteModal .RouteSummary > .minutes-column {
+.RouteModal .segments > .RouteSegment:last-of-type .fa-caret-right {
   display: none;
 }
 

@@ -3,8 +3,9 @@
   <div class="content">
   	<a class="close pull-right" href="#" on-tap="hide"><i class="fa fa-times"></i></a></h3>
     <h3>{routeIntroText} <span data-text="modeDescriptor"></span></h3>
-    <div reactive="routeSummaryView"></div>
+    <div class="segments" data-html="routeSummarySegments"></div>
     <div reactive="routeComparisonTable"></div>
+    <div reactive="routeResourcesView"></div>
     <button on-tap="next" class="btn btn-block">{nextButtonText}</button>
   </div>
 </div>

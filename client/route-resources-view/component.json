@@ -1,21 +1,21 @@
 {
-  "name": "route-summary-view",
+  "name": "route-resources-view",
   "dependencies": {
+    "component/each": "*",
     "twitter/hogan.js": "*"
   },
   "locals": [
-    "convert",
-    "transitive-view",
     "view"
   ],
   "scripts": [
-    "index.js"
+    "index.js",
+    "resources.js"
   ],
   "styles": [
     "style.css"
   ],
   "templates": [
-    "segment.html",
+    "resource.html",
     "template.html"
   ]
 }

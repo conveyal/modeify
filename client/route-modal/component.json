@@ -2,7 +2,10 @@
   "name": "route-modal",
   "local": [
     "log",
-    "modal"
+    "modal",
+    "route-comparison-table",
+    "route-summary-segments",
+    "route-resources-view"
   ],
   "scripts": [
     "index.js"
