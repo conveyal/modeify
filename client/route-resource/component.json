@@ -1,0 +1,9 @@
+{
+  "name": "route-resource",
+  "dependencies": {
+    "component/model": "*"
+  },
+  "scripts": [
+    "index.js"
+  ]
+}

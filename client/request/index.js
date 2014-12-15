@@ -67,8 +67,7 @@ function response(name, callback) {
       debug('<-- %s > %s', name, err || res.error || res.status);
       callback(err || res.error, res);
     } else {
-      debug('<-- %s called more than once > %s', name, err || res.error ||
-        res.status);
+      debug('<-- %s called more than once > %s', name, err || res.error || res.status);
     }
   };
 }
