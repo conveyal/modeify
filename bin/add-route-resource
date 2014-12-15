@@ -1,0 +1,85 @@
+#!/usr/bin/env node
+
+var prompt = require('prompt');
+var RouteResource = require('../lib/route-resource/model');
+
+prompt.start();
+
+createThenPrompt();
+
+function createThenPrompt() {
+  createRouteResource(function(err) {
+    if (err) {
+      throw err;
+    } else {
+      prompt.get({
+        name: 'yesno',
+        message: 'Create another resource?',
+        default: 'yes'
+      }, function(err, result) {
+        if (err) throw err;
+        var yesno = result.yesno.toLowerCase().trim();
+        if (yesno === 'yes' || yesno === 'y') {
+          createThenPrompt();
+        } else {
+          process.exit();
+        }
+      });
+    }
+  });
+}
+
+function createRouteResource(done) {
+  prompt.get([{
+    name: 'title',
+    required: true
+  }, {
+    name: 'description',
+    required: true
+  }], function(err, results) {
+    if (err) {
+      done(err);
+    } else {
+      getTags([], function(err, tags) {
+        if (err) {
+          done(err);
+        } else {
+          RouteResource.create({
+            title: results.title,
+            description: results.description,
+            tags: tags
+          }, done);
+        }
+      });
+    }
+  });
+}
+
+function getTags(tags, done) {
+  prompt.get({
+    name: 'tags',
+    message: 'Enter one tag set at a time. Each tag must be separated by a comma. An empty tag set completes this resource.'
+  }, function(err, results) {
+    if (err)  {
+      done(err);
+    } else if (results.tags.length === 0) {
+      if (tags.length === 0) {
+        console.log('Must enter at least one tag set.');
+        getTags([], done);
+      } else {
+        done(null, tags);
+      }
+    } else {
+      tags.push(results.tags.split(',').map(toLowerCase).map(trim));
+      getTags(tags, done);
+    }
+  });
+}
+
+function toLowerCase(s) {
+  return s.toLowerCase();
+}
+
+function trim(s) {
+  return s.trim();
+}

@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+
+var commander = require('commander');
+var Table = require('cli-table');
+
+var RouteResource = require('../lib/route-resource/model');
+
+RouteResource
+  .find()
+  .exec(function(err, resources) {
+    if (err) throw err;
+    var table = new Table();
+    var mapped = resources.map(function(r) {
+      return [ r._id, r.title, r.description, r.tags.map(function(t) {
+        return '[' + t.join(', ') + ']';
+      }).join(', ') ];
+    });
+    table.push.apply(table, mapped);
+    console.log(table.toString());
+    process.exit();
+  });
