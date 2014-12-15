@@ -15,6 +15,7 @@
     "feedback-modal",
     "route-comparison-table",
     "route-summary-view",
+    "route-modal",
     "session",
     "user-agent",
     "view"

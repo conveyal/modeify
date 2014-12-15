@@ -4,6 +4,7 @@ var Feedback = require('feedback-modal');
 var hogan = require('hogan.js');
 var RouteComparisonTable = require('route-comparison-table');
 var RouteSummaryView = require('route-summary-view');
+var RouteModal = require('route-modal');
 var session = require('session');
 var toSentenceCase = require('to-sentence-case');
 var ua = require('user-agent');
@@ -340,4 +341,19 @@ View.prototype.routeSummary = function() {
 
 View.prototype.routeComparisonTable = function() {
   return new RouteComparisonTable(this.model);
+};
+
+
+/**
+ * Comparison Table
+ */
+
+View.prototype.selectOption = function() {
+  console.log('selected');
+  var routeModal = new RouteModal(this.model);
+  routeModal.show();
+  routeModal.on('next', function() {
+    routeModal.hide();
+  });
+  // TODO: record select action in user profile
 };

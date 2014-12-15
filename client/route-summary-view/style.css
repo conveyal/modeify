@@ -94,17 +94,3 @@
     background-image: url(/images/comparison_graphics/time-ribbon.png);
     background-repeat: no-repeat;
 }
-
-.RouteSummary .select-button {
-  background-color: var(--gold);
-  color: #fff;
-  font-weight: bold;
-  text-align: center;
-  padding: 5px;
-  width: 70px;
-  margin-right: 5px;
-  margin-top: 10px;
-  font-size: 14px;
-  float: right;
-  border-radius: var(--border-radius);
-}

@@ -27,8 +27,21 @@
   font-weight: var(--bold);
 }
 
+.Options .select-button {
+  background-color: var(--gold);
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  padding: 5px;
+  width: 70px;
+  margin: 0px 5px;
+  font-size: 14px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+}
+
 .Options .improve {
-  display: inline; 
+  display: inline;
   width: 150px;
   background-color: var(--gray);
   color: #fff;
