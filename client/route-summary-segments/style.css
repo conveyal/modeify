@@ -1,3 +1,7 @@
+.RouteSegment {
+  background-color: var(--light-gray);
+  padding: 2px;
+}
 
 .RouteSegment > .mode {
   font-size: 25px;

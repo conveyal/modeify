@@ -87,7 +87,7 @@
   color: #fff;
   background-color: var(--black);
   border-radius: var(--border-radius);
-  padding: 5px;
+  padding: 3px;
   display: inline-block;
 }
 
@@ -96,9 +96,12 @@
   color: #fff;
   background-color: var(--black);
   border-radius: var(--border-radius);
-  padding: 5px;
+  padding: 3px;
   display: inline-block;
+}
 
+.Options .show-hide {
+  display: inline-block;
 }
 
 .Options .option.expanded .simple .show-details,
