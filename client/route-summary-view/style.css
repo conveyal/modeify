@@ -66,31 +66,3 @@
   font-size: var(--h3);
 }
 
-/**
- * Benefits Badge
- */
-
-.RouteSummary > .benefits-badge {
-  padding-left: 5px;
-  float: right;
-  color: #4b6a20;
-  width: 95px;
-  font-size: 13px;
-  line-height: 1;
-  text-align: right;
-  margin-right: -2px;
-  cursor: pointer;
-  padding: 11px 11px 8px 15px;
-  border-top-left-radius: var(--border-radius);
-  border-bottom-left-radius: var(--border-radius);
-}
-
-.RouteSummary > .benefits-badge.savings {
-  background-image: url(/images/comparison_graphics/ribbon.png);
-  background-repeat: no-repeat;
-}
-
-.RouteSummary >.benefits-badge.time-savings {
-    background-image: url(/images/comparison_graphics/time-ribbon.png);
-    background-repeat: no-repeat;
-}

@@ -28,6 +28,8 @@
 }
 
 .Options .select-button {
+  float: right;
+  clear: both;
   background-color: var(--gold);
   color: #fff;
   font-weight: bold;
@@ -39,6 +41,35 @@
   border-radius: var(--border-radius);
   cursor: pointer;
 }
+
+/**
+ * Benefits Badge
+ */
+
+.Options .benefits-badge {
+  padding-left: 5px;
+  float: right;
+  clear: both;
+  color: #4b6a20;
+  width: 95px;
+  font-size: 13px;
+  line-height: 1;
+  text-align: right;
+  margin-right: -2px;
+  cursor: pointer;
+  padding: 11px 11px 8px 15px;
+}
+
+.Options .benefits-badge.savings {
+  background-image: url(/images/comparison_graphics/ribbon.png);
+  background-repeat: no-repeat;
+}
+
+.Options .benefits-badge.time-savings {
+    background-image: url(/images/comparison_graphics/time-ribbon.png);
+    background-repeat: no-repeat;
+}
+
 
 .Options .improve {
   display: inline;
