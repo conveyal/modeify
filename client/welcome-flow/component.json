@@ -12,22 +12,20 @@
     "modal",
     "planner-walkthrough",
     "route-comparison-table",
-    "route-summary-view"
+    "route-summary-view",
+    "route-modal"
   ],
   "scripts": [
     "index.js",
-    "finding-options/index.js",
     "locations/index.js",
     "welcome/index.js"
   ],
   "styles": [
     "style.css",
-    "finding-options/style.css",
     "locations/style.css",
     "welcome/style.css"
   ],
   "templates": [
-    "finding-options/template.html",
     "locations/template.html",
     "welcome/template.html"
   ]

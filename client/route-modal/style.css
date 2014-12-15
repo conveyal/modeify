@@ -1,0 +1,40 @@
+
+.RouteModal .RouteSummary {
+  margin: 15px 0;
+}
+
+.RouteModal .RouteSummary > .segments {
+  padding: 0;
+  display: block;
+  text-align: center;
+}
+
+.RouteModal .RouteSummary > .segments > .segment {
+  display: inline;
+}
+
+.RouteModal .RouteSummary > .segments > .segment > .shield {
+  margin: 6px 6px -4px 0;
+  height: 22px;
+}
+
+.RouteModal .RouteSummary > .segments > .segment .fa-caret-down {
+  display: none;
+}
+
+.RouteModal .RouteSummary > .segments > .segment .fa-caret-right {
+  display: inline-block;
+}
+
+.RouteModal .RouteSummary > .segments > .segment:last-of-type .fa-caret-right {
+  display: none;
+}
+
+.RouteModal .RouteSummary > .benefits-badge,
+.RouteModal .RouteSummary > .minutes-column {
+  display: none;
+}
+
+.RouteModal .RouteComparisonTable > div {
+  padding: 8px 0;
+}

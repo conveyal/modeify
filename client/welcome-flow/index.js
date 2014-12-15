@@ -3,8 +3,8 @@ var introJs = require('intro.js').introJs;
 var log = require('log')('welcome-flow');
 var LocationsView = require('locations-view');
 var showPlannerWalkthrough = require('planner-walkthrough');
+var RouteModal = require('route-modal');
 
-var FindingOptions = require('./finding-options');
 var Locations = require('./locations');
 var Welcome = require('./welcome');
 
@@ -38,16 +38,16 @@ module.exports = function(session) {
 
     locations.on('next', function() {
       var route = plan.options()[0];
-      var findingOptions = new FindingOptions(route);
+      var routeModal = new RouteModal(route);
 
-      findingOptions.show();
+      routeModal.show();
       main.classList.remove('Welcome');
 
-      findingOptions.on('next', function() {
+      routeModal.on('next', function() {
         commuter.updateProfile('welcome_wizard_complete', true);
         commuter.save();
 
-        findingOptions.hide();
+        routeModal.hide();
         highlightResults();
       });
     });
