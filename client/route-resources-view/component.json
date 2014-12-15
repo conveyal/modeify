@@ -1,0 +1,21 @@
+{
+  "name": "route-resources-view",
+  "dependencies": {
+    "component/each": "*",
+    "twitter/hogan.js": "*"
+  },
+  "locals": [
+    "view"
+  ],
+  "scripts": [
+    "index.js",
+    "resources.js"
+  ],
+  "styles": [
+    "style.css"
+  ],
+  "templates": [
+    "resource.html",
+    "template.html"
+  ]
+}

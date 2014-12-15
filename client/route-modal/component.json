@@ -2,7 +2,8 @@
   "name": "route-modal",
   "local": [
     "log",
-    "modal"
+    "modal",
+    "route-resources-view"
   ],
   "scripts": [
     "index.js"

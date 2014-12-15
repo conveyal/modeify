@@ -2,6 +2,7 @@ var log = require('log')('welcome-flow:finding-options');
 var modal = require('modal');
 var RouteComparisonTable = require('route-comparison-table');
 var RouteSummaryView = require('route-summary-view');
+var RouteResourcesView = require('route-resources-view');
 
 /**
  * Create `Modal`
@@ -23,6 +24,10 @@ RouteModal.prototype.routeComparisonTable = function() {
 
 RouteModal.prototype.routeSummaryView = function() {
   return new RouteSummaryView(this.model);
+};
+
+RouteModal.prototype.routeResourcesView = function() {
+  return new RouteResourcesView(this.model);
 };
 
 RouteModal.prototype.routeIntroText = function() {
