@@ -38,7 +38,8 @@ module.exports = function(session) {
 
     locations.on('next', function() {
       var route = plan.options()[0];
-      var routeModal = new RouteModal(route);
+      var routeModal = new RouteModal(route, null, { context : 'welcome-flow'});
+      routeModal.context = 'welcome-flow';
 
       routeModal.show();
       main.classList.remove('Welcome');

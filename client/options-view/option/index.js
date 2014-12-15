@@ -349,8 +349,8 @@ View.prototype.routeComparisonTable = function() {
  */
 
 View.prototype.selectOption = function() {
-  console.log('selected');
-  var routeModal = new RouteModal(this.model);
+  var routeModal = new RouteModal(this.model, null, { context : 'option'});
+  //routeModal.context = 'option';
   routeModal.show();
   routeModal.on('next', function() {
     routeModal.hide();
