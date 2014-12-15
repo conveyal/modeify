@@ -14,8 +14,8 @@
     "convert",
     "feedback-modal",
     "route-comparison-table",
-    "route-summary-view",
     "route-modal",
+    "route-summary-segments",
     "session",
     "user-agent",
     "view"

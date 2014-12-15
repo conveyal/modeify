@@ -3,6 +3,8 @@
   "local": [
     "log",
     "modal",
+    "route-comparison-table",
+    "route-summary-segments",
     "route-resources-view"
   ],
   "scripts": [

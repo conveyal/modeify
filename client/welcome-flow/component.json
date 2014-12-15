@@ -11,8 +11,6 @@
     "log",
     "modal",
     "planner-walkthrough",
-    "route-comparison-table",
-    "route-summary-view",
     "route-modal"
   ],
   "scripts": [

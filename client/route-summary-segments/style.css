@@ -1,0 +1,41 @@
+
+.RouteSegment > .mode {
+  font-size: 25px;
+  color: var(--black);
+  display: inline-block;
+  vertical-align: top;
+}
+
+.RouteSegment > .fa-caret-right {
+  display: none;
+}
+
+.RouteSegment .fa-caret-down {
+  font-size: 12px;
+  display: block;
+  text-align: center;
+  margin-top: -8px;
+  margin-bottom: -4px;
+}
+
+.RouteSegment:last-of-type .fa-caret-down {
+  display:none;
+}
+
+.shield {
+  display: inline-block;
+  white-space: nowrap;
+  color: #fff;
+  text-align: center;
+  height: 20px;
+  border-radius: var(--border-radius);
+  font-weight: var(--bold);
+}
+
+.RouteSegment > .shield {
+  margin-left: 6px;
+  margin-top: 6px;
+  width: 32px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,22 +1,19 @@
 var convert = require('convert');
 var hogan = require('hogan.js');
 var transitive = require('transitive-view').transitive;
-var view = require('view');
 
-var segmentTemplate = hogan.compile(require('./segment.html'));
+var template = hogan.compile(require('./template.html'));
 
-var View = module.exports = view(require('./template.html'));
-
-View.prototype.segments = function() {
-  var accessMode = this.model.access()[0].mode.toLowerCase();
+module.exports = function(route) {
+  var accessMode = route.access()[0].mode.toLowerCase();
   var segments = '';
-  var transitSegments = this.model.transit();
+  var transitSegments = route.transit();
 
   if (transitSegments.length < 1 && accessMode === 'car') accessMode = 'carshare';
 
-  segments += segmentTemplate.render({
+  segments += template.render({
     mode: convert.modeToIcon(accessMode),
-    style: getModeStyles(this.model.access()[0].mode),
+    style: getModeStyles(route.access()[0].mode),
     svg: true
   });
 
@@ -30,14 +27,13 @@ View.prototype.segments = function() {
       background = 'linear-gradient(to right';
       for (var i = 0; i < patterns.length; i++) {
         var color = patterns[i].color;
-        background += ',' + color + ' ' + percent + '%, ' + color + ' ' + (
-          percent + increment) + '%';
+        background += ',' + color + ' ' + percent + '%, ' + color + ' ' + (percent + increment) + '%';
         percent += increment;
       }
       background += ')';
     }
 
-    segments += segmentTemplate.render({
+    segments += template.render({
       background: background,
       mode: convert.modeToIcon(segment.mode),
       name: patterns[0].shield
@@ -45,14 +41,6 @@ View.prototype.segments = function() {
   });
 
   return segments;
-};
-
-View.prototype.costSavings = function() {
-  return convert.roundNumberToString(this.model.costSavings());
-};
-
-View.prototype.timeSavingsAndNoCostSavings = function() {
-  return this.model.timeSavings() && !this.model.costSavings();
 };
 
 /**
