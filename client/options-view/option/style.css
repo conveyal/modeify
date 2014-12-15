@@ -36,7 +36,7 @@
   text-align: center;
   padding: 5px;
   width: 70px;
-  margin: 0px 5px;
+  margin: 5px 5px;
   font-size: 14px;
   border-radius: var(--border-radius);
   cursor: pointer;
@@ -70,54 +70,40 @@
     background-repeat: no-repeat;
 }
 
+.Options .details-buttons {
+  margin: 10px 5px 10px 93px;
+}
 
 .Options .improve {
-  display: inline;
-  width: 150px;
-  background-color: var(--gray);
+  font-size: 12px;
   color: #fff;
-  font-size: 10px;
-  margin: 3px;
-  padding: 3px;
+  background-color: var(--gray);
   border-radius: var(--border-radius);
+  padding: 5px;
 }
 
 .Options .show-details {
-  display: inline;
-  width: 80px;
-  background-color: var(--dark-blue);
+  font-size: 12px;
   color: #fff;
-  font-size: 10px;
-  margin: 3px;
-  padding: 3px;
+  background-color: var(--black);
   border-radius: var(--border-radius);
+  padding: 5px;
+  display: inline-block;
 }
 
 .Options .hide-details {
- display: inline;
-  width: 80px;
-  background-color: var(--dark-blue);
+  font-size: 12px;
   color: #fff;
-  font-size: 10px;
-  margin: 3px;
-  padding: 3px;
+  background-color: var(--black);
   border-radius: var(--border-radius);
-}
+  padding: 5px;
+  display: inline-block;
 
-.Options .option .show-hide {
-  text-align: center;
-  margin-bottom: 8px;
-  margin-top: 12px;
-  display: block;
 }
 
 .Options .option.expanded .simple .show-details,
 .Options .option .simple .hide-details {
   display: none;
-}
-
-.Options .option.expanded .simple .hide-details {
-  display: block;
 }
 
 /**
@@ -149,34 +135,6 @@
   font-size: var(--h3);
 }
 
- /**
-  * Benefits Badge
-  */
-
- .RouteSummary > .benefits-badge {
-   padding-left: 5px;
-   float: right;
-   color: #4b6a20;
-   width: 95px;
-   font-size: 13px;
-   line-height: 1;
-   text-align: right;
-   margin-right: -2px;
-   cursor: pointer;
-   padding: 11px 11px 8px 15px;
-   border-top-left-radius: var(--border-radius);
-   border-bottom-left-radius: var(--border-radius);
- }
-
- .RouteSummary > .benefits-badge.savings {
-   background-image: url(/images/comparison_graphics/ribbon.png);
-   background-repeat: no-repeat;
- }
-
- .RouteSummary >.benefits-badge.time-savings {
-   background-image: url(/images/comparison_graphics/time-ribbon.png);
-   background-repeat: no-repeat;
- }
 
 /**
  * Expanded
