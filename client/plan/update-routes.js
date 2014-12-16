@@ -65,7 +65,7 @@ function updateRoutes(plan, opts, callback) {
     } else {
       // Track the commute
       analytics.track('commute', {
-        plan: plan.toJSON(),
+        plan: plan.generateQuery(),
         results: data.options.length
       });
 
