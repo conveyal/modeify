@@ -1,6 +1,7 @@
 .RouteSegment {
   background-color: var(--light-gray);
   padding: 2px;
+  margin: 0;
 }
 
 .RouteSegment > .mode {

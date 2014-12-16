@@ -71,7 +71,7 @@
 }
 
 .Options .details-buttons {
-  margin: 10px 5px 10px 93px;
+  margin: 10px 5px 10px 97px;
 }
 
 .Options .improve {
@@ -87,7 +87,7 @@
   color: #fff;
   background-color: var(--black);
   border-radius: var(--border-radius);
-  padding: 3px;
+  padding: 3px 5px;
   display: inline-block;
 }
 
