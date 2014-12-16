@@ -421,3 +421,12 @@ function toFixed(n, f) {
   var m = Math.pow(10, f);
   return ((n * m) | 0) / m;
 }
+
+
+/**
+ * Tags
+ */
+
+Route.prototype.tags = function() {
+  return this.get("modes");
+};
