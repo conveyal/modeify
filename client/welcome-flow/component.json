@@ -11,7 +11,8 @@
     "log",
     "modal",
     "planner-walkthrough",
-    "route-modal"
+    "route-modal",
+    "route-resource"
   ],
   "scripts": [
     "index.js",

@@ -27,7 +27,7 @@ RouteModal.prototype.routeSummarySegments = function() {
 };
 
 RouteModal.prototype.routeResourcesView = function() {
-  return new RouteResourcesView(this.model);
+  return new RouteResourcesView(this.model, null, { resources: this.options.resources });
 };
 
 RouteModal.prototype.routeIntroText = function() {
