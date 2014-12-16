@@ -1,43 +1,33 @@
 <li class="option">
-
   <div class="benefits-badge savings" data-visible="costSavings">Save <strong>${costSavings}</strong></div>
-      <div class="benefits-badge time-savings" data-visible="timeSavingsAndNoCostSavings">Gain <strong>{timeSavings}</strong> hour(s)</div>
-    </div>
-    <div class="select-button" on-tap="selectOption"><strong>select</strong></div>
-
+  <div class="benefits-badge time-savings" data-visible="timeSavingsAndNoCostSavings">Gain <strong>{timeSavings}</strong> hour(s)</div>
+  <div class="select-button" on-tap="selectOption"><strong>select</strong></div>
 
   <div class="header">
     <span class="number">#{optionNumber}</span> {modeDescriptor}
-
   </div>
   <div class="simple">
+    <div class="segments" data-html="segments"></div>
 
-    <div class="RouteSummary">
-      <div class="segments" data-html="segments"></div>
+    <div class="minutes-column">
+      <div class="heading"><strong>{average} min</strong> <span class="avg">avg</span></div>
 
-      <div class="minutes-column">
-        <div class="heading"><strong>{average} min</strong> <span class="avg">avg</span></div>
-
-        <div data-visible="freeflowTime">{freeflowTime} without traffic</div>
-        <div data-visible="hasTransit">
-          <div class="distance" data-visible="bikeDistances">{bikeTime} min bike ride</div>
-          <div class="distance" data-visible="walkDistances">{walkTime} min walking</div>
-        </div>
-        <div data-hidden="hasTransit">
-          <div class="distance" data-visible="bikeDistances">{bikeDistances} mi bike ride</div>
-          <div class="distance" data-visible="walkDistances">{walkDistances} mi walk</div>
-        </div>
+      <div data-visible="freeflowTime">{freeflowTime} without traffic</div>
+      <div data-visible="hasTransit">
+        <div class="distance" data-visible="bikeDistances">{bikeTime} min bike ride</div>
+        <div class="distance" data-visible="walkDistances">{walkTime} min walking</div>
       </div>
+      <div data-hidden="hasTransit">
+        <div class="distance" data-visible="bikeDistances">{bikeDistances} mi bike ride</div>
+        <div class="distance" data-visible="walkDistances">{walkDistances} mi walk</div>
+      </div>
+    </div>
 
-    
     <div class="details-buttons">
-    <a class="show-details" href="#" on-tap="showDetails" class="show-hide show-details"><i class="fa fa-plus-circle"></i>
-details</a>
-
-    <a class="hide-details" href="#" on-tap="hideDetails" class="show-hide hide-details"><i class="fa fa-minus-circle"></i>
-hide</a>
-    <a class="improve" href="#" on-tap="feedback"><i class="fa fa-fw fa-gear"></i>help improve this trip </a>
-  </div>
+      <a class="show-details" href="#" on-tap="showDetails" class="show-hide show-details"><i class="fa fa-plus-circle"></i> details</a>
+      <a class="hide-details" href="#" on-tap="hideDetails" class="show-hide hide-details"><i class="fa fa-minus-circle"></i> hide</a>
+      <a class="improve" href="#" on-tap="feedback"><i class="fa fa-fw fa-gear"></i>help improve this trip </a>
+    </div>
   </div>
   <div class="details">
 

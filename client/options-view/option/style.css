@@ -113,16 +113,13 @@
  * Route Summary
  */
 
-.RouteSummary {
+.simple > .segments {
   position: relative;
-}
-
-.RouteSummary > .segments {
   display: inline-block;
   padding: 8px 0 0 8px;
 }
 
-.RouteSummary > .minutes-column {
+.simple > .minutes-column {
   padding-top: 10px;
   display: inline-block;
   vertical-align: top;
@@ -132,7 +129,7 @@
   color: var(--gray);
 }
 
-.RouteSummary > .minutes-column > .heading {
+.simple > .minutes-column > .heading {
   margin: 0 0 8px;
   color: var(--black);
   font-size: var(--h3);
