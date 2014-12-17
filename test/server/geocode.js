@@ -45,10 +45,10 @@ describe('gecoder', function() {
         async.each(valid, function(row, next) {
           geocode.encode(row, function(err, addresses) {
             if (err) return next(err);
-            var ll = addresses[0].feature.geometry;
+            var ll = addresses[0].coordinate;
             row.ll.should.eql({
-              lng: ll.x,
-              lat: ll.y
+              lng: ll.lng,
+              lat: ll.lat
             });
             next();
           });

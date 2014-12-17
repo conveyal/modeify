@@ -356,11 +356,18 @@ View.prototype.routeComparisonTable = function() {
 
 /**
  * Comparison Table
+ * TODO: Add provider
  */
 
 View.prototype.selectOption = function() {
-  routeResource.findByTags(this.model.tags(), (function(err, resources) {
-    var routeModal = new RouteModal(this.model, null, { context : 'option', resources : resources});
+  var plan = session.plan();
+  var from = plan.from().split(',').slice(1);
+  var to = plan.to().split(',').slice(1);
+  var modes = this.model.modes();
+  var tags = modes.concat(from).concat(to).map(function(tag) { return tag.toLowerCase().trim(); });
+
+  routeResource.findByTags(tags, (function(err, resources) {
+    var routeModal = new RouteModal(this.model, null, { context: 'option', resources: resources });
     routeModal.show();
     routeModal.on('next', function() {
       routeModal.hide();
