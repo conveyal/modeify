@@ -74,19 +74,25 @@ b, strong {
 
 a {
   color: var(--gold);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 a:active,
 a:focus,
 a:hover {
   color: color(var(--gold) shade(20%));
+  text-decoration: none;
+  font-weight: 700;
 }
 
-.btn,
-.btn:active,
-.btn:focus,
-.btn:hover,
-.btn:visited,
+.btn-default,
+.btn-default:active,
+.btn-default:focus,
+.btn-default:hover,
+.btn-default:visited,
 .introjs-button,
 .introjs-button:active,
 .introjs-button:focus,
@@ -98,14 +104,40 @@ a:hover {
   border: none;
 }
 
-.btn:hover,
+.btn-default:hover,
 .introjs-button:hover {
   background-color: color(var(--gold) shade(10%));
 }
 
-.btn:active,
+.btn-default:active,
 .introjs-button:active {
   background-color: color(var(--gold) shade(20%));
+}
+
+.btn-dark,
+.btn-dark:active,
+.btn-dark:focus,
+.btn-dark:hover,
+.btn-dark:visited,
+.introjs-button,
+.introjs-button:active,
+.introjs-button:focus,
+.introjs-button:hover,
+.introjs-button:visited {
+  background: var(--darkest);
+  color: #fff;
+  outline: none;
+  border: none;
+}
+
+.btn-dark:hover,
+.introjs-button:hover {
+  background-color: color(var(--darkest) shade(10%));
+}
+
+.btn-dark:active,
+.introjs-button:active {
+  background-color: color(var(--darkest) shade(20%));
 }
 
 #main {
@@ -160,16 +192,21 @@ a:hover {
      1px 1px 0 var(--black);
 }
 
-h1, h2, h3, h4, h5, h6 {
+p, h1, h2, h3, h4, h5, h6 {
   font-weight: var(--font-weight);
+  color: var(--darkest);
 }
 
 h3 {
-  font-size: 20px;
+  font-size: 28px;
 }
 
 h4 {
   font-size: 16px;
+}
+
+p {
+  font-size: 14px;
 }
 
 select {
