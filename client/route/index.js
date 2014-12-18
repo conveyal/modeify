@@ -431,6 +431,7 @@ function toFixed(n, f) {
 Route.prototype.tags = function(plan) {
   // start with the mode tags
   var tags = this.modes();
+  if(this.hasTransit()) tags.push('transit');
 
   // add tags for each transit route agency id
   each(this.transit(), function(transitLeg) {
