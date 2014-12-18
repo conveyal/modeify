@@ -22,8 +22,9 @@
   margin-top: 15px;
 }
 
-.Welcome h3 {
+.Welcome h3 .headline {
   font-size: 18px;
+  color: var(--darkest);
 }
 
 .Welcome .answer {
