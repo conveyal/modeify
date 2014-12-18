@@ -430,10 +430,20 @@ function toFixed(n, f) {
 Route.prototype.tags = function(plan) {
   var tags = this.modes();
   if(plan) {
-    var from = plan.from().split(',').slice(1);
-    var to = plan.to().split(',').slice(1);
+    var from = locationToTags(plan.from());
+    var to = locationToTags(plan.to());
     tags = tags.concat(from).concat(to);
   }
   tags = tags.map(function(tag) { return tag.toLowerCase().trim(); });
   return tags;
 };
+
+
+function locationToTags(location) {
+  // strip off the zip code, if present
+  var endsWithZip = /\d{5}$/;
+  if(endsWithZip.test(location)) {
+    location = location.substring(0, location.length - 5);
+  }
+  return location.split(',').slice(1);
+}
