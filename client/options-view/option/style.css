@@ -82,16 +82,8 @@
   padding: 5px;
 }
 
-.Options .show-details {
-  font-size: 12px;
-  color: #fff;
-  background-color: var(--black);
-  border-radius: var(--border-radius);
-  padding: 3px 5px;
-  display: inline-block;
-}
-
-.Options .hide-details {
+.Options .show-details,
+.Options .option.expanded .simple .hide-details {
   font-size: 12px;
   color: #fff;
   background-color: var(--black);

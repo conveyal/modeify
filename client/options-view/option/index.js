@@ -253,6 +253,7 @@ View.prototype.showDetails = function(e) {
   var el = this.el;
   var expanded = document.querySelector('.option.expanded');
   if (expanded) expanded.classList.remove('expanded');
+
   el.classList.add('expanded');
 
   var scrollable = document.querySelector('.scrollable');

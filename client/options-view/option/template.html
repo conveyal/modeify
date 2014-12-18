@@ -26,12 +26,17 @@
     <div class="details-buttons">
       <a class="show-details" href="#" on-tap="showDetails" class="show-hide show-details"><i class="fa fa-plus-circle"></i> details</a>
       <a class="hide-details" href="#" on-tap="hideDetails" class="show-hide hide-details"><i class="fa fa-minus-circle"></i> hide</a>
-      <a class="improve" href="#" on-tap="feedback"><i class="fa fa-fw fa-gear"></i>help improve this trip </a>
+      <a class="improve" href="#" on-tap="feedback"><i class="fa fa-fw fa-gear"></i>help improve this trip</a>
     </div>
   </div>
   <div class="details">
-
-    <form class="scoring-information">Take <input type="text" data-value="tripsPerYear" name="tripsPerYear" on-input="inputChange">trips<span data-visible="hasCar">, driving <strong data-text="driveDistances"></strong> miles at $ <input type="text" data-value="vmtRate" name="vmtRate" on-input="inputChange"> <a href="http://www.irs.gov/2014-Standard-Mileage-Rates-for-Business,-Medical-and-Moving-Announced" title="IRS's Standard Mileage Rate" target="_blank">per mile <i class="fa fa-external-link"></i></a> and $ <input type="text" data-value="carParkingCost" name="carParkingCost" on-input="inputChange"> for parking</span><span data-visible="transitCosts">, paying $<strong data-text="transitCosts"></strong> in transit fare</span><span data-visible="hasBiking">, biking <input type="text" data-value="bikeSpeedMph" name="bikeSpeed" on-input="inputChange"> mph for <strong data-text="bikeDistances"></strong> miles</span><span data-visible="hasWalking"> and walking <input type="text" data-value="walkSpeedMph" name="walkSpeed" on-input="inputChange"> mph for <strong data-text="walkDistances"></strong> miles</i></span>.
+    <form class="scoring-information">
+      <nobr>
+        Take <input type="text" data-value="tripsPerYear" name="tripsPerYear" on-input="inputChange">trips<span data-visible="hasCar">, driving <strong data-text="driveDistances"></strong> miles at $ <input type="text" data-value="vmtRate" name="vmtRate" on-input="inputChange">
+        <a href="http://www.irs.gov/2014-Standard-Mileage-Rates-for-Business,-Medical-and-Moving-Announced" title="IRS's Standard Mileage Rate" target="_blank">per mile <i class="fa fa-external-link"></i></a> and $ <input type="text" data-value="carParkingCost" name="carParkingCost" on-input="inputChange"> for parking</span>
+        <span data-visible="transitCosts">, paying $<strong data-text="transitCosts"></strong> in transit fare</span><span data-visible="hasBiking">, biking <input type="text" data-value="bikeSpeedMph" name="bikeSpeed" on-input="inputChange"> mph for <strong data-text="bikeDistances"></strong> miles</span>
+        <span data-visible="hasWalking"> and walking <input type="text" data-value="walkSpeedMph" name="walkSpeed" on-input="inputChange"> mph for <strong data-text="walkDistances"></strong> miles</i></span>.
+      </nobr>
     </form>
     <table class="narrative-directions">
       <thead>
@@ -48,6 +53,5 @@
       </tfoot>
       <tbody class="segments" data-html="segmentDetails"></tbody>
     </table>
-    <a href="#" on-tap="hideDetails" class="show-hide">hide <i class="fa fa-fw fa-angle-up"></i></a>
   </div>
 </li>
