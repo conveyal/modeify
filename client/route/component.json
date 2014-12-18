@@ -2,7 +2,8 @@
   "name": "route",
   "dependencies": {
     "component/model": "*",
-    "segmentio/model-defaults": "*"
+    "segmentio/model-defaults": "*",
+    "component/each": "*"
   },
   "locals": [
     "convert",

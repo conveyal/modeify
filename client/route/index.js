@@ -2,6 +2,7 @@ var convert = require('convert');
 var model = require('model');
 var defaults = require('model-defaults');
 var session = require('session');
+var each = require('each');
 
 /**
  * MPS to MPH
@@ -428,12 +429,23 @@ function toFixed(n, f) {
  */
 
 Route.prototype.tags = function(plan) {
+  // start with the mode tags
   var tags = this.modes();
+
+  // add tags for each transit route agency id
+  each(this.transit(), function(transitLeg) {
+    if(transitLeg.routes.length > 0) {
+      tags.push(transitLeg.routes[0].id.split(':')[0]);
+    }
+  });
+
+  // add tags for the from/to locations
   if(plan) {
     var from = locationToTags(plan.from());
     var to = locationToTags(plan.to());
     tags = tags.concat(from).concat(to);
   }
+
   tags = tags.map(function(tag) { return tag.toLowerCase().trim(); });
   return tags;
 };
