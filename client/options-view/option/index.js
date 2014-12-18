@@ -314,9 +314,8 @@ View.prototype.inputChange = function(e) {
  */
 
 function setInputSize(i) {
+  console.log('input size', i.value.length);
   var size = i.value.length || 1;
-  if (ua.os.name !== 'iOS')
-    size = size > 2 ? size - 2 : 1;
   i.setAttribute('size', size);
 }
 
