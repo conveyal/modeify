@@ -40,7 +40,7 @@ module.exports = function(session) {
     locations.on('next', function() {
       var route = plan.options()[0];
 
-      routeResource.findByTags(route.tags(), (function(err, resources) {
+      routeResource.findByTags(route.tags(plan), (function(err, resources) {
         var routeModal = new RouteModal(route, null, { context : 'welcome-flow', resources : resources});
         routeModal.show();
         main.classList.remove('Welcome');

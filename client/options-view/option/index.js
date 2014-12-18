@@ -360,12 +360,7 @@ View.prototype.routeComparisonTable = function() {
  */
 
 View.prototype.selectOption = function() {
-  var plan = session.plan();
-  var from = plan.from().split(',').slice(1);
-  var to = plan.to().split(',').slice(1);
-  var modes = this.model.modes();
-  var tags = modes.concat(from).concat(to).map(function(tag) { return tag.toLowerCase().trim(); });
-
+  var tags = this.model.tags(session.plan());
   routeResource.findByTags(tags, (function(err, resources) {
     var routeModal = new RouteModal(this.model, null, { context: 'option', resources: resources });
     routeModal.show();

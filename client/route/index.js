@@ -427,6 +427,13 @@ function toFixed(n, f) {
  * Tags
  */
 
-Route.prototype.tags = function() {
-  return this.get("modes");
+Route.prototype.tags = function(plan) {
+  var tags = this.modes();
+  if(plan) {
+    var from = plan.from().split(',').slice(1);
+    var to = plan.to().split(',').slice(1);
+    tags = tags.concat(from).concat(to);
+  }
+  tags = tags.map(function(tag) { return tag.toLowerCase().trim(); });
+  return tags;
 };
