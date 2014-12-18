@@ -125,7 +125,7 @@ a:hover {
   color: #fff;
   outline: none;
   border: none;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .btn-dark:hover {
