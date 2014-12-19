@@ -70,13 +70,6 @@
   margin-right: 4px;
 }
 
-.Options .gray-color-block {
-  background-color: var(--light-gray);
-  height: 28px;
-  width: 83px;
-  float: left;
-}
-
 .Options .improve {
   background-color: var(--gray);
   float: right;
@@ -115,7 +108,7 @@
   float: left;
   padding: 8px;
   background-color: var(--light-gray);
-  min-height: 100px;
+  min-height: 115px;
 }
 
 .simple > .minutes-column {
