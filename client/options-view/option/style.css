@@ -29,17 +29,7 @@
 
 .Options .select-button {
   float: right;
-  clear: both;
-  background-color: var(--gold);
-  color: #fff;
-  font-weight: bold;
-  text-align: center;
-  padding: 5px;
-  width: 70px;
-  margin: 5px 5px;
-  font-size: 14px;
-  border-radius: var(--border-radius);
-  cursor: pointer;
+  margin: 4px 4px 0 0;
 }
 
 /**
@@ -71,29 +61,36 @@
 }
 
 .Options .details-buttons {
-  margin: 10px 5px 10px 97px;
+  clear: both;
+  margin-right: 4px;
+}
+
+.Options .gray-color-block {
+  background-color: var(--light-gray);
+  height: 28px;
+  width: 83px;
+  float: left;
 }
 
 .Options .improve {
-  font-size: 12px;
-  color: #fff;
   background-color: var(--gray);
-  border-radius: var(--border-radius);
-  padding: 5px;
+  float: right;
+}
+
+.Options .improve:hover {
+  background-color: color(var(--gray) shade(20%));
 }
 
 .Options .show-details,
-.Options .option.expanded .simple .hide-details {
-  font-size: 12px;
-  color: #fff;
+.Options .hide-details {
   background-color: var(--black);
-  border-radius: var(--border-radius);
-  padding: 3px;
-  display: inline-block;
+  float: right;
+  margin-bottom: 4px;
+  margin-right: 4px;
 }
 
-.Options .show-hide {
-  display: inline-block;
+.simple .show-details:hover, .simple .hide-details:hover {
+  background-color: color(var(--black) shade(20%));
 }
 
 .Options .option.expanded .simple .show-details,
@@ -101,21 +98,25 @@
   display: none;
 }
 
+.Options .option.expanded .simple .hide-details {
+  display: inline-block;
+}
+
 /**
  * Route Summary
  */
 
 .simple > .segments {
-  position: relative;
-  display: inline-block;
-  padding: 8px 0 0 8px;
+  float: left;
+  padding: 8px;
+  background-color: var(--light-gray);
 }
 
 .simple > .minutes-column {
   padding-top: 10px;
-  display: inline-block;
-  vertical-align: top;
-  margin-left: 16px;
+  float: left;
+  margin-left: 8px;
+  margin-bottom: 8px;
   line-height: 18px;
   white-space: nowrap;
   color: var(--gray);

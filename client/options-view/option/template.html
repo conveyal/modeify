@@ -1,12 +1,11 @@
 <li class="option">
   <div class="benefits-badge savings" data-visible="costSavings">Save <strong>${costSavings}</strong></div>
   <div class="benefits-badge time-savings" data-visible="timeSavingsAndNoCostSavings">Gain <strong>{timeSavings}</strong> hour(s)</div>
-  <div class="select-button" on-tap="selectOption"><strong>select</strong></div>
 
   <div class="header">
     <span class="number">#{optionNumber}</span> {modeDescriptor}
   </div>
-  <div class="simple">
+  <div class="simple clearfix">
     <div class="segments" data-html="segments"></div>
 
     <div class="minutes-column">
@@ -23,10 +22,12 @@
       </div>
     </div>
 
+    <button class="btn btn-default select-button" on-tap="selectOption">select</button>
+
     <div class="details-buttons">
-      <a class="show-details" href="#" on-tap="showDetails" class="show-hide show-details"><i class="fa fa-plus-circle"></i> details</a>
-      <a class="hide-details" href="#" on-tap="hideDetails" class="show-hide hide-details"><i class="fa fa-minus-circle"></i> hide</a>
-      <a class="improve" href="#" on-tap="feedback"><i class="fa fa-fw fa-gear"></i>help improve this trip</a>
+      <button class="btn btn-sm improve" href="#" on-tap="feedback"><i class="fa fa-fw fa-gear"></i> help improve trip</button>
+      <button class="btn btn-sm show-hide show-details" href="#" on-tap="showDetails"><i class="fa fa-fw fa-plus-circle"></i> details</button>
+      <button class="btn btn-sm show-hide hide-details" href="#" on-tap="hideDetails"><i class="fa fa-fw fa-minus-circle"></i> hide</button>
     </div>
   </div>
   <div class="details">
