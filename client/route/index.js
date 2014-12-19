@@ -40,6 +40,7 @@ var Route = module.exports = model('Route')
   .attr('modes')
   .attr('score')
   .attr('stats')
+  .attr('summary')
   .attr('time')
   .attr('timeSavings')
   .attr('transfers')
@@ -430,18 +431,18 @@ function toFixed(n, f) {
 
 Route.prototype.tags = function(plan) {
   // start with the mode tags
-  var tags = this.modes();
-  if(this.hasTransit()) tags.push('transit');
+  var tags = this.modes().slice();
+  if (this.hasTransit()) tags.push('transit');
 
   // add tags for each transit route agency id
   each(this.transit(), function(transitLeg) {
-    if(transitLeg.routes.length > 0) {
+    if (transitLeg.routes.length > 0) {
       tags.push(transitLeg.routes[0].id.split(':')[0]);
     }
   });
 
   // add tags for the from/to locations
-  if(plan) {
+  if (plan) {
     var from = locationToTags(plan.from());
     var to = locationToTags(plan.to());
     tags = tags.concat(from).concat(to);
@@ -455,7 +456,7 @@ Route.prototype.tags = function(plan) {
 function locationToTags(location) {
   // strip off the zip code, if present
   var endsWithZip = /\d{5}$/;
-  if(endsWithZip.test(location)) {
+  if (endsWithZip.test(location)) {
     location = location.substring(0, location.length - 5);
   }
   return location.split(',').slice(1);

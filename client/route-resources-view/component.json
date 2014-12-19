@@ -5,6 +5,7 @@
     "twitter/hogan.js": "*"
   },
   "locals": [
+    "analytics",
     "view",
     "route-resource"
   ],

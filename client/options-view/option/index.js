@@ -1,8 +1,8 @@
+var analytics = require('analytics');
 var convert = require('convert');
 var d3 = require('d3');
 var Feedback = require('feedback-modal');
 var hogan = require('hogan.js');
-var RouteComparisonTable = require('route-comparison-table');
 var RouteModal = require('route-modal');
 var routeSummarySegments = require('route-summary-segments');
 var routeResource = require('route-resource');
@@ -27,8 +27,7 @@ var detailTemplate = hogan.compile(require('./detail.html'));
  * Expose `View`
  */
 
-var View = module.exports = view(require('./template.html'), function(view,
-  model) {
+var View = module.exports = view(require('./template.html'), function(view, model) {
   d3.select(view.el)
     .on('mouseover', function() {
       var id = model.id() + '';
@@ -314,7 +313,6 @@ View.prototype.inputChange = function(e) {
  */
 
 function setInputSize(i) {
-  console.log('input size', i.value.length);
   var size = i.value.length || 1;
   i.setAttribute('size', size);
 }
@@ -346,26 +344,30 @@ View.prototype.feedback = function(e) {
 };
 
 /**
- * Comparison Table
- */
-
-View.prototype.routeComparisonTable = function() {
-  return new RouteComparisonTable(this.model);
-};
-
-
-/**
- * Comparison Table
- * TODO: Add provider
+ * Select this option
  */
 
 View.prototype.selectOption = function() {
-  var tags = this.model.tags(session.plan());
-  routeResource.findByTags(tags, (function(err, resources) {
-    var routeModal = new RouteModal(this.model, null, { context: 'option', resources: resources });
+  var route = this.model;
+  var plan = session.plan();
+  var tags = route.tags(plan);
+
+  analytics.track('Route Selected', {
+    plan: plan.generateQuery(),
+    route: {
+      modes: route.modes(),
+      summary: route.summary()
+    }
+  });
+
+  routeResource.findByTags(tags, function(err, resources) {
+    var routeModal = new RouteModal(route, null, {
+      context: 'option',
+      resources: resources
+    });
     routeModal.show();
     routeModal.on('next', function() {
       routeModal.hide();
     });
-  }).bind(this));
+  });
 };
