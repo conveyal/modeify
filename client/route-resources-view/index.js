@@ -19,7 +19,9 @@ View.prototype.resources = function() {
 View.prototype.resourceClicked = function(evt) {
   evt.preventDefault();
   if(evt.target.nodeName.toLowerCase() === 'a') {
-    window.open(evt.target.href,'_blank');
-    // TODO: log click action in user profile
+    var resourceName = evt.target.parentNode.parentNode.getAttribute('data-name');
+    var linkUrl = evt.target.href;
+    window.open(linkUrl,'_blank');
+    // TODO: log click action in user profile, storing resourceName and linkUrl
   }
 };
