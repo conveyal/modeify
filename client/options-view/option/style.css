@@ -37,16 +37,13 @@
  */
 
 .Options .benefits-badge {
-  padding-left: 5px;
-  float: right;
-  clear: both;
-  width: 95px;
+  float: right; 
+  width: 125px;
   font-size: 13px;
   line-height: 1;
   text-align: right;
   margin-right: -2px;
-  cursor: pointer;
-  padding: 11px 11px 8px 15px;
+  padding: 11px 10px 8px 15px;
 }
 
 .Options .benefits-badge.savings {
@@ -57,13 +54,24 @@
 }
 
 .Options .benefits-badge.time-savings {
+<<<<<<< HEAD
     background-image: url(/images/comparison_graphics/time-ribbon.png);
     background-repeat: no-repeat;
     color: #ffffff;
+=======
+  background-image: url(/images/comparison_graphics/time-ribbon.png);
+  background-repeat: no-repeat;
+}
+
+.Options .simple {
+  position: relative;
+>>>>>>> FETCH_HEAD
 }
 
 .Options .details-buttons {
-  clear: both;
+  position: absolute;
+  bottom: 0;
+  right: 0;
   margin-right: 4px;
 }
 
@@ -112,6 +120,7 @@
   float: left;
   padding: 8px;
   background-color: var(--light-gray);
+  min-height: 100px;
 }
 
 .simple > .minutes-column {

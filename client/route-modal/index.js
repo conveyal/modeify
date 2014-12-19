@@ -9,6 +9,7 @@ var routeSummarySegments = require('route-summary-segments');
  */
 
 var RouteModal = module.exports = modal({
+  closable: true,
   template: require('./template.html'),
   title: 'Selected Option Modal'
 });

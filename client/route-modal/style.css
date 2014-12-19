@@ -26,7 +26,3 @@
 .RouteModal .segments > .RouteSegment:last-of-type .fa-caret-right {
   display: none;
 }
-
-.RouteModal .RouteComparisonTable > div {
-  padding: 8px 0;
-}
