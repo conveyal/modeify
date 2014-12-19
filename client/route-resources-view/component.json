@@ -9,8 +9,7 @@
     "route-resource"
   ],
   "scripts": [
-    "index.js",
-    "resources.js"
+    "index.js"
   ],
   "styles": [
     "style.css"
