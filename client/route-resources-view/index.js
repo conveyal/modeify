@@ -15,3 +15,11 @@ View.prototype.resources = function() {
   });
   return resourceHtml;
 };
+
+View.prototype.resourceClicked = function(evt) {
+  evt.preventDefault();
+  if(evt.target.nodeName.toLowerCase() === 'a') {
+    window.open(evt.target.href,'_blank');
+    // TODO: log click action in user profile
+  }
+};
