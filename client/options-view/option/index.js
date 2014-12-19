@@ -314,7 +314,6 @@ View.prototype.inputChange = function(e) {
  */
 
 function setInputSize(i) {
-  console.log('input size', i.value.length);
   var size = i.value.length || 1;
   i.setAttribute('size', size);
 }
