@@ -430,16 +430,23 @@ function toFixed(n, f) {
  */
 
 Route.prototype.tags = function(plan) {
-  // start with the mode tags
-  var tags = this.modes().slice();
-  if (this.hasTransit()) tags.push('transit');
+  var tags = [];
 
-  // add tags for each transit route agency id
+  // add the access mode tags
+  each(this.get('access'), function(accessLeg) {
+    tags.push(accessLeg.mode);
+  });
+
+  // add tags for each transit leg
   each(this.transit(), function(transitLeg) {
-    if (transitLeg.routes.length > 0) {
+    tags.push(transitLeg.mode);// add the transit mode tag
+    if (transitLeg.routes.length > 0) { //add the agency tag
       tags.push(transitLeg.routes[0].id.split(':')[0]);
     }
   });
+
+  // add a generic 'transit' tag
+  if (this.hasTransit()) tags.push('transit');
 
   // add tags for the from/to locations
   if (plan) {
