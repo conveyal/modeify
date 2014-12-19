@@ -1,4 +1,4 @@
-var log = require('log')('route-resources');
+var log = require('log')('route-resource');
 var request = require('request');
 
 exports.findByTags = function(tags, callback) {

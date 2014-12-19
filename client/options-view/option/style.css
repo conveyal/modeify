@@ -37,7 +37,7 @@
  */
 
 .Options .benefits-badge {
-  float: right; 
+  float: right;
   width: 125px;
   font-size: 13px;
   line-height: 1;
@@ -54,18 +54,13 @@
 }
 
 .Options .benefits-badge.time-savings {
-<<<<<<< HEAD
-    background-image: url(/images/comparison_graphics/time-ribbon.png);
-    background-repeat: no-repeat;
-    color: #ffffff;
-=======
   background-image: url(/images/comparison_graphics/time-ribbon.png);
   background-repeat: no-repeat;
+  color: #fff;
 }
 
 .Options .simple {
   position: relative;
->>>>>>> FETCH_HEAD
 }
 
 .Options .details-buttons {
