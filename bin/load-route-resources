@@ -30,7 +30,7 @@ prompt.get({
 function loadNextResource() {
   if(index == resources.length) process.exit();
   var resource = resources[index];
-  console.log("Adding resource: "+resource.title);
+  console.log("Adding resource: "+resource.name);
   index++;
   RouteResource.create(resource, loadNextResource);
 }
