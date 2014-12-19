@@ -1,0 +1,15 @@
+.RouteResources > .resources > .resource {
+  margin-bottom: 15px;
+}
+
+.RouteResources > .resources > .resource > .title {
+  font-weight: var(--bold);
+}
+
+.RouteResources > .resources > .resource > .description {
+  font-size: 12px;
+}
+
+.RouteResources > .resources > .resource > .description a {
+  font-weight: var(--bold);
+}

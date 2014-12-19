@@ -30,6 +30,8 @@
     "winston": "~0.8.0"
   },
   "devDependencies": {
+    "cli-table": "^0.3.1",
+    "commander": "^2.5.1",
     "component": "^1.0.0",
     "component-builder": "^1.1.13",
     "component-resolver": "^1.2.7",
@@ -43,6 +45,7 @@
     "mocha": "^2.0.1",
     "myth": "^1.1.0",
     "nightmare": "^1.1.0",
+    "prompt": "^0.2.14",
     "should": "^4.0.4",
     "sqwish": "~0.2.2",
     "supertest": "~0.14.0",

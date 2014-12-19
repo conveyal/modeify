@@ -2,6 +2,7 @@ var convert = require('convert');
 var model = require('model');
 var defaults = require('model-defaults');
 var session = require('session');
+var each = require('each');
 
 /**
  * MPS to MPH
@@ -39,6 +40,7 @@ var Route = module.exports = model('Route')
   .attr('modes')
   .attr('score')
   .attr('stats')
+  .attr('summary')
   .attr('time')
   .attr('timeSavings')
   .attr('transfers')
@@ -420,4 +422,49 @@ function bikingCaloriesBurned(mps, wkg, hours) {
 function toFixed(n, f) {
   var m = Math.pow(10, f);
   return ((n * m) | 0) / m;
+}
+
+
+/**
+ * Tags
+ */
+
+Route.prototype.tags = function(plan) {
+  var tags = [];
+
+  // add the access mode tags
+  each(this.get('access'), function(accessLeg) {
+    tags.push(accessLeg.mode);
+  });
+
+  // add tags for each transit leg
+  each(this.transit(), function(transitLeg) {
+    tags.push(transitLeg.mode);// add the transit mode tag
+    if (transitLeg.routes.length > 0) { //add the agency tag
+      tags.push(transitLeg.routes[0].id.split(':')[0]);
+    }
+  });
+
+  // add a generic 'transit' tag
+  if (this.hasTransit()) tags.push('transit');
+
+  // add tags for the from/to locations
+  if (plan) {
+    var from = locationToTags(plan.from());
+    var to = locationToTags(plan.to());
+    tags = tags.concat(from).concat(to);
+  }
+
+  tags = tags.map(function(tag) { return tag.toLowerCase().trim(); });
+  return tags;
+};
+
+
+function locationToTags(location) {
+  // strip off the zip code, if present
+  var endsWithZip = /\d{5}$/;
+  if (endsWithZip.test(location)) {
+    location = location.substring(0, location.length - 5);
+  }
+  return location.split(',').slice(1);
 }

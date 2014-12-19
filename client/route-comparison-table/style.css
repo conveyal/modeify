@@ -3,26 +3,54 @@
   padding-bottom: 10px;
 }
 
-.RouteComparisonTable .heading {
-  text-align: left;
+.RouteComparisonTable .compare-item {
+	background-color: var(--medium-blue);
+	border-radius: var(--border-radius);
+	font-size: 14px;
+	margin-top: 3px;
+	padding: 5px;
+	width: 100%;
 }
 
-.RouteComparisonTable > div {
-  padding: 4px 16px;
+.RouteComparisonTable > .compare-item > .category-icon {
+  background-color: var(--lightest-blue);
+  background-repeat: no-repeat;
+  border-radius: var(--border-radius);
+  width: 45px;
+  height: 35px;
+  margin-right: 2px;
+  background-size: 100% auto;
+  background-position: center;
+  display: inline-block;
+  vertical-align: middle;
 }
 
-.RouteComparisonTable .fa-dollar {
-  color: var(--green);
+.RouteComparisonTable .money-icon {
+	background-image: url(/images/comparison_graphics/money.png);
 }
 
-.RouteComparisonTable .fa-calendar {
-  color: var(--gold);
+.RouteComparisonTable .scale-icon {
+	background-image: url(/images/comparison_graphics/scale.png);
 }
 
-.RouteComparisonTable .fa-heart {
-  color: var(--red);
+.RouteComparisonTable .leaf-icon {
+	background-image: url(/images/comparison_graphics/leaf.png);
 }
 
-.RouteComparisonTable .fa-globe {
-  color: var(--metro-blue);
+.RouteComparisonTable .book-icon {
+	background-image: url(/images/comparison_graphics/book.png);
+}
+
+.RouteComparisonTable .numbers {
+	color: var(--gray);
+	text-align: right;
+	font-size: 11px;
+	margin:0;
+}
+
+.RouteComparisonTable .numbers a {
+	color: var(--gray);
+	text-align: right;
+	font-size: 11px;
+	text-decoration: underline;
 }

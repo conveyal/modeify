@@ -1,0 +1,35 @@
+#!/usr/bin/env node
+
+var commander = require('commander');
+var Table = require('cli-table');
+
+var RouteResource = require('../lib/route-resource/model');
+
+commander
+  .option('-t, --tags <tags>', 'Comma separated tags to search on')
+  .parse(process.argv);
+
+if (commander.tags) {
+  RouteResource
+    .findByTags(commander.tags, showResources);
+} else {
+  RouteResource
+    .find()
+    .exec(showResources);
+}
+
+function showResources(err, resources) {
+  if (err) throw err;
+  var table = new Table({
+    head: [ 'id', 'name', 'title', 'description', 'tag sets' ],
+    colWidths: [30, 20, 20, 20, 60 ]
+  });
+  var mapped = resources.map(function(r) {
+    return [ r._id, r.name, r.title, r.description, r.tags.map(function(t) {
+      return '[' + t.join(', ') + ']';
+    }).join(', ') ];
+  });
+  table.push.apply(table, mapped);
+  console.log(table.toString());
+  process.exit();
+}

@@ -1,0 +1,37 @@
+#!/usr/bin/env node
+
+var prompt = require('prompt');
+var fs = require('fs');
+
+var RouteResource = require('../lib/route-resource/model');
+
+var jsonfile = process.argv[2];
+var index = 0;
+
+var resources = JSON.parse(fs.readFileSync(jsonfile, 'utf8'));
+
+prompt.get({
+  name: 'yesno',
+  message: 'Clear existing resources?',
+  default: 'no'
+}, function(err, result) {
+  if (err) throw err;
+  var yesno = result.yesno.toLowerCase().trim();
+  if (yesno === 'yes' || yesno === 'y') {
+    RouteResource.remove({}, function (err) {
+      if(err) throw err;
+      loadNextResource();
+    });
+  } else {
+    loadNextResource();
+  }
+});
+
+function loadNextResource() {
+  if(index == resources.length) process.exit();
+  var resource = resources[index];
+  console.log("Adding resource: "+resource.name);
+  index++;
+  RouteResource.create(resource, loadNextResource);
+}
+

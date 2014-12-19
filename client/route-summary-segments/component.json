@@ -1,0 +1,19 @@
+{
+  "name": "route-summary-segments",
+  "dependencies": {
+    "twitter/hogan.js": "*"
+  },
+  "local": [
+    "convert",
+    "transitive-view"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}

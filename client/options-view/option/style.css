@@ -27,11 +27,68 @@
   font-weight: var(--bold);
 }
 
-.Options .option .show-hide {
-  text-align: center;
-  margin-bottom: 8px;
-  margin-top: 12px;
-  display: block;
+.Options .select-button {
+  float: right;
+  margin: 4px 4px 0 0;
+}
+
+/**
+ * Benefits Badge
+ */
+
+.Options .benefits-badge {
+  float: right;
+  width: 125px;
+  font-size: 13px;
+  line-height: 1;
+  text-align: right;
+  margin-right: -2px;
+  padding: 11px 10px 8px 15px;
+}
+
+.Options .benefits-badge.savings {
+  background-image: url(/images/comparison_graphics/ribbon.png);
+  background-repeat: no-repeat;
+  color: #4b6a20;
+
+}
+
+.Options .benefits-badge.time-savings {
+  background-image: url(/images/comparison_graphics/time-ribbon.png);
+  background-repeat: no-repeat;
+  color: #fff;
+}
+
+.Options .simple {
+  position: relative;
+}
+
+.Options .details-buttons {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-right: 4px;
+}
+
+.Options .improve {
+  background-color: var(--gray);
+  float: right;
+}
+
+.Options .improve:hover {
+  background-color: color(var(--gray) shade(20%));
+}
+
+.Options .show-details,
+.Options .hide-details {
+  background-color: var(--black);
+  float: right;
+  margin-bottom: 4px;
+  margin-right: 4px;
+}
+
+.simple .show-details:hover, .simple .hide-details:hover {
+  background-color: color(var(--black) shade(20%));
 }
 
 .Options .option.expanded .simple .show-details,
@@ -40,8 +97,36 @@
 }
 
 .Options .option.expanded .simple .hide-details {
-  display: block;
+  display: inline-block;
 }
+
+/**
+ * Route Summary
+ */
+
+.simple > .segments {
+  float: left;
+  padding: 8px;
+  background-color: var(--light-gray);
+  min-height: 115px;
+}
+
+.simple > .minutes-column {
+  padding-top: 10px;
+  float: left;
+  margin-left: 8px;
+  margin-bottom: 8px;
+  line-height: 18px;
+  white-space: nowrap;
+  color: var(--gray);
+}
+
+.simple > .minutes-column > .heading {
+  margin: 0 0 8px;
+  color: var(--black);
+  font-size: var(--h3);
+}
+
 
 /**
  * Expanded

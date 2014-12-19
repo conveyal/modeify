@@ -1,0 +1,28 @@
+
+.RouteModal .segments {
+  margin: 15px 0;
+  padding: 0;
+  display: block;
+  text-align: center;
+}
+
+.RouteModal .segments > .RouteSegment {
+  display: inline;
+}
+
+.RouteModal .segments > .RouteSegment > .shield {
+  margin: 6px 6px -4px 0;
+  height: 22px;
+}
+
+.RouteModal .segments > .RouteSegment .fa-caret-down {
+  display: none;
+}
+
+.RouteModal .segments > .RouteSegment .fa-caret-right {
+  display: inline-block;
+}
+
+.RouteModal .segments > .RouteSegment:last-of-type .fa-caret-right {
+  display: none;
+}

@@ -3,8 +3,9 @@ var introJs = require('intro.js').introJs;
 var log = require('log')('welcome-flow');
 var LocationsView = require('locations-view');
 var showPlannerWalkthrough = require('planner-walkthrough');
+var RouteModal = require('route-modal');
+var routeResource = require('route-resource');
 
-var FindingOptions = require('./finding-options');
 var Locations = require('./locations');
 var Welcome = require('./welcome');
 
@@ -38,18 +39,21 @@ module.exports = function(session) {
 
     locations.on('next', function() {
       var route = plan.options()[0];
-      var findingOptions = new FindingOptions(route);
 
-      findingOptions.show();
-      main.classList.remove('Welcome');
+      routeResource.findByTags(route.tags(plan), (function(err, resources) {
+        var routeModal = new RouteModal(route, null, { context : 'welcome-flow', resources : resources});
+        routeModal.show();
+        main.classList.remove('Welcome');
 
-      findingOptions.on('next', function() {
-        commuter.updateProfile('welcome_wizard_complete', true);
-        commuter.save();
+        routeModal.on('next', function() {
+          commuter.updateProfile('welcome_wizard_complete', true);
+          commuter.save();
 
-        findingOptions.hide();
-        highlightResults();
-      });
+          routeModal.hide();
+          highlightResults();
+        });
+      }).bind(this));
+
     });
 
     locations.on('skip', function() {

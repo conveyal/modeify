@@ -1,0 +1,19 @@
+{
+  "name": "route-modal",
+  "local": [
+    "log",
+    "modal",
+    "route-comparison-table",
+    "route-summary-segments",
+    "route-resources-view"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}

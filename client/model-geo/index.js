@@ -8,6 +8,8 @@ module.exports = function(Model) {
     .attr('address')
     .attr('original_address')
     .attr('city')
+    .attr('county')
+    .attr('magic_key')
     .attr('state')
     .attr('zip');
 

@@ -1,9 +1,11 @@
+var analytics = require('analytics');
 var convert = require('convert');
 var d3 = require('d3');
 var Feedback = require('feedback-modal');
 var hogan = require('hogan.js');
-var RouteComparisonTable = require('route-comparison-table');
-var RouteSummaryView = require('route-summary-view');
+var RouteModal = require('route-modal');
+var routeSummarySegments = require('route-summary-segments');
+var routeResource = require('route-resource');
 var session = require('session');
 var toSentenceCase = require('to-sentence-case');
 var ua = require('user-agent');
@@ -25,8 +27,7 @@ var detailTemplate = hogan.compile(require('./detail.html'));
  * Expose `View`
  */
 
-var View = module.exports = view(require('./template.html'), function(view,
-  model) {
+var View = module.exports = view(require('./template.html'), function(view, model) {
   d3.select(view.el)
     .on('mouseover', function() {
       var id = model.id() + '';
@@ -42,6 +43,23 @@ var View = module.exports = view(require('./template.html'), function(view,
 
   [].slice.call(view.findAll('input')).forEach(setInputSize);
 });
+
+/**
+ * Route summary
+ */
+
+View.prototype.segments = function() {
+  return routeSummarySegments(this.model);
+};
+
+View.prototype.costSavings = function() {
+  return convert.roundNumberToString(this.model.costSavings());
+};
+
+View.prototype.timeSavingsAndNoCostSavings = function() {
+  return this.model.timeSavings() && !this.model.costSavings();
+};
+
 
 /**
  * Details, details
@@ -234,6 +252,7 @@ View.prototype.showDetails = function(e) {
   var el = this.el;
   var expanded = document.querySelector('.option.expanded');
   if (expanded) expanded.classList.remove('expanded');
+
   el.classList.add('expanded');
 
   var scrollable = document.querySelector('.scrollable');
@@ -295,8 +314,6 @@ View.prototype.inputChange = function(e) {
 
 function setInputSize(i) {
   var size = i.value.length || 1;
-  if (ua.os.name !== 'iOS')
-    size = size > 2 ? size - 2 : 1;
   i.setAttribute('size', size);
 }
 
@@ -327,17 +344,30 @@ View.prototype.feedback = function(e) {
 };
 
 /**
- * Route summary view
+ * Select this option
  */
 
-View.prototype.routeSummary = function() {
-  return new RouteSummaryView(this.model);
-};
+View.prototype.selectOption = function() {
+  var route = this.model;
+  var plan = session.plan();
+  var tags = route.tags(plan);
 
-/**
- * Comparison Table
- */
+  analytics.track('Route Selected', {
+    plan: plan.generateQuery(),
+    route: {
+      modes: route.modes(),
+      summary: route.summary()
+    }
+  });
 
-View.prototype.routeComparisonTable = function() {
-  return new RouteComparisonTable(this.model);
+  routeResource.findByTags(tags, function(err, resources) {
+    var routeModal = new RouteModal(route, null, {
+      context: 'option',
+      resources: resources
+    });
+    routeModal.show();
+    routeModal.on('next', function() {
+      routeModal.hide();
+    });
+  });
 };

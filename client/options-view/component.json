@@ -4,17 +4,17 @@
     "component/each": "*",
     "ianstormtaylor/to-capital-case": "*",
     "ianstormtaylor/to-sentence-case": "*",
-    "ianstormtaylor/reactive": "*",
-    "mbostock/d3": "v3.4.11",
-    "twitter/hogan.js": "*",
-    "visionmedia/debug": "*"
+    "mbostock/d3": "*",
+    "twitter/hogan.js": "*"
   },
   "locals": [
+    "analytics",
     "config",
     "convert",
     "feedback-modal",
-    "route-comparison-table",
-    "route-summary-view",
+    "route-modal",
+    "route-summary-segments",
+    "route-resource",
     "session",
     "user-agent",
     "view"
