@@ -31,6 +31,9 @@ function createThenPrompt() {
 
 function createRouteResource(done) {
   prompt.get([{
+    name: 'name',
+    required: true
+  },{
     name: 'title',
     required: true
   }, {
@@ -45,6 +48,7 @@ function createRouteResource(done) {
           done(err);
         } else {
           RouteResource.create({
+            name: results.name,
             title: results.title,
             description: results.description,
             tags: tags
