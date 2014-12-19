@@ -60,8 +60,14 @@
     background-repeat: no-repeat;
 }
 
+.Options .simple {
+  position: relative;
+}
+
 .Options .details-buttons {
-  clear: both;
+  position: absolute;
+  bottom: 0;
+  right: 0;
   margin-right: 4px;
 }
 
@@ -110,6 +116,7 @@
   float: left;
   padding: 8px;
   background-color: var(--light-gray);
+  min-height: 100px;
 }
 
 .simple > .minutes-column {
