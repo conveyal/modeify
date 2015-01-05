@@ -1,0 +1,16 @@
+{
+  "name": "tableize",
+  "version": "0.1.1",
+  "description": "Generate a table-friendly object by flattening and normalizing the keys",
+  "keywords": [
+    "table",
+    "schema",
+    "database",
+    "sql"
+  ],
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "repository": "trevorgerhard/tableize"
+}

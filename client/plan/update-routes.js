@@ -1,10 +1,10 @@
-var analytics = require('analytics');
 var convert = require('convert');
 var formatProfile = require('format-otp-profile');
 var log = require('log')('plan:update-routes');
 var otp = require('otp');
 var Route = require('route');
 var session = require('session');
+var tableize = require('tableize');
 
 /**
  * Expose `updateRoutes`
@@ -64,10 +64,10 @@ function updateRoutes(plan, opts, callback) {
       done(err, data);
     } else {
       // Track the commute
-      analytics.track('commute', {
+      window.analytics.track('Route Found', tableize({
         plan: plan.generateQuery(),
         results: data.options.length
-      });
+      }));
 
       data.options.forEach(function(o, i) {
         // Add ids to options

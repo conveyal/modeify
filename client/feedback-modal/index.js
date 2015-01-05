@@ -1,4 +1,3 @@
-var analytics = require('analytics');
 var Alert = require('alert');
 var log = require('log')('feedback-modal');
 var modal = require('modal');
@@ -50,7 +49,7 @@ Modal.prototype.submit = function(e) {
           text: 'Failed to submit feedback.'
         }).el);
       } else {
-        analytics.track('Submitted feedback about an option');
+        window.analytics.track('Submitted Option Feedback');
 
         alerts.appendChild(Alert({
           type: 'success',

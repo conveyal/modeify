@@ -1,4 +1,3 @@
-var analytics = require('analytics');
 var cookie = require('cookie');
 var Commuter = require('commuter');
 var log = require('log')('session');
@@ -107,11 +106,11 @@ Session.prototype.login = function(data) {
 Session.on('change user', function(session, user, prev) {
   log('--> identifying user');
   if (user && user._id) {
-    analytics.identify(user._id(), user.toJSON());
+    window.analytics.identify(user._id(), user.toJSON());
     log('<-- tracking %s', user.email());
   } else if (user !== prev) {
     var id = 'guest-' + uid(9);
-    analytics.identify(id);
+    window.analytics.identify(id);
     log('<-- tracking %s', id);
   }
 });

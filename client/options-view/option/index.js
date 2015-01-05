@@ -1,4 +1,3 @@
-var analytics = require('analytics');
 var convert = require('convert');
 var d3 = require('d3');
 var Feedback = require('feedback-modal');
@@ -7,6 +6,7 @@ var RouteModal = require('route-modal');
 var routeSummarySegments = require('route-summary-segments');
 var routeResource = require('route-resource');
 var session = require('session');
+var tableize = require('tableize');
 var toSentenceCase = require('to-sentence-case');
 var ua = require('user-agent');
 var view = require('view');
@@ -352,13 +352,13 @@ View.prototype.selectOption = function() {
   var plan = session.plan();
   var tags = route.tags(plan);
 
-  analytics.track('Route Selected', {
+  window.analytics.track('Route Selected', tableize({
     plan: plan.generateQuery(),
     route: {
       modes: route.modes(),
       summary: route.summary()
     }
-  });
+  }));
 
   routeResource.findByTags(tags, function(err, resources) {
     var routeModal = new RouteModal(route, null, {

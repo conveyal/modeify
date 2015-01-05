@@ -5,7 +5,6 @@
   },
   "locals": [
     "alert",
-    "analytics",
     "config",
     "locations-view",
     "log",

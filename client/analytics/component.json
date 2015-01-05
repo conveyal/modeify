@@ -1,9 +1,0 @@
-{
-  "name": "analytics",
-  "local": [
-    "config"
-  ],
-  "scripts": [
-    "index.js"
-  ]
-}

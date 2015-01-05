@@ -5,7 +5,6 @@
   },
   "locals": [
     "404-page",
-    "analytics",
     "log"
   ],
   "scripts": [
