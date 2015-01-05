@@ -103,7 +103,6 @@ a:hover {
   outline: none;
   border: none;
   border-radius: var(--border-radius);
-  font-weight: bold;
 }
 
 .btn:hover,
