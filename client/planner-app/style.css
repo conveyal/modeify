@@ -76,7 +76,7 @@ a {
   color: var(--gold);
   text-decoration: none;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: var(--bold);
   cursor: pointer;
 }
 
@@ -85,7 +85,6 @@ a:focus,
 a:hover {
   color: color(var(--gold) shade(20%));
   text-decoration: none;
-  font-weight: 700;
 }
 
 .btn,
@@ -124,7 +123,6 @@ a:hover {
   color: #fff;
   outline: none;
   border: none;
-  font-weight: normal;
 }
 
 .btn-dark:hover {
@@ -144,7 +142,6 @@ a:hover {
   color: #fff;
   outline: none;
   border: none;
-  font-weight: 300;
 }
 
 .btn-demph:hover {

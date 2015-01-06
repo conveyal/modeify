@@ -74,21 +74,11 @@
   float: right;
 }
 
-.Options .improve:hover {
-  float: right;
-}
-
 .Options .show-details,
 .Options .hide-details {
   float: right;
   margin-bottom: 4px;
   margin-right: 4px;
-  font-weight: normal;
-}
-
-.simple .show-details:hover, .simple .hide-details:hover {
-  background-color: color(var(--black) shade(20%));
-  font-weight: normal;
 }
 
 .Options .option.expanded .simple .show-details,

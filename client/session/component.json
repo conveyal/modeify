@@ -9,7 +9,6 @@
     "visionmedia/page.js": "*"
   },
   "locals": [
-    "analytics",
     "commuter",
     "config",
     "log",
