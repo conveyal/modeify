@@ -22,6 +22,7 @@
   font-weight: var(--bold);
   font-size: 15px;
   padding: 8px 2px 0;
+  margin: 0 1px;
   border-bottom: 1px solid var(--gold);
 }
 
