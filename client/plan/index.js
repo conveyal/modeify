@@ -167,20 +167,32 @@ Plan.prototype.validCoordinates = function() {
 
 Plan.prototype.setAddress = function(name, address, callback) {
   callback = callback || function() {}; // noop callback
+  var location = new Location();
+  var plan = this;
+  var c = address.split(',');
+  var isCoordinate = c.length === 2 && parseFloat(c[0]) !== NaN && parseFloat(c[1]) !== NaN;
 
   if (!address || address.length < 1) return callback();
 
-  var plan = this;
-  var location = new Location({
-    address: address
-  });
+  if (isCoordinate) {
+    location.coordinate({
+      lat: parseFloat(c[1]),
+      lng: parseFloat(c[0])
+    });
+  } else {
+    location.address(address)
+  }
 
   location.save(function(err, res) {
     if (err) {
       callback(err);
     } else {
       var changes = {};
-      changes[name] = address;
+      if (isCoordinate)
+        changes[name] = res.body.address + ', ' + res.body.city + ', ' + res.body.state;
+      else
+        changes[name] = address;
+
       changes[name + '_ll'] = res.body.coordinate;
       changes[name + '_id'] = res.body._id;
       changes[name + '_valid'] = true;
