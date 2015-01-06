@@ -1,4 +1,14 @@
 
+## 1.1.0 — 2015-01-06
+
+* Added "select" button to options
+* Added "resources" that connect to modes, geography, and providers
+* Updated ta-da screen to contain route-resources and connect to selected option action
+* Fixed analytics, again
+* Now handles bounced emails
+* Added tooltips to buttons
+* Updated the style guide
+
 ## 1.0.0 — 2014-11-24
 
 * Fixed login links in profile
