@@ -1,4 +1,8 @@
 
+## 1.1.1 — 2015-01-06
+
+* Allow coordinates to be passed in the query string
+
 ## 1.1.0 — 2015-01-06
 
 * Added "select" button to options
