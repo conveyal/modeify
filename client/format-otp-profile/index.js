@@ -110,5 +110,11 @@ var wordReplacementTable = {
  */
 
 function word(w) {
-  return wordReplacementTable.hasOwnProperty(w) ? wordReplacementTable[w] : w;
+  if (startsWithDigit(w)) return w.toUpperCase();
+  if (wordReplacementTable.hasOwnProperty(w)) return wordReplacementTable[w];
+  return w;
+}
+
+function startsWithDigit(s) {
+  return /^[0-9]/.test(s);
 }
