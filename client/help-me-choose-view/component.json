@@ -1,0 +1,9 @@
+{
+  "name": "help-me-choose-view",
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
+  ]
+}
