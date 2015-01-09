@@ -1,5 +1,5 @@
 
-.panel {
+.SidePanel {
   position: absolute;
   background-color: color(var(--black) alpha(80%));
   z-index: 150;
@@ -11,22 +11,23 @@
   width: 320px;
   overflow: hidden;
   margin-bottom: 0;
+  padding-bottom: 44px;
 }
 
-.panel .more-options {
+.SidePanel .footer {
   position: absolute;
   display: block;
   bottom: 0;
-  height: 32px;
+  height: 44px;
+  padding: 6px 8px;
   background-color: color(var(--black));
   box-shadow: 0 -2px 2px -1px var(--darkest);
   width: 100%;
   line-height: 32px;
-  text-align: center;
 }
 
 @media (--narrow-window) {
-  .panel {
+  .SidePanel {
     top: 0;
     bottom: 0;
     left: 0;
@@ -52,21 +53,21 @@
   padding: 8px;
 }
 
-.panel .title {
+.SidePanel .title {
   width: 100%;
   color: var(--light-blue);
   font-size: 15px;
 }
 
-.panel .title .fa {
+.SidePanel .title .fa {
   vertical-align: top;
 	color: var(--light-blue);
   font-size: 20px;
 }
 
-.panel .title .fa:hover,
-.panel .title .fa:active,
-.panel .title .fa:focus {
+.SidePanel .title .fa:hover,
+.SidePanel .title .fa:active,
+.SidePanel .title .fa:focus {
   color: color(var(--light-blue) shade(20%));
   text-decoration: none;
 }
