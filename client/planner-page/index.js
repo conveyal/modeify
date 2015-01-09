@@ -3,6 +3,7 @@ var BetaBar = require('beta-bar');
 var config = require('config');
 var each = require('each');
 var FilterView = require('filter-view');
+var HelpMeChoose = require('help-me-choose-view');
 var LocationsView = require('locations-view');
 var log = require('log')('planner-page');
 var OptionsView = require('options-view');
@@ -189,5 +190,6 @@ View.prototype.onsubmit = function(e) {
  */
 
 View.prototype.helpMeChoose = function(e) {
-
+  var modal = new HelpMeChoose();
+  modal.show(function() {});
 };
