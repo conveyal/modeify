@@ -2,7 +2,7 @@ var d3 = require('d3');
 var debug = require('debug')('transitive:tile-layer');
 
 var geoTile = require('./d3.geo.tile');
-var SphericalMercator = require('./spherical-mercator');
+var SphericalMercator = require('../util/spherical-mercator');
 
 var prefix = prefixMatch(['webkit', 'ms', 'Moz', 'O']);
 
@@ -34,12 +34,6 @@ module.exports = function TileLayer(opts) {
   var tileLayer = d3.select(el)
     .append('div')
     .attr('class', 'tile-layer');
-
-  // Zoom
-  //zoom.on('zoom.tile-layer', zoomed);
-
-  // On window resize, zoomed
-  //d3.select(window).on('resize.tile-layer', zoomed);
 
   // Initial zoom
   zoomed();
