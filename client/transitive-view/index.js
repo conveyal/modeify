@@ -69,11 +69,17 @@ View.prototype.display = function(journey) {
     }
 
     transitive.on('place.from.dragend', function(place) {
-      placeChanged('from', place);
+      placeChanged('from', {
+        lat: place.place_lat,
+        lng: place.place_lon
+      });
     });
 
     transitive.on('place.to.dragend', function(place) {
-      placeChanged('to', place);
+      placeChanged('to', {
+        lat: place.place_lat,
+        lng: place.place_lon
+      });
     });
 
     log('<-- done displaying patterns');
@@ -87,37 +93,9 @@ View.prototype.display = function(journey) {
  * Update place
  */
 
-View.prototype.placeChanged = function(name, place) {
+View.prototype.placeChanged = function(name, coordinate) {
   var plan = this.model;
-  var location = new Location({
-    coordinate: {
-      lat: place.place_lat,
-      lng: place.place_lon
-    }
-  });
-
-  location.save(function(err, res) {
-    var changes = {};
-
-    if (err) {
-      changes[name] = 'Address not found';
-      changes[name + '_ll'] = {
-        lat: place.place_lat,
-        lng: place.place_lon
-      };
-      changes[name + '_valid'] = false;
-    } else {
-      var loc = res.body;
-      changes[name] = fmt('%s, %s, %s %s', loc.address, loc.city, loc.state, loc.zip);
-      changes[name + '_ll'] = {
-        lat: place.place_lat,
-        lng: place.place_lon
-      };
-      changes[name + '_id'] = loc._id;
-      changes[name + '_valid'] = true;
-    }
-
-    plan.set(changes);
-    plan.updateRoutes();
+  plan.setAddress(name, coordinate.lng + ',' + coordinate.lat, function(err, rees) {
+    if (!err) plan.updateRoutes();
   });
 };
