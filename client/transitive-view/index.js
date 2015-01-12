@@ -58,8 +58,6 @@ View.prototype.display = function(journey) {
   var placeChanged = debounce(function(name, place) {
     self.placeChanged(name, place);
   }, 150, true);
-  var zoomIn = this.find('.zoom.in');
-  var zoomOut = this.find('.zoom.out');
 
   try {
     transitive.setElement(el);
@@ -77,32 +75,6 @@ View.prototype.display = function(journey) {
     transitive.on('place.to.dragend', function(place) {
       placeChanged('to', place);
     });
-
-    if (zoomIn) {
-      zoomIn.onclick = function() {
-        el.dispatchEvent(new window.WheelEvent('wheel', {
-          view: window,
-          bubbles: true,
-          cancelable: true,
-          clientX: el.clientWidth / 2,
-          clientY: el.clientHeight * 0.7,
-          deltaY: -300
-        }));
-      };
-    }
-
-    if (zoomOut) {
-      zoomOut.onclick = function() {
-        el.dispatchEvent(new window.WheelEvent('wheel', {
-          view: window,
-          bubbles: true,
-          cancelable: true,
-          clientX: el.clientWidth / 2,
-          clientY: el.clientHeight * 0.7,
-          deltaY: 300
-        }));
-      };
-    }
 
     log('<-- done displaying patterns');
   } catch (e) {
