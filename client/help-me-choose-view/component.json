@@ -1,5 +1,8 @@
 {
   "name": "help-me-choose-view",
+  "dependencies": {
+    "twitter/hogan.js": "*"
+  },
   "local": [
     "log",
     "modal"
@@ -11,6 +14,7 @@
     "style.css"
   ],
   "templates": [
+    "option.html",
     "template.html"
   ]
 }
