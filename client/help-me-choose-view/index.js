@@ -1,5 +1,6 @@
 var hogan = require('hogan.js');
 var modal = require('modal');
+var routeSummarySegments = require('route-summary-segments');
 
 var optionTemplate = hogan.compile(require('./option.html'));
 
@@ -14,3 +15,23 @@ var Modal = module.exports = modal({
 }, function(view) {
 
 });
+
+/**
+ * Refresh
+ */
+
+Modal.prototype.refresh = function(e) {
+  e && e.preventDefault();
+
+};
+
+/**
+ * Append option
+ */
+
+Modal.prototype.renderOption = function(option) {
+  return optionTemplate.render({
+    segments: routeSummarySegments(option),
+
+  });
+};
