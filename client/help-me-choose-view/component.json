@@ -15,7 +15,7 @@
     "style.css"
   ],
   "templates": [
-    "option.html",
+    "route.html",
     "template.html"
   ]
 }
