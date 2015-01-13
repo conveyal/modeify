@@ -5,7 +5,8 @@
   },
   "local": [
     "log",
-    "modal"
+    "modal",
+    "route-summary-segments"
   ],
   "scripts": [
     "index.js"
