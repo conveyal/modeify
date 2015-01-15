@@ -18,4 +18,4 @@ A web-based UI for delivering personalized commute information to travelers. Sup
 
 ## Documentation
 
-* [Developing](/conveyal/modeify/blob/master/docs/Developing.md)
+* [Developing](/docs/Developing.md)
