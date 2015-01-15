@@ -18,4 +18,4 @@ A web-based UI for delivering personalized commute information to travelers. Sup
 
 ## Documentation
 
-* [Developing](/docs/Developing.md)
+* [Development](/docs/Development.md)
