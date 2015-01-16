@@ -190,6 +190,5 @@ View.prototype.onsubmit = function(e) {
  */
 
 View.prototype.helpMeChoose = function(e) {
-  var modal = new HelpMeChoose();
-  modal.show(function() {});
+  HelpMeChoose(session.plan().options()).show();
 };
