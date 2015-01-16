@@ -4,7 +4,9 @@ var transitive = require('transitive-view').transitive;
 
 var template = hogan.compile(require('./template.html'));
 
-module.exports = function(route) {
+module.exports = function(route, opts) {
+  opts = opts || {};
+
   var accessMode = route.access()[0].mode.toLowerCase();
   var segments = '';
   var transitSegments = route.transit();
@@ -14,6 +16,8 @@ module.exports = function(route) {
   segments += template.render({
     mode: convert.modeToIcon(accessMode),
     style: getModeStyles(route.access()[0].mode),
+    inline: !!opts.inline,
+    small: !!opts.small,
     svg: true
   });
 
@@ -36,6 +40,8 @@ module.exports = function(route) {
     segments += template.render({
       background: background,
       mode: convert.modeToIcon(segment.mode),
+      inline: !!opts.inline,
+      small: !!opts.small,
       name: patterns[0].shield
     });
   });

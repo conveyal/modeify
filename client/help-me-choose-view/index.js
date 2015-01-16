@@ -12,8 +12,8 @@ var Modal = module.exports = modal({
   closable: true,
   width: '640px',
   template: require('./template.html')
-}, function(view) {
-
+}, function(view, routes) {
+  view.refresh();
 });
 
 /**
@@ -23,8 +23,25 @@ var Modal = module.exports = modal({
 Modal.prototype.refresh = function(e) {
   e && e.preventDefault();
 
+  // Routes
+  var routes = this.model;
+
+  // Remove existing rows
+  var tbody = this.find('tbody');
+  tbody.innerHTML = '';
+
+  // Get the indexes
   var primary, secondary, multiple;
-  this.routes
+
+  // Sort
+  routes.sort(function() {
+
+  });
+
+  // Render
+  for (var i = 0; i < routes.length; i++) {
+    tbody.innerHTML += this.renderRoute(routes[i], multiple);
+  }
 };
 
 /**
@@ -33,7 +50,15 @@ Modal.prototype.refresh = function(e) {
 
 Modal.prototype.renderRoute = function(route, multiple) {
   return routeTemplate.render({
-    segments: routeSummarySegments(route)
-
+    segments: routeSummarySegments(route, {
+      inline: true
+    }),
+    time: route.time(),
+    frequency: route.frequency(),
+    cost: route.cost(),
+    walkTime: route.walkTime(),
+    calories: route.calories(),
+    productiveTime: 0,
+    emissions: route.emissions()
   });
 };

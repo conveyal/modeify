@@ -6,10 +6,6 @@
   vertical-align: top;
 }
 
-.RouteSegment > .fa-caret-right {
-  display: none;
-}
-
 .RouteSegment .fa-caret-down {
   font-size: 12px;
   display: block;
@@ -38,4 +34,25 @@
   width: 32px;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.RouteSegment.inline {
+  display: inline;
+}
+
+.RouteSegment.inline > .shield {
+  margin: 6px 6px -4px 0;
+  height: 22px;
+}
+
+.RouteSegment.inline .fa-caret-down {
+  display: none;
+}
+
+.RouteSegment.inline .fa-caret-right {
+  display: inline-block;
+}
+
+.RouteSegment.inline:last-of-type .fa-caret-right {
+  display: none;
 }

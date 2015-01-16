@@ -24,7 +24,9 @@ RouteModal.prototype.routeComparisonTable = function() {
 };
 
 RouteModal.prototype.routeSummarySegments = function() {
-  return routeSummarySegments(this.model);
+  return routeSummarySegments(this.model, {
+    inline: true
+  });
 };
 
 RouteModal.prototype.routeResourcesView = function() {
