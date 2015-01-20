@@ -1,6 +1,7 @@
 {
   "name": "help-me-choose-view",
   "dependencies": {
+    "ianstormtaylor/to-capital-case": "*",
     "twitter/hogan.js": "*"
   },
   "local": [
@@ -15,6 +16,7 @@
     "style.css"
   ],
   "templates": [
+    "option.html",
     "route.html",
     "template.html"
   ]

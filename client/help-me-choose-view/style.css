@@ -1,8 +1,18 @@
 
 .HelpMeChoose {
-  padding: 0 20px 20px;
+  padding: 0 20px;
 }
 
 .ComparisonTable {
   white-space: nowrap;
+}
+
+.ComparisonTable > tbody > tr > td,
+.ComparisonTable > thead > tr > th {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.ComparisonTable td.route-summary {
+  text-align: left;
 }
