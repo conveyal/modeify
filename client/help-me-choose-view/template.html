@@ -9,35 +9,37 @@
   <form class="form form-inline FilterBy">
     <div class="form-group">
       <label for="first-filter">Filter by</label>
-      <select on-change="refresh" class="form-control" id="first-filter" name="first-filter"></select>
+      <select on-change="refresh" class="form-control" id="first-filter" name="first-filter" data-html="filters"></select>
     </div>
     <div class="form-group">
       <label for="second-filter">then by</label>
-      <select on-change="refresh" class="form-control" id="second-filter" name="second-filter"></select>
+      <select on-change="refresh" class="form-control" id="second-filter" name="second-filter" data-html="filters"></select>
     </div>
     <div class="pull-right">
       <div class="btn-group">
-        <button class="btn btn-dark">One-way</button>
-        <button class="btn btn-dark">Round trip</button>
+        <button class="btn btn-dark active" on-tap="setOneWay">One-way</button>
+        <button class="btn btn-dark" on-tap="setRoundTrip">Round trip</button>
       </div>
       <div class="btn-group">
-        <button class="btn btn-dark">Daily Total</button>
-        <button class="btn btn-dark">Annual Total</button>
+        <button class="btn btn-dark active" on-tap="setDaily">Daily</button>
+        <button class="btn btn-dark" on-tap="setYearly">Yearly</button>
       </div>
     </div>
   </form>
   <div class="table-responsive">
     <table class="table table-striped ComparisonTable">
       <thead>
-        <th></th>
-        <th>route</th>
-        <th>time</th>
-        <th>freq.</th>
-        <th><i class="fa fa-dollar"></i></th>
-        <th>walk time</th>
-        <th>cals</th>
-        <th><i class="fa fa-book"></i></th>
-        <th>emissions</th>
+        <tr>
+          <th></th>
+          <th><i class="fa fa-clock-o"></i></th>
+          <th>freq.</th>
+          <th><i class="fa fa-dollar"></i></th>
+          <th><i class="icon-walk"></i></th>
+          <th><i class="fa fa-heart"></i></th>
+          <th><i class="fa fa-book"></i></th>
+          <th>emissions</th>
+          <th></th>
+        </tr>
       </thead>
       <tbody></tbody>
     </table>

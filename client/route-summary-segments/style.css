@@ -15,7 +15,7 @@
 }
 
 .RouteSegment:last-of-type .fa-caret-down {
-  display:none;
+  display: none;
 }
 
 .shield {
@@ -41,8 +41,12 @@
 }
 
 .RouteSegment.inline > .shield {
-  margin: 6px 6px -4px 0;
-  height: 22px;
+  margin: 0.5em 0.25em -0.25em 0;
+  height: 1.35em;
+}
+
+.RouteSegment.inline > svg.shield {
+  display: none;
 }
 
 .RouteSegment.inline .fa-caret-down {

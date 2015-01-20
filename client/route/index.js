@@ -226,9 +226,7 @@ Route.prototype.calculatedCost = function() {
   }
 
   var total = cost * this.tripm();
-  if (total > 1000) {
-    return toFixed(total / 1000, 1) + 'k';
-  } else if (total > 100) {
+  if (total > 100) {
     return parseInt(total, 10);
   } else {
     return total.toFixed(2);
@@ -248,20 +246,18 @@ Route.prototype.transitCosts = function() {
 };
 
 /**
- * Calories
+ * Total Calories
  */
 
-Route.prototype.calculatedCalories = function() {
-  if (this.calories() === 0) {
-    return false;
-  }
+Route.prototype.totalCalories = function() {
+  if (this.walkDistances() === 0 && this.bikeDistances() === 0) return 0;
 
   var cals = walkingCaloriesBurned(this.walkSpeed(), this.weight(), (this.walkDistances() / this.walkSpeed()));
   if (this.modes().indexOf('bicycle') !== -1) {
     cals += bikingCaloriesBurned(this.bikeSpeed(), this.weight(), (this.bikeDistances() / this.bikeSpeed()));
   }
-  var total = cals * this.tripm();
-  return total > 1000 ? toFixed(total / 1000, 1) + 'k' : total | 0;
+
+  return cals;
 };
 
 /**
