@@ -135,9 +135,9 @@ Route.prototype.directBikeOrWalk = function() {
 
 Route.prototype.average = function() {
   if (this.hasTransit() || this.modes().indexOf('car') === -1) {
-    return Math.round(this.time());
+    return Math.round(this.time() / 60);
   } else {
-    return Math.round(this.time() * 1.35);
+    return Math.round(this.time() / 60 * 1.35);
   }
 };
 
