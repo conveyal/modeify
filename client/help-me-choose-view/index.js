@@ -17,7 +17,9 @@ var filters = {
     return a.time - b.time;
   },
   // highestFrequency: function(a, b) {},
-  none: function(a, b) { return 0; },
+  none: function(a, b) {
+    return 0;
+  },
   productiveTime: function(a, b) {
     return b.productiveTime - a.productiveTime;
   },
@@ -108,7 +110,7 @@ function getRouteData(route, multiplier) {
   };
 
   if (multiplier > 1) {
-    [ 'cost', 'calories', 'productiveTime', 'emissions' ].forEach(function(type) {
+    ['cost', 'calories', 'productiveTime', 'emissions'].forEach(function(type) {
       data[type] = data[type] * multiplier;
     });
   }
