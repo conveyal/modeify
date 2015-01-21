@@ -100,8 +100,6 @@ Route.prototype.setCarData = function(data) {
     this.costSavings(costDifference);
   }
 
-  console.log(this.calories());
-
   if (this.calories() !== 0) {
     this.weightLost(parseInt(convert.caloriesToPounds(this.calories()) * m, 10));
   }
