@@ -60,7 +60,6 @@ View.prototype.timeSavingsAndNoCostSavings = function() {
   return this.model.timeSavings() && !this.model.costSavings();
 };
 
-
 /**
  * Details, details
  */

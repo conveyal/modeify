@@ -424,7 +424,6 @@ function toFixed(n, f) {
   return ((n * m) | 0) / m;
 }
 
-
 /**
  * Tags
  */
@@ -439,7 +438,7 @@ Route.prototype.tags = function(plan) {
 
   // add tags for each transit leg
   each(this.transit(), function(transitLeg) {
-    tags.push(transitLeg.mode);// add the transit mode tag
+    tags.push(transitLeg.mode); // add the transit mode tag
     if (transitLeg.routes.length > 0) { //add the agency tag
       tags.push(transitLeg.routes[0].id.split(':')[0]);
     }
@@ -455,10 +454,11 @@ Route.prototype.tags = function(plan) {
     tags = tags.concat(from).concat(to);
   }
 
-  tags = tags.map(function(tag) { return tag.toLowerCase().trim(); });
+  tags = tags.map(function(tag) {
+    return tag.toLowerCase().trim();
+  });
   return tags;
 };
-
 
 function locationToTags(location) {
   // strip off the zip code, if present

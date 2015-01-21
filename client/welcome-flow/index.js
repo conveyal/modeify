@@ -41,7 +41,10 @@ module.exports = function(session) {
       var route = plan.options()[0];
 
       routeResource.findByTags(route.tags(plan), (function(err, resources) {
-        var routeModal = new RouteModal(route, null, { context : 'welcome-flow', resources : resources});
+        var routeModal = new RouteModal(route, null, {
+          context: 'welcome-flow',
+          resources: resources
+        });
         routeModal.show();
         main.classList.remove('Welcome');
 

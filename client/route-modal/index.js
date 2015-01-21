@@ -36,7 +36,7 @@ RouteModal.prototype.routeResourcesView = function() {
 };
 
 RouteModal.prototype.routeIntroText = function() {
-  switch(this.options.context) {
+  switch (this.options.context) {
     case 'welcome-flow':
       return 'Your best option is to';
     case 'option':
@@ -45,7 +45,7 @@ RouteModal.prototype.routeIntroText = function() {
 };
 
 RouteModal.prototype.nextButtonText = function() {
-  switch(this.options.context) {
+  switch (this.options.context) {
     case 'welcome-flow':
       return 'Show all of my options';
     case 'option':

@@ -26,6 +26,6 @@ View.prototype.resourceClicked = function(e) {
       url: linkUrl
     });
 
-    window.open(linkUrl,'_blank');
+    window.open(linkUrl, '_blank');
   }
 };
