@@ -17,7 +17,7 @@ var WALKING_MET = 3.8;
 
 /**
  * CO2 per passenger trip
- * Metric Tons of CO2 / Rides
+ * Kilograms of CO2 / Rides
  *
  * http://www.wmata.com/Images/Mrel/MF_Uploads/sustainability-web-2014-04-22.pdf
  */
@@ -189,8 +189,6 @@ ProfileScore.prototype.tally = function(o) {
       break;
     case 'bicycle':
       o.bikeDistance = accessDistance;
-      o.bikeCalories = caloriesBurned(CYCLING_MET, this.rates.weight, o.time /
-        60);
       break;
     case 'walk':
       o.walkDistance = accessDistance;
@@ -243,8 +241,11 @@ ProfileScore.prototype.tally = function(o) {
 
   // Set the walking calories burned
   if (o.modes.indexOf('walk') !== -1)
-    o.walkCalories = caloriesBurned(WALKING_MET, this.rates.weight, (o.walkDistance /
-      this.rates.walkSpeed) * SECONDS_TO_HOURS);
+    o.walkCalories = caloriesBurned(WALKING_MET, this.rates.weight, (o.walkDistance / this.rates.walkSpeed) * SECONDS_TO_HOURS);
+
+  // Set the biking calories burned
+  if (o.modes.indexOf('bicycle') !== -1)
+    o.bikeCalories = caloriesBurned(CYCLING_MET, this.rates.weight, (o.bikeDistance / this.rates.bikeSpeed) * SECONDS_TO_HOURS);
 
   // Total calories
   o.calories = o.bikeCalories + o.walkCalories;

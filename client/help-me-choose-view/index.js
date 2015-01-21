@@ -7,10 +7,26 @@ var optionTemplate = hogan.compile(require('./option.html'));
 var routeTemplate = hogan.compile(require('./route.html'));
 
 var filters = {
-  calories: function(a, b) {},
-  time: function(a, b) {},
-  frequency: function(a, b) {},
-  walkTime: function(a, b) {},
+  caloriesBurned: function(a, b) {
+    return b.calories - a.calories;
+  },
+  cost: function(a, b) {
+    return a.cost - b.cost;
+  },
+  fastestTime: function(a, b) {
+    return a.time - b.time;
+  },
+  // highestFrequency: function(a, b) {},
+  none: function(a, b) { return 0; },
+  productiveTime: function(a, b) {
+    return b.productiveTime - a.productiveTime;
+  },
+  score: function(a, b) {
+    return a.score - b.score;
+  },
+  walkDistance: function(a, b) {
+    return a.walkDistance - b.walkDistance;
+  },
 };
 
 /**
@@ -22,8 +38,16 @@ var Modal = module.exports = modal({
   width: '768px',
   template: require('./template.html')
 }, function(view, routes) {
+
+  view.firstFilter = view.find('#first-filter');
+  view.secondFilter = view.find('#second-filter');
+
+  view.firstFilter.value = 'score';
+  view.secondFilter.value = 'none';
+
   view.oneWay = true;
   view.daily = true;
+
   view.refresh();
 });
 
@@ -42,16 +66,21 @@ Modal.prototype.refresh = function(e) {
   tbody.innerHTML = '';
 
   // Get the indexes
-  var primary, secondary, multiplier;
+  var primary = filters[this.firstFilter.value];
+  var secondary = filters[this.secondFilter.value];
 
   // Get the multiplier
-  multiplier = this.oneWay ? 1 : 2;
+  var multiplier = this.oneWay ? 1 : 2;
   multiplier *= this.daily ? 1 : 365;
 
   // Get the route data
   var routes = this.model.map(function(r) {
     return getRouteData(r, multiplier);
   });
+
+  // Sort by secondary first
+  routes.sort(secondary);
+  routes.sort(primary);
 
   // Render
   for (var i = 0; i < routes.length; i++) {
@@ -74,7 +103,8 @@ function getRouteData(route, multiplier) {
     walkDistance: route.walkDistances(),
     calories: route.totalCalories(),
     productiveTime: route.timeInTransit(),
-    emissions: route.emissions()
+    emissions: route.emissions(),
+    score: route.score()
   };
 
   if (multiplier > 1) {
@@ -93,6 +123,7 @@ function getRouteData(route, multiplier) {
 Modal.prototype.renderRoute = function(data) {
   data.calories = data.calories ? parseInt(data.calories) + ' cals' : 'None';
   data.cost = data.cost ? '$' + data.cost.toFixed(2) : 'Free';
+  data.emissions = data.emissions ? parseInt(data.emissions) : 'None';
   data.productiveTime = data.productiveTime ? parseInt(data.productiveTime) + ' min' : 'None';
   data.walkDistance = data.walkDistance ? data.walkDistance + ' mi' : 'None';
 
@@ -107,7 +138,7 @@ Modal.prototype.filters = function() {
   var options = '';
   for (var f in filters) {
     options += optionTemplate.render({
-      name: toCapitalCase(f),
+      name: toCapitalCase(f).toLowerCase(),
       value: f
     });
   }
