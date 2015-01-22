@@ -1,3 +1,4 @@
+var d3 = require('d3');
 var hogan = require('hogan.js');
 var modal = require('modal');
 var routeSummarySegments = require('route-summary-segments');
@@ -7,27 +8,26 @@ var optionTemplate = hogan.compile(require('./option.html'));
 var routeTemplate = hogan.compile(require('./route.html'));
 
 var filters = {
-  caloriesBurned: function(a, b) {
-    return b.calories - a.calories;
+  caloriesBurned: function(a) {
+    return a.calories;
   },
-  cost: function(a, b) {
-    return a.cost - b.cost;
+  cost: function(a) {
+    return a.cost;
   },
-  fastestTime: function(a, b) {
-    return a.time - b.time;
+  fastestTime: function(a) {
+    return a.time;
   },
-  // highestFrequency: function(a, b) {},
-  none: function(a, b) {
+  none: function(a) {
     return 0;
   },
-  productiveTime: function(a, b) {
-    return b.productiveTime - a.productiveTime;
+  productiveTime: function(a) {
+    return a.productiveTime;
   },
-  score: function(a, b) {
-    return a.score - b.score;
+  score: function(a) {
+    return a.score;
   },
-  walkDistance: function(a, b) {
-    return a.walkDistance - b.walkDistance;
+  walkDistance: function(a) {
+    return a.walkDistance;
   },
 };
 
@@ -81,42 +81,13 @@ Modal.prototype.refresh = function(e) {
   });
 
   // Sort by secondary first
-  routes.sort(secondary);
-  routes.sort(primary);
+  routes = rankRoutes(routes, primary, secondary);
 
   // Render
   for (var i = 0; i < routes.length; i++) {
     tbody.innerHTML += this.renderRoute(routes[i]);
   }
 };
-
-/**
- * Get route data
- */
-
-function getRouteData(route, multiplier) {
-  var data = {
-    segments: routeSummarySegments(route, {
-      inline: true
-    }),
-    time: route.average(),
-    frequency: 0,
-    cost: route.cost(),
-    walkDistance: route.walkDistances(),
-    calories: route.totalCalories(),
-    productiveTime: route.timeInTransit(),
-    emissions: route.emissions(),
-    score: route.score()
-  };
-
-  if (multiplier > 1) {
-    ['cost', 'calories', 'productiveTime', 'emissions'].forEach(function(type) {
-      data[type] = data[type] * multiplier;
-    });
-  }
-
-  return data;
-}
 
 /**
  * Append option
@@ -185,3 +156,57 @@ Modal.prototype.setMultiplier = function(e) {
 
   this.refresh();
 };
+
+/**
+ * Rank & sort the routes
+ */
+
+function rankRoutes(routes, first, second) {
+  var primaryScale = d3.scale.linear()
+    .domain([ d3.min(routes, first), d3.max(routes, first) ])
+    .range([ 0, routes.length * 2 ]);
+
+  var secondaryScale = d3.scale.linear()
+    .domain([ d3.min(routes, second), d3.max(routes, second) ])
+    .range([ 1, routes.length ]);
+
+  routes = routes.map(function(r) {
+    r.primaryRank = primaryScale(first(r));
+    r.secondaryRank = secondaryScale(second(r));
+    r.rank = r.primaryRank + r.secondaryRank;
+    return r;
+  });
+
+  routes.sort(function(a, b) { return a.rank - b.rank; }); // lowest number first
+
+  return routes;
+}
+
+/**
+ * Get route data
+ */
+
+function getRouteData(route, multiplier) {
+  var data = {
+    segments: routeSummarySegments(route, {
+      inline: true
+    }),
+    time: route.average(),
+    frequency: 0,
+    cost: route.cost(),
+    walkDistance: route.walkDistances(),
+    calories: route.totalCalories(),
+    productiveTime: route.timeInTransit(),
+    emissions: route.emissions(),
+    score: route.score(),
+    rank: 0
+  };
+
+  if (multiplier > 1) {
+    ['cost', 'calories', 'productiveTime', 'emissions'].forEach(function(type) {
+      data[type] = data[type] * multiplier;
+    });
+  }
+
+  return data;
+}
