@@ -170,7 +170,7 @@ Plan.prototype.setAddress = function(name, address, callback) {
   var location = new Location();
   var plan = this;
   var c = address.split(',');
-  var isCoordinate = c.length === 2 && parseFloat(c[0]) !== NaN && parseFloat(c[1]) !== NaN;
+  var isCoordinate = c.length === 2 && !isNaN(parseFloat(c[0])) && !isNaN(parseFloat(c[1]));
 
   if (!address || address.length < 1) return callback();
 
@@ -180,7 +180,7 @@ Plan.prototype.setAddress = function(name, address, callback) {
       lng: parseFloat(c[0])
     });
   } else {
-    location.address(address)
+    location.address(address);
   }
 
   location.save(function(err, res) {
