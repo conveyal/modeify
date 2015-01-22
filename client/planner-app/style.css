@@ -119,18 +119,19 @@ a:hover {
 .btn-dark:focus,
 .btn-dark:hover,
 .btn-dark:visited {
-  background: var(--darkest);
+  background: var(--dark-blue);
   color: #fff;
   outline: none;
   border: none;
 }
 
 .btn-dark:hover {
-  background-color: color(var(--darkest) shade(10%));
+  background-color: color(var(--dark-blue) shade(20%));
 }
 
+.btn-dark.active,
 .btn-dark:active {
-  background-color: color(var(--darkest) shade(20%));
+  background-color: color(var(--dark-blue) shade(40%));
 }
 
 .btn-demph,
