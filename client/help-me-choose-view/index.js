@@ -110,10 +110,10 @@ Modal.prototype.refresh = function(e) {
  */
 
 Modal.prototype.renderRoute = function(data) {
-  data.calories = data.calories ? parseInt(data.calories) + ' cals' : 'None';
+  data.calories = data.calories ? parseInt(data.calories).toLocaleString() + ' cals' : 'None';
   data.cost = data.cost ? '$' + data.cost.toFixed(2) : 'Free';
   data.emissions = data.emissions ? parseInt(data.emissions) : 'None';
-  data.productiveTime = data.productiveTime ? parseInt(data.productiveTime) + ' min' : 'None';
+  data.productiveTime = data.productiveTime ? parseInt(data.productiveTime).toLocaleString() + ' min' : 'None';
   data.walkDistance = data.walkDistance ? data.walkDistance + ' mi' : 'None';
 
   return routeTemplate.render(data);
