@@ -8,13 +8,13 @@ var optionTemplate = hogan.compile(require('./option.html'));
 var routeTemplate = hogan.compile(require('./route.html'));
 
 var filters = {
-  caloriesBurned: function(a) {
+  calories: function(a) {
     return -a.calories;
   },
   cost: function(a) {
     return a.cost;
   },
-  fastestTime: function(a) {
+  time: function(a) {
     return a.time;
   },
   none: function(a) {
@@ -57,12 +57,24 @@ var Modal = module.exports = modal({
 Modal.prototype.refresh = function(e) {
   e && e.preventDefault();
 
-  // Routes
+  var i;
   var routes = this.model;
-
-  // Remove existing rows
+  var thead = this.find('thead');
   var tbody = this.find('tbody');
+
+  // Remove rows
   tbody.innerHTML = '';
+
+  // Remove all colors
+  var headers = thead.querySelectorAll('th');
+  for (i = 0; i < headers.length; i++) {
+    headers[i].classList.remove('primaryFilter');
+    headers[i].classList.remove('secondaryFilter');
+  }
+  var phead = thead.querySelector('.' + this.firstFilter.value)
+  if (phead) phead.classList.add('primaryFilter');
+  var shead = thead.querySelector('.' + this.secondFilter.value)
+  if (shead) shead.classList.add('secondaryFilter');
 
   // Get the indexes
   var primary = filters[this.firstFilter.value];
@@ -81,8 +93,15 @@ Modal.prototype.refresh = function(e) {
   routes = rankRoutes(routes, primary, secondary);
 
   // Render
-  for (var i = 0; i < routes.length; i++) {
-    tbody.innerHTML += this.renderRoute(routes[i]);
+  for (i = 0; i < routes.length; i++) {
+    var route = routes[i];
+    tbody.innerHTML += this.renderRoute(route);
+    var row = tbody.childNodes[i];
+    var pcell = row.querySelector('.' + this.firstFilter.value);
+    var scell = row.querySelector('.' + this.secondFilter.value);
+
+    if (pcell) pcell.style.backgroundColor = toRGBA(route.primaryColor, 0.25);
+    if (scell) scell.style.backgroundColor = toRGBA(route.secondaryColor, 0.25);
   }
 };
 
@@ -159,17 +178,30 @@ Modal.prototype.setMultiplier = function(e) {
  */
 
 function rankRoutes(routes, first, second) {
+  var primaryDomain = [ d3.min(routes, first), d3.max(routes, first) ];
+  var secondaryDomain = [ d3.min(routes, second), d3.max(routes, second) ];
+
   var primaryScale = d3.scale.linear()
-    .domain([ d3.min(routes, first), d3.max(routes, first) ])
+    .domain(primaryDomain)
     .range([ 0, routes.length * 2 ]);
 
   var secondaryScale = d3.scale.linear()
-    .domain([ d3.min(routes, second), d3.max(routes, second) ])
+    .domain(secondaryDomain)
     .range([ 1, routes.length ]);
+
+  var primaryColor = d3.scale.linear()
+    .domain(primaryDomain)
+    .range([ '#f5a81c', '#fff' ]);
+
+  var secondaryColor = d3.scale.linear()
+    .domain(secondaryDomain)
+    .range([ '#8ec449', '#fff' ]);
 
   routes = routes.map(function(r) {
     r.primaryRank = primaryScale(first(r));
+    r.primaryColor = primaryColor(first(r));
     r.secondaryRank = secondaryScale(second(r));
+    r.secondaryColor = secondaryColor(second(r));
     r.rank = r.primaryRank + r.secondaryRank;
     return r;
   });
@@ -177,6 +209,15 @@ function rankRoutes(routes, first, second) {
   routes.sort(function(a, b) { return a.rank - b.rank; }); // lowest number first
 
   return routes;
+}
+
+/**
+ * RGB to transparent
+ */
+
+function toRGBA(rgb, opacity) {
+  var c = d3.rgb(rgb);
+  return 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + opacity + ')';
 }
 
 /**

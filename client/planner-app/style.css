@@ -223,16 +223,20 @@ p {
 
 select {
   background: transparent;
-  border: none;
-  color: #fff;
-  font-weight: var(--bold);
 
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
 
+  cursor: pointer;
+  color: var(--gold);
+  font-weight: var(--bold);
+  padding: 8px 2px 0;
+  margin: 0 1px;
+
+  border: none;
   border-radius: 0;
-  text-align: left;
+  border-bottom: 1px solid var(--gold);
 }
 
 select::-ms-expand {
