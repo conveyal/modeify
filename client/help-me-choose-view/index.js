@@ -9,7 +9,7 @@ var routeTemplate = hogan.compile(require('./route.html'));
 
 var filters = {
   caloriesBurned: function(a) {
-    return a.calories;
+    return -a.calories;
   },
   cost: function(a) {
     return a.cost;
@@ -21,10 +21,7 @@ var filters = {
     return 0;
   },
   productiveTime: function(a) {
-    return a.productiveTime;
-  },
-  score: function(a) {
-    return a.score;
+    return -a.productiveTime;
   },
   walkDistance: function(a) {
     return a.walkDistance;
@@ -44,8 +41,8 @@ var Modal = module.exports = modal({
   view.firstFilter = view.find('#first-filter');
   view.secondFilter = view.find('#second-filter');
 
-  view.firstFilter.value = 'score';
-  view.secondFilter.value = 'none';
+  view.firstFilter.value = 'cost';
+  view.secondFilter.value = 'walkDistance';
 
   view.oneWay = true;
   view.daily = true;
