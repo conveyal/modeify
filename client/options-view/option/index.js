@@ -356,7 +356,8 @@ View.prototype.selectOption = function() {
     route: {
       modes: route.modes(),
       summary: route.summary()
-    }
+    },
+    from: 'options-view'
   }));
 
   routeResource.findByTags(tags, function(err, resources) {
