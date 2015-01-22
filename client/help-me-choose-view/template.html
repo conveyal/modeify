@@ -9,11 +9,11 @@
   <form class="form form-inline FilterBy">
     <div class="form-group">
       <label for="first-filter">Rank by</label>
-      <select on-change="refresh" class="form-control" id="first-filter" name="first-filter" data-html="filters"></select>
+      <select on-change="refresh" id="first-filter" name="first-filter" data-html="filters"></select>
     </div>
     <div class="form-group">
       <label for="second-filter">then by</label>
-      <select on-change="refresh" class="form-control" id="second-filter" name="second-filter" data-html="filters"></select>
+      <select on-change="refresh" class="secondaryFilter" id="second-filter" name="second-filter" data-html="filters"></select>
     </div>
     <div class="pull-right">
       <div class="btn-group">
@@ -27,18 +27,16 @@
     </div>
   </form>
   <div class="table-responsive">
-    <table class="table table-striped ComparisonTable">
+    <table class="table ComparisonTable">
       <thead>
         <tr>
           <th></th>
-          <th><i class="fa fa-clock-o"></i></th>
-          <th><i class="fa fa-dollar"></i></th>
-          <th><i class="icon-walk"></i></th>
-          <th><i class="fa fa-heart"></i></th>
-          <th><i class="fa fa-book"></i></th>
-          <!--<th>freq.</th>-->
-          <!--<th>kg CO<sub>2</sub></th>-->
-          <th></th>
+          <th class="time"><i class="fa fa-clock-o"></i></th>
+          <th class="cost"><i class="fa fa-dollar"></i></th>
+          <th class="walkDistance"><i class="icon-walk"></i></th>
+          <th class="calories"><i class="fa fa-heart"></i></th>
+          <th class="productiveTime"><i class="fa fa-book"></i></th>
+          <th class="none"></th>
         </tr>
       </thead>
       <tbody></tbody>

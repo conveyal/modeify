@@ -16,3 +16,20 @@
 .ComparisonTable td.route-summary {
   text-align: left;
 }
+
+.ComparisonTable td {
+  background: rgba(255, 255, 255, 0);
+}
+
+.ComparisonTable th.primaryFilter {
+  color: var(--gold);
+}
+
+.ComparisonTable th.secondaryFilter {
+  color: var(--green);
+}
+
+.HelpMeChoose select.secondaryFilter {
+  color: var(--green);
+  border-bottom-color: var(--green);
+}
