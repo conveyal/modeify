@@ -39,7 +39,7 @@ exports.caloriesToPounds = function(cals) {
 
 exports.roundNumberToString = function(n) {
   if (n > 1000) {
-    return toFixed(n / 1000, 1) + 'k';
+    return toFixed(n, 0).toLocaleString();
   } else if (n > 100) {
     return Math.round(n);
   } else if (n > 10) {
