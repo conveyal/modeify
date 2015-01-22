@@ -138,8 +138,8 @@ Modal.prototype.filters = function() {
 };
 
 /**
-* Select this option
-*/
+ * Select this option
+ */
 
 Modal.prototype.selectRoute = function(e) {
   e.preventDefault();
@@ -216,24 +216,24 @@ Modal.prototype.setMultiplier = function(e) {
  */
 
 function rankRoutes(routes, first, second) {
-  var primaryDomain = [ d3.min(routes, first), d3.max(routes, first) ];
-  var secondaryDomain = [ d3.min(routes, second), d3.max(routes, second) ];
+  var primaryDomain = [d3.min(routes, first), d3.max(routes, first)];
+  var secondaryDomain = [d3.min(routes, second), d3.max(routes, second)];
 
   var primaryScale = d3.scale.linear()
     .domain(primaryDomain)
-    .range([ 0, routes.length * 2 ]);
+    .range([0, routes.length * 2]);
 
   var secondaryScale = d3.scale.linear()
     .domain(secondaryDomain)
-    .range([ 1, routes.length ]);
+    .range([1, routes.length]);
 
   var primaryColor = d3.scale.linear()
     .domain(primaryDomain)
-    .range([ '#f5a81c', '#fff' ]);
+    .range(['#f5a81c', '#fff']);
 
   var secondaryColor = d3.scale.linear()
     .domain(secondaryDomain)
-    .range([ '#8ec449', '#fff' ]);
+    .range(['#8ec449', '#fff']);
 
   routes = routes.map(function(r) {
     r.primaryRank = primaryScale(first(r));
@@ -244,7 +244,9 @@ function rankRoutes(routes, first, second) {
     return r;
   });
 
-  routes.sort(function(a, b) { return a.rank - b.rank; }); // lowest number first
+  routes.sort(function(a, b) {
+    return a.rank - b.rank;
+  }); // lowest number first
 
   return routes;
 }
