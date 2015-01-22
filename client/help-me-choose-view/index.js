@@ -45,6 +45,8 @@ var Modal = module.exports = modal({
   view.firstFilter = view.find('#first-filter');
   view.secondFilter = view.find('#second-filter');
 
+  view.firstFilter.querySelector('[value="none"]').remove();
+
   view.firstFilter.value = 'cost';
   view.secondFilter.value = 'walkDistance';
 
