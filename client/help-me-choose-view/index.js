@@ -1,5 +1,6 @@
 var d3 = require('d3');
 var hogan = require('hogan.js');
+var log = require('log')('help-me-choose');
 var modal = require('modal');
 var RouteModal = require('route-modal');
 var routeResource = require('route-resource');
@@ -15,7 +16,7 @@ var filters = {
   calories: function(a) {
     return -a.calories;
   },
-  cost: function(a) {
+  totalCost: function(a) {
     return a.cost;
   },
   travelTime: function(a) {
@@ -47,7 +48,7 @@ var Modal = module.exports = modal({
 
   view.firstFilter.querySelector('[value="none"]').remove();
 
-  view.firstFilter.value = 'cost';
+  view.firstFilter.value = 'totalCost';
   view.secondFilter.value = 'walkDistance';
 
   view.oneWay = true;
@@ -62,6 +63,7 @@ var Modal = module.exports = modal({
 
 Modal.prototype.refresh = function(e) {
   if (e) e.preventDefault();
+  log('refreshing');
 
   var i;
   var thead = this.find('thead');
@@ -167,7 +169,8 @@ Modal.prototype.selectRoute = function(e) {
     route: {
       modes: route.modes(),
       summary: route.summary()
-    }
+    },
+    from: 'help-me-choose'
   }));
 
   routeResource.findByTags(tags, function(err, resources) {
