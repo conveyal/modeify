@@ -1,7 +1,11 @@
 var d3 = require('d3');
 var hogan = require('hogan.js');
 var modal = require('modal');
+var RouteModal = require('route-modal');
+var routeResource = require('route-resource');
 var routeSummarySegments = require('route-summary-segments');
+var session = require('session');
+var tableize = require('tableize');
 var toCapitalCase = require('to-capital-case');
 
 var optionTemplate = hogan.compile(require('./option.html'));
@@ -55,10 +59,9 @@ var Modal = module.exports = modal({
  */
 
 Modal.prototype.refresh = function(e) {
-  e && e.preventDefault();
+  if (e) e.preventDefault();
 
   var i;
-  var routes = this.model;
   var thead = this.find('thead');
   var tbody = this.find('tbody');
 
@@ -71,9 +74,9 @@ Modal.prototype.refresh = function(e) {
     headers[i].classList.remove('primaryFilter');
     headers[i].classList.remove('secondaryFilter');
   }
-  var phead = thead.querySelector('.' + this.firstFilter.value)
+  var phead = thead.querySelector('.' + this.firstFilter.value);
   if (phead) phead.classList.add('primaryFilter');
-  var shead = thead.querySelector('.' + this.secondFilter.value)
+  var shead = thead.querySelector('.' + this.secondFilter.value);
   if (shead) shead.classList.add('secondaryFilter');
 
   // Get the indexes
@@ -85,8 +88,8 @@ Modal.prototype.refresh = function(e) {
   multiplier *= this.daily ? 1 : 365;
 
   // Get the route data
-  var routes = this.model.map(function(r) {
-    return getRouteData(r, multiplier);
+  var routes = this.model.map(function(r, index) {
+    return getRouteData(r, multiplier, index);
   });
 
   // Sort by secondary first
@@ -135,6 +138,41 @@ Modal.prototype.filters = function() {
 };
 
 /**
+* Select this option
+*/
+
+Modal.prototype.selectRoute = function(e) {
+  e.preventDefault();
+  if (e.target.tagName !== 'BUTTON') return;
+
+  var index = e.target.dataset.index;
+  var route = this.model[index];
+  var plan = session.plan();
+  var tags = route.tags(plan);
+  var self = this;
+
+  window.analytics.track('Route Selected', tableize({
+    plan: plan.generateQuery(),
+    route: {
+      modes: route.modes(),
+      summary: route.summary()
+    }
+  }));
+
+  routeResource.findByTags(tags, function(err, resources) {
+    var routeModal = new RouteModal(route, null, {
+      context: 'option',
+      resources: resources
+    });
+    self.hide();
+    routeModal.show();
+    routeModal.on('next', function() {
+      routeModal.hide();
+    });
+  });
+};
+
+/**
  * Multipliers
  */
 
@@ -163,7 +201,7 @@ Modal.prototype.setMultiplier = function(e) {
 
   var button = e.target;
   var parent = button.parentNode;
-  var buttons = parent.getElementsByTagName('button')
+  var buttons = parent.getElementsByTagName('button');
 
   for (var i = 0; i < buttons.length; i++)
     buttons[i].classList.remove('active');
@@ -224,11 +262,12 @@ function toRGBA(rgb, opacity) {
  * Get route data
  */
 
-function getRouteData(route, multiplier) {
+function getRouteData(route, multiplier, index) {
   var data = {
     segments: routeSummarySegments(route, {
       inline: true
     }),
+    index: index,
     time: route.average(),
     frequency: 0,
     cost: route.cost(),

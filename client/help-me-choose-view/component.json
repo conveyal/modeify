@@ -3,12 +3,16 @@
   "dependencies": {
     "mbostock/d3": "*",
     "ianstormtaylor/to-capital-case": "*",
+    "trevorgerhardt/tableize": "*",
     "twitter/hogan.js": "*"
   },
   "local": [
     "log",
     "modal",
-    "route-summary-segments"
+    "route-modal",
+    "route-resource",
+    "route-summary-segments",
+    "session"
   ],
   "scripts": [
     "index.js"
