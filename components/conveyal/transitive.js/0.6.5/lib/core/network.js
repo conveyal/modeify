@@ -1,80 +1,51 @@
-var d3 = require('d3');
-var debug = require('debug')('transitive');
-var Emitter = require('emitter');
 var each = require('each');
+var debug = require('debug')('transitive:network');
+var Emitter = require('emitter');
 
-var Display = require('./display');
-var drawGrid = require('./display/draw-grid');
-var Legend = require('./display/legend');
+var NetworkPath = require('./path');
+var Route = require('./route');
+var RoutePattern = require('./pattern');
+var Journey = require('./journey');
 
-var Graph = require('./graph');
+var Stop = require('../point/stop');
+var Place = require('../point/place');
+var PointClusterMap = require('../point/pointclustermap');
+var RenderedEdge = require('../renderer/renderededge');
+var RenderedSegment = require('../renderer/renderedsegment');
 
-var NetworkPath = require('./core/path');
-var Route = require('./core/route');
-var RoutePattern = require('./core/pattern');
-var Journey = require('./core/journey');
-var RenderedEdge = require('./core/renderededge');
-var RenderedSegment = require('./core/renderedsegment');
+var Graph = require('../graph');
 
-var Stop = require('./point/stop');
-var Place = require('./point/place');
-var PointClusterMap = require('./point/pointclustermap');
-
-var Styler = require('./styler');
-
-var Labeler = require('./labeler');
-var Label = require('./labeler/label');
-
-var SphericalMercator = require('./util/spherical-mercator');
-
-var sm = new SphericalMercator();
 
 /**
- * Expose `Transitive`
+ * Expose `Network`
  */
 
-module.exports = Transitive;
+module.exports = Network;
 
 /**
- * Expose `version`
- */
-
-module.exports.version = '0.6.4';
-
-/**
- * Create a new instance of `Transitive`
  *
- * @param {Object} options object
- *   - data {Object} data to render
- *   - drawGrid {Boolean} defaults to false
- *   - el {Element} element to render to
- *   - gridCellSize {Number} size of the grid
- *   - style {Object} styles to apply
  */
 
-function Transitive(options) {
+function Network(transitive, data) {
+  this.transitive = transitive;
 
-  if (!(this instanceof Transitive)) return new Transitive(options);
-
-  this.options = options;
-  if (this.options.useDynamicRendering === undefined) this.options.useDynamicRendering =
-    true;
-
-  if (options.el) this.setElement(options.el);
-
-  this.data = options.data;
-  this.labeler = new Labeler(this);
-
+  this.routes = {};
+  this.stops = {};
+  this.patterns = {};
+  this.places = {};
+  this.journeys = {};
   this.paths = [];
-  this.style = new Styler(options.styles);
-  if (options.legendEl) this.legend = new Legend(options.legendEl, this);
+  this.baseVertexPoints = [];
+  this.graph = new Graph(this, []);
+
+  if(data) this.load(data);
 }
 
 /**
  * Mixin `Emitter`
  */
 
-Emitter(Transitive.prototype);
+Emitter(Network.prototype);
 
 /**
  * Load
@@ -82,7 +53,7 @@ Emitter(Transitive.prototype);
  * @param {Object} data
  */
 
-Transitive.prototype.load = function(data) {
+Network.prototype.load = function(data) {
   debug('loading', data);
 
   // check data
@@ -152,6 +123,13 @@ Transitive.prototype.load = function(data) {
     }
   }
 
+  // determine the convergence/divergence vertex stops by looking for stops w/ >2 adjacent stops
+  /*for (var stopId in this.adjacentStops) {
+    if (this.adjacentStops[stopId].length > 2) {
+      this.addVertexPoint(this.stops[stopId]);
+    }
+  }*/
+
   this.createGraph();
 
   this.loaded = true;
@@ -159,46 +137,16 @@ Transitive.prototype.load = function(data) {
   return this;
 };
 
-Transitive.prototype.clearData = function() {
-  this.routes = {};
-  this.stops = {};
-  this.patterns = {};
-  this.places = {};
-  this.journeys = {};
-  this.paths = [];
-  this.baseVertexPoints = [];
-  this.data = null;
-  this.graph = new Graph(this, []);
-  this.labeler.clear();
-  this.render();
-};
-
-Transitive.prototype.updateData = function(data) {
-  if (this.data) this.clearData();
-  this.loaded = false;
-  this.data = data;
-  this.render();
-};
-
-/**
- * Return the collection of default segment styles for a mode.
- *
- * @param {String} an OTP mode string
- */
-
-Transitive.prototype.getModeStyles = function(mode) {
-  return this.style.getModeStyles(mode, this.display);
-};
-
 /** Graph Creation/Processing Methods **/
 
-Transitive.prototype.clearGraphData = function() {
-  this.paths.forEach(function(path) {
+Network.prototype.clearGraphData = function() {
+  each(this.paths, function(path) {
     path.clearGraphData();
   });
 };
 
-Transitive.prototype.createGraph = function() {
+Network.prototype.createGraph = function() {
+  this.applyZoomFactors(this.transitive.display.activeZoomFactors);
 
   // clear previous graph-specific data
   if (this.pointClusterMap) this.pointClusterMap.clearMultiPoints();
@@ -228,11 +176,11 @@ Transitive.prototype.createGraph = function() {
   this.annotateTransitPoints();
   //this.initPlaceAdjacency();
   this.createRenderedSegments();
-  this.labeler.updateLabelList();
+  this.transitive.labeler.updateLabelList(this.graph);
   this.updateGeometry(true);
 };
 
-Transitive.prototype.isSnapping = function() {
+Network.prototype.isSnapping = function() {
   return this.gridCellSize && this.gridCellSize !== 0;
 };
 
@@ -240,7 +188,7 @@ Transitive.prototype.isSnapping = function() {
  * identify and populate the 'internal' vertex points, which is zoom-level specfic
  */
 
-Transitive.prototype.createInternalVertexPoints = function() {
+Network.prototype.createInternalVertexPoints = function() {
 
   this.internalVertexPoints = [];
 
@@ -284,7 +232,7 @@ Transitive.prototype.createInternalVertexPoints = function() {
   //}, this);
 };
 
-Transitive.prototype.updateGeometry = function() {
+Network.prototype.updateGeometry = function() {
 
   // clear the stop render data
   //for (var key in this.stops) this.stops[key].renderData = [];
@@ -315,7 +263,7 @@ Transitive.prototype.updateGeometry = function() {
   this.graph.apply2DOffsets(this);
 };
 
-Transitive.prototype.updateZoomFactors = function(factors) {
+Network.prototype.applyZoomFactors = function(factors) {
   this.gridCellSize = factors.gridCellSize;
   this.internalVertexFactor = factors.internalVertexFactor;
   this.angleConstraint = factors.angleConstraint;
@@ -326,7 +274,7 @@ Transitive.prototype.updateZoomFactors = function(factors) {
  *
  */
 
-Transitive.prototype.processSegment = function(segment) {
+Network.prototype.processSegment = function(segment) {
 
   // iterate through this pattern's stops, associating stops/patterns with
   // each other and initializing the adjacentStops table
@@ -363,7 +311,7 @@ Transitive.prototype.processSegment = function(segment) {
  * @param {Stop} stopB
  */
 
-Transitive.prototype.addStopAdjacency = function(stopIdA, stopIdB) {
+Network.prototype.addStopAdjacency = function(stopIdA, stopIdB) {
   if (!this.adjacentStops[stopIdA]) this.adjacentStops[stopIdA] = [];
   if (this.adjacentStops[stopIdA].indexOf(stopIdB) === -1) this.adjacentStops[
     stopIdA].push(stopIdB);
@@ -373,7 +321,7 @@ Transitive.prototype.addStopAdjacency = function(stopIdA, stopIdB) {
  * Populate the graph edges
  */
 
-Transitive.prototype.populateGraphEdges = function() {
+Network.prototype.populateGraphEdges = function() {
   // vertex associated with the last vertex point we passed in this sequence
   var lastVertex = null;
 
@@ -436,7 +384,7 @@ Transitive.prototype.populateGraphEdges = function() {
   }, this);
 };
 
-Transitive.prototype.annotateTransitPoints = function() {
+Network.prototype.annotateTransitPoints = function() {
   var lookup = {};
 
   this.paths.forEach(function(path) {
@@ -481,7 +429,7 @@ Transitive.prototype.annotateTransitPoints = function() {
   });
 };
 
-Transitive.prototype.initPlaceAdjacency = function() {
+Network.prototype.initPlaceAdjacency = function() {
   each(this.places, function(placeId) {
     var place = this.places[placeId];
     if (!place.graphVertex) return;
@@ -494,7 +442,7 @@ Transitive.prototype.initPlaceAdjacency = function() {
   }, this);
 };
 
-Transitive.prototype.createRenderedSegments = function() {
+Network.prototype.createRenderedSegments = function() {
   this.reLookup = {};
   this.renderedEdges = [];
   this.renderedSegments = [];
@@ -531,7 +479,7 @@ Transitive.prototype.createRenderedSegments = function() {
   });
 };
 
-Transitive.prototype.createRenderedSegment = function(pathSegment, patterns) {
+Network.prototype.createRenderedSegment = function(pathSegment, patterns) {
 
   var rSegment = new RenderedSegment(pathSegment);
 
@@ -547,7 +495,7 @@ Transitive.prototype.createRenderedSegment = function(pathSegment, patterns) {
   pathSegment.addRenderedSegment(rSegment);
 };
 
-Transitive.prototype.createRenderedEdge = function(pathSegment, gEdge, patterns) {
+Network.prototype.createRenderedEdge = function(pathSegment, gEdge, patterns) {
   var rEdge;
   var key = gEdge.id + '_' + pathSegment.getType();
 
@@ -578,320 +526,7 @@ Transitive.prototype.createRenderedEdge = function(pathSegment, gEdge, patterns)
   return rEdge;
 };
 
-Transitive.prototype.addVertexPoint = function(point) {
+Network.prototype.addVertexPoint = function(point) {
   if (this.baseVertexPoints.indexOf(point) !== -1) return;
   this.baseVertexPoints.push(point);
-};
-
-/** Display/Render Methods **/
-
-/**
- * Set the DOM element that serves as the main map canvas
- */
-
-Transitive.prototype.setElement = function(el, legendEl) {
-  if (this.el) this.el.innerHTML = null;
-
-  this.el = el;
-  this.display = new Display(this);
-
-  // Emit click events
-  var self = this;
-  this.display.svg.on('click', function() {
-    var x = d3.event.x;
-    var y = d3.event.y;
-    var geographic = sm.inverse([x, y]);
-    self.emit('click', {
-      x: x,
-      y: y,
-      lng: geographic[0],
-      lat: geographic[1]
-    });
-  });
-
-  this.emit('set element', this, this.el);
-  return this;
-};
-
-/**
- * Render
- */
-
-Transitive.prototype.render = function() {
-  if (!this.loaded) {
-    this.load(this.data);
-  }
-
-  //var display = this.display;
-  this.display.styler = this.style;
-
-  var offsetLeft = this.el.offsetLeft;
-  var offsetTop = this.el.offsetTop;
-
-  // remove all old svg elements
-  this.display.empty();
-
-  // draw the path highlights
-  for (var p = 0; p < this.paths.length; p++) {
-    this.paths[p].drawHighlight(this.display);
-  }
-
-  var legendSegments = {};
-
-  each(this.renderedEdges, function(rEdge) {
-    rEdge.refreshRenderData(this.display);
-  }, this);
-
-  each(this.paths, function(path) {
-    each(path.segments, function(pathSegment) {
-      each(pathSegment.renderedSegments, function(renderedSegment) {
-        renderedSegment.render(this.display);
-        var legendType = renderedSegment.getLegendType();
-        if (!(legendType in legendSegments)) {
-          legendSegments[legendType] = renderedSegment;
-        }
-
-      }, this);
-    }, this);
-  }, this);
-
-  // draw the vertex-based points
-  this.graph.vertices.forEach(function(vertex) {
-    vertex.point.render(this.display);
-    if (this.options.draggableTypes && this.options.draggableTypes.indexOf(
-      vertex.point.getType()) !== -1) {
-      vertex.point.makeDraggable(this);
-    }
-  }, this);
-
-  // draw the edge-based points
-  this.graph.edges.forEach(function(edge) {
-    edge.pointArray.forEach(function(point) {
-      point.render(this.display);
-    }, this);
-  }, this);
-
-  if (this.legend) this.legend.render(legendSegments);
-
-  this.refresh();
-
-  this.emit('render', this);
-  return this;
-};
-
-/**
- * Render to
- *
- * @param {Element} el
- */
-
-Transitive.prototype.renderTo = function(el) {
-  this.setElement(el);
-  this.render();
-
-  this.emit('render to', this);
-  return this;
-};
-
-/**
- * Refresh
- */
-
-Transitive.prototype.refresh = function(panning) {
-
-  if (this.display.tileLayer) this.display.tileLayer.zoomed();
-
-  this.graph.vertices.forEach(function(vertex) {
-    vertex.point.clearRenderData();
-  }, this);
-  this.graph.edges.forEach(function(edge) {
-    edge.clearRenderData();
-  });
-
-  // draw the grid, if necessary
-  if (this.options.drawGrid) drawGrid(this.display, this.gridCellSize);
-
-  // refresh the segment and point marker data
-  this.refreshSegmentRenderData();
-  this.graph.vertices.forEach(function(vertex) {
-    vertex.point.initMarkerData(this.display);
-  }, this);
-
-  this.renderedSegments = [];
-  each(this.paths, function(path) {
-    each(path.segments, function(pathSegment) {
-      each(pathSegment.renderedSegments, function(rSegment) {
-        rSegment.refresh(this.display);
-        this.renderedSegments.push(rSegment);
-      }, this);
-    }, this);
-  }, this);
-
-  this.graph.vertices.forEach(function(vertex) {
-    var point = vertex.point;
-    if (!point.svgGroup) return; // check if this point is not currently rendered
-    this.style.renderPoint(this.display, point);
-    point.refresh(this.display);
-  }, this);
-
-  // re-draw the edge-based points
-  this.graph.edges.forEach(function(edge) {
-    edge.pointArray.forEach(function(point) {
-      if (!point.svgGroup) return; // check if this point is not currently rendered
-      this.style.renderStop(this.display, point);
-      point.refresh(this.display);
-    }, this);
-  }, this);
-
-  // refresh the label layout
-  var labeledElements = this.labeler.doLayout();
-  labeledElements.points.forEach(function(point) {
-    point.refreshLabel(this.display);
-    this.style.renderPointLabel(this.display, point);
-  }, this);
-  each(this.labeler.segmentLabels, function(label) {
-    label.refresh(this.display);
-    this.style.renderSegmentLabel(this.display, label);
-  }, this);
-
-  this.sortElements();
-
-};
-
-Transitive.prototype.refreshSegmentRenderData = function() {
-  each(this.renderedEdges, function(rEdge) {
-    rEdge.refreshRenderData(this.display);
-  }, this);
-
-  // try intersecting adjacent rendered edges to create a smooth transition
-
-  var isectKeys = []; // keep track of edge-edge intersections we've already computed
-  each(this.paths, function(path) {
-    each(path.segments, function(pathSegment) {
-      each(pathSegment.renderedSegments, function(rSegment) {
-        for (var s = 0; s < rSegment.renderedEdges.length - 1; s++) {
-          var rEdge1 = rSegment.renderedEdges[s];
-          var rEdge2 = rSegment.renderedEdges[s + 1];
-          var key = rEdge1.getId() + '_' + rEdge2.getId();
-          if (isectKeys.indexOf(key) !== -1) continue;
-          if (rEdge1.graphEdge.isInternal && rEdge2.graphEdge.isInternal) {
-            rEdge1.intersect(rEdge2);
-          }
-          isectKeys.push(key);
-        }
-      });
-    });
-  });
-};
-
-Transitive.prototype.sortElements = function() {
-
-  this.renderedSegments.sort(function(a, b) {
-    return (a.compareTo(b));
-  });
-
-  var focusBaseZIndex = 100000;
-
-  this.renderedSegments.forEach(function(rSegment, index) {
-    rSegment.zIndex = index * 10 + (rSegment.isFocused() ? focusBaseZIndex :
-      0);
-  });
-
-  this.graph.vertices.forEach(function(vertex) {
-    var point = vertex.point;
-    point.zIndex = point.zIndex + (point.isFocused() ? focusBaseZIndex : 0);
-  }, this);
-
-  this.display.svg.selectAll('.transitive-sortable').sort(function(a, b) {
-    var aIndex = (typeof a.getZIndex === 'function') ? a.getZIndex() : a.owner
-      .getZIndex();
-    var bIndex = (typeof b.getZIndex === 'function') ? b.getZIndex() : b.owner
-      .getZIndex();
-    return aIndex - bIndex;
-  });
-};
-
-Transitive.prototype.focusJourney = function(journeyId) {
-
-  var journeyRenderedSegments = [];
-
-  if (journeyId) { // if we're focusing a specific journey
-    journeyRenderedSegments = this.journeys[journeyId].path.getRenderedSegments();
-
-    // un-focus all internal points
-    this.graph.edges.forEach(function(edge) {
-      edge.pointArray.forEach(function(point, i) {
-        point.setAllPatternsFocused(false);
-      });
-    }, this);
-  } else { // if we're returing to 'all-focused' mode
-    // re-focus all internal points
-    this.graph.edges.forEach(function(edge) {
-      edge.pointArray.forEach(function(point, i) {
-        point.setAllPatternsFocused(true);
-      });
-    }, this);
-  }
-
-  var focusChangeSegments = [],
-    focusedVertexPoints = [];
-  each(this.renderedSegments, function(rSegment) {
-    if (journeyId && journeyRenderedSegments.indexOf(rSegment) === -1) {
-      if (rSegment.isFocused()) focusChangeSegments.push(rSegment);
-      rSegment.setFocused(false);
-    } else {
-      if (!rSegment.isFocused()) focusChangeSegments.push(rSegment);
-      rSegment.setFocused(true);
-      focusedVertexPoints.push(rSegment.pathSegment.startVertex().point);
-      focusedVertexPoints.push(rSegment.pathSegment.endVertex().point);
-    }
-  });
-
-  var focusChangePoints = [];
-  this.graph.vertices.forEach(function(vertex) {
-    var point = vertex.point;
-    if (focusedVertexPoints.indexOf(point) !== -1) {
-      if (!point.isFocused()) focusChangePoints.push(point);
-      point.setFocused(true);
-    } else {
-      if (point.isFocused()) focusChangePoints.push(point);
-      point.setFocused(false);
-    }
-  }, this);
-
-  // bring the focused elements to the front for the transition
-  if (journeyId) this.sortElements();
-
-  // create a transition callback function that invokes refresh() after all transitions complete
-  var n = 0,
-    self = this;
-  var refreshOnEnd = function(transition, callback) {
-    transition
-      .each(function() {
-        ++n;
-      })
-      .each("end", function() {
-        if (!--n) self.refresh();
-      });
-  };
-
-  // run the transtions on the affected elements
-  each(focusChangeSegments, function(segment) {
-    segment.runFocusTransition(this.display, refreshOnEnd);
-  }, this);
-
-  each(focusChangePoints, function(point) {
-    point.runFocusTransition(this.display, refreshOnEnd);
-  }, this);
-
-};
-
-Transitive.prototype.offsetEdge = function(rEdge, axisId, offset) {
-  if (rEdge.pattern) {
-    this.renderedEdges.forEach(function(re) {
-      if (re.pattern && re.pattern.pattern_id === rEdge.pattern.pattern_id) {
-        re.offsetAxis(axisId, offset);
-      }
-    });
-  } else rEdge.offsetAxis(axisId, offset);
 };

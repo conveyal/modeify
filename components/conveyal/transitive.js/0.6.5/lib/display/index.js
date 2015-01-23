@@ -1,5 +1,6 @@
 var d3 = require('d3');
 var debug = require('debug')('transitive:display');
+var each = require('each');
 
 var TileLayer = require('./tile-layer');
 
@@ -29,27 +30,34 @@ function Display(transitive) {
     .scaleExtent([0.25, 4]);
 
   var self = this;
+
+  var updateActiveZoomFactors = function(scale) {
+    var updated = false;
+    for (var i = 0; i < self.zoomFactors.length; i++) {
+      var min = self.zoomFactors[i].minScale;
+      var max = (i < self.zoomFactors.length - 1) ?
+        self.zoomFactors[i + 1].minScale : Number.MAX_VALUE;
+
+      // check if we've crossed into a new zoomFactor partition
+      if ((!self.lastScale || self.lastScale < min || self.lastScale >= max) &&
+        scale >= min && scale < max) {
+        self.activeZoomFactors = self.zoomFactors[i];
+        updated = true;
+      }
+    }
+    return updated;
+  };
+
+
   var zoomBehavior = function() {
     var scale = self.zoom.scale();
-    //debug('scale', scale);
     if (scale !== self.lastScale) { // zoom action
-      var updatedGraph = false;
-      for (var i = 0; i < self.zoomFactors.length; i++) {
-        var min = self.zoomFactors[i].minScale;
-        var max = (i < self.zoomFactors.length - 1) ?
-          self.zoomFactors[i + 1].minScale : Number.MAX_VALUE;
-
-        // check if we've crossed into a new zoomFactor partition
-        if ((self.lastScale < min || self.lastScale >= max) && scale >= min &&
-          scale < max) {
-          transitive.updateZoomFactors(self.zoomFactors[i]);
-          transitive.clearGraphData();
-          transitive.createGraph();
-          transitive.render();
-          updatedGraph = true;
-        }
+      if(updateActiveZoomFactors(scale)) {
+        transitive.network = null;
+        //transitive.network.createGraph();
+        transitive.render();
       }
-      if (!updatedGraph) transitive.refresh();
+      else transitive.refresh();
       self.lastScale = scale;
     } else { // pan action
       setTimeout(transitive.refresh.bind(transitive, true), 0);
@@ -89,13 +97,18 @@ function Display(transitive) {
     bounds = [sm.forward(transitive.options.initialBounds[0]),
       sm.forward(transitive.options.initialBounds[1])
     ];
-  } else if (transitive.graph) {
-    bounds = transitive.graph.bounds();
+  } else if (transitive.network && transitive.network.graph) {
+    bounds = transitive.network.graph.bounds();
   }
 
   if (bounds) {
-    this.setScale(this.el.clientHeight, this.el.clientWidth, bounds, transitive.options);
-    this.lastScale = this.zoom.scale();
+    this.setScale(bounds, transitive.options);
+    var scale = this.zoom.scale();
+    updateActiveZoomFactors(scale);
+    this.lastScale = scale;
+  }
+  else {
+    updateActiveZoomFactors(1);
   }
 
   // set up the map layer
@@ -147,17 +160,17 @@ Display.prototype.empty = function() {
  * Set the scale
  */
 
-Display.prototype.setScale = function(height, width, bounds, options) {
+Display.prototype.setScale = function(bounds, options) {
 
-  this.height = height;
-  this.width = width;
+  this.height = this.el.clientHeight;
+  this.width = this.el.clientWidth;
 
-  var domains = getDomains(this, height, width, bounds, options);
+  var domains = getDomains(this, this.height, this.width, bounds, options);
   this.xScale.domain(domains[0]);
   this.yScale.domain(domains[1]);
 
-  this.xScale.range([0, width]);
-  this.yScale.range([height, 0]);
+  this.xScale.range([0, this.width]);
+  this.yScale.range([this.height, 0]);
 
   debug('x scale %j -> %j', this.xScale.domain(), this.xScale.range());
   debug('y scale %j -> %j', this.yScale.domain(), this.yScale.range());
@@ -165,6 +178,8 @@ Display.prototype.setScale = function(height, width, bounds, options) {
   this.zoom
     .x(this.xScale)
     .y(this.yScale);
+
+  this.scaleSet = true;
 };
 
 Display.prototype.resize = function(newHeight, newWidth) {
