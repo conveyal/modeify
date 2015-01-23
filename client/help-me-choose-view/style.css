@@ -21,6 +21,11 @@
   background: rgba(255, 255, 255, 0);
 }
 
+.ComparisonTable i {
+  font-size: 30px;
+}
+
+
 .ComparisonTable th.primaryFilter {
   color: var(--gold);
 }
