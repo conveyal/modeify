@@ -25,7 +25,7 @@ module.exports = Transitive;
  * Expose `version`
  */
 
-module.exports.version = '0.6.5';
+module.exports.version = '0.6.6';
 
 /**
  * Create a new instance of `Transitive`
@@ -80,6 +80,7 @@ Transitive.prototype.clearData = function() {
 Transitive.prototype.updateData = function(data) {
   this.network = null;
   this.data = data;
+  if (this.display) this.display.scaleSet = false;
   this.labeler.clear();
 };
 
@@ -92,7 +93,6 @@ Transitive.prototype.updateData = function(data) {
 Transitive.prototype.getModeStyles = function(mode) {
   return this.styler.getModeStyles(mode, this.display || new Display(this));
 };
-
 
 /** Display/Render Methods **/
 
@@ -130,11 +130,11 @@ Transitive.prototype.setElement = function(el, legendEl) {
 
 Transitive.prototype.render = function() {
 
-  if(!this.network) {
+  if (!this.network) {
     this.network = new Network(this, this.data);
   }
 
-  if(!this.display.scaleSet) {
+  if (!this.display.scaleSet) {
     this.display.setScale(this.network.graph.bounds(), this.options);
   }
 
