@@ -14,26 +14,10 @@ var view = require('view');
 var isMobile = window.innerWidth <= 480;
 
 /**
- * Expose `View`
+ * Expose singleton `transitive` instance on view
  */
 
-var View = module.exports = view(require('./template.html'), function(view, model) {
-
-  view.on('rendered', function() {
-    var journey = model.journey();
-    if (journey) view.display(journey);
-  });
-
-  model.on('change journey', function(journey) {
-    if (journey) view.display(journey);
-  });
-});
-
-/**
- * Expose `transitive` instance on view
- */
-
-var transitive = View.transitive = window.transitive = new Transitive({
+window.transitive = new Transitive({
   displayMargins: {
     bottom: 43,
     right: 330,
@@ -47,6 +31,46 @@ var transitive = View.transitive = window.transitive = new Transitive({
 });
 
 /**
+ * Expose `View`
+ */
+
+var View = module.exports = view(require('./template.html'), function(view, model) {
+
+  view.on('rendered', function() {
+    var journey = model.journey();
+    if (journey) view.display(journey);
+  });
+
+  model.on('change journey', function(journey) {
+    if (journey) view.display(journey);
+  });
+
+  var placeChanged = debounce(function(name, place) {
+    view.placeChanged(name, place);
+  }, 150, true);
+
+  window.transitive.on('place.from.dragend', function(place) {
+    placeChanged('from', {
+      lat: place.place_lat,
+      lng: place.place_lon
+    });
+  });
+
+  window.transitive.on('place.to.dragend', function(place) {
+    placeChanged('to', {
+      lat: place.place_lat,
+      lng: place.place_lon
+    });
+  });
+});
+
+/**
+ * Expose `transitive` on the View object
+ */
+
+View.transitive = window.transitive;
+
+/**
  * Display
  */
 
@@ -55,32 +79,15 @@ View.prototype.display = function(journey) {
 
   var self = this;
   var el = this.el;
-  var placeChanged = debounce(function(name, place) {
-    self.placeChanged(name, place);
-  }, 150, true);
 
   try {
-    transitive.setElement(el);
+    window.transitive.setElement(el);
 
     // Only render on non-mobile devices
     if (!isMobile) {
-      transitive.updateData(journey);
-      transitive.render();
+      window.transitive.updateData(journey);
+      window.transitive.render();
     }
-
-    transitive.on('place.from.dragend', function(place) {
-      placeChanged('from', {
-        lat: place.place_lat,
-        lng: place.place_lon
-      });
-    });
-
-    transitive.on('place.to.dragend', function(place) {
-      placeChanged('to', {
-        lat: place.place_lat,
-        lng: place.place_lon
-      });
-    });
 
     log('<-- done displaying patterns');
   } catch (e) {
