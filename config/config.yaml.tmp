@@ -26,7 +26,7 @@ api_url: /api
 base_url: http://localhost:5000
 mapbox_map_id: conveyal.ie3o67m0
 otp:
-  host: ec2-54-87-67-197.compute-1.amazonaws.com
+  host: carfreeatoz-otp-staging-245896754.us-east-1.elb.amazonaws.com
   path: /otp/routers/default
   port: 80
 s3_bucket: ''
