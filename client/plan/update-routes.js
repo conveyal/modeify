@@ -123,7 +123,6 @@ function scoreAndFilterOptions(scorer) {
 
 function filterOptions(data, scorer) {
   data.options.forEach(function(o, i) {
-    o = addId(o, i);
     o = formatProfile.option(o);
     o = filterUnreasonableAccessModes(o);
   });
@@ -131,6 +130,8 @@ function filterOptions(data, scorer) {
   data.options = scorer.processOptions(data.options);
   data.options = filterSlowDriveToTransitTrips(data.options);
   data.options = filterTripsWithShortTransitLegs(data.options);
+
+  data.options.forEach(addId);
 
   return data;
 }
