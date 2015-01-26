@@ -53,7 +53,7 @@ function updateRoutes(plan, opts, callback) {
   var query = plan.generateQuery();
   var scorer = plan.scorer();
 
-  otp(query, function(err, data) {
+  otp(query, scoreAndFilterOptions(scorer), function(err, data) {
     if (err || !data || data.options.length < 1) {
       plan.set({
         options: [],
@@ -68,30 +68,6 @@ function updateRoutes(plan, opts, callback) {
         plan: plan.generateQuery(),
         results: data.options.length
       }));
-
-      data.options.forEach(function(o, i) {
-        // Add ids to options
-        if (o.transit && o.transit.length > 0) {
-          o.id = i + '_transit';
-
-          // Filter access modes if they're not reasonable
-          filterMode(o, 'CAR', function(a) {
-            return a.time < 600;
-          });
-          filterMode(o, 'BICYCLE', function(a) {
-            return a.time < 300;
-          });
-          filterMode(o, 'WALK', function(a) {
-            return a.time > 3600;
-          });
-        } else {
-          o.id = i;
-        }
-        o = formatProfile.option(o);
-      });
-
-      // Score the results
-      data.options = scorer.processOptions(data.options);
 
       // Get the car data
       var driveOption = new Route(data.options.filter(function(o) {
@@ -133,6 +109,110 @@ function updateRoutes(plan, opts, callback) {
       done(null, data);
     }
   });
+}
+
+function scoreAndFilterOptions(scorer) {
+  return function(data) {
+    return filterOptions(data, scorer);
+  };
+}
+
+/**
+ * Filter the results
+ */
+
+function filterOptions(data, scorer) {
+  data.options.forEach(function(o, i) {
+    o = addId(o, i);
+    o = formatProfile.option(o);
+    o = filterUnreasonableAccessModes(o);
+  });
+
+  data.options = scorer.processOptions(data.options);
+  data.options = filterSlowDriveToTransitTrips(data.options);
+  data.options = filterTripsWithShortTransitLegs(data.options);
+
+  return data;
+}
+
+function addId(o, i) {
+  if (o.transit && o.transit.length > 0) {
+    o.id = i + '_transit';
+  } else {
+    o.id = i;
+  }
+  return o;
+}
+
+/**
+ * Filter car based trips that are slower than the fastest non car trip * 1.25
+ */
+
+function filterSlowDriveToTransitTrips(opts) {
+  var fastestNonCarTrip = Infinity;
+
+  opts.forEach(function(o) {
+    if (o.access[0].mode !== 'CAR' && o.time < fastestNonCarTrip) {
+      fastestNonCarTrip = o.time;
+    }
+  });
+
+  opts = opts.filter(function(o) {
+    if (o.access[0].mode !== 'CAR') return true;
+    return o.time < fastestNonCarTrip * 1.25;
+  });
+
+  return opts;
+}
+
+/**
+ * Filter transit trips with longer average ride times than average wait times.
+ */
+
+function filterTripsWithShortTransitLegs(opts) {
+  return opts.filter(function(o) {
+    if (!o.transit) return true;
+    for (var i = 0; i < o.transit.length; i++) {
+      if (o.transit[i].rideStats.avg < o.transit[i].waitStats.avg) return false;
+    }
+    return true;
+  });
+}
+
+function filterUnreasonableAccessModes(o) {
+  // Add ids to options
+  if (o.transit && o.transit.length > 0) {
+    // Filter access modes if they're not reasonable
+    filterMode(o, 'CAR', function(a) {
+      return a.time < 600;
+    });
+    filterMode(o, 'BICYCLE', function(a) {
+      return a.time < 600;
+    });
+    filterMode(o, 'WALK', function(a) {
+      return a.time > 3600;
+    });
+  }
+  return o;
+}
+
+function filterMode(option, mode, filter) {
+  if (option.access && option.access.length > 1) {
+    option.access = option.access.filter(function(a) {
+      return a.mode !== mode || !filter(a);
+    });
+  }
+}
+
+function getFastestNonCarJourney(option, fastestNonCarTrip) {
+  if (option.access && option.access.length > 0) {
+    var fastestAccess = 0;
+    option.access.filter(function(a) {
+      return a.mode !== 'CAR';
+    }).forEach(function(a) {
+      fastestAccess = 0;
+    });
+  }
 }
 
 /**
@@ -187,14 +267,6 @@ function getRoute(routeId, routes) {
 function getRouteShield(agency, route) {
   if (agency === 'dc' && route.route_type === 1) return 'M';
   return route.route_short_name || route.route_long_name.toUpperCase();
-}
-
-function filterMode(option, mode, filter) {
-  if (option.access && option.access.length > 1) {
-    option.access = option.access.filter(function(a) {
-      return a.mode !== mode || !filter(a);
-    });
-  }
 }
 
 function generateErrorMessage(plan, response) {
