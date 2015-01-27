@@ -151,15 +151,21 @@ function addId(o, i) {
 
 function filterSlowDriveToTransitTrips(opts) {
   var fastestNonCarTrip = Infinity;
+  var directDriveDistance = Infinity;
 
   opts.forEach(function(o) {
-    if (o.access[0].mode !== 'CAR' && o.time < fastestNonCarTrip) {
+    if (o.access[0].mode === 'CAR') {
+      if (!o.transit || o.transit.length === 0) {
+        directDriveDistance = o.driveDistance;
+      }
+    } else if (o.time < fastestNonCarTrip) {
       fastestNonCarTrip = o.time;
     }
   });
 
   opts = opts.filter(function(o) {
     if (o.access[0].mode !== 'CAR') return true;
+    if (o.driveDistance > directDriveDistance * 1.5) return false;
     return o.time < fastestNonCarTrip * 1.25;
   });
 
