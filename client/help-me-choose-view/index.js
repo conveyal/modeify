@@ -12,6 +12,9 @@ var toCapitalCase = require('to-capital-case');
 var optionTemplate = hogan.compile(require('./option.html'));
 var routeTemplate = hogan.compile(require('./route.html'));
 
+var primaryFilter = 'totalCost';
+var secondaryFilter = 'walkDistance';
+
 var filters = {
   travelTime: function(a) {
     return a.time;
@@ -43,13 +46,13 @@ var Modal = module.exports = modal({
   template: require('./template.html')
 }, function(view, routes) {
 
-  view.firstFilter = view.find('#first-filter');
-  view.secondFilter = view.find('#second-filter');
+  view.primaryFilter = view.find('#primary-filter');
+  view.secondaryFilter = view.find('#secondary-filter');
 
-  view.firstFilter.querySelector('[value="none"]').remove();
+  view.primaryFilter.querySelector('[value="none"]').remove();
 
-  view.firstFilter.value = 'totalCost';
-  view.secondFilter.value = 'walkDistance';
+  view.primaryFilter.value = primaryFilter;
+  view.secondaryFilter.value = secondaryFilter;
 
   view.oneWay = true;
   view.daily = true;
@@ -65,6 +68,9 @@ Modal.prototype.refresh = function(e) {
   if (e) e.preventDefault();
   log('refreshing');
 
+  primaryFilter = this.primaryFilter.value;
+  secondaryFilter = this.secondaryFilter.value;
+
   var i;
   var thead = this.find('thead');
   var tbody = this.find('tbody');
@@ -78,14 +84,14 @@ Modal.prototype.refresh = function(e) {
     headers[i].classList.remove('primaryFilter');
     headers[i].classList.remove('secondaryFilter');
   }
-  var phead = thead.querySelector('.' + this.firstFilter.value);
+  var phead = thead.querySelector('.' + primaryFilter);
   if (phead) phead.classList.add('primaryFilter');
-  var shead = thead.querySelector('.' + this.secondFilter.value);
+  var shead = thead.querySelector('.' + secondaryFilter);
   if (shead) shead.classList.add('secondaryFilter');
 
   // Get the indexes
-  var primary = filters[this.firstFilter.value];
-  var secondary = filters[this.secondFilter.value];
+  var primaryFn = filters[primaryFilter];
+  var secondaryFn = filters[secondaryFilter];
 
   // Get the multiplier
   var multiplier = this.oneWay ? 1 : 2;
@@ -97,19 +103,27 @@ Modal.prototype.refresh = function(e) {
   });
 
   // Sort by secondary first
-  routes = rankRoutes(routes, primary, secondary);
+  routes = rankRoutes(routes, primaryFn, secondaryFn);
 
   // Render
   for (i = 0; i < routes.length; i++) {
     var route = routes[i];
     tbody.innerHTML += this.renderRoute(route);
     var row = tbody.childNodes[i];
-    var pcell = row.querySelector('.' + this.firstFilter.value);
-    var scell = row.querySelector('.' + this.secondFilter.value);
+    var pcell = row.querySelector('.' + primaryFilter);
+    var scell = row.querySelector('.' + secondaryFilter);
 
     if (pcell) pcell.style.backgroundColor = toRGBA(route.primaryColor, 0.25);
     if (scell) scell.style.backgroundColor = toRGBA(route.secondaryColor, 0.25);
   }
+
+  // Track the results
+  window.analytics.track('Help Me Choose', {
+    plan: session.plan().generateQuery(),
+    primaryFilter: primaryFilter,
+    secondaryFilter: secondaryFilter,
+    multiplier: multiplier
+  });
 };
 
 /**
@@ -229,9 +243,9 @@ Modal.prototype.setMultiplier = function(e) {
  * Rank & sort the routes
  */
 
-function rankRoutes(routes, first, second) {
-  var primaryDomain = [d3.min(routes, first), d3.max(routes, first)];
-  var secondaryDomain = [d3.min(routes, second), d3.max(routes, second)];
+function rankRoutes(routes, primary, secondary) {
+  var primaryDomain = [d3.min(routes, primary), d3.max(routes, primary)];
+  var secondaryDomain = [d3.min(routes, secondary), d3.max(routes, secondary)];
 
   var primaryScale = d3.scale.linear()
     .domain(primaryDomain)
@@ -250,10 +264,10 @@ function rankRoutes(routes, first, second) {
     .range(['#8ec449', '#fff']);
 
   routes = routes.map(function(r) {
-    r.primaryRank = primaryScale(first(r));
-    r.primaryColor = primaryColor(first(r));
-    r.secondaryRank = secondaryScale(second(r));
-    r.secondaryColor = secondaryColor(second(r));
+    r.primaryRank = primaryScale(primary(r));
+    r.primaryColor = primaryColor(primary(r));
+    r.secondaryRank = secondaryScale(secondary(r));
+    r.secondaryColor = secondaryColor(secondary(r));
     r.rank = r.primaryRank + r.secondaryRank;
     return r;
   });
