@@ -323,7 +323,7 @@ Plan.prototype.generateQuery = function() {
       lon: to.lng,
       name: 'To'
     },
-    limit: 2,
+    limit: 3,
     transitModes: transitModes.join(','),
     walkSpeed: scorer.rates.walkSpeed
   };

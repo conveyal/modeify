@@ -17,7 +17,7 @@ var profiler = new Profiler({
  * Expose `journey`
  */
 
-module.exports = function profile(query, callback) {
+module.exports = function profile(query, filter, callback) {
   log('--> profiling');
   log('--  see raw results here: %s', generateUrl(query));
 
@@ -29,7 +29,7 @@ module.exports = function profile(query, callback) {
       log.warning('<-- no options found');
       callback('No options found', data);
     } else {
-      query.profile = data;
+      query.profile = filter(data);
       profiler.journey(query, function(err, journey) {
         if (err) {
           log.error('<-- error profiling', err);
