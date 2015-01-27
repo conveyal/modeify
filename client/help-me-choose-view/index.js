@@ -13,7 +13,7 @@ var optionTemplate = hogan.compile(require('./option.html'));
 var routeTemplate = hogan.compile(require('./route.html'));
 
 var primaryFilter = 'totalCost';
-var secondaryFilter = 'walkDistance';
+var secondaryFilter = 'productiveTime';
 
 var filters = {
   travelTime: function(a) {
