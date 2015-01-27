@@ -13,24 +13,24 @@ var optionTemplate = hogan.compile(require('./option.html'));
 var routeTemplate = hogan.compile(require('./route.html'));
 
 var filters = {
-  calories: function(a) {
-    return -a.calories;
+  travelTime: function(a) {
+    return a.time;
   },
   totalCost: function(a) {
     return a.cost;
   },
-  travelTime: function(a) {
-    return a.time;
+  walkDistance: function(a) {
+    return a.walkDistance;
   },
-  none: function(a) {
-    return 0;
+  calories: function(a) {
+    return -a.calories;
   },
   productiveTime: function(a) {
     return -a.productiveTime;
   },
-  walkDistance: function(a) {
-    return a.walkDistance;
-  },
+  none: function(a) {
+    return 0;
+  }
 };
 
 /**
