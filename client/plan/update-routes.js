@@ -128,9 +128,11 @@ function filterOptions(data, scorer) {
   });
 
   data.options = scorer.processOptions(data.options);
-  data.options = filterSlowDriveToTransitTrips(data.options);
+  data.options = filterDriveToTransitTrips(data.options);
+  data.options = filterBikeToTransitTrips(data.options);
   data.options = filterTripsWithShortTransitLegs(data.options);
 
+  // Add the ids last so that they're in appropriate order
   data.options.forEach(addId);
 
   return data;
@@ -146,24 +148,47 @@ function addId(o, i) {
 }
 
 /**
+ * Filter bike to transit trips
+ */
+
+function filterBikeToTransitTrips(opts) {
+  var directBikeDistance = Infinity;
+
+  opts.forEach(function(o) {
+    if (o.access[0].mode === 'BICYCLE' && (!o.transit || o.transit.length === 0)) {
+      directBikeDistance = o.bikeDistance;
+    }
+  });
+
+  return opts.filter(function(o) {
+    if (o.access[0].mode !== 'BICYCLE' || !o.transit || o.transit.length === 0) return true;
+    return o.bikeDistance < (0.75 * directBikeDistance);
+  });
+}
+
+/**
  * Filter car based trips that are slower than the fastest non car trip * 1.25
  */
 
-function filterSlowDriveToTransitTrips(opts) {
+function filterDriveToTransitTrips(opts) {
   var fastestNonCarTrip = Infinity;
+  var directDriveDistance = Infinity;
 
   opts.forEach(function(o) {
-    if (o.access[0].mode !== 'CAR' && o.time < fastestNonCarTrip) {
+    if (o.access[0].mode === 'CAR') {
+      if (!o.transit || o.transit.length === 0) {
+        directDriveDistance = o.driveDistance;
+      }
+    } else if (o.time < fastestNonCarTrip) {
       fastestNonCarTrip = o.time;
     }
   });
 
-  opts = opts.filter(function(o) {
+  return opts.filter(function(o) {
     if (o.access[0].mode !== 'CAR') return true;
+    if (o.driveDistance > directDriveDistance * 1.5) return false;
     return o.time < fastestNonCarTrip * 1.25;
   });
-
-  return opts;
 }
 
 /**

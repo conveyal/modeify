@@ -7,6 +7,7 @@
   width: 100%;
   white-space: nowrap;
   padding-bottom: 8px;
+  font-size: 15px;
 }
 
 @media (--narrow-window) {
@@ -14,16 +15,6 @@
     padding-left: 0;
     padding-right: 0;
   }
-}
-
-.time-filters select {
-  cursor: pointer;
-  color: var(--gold);
-  font-weight: var(--bold);
-  font-size: 15px;
-  padding: 8px 2px 0;
-  margin: 0 1px;
-  border-bottom: 1px solid var(--gold);
 }
 
 @-moz-document url-prefix() {
@@ -34,7 +25,6 @@
 
 .time-filters label {
   color: var(--light-blue);
-  font-size: 15px;
   font-weight: var(--font-weight);
   margin-bottom: 3px;
 }

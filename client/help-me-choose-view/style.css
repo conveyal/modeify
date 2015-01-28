@@ -1,0 +1,67 @@
+
+.HelpMeChoose {
+  padding: 0 20px;
+}
+
+@media (--narrow-window) {
+  .HelpMeChoose {
+    padding: 0;
+  }
+
+  .HelpMeChoose h3,
+  .HelpMeChoose p,
+  .HelpMeChoose form {
+    padding: 0 20px;
+  }
+
+  .HelpMeChoose form {
+    padding-bottom: 20px;
+  }
+
+  .HelpMeChoose .form-group {
+    margin-bottom: 5px;
+  }
+
+  .HelpMeChoose .btn-group {
+    margin-bottom: 10px;
+  }
+}
+
+.ComparisonTable {
+  white-space: nowrap;
+}
+
+.table-responsive {
+  margin-top: 10px;
+}
+
+.ComparisonTable > tbody > tr > td,
+.ComparisonTable > thead > tr > th {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.ComparisonTable td.route-summary {
+  text-align: left;
+}
+
+.ComparisonTable td {
+  background: rgba(255, 255, 255, 0);
+}
+
+.ComparisonTable th {
+  font-size: 25px;
+}
+
+.ComparisonTable th.primaryFilter {
+  color: var(--gold);
+}
+
+.ComparisonTable th.secondaryFilter {
+  color: var(--green);
+}
+
+.HelpMeChoose select.secondaryFilter {
+  color: var(--green);
+  border-bottom-color: var(--green);
+}

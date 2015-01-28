@@ -1,4 +1,4 @@
-<div class="RouteSegment">
+<div class="RouteSegment{{#inline}} inline{{/inline}}">
   <div class="mode">
     <i class="icon-{{mode}}"></i>
     <i class="fa fa-caret-down"></i>
@@ -11,5 +11,7 @@
     <path d="M0,12 32,12" style="{{style}}"></path>
   </svg>
   {{/svg}}
+  {{#inline}}
   <div class="fa fa-caret-right"></div>
+  {{/inline}}
 </div>

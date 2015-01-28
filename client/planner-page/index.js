@@ -3,6 +3,7 @@ var BetaBar = require('beta-bar');
 var config = require('config');
 var each = require('each');
 var FilterView = require('filter-view');
+var HelpMeChoose = require('help-me-choose-view');
 var LocationsView = require('locations-view');
 var log = require('log')('planner-page');
 var OptionsView = require('options-view');
@@ -34,7 +35,7 @@ var View = view({
   title: 'Planner Page'
 }, function(view, model) {
   view.scrollable = view.find('.scrollable');
-  view.moreOptions = view.find('.more-options');
+  view.panelFooter = view.find('.footer');
 
   if (scrollbarSize > 0) {
     if (ua.os.name === 'Windows' || ua.browser.name !== 'Chrome')
@@ -45,12 +46,12 @@ var View = view({
       view.scrollable.style.paddingRight = scrollbarSize + 'px';
   }
 
-  scrolling(view.scrollable, function(e) {
-    view.scrolled(e);
+  model.plan.on('updating options', function() {
+    view.panelFooter.classList.add('hidden');
   });
 
-  model.plan.on('updating options complete', function() {
-    view.scrolled();
+  model.plan.on('updating options complete', function(res) {
+    if (res && !res.err) view.panelFooter.classList.remove('hidden');
   });
 });
 
@@ -177,22 +178,17 @@ View.prototype.scroll = function(e) {
 };
 
 /**
- * Scrolled
- */
-
-View.prototype.scrolled = function(e) {
-  var lastOption = document.querySelector('.option:last-of-type');
-  if (lastOption && this.scrollable.scrollTop < (lastOption.offsetTop - this.scrollable.clientHeight)) {
-    this.moreOptions.classList.remove('hidden');
-  } else {
-    this.moreOptions.classList.add('hidden');
-  }
-};
-
-/**
  * On submit
  */
 
 View.prototype.onsubmit = function(e) {
   e.preventDefault();
+};
+
+/**
+ * Help Me Choose
+ */
+
+View.prototype.helpMeChoose = function(e) {
+  HelpMeChoose(session.plan().options()).show();
 };

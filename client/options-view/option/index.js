@@ -60,7 +60,6 @@ View.prototype.timeSavingsAndNoCostSavings = function() {
   return this.model.timeSavings() && !this.model.costSavings();
 };
 
-
 /**
  * Details, details
  */
@@ -357,7 +356,8 @@ View.prototype.selectOption = function() {
     route: {
       modes: route.modes(),
       summary: route.summary()
-    }
+    },
+    from: 'options-view'
   }));
 
   routeResource.findByTags(tags, function(err, resources) {

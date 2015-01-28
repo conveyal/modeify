@@ -105,7 +105,7 @@ Route.prototype.setCarData = function(data) {
   }
 
   if (timeSavings > 60) {
-    this.timeSavings(parseInt(timeSavings / 60, 10));
+    this.timeSavings(parseInt(timeSavings / 60 / 60, 10));
   }
 
   if (emissions > 0) {
@@ -135,9 +135,9 @@ Route.prototype.directBikeOrWalk = function() {
 
 Route.prototype.average = function() {
   if (this.hasTransit() || this.modes().indexOf('car') === -1) {
-    return Math.round(this.time());
+    return Math.round(this.time() / 60);
   } else {
-    return Math.round(this.time() * 1.35);
+    return Math.round(this.time() / 60 * 1.35);
   }
 };
 
@@ -149,7 +149,7 @@ Route.prototype.freeflowTime = function() {
   if (this.hasTransit() || this.modes().indexOf('car') === -1) {
     return false;
   } else {
-    return Math.round(this.time());
+    return Math.round(this.time() / 60);
   }
 };
 
@@ -226,9 +226,7 @@ Route.prototype.calculatedCost = function() {
   }
 
   var total = cost * this.tripm();
-  if (total > 1000) {
-    return toFixed(total / 1000, 1) + 'k';
-  } else if (total > 100) {
+  if (total > 100) {
     return parseInt(total, 10);
   } else {
     return total.toFixed(2);
@@ -248,20 +246,18 @@ Route.prototype.transitCosts = function() {
 };
 
 /**
- * Calories
+ * Total Calories
  */
 
-Route.prototype.calculatedCalories = function() {
-  if (this.calories() === 0) {
-    return false;
+Route.prototype.totalCalories = function() {
+  if (this.walkDistances() === 0 && this.bikeDistances() === 0) return 0;
+
+  var cals = walkingCaloriesBurned(this.walkSpeed(), this.weight(), this.walkDistance() / this.walkSpeed() / 60 / 60);
+  if (this.modes().indexOf('bicycle') !== -1) {
+    cals += bikingCaloriesBurned(this.bikeSpeed(), this.weight(), this.bikeDistance() / this.bikeSpeed() / 60 / 60);
   }
 
-  var cals = walkingCaloriesBurned(this.walkSpeed(), this.weight(), (this.walkDistances() / this.walkSpeed()));
-  if (this.modes().indexOf('bicycle') !== -1) {
-    cals += bikingCaloriesBurned(this.bikeSpeed(), this.weight(), (this.bikeDistances() / this.bikeSpeed()));
-  }
-  var total = cals * this.tripm();
-  return total > 1000 ? toFixed(total / 1000, 1) + 'k' : total | 0;
+  return cals;
 };
 
 /**
@@ -412,18 +408,21 @@ var K1 = 0.0053; // frictional losses
 var K2 = 0.185; // aerodynamic drag
 var WATTS_TO_CALS_PER_SECOND = 0.2388;
 
-function bikingCaloriesBurned(mps, wkg, hours) {
+function bikingCaloriesBurnedOld(mps, wkg, hours) {
   var mps3 = Math.pow(mps, 3);
   var seconds = hours * 60 * 60;
   var watts = GRAVITY * wkg * mps * (K1 + GRADE) + K2 * mps3;
   return watts * WATTS_TO_CALS_PER_SECOND * seconds;
 }
 
+function bikingCaloriesBurned(mps, wkg, hours) {
+  return 8 * wkg * hours;
+}
+
 function toFixed(n, f) {
   var m = Math.pow(10, f);
   return ((n * m) | 0) / m;
 }
-
 
 /**
  * Tags
@@ -439,7 +438,7 @@ Route.prototype.tags = function(plan) {
 
   // add tags for each transit leg
   each(this.transit(), function(transitLeg) {
-    tags.push(transitLeg.mode);// add the transit mode tag
+    tags.push(transitLeg.mode); // add the transit mode tag
     if (transitLeg.routes.length > 0) { //add the agency tag
       tags.push(transitLeg.routes[0].id.split(':')[0]);
     }
@@ -455,10 +454,11 @@ Route.prototype.tags = function(plan) {
     tags = tags.concat(from).concat(to);
   }
 
-  tags = tags.map(function(tag) { return tag.toLowerCase().trim(); });
+  tags = tags.map(function(tag) {
+    return tag.toLowerCase().trim();
+  });
   return tags;
 };
-
 
 function locationToTags(location) {
   // strip off the zip code, if present

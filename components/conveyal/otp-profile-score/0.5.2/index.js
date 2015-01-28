@@ -17,7 +17,7 @@ var WALKING_MET = 3.8;
 
 /**
  * CO2 per passenger trip
- * Metric Tons of CO2 / Rides
+ * Kilograms of CO2 / Rides
  *
  * http://www.wmata.com/Images/Mrel/MF_Uploads/sustainability-web-2014-04-22.pdf
  */
@@ -115,7 +115,7 @@ ProfileScore.prototype.processOption = function(o) {
 
 ProfileScore.prototype.score = function(o) {
   var factors = this.factors;
-  var score = o.time;
+  var score = o.time / 60;
   var totalCalories = 0;
 
   o.modes.forEach(function(mode) {
@@ -177,7 +177,7 @@ ProfileScore.prototype.tally = function(o) {
   var accessMode = access.mode.toLowerCase();
 
   o.modes.push(accessMode);
-  o.time = access.time / 60;
+  o.time = access.time;
   switch (accessMode) {
     case 'car':
       o.driveDistance = accessDistance;
@@ -189,8 +189,6 @@ ProfileScore.prototype.tally = function(o) {
       break;
     case 'bicycle':
       o.bikeDistance = accessDistance;
-      o.bikeCalories = caloriesBurned(CYCLING_MET, this.rates.weight, o.time /
-        60);
       break;
     case 'walk':
       o.walkDistance = accessDistance;
@@ -200,7 +198,7 @@ ProfileScore.prototype.tally = function(o) {
   // Tally egress
   if (o.egress && o.egress.length > 0) {
     if (o.modes.indexOf('walk') === -1) o.modes.push('walk');
-    o.time += o.egress[0].time / 60;
+    o.time += o.egress[0].time;
     o.walkDistance += walkStepsDistance(o.egress[0]);
   }
 
@@ -215,15 +213,15 @@ ProfileScore.prototype.tally = function(o) {
       var mode = segment.mode.toLowerCase();
       if (o.modes.indexOf(mode) === -1) o.modes.push(mode);
 
-      var trips = segment.segmentPatterns[0].nTrips;
+      var trips = segment.segmentPatterns ? segment.segmentPatterns[0].nTrips : 0;
       if (trips < o.trips) o.trips = trips;
 
       // Total & add the time in transit
-      var timeInTransit = (segment.waitStats.avg + segment.rideStats.avg) / 60;
+      var timeInTransit = (segment.waitStats.avg + segment.rideStats.avg);
       o.timeInTransit += timeInTransit;
 
       // Add walk time, wait time, & ride time
-      o.time += (segment.walkTime / 60) + timeInTransit;
+      o.time += segment.walkTime + timeInTransit;
 
       // Increment the total walk distance
       o.walkDistance += segment.walkDistance;
@@ -232,17 +230,22 @@ ProfileScore.prototype.tally = function(o) {
       o.emissions += self.rates.co2PerTransitTrip;
     });
 
-    o.fares.forEach(function(fare) {
-      if (fare && fare.peak) o.transitCost += fare.peak;
-    });
+    if (o.fares) {
+      o.fares.forEach(function(fare) {
+        if (fare && fare.peak) o.transitCost += fare.peak;
+      });
+    }
 
     o.cost += o.transitCost;
   }
 
   // Set the walking calories burned
   if (o.modes.indexOf('walk') !== -1)
-    o.walkCalories = caloriesBurned(WALKING_MET, this.rates.weight, (o.walkDistance /
-      this.rates.walkSpeed) * SECONDS_TO_HOURS);
+    o.walkCalories = caloriesBurned(WALKING_MET, this.rates.weight, (o.walkDistance / this.rates.walkSpeed) * SECONDS_TO_HOURS);
+
+  // Set the biking calories burned
+  if (o.modes.indexOf('bicycle') !== -1)
+    o.bikeCalories = caloriesBurned(CYCLING_MET, this.rates.weight, (o.bikeDistance / this.rates.bikeSpeed) * SECONDS_TO_HOURS);
 
   // Total calories
   o.calories = o.bikeCalories + o.walkCalories;
@@ -255,9 +258,9 @@ ProfileScore.prototype.tally = function(o) {
  */
 
 function walkStepsDistance(o) {
-  return o.walkSteps.reduce(function(distance, step) {
+  return o.walkSteps ? o.walkSteps.reduce(function(distance, step) {
     return distance + step.distance;
-  }, 0);
+  }, 0) : 0;
 }
 
 /**

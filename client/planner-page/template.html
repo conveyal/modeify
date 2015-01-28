@@ -1,6 +1,6 @@
 <div class="fullscreen">
   <div reactive="transitive-view"></div>
-  <div class="panel">
+  <div class="SidePanel">
     <div id="scrollable" class="scrollable">
       <div reactive="beta-bar"></div>
       <form autosubmit id="locations-form">
@@ -11,6 +11,9 @@
       <div reactive="options-view"></div>
     </div>
     <div reactive="planner-nav"></div>
-    <a href="#" on-tap="scroll" class="hidden more-options">more <i class="fa fa-fw fa-chevron-down"></i></a>
+    <div class="footer hidden">
+      <a href="#" on-tap="scroll" class="more-options"><i class="fa fa-fw fa-chevron-down"></i> more options</a>
+      <button class="btn btn-default pull-right help-me-choose" on-tap="helpMeChoose">help me choose</button>
+    </div>
   </div>
 </div>
