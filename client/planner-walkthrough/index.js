@@ -35,6 +35,10 @@ module.exports = function walkthrough() {
       intro: 'These are the best options we found for your trip. We sorted them using a combination of factors including cost, calories burned, ease, and time.',
       position: 'top'
     }, {
+      element: document.querySelector('.help-me-choose'),
+      intro: 'Can\'t decide on an option? Select "Help Me Choose" to compare each factor directly and rank by your own preferences.',
+      position: 'left'
+    }, {
       element: document.querySelectorAll('.option')[0],
       intro: 'Here you can explore the details of a specifc option including step by step directions and the factors we\'ve used to rate this option.',
       position: 'top'
