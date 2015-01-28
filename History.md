@@ -1,4 +1,11 @@
 
+## 1.2.0 — 2015-01-28
+
+* Added "Help Me Choose" to allow commuters to rank options on their own
+* Update route filters due to new profile results
+* Update [transitive](/conveyal/transitive.js) to 0.6.6
+* Update Node dependencies
+
 ## 1.1.1 — 2015-01-06
 
 * Allow coordinates to be passed in the query string
