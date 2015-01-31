@@ -1,0 +1,32 @@
+{
+  "name": "route-card-view",
+  "dependencies": {
+    "component/each": "*",
+    "ianstormtaylor/to-capital-case": "*",
+    "ianstormtaylor/to-sentence-case": "*",
+    "mbostock/d3": "*",
+    "trevorgerhardt/tableize": "*",
+    "twitter/hogan.js": "*"
+  },
+  "locals": [
+    "config",
+    "convert",
+    "feedback-modal",
+    "route-modal",
+    "route-summary-segments",
+    "route-resource",
+    "session",
+    "user-agent",
+    "view"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
+  ],
+  "templates": [
+    "detail.html",
+    "template.html"
+  ]
+}
