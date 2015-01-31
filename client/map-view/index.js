@@ -9,7 +9,7 @@ module.exports = function(el) {
     attributionControl: false,
     inertia: false,
     zoomAnimation: false
-  }).setView([ center[1], center[0] ], config.geocode().zoom);
+  }).setView([center[1], center[0]], config.geocode().zoom);
 
   return map;
 };
