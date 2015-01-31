@@ -8,6 +8,7 @@ var routeResource = require('route-resource');
 var session = require('session');
 var tableize = require('tableize');
 var toSentenceCase = require('to-sentence-case');
+var transitive = require('transitive');
 var ua = require('user-agent');
 var view = require('view');
 
@@ -31,13 +32,12 @@ var View = module.exports = view(require('./template.html'), function(view, mode
   d3.select(view.el)
     .on('mouseover', function() {
       var id = model.id() + '';
-      if (id.indexOf('transit') === -1) id = id + '_' + model.access()[0]
-        .mode.toLowerCase();
-      window.transitive.focusJourney(id);
+      if (id.indexOf('transit') === -1) id = id + '_' + model.access()[0].mode.toLowerCase();
+      transitive.focusJourney(id);
     })
     .on('mouseout', function() {
       if (!view.el.classList.contains('expanded')) {
-        window.transitive.focusJourney();
+        transitive.focusJourney();
       }
     });
 
@@ -79,16 +79,13 @@ View.prototype.segmentDetails = function() {
   if (access.walkSteps && access.walkSteps.length > 0) {
     switch (access.mode.toLowerCase()) {
       case 'bicycle':
-        details += narrativeDirections('bike', 'Bike', access.walkSteps, length !==
-          0);
+        details += narrativeDirections('bike', 'Bike', access.walkSteps, length !== 0);
         break;
       case 'car':
-        details += narrativeDirections('car', 'Drive', access.walkSteps, length !==
-          0);
+        details += narrativeDirections('car', 'Drive', access.walkSteps, length !== 0);
         break;
       case 'walk':
-        details += narrativeDirections('walk', 'Walk', access.walkSteps, length !==
-          0);
+        details += narrativeDirections('walk', 'Walk', access.walkSteps, length !== 0);
         break;
     }
   }

@@ -69,8 +69,11 @@ module.exports = function(ctx, next) {
     // Show the map
     var map = ctx.view.map = showMapView(ctx.view.find('.MapView'));
 
+    // Create the transitive layer
+    var transitiveLayer = new LeafletTransitiveLayer(transitive);
+
     // Set the transitive layer
-    map.addLayer(L.transitiveLayer(transitive));
+    map.addLayer(transitiveLayer);
 
     // Clear plan & cookies for now, plan will re-save automatically on save
     plan.clearStore();
