@@ -31,32 +31,10 @@ function Display(transitive) {
 
   var self = this;
 
-  var updateActiveZoomFactors = function(scale) {
-    var updated = false;
-    for (var i = 0; i < self.zoomFactors.length; i++) {
-      var min = self.zoomFactors[i].minScale;
-      var max = (i < self.zoomFactors.length - 1) ?
-        self.zoomFactors[i + 1].minScale : Number.MAX_VALUE;
-
-      // check if we've crossed into a new zoomFactor partition
-      if ((!self.lastScale || self.lastScale < min || self.lastScale >= max) &&
-        scale >= min && scale < max) {
-        self.activeZoomFactors = self.zoomFactors[i];
-        updated = true;
-      }
-    }
-    return updated;
-  };
-
   var zoomBehavior = function() {
-    var scale = self.zoom.scale();
-    if (scale !== self.lastScale) { // zoom action
-      if (updateActiveZoomFactors(scale)) {
-        transitive.network = null;
-        //transitive.network.createGraph();
-        transitive.render();
-      } else transitive.refresh();
-      self.lastScale = scale;
+    self.computeScale();
+    if (self.scale !== self.lastScale) { // zoom action
+      self.zoomChanged();
     } else { // pan action
       setTimeout(transitive.refresh.bind(transitive, true), 0);
     }
@@ -72,8 +50,11 @@ function Display(transitive) {
 
   // set up the svg display
   var div = d3.select(el)
-    .attr('class', 'Transitive')
-    .call(zoom);
+    .attr('class', 'Transitive');
+
+  if(transitive.options.zoomEnabled) {
+    div.call(zoom);
+  }
 
   this.svg = div
     .append('svg')
@@ -84,10 +65,12 @@ function Display(transitive) {
   this.yScale = d3.scale.linear();
 
   // set up the resize event handler
-  d3.select(window).on('resize.display', (function() {
-    this.resize(el.clientHeight, el.clientWidth);
-    transitive.refresh();
-  }).bind(this));
+  if(transitive.options.autoResize) {
+    d3.select(window).on('resize.display', function() {
+      self.resized();
+      transitive.refresh();
+    });
+  }
 
   // set the scale
   var bounds;
@@ -101,11 +84,10 @@ function Display(transitive) {
 
   if (bounds) {
     this.setScale(bounds, transitive.options);
-    var scale = this.zoom.scale();
-    updateActiveZoomFactors(scale);
-    this.lastScale = scale;
+    this.updateActiveZoomFactors(this.scale);
+    this.lastScale = this.scale;
   } else {
-    updateActiveZoomFactors(1);
+    this.updateActiveZoomFactors(1);
   }
 
   // set up the map layer
@@ -121,6 +103,39 @@ function Display(transitive) {
   transitive.emit('initialize display', transitive, this);
   return this;
 }
+
+/**
+ * zoomChanged -- called when the zoom level changes, either by through the native
+ * zoom support or the setBounds() API call. Updates zoom factors as needed and 
+ * performs appropriate update action (render or refresh)
+ */
+
+Display.prototype.zoomChanged = function() {
+  if (this.updateActiveZoomFactors(this.scale)) {
+    this.transitive.network = null;
+    this.transitive.render();
+  } else this.transitive.refresh();
+  this.lastScale = this.scale;
+};
+
+
+Display.prototype.updateActiveZoomFactors = function(scale) {
+  var updated = false;
+  for (var i = 0; i < this.zoomFactors.length; i++) {
+    var min = this.zoomFactors[i].minScale;
+    var max = (i < this.zoomFactors.length - 1) ?
+      this.zoomFactors[i + 1].minScale : Number.MAX_VALUE;
+
+    // check if we've crossed into a new zoomFactor partition
+    if ((!this.lastScale || this.lastScale < min || this.lastScale >= max) &&
+      scale >= min && scale < max) {
+      this.activeZoomFactors = this.zoomFactors[i];
+      updated = true;
+    }
+  }
+  return updated;
+};
+
 
 /**
  * Return default zoom factors
@@ -176,10 +191,38 @@ Display.prototype.setScale = function(bounds, options) {
     .x(this.xScale)
     .y(this.yScale);
 
+  this.initXRes = (domains[0][1] - domains[0][0])/this.width;
+  this.scale = 1;
+
   this.scaleSet = true;
 };
 
-Display.prototype.resize = function(newHeight, newWidth) {
+
+Display.prototype.computeScale = function() {
+  var newXRes = (this.xScale.domain()[1] - this.xScale.domain()[0]) / this.width;
+  this.scale =  this.initXRes / newXRes;
+};
+
+/**
+ * updateDomains -- set x/y domains of geographic (spherical mercator) coordinate
+ * system. Does *not* check/adjust aspect ratio.
+ */
+
+Display.prototype.updateDomains = function(bounds) {
+  this.xScale.domain([bounds[0][0], bounds[1][0]]);
+  this.yScale.domain([bounds[0][1], bounds[1][1]]);
+
+  this.zoom
+    .x(this.xScale)
+    .y(this.yScale);
+
+  this.computeScale();
+};
+
+Display.prototype.resized = function() {
+
+  var newWidth = this.el.clientWidth;
+  var newHeight = this.el.clientHeight;
 
   var xDomain = this.xScale.domain();
   var xFactor = newWidth / this.width;
