@@ -1,21 +1,20 @@
 {
   "name": "planner-page",
   "dependencies": {
-    "component/each": "*",
     "component/querystring": "*",
-    "pazguille/scrolling": "*",
-    "visionmedia/batch": "*"
+    "conveyal/Leaflet.TransitiveLayer": "*",
+    "pazguille/scrolling": "*"
   },
   "locals": [
-    "beta-bar",
     "config",
     "filter-view",
     "help-me-choose-view",
     "locations-view",
     "log",
+    "map-view",
     "options-view",
     "planner-nav",
-    "transitive-view",
+    "transitive",
     "scrollbar-size",
     "session",
     "text-modal",

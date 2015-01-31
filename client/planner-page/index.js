@@ -1,11 +1,10 @@
-var Batch = require('batch');
-var BetaBar = require('beta-bar');
 var config = require('config');
-var each = require('each');
 var FilterView = require('filter-view');
 var HelpMeChoose = require('help-me-choose-view');
+var LeafletTransitiveLayer = require('Leaflet.TransitiveLayer');
 var LocationsView = require('locations-view');
 var log = require('log')('planner-page');
+var showMapView = require('map-view');
 var OptionsView = require('options-view');
 var PlannerNav = require('planner-nav');
 var querystring = require('querystring');
@@ -13,21 +12,14 @@ var scrollbarSize = require('scrollbar-size');
 var scrolling = require('scrolling');
 var session = require('session');
 var textModal = require('text-modal');
-var TransitiveView = require('transitive-view');
+var transitive = require('transitive');
 var ua = require('user-agent');
 var view = require('view');
 var showWelcomeWizard = require('welcome-flow');
 
-/**
- * Default from / to addresses
- */
-
 var FROM = config.geocode().start_address;
 var TO = config.geocode().end_address;
-
-/**
- * Create `View`
- */
+var isMobile = window.innerWidth <= 480;
 
 var View = view({
   category: 'planner',
@@ -45,14 +37,6 @@ var View = view({
     if (ua.os.name === 'Windows' && ua.browser.name === 'Chrome')
       view.scrollable.style.paddingRight = scrollbarSize + 'px';
   }
-
-  model.plan.on('updating options', function() {
-    view.panelFooter.classList.add('hidden');
-  });
-
-  model.plan.on('updating options complete', function(res) {
-    if (res && !res.err) view.panelFooter.classList.remove('hidden');
-  });
 });
 
 /**
@@ -63,70 +47,61 @@ module.exports = function(ctx, next) {
   log('render');
 
   var plan = ctx.plan;
+  var query = querystring.parse(window.location.search);
 
   // Set plan to loading
   plan.loading(true);
 
   // Set up the views
   var views = {
-    'beta-bar': new BetaBar(),
     'filter-view': new FilterView(plan),
     'locations-view': new LocationsView(plan),
     'options-view': new OptionsView(plan),
-    'planner-nav': new PlannerNav(session),
-    plan: plan,
-    'transitive-view': new TransitiveView(plan)
+    'planner-nav': new PlannerNav(session)
   };
 
   ctx.view = new View(views);
   ctx.view.on('rendered', function() {
-    each(views, function(key, view) {
-      view.emit('rendered', view);
-    });
+    for (var key in views) {
+      views[key].emit('rendered', views[key]);
+    }
 
-    // Get the locations from the querystring
-    var query = querystring.parse(window.location.search);
+    // Show the map
+    var map = ctx.view.map = showMapView(ctx.view.find('.MapView'));
+
+    // Set the transitive layer
+    map.addLayer(L.transitiveLayer(transitive));
 
     // Clear plan & cookies for now, plan will re-save automatically on save
     plan.clearStore();
 
     // If it's a shared URL or welcome is complete skip the welcome screen
     if ((query.from && query.to) || session.commuter().profile().welcome_wizard_complete) {
-      // If no querystring, see if we have them in the plan already
-      var from = query.from || plan.from() || FROM;
-      var to = query.to || plan.to() || TO;
-
-      // Same addresses?
-      var sameAddresses = from === plan.from() && to === plan.to();
-
-      // Set plan from querystring
-      if (query.modes) plan.setModes(query.modes);
-      if (query.start_time !== undefined) plan.start_time(parseInt(query.start_time, 10));
-      if (query.end_time !== undefined) plan.end_time(parseInt(query.end_time, 10));
-      if (query.days !== undefined) plan.days(query.days);
-
-      // If has valid coordinates, load
-      if (plan.validCoordinates() && sameAddresses) {
-        plan.journey({
-          places: plan.generatePlaces()
-        });
-        plan.updateRoutes();
-      } else {
-        // Set addresses and update the routes
-        plan.setAddresses(from, to, function(err) {
-          if (err) {
-            log.error('%e', err);
-          } else {
-            plan.journey({
-              places: plan.generatePlaces()
-            });
-            plan.updateRoutes();
-          }
-        });
-      }
+      showQuery(query);
     } else {
       showWelcomeWizard(session);
     }
+  });
+
+  // Register plan update events
+  plan.on('change journey', function(journey) {
+    if (journey && !isMobile) {
+      try {
+        log('updating data');
+        transitive.updateData(journey);
+      } catch (e) {
+        log('failed to update transitive: %e', e);
+        return;
+      }
+    }
+  });
+
+  plan.on('updating options', function() {
+    ctx.view.panelFooter.classList.add('hidden');
+  });
+
+  plan.on('updating options complete', function(res) {
+    if (res && !res.err) ctx.view.panelFooter.classList.remove('hidden');
   });
 
   next();
@@ -149,23 +124,6 @@ View.prototype.reverseCommute = function(e) {
   });
 
   plan.updateRoutes();
-};
-
-/**
- * Save journey
- */
-
-View.prototype.saveTrip = function(e) {
-  e.preventDefault();
-  var plan = session.plan();
-  plan.saveJourney(function(err) {
-    if (err) {
-      log.error('%e', err);
-      textModal('Failed to save journey.\n' + err);
-    } else {
-      textModal('Saved journey successfully');
-    }
-  });
 };
 
 /**
@@ -192,3 +150,41 @@ View.prototype.onsubmit = function(e) {
 View.prototype.helpMeChoose = function(e) {
   HelpMeChoose(session.plan().options()).show();
 };
+
+/**
+ * Show Journey
+ */
+
+function showQuery(query) {
+  var plan = session.plan();
+  // If no querystring, see if we have them in the plan already
+  var from = query.from || plan.from() || FROM;
+  var to = query.to || plan.to() || TO;
+  var sameAddresses = from === plan.from() && to === plan.to();
+
+  // Set plan from querystring
+  if (query.modes) plan.setModes(query.modes);
+  if (query.start_time !== undefined) plan.start_time(parseInt(query.start_time, 10));
+  if (query.end_time !== undefined) plan.end_time(parseInt(query.end_time, 10));
+  if (query.days !== undefined) plan.days(query.days);
+
+  // If has valid coordinates, load
+  if (plan.validCoordinates() && sameAddresses) {
+    plan.journey({
+      places: plan.generatePlaces()
+    });
+    plan.updateRoutes();
+  } else {
+    // Set addresses and update the routes
+    plan.setAddresses(from, to, function(err) {
+      if (err) {
+        log.error('%e', err);
+      } else {
+        plan.journey({
+          places: plan.generatePlaces()
+        });
+        plan.updateRoutes();
+      }
+    });
+  }
+}
