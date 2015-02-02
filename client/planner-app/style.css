@@ -44,6 +44,8 @@
   --font-size: 14px;
   --font-weight: 400;
   --bold: 700;
+
+  --panel-width: 320px;
 }
 
 /**
@@ -155,8 +157,6 @@ a:hover {
 
 #main {
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
