@@ -1,4 +1,10 @@
 
+## 1.2.1 — 2015-02-02
+
+* Leafletified the transitive map
+* IE 9/10 bug fixes
+* Move to only support evergreen browsers
+
 ## 1.2.0 — 2015-01-28
 
 * Added "Help Me Choose" to allow commuters to rank options on their own
