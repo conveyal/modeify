@@ -25,17 +25,18 @@
     </script>
   </head>
   <body>
+    <div id="main"></div>
+
     <noscript>
       <h1 style="text-align:center;">JavaScript must be enabled to use this website.</h1>
     </noscript>
-
-    <div id="main"></div>
 
     <script type="text/javascript">
       if (!document.body.classList) {
         window.alert('Please use a modern browser or this website will not run correctly.\n Modern browsers include Google Chrome, Mozilla Firefox, and Microsoft Internet Explorer (version 10 or better).');
       }
     </script>
+
     <script src="https://cdn.jsdelivr.net/polyfills/polyfill.js"></script>
     <script src="https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.js"></script>
     <script src="{{static_url}}/build/planner-app/build.js?v={{version}}"></script>
