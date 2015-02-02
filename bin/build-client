@@ -98,7 +98,7 @@ function bundle(app) {
         if (err) throw err;
         var css = myth(str);
         css = css.replace(/\burl *\(([^)]+)\)/g, rewrite);
-        if (!development) css = sqwish.minify(css);
+        // if (!development) css = sqwish.minify(css);
         fs.writeFileSync(path.resolve(__dirname + '/../' + dest, 'build.css'), css);
       });
   });
