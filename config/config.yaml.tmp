@@ -8,7 +8,7 @@ organization:
   url: https://www.commuterdirect.com/
 
 # Application
-version: 1.2.0
+version: 1.2.1
 
 # Support Email Address
 email:
@@ -24,7 +24,10 @@ geocode:
 # Default application values
 api_url: /api
 base_url: http://localhost:5000
+
+mapbox_access_token:
 mapbox_map_id: conveyal.ie3o67m0
+
 otp:
   host: carfreeatoz-otp-staging-245896754.us-east-1.elb.amazonaws.com
   path: /otp/routers/default
