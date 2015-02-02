@@ -1,35 +1,16 @@
 {
   "name": "options-view",
-  "dependencies": {
-    "component/each": "*",
-    "ianstormtaylor/to-capital-case": "*",
-    "ianstormtaylor/to-sentence-case": "*",
-    "mbostock/d3": "*",
-    "trevorgerhardt/tableize": "*",
-    "twitter/hogan.js": "*"
-  },
   "locals": [
-    "config",
-    "convert",
-    "feedback-modal",
-    "route-modal",
-    "route-summary-segments",
-    "route-resource",
-    "session",
-    "user-agent",
+    "route-card-view",
     "view"
   ],
   "scripts": [
-    "option/index.js",
     "index.js"
   ],
   "styles": [
-    "option/style.css",
     "style.css"
   ],
   "templates": [
-    "option/detail.html",
-    "option/template.html",
     "template.html"
   ]
 }

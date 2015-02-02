@@ -5,7 +5,7 @@
   },
   "local": [
     "convert",
-    "transitive-view"
+    "transitive"
   ],
   "scripts": [
     "index.js"

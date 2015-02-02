@@ -1,6 +1,6 @@
 var convert = require('convert');
 var hogan = require('hogan.js');
-var transitive = require('transitive-view').transitive;
+var transitive = require('transitive');
 
 var template = hogan.compile(require('./template.html'));
 

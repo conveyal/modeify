@@ -1,0 +1,12 @@
+{
+  "name": "map-view",
+  "local": [
+    "config"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
+  ]
+}

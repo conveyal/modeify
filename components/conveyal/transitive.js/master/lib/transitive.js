@@ -25,7 +25,7 @@ module.exports = Transitive;
  * Expose `version`
  */
 
-module.exports.version = '0.6.6';
+module.exports.version = '0.7.0';
 
 /**
  * Create a new instance of `Transitive`
@@ -45,6 +45,8 @@ function Transitive(options) {
   this.options = options;
   if (this.options.useDynamicRendering === undefined) this.options.useDynamicRendering =
     true;
+  if (this.options.zoomEnabled === undefined) this.options.zoomEnabled = true;
+  if (this.options.autoResize === undefined) this.options.autoResize = true;
 
   if (options.el) this.setElement(options.el);
 
@@ -71,6 +73,7 @@ Emitter(Transitive.prototype);
 Transitive.prototype.clearData = function() {
   this.network = this.data = null;
   this.labeler.clear();
+  this.emit('clear data', this);
 };
 
 /**
@@ -82,6 +85,7 @@ Transitive.prototype.updateData = function(data) {
   this.data = data;
   if (this.display) this.display.scaleSet = false;
   this.labeler.clear();
+  this.emit('update data', this);
 };
 
 /**
@@ -101,7 +105,7 @@ Transitive.prototype.getModeStyles = function(mode) {
  */
 
 Transitive.prototype.setElement = function(el, legendEl) {
-  if (this.el) this.el.innerHTML = null;
+  if (this.el) d3.select(this.el).selectAll('*').remove();
 
   this.el = el;
   this.display = new Display(this);
@@ -162,6 +166,10 @@ Transitive.prototype.renderTo = function(el) {
  */
 
 Transitive.prototype.refresh = function(panning) {
+  if (!this.network) {
+    this.render();
+  }
+
   this.renderer.refresh();
 };
 
@@ -172,4 +180,40 @@ Transitive.prototype.refresh = function(panning) {
 Transitive.prototype.focusJourney = function(journeyId) {
   var path = journeyId ? this.network.journeys[journeyId].path : null;
   this.renderer.focusPath(path);
+};
+
+
+/**
+ * Sets the Display bounds
+ * @param {Array} lon/lat bounds expressed as [[west, south], [east, north]]
+ */
+
+Transitive.prototype.setDisplayBounds = function(llBounds) {
+  this.display.updateDomains([sm.forward(llBounds[0]), sm.forward(llBounds[1])]);
+  this.display.zoomChanged();
+};
+
+/**
+ * Gets the Network bounds
+ * @returns {Array} lon/lat bounds expressed as [[west, south], [east, north]]
+ */
+
+Transitive.prototype.getNetworkBounds = function(llBounds) {
+  if(!this.network || !this.network.graph) return null;
+  var graphBounds = this.network.graph.bounds();
+  var ll1 = sm.inverse(graphBounds[0]), ll2 = sm.inverse(graphBounds[1]);
+  return [[Math.min(ll1[0], ll2[0]), Math.min(ll1[1], ll2[1])],
+          [Math.max(ll1[0], ll2[0]), Math.max(ll1[1], ll2[1])]];
+};
+
+/**
+ * resize
+ */
+
+Transitive.prototype.resize = function(width, height) {
+  if(!this.display) return;
+  d3.select(this.display.el)
+    .style("width", width + 'px')
+    .style("height", height + 'px');
+  this.display.resized();
 };

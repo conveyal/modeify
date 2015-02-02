@@ -2,8 +2,6 @@
   "name": "planner-app",
   "dependencies": {
     "devote/html5-history-api": "*",
-    "es-shims/es5-shim": "*",
-    "paulmillr/es6-shim": "*",
     "ianstormtaylor/on-load": "*",
     "necolas/normalize.css": "*",
     "visionmedia/page.js": "*"

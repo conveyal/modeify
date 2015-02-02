@@ -1,4 +1,4 @@
-var OptionView = require('./option');
+var RouteCardView = require('route-card-view');
 var view = require('view');
 
 /**
@@ -18,7 +18,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
  */
 
 View.prototype['options-view'] = function() {
-  return OptionView;
+  return RouteCardView;
 };
 
 View.prototype.optionsSummary = function() {
