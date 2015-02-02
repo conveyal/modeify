@@ -2,7 +2,7 @@
   "name": "planner-page",
   "dependencies": {
     "component/querystring": "*",
-    "conveyal/Leaflet.TransitiveLayer": "*",
+    "conveyal/Leaflet.TransitiveLayer": "master",
     "pazguille/scrolling": "*"
   },
   "locals": [

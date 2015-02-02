@@ -67,13 +67,16 @@ module.exports = function(ctx, next) {
     }
 
     // Show the map
-    var map = ctx.view.map = showMapView(ctx.view.find('.MapView'));
+    var map = showMapView(ctx.view.find('.MapView'));
 
     // Create the transitive layer
     var transitiveLayer = new LeafletTransitiveLayer(transitive);
 
     // Set the transitive layer
     map.addLayer(transitiveLayer);
+
+    // Update map on plan change
+    updateMapOnPlanChange(plan, map, transitive, transitiveLayer);
 
     // Clear plan & cookies for now, plan will re-save automatically on save
     plan.clearStore();
@@ -83,19 +86,6 @@ module.exports = function(ctx, next) {
       showQuery(query);
     } else {
       showWelcomeWizard(session);
-    }
-  });
-
-  // Register plan update events
-  plan.on('change journey', function(journey) {
-    if (journey && !isMobile) {
-      try {
-        log('updating data');
-        transitive.updateData(journey);
-      } catch (e) {
-        log('failed to update transitive: %e', e);
-        return;
-      }
     }
   });
 
@@ -190,4 +180,24 @@ function showQuery(query) {
       }
     });
   }
+}
+
+/**
+ * Update Map on plan change
+ */
+
+function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
+  // Register plan update events
+  plan.on('change journey', function(journey) {
+    if (journey && !isMobile) {
+      try {
+        log('updating data');
+        transitive.updateData(journey);
+        map.fitBounds(transitiveLayer.getBounds());
+      } catch (e) {
+        log('failed to update transitive: %e', e);
+        return;
+      }
+    }
+  });
 }
