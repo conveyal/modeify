@@ -68,6 +68,7 @@ View.prototype.keydownInput = function(e) {
   var highlightedSuggestion = this.find('.suggestion.highlight');
 
   if (enterKey) {
+    e.preventDefault();
     this.blurInput(e);
   } else if (!downKey && !upKey) {
     if (highlightedSuggestion) {
