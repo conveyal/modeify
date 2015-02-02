@@ -16,11 +16,11 @@ module.exports = function(reactive) {
       e.preventDefault();
 
       var el = e.target;
-      var val = el.dataset.active;
+      var val = el.getAttribute('data-active');
 
       while (el && (val === undefined || val === null)) {
         el = el.parentNode;
-        val = el && el.dataset.active;
+        val = el && el.getAttribute('data-active');
       }
 
       // toggle the value

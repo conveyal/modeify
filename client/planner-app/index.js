@@ -1,4 +1,5 @@
 var Commuter = require('commuter');
+var historyPolyfill = require('html5-history-api');
 var onLoad = require('on-load');
 var page = require('page');
 var Plan = require('plan');

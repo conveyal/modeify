@@ -172,7 +172,7 @@ Modal.prototype.selectRoute = function(e) {
   e.preventDefault();
   if (e.target.tagName !== 'BUTTON') return;
 
-  var index = e.target.dataset.index;
+  var index = e.target.getAttribute('data-index');
   var route = this.model[index];
   var plan = session.plan();
   var tags = route.tags(plan);
