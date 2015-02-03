@@ -27,6 +27,10 @@
   }
 }
 
+.FilterBy .btn-group>.btn:first-child {
+  margin-left: 5px;
+}
+
 .ComparisonTable {
   white-space: nowrap;
 }

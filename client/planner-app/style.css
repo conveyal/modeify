@@ -232,8 +232,8 @@ select {
   cursor: pointer;
   color: var(--gold);
   font-weight: var(--bold);
-  padding: 8px 2px 0;
-  margin: 0 1px;
+  padding: 8px 0 0;
+  margin: 0 3px;
 
   border: none;
   border-radius: 0;
