@@ -16,7 +16,7 @@ var view = null;
 module.exports.render = function(ctx, next) {
   if (ctx.redirect) {
     log('redirecting from %s to %s', ctx.path, ctx.redirect);
-    return page(ctx.redirect);
+    return page.redirect(ctx.redirect);
   }
 
   // if no redirect, render the view
@@ -53,6 +53,6 @@ module.exports.render = function(ctx, next) {
 module.exports.redirect = function(to) {
   return function(ctx, next) {
     log('redirecting from %s to %s', ctx.path, to);
-    page.show(to);
+    page.redirect(to);
   };
 };

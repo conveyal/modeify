@@ -14,7 +14,7 @@ page('/change-password/:key', require('change-password-page'));
 page('/confirm-email/:key', Commuter.confirmEmail, utils.redirect('/login'));
 
 page('/planner', session.commuterIsLoggedIn, Plan.load, require('planner-page'));
-page('/planner/:link', session.loginWithLink);
+page('/planner/:link', session.loginWithLink, utils.redirect('/planner'));
 
 page('/style-guide', require('style-guide'));
 
@@ -22,7 +22,7 @@ page('/welcome', function(ctx, next) {
   session.logout(function(err) {
     session.loginAnonymously(next);
   });
-}, Plan.load, require('planner-page'));
+}, utils.redirect('/planner'));
 
 page('*', utils.render);
 

@@ -36,7 +36,7 @@ var Session = model('Session')
 Session.prototype.logout = function(next) {
   log('--> logging out');
 
-  var plan = session.plan();
+  var plan = this.plan();
   if (plan) plan.clearStore();
 
   session.isAdmin(false);
@@ -127,7 +127,6 @@ var session = window.session = module.exports = new Session();
 
 session.loginWithLink = function(ctx, next) {
   log('--> logging in with link %s', ctx.params.link);
-  ctx.redirect = '/planner';
   request.get('/login/' + ctx.params.link, function(err, res) {
     if (res.ok && res.body) {
       session.login(res.body);
