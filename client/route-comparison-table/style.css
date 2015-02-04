@@ -41,6 +41,16 @@
 	background-image: url(/images/comparison_graphics/book.png);
 }
 
+.RouteComparisonTable > .compare-item > .category-icon {
+  text-align: center;
+  line-height: 35px;
+  font-size: 25px;
+}
+
+.RouteComparisonTable > .personal-time > .category-icon {
+  color: #EF3957;
+}
+
 .RouteComparisonTable .numbers {
 	color: var(--gray);
 	text-align: right;
