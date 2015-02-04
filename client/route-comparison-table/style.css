@@ -48,7 +48,7 @@
 }
 
 .RouteComparisonTable > .personal-time > .category-icon {
-  color: #EF3957;
+  color: var(--red);
 }
 
 .RouteComparisonTable .numbers {
