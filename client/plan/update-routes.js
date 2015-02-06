@@ -196,10 +196,17 @@ function filterDriveToTransitTrips(opts) {
  */
 
 function filterTripsWithShortTransitLegs(opts) {
+  var filtered = 0;
+  var maxFiltered = opts.length - 3;
   return opts.filter(function(o) {
+    if (filtered >= maxFiltered) return true;
     if (!o.transit) return true;
+
     for (var i = 0; i < o.transit.length; i++) {
-      if (o.transit[i].rideStats.avg < o.transit[i].waitStats.avg) return false;
+      if (o.transit[i].rideStats.avg < o.transit[i].waitStats.avg / 2) {
+        filtered++;
+        return false;
+      }
     }
     return true;
   });
