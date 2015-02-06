@@ -20,7 +20,7 @@ page('/style-guide', require('style-guide'));
 
 page('/t/:code', function(ctx, next) {
   session.loginAnonymously(function(err) {
-    window.analytics.page(ctx.code, 'Entry Page');
+    window.analytics.page(ctx.code, 'Source');
     next(err);
   });
 }, utils.redirect('/planner'))
