@@ -163,6 +163,11 @@ session.loginAnonymously = function(next) {
 
 session.commuterIsLoggedIn = function(ctx, next) {
   log('--> checking if commuter is logged in %s', ctx.path);
+  if (session.isLoggedIn()) {
+    log('<-- commuter already logged in');
+    return next();
+  }
+
   request.get('/commuter-is-logged-in', function(err, res) {
     if (res.ok && res.body) {
       session.login(res.body);

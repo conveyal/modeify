@@ -18,10 +18,15 @@ page('/planner/:link', session.loginWithLink, utils.redirect('/planner'));
 
 page('/style-guide', require('style-guide'));
 
-page('/welcome', function(ctx, next) {
-  session.logout(function(err) {
-    session.loginAnonymously(next);
+page('/t/:code', function(ctx, next) {
+  session.loginAnonymously(function(err) {
+    window.analytics.page(ctx.code, 'Entry Page');
+    next(err);
   });
+}, utils.redirect('/planner'))
+
+page('/welcome', function(ctx, next) {
+  session.loginAnonymously(next);
 }, utils.redirect('/planner'));
 
 page('*', utils.render);
