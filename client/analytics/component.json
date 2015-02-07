@@ -1,0 +1,12 @@
+{
+  "name": "analytics",
+  "dependencies": {
+    "trevorgerhardt/tableize": "*"
+  },
+  "local": [
+    "log"
+  ],
+  "scripts": [
+    "index.js"
+  ]
+}
