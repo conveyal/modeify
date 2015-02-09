@@ -1,4 +1,3 @@
-var log = require('log')('analytics');
 var tableize = require('tableize');
 
 module.exports.identify = function (id, data) {

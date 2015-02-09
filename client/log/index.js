@@ -1,3 +1,4 @@
+var analytics = require('analytics');
 var config = require('config');
 var debug = require('debug');
 var fmt = require('fmt');
@@ -42,7 +43,7 @@ module.exports = function(name) {
     // Save info & above
     if (levels.indexOf(type) >= infoIndex) {
       // Send to analytics
-      window.analytics.track('Log ' + type, {
+      analytics.track('Log ' + type, {
         text: text,
         type: type
       });

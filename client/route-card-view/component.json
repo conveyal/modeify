@@ -5,10 +5,10 @@
     "ianstormtaylor/to-capital-case": "*",
     "ianstormtaylor/to-sentence-case": "*",
     "mbostock/d3": "*",
-    "trevorgerhardt/tableize": "*",
     "twitter/hogan.js": "*"
   },
   "locals": [
+    "analytics",
     "config",
     "convert",
     "feedback-modal",

@@ -5,6 +5,7 @@
     "yields/fmt": "*"
   },
   "locals": [
+    "analytics",
     "config",
     "request"
   ],

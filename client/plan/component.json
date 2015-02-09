@@ -7,12 +7,12 @@
     "component/querystring": "*",
     "conveyal/otp-profile-score": "*",
     "segmentio/model-defaults": "0.2.0",
-    "trevorgerhardt/tableize": "*",
     "mbostock/d3": "*",
     "visionmedia/batch": "*",
     "yields/store": "0.2.0"
   },
   "locals": [
+    "analytics",
     "convert",
     "format-otp-profile",
     "geocode",

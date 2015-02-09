@@ -1,3 +1,4 @@
+var analytics = require('analytics');
 var Page404 = require('404-page');
 var log = require('log')('router-utils');
 var page = require('page');
@@ -43,7 +44,7 @@ module.exports.render = function(ctx, next) {
   view.emit('rendered', view);
 
   // track the page view
-  window.analytics.page(view.category, view.title);
+  analytics.page(view.category, view.title);
 };
 
 /**

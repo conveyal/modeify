@@ -1,3 +1,4 @@
+var analytics = require('analytics');
 var Commuter = require('commuter');
 var historyPolyfill = require('html5-history-api');
 var onLoad = require('on-load');
@@ -20,7 +21,9 @@ page('/style-guide', require('style-guide'));
 
 page('/t/:code', function(ctx, next) {
   session.loginAnonymously(function(err) {
-    window.analytics.page(ctx.code, 'Source');
+    analytics.track('Referral Source', {
+      code: ctx.code
+    });
     next(err);
   });
 }, utils.redirect('/planner'))

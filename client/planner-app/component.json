@@ -7,6 +7,7 @@
     "visionmedia/page.js": "*"
   },
   "locals": [
+    "analytics",
     "commuter",
     "commuter-login",
     "change-password-page",
