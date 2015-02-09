@@ -1,6 +1,6 @@
 var Commuter = require('commuter');
 var commuterForm = require('commuter-form');
-var log = require('log')('manager-router');
+var log = require('./client/log')('manager-router');
 var Organization = require('organization');
 var organizationForm = require('organization-form');
 var p = require('page');

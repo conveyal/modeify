@@ -2,7 +2,7 @@ var analytics = require('analytics');
 var config = require('config');
 var debug = require('debug');
 var fmt = require('fmt');
-var request = require('request');
+var request = require('./client/request');
 
 /**
  * Format Errors

@@ -1,7 +1,7 @@
 var alerts = require('alerts');
-var log = require('log')('change-password-page');
+var log = require('./client/log')('change-password-page');
 var page = require('page');
-var request = require('request');
+var request = require('./client/request');
 var create = require('view');
 
 /**

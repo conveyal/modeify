@@ -1,12 +1,12 @@
 var analytics = require('analytics');
 var cookie = require('cookie');
 var Commuter = require('commuter');
-var log = require('log')('session');
+var log = require('./client/log')('session');
 var defaults = require('model-defaults');
 var model = require('model');
 var Organization = require('organization');
 var page = require('page');
-var request = require('request');
+var request = require('./client/request');
 var uid = require('uid');
 var User = require('user');
 

@@ -1,6 +1,6 @@
 var Alert = require('alert');
 var domify = require('domify');
-var log = require('log')('alerts');
+var log = require('./client/log')('alerts');
 var each = require('each');
 
 /**

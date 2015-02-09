@@ -74,7 +74,7 @@ function bundle(app) {
 
     build
       .scripts(tree, {
-        alias: true,
+        alias: development,
         sourceMap: development,
         sourceUrl: development
       })

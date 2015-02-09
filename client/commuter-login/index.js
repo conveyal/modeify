@@ -1,6 +1,6 @@
-var log = require('log')('login-page');
+var log = require('./client/log')('login-page');
 var page = require('page');
-var request = require('request');
+var request = require('./client/request');
 var session = require('session');
 var view = require('view');
 

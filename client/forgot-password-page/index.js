@@ -1,6 +1,6 @@
-var log = require('log')('forgot-password-page');
+var log = require('./client/log')('forgot-password-page');
 var page = require('page');
-var request = require('request');
+var request = require('./client/request');
 var value = require('value');
 var create = require('view');
 

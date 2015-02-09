@@ -1,9 +1,9 @@
 var config = require('config');
-var log = require('log')('commuter');
+var log = require('./client/log')('commuter');
 var defaults = require('model-defaults');
 var map = require('map');
 var model = require('model');
-var request = require('request');
+var request = require('./client/request');
 
 /**
  * Expose `Commuter`

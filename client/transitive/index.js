@@ -1,5 +1,5 @@
 var debounce = require('debounce');
-var log = require('log')('transitive');
+var log = require('./client/log')('transitive');
 var session = require('session');
 var Transitive = require('conveyal~transitive.js');
 

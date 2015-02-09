@@ -8,7 +8,7 @@ var config = require('config');
 var debug = require('debug')(config.name() + ':commuter-page');
 var map = require('map');
 var page = require('page');
-var request = require('request');
+var request = require('./client/request');
 var template = require('./template.html');
 var view = require('view');
 

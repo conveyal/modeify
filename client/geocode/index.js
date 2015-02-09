@@ -1,5 +1,5 @@
-var log = require('log')('geocode');
-var get = require('request').get;
+var log = require('./client/log')('geocode');
+var get = require('./client/request').get;
 
 /**
  * Geocode

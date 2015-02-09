@@ -1,6 +1,6 @@
 var Alert = require('alert');
-var log = require('log')('commuter-profile:journey');
-var modal = require('modal');
+var log = require('./client/log')('commuter-profile:journey');
+var modal = require('./client/modal');
 var session = require('session');
 var view = require('view');
 

@@ -2,7 +2,7 @@ var alerts = require('alerts');
 var config = require('config');
 var debug = require('debug')(config.name() + ':login-page');
 var page = require('page');
-var request = require('request');
+var request = require('./client/request');
 var session = require('session');
 var view = require('view');
 

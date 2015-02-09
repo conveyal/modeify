@@ -1,5 +1,5 @@
-var log = require('log')('welcome-flow:finding-options');
-var modal = require('modal');
+var log = require('./client/log')('welcome-flow:finding-options');
+var modal = require('./client/modal');
 var RouteComparisonTable = require('route-comparison-table');
 var RouteResourcesView = require('route-resources-view');
 var routeSummarySegments = require('route-summary-segments');

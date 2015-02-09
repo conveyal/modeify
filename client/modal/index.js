@@ -1,4 +1,4 @@
-var log = require('log')('modal');
+var log = require('./client/log')('modal');
 var createModal = require('modal');
 var raf = require('raf');
 var scrollbarSize = require('scrollbar-size');

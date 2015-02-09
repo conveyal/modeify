@@ -1,6 +1,6 @@
 var Alert = require('alert');
-var log = require('log')('welcome-flow:locations');
-var modal = require('modal');
+var log = require('./client/log')('welcome-flow:locations');
+var modal = require('./client/modal');
 
 /**
  * Create `Modal`

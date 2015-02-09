@@ -1,6 +1,6 @@
 var analytics = require('analytics');
 var Page404 = require('404-page');
-var log = require('log')('router-utils');
+var log = require('./client/log')('router-utils');
 var page = require('page');
 
 /**

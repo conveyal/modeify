@@ -1,6 +1,6 @@
 var config = require('config');
 var introJs = require('intro.js').introJs;
-var log = require('log')('welcome-flow');
+var log = require('./client/log')('welcome-flow');
 var LocationsView = require('locations-view');
 var showPlannerWalkthrough = require('planner-walkthrough');
 var RouteModal = require('route-modal');

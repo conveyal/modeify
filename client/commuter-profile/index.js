@@ -1,9 +1,9 @@
 var Alert = require('alert');
 var confirmModal = require('confirm-modal');
-var log = require('log')('commuter-profile');
-var modal = require('modal');
+var log = require('./client/log')('commuter-profile');
+var modal = require('./client/modal');
 var page = require('page');
-var request = require('request');
+var request = require('./client/request');
 var session = require('session');
 
 /**

@@ -1,4 +1,4 @@
-var modal = require('modal');
+var modal = require('./client/modal');
 
 /**
  * Default Modal

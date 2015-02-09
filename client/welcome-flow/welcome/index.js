@@ -1,5 +1,5 @@
-var log = require('log')('welcome-flow:welcome');
-var modal = require('modal');
+var log = require('./client/log')('welcome-flow:welcome');
+var modal = require('./client/modal');
 
 /**
  * Create `Modal`
