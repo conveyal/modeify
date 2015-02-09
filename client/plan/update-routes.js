@@ -22,6 +22,10 @@ function updateRoutes(plan, opts, callback) {
   var done = function(err, res) {
     if (err) {
       err = generateErrorMessage(plan, res);
+      analytics.track('Error Finding Route', {
+        error: err,
+        plan: plan.generateQuery()
+      });
     }
 
     plan.emit('updating options complete', {

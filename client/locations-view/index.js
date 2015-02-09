@@ -1,4 +1,3 @@
-var analytics = require('analytics');
 var closest = require('closest');
 var each = require('each');
 var geocode = require('geocode');
@@ -132,10 +131,6 @@ View.prototype.save = function(el) {
   var name = el.name;
   var val = el.value;
   if (!val || plan[name]() === val) return;
-
-  analytics.track(name + ' Address Changed', {
-    address: val
-  });
 
   this.model.setAddress(name, val, function(err, location) {
     if (err) {
