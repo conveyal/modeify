@@ -44,7 +44,7 @@ module.exports.render = function(ctx, next) {
   view.emit('rendered', view);
 
   // track the page view
-  analytics.page(view.category, view.title);
+  analytics.page();
 };
 
 /**

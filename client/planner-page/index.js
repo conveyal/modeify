@@ -21,11 +21,7 @@ var FROM = config.geocode().start_address;
 var TO = config.geocode().end_address;
 var isMobile = window.innerWidth <= 480;
 
-var View = view({
-  category: 'planner',
-  template: require('./template.html'),
-  title: 'Planner Page'
-}, function(view, model) {
+var View = view(require('./template.html'), function(view, model) {
   view.scrollable = view.find('.scrollable');
   view.panelFooter = view.find('.footer');
 
