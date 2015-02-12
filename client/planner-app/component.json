@@ -24,5 +24,10 @@
   "styles": [
     "icons.css",
     "style.css"
-  ]
+  ],
+  "development": {
+    "locals": [
+      "stats"
+    ]
+  }
 }

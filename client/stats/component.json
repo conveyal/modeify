@@ -1,0 +1,8 @@
+{
+  "name": "stats",
+  "scripts": [
+    "index.js",
+    "memory-stats.js",
+    "stats.js"
+  ]
+}
