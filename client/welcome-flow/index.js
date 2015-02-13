@@ -1,3 +1,4 @@
+var analytics = require('analytics');
 var config = require('config');
 var introJs = require('intro.js').introJs;
 var log = require('./client/log')('welcome-flow');
@@ -8,10 +9,6 @@ var routeResource = require('route-resource');
 
 var Locations = require('./locations');
 var Welcome = require('./welcome');
-
-/**
- * Default from / to addresses
- */
 
 var FROM = config.geocode().start_address;
 var TO = config.geocode().end_address;
@@ -40,7 +37,7 @@ module.exports = function(session) {
     locations.on('next', function() {
       var route = plan.options()[0];
 
-      routeResource.findByTags(route.tags(plan), (function(err, resources) {
+      routeResource.findByTags(route.tags(plan), function(err, resources) {
         var routeModal = new RouteModal(route, null, {
           context: 'welcome-flow',
           resources: resources
@@ -49,17 +46,21 @@ module.exports = function(session) {
         main.classList.remove('Welcome');
 
         routeModal.on('next', function() {
+          analytics.track('Commuter Activated');
+
+          commuter.updateProfile('commuter_activated', true);
           commuter.updateProfile('welcome_wizard_complete', true);
           commuter.save();
 
           routeModal.hide();
           highlightResults();
         });
-      }).bind(this));
+      });
 
     });
 
     locations.on('skip', function() {
+      commuter.updateProfile('commuter_activated', false);
       commuter.updateProfile('welcome_wizard_complete', true);
       commuter.save();
 

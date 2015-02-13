@@ -1,15 +1,8 @@
+var analytics = require('analytics');
 var log = require('./client/log')('welcome-flow:welcome');
 var modal = require('./client/modal');
 
-/**
- * Create `Modal`
- */
-
-var Welcome = module.exports = modal({
-  category: 'planner-welcome',
-  template: require('./template.html'),
-  title: 'Welcome Modal'
-});
+var Welcome = module.exports = modal(require('./template.html'));
 
 /**
  * Save
@@ -35,6 +28,10 @@ Welcome.prototype.clickedAnswer = function(e) {
  */
 
 Welcome.prototype.recordAnswer = function(answer) {
+  analytics.track('Selected Commuter Type', {
+    mode: answer
+  });
+
   this.model.updateProfile('initial_mode_of_transportation', answer);
   this.model.save();
 };

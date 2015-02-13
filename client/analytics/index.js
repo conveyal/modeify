@@ -1,7 +1,7 @@
 var tableize = require('tableize');
 
 module.exports.identify = function (id, data) {
-  window.analytics.identify(id, tableize(data));
+  window.analytics.identify(id, tableize(data || {}));
 };
 
 module.exports.page = function (name, category) {
@@ -9,5 +9,5 @@ module.exports.page = function (name, category) {
 };
 
 module.exports.track = function (name, data) {
-  window.analytics.track(name, tableize(data));
+  window.analytics.track(name, tableize(data || {}));
 };

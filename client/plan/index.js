@@ -280,8 +280,8 @@ Plan.prototype.setModes = function(csv) {
  */
 
 Plan.prototype.generateQuery = function() {
-  var from = this.from_ll();
-  var to = this.to_ll();
+  var from = this.from_ll() || {};
+  var to = this.to_ll() || {};
 
   // Transit modes
   var accessModes = ['WALK'];
