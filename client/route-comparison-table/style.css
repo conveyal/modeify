@@ -1,24 +1,24 @@
 
 .RouteComparisonTable {
-  padding-bottom: 10px;
+  font-size: 14px;
 }
 
 .RouteComparisonTable .compare-item {
 	background-color: var(--medium-blue);
 	border-radius: var(--border-radius);
-	font-size: 14px;
-	margin-top: 3px;
+	margin-top: 1px;
 	padding: 5px;
 	width: 100%;
 }
 
 .RouteComparisonTable > .compare-item > .category-icon {
-  background-color: var(--lightest-blue);
   background-repeat: no-repeat;
-  border-radius: var(--border-radius);
-  width: 45px;
-  height: 35px;
-  margin-right: 2px;
+  width: 40px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  font-size: 20px;
+  margin-right: 5px;
   background-size: 100% auto;
   background-position: center;
   display: inline-block;
@@ -41,26 +41,13 @@
 	background-image: url(/images/comparison_graphics/book.png);
 }
 
-.RouteComparisonTable > .compare-item > .category-icon {
-  text-align: center;
-  line-height: 35px;
-  font-size: 25px;
-}
-
 .RouteComparisonTable > .personal-time > .category-icon {
   color: var(--red);
 }
 
-.RouteComparisonTable .numbers {
+.RouteComparisonTable .footnote {
 	color: var(--gray);
 	text-align: right;
 	font-size: 11px;
-	margin:0;
-}
-
-.RouteComparisonTable .numbers a {
-	color: var(--gray);
-	text-align: right;
-	font-size: 11px;
-	text-decoration: underline;
+	margin: 0;
 }

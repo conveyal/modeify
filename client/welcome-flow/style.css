@@ -23,13 +23,13 @@
 }
 
 .WelcomeFlow .content {
-  margin: 15px;
+  margin: 12px;
 }
 
 .WelcomeFlow h3 {
-  margin: 15px 0;
+  margin: 12px 0;
   text-align: center;
-  line-height: 22px;
+  line-height: 20px;
 }
 
 .WelcomeFlow p {
