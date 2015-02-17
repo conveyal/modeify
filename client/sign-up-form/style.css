@@ -1,0 +1,9 @@
+
+.SignUpForm {
+  margin: 10px 0;
+  font-size: var(--font-size);
+}
+
+.SignUpForm > button {
+  margin-top: 10px;
+}

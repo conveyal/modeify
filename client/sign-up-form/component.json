@@ -1,0 +1,19 @@
+{
+  "name": "sign-up-form",
+  "local": [
+    "alert",
+    "log",
+    "request",
+    "session",
+    "view"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}

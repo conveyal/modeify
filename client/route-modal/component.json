@@ -5,7 +5,8 @@
     "modal",
     "route-comparison-table",
     "route-summary-segments",
-    "route-resources-view"
+    "route-resources-view",
+    "sign-up-form"
   ],
   "scripts": [
     "index.js"

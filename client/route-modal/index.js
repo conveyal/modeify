@@ -3,6 +3,7 @@ var modal = require('./client/modal');
 var RouteComparisonTable = require('route-comparison-table');
 var RouteResourcesView = require('route-resources-view');
 var routeSummarySegments = require('route-summary-segments');
+var SignUpForm = require('sign-up-form');
 
 /**
  * Create `Modal`
@@ -27,6 +28,10 @@ RouteModal.prototype.routeSummarySegments = function() {
   return routeSummarySegments(this.model, {
     inline: true
   });
+};
+
+RouteModal.prototype.signUpForm = function() {
+  return new SignUpForm();
 };
 
 RouteModal.prototype.routeResourcesView = function() {
