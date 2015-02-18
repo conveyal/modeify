@@ -26,7 +26,7 @@ page('/t/:code', function(ctx, next) {
     });
     next(err);
   });
-}, utils.redirect('/planner'))
+}, utils.redirect('/planner'));
 
 page('/welcome', function(ctx, next) {
   session.loginAnonymously(next);
