@@ -27,7 +27,7 @@
     "serve-static": "^1.8.0",
     "superagent": "~0.21.0",
     "to-slug-case": "~0.1.2",
-    "winston": "~0.8.0"
+    "winston": "~0.9.0"
   },
   "devDependencies": {
     "cli-table": "^0.3.1",
