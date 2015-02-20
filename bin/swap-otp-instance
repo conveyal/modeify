@@ -1,0 +1,110 @@
+#!/usr/bin/env node
+
+var async = require('async');
+var AWS = require('aws-sdk');
+var read = require('fs').readFileSync;
+var yml2js = require('js-yaml').load;
+
+var env = process.argv[2] || process.env.NODE_ENV || 'development';
+var config = yml2js(read(__dirname + '/../config/config.yaml', 'utf8'));
+for (var key in config.environments[env])
+  config[key] = config.environments[env][key] || config[key] || '';
+
+var layerId = config.opsworks.otp_layer_id;
+var opsworks = new AWS.OpsWorks();
+
+opsworks.describeInstances({
+  LayerId: layerId
+}, function(err, data) {
+  if (err) {
+    throw err;
+  } else if (!data.Instances || data.Instances.length === 0) {
+    throw new Error('No instances for layer:', layerId);
+  } else {
+    async.each(data.Instances, function(instance, done) {
+      if (instance.Status === 'online') {
+        duplicateInstance(instance, function(err, data) {
+          if (err) {
+            done(err);
+          } else {
+            killInstance(instance, done);
+          }
+        });
+      }
+    }, function(err) {
+      if (err) throw err;
+      process.exit();
+    });
+  }
+});
+
+function duplicateInstance(instance, callback) {
+  console.log('Duplicating instance', instance.Hostname);
+
+  var options = {
+    AutoScalingType: instance.AutoScalingType,
+    AvailabilityZone: instance.AvailabilityZone,
+    InstanceType: instance.InstanceType,
+    LayerIds: instance.LayerIds.slice(),
+    Os: instance.OS,
+    RootDeviceType: instance.RootDeviceType,
+    StackId: instance.StackId
+  };
+
+  opsworks.createInstance(options, function(err, newInstance) {
+    if (err) {
+      callback(err);
+    } else {
+      opsworks.startInstance(newInstance, function(err, data) {
+        if (err) {
+          callback(err);
+        } else {
+          waitForStatus(newInstance, 'online', callback);
+        }
+      });
+    }
+  });
+}
+
+function killInstance(instance, callback) {
+  console.log('Stopping instance', instance.Hostname);
+
+  opsworks.stopInstance({
+    InstanceId: instance.InstanceId
+  }, function(err, data) {
+    if (err) {
+      callback(err);
+    } else {
+      waitForStatus(instance, 'stopped', function(err) {
+        if (err) {
+          callback(err);
+        } else {
+          console.log('Deleting instance', instance.Hostname);
+
+          opsworks.deleteInstance({
+            InstanceId: instance.InstanceId
+          }, callback);
+        }
+      });
+    }
+  })
+}
+
+function waitForStatus(instance, status, callback, retries) {
+  console.log('Waiting for instance (', instance.Hostname || instance.InstanceId, ') to be ', status);
+
+  opsworks.describeInstances({
+    InstanceIds: [instance.InstanceId]
+  }, function(err, data) {
+    if (err) {
+      callback(err);
+    } else if (instance.Status === 'status') {
+      callback();
+    } else {
+      retries = retries || 1;
+      setTimeout(function() {
+        waitForStatus(instance, status, callback, retries++);
+      }, retries * 1000);
+    }
+  });
+}
