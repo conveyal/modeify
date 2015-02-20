@@ -5,12 +5,11 @@
   },
   "locals": [
     "alert",
-    "confirm-modal",
     "journey",
     "log",
     "modal",
-    "request",
     "session",
+    "sign-up-form",
     "view"
   ],
   "scripts": [

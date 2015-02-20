@@ -9,32 +9,12 @@
   </h3>
 
   <div class="row">
-    <section class="col-sm-6">
+    <section class="col-sm-6" data-visible="anonymous">
       <h4>
-        <strong>Account</strong>
-        <br><span class="subtitle">Manage your email address and password.</span>
+        <strong>Sign Up</strong>
+        <br><span class="subtitle">Stay in touch!</span>
       </h4>
-
-      <div data-visible="anonymous">
-        <div class="email-alerts">
-          <div class="alert alert-danger">Add an email address so you don't lose your settings.</div>
-        </div>
-        <form class="register-email-form" on-submit="submitEmailAddress">
-          <input type="email" name="email" class="form-control" placeholder="Email">
-          <button type="submit" class="btn btn-block">Register Email</button>
-        </form>
-        <div class="alert alert-warning">Already have an account? <a href="/login" class="alert-link" on-click="hide">Click here to login.</a></div>
-      </div>
-
-      <div data-hidden="anonymous">
-        <button class="btn btn-block" on-tap="logout"><i class="fa fa-sign-out"></i> Log Out</button>
-        <div data-hidden="emailConfirmed">
-          <div class="email-confirmation-alerts">
-            <div class="alert alert-warning">Your email has not been confirmed! You must confirm your email address to be able to log in.</div>
-          </div>
-          <button class="btn btn-block" on-tap="resendEmailConfirmation"><i class="fa fa-envelope"></i> Re-send Confirmation Email</button>
-        </div>
-      </div>
+      <div reactive="signUpForm"></div>
     </section>
 
     <section class="col-sm-6 speed-preference">
@@ -54,9 +34,7 @@
         <button class="racer icon-racerbike" on-tap="setBikeSpeed" title="Racer"></button>
       </div>
     </section>
-  </div>
 
-  <div class="row">
     <section class="col-sm-6">
       <h4>
         <strong>Saved Trips</strong>

@@ -1,10 +1,8 @@
-var Alert = require('alert');
-var confirmModal = require('confirm-modal');
 var log = require('./client/log')('commuter-profile');
 var modal = require('./client/modal');
 var page = require('page');
-var request = require('./client/request');
 var session = require('session');
+var SignUpForm = require('sign-up-form');
 
 /**
  * Expose `Modal`
@@ -20,69 +18,11 @@ var Modal = module.exports = modal({
 });
 
 /**
- * Submit Add Password
+ * Sign Up Form
  */
 
-Modal.prototype.resendEmailConfirmation = function(e) {
-  var alerts = this.find('.email-confirmation-alerts');
-  var button = e.target;
-  var email = this.email();
-
-  button.disabled = true;
-  request.post('/users/change-password-request', {
-    email: email
-  }, function(err, res) {
-    if (err) {
-      log.error('%e', err);
-      alerts.appendChild(Alert({
-        type: 'warning',
-        text: 'Error sending email confirmation.'
-      }).el);
-    } else {
-      alerts.innerHTML = null;
-      button.remove();
-      alerts.appendChild(Alert({
-        type: 'success',
-        text: 'An email has been sent to ' + email +
-          ' with instructions to complete your account.'
-      }).el);
-    }
-  });
-};
-
-/**
- * Submit Email Address
- */
-
-Modal.prototype.submitEmailAddress = function(e) {
-  e.preventDefault();
-  var alerts = this.find('.email-alerts');
-  var form = this.find('.register-email-form');
-  var email = form.querySelector('input[name=email]').value;
-  var button = form.querySelector('button');
-  var id = session.commuter()._id();
-
-  button.disabled = true;
-  request.post('/commuters/' + id + '/add-email', {
-    email: email
-  }, function(err, res) {
-    if (err) {
-      log.warn('%e %s', err);
-      alerts.appendChild(Alert({
-        type: 'warning',
-        text: 'Failed to register. ' + res.text
-      }).el);
-      button.disabled = false;
-    } else {
-      alerts.innerHTML = null;
-      form.remove();
-      alerts.appendChild(Alert({
-        type: 'success',
-        text: 'An email has been sent to ' + email +
-          ' with instructions to add a password and confirm your account.'
-      }).el);
-    }
-  });
+Modal.prototype.signUpForm = function() {
+  return new SignUpForm();
 };
 
 /**
