@@ -3,6 +3,7 @@
 var async = require('async');
 var AWS = require('aws-sdk');
 var read = require('fs').readFileSync;
+var http = require('http');
 var yml2js = require('js-yaml').load;
 
 var env = process.argv[2] || process.env.NODE_ENV || 'development';
@@ -13,6 +14,8 @@ for (var key in config.environments[env])
 var layerId = config.opsworks.otp_layer_id;
 var opsworks = new AWS.OpsWorks();
 
+var MINUTE = 1000 * 60;
+
 opsworks.describeInstances({
   LayerId: layerId
 }, function(err, data) {
@@ -21,6 +24,9 @@ opsworks.describeInstances({
   } else if (!data.Instances || data.Instances.length === 0) {
     throw new Error('No instances for layer:', layerId);
   } else {
+    // console.log(JSON.stringify(data.Instances, null, '\t'));
+    // process.exit();
+
     async.each(data.Instances, function(instance, done) {
       if (instance.Status === 'online') {
         duplicateInstance(instance, function(err, data) {
@@ -55,11 +61,17 @@ function duplicateInstance(instance, callback) {
     if (err) {
       callback(err);
     } else {
-      opsworks.startInstance(newInstance, function(err, data) {
+      opsworks.startInstance(newInstance, function(err) {
         if (err) {
           callback(err);
         } else {
-          waitForStatus(newInstance, 'online', callback);
+          waitForStatus(newInstance, 'online', function(err, data) {
+            if (err) {
+              callback(err);
+            } else {
+              waitForLiveEndpoint(data, callback);
+            }
+          });
         }
       });
     }
@@ -91,20 +103,43 @@ function killInstance(instance, callback) {
 }
 
 function waitForStatus(instance, status, callback, retries) {
-  console.log('Waiting for instance (', instance.Hostname || instance.InstanceId, ') to be ', status);
+  console.log('Waiting for instance', instance.Hostname || instance.InstanceId, 'to be', status, '...', retries);
 
   opsworks.describeInstances({
     InstanceIds: [instance.InstanceId]
   }, function(err, data) {
-    if (err) {
-      callback(err);
-    } else if (instance.Status === 'status') {
-      callback();
+    if (err || !data || !data.Instances || data.Instances.length === 0) {
+      callback(err || new Error('Failed to find instance'));
+    } else if (data.Instances[0].Status === status) {
+      callback(null, data.Instances[0]);
     } else {
-      retries = retries || 1;
+      retries = retries + 1 || 1;
       setTimeout(function() {
-        waitForStatus(instance, status, callback, retries++);
-      }, retries * 1000);
+        waitForStatus(data.Instances[0], status, callback, retries);
+      }, retries * MINUTE);
     }
   });
+}
+
+function waitForLiveEndpoint(instance, callback, retries) {
+  console.log('Waiting for endpoint', instance.Hostname || instance.InstanceId, '...', retries);
+
+  http.get('http://' + instance.PublicDns, function(res) {
+    if (res.statusCode !== 200) {
+      console.log('Status is', res.statusCode, 'retrying');
+      retry();
+    } else {
+      callback();
+    }
+  }).on('error', function(err) {
+    console.log('Error connecting,', err.code, ' retrying');
+    retry();
+  })
+
+  function retry() {
+    retries = retries + 1 || 1;
+    setTimeout(function() {
+      waitForLiveEndpoint(instance, callback, retries);
+    }, retries * MINUTE);
+  }
 }
