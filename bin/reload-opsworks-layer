@@ -2,16 +2,9 @@
 
 var async = require('async');
 var AWS = require('aws-sdk');
-var read = require('fs').readFileSync;
 var http = require('http');
-var yml2js = require('js-yaml').load;
 
-var env = process.argv[2] || process.env.NODE_ENV || 'development';
-var config = yml2js(read(__dirname + '/../config/config.yaml', 'utf8'));
-for (var key in config.environments[env])
-  config[key] = config.environments[env][key] || config[key] || '';
-
-var layerId = config.opsworks.otp_layer_id;
+var layerId = process.argv[2];
 var opsworks = new AWS.OpsWorks();
 
 var MINUTE = 1000 * 60;
@@ -24,8 +17,6 @@ opsworks.describeInstances({
   } else if (!data.Instances || data.Instances.length === 0) {
     throw new Error('No instances for layer:', layerId);
   } else {
-    // console.log(JSON.stringify(data.Instances, null, '\t'));
-    // process.exit();
 
     async.each(data.Instances, function(instance, done) {
       if (instance.Status === 'online') {

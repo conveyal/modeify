@@ -40,6 +40,8 @@ node[:deploy].each do |application, deploy|
     user "root"
     cwd "#{deploy[:deploy_to]}/current"
     code <<-EOH
+      wget #{deploy[:environment_variables][:BUNDLE_URL]} -O bundle.zip
+      unzip bundle.zip
       docker build -t=#{deploy[:application]} . > #{deploy[:application]}-docker.out
     EOH
   end
