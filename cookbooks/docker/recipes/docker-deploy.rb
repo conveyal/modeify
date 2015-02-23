@@ -50,8 +50,10 @@ node[:deploy].each do |application, deploy|
         --publish #{node[:opsworks][:instance][:private_ip]}:#{deploy[:environment_variables][:SERVICE_PORT]}:#{deploy[:environment_variables][:CONTAINER_PORT]} \
         --name #{deploy[:application]} \
         --detach=true \
-        #{deploy[:application]} \
-        --server
+        #{deploy[:environment_variables][:IMAGE]} \
+        --server \
+        --build /var/otp/graphs \
+        --inMemory
     EOH
   end
 end
