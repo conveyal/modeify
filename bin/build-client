@@ -49,7 +49,7 @@ function bundle(app) {
   // Build settings.
 
   var dest = 'assets/build/' + app;
-  var development = env !== 'production';
+  var development = env === 'development';
 
   // mkdirp
 
