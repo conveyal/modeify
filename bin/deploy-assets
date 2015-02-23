@@ -9,7 +9,16 @@ echo "Building client assets..."
 
 echo "Syncing assets to $BUCKET"
 aws s3 sync ../assets $BUCKET \
-  --acl public-read
+  --acl public-read \
+  --exclude "*.css" \
+  --exclude "*.js" \
+
+aws s3 sync ../assets $BUCKET \
+  --acl public-read \
+  --content-encoding "gzip" \
+  --exclude "*" \
+  --include "*.css" \
+  --include "*.js"
 
 aws s3 cp ../config/config.yaml $BUCKET \
   --acl public-read
