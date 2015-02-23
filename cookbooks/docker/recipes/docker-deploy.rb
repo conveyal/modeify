@@ -36,16 +36,6 @@ node[:deploy].each do |application, deploy|
     EOH
   end
 
-  bash "docker-build" do
-    user "root"
-    cwd "#{deploy[:deploy_to]}/current"
-    code <<-EOH
-      wget #{deploy[:environment_variables][:BUNDLE_URL]} -O bundle.zip
-      unzip bundle.zip
-      docker build -t=#{deploy[:application]} . > #{deploy[:application]}-docker.out
-    EOH
-  end
-
   dockerenvs = " "
   deploy[:environment_variables].each do |key, value|
     dockerenvs=dockerenvs+" -e "+key+"="+value
@@ -56,10 +46,12 @@ node[:deploy].each do |application, deploy|
     cwd "#{deploy[:deploy_to]}/current"
     code <<-EOH
       docker run #{dockerenvs} \
+        --volume $(pwd):/var/otp/graphs \
         --publish #{node[:opsworks][:instance][:private_ip]}:#{deploy[:environment_variables][:SERVICE_PORT]}:#{deploy[:environment_variables][:CONTAINER_PORT]} \
         --name #{deploy[:application]} \
         --detach=true \
-        #{deploy[:application]}
+        #{deploy[:application]} \
+        --server
     EOH
   end
 end
