@@ -2,6 +2,7 @@ var d3 = require('d3');
 var debug = require('debug')('transitive:display');
 var each = require('each');
 
+var Legend = require('./legend');
 var TileLayer = require('./tile-layer');
 
 var SphericalMercator = require('../util/spherical-mercator');
@@ -98,6 +99,11 @@ function Display(transitive) {
       graph: transitive.graph,
       mapboxId: transitive.options.mapboxId
     });
+  }
+
+  // set up the legend
+  if(transitive.options.legendEl) {
+    this.legend = new Legend(transitive.options.legendEl,this, transitive);
   }
 
   transitive.emit('initialize display', transitive, this);
@@ -249,8 +255,8 @@ Display.prototype.xyBounds = function() {
   var x = this.xScale.domain();
   var y = this.yScale.domain();
   return [
-    [x[0], y[1]],
-    [x[1], y[0]]
+    [x[0], y[0]],
+    [x[1], y[1]]
   ];
 };
 
@@ -263,8 +269,8 @@ Display.prototype.llBounds = function() {
   var y = this.yScale.domain();
 
   return [
-    sm.inverse([x[0], y[1]]),
-    sm.inverse([x[1], y[0]])
+    sm.inverse([x[0], y[0]]),
+    sm.inverse([x[1], y[1]])
   ];
 };
 
@@ -282,8 +288,8 @@ Display.prototype.isInRange = function(x, y) {
 function getDomains(display, height, width, bounds, options) {
   var xmin = bounds[0][0],
     xmax = bounds[1][0];
-  var ymin = bounds[1][1],
-    ymax = bounds[0][1];
+  var ymin = bounds[0][1],
+    ymax = bounds[1][1];
   var xRange = xmax - xmin;
   var yRange = ymax - ymin;
 
