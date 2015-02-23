@@ -2,11 +2,7 @@
 
 cd "$(dirname "$0")"
 
-APP=$(./config-val $1 opsworks.otp_app_id)
-STACK=$(./config-val $1 opsworks.stack_id)
+LAYER=$(./config-val $1 opsworks.otp_layer_id)
 
 echo "Deploying OTP to OpsWorks..."
-aws opsworks create-deployment \
-  --app-id $APP \
-  --stack-id $STACK \
-  --command "{\"Name\":\"deploy\"}"
+./reload-opsworks-layer $LAYER
