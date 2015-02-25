@@ -5,22 +5,22 @@
   margin: 15px 0;
 }
 
-.WelcomeLocations .Locations input {
-  border: 1px solid var(--black);
+.WelcomeLocations .Locations > .input-group {
+  margin: 0;
+}
+
+.WelcomeLocations .Locations > .input-group > input {
+  border: 1px solid var(--gray);
+  padding-top: 11px;
+}
+
+.WelcomeLocations .Locations > .input-group:first-of-type > input {
+  border-bottom: none;
 }
 
 .WelcomeLocations .Locations .suggestions {
-  border-left: 1px solid var(--black);
-  border-right: 1px solid var(--black);
-}
-
-.WelcomeLocations .Locations [class*="icon-"] {
-  top: 10px;
-  left: 8px;
-}
-
-.WelcomeLocations .Locations .clear {
-  top: 16px;
+  border-left: 1px solid var(--gray);
+  border-right: 1px solid var(--gray);
 }
 
 .WelcomeLocations button {
