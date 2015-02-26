@@ -11,13 +11,48 @@ nav {
   position: absolute;
   top: 0;
   box-shadow: 0 2px 2px -1px var(--darkest);
-  padding: 8px;
 }
 
 @media (--narrow-window) {
   nav {
     width: 100%;
   }
+}
+
+nav .show-menu {
+  color: var(--light-blue);
+  background: transparent;
+  height: 44px;
+  width: 44px;
+  border: none;
+  font-size: 18px;
+}
+
+nav .show-menu:active,
+nav .show-menu:hover,
+nav .show-menu:focus {
+  color: color(var(--light-blue) shade(20%));
+  outline: transparent;
+}
+
+nav .menu {
+  position: absolute;
+  list-style-type: none;
+  right: 0;
+  background-color: var(--black);
+  padding-left: 0;
+  border-bottom-left-radius: var(--border-radius);
+  box-shadow: -2px 2px 2px -1px var(--darkest);
+  margin-top: -2px;
+}
+
+nav .menu > li > a {
+  padding: 10px;
+  display: block;
+}
+
+nav .menu > li:last-of-type a {
+  border-bottom: transparent;
 }
 
 .dark-button {

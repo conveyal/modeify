@@ -1,4 +1,5 @@
 var AboutPage = require('about-page');
+var evnt = require('event');
 var Profile = require('commuter-profile');
 var Journey = require('journey');
 var log = require('./client/log')('planner-nav');
@@ -22,6 +23,21 @@ View.prototype.scrollToTop = function(e) {
   document
     .getElementById('scrollable')
     .scrollTop = 0;
+};
+
+View.prototype.showMenu = function() {
+  var menu = this.find('.menu');
+  if (menu.classList.contains('hidden')) {
+    menu.classList.remove('hidden');
+    evnt.bind(document.documentElement, 'click', hideMenu);
+  } else {
+    hideMenu();
+  }
+
+  function hideMenu() {
+    menu.classList.add('hidden');
+    evnt.unbind(document.documentElement, 'click', hideMenu);
+  }
 };
 
 /**

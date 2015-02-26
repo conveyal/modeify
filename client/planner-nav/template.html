@@ -1,7 +1,10 @@
 <nav on-tap="scrollToTop">
   <div class="buttons pull-right">
-    <button class="dark-button show-profile-button" on-tap="showProfile" title="Profile"><i class="fa fa-fw fa-gear"></i> Profile</button>
-    <button class="dark-button" on-tap="showAbout" title="About"><i class="fa fa-fw fa-info-circle"></i></button>
-    <button class="dark-button" on-tap="showWalkThrough" title="Help"><i class="fa fa-fw fa-question-circle"></i></button>
+    <button class="show-menu" on-tap="showMenu" title="Menu"><i class="fa fa-bars"></i></button>
+    <ul class="menu hidden">
+      <li><a href="#" on-tap="showProfile" title="Profile"><i class="fa fa-fw fa-gear"></i> Profile</a></li>
+      <li><a href="#" on-tap="showAbout" title="About"><i class="fa fa-fw fa-info-circle"></i> About</a></li>
+      <li><a href="#" on-tap="showWalkThrough" title="Help"><i class="fa fa-fw fa-question-circle"></i> Help</a></li>
+    </ul>
   </div>
 </nav>
