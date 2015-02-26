@@ -6,7 +6,7 @@
   vertical-align: top;
 }
 
-.RouteSegment .fa-caret-down {
+.RouteSegment > .mode > .fa-caret-down {
   font-size: 12px;
   display: block;
   text-align: center;
@@ -14,11 +14,11 @@
   margin-bottom: -4px;
 }
 
-.RouteSegment:last-of-type .fa-caret-down {
+.RouteSegment:last-of-type > .mode > .fa-caret-down {
   display: none;
 }
 
-.shield {
+.RouteSegment > .shield {
   display: inline-block;
   white-space: nowrap;
   color: #fff;
