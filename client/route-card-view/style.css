@@ -10,9 +10,7 @@
 
 .Options .RouteCard {
   list-style-type: none;
-  background-color: #fff;
   margin: 8px 0;
-  border-radius: var(--border-radius);
 }
 
 .Options .header {
@@ -32,31 +30,37 @@
  * Benefits Badge
  */
 
-.Options .benefits-badge {
+.RouteCard .benefits-badge {
   float: right;
   width: 125px;
   font-size: 13px;
   line-height: 1;
   text-align: right;
   margin-right: -2px;
-  padding: 11px 10px 8px 15px;
+  padding: 8px 10px 6px 0;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
-.Options .benefits-badge.savings {
+.RouteCard .benefits-badge.savings {
   background-image: url(/images/comparison_graphics/ribbon.png);
-  background-repeat: no-repeat;
-  color: #4b6a20;
-
+  color: var(--button-green);
 }
 
-.Options .benefits-badge.time-savings {
+.RouteCard .benefits-badge.time-savings {
   background-image: url(/images/comparison_graphics/time-ribbon.png);
-  background-repeat: no-repeat;
   color: #fff;
 }
 
 .Options .simple {
   position: relative;
+  background-color: #fff;
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+.RouteCard.expanded .simple {
+  border-radius: 0;
 }
 
 .Options .details-buttons {
@@ -87,9 +91,14 @@
 
 .RouteCard .segments {
   float: left;
-  padding: 8px;
+  padding: 6px;
   background-color: var(--light-gray);
-  min-height: 100px;
+  border-bottom-left-radius: var(--border-radius);
+  min-height: 90px;
+}
+
+.RouteCard.expanded .segments {
+  border-radius: 0;
 }
 
 .RouteCard .RouteSegment > .mode {
@@ -106,8 +115,8 @@
   margin-top: -4px;
 }
 
-.simple > .minutes-column {
-  padding-top: 10px;
+.RouteCard > .simple > .minutes-column {
+  padding-top: 8px;
   float: left;
   margin-left: 8px;
   margin-bottom: 8px;
@@ -127,24 +136,27 @@
  * Expanded
  */
 
-.Options .RouteCard.expanded .details {
+.RouteCard.expanded > .details {
   max-height: 10000px;
   opacity: 1;
   visibility: visible;
+  background-color: #fff;
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
 }
 
-.Options .RouteCard .details {
+.RouteCard > .details {
   max-height: 0;
   opacity: 0;
   visibility: hidden;
   padding-bottom: 1px;
 }
 
-.Options .RouteCard .details > p {
+.RouteCard > .details > p {
   padding: 0 16px 8px;
 }
 
-.Options .details .narrative-directions {
+.RouteCard > .details .narrative-directions {
   width: 100%;
   border-collapse: separate;
   color: var(--black);
