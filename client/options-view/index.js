@@ -1,3 +1,4 @@
+var FeedbackModal = require('feedback-modal');
 var RouteCardView = require('route-card-view');
 var view = require('view');
 
@@ -23,7 +24,7 @@ View.prototype['options-view'] = function() {
 
 View.prototype.optionsSummary = function() {
   if (this.optionsCount() > 0) {
-    return 'We found <strong>' + this.optionsCount() + '</strong> ' + this.modeList() + ' ' + this.optionsPlural();
+    return 'Found <strong>' + this.optionsCount() + '</strong> ' + this.modeList() + ' ' + this.optionsPlural();
   } else {
     return this.errorMessage || '';
   }
@@ -47,3 +48,8 @@ View.prototype.modeList = function() {
 View.prototype.optionsPlural = function() {
   return 'option' + (this.optionsCount() > 1 ? 's' : '');
 };
+
+View.prototype.feedback = function(e) {
+  e.preventDefault();
+  FeedbackModal().show();
+}

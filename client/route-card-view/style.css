@@ -8,7 +8,7 @@
   color: var(--lightgray);
 }
 
-.Options .option {
+.Options .RouteCard {
   list-style-type: none;
   background-color: #fff;
   margin: 8px 0;
@@ -21,10 +21,6 @@
   padding: 4px 8px;
   border-top-left-radius: var(--border-radius);
   border-top-right-radius: var(--border-radius);
-}
-
-.Options .header .number {
-  font-weight: var(--bold);
 }
 
 .Options .select-button {
@@ -70,23 +66,18 @@
   margin-right: 4px;
 }
 
-.Options .improve {
-  float: right;
-}
-
 .Options .show-details,
 .Options .hide-details {
   float: right;
   margin-bottom: 4px;
-  margin-right: 4px;
 }
 
-.Options .option.expanded .simple .show-details,
-.Options .option .simple .hide-details {
+.Options .RouteCard.expanded .simple .show-details,
+.Options .RouteCard .simple .hide-details {
   display: none;
 }
 
-.Options .option.expanded .simple .hide-details {
+.Options .RouteCard.expanded .simple .hide-details {
   display: inline-block;
 }
 
@@ -94,11 +85,25 @@
  * Route Summary
  */
 
-.simple > .segments {
+.RouteCard .segments {
   float: left;
   padding: 8px;
   background-color: var(--light-gray);
-  min-height: 115px;
+  min-height: 100px;
+}
+
+.RouteCard .RouteSegment > .mode {
+  font-size: 20px;
+}
+
+.RouteCard .RouteSegment > .shield {
+  font-size: 12px;
+  height: 17px;
+  margin-top: 3px;
+}
+
+.RouteCard .RouteSegment > .mode > .fa-caret-down {
+  margin-top: -4px;
 }
 
 .simple > .minutes-column {
@@ -122,20 +127,20 @@
  * Expanded
  */
 
-.Options .option.expanded .details {
+.Options .RouteCard.expanded .details {
   max-height: 10000px;
   opacity: 1;
   visibility: visible;
 }
 
-.Options .option .details {
+.Options .RouteCard .details {
   max-height: 0;
   opacity: 0;
   visibility: hidden;
   padding-bottom: 1px;
 }
 
-.Options .option .details > p {
+.Options .RouteCard .details > p {
   padding: 0 16px 8px;
 }
 
@@ -261,7 +266,8 @@
 /** Feedback on a route */
 
 .Options .feedback {
-  padding: 16px 16px 0;
+  margin: 10px;
+  text-align: right;
 }
 
 /**

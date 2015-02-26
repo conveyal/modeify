@@ -1,6 +1,7 @@
 {
   "name": "options-view",
   "locals": [
+    "feedback-modal",
     "route-card-view",
     "view"
   ],

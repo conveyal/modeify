@@ -1,20 +1,21 @@
-<li class="option">
+<li class="RouteCard">
   <div class="benefits-badge savings" data-visible="costSavings">Save <strong>${costSavings}</strong></div>
   <div class="benefits-badge time-savings" data-visible="timeSavingsAndNoCostSavings">Gain <strong>{timeSavings}</strong> hour(s)</div>
 
   <div class="header">
-    <span class="number">#{optionNumber}</span> {modeDescriptor}
+    <strong>#{optionNumber}</strong> {modeDescriptor}
   </div>
+
   <div class="simple clearfix">
     <div class="segments" data-html="segments"></div>
 
     <div class="minutes-column">
-      <div class="heading"><strong>{average} min</strong> <span class="avg">avg</span></div>
+      <div class="heading"><strong>{average}</strong> mins</div>
 
       <div data-visible="freeflowTime">{freeflowTime} without traffic</div>
       <div data-visible="hasTransit">
-        <div class="distance" data-visible="bikeDistances">{bikeTime} min bike ride</div>
-        <div class="distance" data-visible="walkDistances">{walkTime} min walking</div>
+        <div class="distance" data-visible="bikeDistances">{bikeTime} mins bike ride</div>
+        <div class="distance" data-visible="walkDistances">{walkTime} mins walk</div>
       </div>
       <div data-hidden="hasTransit">
         <div class="distance" data-visible="bikeDistances">{bikeDistances} mi bike ride</div>
@@ -25,7 +26,6 @@
     <button class="btn btn-default select-button" on-tap="selectOption">select</button>
 
     <div class="details-buttons">
-      <button class="btn btn-sm btn-demph improve" href="#" on-tap="feedback"><i class="fa fa-fw fa-gear"></i> help improve trip</button>
       <button class="btn btn-sm btn-dark show-hide show-details" href="#" on-tap="showDetails"><i class="fa fa-fw fa-plus-circle"></i> details</button>
       <button class="btn btn-sm btn-dark show-hide hide-details" href="#" on-tap="hideDetails"><i class="fa fa-fw fa-minus-circle"></i> hide</button>
     </div>
@@ -50,7 +50,10 @@
           <td class="description" data-text="to"></td>
         </tr>
       </tfoot>
-      <tbody class="segments" data-html="segmentDetails"></tbody>
+      <tbody class="segmentDetails" data-html="segmentDetails"></tbody>
     </table>
+    <div class="feedback">
+      <a href="#" on-tap="feedback"><i class="fa fa-fw fa-gear"></i> help improve route</a>
+    </div>
   </div>
 </li>

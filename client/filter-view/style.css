@@ -1,97 +1,81 @@
 
-.filter-view {
-  width: 100%;
-}
-
-.time-filters {
-  width: 100%;
+.FilterView > .time-filters {
   white-space: nowrap;
   padding-bottom: 8px;
   font-size: 15px;
 }
 
 @media (--narrow-window) {
-  .time-filters select {
+  .FilterView > .time-filters > select {
     padding-left: 0;
     padding-right: 0;
   }
 }
 
 @-moz-document url-prefix() {
-  .time-filters select {
+  .FilterView > .time-filters > select {
     width: 65px;
   }
 }
 
-.time-filters label {
+.FilterView > .time-filters > label {
   color: var(--light-blue);
   font-weight: var(--font-weight);
   margin-bottom: 3px;
 }
 
-.mode-filters {
+.FilterView > .mode-filters {
   display: inline-block;
-  border-radius: var(--border-radius);
 }
 
-.mode-filters a {
+.FilterView > .mode-filters > button {
+  box-shadow: none;
   background-color: var(--green);
-  text-align: center;
-  cursor: pointer;
-  width: 48px;
+  color: var(--button-green);
+  padding: 0;
+  width: 44px;
   height: 44px;
-  font-size: 30px;
-  padding-top: 7px;
-  border-radius: var(--border-radius);
-  display: inline-block;
+  font-size: 28px;
   transition-property: background;
   transition-duration: 0.1s;
-  color:  #4b6a20;
-  border: none;
   text-shadow: none;
   position: relative;
 }
 
 .mode-filters i {
-  font-size: 18px;
+  font-size: 16px;
   position: absolute;
   top: 23px;
-  left: 30px;
+  left: 27px;
   color: var(--lightgreen);
   text-shadow: 0px 1px 3px rgba(75, 106, 32, 0.4);
-  padding-right: 10px;
-  margin: 0;
-  padding: 0;
   visibility: hidden;
 }
 
 
-.mode-filters a.active {
-    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
-    color: #4b6a20;
-    background-color: var(--green);
-}
+.mode-filters > button.active {
+  background-color: var(--green);
+  color: var(--button-green);
 
-.mode-filters a:hover,
-.mode-filters a:focus {
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  color: #4b6a20;
   text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
-  text-decoration: none;
-  background-color: var(--mgreen);
-  font-weight: normal;
 }
 
-.mode-filters a.active i {
+.mode-filters > button:hover,
+.mode-filters > button:focus {
+  background-color: var(--mgreen);
+  color: var(--button-green);
+
+  text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
+}
+
+.mode-filters > button.active > i {
   visibility: visible;
 }
 
 .submit {
-  float: right;
-  width: 88px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  margin-left: 4px;
+  width: 64px;
+  height: 44px;
   font-size: 20px;
   border: none;
 }
