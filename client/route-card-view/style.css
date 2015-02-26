@@ -23,10 +23,6 @@
   border-top-right-radius: var(--border-radius);
 }
 
-.Options .header .number {
-  font-weight: var(--bold);
-}
-
 .Options .select-button {
   float: right;
   margin: 4px 4px 0 0;

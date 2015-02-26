@@ -114,6 +114,7 @@ a:hover {
 }
 
 .btn:active,
+.btn.active,
 .introjs-button:active {
   background-color: color(var(--gold) shade(20%));
 }
