@@ -66,15 +66,10 @@
   margin-right: 4px;
 }
 
-.Options .improve {
-  float: right;
-}
-
 .Options .show-details,
 .Options .hide-details {
   float: right;
   margin-bottom: 4px;
-  margin-right: 4px;
 }
 
 .Options .option.expanded .simple .show-details,
@@ -257,7 +252,8 @@
 /** Feedback on a route */
 
 .Options .feedback {
-  padding: 16px 16px 0;
+  margin: 10px;
+  text-align: right;
 }
 
 /**
