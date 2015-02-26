@@ -1,6 +1,6 @@
 
-.RouteModal .segments {
-  margin: 15px 0;
+.RouteModal > .content > .segments {
+  margin: 15px 0 10px;
   padding: 0;
   display: block;
   text-align: center;
