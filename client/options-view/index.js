@@ -24,7 +24,7 @@ View.prototype['options-view'] = function() {
 
 View.prototype.optionsSummary = function() {
   if (this.optionsCount() > 0) {
-    return 'We found <strong>' + this.optionsCount() + '</strong> ' + this.modeList() + ' ' + this.optionsPlural();
+    return 'Found <strong>' + this.optionsCount() + '</strong> ' + this.modeList() + ' ' + this.optionsPlural();
   } else {
     return this.errorMessage || '';
   }
