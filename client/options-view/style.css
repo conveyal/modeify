@@ -9,3 +9,8 @@
 	font-size: 14px;
 	font-weight: bold;
 }
+
+.Options .show-feedback {
+  text-align: center;
+  padding: 10px 0;
+}
