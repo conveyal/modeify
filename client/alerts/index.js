@@ -4,17 +4,11 @@ var log = require('./client/log')('alerts');
 var each = require('each');
 
 /**
- * Append el
- */
-
-document.body.insertBefore(domify(require('./template.html')), document.body.firstChild);
-
-/**
  * Alerts
  */
 
 var alerts = [];
-var el = document.getElementById('alerts');
+var el = null;
 
 /**
  * Expose `render` middleware
@@ -24,7 +18,7 @@ module.exports = function(ctx, next) {
   log('displaying alerts');
 
   // remove all alerts
-  el.innerHTML = '';
+  if (el) el.innerHTML = '';
 
   // create all alerts in local storage
   each(alerts, function(info) {
@@ -52,6 +46,11 @@ module.exports = function(ctx, next) {
   next();
 };
 
+function addBar() {
+  document.body.insertBefore(domify(require('./template.html')), document.body.firstChild);
+  return document.getElementById('alerts');
+}
+
 /**
  * Push
  */
@@ -73,6 +72,8 @@ module.exports.show = function(info) {
  */
 
 function newAlert(o) {
+  if (!el) el = addBar();
+
   var al = new Alert(o);
   el.appendChild(al.el);
   return al;
