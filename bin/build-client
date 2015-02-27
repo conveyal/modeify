@@ -30,6 +30,11 @@ for (var key in config.environments[env])
 
 delete config.environments;
 
+// Get the about page & terms and conditions
+
+var aboutPage = marked(fs.readFileSync(__dirname + '/../config/about.md', 'utf8'));
+var termsPage = marked(fs.readFileSync(__dirname + '/../config/terms.md', 'utf8'));
+
 // Build all
 
 component.locals.forEach(bundle);
@@ -86,8 +91,15 @@ function bundle(app) {
       }))
       .end(function(err, str) {
         if (err) throw err;
-        var js = 'window.CONFIG=' + JSON.stringify(config, null, '  ') + ';\n' + build.scripts.require + '\n' +
-          str + ';require("' + build.scripts.canonical(tree).canonical + '");\n';
+
+        // Add config
+        var js = 'window.CONFIG=' + JSON.stringify(config, null, '  ') + ';\n';
+
+        // Add about & terms
+        js += 'window.ABOUT_PAGE=' + JSON.stringify(htmlMinifier(aboutPage, htmlMinifierOptions)) + ';\n';
+        js += 'window.TERMS_PAGE=' + JSON.stringify(htmlMinifier(termsPage, htmlMinifierOptions)) + ';\n';
+
+        js += build.scripts.require + '\n' + str + ';require("' + build.scripts.canonical(tree).canonical + '");\n';
 
         if (!development) {
           js = uglify.minify(js, { fromString: true }).code;
