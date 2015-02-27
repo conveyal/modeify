@@ -18,7 +18,7 @@ var zlib = require('zlib');
 
 // Convert the YAML config
 
-var config = yml2js(fs.readFileSync(__dirname + '/../config/config.yaml', 'utf8'));
+var config = yml2js(fs.readFileSync(__dirname + '/../deployment/config.yaml', 'utf8'));
 
 // Set the rest of the public config.
 
@@ -32,12 +32,12 @@ delete config.environments;
 
 // Get the about page & terms and conditions
 
-var aboutPage = marked(fs.readFileSync(__dirname + '/../config/about.md', 'utf8'));
-var termsPage = marked(fs.readFileSync(__dirname + '/../config/terms.md', 'utf8'));
+var aboutPage = marked(fs.readFileSync(__dirname + '/../deployment/about.md', 'utf8'));
+var termsPage = marked(fs.readFileSync(__dirname + '/../deployment/terms.md', 'utf8'));
 
 // Get the messages
 
-var messages = yml2js(fs.readFileSync(__dirname + '/../config/messages.yaml', 'utf8'));
+var messages = yml2js(fs.readFileSync(__dirname + '/../deployment/messages.yaml', 'utf8'));
 
 // Build all
 

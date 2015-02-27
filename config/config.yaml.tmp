@@ -25,6 +25,8 @@ geocode:
 api_url: /api
 base_url: http://localhost:5000
 
+google_site_verification:
+
 mapbox_access_token:
 mapbox_map_id:
 

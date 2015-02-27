@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "cli-table": "^0.3.1",
-    "commander": "^2.5.1",
+    "commander": "^2.6.0",
     "component": "^1.0.0",
     "component-builder": "^1.1.13",
     "component-resolver": "^1.2.7",
@@ -53,8 +53,8 @@
     "uglify-js": "^2.4.12"
   },
   "scripts": {
-    "start": ". config/env && make serve",
-    "run": ". config/env && bin/server",
+    "start": ". deployment/env && make serve",
+    "run": ". deployment/env && bin/server",
     "stop": "make stop",
     "postinstall": "npm rebuild",
     "test": "NODE_ENV=test node_modules/.bin/mocha --recursive --reporter spec --require should --slow 10 --timeout 10s",
