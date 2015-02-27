@@ -26,7 +26,4 @@ lib-cov
 **/kerberos/build
 **/weak/build
 
-assets/build
-assets/otp
-
 coverage
