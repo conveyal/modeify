@@ -1,0 +1,12 @@
+{
+  "name": "rideshare-sign-up-form",
+  "local": [
+    "modal"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}
