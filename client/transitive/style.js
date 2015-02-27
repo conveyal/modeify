@@ -95,9 +95,9 @@ exports.places_icon = {
   height: 40,
   'xlink:href': function(display, data) {
     if (data.owner.getId() === 'from') return config.static_url() +
-      '/images/transitive/start.svg';
+      '/images/graphics/start.svg';
     if (data.owner.getId() === 'to') return config.static_url() +
-      '/images/transitive/end.svg';
+      '/images/graphics/end.svg';
   },
   cursor: 'pointer',
   stroke: 0,

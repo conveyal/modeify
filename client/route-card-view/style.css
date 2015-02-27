@@ -43,12 +43,12 @@
 }
 
 .RouteCard .benefits-badge.savings {
-  background-image: url(/images/comparison_graphics/ribbon.png);
+  background-image: url(/images/graphics/ribbon.png);
   color: var(--button-green);
 }
 
 .RouteCard .benefits-badge.time-savings {
-  background-image: url(/images/comparison_graphics/time-ribbon.png);
+  background-image: url(/images/graphics/time-ribbon.png);
   color: #fff;
 }
 
