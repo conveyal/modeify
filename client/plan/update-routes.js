@@ -313,7 +313,7 @@ function generateErrorMessage(plan, response) {
   if (responseText.indexOf('VertexNotFoundException') !== -1) {
     msg += 'The <strong>';
     msg += responseText.indexOf('[from]') !== -1 ? 'from' : 'to';
-    msg += '</strong> address entered is outside the supported region of CarFreeAtoZ.';
+    msg += '</strong> address entered is outside the supported region.';
   } else if (!plan.validCoordinates()) {
     msg += plan.coordinateIsValid(plan.from_ll()) ? 'To' : 'From';
     msg += ' address could not be found. Please enter a valid address.';

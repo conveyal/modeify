@@ -5,6 +5,7 @@ var log = require('./client/log')('planner-nav');
 var MarkdownModal = require('./client/markdown-modal');
 var page = require('page');
 var showWalkThrough = require('planner-walkthrough');
+var getTemplate = require('./client/template');
 var textModal = require('text-modal');
 var view = require('view');
 
@@ -66,14 +67,14 @@ View.prototype.showProfile = function(e) {
 View.prototype.showAbout = function(e) {
   if (e) e.preventDefault();
   MarkdownModal({
-    content: '<h1>About</h1>'
+    content: getTemplate('about')
   }).show();
 };
 
 View.prototype.showTermsAndConditions = function(e) {
   if (e) e.preventDefault();
   MarkdownModal({
-    content: '<h1>Terms</h1>'
+    content: getTemplate('terms')
   }).show();
 };
 

@@ -3,6 +3,9 @@
   "dependencies": {
     "usablica/intro.js": "*"
   },
+  "local": [
+    "config"
+  ],
   "scripts": [
     "index.js"
   ]

@@ -35,6 +35,10 @@ delete config.environments;
 var aboutPage = marked(fs.readFileSync(__dirname + '/../config/about.md', 'utf8'));
 var termsPage = marked(fs.readFileSync(__dirname + '/../config/terms.md', 'utf8'));
 
+// Get the messages
+
+var messages = yml2js(fs.readFileSync(__dirname + '/../config/messages.yaml', 'utf8'));
+
 // Build all
 
 component.locals.forEach(bundle);
@@ -92,12 +96,16 @@ function bundle(app) {
       .end(function(err, str) {
         if (err) throw err;
 
-        // Add config
-        var js = 'window.CONFIG=' + JSON.stringify(config, null, '  ') + ';\n';
-
-        // Add about & terms
-        js += 'window.ABOUT_PAGE=' + JSON.stringify(htmlMinifier(aboutPage, htmlMinifierOptions)) + ';\n';
-        js += 'window.TERMS_PAGE=' + JSON.stringify(htmlMinifier(termsPage, htmlMinifierOptions)) + ';\n';
+        // Add global vars first
+        var globalVars = {
+          config: config,
+          messages: messages,
+          templates: {
+            about: htmlMinifier(aboutPage, htmlMinifierOptions),
+            terms: htmlMinifier(termsPage, htmlMinifierOptions)
+          }
+        };
+        var js = 'window.modeify=' + JSON.stringify(globalVars, null, '\t')  + ';\n';
 
         js += build.scripts.require + '\n' + str + ';require("' + build.scripts.canonical(tree).canonical + '");\n';
 
