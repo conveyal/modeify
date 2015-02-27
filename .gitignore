@@ -29,7 +29,4 @@ lib-cov
 assets/build
 assets/otp
 
-config/config.yaml
-config/env
-
 coverage

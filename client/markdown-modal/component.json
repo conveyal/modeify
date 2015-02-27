@@ -1,9 +1,5 @@
 {
-  "name": "about-page",
-  "locals": [
-    "modal",
-    "terms-and-conditions-modal"
-  ],
+  "name": "markdown-modal",
   "scripts": [
     "index.js"
   ],

@@ -1,8 +1,8 @@
-var AboutPage = require('about-page');
 var evnt = require('event');
 var Profile = require('commuter-profile');
 var Journey = require('journey');
 var log = require('./client/log')('planner-nav');
+var MarkdownModal = require('./client/markdown-modal');
 var page = require('page');
 var showWalkThrough = require('planner-walkthrough');
 var textModal = require('text-modal');
@@ -63,14 +63,18 @@ View.prototype.showProfile = function(e) {
   });
 };
 
-/**
- * Show About
- */
-
 View.prototype.showAbout = function(e) {
   if (e) e.preventDefault();
-  var about = new AboutPage();
-  about.show();
+  MarkdownModal({
+    content: '<h1>About</h1>'
+  }).show();
+};
+
+View.prototype.showTermsAndConditions = function(e) {
+  if (e) e.preventDefault();
+  MarkdownModal({
+    content: '<h1>Terms</h1>'
+  }).show();
 };
 
 /**

@@ -5,11 +5,11 @@
     "visionmedia/page.js": "*"
   },
   "locals": [
-    "about-page",
     "commuter-profile",
     "confirm-modal",
     "journey",
     "log",
+    "markdown-modal",
     "planner-walkthrough",
     "text-modal",
     "view"
