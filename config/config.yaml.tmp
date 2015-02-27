@@ -1,13 +1,13 @@
 ---
-application: CarFreeAtoZ
-name: CarFreeAtoZ
-domain: carfreeatoz.com
+application: Modeify
+name: Modeify
+domain: modeify.co
 
 organization:
-  name: Arlington County Commuter Services
-  url: https://www.commuterdirect.com/
+  name: Conveyal
+  url: http://conveyal.com
 
-# Application
+# Applicatio
 version: 1.2.1
 
 # Support Email Address
@@ -26,12 +26,12 @@ api_url: /api
 base_url: http://localhost:5000
 
 mapbox_access_token:
-mapbox_map_id: conveyal.ie3o67m0
+mapbox_map_id:
 
 otp:
-  host: carfreeatoz-otp-staging-245896754.us-east-1.elb.amazonaws.com
+  host: localhost
   path: /otp/routers/default
-  port: 80
+  port: 8080
 s3_bucket: ''
 segmentio_key: ''
 static_url: /assets
@@ -44,29 +44,15 @@ environments:
 
   # Default & development
   development:
-    segmentio_key: egulwcylaa
 
-  # Staging / QA
-  staging:
-    base_url: http://arlington.dev.conveyal.com
-    opsworks:
-      app_id: 1d2d64dd-5ee0-4867-823b-6072e92e297d
-      stack_id: ea94c5bc-1b73-4e99-a9c4-b5450b40b69a
-    s3_bucket: s3://carfreeatoz-staging/
-    segmentio_key: qak98wes8c
-    static_url: https://s3.amazonaws.com/carfreeatoz-staging
-
-  # Production envrionment
+  # Staging / QA / Production
   production:
-    base_url: http://carfreeatoz.com
+    base_url:
     opsworks:
-      app_id: e6d503e7-2ded-49df-a62b-8ac2c000b963
-      stack_id: 3dfd270f-ac17-47ba-b185-f1ed8743590e
-    otp:
-      host: ec2-54-234-252-174.compute-1.amazonaws.com
-      path: /otp/routers/default
-      port: 80
-    s3_bucket: s3://carfreeatoz/
-    segmentio_key: 51cp2qlgkb
-    static_url: https://d3u1zgjvsylgrw.cloudfront.net
-
+      node_app_id:
+      otp_app_id:
+      otp_layer_id
+      stack_id:
+    s3_bucket:
+    segmentio_key:
+    static_url:
