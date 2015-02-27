@@ -1,6 +1,7 @@
 {
   "name": "planner-nav",
   "dependencies": {
+    "component/event": "*",
     "visionmedia/page.js": "*"
   },
   "locals": [

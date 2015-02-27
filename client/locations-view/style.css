@@ -1,9 +1,10 @@
 
+.Locations {
+  padding-top: 7px;
+}
+
 .Locations [class*="icon-"] {
-  position: absolute;
-  font-size: 25px;
-  top: 8px;
-  left: 6px;
+  font-size: 20px;
 }
 
 .Locations .icon-start {
@@ -16,7 +17,15 @@
 
 .Locations .input-group {
   width: 100%;
-  margin-top: 8px;
+  margin-top: 1px;
+}
+
+.Locations > .input-group > .add-on {
+  position: absolute;
+  height: 40px;
+  line-height: 40px;
+  width: 32px;
+  text-align: center;
 }
 
 .Locations .input-group.suggestions-open {
@@ -25,7 +34,7 @@
 }
 
 .Locations input {
-  padding: 13px 32px 11px 36px;
+  padding: 13px 32px 11px 32px;
   color: var(--black);
   box-shadow: none;
   border: none;
@@ -35,12 +44,22 @@
   border-radius: var(--border-radius);
 }
 
-.Locations .clear {
+.Locations > .input-group:first-of-type > input {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.Locations > .input-group:last-of-type > input {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.Locations > .input-group > .clear {
   cursor: pointer;
   color: var(--gray);
-  position: absolute;
-  right: 12px;
-  top: 14px;
+  right: 0;
+  top: 0;
+  font-size: 16px;
 }
 
 .Locations input:focus {

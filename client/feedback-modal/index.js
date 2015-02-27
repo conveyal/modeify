@@ -23,8 +23,8 @@ Modal.prototype.submit = function(e) {
   var alerts = this.find('.alerts');
   var button = this.find('button');
   var feedback = this.find('textarea').value + '';
-  var plan = session.plan().toJSON();
-  var results = this.model.toJSON();
+  var plan = session.plan();
+  var results = this.model ? this.model.toJSON() : {};
   var self = this;
 
   if (!feedback || feedback.length < 1) {
@@ -40,7 +40,7 @@ Modal.prototype.submit = function(e) {
 
     request.post('/feedback', {
       feedback: feedback.trim(),
-      plan: plan,
+      plan: plan.generateQuery(),
       results: results
     }, function(err) {
       if (err) {

@@ -1,11 +1,16 @@
 
 .Options {
   overflow: hidden;
-  padding: 0 8px;
+  padding: 0 8px 10px;
 }
 
 .Options .separator {
 	color: var(--darkest);
 	font-size: 14px;
 	font-weight: bold;
+}
+
+.Options .show-feedback {
+  text-align: center;
+  padding: 10px 0;
 }

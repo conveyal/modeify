@@ -23,6 +23,8 @@
   --dark-blue: #384554;
   --darkest: #303d49;
 
+  --button-green: #4b6a20;
+
   --darkergreen: #5e8428;
   --darkgreen: #719939;
   --green: #8ec449;
@@ -112,6 +114,7 @@ a:hover {
 }
 
 .btn:active,
+.btn.active,
 .introjs-button:active {
   background-color: color(var(--gold) shade(20%));
 }
