@@ -30,7 +30,6 @@ assets/build
 assets/otp
 
 config/config.yaml
-config/deployments
 config/env
 
 coverage
