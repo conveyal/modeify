@@ -1,17 +1,14 @@
+var http = require('http');
 
-// Load configuration files
+var api = require('./lib/api');
+var log = require('./lib/log');
 
-require('./lib/config')(function(err) {
-  var api = require('./lib/api');
-  var http = require('http');
-  var log = require('./lib/log');
-  var port = process.env.PORT || 80;
+var port = process.env.PORT || 80;
 
-  // Create and run the server
+// Create and run the server
 
-  http
-    .createServer(api)
-    .listen(port, function(err) {
-      log.info('express server running on port ' + port);
-    });
-});
+http
+  .createServer(api)
+  .listen(port, function(err) {
+    log.info('express server running on port ' + port);
+  });
