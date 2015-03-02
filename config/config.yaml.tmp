@@ -53,7 +53,7 @@ environments:
     opsworks:
       node_app_id:
       otp_app_id:
-      otp_layer_id
+      otp_layer_id:
       stack_id:
     s3_bucket:
     segmentio_key:
