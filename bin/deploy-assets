@@ -1,24 +1,27 @@
 #!/bin/sh
 
-cd "$(dirname "$0")"
+cd "$(dirname "$0")"/..
 
-BUCKET=`./config-val $1 s3_bucket`
+BUCKET=`./bin/config-val $1 s3_bucket`
 
 echo "Building client assets..."
-./build-client $1
+./bin/build-client $1
+
+echo "Building server bundle..."
+git archive --format=tar HEAD | gzip > assets/server.tar.gz
 
 echo "Syncing assets to $BUCKET"
-aws s3 sync ../assets $BUCKET \
+aws s3 sync assets $BUCKET \
   --acl public-read \
   --exclude "*.css" \
   --exclude "*.js" \
 
-aws s3 sync ../assets $BUCKET \
+aws s3 sync assets $BUCKET \
   --acl public-read \
   --content-encoding "gzip" \
   --exclude "*" \
   --include "*.css" \
   --include "*.js"
 
-aws s3 cp ../deployment/config.yaml $BUCKET \
+aws s3 cp deployment/config.yaml $BUCKET \
   --acl public-read
