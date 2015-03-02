@@ -4,8 +4,8 @@ DIR=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
 DEP="$DIR/../deployment"
 APP="$DIR/../assets/images/application"
 
-mkdir $DEP || true
-mkdir $APP || true
+mkdir -p $DEP
+mkdir -p $APP
 
 cp -r $1/* $DEP
 cp -r $1/images/* $APP
