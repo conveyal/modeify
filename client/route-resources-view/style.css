@@ -1,15 +1,50 @@
+
+.RouteResources > .resources {
+  margin-bottom: 10px;
+}
+
 .RouteResources > .resources > .resource {
-  margin-bottom: 15px;
+  margin-bottom: 5px;
+  border: 1px solid #e0e0e0;
+  border-radius: var(--border-radius);
+  padding: 5px;
 }
 
 .RouteResources > .resources > .resource > .title {
   font-weight: var(--bold);
+  font-size: 14px;
 }
 
-.RouteResources > .resources > .resource > .description {
+.RouteResources > .resources > .resource.expanded > .details {
+  font-size: 12px;
+  visibility: visible;
+  max-height: 1000px;
+  opacity: 1;
+  margin-top: 5px;
+}
+
+.RouteResources > .resources > .resource > .details {
+  visibility: hidden;
+  max-height: 0;
+  opacity: 0;
+}
+
+.RouteResources > .resources > .resource > .details a {
+  font-weight: var(--bold);
   font-size: 12px;
 }
 
-.RouteResources > .resources > .resource > .description a {
-  font-weight: var(--bold);
+
+.RouteResources > .resources > .resource > .show-hide {
+  float: right;
+  cursor: pointer;
+}
+
+.RouteResources > .resources > .resource.expanded > .show-hide > .show-details,
+.RouteResources > .resources > .resource > .show-hide > .hide-details {
+  display: none;
+}
+
+.RouteResources > .resources > .resource.expanded > .show-hide > .hide-details {
+  display: inline-block;
 }

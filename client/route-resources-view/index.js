@@ -30,3 +30,15 @@ View.prototype.resourceClicked = function(e) {
     window.open(linkUrl, '_blank');
   }
 };
+
+
+View.prototype.showDetails = function(e) {
+  e.target.parentNode.parentNode.classList.add('expanded');
+};
+
+View.prototype.hideDetails = function(e) {
+  var list = e.target.parentNode.parentNode.classList;
+  if (list.contains('expanded')) {
+    list.remove('expanded');
+  }
+};
