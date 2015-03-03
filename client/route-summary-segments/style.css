@@ -36,6 +36,11 @@
   text-overflow: ellipsis;
 }
 
+.RouteSegment > svg.shield {
+  width: 26px;
+  margin-left: 4px;
+}
+
 .RouteSegment.inline {
   display: inline;
 }

@@ -35,15 +35,13 @@ exports.segments = {
   'stroke-width': function(display, segment, index, utils) {
     switch (segment.type) {
       case 'CAR':
-        return utils.pixels(display.zoom.scale(), 2, 4, 6) + 'px';
-      case 'WALK':
-        return '6px';
       case 'BICYCLE':
-        return '4px';
+        return '3px';
+      case 'WALK':
+        return '5px';
       case 'TRANSIT':
         // bus segments:
-        if (segment.mode === 3) return utils.pixels(display.zoom.scale(), 2, 5,
-          8) + 'px';
+        if (segment.mode === 3) return utils.pixels(display.zoom.scale(), 2, 5, 8) + 'px';
         // all others:
         return utils.pixels(display.zoom.scale(), 5, 9, 12) + 'px';
     }
@@ -52,12 +50,11 @@ exports.segments = {
   // specify the dash-array
   'stroke-dasharray': function(display, segment) {
     switch (segment.type) {
-      case 'CAR':
-        return '10,8';
-      case 'WALK':
-        return '0.01,11';
       case 'BICYCLE':
-        return '10,8';
+      case 'CAR':
+        return '9,7';
+      case 'WALK':
+        return '0.1,9';
     }
   },
 
@@ -77,12 +74,16 @@ exports.segments = {
 /** style overrides for segment-based labels **/
 
 exports.segment_label_containers = {
-
   // specify the fill color for the label bubble
   fill: function(display, label) {
     if (!label.isFocused()) return;
-
     return '#008';
+  }
+};
+
+exports.segments_halo = {
+  'stroke-width': function(display, data, index, utils) {
+    return data.computeLineWidth(display) + 6;
   }
 };
 
