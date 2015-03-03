@@ -89,15 +89,13 @@ exports.segment_label_containers = {
 // start/end icons and eventually points of interest//
 
 exports.places_icon = {
-  x: -20,
-  y: -20,
-  width: 40,
-  height: 40,
+  x: -15,
+  y: -15,
+  width: 30,
+  height: 30,
   'xlink:href': function(display, data) {
-    if (data.owner.getId() === 'from') return config.static_url() +
-      '/images/graphics/start.svg';
-    if (data.owner.getId() === 'to') return config.static_url() +
-      '/images/graphics/end.svg';
+    if (data.owner.getId() === 'from') return config.static_url() + '/images/graphics/start.svg';
+    if (data.owner.getId() === 'to') return config.static_url() + '/images/graphics/end.svg';
   },
   cursor: 'pointer',
   stroke: 0,
