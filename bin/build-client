@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-var env = process.argv[2] || process.env.NODE_ENV || 'development';
-
 var build = require('component-builder');
 var resolve = require('component-resolver');
 var fs = require('fs');
@@ -14,6 +12,9 @@ var path = require('path');
 var sqwish = require('sqwish');
 var uglify = require('uglify-js');
 var zlib = require('zlib');
+
+var env = process.argv[2] || process.env.NODE_ENV || 'development';
+var development = env === 'development';
 
 // Convert the YAML config
 
@@ -47,10 +48,7 @@ var htmlMinifierOptions = {
 // Build.
 
 function bundle(app) {
-  // Build settings.
-
   var dest = 'assets/build/' + app;
-  var development = env === 'development';
 
   // mkdirp
 
