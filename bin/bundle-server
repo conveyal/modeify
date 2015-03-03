@@ -2,7 +2,6 @@
 
 cd "$(dirname "$0")"/..
 
-echo "Building server bundle..."
 git archive --output=assets/server.tar HEAD
 tar -rvf assets/server.tar deployment/config.yaml
 gzip -c assets/server.tar > assets/server.tar.gz
