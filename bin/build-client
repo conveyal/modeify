@@ -4,7 +4,6 @@ var env = process.argv[2] || process.env.NODE_ENV || 'development';
 
 var build = require('component-builder');
 var resolve = require('component-resolver');
-var component = require('../component.json');
 var fs = require('fs');
 var htmlMinifier = require('html-minifier').minify;
 var yml2js = require('js-yaml').load;
@@ -26,22 +25,15 @@ config.env = env;
 for (var key in config.environments[env])
   config[key] = config.environments[env][key] || config[key] || '';
 
-// remove unused data
-
 delete config.environments;
-
-// Get the about page & terms and conditions
 
 var aboutPage = marked(fs.readFileSync(__dirname + '/../deployment/about.md', 'utf8'));
 var termsPage = marked(fs.readFileSync(__dirname + '/../deployment/terms.md', 'utf8'));
-
-// Get the messages
-
 var messages = yml2js(fs.readFileSync(__dirname + '/../deployment/messages.yaml', 'utf8'));
 
 // Build all
 
-component.locals.forEach(bundle);
+['manager-app', 'planner-app'].forEach(bundle);
 
 // HTML Minifier Options
 
