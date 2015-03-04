@@ -1,5 +1,6 @@
 var log = require('./client/log')('welcome-flow:finding-options');
 var modal = require('./client/modal');
+var RideshareSignUp = require('./client/rideshare-sign-up');
 var RouteComparisonTable = require('route-comparison-table');
 var RouteResourcesView = require('route-resources-view');
 var routeSummarySegments = require('route-summary-segments');
@@ -18,6 +19,11 @@ var RouteModal = module.exports = modal({
 RouteModal.prototype.next = function(e) {
   e.preventDefault();
   this.emit('next');
+};
+
+RouteModal.prototype.signUpForRideshare = function(e) {
+  e.preventDefault();
+  RideshareSignUp().show();
 };
 
 RouteModal.prototype.routeComparisonTable = function() {
