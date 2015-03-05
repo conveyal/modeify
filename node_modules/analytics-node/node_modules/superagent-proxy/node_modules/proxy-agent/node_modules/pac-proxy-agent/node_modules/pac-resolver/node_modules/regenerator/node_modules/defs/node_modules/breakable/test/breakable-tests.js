@@ -32,10 +32,10 @@ test("recurse", function(t) {
 });
 
 test("simple-throws", function(t) {
-    t.throws(breakable.fn(function(brk) {
+    t.throws(breakable.bind(null, function(brk) {
         throw 1;
     }));
-    t.doesNotThrow(breakable.fn(function(brk) {
+    t.doesNotThrow(breakable.bind(null, function(brk) {
         brk(1);
         throw 2;
     }));
@@ -92,5 +92,27 @@ test("nested-forEach-break", function(t) {
         });
     });
     t.equal(cnt, 5);
+    t.end();
+});
+
+test("nested-breakables-1", function(t) {
+    var res = breakable(function(brk1) {
+        breakable(function(brk2) {
+            brk1(13);
+        });
+    });
+    t.equal(res, 13);
+    t.end();
+});
+
+test("nested-breakables-2", function(t) {
+    t.plan(2);
+    var res1 = breakable(function(brk1) {
+        var res2 = breakable(function(brk2) {
+            brk2(13);
+        });
+        t.equal(res2, 13);
+    });
+    t.equal(res1, undefined);
     t.end();
 });

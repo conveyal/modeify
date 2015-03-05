@@ -35,14 +35,29 @@ function degenerator (jsStr, names) {
   }
 
   var ast = esprima.parse(jsStr);
-  types.traverse(ast, function (node) {
 
+  // duplicate the `names` array since it's rude to augment the user-provided
+  // array
+  names = names.slice(0);
+
+  // first pass is to find the `function` nodes and turn them into `function *`
+  // generator functions. We also add the names of the functions to the `names`
+  // array
+  types.traverse(ast, function (node) {
     if (n.Function.check(node)) {
       // got a "function" expression/statement,
       // convert it into a "generator function"
       node.generator = true;
 
-    } else if (n.CallExpression.check(node) && checkNames(node, names)) {
+      // add function name to `names` array
+      names.push(node.id.name);
+    }
+  });
+
+  // second pass is for adding `yield` statements to any function
+  // invokations that match the given `names` array.
+  types.traverse(ast, function (node) {
+    if (n.CallExpression.check(node) && checkNames(node, names)) {
       // a "function invocation" expression,
       // we need to inject a `YieldExpression`
       var name = this.name;
@@ -57,8 +72,8 @@ function degenerator (jsStr, names) {
         parent[name] = expr;
       }
     }
-
   });
+
   return escodegen.generate(ast);
 }
 
