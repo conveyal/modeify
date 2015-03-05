@@ -6,7 +6,11 @@
   "scripts": [
     "index.js"
   ],
+  "styles": [
+    "style.css"
+  ],  
   "templates": [
+    "suggestions.html",
     "template.html"
   ]
 }

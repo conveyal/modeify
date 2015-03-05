@@ -1,3 +1,56 @@
-<h1>
-  Ride Share Form
-</h1>
+<div class="RideshareSignup">
+	<div class="content">
+	<a class="close pull-right" href="#" on-tap="hide"><i class="fa fa-times"></i></a>
+	<h3>Sign Up for Ridesharing!</h3>
+	<p>Let us connect you to rideshares! Please provide your details:</p>
+	
+	<input type="name" name="name" class="form-control" placeholder="Full Name">
+	<input type="email" name="email" class="form-control" placeholder="Email">
+	
+	<p>What are your commute destinations?</p>
+	 
+	 <div class="input-group from">
+    <span class="add-on icon-start"></span>
+    <input id="from-location" type="text" name="from" placeholder="From address" data-value="from" on-blur="blurInput" on-focus="focusInput" on-input="suggest" on-keydown="keydownInput" autocomplete="off" autocorrect="off" autocapitalize="on" spellcheck="false">
+    <i class="add-on clear fa fa-times" on-tap="clear"></i>
+    <ul class="suggestions empty"></ul>
+  </div>
+
+  <div class="input-group to">
+    <span class="add-on icon-end"></span>
+    <input id="to-location" type="text" name="to" placeholder="To address" data-value="to" on-blur="blurInput" on-focus="focusInput" on-input="suggest" on-keydown="keydownInput" autocomplete="off" autocorrect="off" autocapitalize="on" spellcheck="false">
+    <i class="add-on clear fa fa-times" on-tap="clear"></i>
+    <ul class="suggestions empty"></ul>
+  </div>
+  	<p>What is your preferred travel time?</p>
+
+  <div class="time-filters">
+    <label class="date-text">On</label>
+    <select select-value="days">
+      <option value="M—F">Mon - Fri</option>
+      <option value="Sat">Saturday</option>
+      <option value="Sun">Sunday</option>
+    </select>
+    <label class="date-text">from</label>
+    <select select-value="start_time" select-options="startTimes" select-parse-value="parseInt"></select>
+    <label class="date-text">to</label>
+    <select select-value="end_time" select-options="endTimes" select-parse-value="parseInt"></select>
+  </div>
+
+  <div class="checkboxes">
+  <input type="checkbox" aria-label="...">Have a car
+  <input type="checkbox" aria-label="...">Willing to drive
+  <input type="checkbox" aria-label="...">Let me know of future matches
+	</div>
+
+  <input type="checkbox" aria-label="...">Make my information only visible to
+	 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+    Organization
+    <span class="caret"></span>
+  </button>
+
+  <button type="submit" class="btn btn-block" style="display:none;">Next</button>
+
+
+	</div>
+</div>

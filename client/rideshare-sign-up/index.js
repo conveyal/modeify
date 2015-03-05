@@ -5,3 +5,4 @@ var SignUpModal = module.exports = modal({
   template: require('./template.html'),
   title: 'Sign Up Modal'
 });
+

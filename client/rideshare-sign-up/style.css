@@ -1,0 +1,19 @@
+.RideshareSignup .content {
+	margin: 12px;
+}
+
+.RideshareSignup .input-group {
+	padding-top: 10px;
+}
+
+.RideshareSignup .icon-start {
+	color: var(--green);
+}
+
+.RideshareSignup .icon-end {
+	color: var(--gold);
+}
+
+.RideshareSignup [class*="icon-"] {
+  font-size: 20px;
+}
