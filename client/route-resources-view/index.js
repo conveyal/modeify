@@ -22,7 +22,7 @@ View.prototype.resourceClicked = function(e) {
     var resourceName = e.target.parentNode.parentNode.getAttribute('data-name');
     var linkUrl = e.target.href;
 
-    analytics.track('Route Resource Clicked', {
+    analytics.track('Selected Route Resource', {
       resource: resourceName,
       url: linkUrl
     });

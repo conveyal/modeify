@@ -251,6 +251,14 @@ View.prototype.showDetails = function(e) {
 
   el.classList.add('expanded');
 
+  analytics.track('Expanded Route Details', {
+    plan: session.plan().generateQuery(),
+    route: {
+      modes: this.model.modes(),
+      summary: this.model.summary()
+    }
+  });
+
   var scrollable = document.querySelector('.scrollable');
   scrollable.scrollTop = el.offsetTop - 52;
 };
@@ -348,18 +356,9 @@ View.prototype.selectOption = function() {
   var plan = session.plan();
   var tags = route.tags(plan);
 
-  analytics.track('Route Selected', {
-    plan: plan.generateQuery(),
-    route: {
-      modes: route.modes(),
-      summary: route.summary()
-    },
-    from: 'options-view'
-  });
-
   routeResource.findByTags(tags, function(err, resources) {
     var routeModal = new RouteModal(route, null, {
-      context: 'option',
+      context: 'route-card',
       resources: resources
     });
     routeModal.show();

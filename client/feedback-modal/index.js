@@ -35,14 +35,13 @@ Modal.prototype.submit = function(e) {
   } else {
     button.remove();
 
-    delete plan.options;
-    delete plan.journey;
-
-    request.post('/feedback', {
-      feedback: feedback.trim(),
+    var data = {
+      feedback: feedback,
       plan: plan.generateQuery(),
       results: results
-    }, function(err) {
+    };
+
+    request.post('/feedback', data, function(err) {
       if (err) {
         log.error('%e', err);
         alerts.appendChild(Alert({
@@ -50,7 +49,7 @@ Modal.prototype.submit = function(e) {
           text: 'Failed to submit feedback.'
         }).el);
       } else {
-        analytics.track('Submitted Option Feedback');
+        analytics.track('Submitted Feedback', data);
 
         alerts.appendChild(Alert({
           type: 'success',

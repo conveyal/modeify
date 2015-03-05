@@ -2,6 +2,7 @@ var analytics = require('analytics');
 var config = require('config');
 var debug = require('debug');
 var fmt = require('fmt');
+var toCapitalCase = require('to-capital-case');
 var request = require('./client/request');
 
 /**
@@ -42,12 +43,6 @@ module.exports = function(name) {
 
     // Save info & above
     if (levels.indexOf(type) >= infoIndex) {
-      // Send to analytics
-      analytics.track('Log ' + type, {
-        text: text,
-        type: type
-      });
-
       // Send to server
       request.post('/log', {
         text: text,

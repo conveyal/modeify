@@ -22,7 +22,7 @@ function updateRoutes(plan, opts, callback) {
   var done = function(err, res) {
     if (err) {
       err = generateErrorMessage(plan, res);
-      analytics.track('Error Finding Route', {
+      analytics.track('Failed to Find Route', {
         error: err,
         plan: plan.generateQuery()
       });
@@ -68,7 +68,7 @@ function updateRoutes(plan, opts, callback) {
       done(err, data);
     } else {
       // Track the commute
-      analytics.track('Route Found', {
+      analytics.track('Found Route', {
         plan: plan.generateQuery(),
         results: data.options.length
       });

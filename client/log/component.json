@@ -1,6 +1,7 @@
 {
   "name": "log",
   "dependencies": {
+    "ianstormtaylor/to-capital-case": "*",
     "visionmedia/debug": "*",
     "yields/fmt": "*"
   },

@@ -1,4 +1,3 @@
-var analytics = require('analytics');
 var d3 = require('d3');
 var hogan = require('hogan.js');
 var log = require('./client/log')('help-me-choose');
@@ -118,7 +117,7 @@ Modal.prototype.refresh = function(e) {
   }
 
   // Track the results
-  analytics.track('Help Me Choose', {
+  analytics.track('Viewed "Help Me Choose"', {
     plan: session.plan().generateQuery(),
     primaryFilter: primaryFilter,
     secondaryFilter: secondaryFilter,
@@ -178,18 +177,9 @@ Modal.prototype.selectRoute = function(e) {
   var tags = route.tags(plan);
   var self = this;
 
-  analytics.track('Route Selected', {
-    plan: plan.generateQuery(),
-    route: {
-      modes: route.modes(),
-      summary: route.summary()
-    },
-    from: 'help-me-choose'
-  });
-
   routeResource.findByTags(tags, function(err, resources) {
     var routeModal = new RouteModal(route, null, {
-      context: 'option',
+      context: 'help-me-choose',
       resources: resources
     });
     self.hide();

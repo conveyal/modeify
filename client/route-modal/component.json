@@ -1,11 +1,13 @@
 {
   "name": "route-modal",
   "local": [
+    "analytics",
     "log",
     "modal",
     "route-comparison-table",
     "route-summary-segments",
     "route-resources-view",
+    "session",
     "sign-up-form"
   ],
   "scripts": [

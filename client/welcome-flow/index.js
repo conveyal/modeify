@@ -46,7 +46,7 @@ module.exports = function(session) {
         main.classList.remove('Welcome');
 
         routeModal.on('next', function() {
-          analytics.track('Commuter Activated');
+          analytics.track('Completed Welcome Wizard');
 
           commuter.updateProfile('commuter_activated', true);
           commuter.updateProfile('welcome_wizard_complete', true);
