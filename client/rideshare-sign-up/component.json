@@ -8,7 +8,7 @@
   ],
   "styles": [
     "style.css"
-  ],  
+  ],
   "templates": [
     "suggestions.html",
     "template.html"
