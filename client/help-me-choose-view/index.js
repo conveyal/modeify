@@ -190,7 +190,8 @@ Modal.prototype.selectRoute = function(e) {
   routeResource.findByTags(tags, function(err, resources) {
     var routeModal = new RouteModal(route, null, {
       context: 'option',
-      resources: resources
+      resources: resources,
+      plan: plan
     });
     self.hide();
     routeModal.show();

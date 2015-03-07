@@ -5,6 +5,7 @@
   },
   "local": [
     "config",
+    "locations-view",
     "modal"
   ],
   "scripts": [
