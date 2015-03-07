@@ -1,6 +1,10 @@
 {
   "name": "rideshare-sign-up",
+  "dependencies": {
+    "visionmedia/debug": "*"
+  },
   "local": [
+    "config",
     "modal"
   ],
   "scripts": [
