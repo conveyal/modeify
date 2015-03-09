@@ -1,62 +1,61 @@
 <div class="RideshareSignup">
   <div class="content">
-  <a class="close pull-right" href="#" on-tap="hide"><i class="fa fa-times"></i></a>
-  <h3>Sign Up for Ridesharing!</h3>
-  <p>Let us connect you to rideshares! Please provide your details:</p>
+    <a class="close pull-right" href="#" on-tap="hide"><i class="fa fa-times"></i></a>
+    <h3>Sign Up for Ridesharing!</h3>
+    <p>Let us connect you to rideshares! Please provide your details:</p>
 
-  <form>
-    <div class="form-group">
-      <input type="name" name="name" class="form-control" placeholder="Full Name">
-    </div>
-
-    <div class="form-group">
-      <input type="email" name="email" class="form-control" placeholder="Email">
-    </div>
-
-    <div class="form-group">
-      What is your commute origin and destination?
-      <div reactive="locationsView"></div>
-    </div>
-
-    <div class="form-group">
-
-      What is your preferred travel time?
-
-      <div class="time-filters">
-        <label class="date-text">On</label>
-        <select select-value="days">
-          <option value="M—F">Mon - Fri</option>
-          <option value="Sat">Saturday</option>
-          <option value="Sun">Sunday</option>
-        </select>
-        <label class="date-text">from</label>
-        <select select-value="start_time" select-options="startTimes" select-parse-value="parseInt"></select>
-        <label class="date-text">to</label>
-        <select select-value="end_time" select-options="endTimes" select-parse-value="parseInt"></select>
+    <form>
+      <div class="form-group">
+        <input type="name" name="name" class="form-control" placeholder="Full Name">
       </div>
 
-    <div class="form-group">
-      <input type="checkbox" aria-label="...">Have a car
-    </div>
+      <div class="form-group">
+        <input type="email" name="email" class="form-control" placeholder="Email">
+      </div>
 
-    <div class="form-group">
-      <input type="checkbox" aria-label="...">Willing to drive
-    </div>
+      <div class="form-group">
+        What is your commute origin and destination?
+        <div reactive="locationsView"></div>
+      </div>
 
-    <div class="form-group">
-      <input type="checkbox" aria-label="...">Let me know of future matches
-    </div>
+      <div class="form-group">
 
-    <div class="form-group">
-      <input type="checkbox" aria-label="...">Make my information only visible to
-       <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-        Organization
-        <span class="caret"></span>
-      </button>
-    </div>
+        What is your preferred travel time?
 
-    <button type="submit" class="btn btn-block" on-tap="save">Next</button>
-  </form>
+        <div class="time-filters">
+          <label class="date-text">On</label>
+          <select select-value="days">
+            <option value="M—F">Mon - Fri</option>
+            <option value="Sat">Saturday</option>
+            <option value="Sun">Sunday</option>
+          </select>
+          <label class="date-text">from</label>
+          <select select-value="start_time" select-options="startTimes" select-parse-value="parseInt"></select>
+          <label class="date-text">to</label>
+          <select select-value="end_time" select-options="endTimes" select-parse-value="parseInt"></select>
+        </div>
 
+      <div class="form-group">
+        <input type="checkbox" aria-label="...">Have a car
+      </div>
+
+      <div class="form-group">
+        <input type="checkbox" aria-label="...">Willing to drive
+      </div>
+
+      <div class="form-group">
+        <input type="checkbox" aria-label="...">Let me know of future matches
+      </div>
+
+      <div class="form-group">
+        <input type="checkbox" aria-label="...">Make my information only visible to
+         <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+          Organization
+          <span class="caret"></span>
+        </button>
+      </div>
+
+      <button type="submit" class="btn btn-block" on-tap="save">Next</button>
+    </form>
   </div>
 </div>
