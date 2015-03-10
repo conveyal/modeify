@@ -17,12 +17,6 @@ var RouteModal = module.exports = modal({
   template: require('./template.html'),
   title: 'Selected Option Modal'
 }, function(view, route) {
-  if (view.model.directCar()) { // rideshare trip; hide the email signup
-    view.find('.sign-up-form').classList.add('hidden');
-  } else { // non-rideshare trip; hide the ridematching signup
-    view.find('.rideshare-form').classList.add('hidden');
-  }
-
   var context = view.options.context;
   if (context !== 'welcome-flow') {
     analytics.track('Selected Route', {
