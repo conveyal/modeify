@@ -31,14 +31,8 @@ View.prototype.resourceClicked = function(e) {
   }
 };
 
-
-View.prototype.showDetails = function(e) {
-  e.target.parentNode.parentNode.classList.add('expanded');
-};
-
-View.prototype.hideDetails = function(e) {
-  var list = e.target.parentNode.parentNode.classList;
-  if (list.contains('expanded')) {
-    list.remove('expanded');
-  }
+View.prototype.toggleDetails = function(e) {
+  var target = e.target;
+  while (!target.classList.contains('resource')) target = target.parentNode;
+  target.classList.toggle('expanded');
 };

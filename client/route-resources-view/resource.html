@@ -1,8 +1,4 @@
 <div class="resource" data-name="{{name}}">
-  <div class="show-hide">
-      <i class="fa fa-fw fa-plus-circle show-details" on-tap="showDetails"></i>
-      <i class="fa fa-fw fa-minus-circle hide-details" on-tap="hideDetails"></i>
-    </div>
-  <div class="title">{{{title}}}</div>
+  <div class="title" on-tap="toggleDetails">{{{title}}} <i class="fa fa-fw fa-plus-circle show-details"></i><i class="fa fa-fw fa-minus-circle hide-details"></i></div>
   <div class="details">{{{description}}}</div>
 </div>
