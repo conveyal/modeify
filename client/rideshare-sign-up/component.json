@@ -1,9 +1,11 @@
 {
   "name": "rideshare-sign-up",
   "local": [
+    "alert",
     "locations-view",
     "log",
-    "modal"
+    "modal",
+    "request"
   ],
   "scripts": [
     "index.js"

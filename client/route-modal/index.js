@@ -38,9 +38,7 @@ RouteModal.prototype.next = function(e) {
 
 RouteModal.prototype.signUpForRideshare = function(e) {
   e.preventDefault();
-  RideshareSignUp(null, null, {
-    plan: this.options.plan
-  }).show();
+  RideshareSignUp().show();
 };
 
 RouteModal.prototype.routeComparisonTable = function() {
