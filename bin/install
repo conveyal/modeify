@@ -52,7 +52,7 @@ cp -n config/messages.yaml.tmp deployment/messages.yaml
 cp -n config/terms.md.tmp deployment/terms.md
 
 # Source the .env file
-echo 'Sourcing config/env file...'
+echo 'Sourcing deployment/env file...'
 source deployment/env
 
 # Install & build

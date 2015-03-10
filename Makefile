@@ -6,7 +6,7 @@ LIBJS = $(shell find lib -name '*.js')
 TESTJS = $(shell find test -name '*.js')
 JSON = $(shell find client -name '*.json')
 
-build: components $(CSS) $(HTML) $(CLIENTJS) $(JSON)
+build: $(CSS) $(HTML) $(CLIENTJS) $(JSON)
 	@./bin/build-client $(NODE_ENV)
 
 beautify:
@@ -14,9 +14,6 @@ beautify:
 		--config config/jsbeautify.json \
 		--replace $(CLIENTJS) $(LIBJS) $(TESTJS) \
 		--quiet
-
-components: node_modules component.json $(JSON)
-	@./node_modules/.bin/component install --dev
 
 # Lint JavaScript with JSHint
 lint:
