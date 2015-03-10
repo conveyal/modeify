@@ -2,6 +2,7 @@
 
 cd "$(dirname "$0")"
 
-./deploy-assets $1
+./sync-assets $1
+
 ./deploy-server $1
 ./deploy-otp $1

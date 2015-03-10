@@ -1,12 +1,14 @@
 {
   "name": "route-modal",
   "local": [
+    "analytics",
     "log",
     "modal",
     "rideshare-sign-up",
     "route-comparison-table",
     "route-summary-segments",
     "route-resources-view",
+    "session",
     "sign-up-form"
   ],
   "scripts": [

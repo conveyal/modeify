@@ -1,7 +1,7 @@
 pac-resolver
 ============
 ### Generates an asynchronous resolver function from a [PAC file][pac-wikipedia]
-[![Build Status](https://travis-ci.org/TooTallNate/node-pac-resolver.png?branch=master)](https://travis-ci.org/TooTallNate/node-pac-resolver)
+[![Build Status](https://travis-ci.org/TooTallNate/node-pac-resolver.svg?branch=master)](https://travis-ci.org/TooTallNate/node-pac-resolver)
 
 
 This module accepts a JavaScript String of code, which is meant to be a

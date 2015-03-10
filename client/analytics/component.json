@@ -3,6 +3,9 @@
   "dependencies": {
     "trevorgerhardt/tableize": "*"
   },
+  "local": [
+    "config"
+  ],
   "scripts": [
     "index.js"
   ]

@@ -21,7 +21,7 @@ page('/style-guide', require('style-guide'));
 
 page('/t/:code', function(ctx, next) {
   session.loginAnonymously(function(err) {
-    analytics.track('Referral Source', {
+    analytics.track('Referred User', {
       code: ctx.code
     });
     next(err);

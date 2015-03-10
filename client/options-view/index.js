@@ -52,4 +52,4 @@ View.prototype.optionsPlural = function() {
 View.prototype.feedback = function(e) {
   e.preventDefault();
   FeedbackModal().show();
-}
+};

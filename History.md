@@ -1,4 +1,19 @@
 
+## 1.2.2 — 2015-03-04
+
+* Update Node dependencies
+* Clarified metrics
+* Make the menu bar a drop down
+* Push archive to S3
+* Make the about and terms defined as markdown per config
+* Remove all configuration specific language
+* Tweak styles
+* Simplify route card
+* Remove `polyfills` loader
+* Improve deployment scripts
+* Add referral links
+* Fix cache bust authentication error
+
 ## 1.2.1 — 2015-02-02
 
 * Leafletified the transitive map

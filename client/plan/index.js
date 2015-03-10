@@ -17,6 +17,7 @@ var updateRoutes = require('./update-routes');
  */
 
 var DEBOUNCE_UPDATES = 25;
+var LIMIT = 2;
 
 /**
  * Expose `Plan`
@@ -323,7 +324,7 @@ Plan.prototype.generateQuery = function() {
       lon: to.lng,
       name: 'To'
     },
-    limit: 3,
+    limit: LIMIT,
     transitModes: transitModes.join(','),
     walkSpeed: scorer.rates.walkSpeed
   };

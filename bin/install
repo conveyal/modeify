@@ -39,14 +39,21 @@ if [ $OS == "Darwin" ]; then
   fi
 fi
 
+# Make deployment dir
+mkdir deployment || true
+mkdir assets/images/application || true
+
 # Copy the config files
 echo 'Copying the config files...'
-cp -n config/config.yaml.tmp config/config.yaml
-cp -n config/env.tmp config/env
+cp -n config/about.md.tmp deployment/about.md
+cp -n config/config.yaml.tmp deployment/config.yaml
+cp -n config/env.tmp deployment/env
+cp -n config/messages.yaml.tmp deployment/messages.yaml
+cp -n config/terms.md.tmp deployment/terms.md
 
 # Source the .env file
 echo 'Sourcing config/env file...'
-source config/env
+source deployment/env
 
 # Install & build
 echo 'Rebuilding node dependcies & building client files...'

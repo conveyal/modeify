@@ -8,7 +8,7 @@
 
 .Transitive .transitive-line {
   stroke-linecap: round;
-  filter: dropshadow(0 0 0 10px rgba(255, 255, 255, 0.5));
+  filter: dropshadow(0 0 0 5px rgba(255, 255, 255, 0.5));
 }
 
 .Transitive .transitive-line-halo {

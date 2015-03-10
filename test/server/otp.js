@@ -4,7 +4,7 @@ var request = require('./supertest');
  * BDD
  */
 
-describe('/api/otp', function() {
+describe.skip('/api/otp', function() {
   describe('GET /profile', function() {
     it('400 and return 0 options', function(done) {
       request
