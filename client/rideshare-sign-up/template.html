@@ -1,32 +1,28 @@
 <div class="RideshareSignup">
-  <div class="content">
-    <a class="close pull-right" href="#" on-tap="hide"><i class="fa fa-times"></i></a>
+  <h3 class="title">Sign Up for Ridesharing!</h3>
+  <p>Our network of rideshares are commuting around the DC area together. Join us and get places faster, cheaper and greener!</p>
 
-    <h3>Sign Up for Ridesharing!</h3>
-    <p>Our network of rideshares are commuting around the DC area together. Join us and get places faster, cheaper and greener!</p>
+  <form>
+    <div class="form-group">
+      <input type="text" name="first-name" class="form-control names" placeholder="First Name">
+    </div>
 
-    <form>
-      <div class="form-group">
-        <input type="text" name="first-name" class="form-control names" placeholder="First Name">
-      </div>
+    <div class="form-group">
+      <input type="text" name="last-name" class="form-control names" placeholder="Last Name">
+    </div>
 
-      <div class="form-group">
-        <input type="text" name="last-name" class="form-control names" placeholder="Last Name">
-      </div>
+    <div class="form-group">
+      <input type="email" name="email" class="form-control" placeholder="Email">
+    </div>
 
-      <div class="form-group">
-        <input type="email" name="email" class="form-control" placeholder="Email">
-      </div>
+    <div class="form-group">
+      What is your commute origin and destination?
+      <div reactive="locationsView"></div>
+    </div>
 
-      <div class="form-group">
-        What is your commute origin and destination?
-        <div reactive="locationsView"></div>
-      </div>
+    <p>More text explaining what's going to happen when they sign up.</p>
 
-      <p>More text explaining what's going to happen when they sign up.</p>
-
-      <button type="submit" class="btn btn-block" on-tap="save">Sign Up</button>
-    </form>
-  </div>
+    <button type="submit" class="btn btn-block" on-tap="save">Sign Up</button>
+  </form>
 </div>
 

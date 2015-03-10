@@ -1,17 +1,14 @@
-<div class="WelcomeFlow RouteModal">
-  <div class="content">
-    <a class="close pull-right" href="#" on-tap="hide"><i class="fa fa-times"></i></a>
-    <div class="segments" data-html="routeSummarySegments"></div>
-    <h3>{routeIntroText} <span data-text="modeDescriptor"></span>!</h3>
-    <div reactive="routeComparisonTable"></div>
-    <div class="sign-up-form">
-        <div reactive="signUpForm"></div>
-    </div>
-    <div class="rideshare-form">
-        Join our rideshare network to be connected to more commute options!
-        <button on-tap="signUpForRideshare" class="btn btn-block">Sign Up For Rideshare</button>
-    </div>
-    <div reactive="routeResourcesView"></div>
-    <button on-tap="next" class="btn btn-block">{nextButtonText}</button>
+<div class="RouteModal">
+  <div class="segments" data-html="routeSummarySegments"></div>
+  <h3>{routeIntroText} <span data-text="modeDescriptor"></span>!</h3>
+  <div reactive="routeComparisonTable"></div>
+  <div class="sign-up-form">
+      <div reactive="signUpForm"></div>
   </div>
+  <div class="rideshare-form">
+      Join our rideshare network to be connected to more commute options!
+      <button on-tap="signUpForRideshare" class="btn btn-block">Sign Up For Rideshare</button>
+  </div>
+  <div reactive="routeResourcesView"></div>
+  <button on-tap="next" class="btn btn-block">{nextButtonText}</button>
 </div>

@@ -14,5 +14,9 @@
   ],
   "styles": [
     "style.css"
+  ],
+  "templates": [
+    "closable.html",
+    "logo.html"
   ]
 }

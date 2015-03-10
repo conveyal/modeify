@@ -1,7 +1,9 @@
 
-.RouteModal > .content > .segments {
-  margin: 15px 0 10px;
-  padding: 0;
-  display: block;
+.RouteModal > .segments {
   text-align: center;
+}
+
+.RouteModal > h3 {
+  text-align: center;
+  margin: 15px 0;
 }

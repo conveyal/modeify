@@ -1,43 +1,42 @@
 
-.commuter-profile {
+.CommuterProfile {
   margin-bottom: 30px;
-  padding: 15px;
 }
 
-.commuter-profile h3 {
+.CommuterProfile h3 {
   margin: 0;
 }
 
-.commuter-profile .alert-warning {
+.CommuterProfile .alert-warning {
   margin-top: 10px;
 }
 
-.commuter-profile .email {
+.CommuterProfile .email {
   font-size: var(--font-size);
 }
 
-.commuter-profile h4 {
+.CommuterProfile h4 {
   margin: 25px 0 10px;
   padding-bottom: 5px;
 }
 
-.commuter-profile h4 .subtitle {
+.CommuterProfile h4 .subtitle {
   font-size: var(--font-size);
   color: var(--gray);
 }
 
-.commuter-profile form > button {
+.CommuterProfile form > button {
   margin-top: 10px;
 }
 
-.commuter-profile .form-control {
+.CommuterProfile .form-control {
   border: 1px solid var(--gray);
   color: var(--black);
   outline: none;
   display: inline-block;
 }
 
-.commuter-profile .speed-preference button {
+.CommuterProfile .speed-preference button {
   background-repeat: no-repeat;
   background-color: transparent;
   margin: 0;
@@ -52,31 +51,31 @@
   outline: none;
 }
 
-.commuter-profile .speed-preference button:hover {
+.CommuterProfile .speed-preference button:hover {
   color: var(--green);
   outline: none;
 
 }
 
-.commuter-profile .speed-preference button.selected {
+.CommuterProfile .speed-preference button.selected {
   color: var(--lightgreen);
   outline: none;
   background-color: var(--green);
 }
 
-.commuter-profile .bike-speed p {
+.CommuterProfile .bike-speed p {
   margin-top: 20px;
 }
 
-.commuter-profile .speed-preference > div {
+.CommuterProfile .speed-preference > div {
   text-align: center;
 }
 
-.commuter-profile .speed-preference > div > p {
+.CommuterProfile .speed-preference > div > p {
   text-align: left;
 }
 
-.commuter-profile .speed-preference .speed-description {
+.CommuterProfile .speed-preference .speed-description {
   margin-bottom: 15px;
 }
 
@@ -84,11 +83,11 @@
  * Journeys
  */
 
-.commuter-profile .journeys {
+.CommuterProfile .journeys {
   padding-left: 0;
 }
 
-.commuter-profile .journey {
+.CommuterProfile .journey {
   width: 100%;
   list-style-type: none;
   margin-bottom: 10px;
@@ -99,12 +98,12 @@
   position: relative;
 }
 
-.commuter-profile .journey:hover {
+.CommuterProfile .journey:hover {
   padding-left: 3px;
   border-left: 5px solid var(--black);
 }
 
-.commuter-profile .journey div {
+.CommuterProfile .journey div {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -112,17 +111,17 @@
   color: var(--black);
 }
 
-.commuter-profile .journey .icon-start {
+.CommuterProfile .journey .icon-start {
   color: var(--green);
   font-size: 16px;
 }
 
-.commuter-profile .journey .icon-end {
+.CommuterProfile .journey .icon-end {
   color: var(--gold);
   font-size: 16px;
 }
 
-.commuter-profile .journey button {
+.CommuterProfile .journey button {
   display: none;
   position: absolute;
   top: 0;
@@ -136,24 +135,24 @@
   border: none;
 }
 
-.commuter-profile .journey:hover button {
+.CommuterProfile .journey:hover button {
   display: block;
 }
 
-.commuter-profile .journey button:hover {
+.CommuterProfile .journey button:hover {
   background-color: color(var(--gold) shade(20%));
 }
 
-.commuter-profile .from {
+.CommuterProfile .from {
   margin-top: 5px;
   color: var(--black);
 }
 
-.commuter-profile .to {
+.CommuterProfile .to {
   color: var(--black);
 }
 
-.commuter-profile .walk-time-preference form {
+.CommuterProfile .walk-time-preference form {
   text-align: center;
   padding-bottom: 15px;
 }

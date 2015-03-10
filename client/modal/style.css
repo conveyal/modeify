@@ -44,6 +44,21 @@
   color: color(var(--gray) shade(20%));
 }
 
+.Modal > div > .logo {
+  height: 44px;
+  background-color: var(--black);
+  border: 7px solid var(--black);
+  box-shadow: 0 1px 2px -1px var(--darkest);
+}
+
+.Modal .content {
+  padding: 12px;
+}
+
+.Modal .content .title {
+  margin-top: 0;
+}
+
 /**
  * Overlay
  */
