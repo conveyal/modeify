@@ -25,7 +25,7 @@ module.exports = function(opts, fn) {
   opts.template = '<div class="content">' + opts.template + '</div>';
 
   // Wrap with a logo nav
-  if (opts.logo) opts.template = '<div>' + require('./logo.html') + opts.template + '</div>'
+  if (opts.logo) opts.template = '<div>' + require('./logo.html') + opts.template + '</div>';
 
   var Modal = view(opts, fn);
 

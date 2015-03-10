@@ -6,7 +6,7 @@ var ThanksModal = module.exports = modal({
   closable: true,
   template: require('./thanks.html'),
   title: 'Thanks Modal'
-})
+});
 
 var SignUpModal = module.exports = modal({
   closable: true,
