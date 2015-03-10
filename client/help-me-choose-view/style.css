@@ -1,25 +1,19 @@
 
-.HelpMeChoose {
-  padding: 0 20px;
-}
-
 @media (--narrow-window) {
   .HelpMeChoose {
     padding: 0;
   }
 
-  .HelpMeChoose h3,
-  .HelpMeChoose p,
-  .HelpMeChoose form {
-    padding: 0 20px;
+  .HelpMeChoose p {
+    display: none;
   }
 
   .HelpMeChoose form {
-    padding-bottom: 20px;
+    padding-bottom: 12px;
   }
 
   .HelpMeChoose .form-group {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 
   .HelpMeChoose .btn-group {
