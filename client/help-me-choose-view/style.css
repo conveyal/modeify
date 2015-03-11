@@ -1,4 +1,12 @@
 
+.HelpMeChoose .multiplier-buttons {
+  float: right;
+}
+
+.FilterBy .btn-group>.btn:first-child {
+  margin-left: 5px;
+}
+
 @media (--narrow-window) {
   .HelpMeChoose {
     padding: 0;
@@ -18,11 +26,16 @@
 
   .HelpMeChoose .btn-group {
     margin-bottom: 10px;
+    margin-right: 1px;
   }
-}
 
-.FilterBy .btn-group>.btn:first-child {
-  margin-left: 5px;
+  .FilterBy .multiplier-buttons {
+    float: left;
+  }
+
+  .FilterBy .btn-group>.btn:first-child {
+    margin-left: 0;
+  }
 }
 
 .ComparisonTable {
