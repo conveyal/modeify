@@ -225,7 +225,7 @@ p {
 }
 
 select {
-  background: transparent;
+  background: var(--darkest);
 
   appearance: none;
   -moz-appearance: none;
@@ -234,12 +234,12 @@ select {
   cursor: pointer;
   color: var(--gold);
   font-weight: var(--bold);
-  padding: 8px 0 0;
+  padding: 8px 2px 8px 2px;
   margin: 0 6px;
+  text-align: center;
 
   border: none;
-  border-radius: 0;
-  border-bottom: 1px solid var(--gold);
+  border-radius: var(--border-radius);
 }
 
 select::-ms-expand {
