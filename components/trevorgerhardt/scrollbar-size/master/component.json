@@ -2,5 +2,6 @@
   "name": "scrollbar-size",
   "scripts": [
     "index.js"
-  ]
+  ],
+  "repository": "trevorgerhardt/scrollbar-size"
 }
