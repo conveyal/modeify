@@ -18,6 +18,8 @@ View.prototype.showButton = function(e) {
 View.prototype.submit = function(e) {
   e.preventDefault();
   var alerts = this.find('.alerts');
+  alerts.innerHTML = null;
+
   var email = this.find('input[name=email]').value;
   var button = this.find('button');
   var id = session.commuter()._id();
@@ -34,7 +36,6 @@ View.prototype.submit = function(e) {
       }).el);
       button.disabled = false;
     } else {
-      alerts.innerHTML = null;
       email.remove();
       button.remove();
       alerts.appendChild(Alert({

@@ -1,31 +1,32 @@
 <div class="RideshareSignup">
+  <h3 class="title">Carpool Sign Up</h3>
+  <p>CarFreeAtoZ is newly offering rideshare matching. Join our network and commute around the DC region together!</p>
 
-    <h3>Looking for rideshares? Sign up!</h3>
-    <p>CarFreeAtoZ is newly offering rideshare matching. Join our network and commute around the DC region together!</p>
+  <p>We will be launching a new carpool matching service and are
 
-    <div class="alerts"></div>
+  <div class="alerts"></div>
 
-    <form>
-      <div class="form-group">
-        <input type="text" name="first-name" class="form-control names" placeholder="First Name">
-      </div>
+  <form>
+    <div class="form-group">
+      <input type="text" name="first-name" class="form-control" placeholder="First Name">
+    </div>
 
-      <div class="form-group">
-        <input type="text" name="last-name" class="form-control names" placeholder="Last Name">
-      </div>
+    <div class="form-group">
+      <input type="text" name="last-name" class="form-control" placeholder="Last Name">
+    </div>
 
-      <div class="form-group">
-        <input type="email" name="email" class="form-control" placeholder="Email">
-      </div>
+    <div class="form-group" data-visible="anonymous">
+      <input type="email" name="email" class="form-control" placeholder="Email" data-value="email">
+    </div>
 
-      <div class="form-group">
-        <p>What is your commute origin and destination?</p>
-        <div reactive="locationsView"></div>
-      </div>
+    <div class="form-group">
+      <p>What is your commute origin and destination?</p>
+      <div reactive="locationsView"></div>
+    </div>
 
-      <p>We'll email you about rideshares that match your above trip.</p>
+    <p>We'll email you about rideshares that match your above trip.</p>
 
-      <button type="submit" class="btn btn-block" on-tap="save">Sign Up</button>
-    </form>
+    <button type="submit" class="btn btn-block" on-tap="save">Sign Up</button>
+  </form>
 </div>
 

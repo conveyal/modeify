@@ -1,0 +1,21 @@
+{
+  "name": "type",
+  "description": "Cross-browser type assertions (less broken typeof)",
+  "version": "1.1.0",
+  "keywords": [
+    "typeof",
+    "type",
+    "utility"
+  ],
+  "dependencies": {},
+  "development": {
+    "dependencies": {
+      "component/assert": "*"
+    }
+  },
+  "scripts": [
+    "index.js"
+  ],
+  "repository": "component/type",
+  "resolved": "44c73293c7e2c71d6598ed4e58f34084f862f8d1"
+}

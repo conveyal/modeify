@@ -5,7 +5,7 @@ var modal = require('modal');
 var request = require('./client/request');
 var session = require('session');
 
-var ThanksModal = module.exports = modal({
+var ThanksModal = modal({
   closable: true,
   template: require('./thanks.html'),
   title: 'Thanks Modal'
@@ -17,11 +17,24 @@ var SignUpModal = module.exports = modal({
   title: 'Sign Up Modal'
 });
 
+SignUpModal.prototype.anonymous = function() {
+  return session.commuter().anonymous();
+};
+
+SignUpModal.prototype.email = function() {
+  if (!this.anonymous()) {
+    return session.user().email();
+  }
+  return '';
+};
+
 SignUpModal.prototype.save = function(e) {
   e.preventDefault();
   log('submit');
 
   var alerts = this.find('.alerts');
+  alerts.innerHTML = '';
+
   var email = this.find('input[name=email]').value;
   var name = {
     first: this.find('input[name=first-name]').value,
@@ -42,19 +55,39 @@ SignUpModal.prototype.save = function(e) {
   var button = this.find('button');
   var id = session.commuter()._id();
 
+  if (!name.first || name.first.length < 1) {
+    return alerts.appendChild(Alert({
+      type: 'warning',
+      text: 'Invalid first name.'
+    }).el);
+  }
+  if (!name.last || name.last.length < 1) {
+    return alerts.appendChild(Alert({
+      type: 'warning',
+      text: 'Invalid last name.'
+    }).el);
+  }
+  if (!email || email.length < 1) {
+    return alerts.appendChild(Alert({
+      type: 'warning',
+      text: 'Invalid email address.'
+    }).el);
+  }
+
   button.disabled = true;
-  request.post('/commuters/' + id + '/rideshare-sign-up', {
+  request.post('/commuters/' + id + '/carpool-sign-up', {
     email: email,
     name: name,
     commute: commute
   }, function(err, res) {
     if (err) {
+      var msg = res ? res.text : err;
+      button.disabled = false;
       log.warn('%e %s', err);
       alerts.appendChild(Alert({
         type: 'warning',
-        text: 'Failed to sign up. ' + res.text
+        text: 'Failed to sign up. ' + msg
       }).el);
-      button.disabled = false;
     } else {
       ThanksModal().show();
     }

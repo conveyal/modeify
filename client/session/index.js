@@ -147,13 +147,13 @@ session.loginWithLink = function(ctx, next) {
 session.loginAnonymously = function(next) {
   log('--> logging in anonymously');
   request.get('/login-anonymously', function(err, res) {
-    if (res.ok && res.body) {
+    if (err) {
+      log.warn('<-- failed to log in anonymously: %e', err || res.error);
+      next(err || res.error || res.text);
+    } else {
       session.login(res.body);
       log('<-- logged in anonymously');
       next();
-    } else {
-      log.warn('<-- failed to log in anonymously: %e', err || res.error);
-      next(err || res.error || res.text);
     }
   });
 };
@@ -170,13 +170,13 @@ session.commuterIsLoggedIn = function(ctx, next) {
   }
 
   request.get('/commuter-is-logged-in', function(err, res) {
-    if (res.ok && res.body) {
+    if (err) {
+      log('<-- commuter is not logged in');
+      session.loginAnonymously(next);
+    } else {
       session.login(res.body);
       log('<-- commuter is logged in');
       next();
-    } else {
-      log('<-- commuter is not logged in');
-      session.loginAnonymously(next);
     }
   });
 };
