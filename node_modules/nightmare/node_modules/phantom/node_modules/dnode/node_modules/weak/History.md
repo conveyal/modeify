@@ -1,4 +1,11 @@
 
+0.3.4 / 2015-01-27
+==================
+
+  * Update dependencies to also work with IO.js #39 (#40, @GitStarInc)
+  * Revert "appveyor: attempt to test x86 and x64, Debug and Release configs"
+  * appveyor: attempt to test x86 and x64, Debug and Release configs
+
 0.3.3 / 2014-06-04
 ==================
 

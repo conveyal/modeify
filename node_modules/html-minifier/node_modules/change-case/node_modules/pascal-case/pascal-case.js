@@ -1,12 +1,13 @@
-var camel          = require('camel-case');
+var camelCase      = require('camel-case');
 var upperCaseFirst = require('upper-case-first');
 
 /**
  * Pascal case a string.
  *
  * @param  {String} string
+ * @param  {String} [locale]
  * @return {String}
  */
-module.exports = function (string) {
-  return upperCaseFirst(camel(string));
+module.exports = function (string, locale) {
+  return upperCaseFirst(camelCase(string, locale), locale);
 };

@@ -6,7 +6,7 @@ function parsePort(urlObj, options)
 	
 	for (var i in options.defaultPorts)
 	{
-		if ( i==urlObj.scheme && options.defaultPorts.hasOwnProperty(i) )
+		if ( i===urlObj.scheme && options.defaultPorts.hasOwnProperty(i) )
 		{
 			defaultPort = options.defaultPorts[i];
 			break;
@@ -15,12 +15,15 @@ function parsePort(urlObj, options)
 	
 	if (defaultPort > -1)
 	{
-		if (urlObj.port == null)
+		// Force same type as urlObj.port
+		defaultPort = defaultPort.toString();
+		
+		if (urlObj.port === null)
 		{
 			urlObj.port = defaultPort;
 		}
 		
-		urlObj.extra.portIsDefault = (urlObj.port == defaultPort);
+		urlObj.extra.portIsDefault = (urlObj.port === defaultPort);
 	}
 }
 

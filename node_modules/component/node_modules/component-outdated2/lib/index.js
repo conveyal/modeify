@@ -1,7 +1,7 @@
 
 var log = require('component-consoler').log;
 var flatten = require('component-flatten');
-var remotes = require('remotes');
+var remotes = require('component-remotes');
 var semver = require('semver');
 
 module.exports = function* (tree, options) {

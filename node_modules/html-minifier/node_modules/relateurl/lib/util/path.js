@@ -20,9 +20,9 @@ function resolveDotSegments(pathArray)
 	
 	pathArray.forEach( function(dir)
 	{
-		if (dir != "..")
+		if (dir !== "..")
 		{
-			if (dir != ".")
+			if (dir !== ".")
 			{
 				pathAbsolute.push(dir);
 			}

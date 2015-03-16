@@ -1,22 +1,13 @@
 
 var debug = require('debug')('component-builder:scripts');
-var path = pathUtil = require('path');
+var path = require('path');
 var relative = path.relative;
 var requires = require('requires');
 var fs = require('graceful-fs');
-var url = require('url');
 
+var Lookup = require('./lookup.js');
 var Builder = require('./builder');
 var utils = require('../utils');
-var manifest = require('component-manifest');
-
-// default extension to look up
-var extensions = [
-  '',
-  '.js',
-  '.json',
-  '/index.js',
-]
 
 module.exports = Scripts
 
@@ -198,8 +189,8 @@ Scripts.prototype.append = function* (field, file) {
  */
 
 Scripts.prototype.register = function* (file) {
-  var self = this;
   var js = file.string;
+  var lookup = Lookup(file, this);
 
   // rewrite all the requires
 
@@ -207,7 +198,7 @@ Scripts.prototype.register = function* (file) {
   for (var i=0; i<result.length; i++) {
     var require = result[i];
     var quote = require.string.match(/"/) ? '"' : "'";
-    var resolvedPath = yield* self.lookup(file, require.path);
+    var resolvedPath = yield* lookup.exec(require.path);
     var resolvedRequire = 'require(' + quote + resolvedPath + quote + ')';
     js = js.replace(require.string, resolvedRequire);
   }
@@ -313,176 +304,6 @@ Scripts.prototype.aliasModule = function (manifest) {
       + 'require.modules[' + JSON.stringify(branch.canonical) + '];\n'
   }).join('') + '\n\n';
 }
-
-/**
- * From a file, lookup another file within that dep.
- * For use within `require()`s.
- *
- * To do:
- *
- *   - people like @raynos will want to be able to do require('component/lib') or something but F that!
- *
- * @param {Object} file
- * @param {String} target
- * @return {String} name
- * @api private
- */
-
-Scripts.prototype.lookup = function* (file, target) {
-  target = target.toLowerCase();
-
-  var currentDir = target.slice(0, 2) === './';
-  var parentDir = target.slice(0, 3) === '../';
-  if (currentDir || parentDir ) {
-    var lookup = this.lookupRelative(file, target);
-    if (lookup != null) return lookup;
-    return target;
-  } else {
-    return yield* this.lookupDependency(file, target);
-  }
-}
-
-/**
- * Lookup a relative file.
- *
- * @param {Object} file
- * @param {String} target
- * @return {String} name
- * @api private
- */
-
-Scripts.prototype.lookupRelative = function (file, target) {
-  var path = url.resolve(file.path, target);
-  var files = file.manifest.files;
-
-  for (var i = 0; i < files.length; i++) {
-    var f = files[i];
-    // we need this fallback to check relatives from a foreign local
-    var name = f.name || pathUtil.join(f.manifest.name, pathUtil.relative(f.manifest.path, f.filename));
-    for (var j = 0; j < extensions.length; j++) {
-      // check by adding extensions
-      if (f.path.toLowerCase() === path + extensions[j]) return name;
-    }
-    // check by removing extensions
-    if (f.path.replace(/\.\w+$/, '').toLowerCase() === path) return name;
-  }
-
-  var message = 'ignore "' + target + '" , could not resolve from "' + file.branch.name + '"\'s file "' + file.path + '"';
-  debug(message);
-  return null;
-}
-
-/**
- * Look up a remote dependency.
- * Valid references:
- *
- *   <repo>
- *   <user>-<repo>
- *   <user>~<repo>
- *
- * or:
- *
- *   <reference>/<filename>
- *
- * @param {Object} component
- * @param {Object} file
- * @param {String} target
- * @return {String} name
- * @api private
- */
-
-Scripts.prototype.lookupDependency = function* (file, target) {
-  var frags = target.split('/');
-  var reference = frags[0];
-  var tail = frags.length > 1
-    ? ('/' + frags.slice(1).join('/'))
-    : ''
-
-  var branch = file.branch;
-  var deps = branch.dependencies;
-  var names = Object.keys(deps);
-
-  // <user>~<repo>
-  if (~reference.indexOf('~')) {
-    var name = reference.replace('~', '/');
-    if (deps[name]) return deps[name].canonical + tail;
-  }
-
-  // <user>-<repo>
-  if (~reference.indexOf('-')) {
-    for (var i = 0; i < names.length; i++) {
-      var name = names[i];
-      if (reference === name.replace('/', '-')) {
-        return deps[name].canonical + tail;
-      }
-    }
-  }
-
-  // local
-  var localDeps = Object.keys(branch.locals);
-  for (var i = 0; i < localDeps.length; i++) {
-    // Find a local dependency that matches as a prefix of the target
-    // or the whole target, and return the canonical path.
-    var re = new RegExp("^("+localDeps[i]+")(/.*)?$");
-    if (m = re.exec(target)) {
-      var dep = m[1];
-      var tail = m[2] || '';
-      if (tail !== '') {
-        var relativeFile = '.' + tail;
-        var resolvedTail = yield* this.lookupRelativeForLocal(branch.locals[dep], relativeFile);
-        if (resolvedTail != null) {
-          debug('resolved relative file for local "' + dep + '/' + resolvedTail + '"');
-          return branch.locals[dep].canonical + '/' + resolvedTail;
-        }
-      } 
-      return branch.locals[dep].canonical + tail;
-
-    }
-  }
-
-  // <repo>
-  for (var i = 0; i < names.length; i++) {
-    var name = names[i];
-    var repo = name.split('/')[1];
-    if (repo === reference) {
-      return deps[name].canonical + tail;
-    }
-  }
-
-  // component.json name, if different than repo
-  for (var i = 0; i < names.length; i++) {
-    var name = names[i];
-    var dep = deps[name];
-    if (dep.node.name.toLowerCase() === reference) {
-      return dep.canonical + tail;
-    }
-  }
-
-  // to do: look up stuff outside the dependencies
-  debug('could not resolve "%s" from "%s"', target, file.name)
-  return target
-}
-
-Scripts.prototype.lookupRelativeForLocal = function* (localBranch, relativeTarget) {
-  var createManifest = require('component-manifest');
-  
-  var manifestGenerator = createManifest(this);
-  var manifest = yield* manifestGenerator(localBranch);
-  
-  var obj = {
-    path: '', // it should simulate a url-relative path
-    manifest: manifest,
-    branch: localBranch
-  }
-  // resolve the file (if extension is not provided)
-  var resolved = this.lookupRelative(obj, relativeTarget);
-  if (resolved == null) return null;
-
-  var relative = pathUtil.relative(manifest.name, resolved);
-
-  return relative;
-}
-
 
 // private helpers
 

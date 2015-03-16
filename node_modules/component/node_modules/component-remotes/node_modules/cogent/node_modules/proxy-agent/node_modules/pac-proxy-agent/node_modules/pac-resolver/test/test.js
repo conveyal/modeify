@@ -192,4 +192,48 @@ describe('FindProxyForURL', function () {
 
   });
 
+  describe('GitHub issue #3', function () {
+    var FindProxyForURL = pac(
+      'function FindProxyForURL(url, host) {\n' +
+      '    if (isHostInAnySubnet(host, ["10.1.2.0", "10.1.3.0"], "255.255.255.0")) {\n' +
+      '        return "HTTPS proxy.example.com";\n' +
+      '    }\n' +
+      '\n' +
+      '    if (isHostInAnySubnet(host, ["10.2.2.0", "10.2.3.0"], "255.255.255.0")) {\n' +
+      '        return "HTTPS proxy.example.com";\n' +
+      '    }\n' +
+      '\n' +
+      '    // Everything else, go direct:\n' +
+      '    return "DIRECT";\n' +
+      '}\n' +
+      '\n' +
+      '// Checks if the single host is within a list of subnets using the single mask.\n' +
+      'function isHostInAnySubnet(host, subnets, mask) {\n' +
+      '    var subnets_length = subnets.length;\n' +
+      '    for (i = 0; i < subnets_length; i++) {\n' +
+      '        if (isInNet(host, subnets[i], mask)) {\n' +
+      '            return true;\n' +
+      '        }\n' +
+      '    }\n' +
+      '}\n'
+    );
+
+    it('should return "HTTPS proxy.example.com" for "http://10.1.2.3/bar.html"', function (done) {
+      FindProxyForURL('http://10.1.2.3/bar.html', '10.1.2.3', function (err, res) {
+        if (err) return done(err);
+        assert.equal('HTTPS proxy.example.com', res);
+        done();
+      });
+    });
+
+    it('should return "DIRECT" for "http://foo.com/bar.html"', function (done) {
+      FindProxyForURL('http://foo.com/bar.html', 'foo.com', function (err, res) {
+        if (err) return done(err);
+        assert.equal('DIRECT', res);
+        done();
+      });
+    });
+
+  });
+
 });

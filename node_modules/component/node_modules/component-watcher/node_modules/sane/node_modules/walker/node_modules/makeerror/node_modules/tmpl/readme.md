@@ -1,4 +1,4 @@
-tmpl
+tmpl [![Build Status](https://secure.travis-ci.org/nshah/nodejs-tmpl.png)](http://travis-ci.org/nshah/nodejs-tmpl)
 ====
 
 Simple string formatting using `{}`.

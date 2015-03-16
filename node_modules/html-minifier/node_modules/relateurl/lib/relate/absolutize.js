@@ -42,7 +42,7 @@ function copyPath(urlObj, siteUrlObj)
 		if (pathArray)
 		{
 			// If is relative path
-			if (urlObj.extra.hrefInfo.minimumPathOnly && urlObj.path.absolute.string.indexOf("/")!=0)
+			if (urlObj.extra.hrefInfo.minimumPathOnly && urlObj.path.absolute.string.indexOf("/")!==0)
 			{
 				// Append path to site path
 				pathArray = siteUrlObj.path.absolute.array.concat(pathArray);

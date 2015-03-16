@@ -38,7 +38,7 @@ function RelateUrl(from, options)
 RelateUrl.prototype.relate = function(from, to, options)
 {
 	// relate(to,options)
-	if ( objUtils.isObject(to) )
+	if ( objUtils.isPlainObject(to) )
 	{
 		options = to;
 		to = from;
@@ -87,13 +87,7 @@ RelateUrl.relate = function(from, to, options)
 
 
 // Make constants accessible from API
-for (var i in constants)
-{
-	if ( constants.hasOwnProperty(i) )
-	{
-		Object.defineProperty(RelateUrl, i, {value:constants[i]});
-	}
-}
+objUtils.shallowMerge(RelateUrl, constants);
 
 
 

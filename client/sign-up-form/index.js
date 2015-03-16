@@ -1,4 +1,4 @@
-var Alert = require('Alert');
+var Alert = require('alert');
 var log = require('log')('sign-up-form');
 var request = require('request');
 var session = require('session');

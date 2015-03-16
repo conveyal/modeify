@@ -20,7 +20,7 @@ function relatePath(absolutePath, siteAbsolutePath)
 	{
 		if (related)
 		{
-			if (absolutePath[i] != siteAbsoluteDir)
+			if (absolutePath[i] !== siteAbsoluteDir)
 			{
 				related = false;
 			}

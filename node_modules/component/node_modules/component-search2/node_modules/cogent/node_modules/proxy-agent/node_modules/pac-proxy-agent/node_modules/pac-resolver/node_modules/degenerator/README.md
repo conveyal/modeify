@@ -1,7 +1,7 @@
 degenerator
 ===========
 ### Turns sync functions into async generator functions
-[![Build Status](https://travis-ci.org/TooTallNate/node-degenerator.png?branch=master)](https://travis-ci.org/TooTallNate/node-degenerator)
+[![Build Status](https://travis-ci.org/TooTallNate/node-degenerator.svg?branch=master)](https://travis-ci.org/TooTallNate/node-degenerator)
 
 Sometimes you need to write sync looking code that's really async under the hood.
 This module takes a String to one or more synchronous JavaScript functions, and

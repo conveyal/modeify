@@ -11,7 +11,7 @@ function parseHost(urlObj, options)
 		{
 			var stripped = host;
 			
-			if (host.indexOf("www.") == 0)
+			if (host.indexOf("www.") === 0)
 			{
 				stripped = host.substr(4);
 			}
