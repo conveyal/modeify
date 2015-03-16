@@ -1,6 +1,8 @@
 {
   "name": "request",
   "dependencies": {
+    "johntron/superagent-no-cache": "*",
+    "johntron/superagent-prefix": "*",
     "visionmedia/debug": "*",
     "visionmedia/superagent": "*"
   },

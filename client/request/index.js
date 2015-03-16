@@ -1,12 +1,8 @@
 var config = require('config');
 var debug = require('debug')(config.name() + ':request');
+var nocache = require('superagent-no-cache');
+var prefix = require('superagent-prefix')(config.api_url());
 var superagent = require('superagent');
-
-/**
- * Base URL
- */
-
-var base = config.api_url();
 
 /**
  * Expose `get`
@@ -18,11 +14,12 @@ module.exports.get = function(url, params, callback) {
     params = null;
   }
 
-  var href = base + url;
-  var name = 'GET ' + href;
+  var name = 'GET ' + url;
   debug('--> %s', name);
   return superagent
-    .get(href)
+    .get(url)
+    .use(prefix)
+    .use(nocache)
     .query(params)
     .end(response(name, callback));
 };
@@ -32,11 +29,12 @@ module.exports.get = function(url, params, callback) {
  */
 
 module.exports.post = function(url, data, callback) {
-  var href = base + url;
-  var name = 'POST ' + href;
+  var name = 'POST ' + url;
   debug('--> %s', name);
   return superagent
-    .post(href)
+    .post(url)
+    .use(prefix)
+    .use(nocache)
     .send(data)
     .end(response(name, callback));
 };
@@ -46,11 +44,12 @@ module.exports.post = function(url, data, callback) {
  */
 
 module.exports.del = function(url, callback) {
-  var href = base + url;
-  var name = 'DELETE ' + href;
+  var name = 'DELETE ' + url;
   debug('--> %s', name);
   return superagent
-    .del(href)
+    .del(url)
+    .use(prefix)
+    .use(nocache)
     .end(response(name, callback));
 };
 
