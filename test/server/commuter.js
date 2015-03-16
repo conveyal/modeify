@@ -109,7 +109,6 @@ describe(base, function() {
         .end(function(err, res) {
           if (err) return done(err);
           res.body._commuter.should.eql(commuter.info._id);
-          res.body._organization.should.eql(commuter.info._organization);
           done();
         });
     });
@@ -145,11 +144,65 @@ describe(base, function() {
         .expect(400, done);
     });
 
-    it('200 and add make the user no longer anonymous', function(done) {
+    it('200 and make the user no longer anonymous', function(done) {
       agent
         .post(base + '/' + anon._id + '/add-email')
         .send({
           email: 'newemai@anon.com'
+        })
+        .expect(204, done);
+    });
+  });
+
+  describe('POST /:id/carpool-sign-up', function() {
+    var agent = request.agent();
+    var anon = null;
+
+    before(function(done) {
+      agent
+        .get('/api/login-anonymously')
+        .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err);
+          anon = res.body;
+          done();
+        });
+    });
+
+    it('400 if email exists for another user', function(done) {
+      agent
+        .post(base + '/' + anon._id + '/carpool-sign-up')
+        .send({
+          email: user.info.email,
+          name: {
+            first: 'User',
+            last: 'Name'
+          }
+        })
+        .expect(400, done)
+    });
+
+    it('400 if email or name is not passed', function(done) {
+      agent
+        .post(base + '/' + anon._id + '/carpool-sign-up')
+        .send({
+          name: {
+            first: 'User',
+            last: 'Name'
+          }
+        })
+        .expect(400, done);
+    })
+
+    it('204 if appropriate values are sent', function(done) {
+      agent
+        .post(base + '/' + anon._id + '/carpool-sign-up')
+        .send({
+          email: 'anonemail3@gmail.com',
+          name: {
+            first: 'User',
+            last: 'Name'
+          }
         })
         .expect(204, done);
     });
