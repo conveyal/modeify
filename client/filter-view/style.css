@@ -9,6 +9,7 @@
   .FilterView > .time-filters > select {
     padding-left: 0;
     padding-right: 0;
+    text-align: center;
   }
 }
 
