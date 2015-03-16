@@ -64,8 +64,10 @@ function bundle(app) {
       app
     ]
   }, {
+    dependencies: true,
     development: development,
     install: true,
+    local: false,
     out: __dirname + '/../components',
     root: __dirname + '/..',
     verbose: true
