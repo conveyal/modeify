@@ -225,7 +225,7 @@ p {
 }
 
 select {
-  background: var(--darkest);
+  background: transparent;
 
   appearance: none;
   -moz-appearance: none;
@@ -234,8 +234,8 @@ select {
   cursor: pointer;
   color: var(--gold);
   font-weight: var(--bold);
-  padding: 8px 2px 8px 2px;
-  margin: 0 6px;
+  padding: 5px 2px 5px 2px;
+  margin: 5px 6px;
   text-align: center;
 
   border: none;
