@@ -11,5 +11,6 @@
   "main": "TransitiveLayer.js",
   "scripts": [
     "TransitiveLayer.js"
-  ]
+  ],
+  "resolved": "4d5c66ff0fc7e1e0de60639ec1d773358881b665"
 }

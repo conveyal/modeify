@@ -100,7 +100,7 @@ RenderedSegment.prototype.refresh = function(display, renderData) {
   this.lineGraph.attr('d', lineData);
   this.lineGraphFront.attr('d', lineData);
   if (this.lineGraphHalo) this.lineGraphHalo.attr('d', lineData);
-  display.styler.renderSegment(display, this);
+  display.styler.styleSegment(display, this);
 };
 
 RenderedSegment.prototype.setFocused = function(focused) {
@@ -211,5 +211,5 @@ RenderedSegment.prototype.getLegendType = function() {
 };
 
 RenderedSegment.prototype.toString = function() {
-  return 'RenderedSegment ' + this.id + ' on ' + this.pathSegment.toString();
+  return 'RenderedSegment ' + this.id + ' on ' + (this.pathSegment ? this.pathSegment.toString() : ' (null segment)');
 };

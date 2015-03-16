@@ -10,5 +10,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "timoxley/next-tick"
+  "repository": "timoxley/next-tick",
+  "resolved": "6f25f8c2d25697dead7e49e978ae4c31703f7490"
 }

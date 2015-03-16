@@ -11,5 +11,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "component/indexof"
+  "repository": "component/indexof",
+  "resolved": "a3ef9ccef2b705f9688db5115c6698ab6ea49b98"
 }

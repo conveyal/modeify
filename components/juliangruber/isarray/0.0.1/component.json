@@ -19,5 +19,6 @@
     "email": "mail@juliangruber.com",
     "url": "http://juliangruber.com"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "resolved": "69ba56c0890c19aeee26632427109cc7c6716983"
 }

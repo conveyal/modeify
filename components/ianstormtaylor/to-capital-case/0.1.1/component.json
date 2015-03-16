@@ -20,5 +20,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "ianstormtaylor/to-capital-case"
+  "repository": "ianstormtaylor/to-capital-case",
+  "resolved": "4841c759ff5c6adc9f782e1f4aa13873f4a2a4f9"
 }

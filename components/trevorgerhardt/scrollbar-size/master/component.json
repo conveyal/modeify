@@ -3,5 +3,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "trevorgerhardt/scrollbar-size"
+  "repository": "trevorgerhardt/scrollbar-size",
+  "resolved": "0a90d329a3cf4cdda40035a6f174491da0edc198"
 }

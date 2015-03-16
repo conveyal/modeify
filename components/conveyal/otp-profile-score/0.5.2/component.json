@@ -15,5 +15,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "conveyal/otp-profile-score"
+  "repository": "conveyal/otp-profile-score",
+  "resolved": "802e5a7b34d14bfb4a8a3f87595d65dc806b3c9f"
 }

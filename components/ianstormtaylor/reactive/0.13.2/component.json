@@ -35,5 +35,6 @@
     "lib/adapter.js"
   ],
   "main": "lib/index.js",
-  "repository": "ianstormtaylor/reactive"
+  "repository": "ianstormtaylor/reactive",
+  "resolved": "b5aa0dd8cf5398b4720765767c338c70152955c3"
 }

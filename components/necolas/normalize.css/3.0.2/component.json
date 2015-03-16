@@ -6,5 +6,6 @@
   ],
   "author": "Nicolas Gallagher",
   "license": "MIT",
-  "repository": "necolas/normalize.css"
+  "repository": "necolas/normalize.css",
+  "resolved": "d83132802e8bc10ece0c0afbe88fce83674ec252"
 }

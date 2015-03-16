@@ -20,5 +20,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "pazguille/scrolling"
+  "repository": "pazguille/scrolling",
+  "resolved": "1e750b91cad3e2c681692d7018df154cf57ddecd"
 }

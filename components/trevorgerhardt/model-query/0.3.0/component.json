@@ -15,5 +15,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "trevorgerhardt/model-query"
+  "repository": "trevorgerhardt/model-query",
+  "resolved": "d1c102d4deb9cb84e48514b6c63acc5bb2731a6f"
 }

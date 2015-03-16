@@ -233,176 +233,16 @@ NetworkGraph.prototype.getEquivalentEdge = function(pointArray, from, to) {
       edge.pointArray.length && equal(pointArray, edge.pointArray)) {
       return edge;
     }
-  }
-};
-
-/**
- * Convert the graph coordinates to a linear 1-d display. Assumes a branch-based, acyclic graph
- */
-
-NetworkGraph.prototype.convertTo1D = function(stopArray, from, to) {
-  if (this.edges.length === 0) return;
-
-  // find the "trunk" edge; i.e. the one with the most patterns
-  var trunkEdge = null;
-  var maxPatterns = 0;
-
-  for (var e = 0; e < this.edges.length; e++) {
-    var edge = this.edges[e];
-    if (edge.patterns.length > maxPatterns) {
-      trunkEdge = edge;
-      maxPatterns = edge.patterns.length;
+    if (edge.fromVertex === to && edge.toVertex === from && pointArray.length ===
+      edge.pointArray.length && equal(pointArray.slice(0).reverse(), edge.pointArray)) {
+      return edge;
     }
   }
-  this.exploredVertices = [trunkEdge.fromVertex, trunkEdge.toVertex];
-
-  //console.log('trunk edge: ');
-  //console.log(trunkEdge);
-  trunkEdge.setStopLabelPosition(-1);
-
-  // determine the direction relative to the trunk edge
-  var llDir = trunkEdge.toVertex.x - trunkEdge.fromVertex.x;
-  if (llDir === 0) llDir = trunkEdge.toVertex.y - trunkEdge.fromVertex.y;
-
-  if (llDir > 0) {
-    // make the trunk edge from (0,0) to (x,0)
-    trunkEdge.fromVertex.moveTo(0, 0);
-    trunkEdge.toVertex.moveTo(trunkEdge.stopArray.length + 1, 0);
-
-    // explore the graph in both directions
-    this.extend1D(trunkEdge, trunkEdge.fromVertex, -1, 0);
-    this.extend1D(trunkEdge, trunkEdge.toVertex, 1, 0);
-  } else {
-    // make the trunk edge from (x,0) to (0,0)
-    trunkEdge.toVertex.moveTo(0, 0);
-    trunkEdge.fromVertex.moveTo(trunkEdge.stopArray.length + 1, 0);
-
-    // explore the graph in both directions
-    this.extend1D(trunkEdge, trunkEdge.fromVertex, 1, 0);
-    this.extend1D(trunkEdge, trunkEdge.toVertex, -1, 0);
-  }
-
-  this.apply1DOffsets();
-};
-
-NetworkGraph.prototype.extend1D = function(edge, vertex, direction, y) {
-  debug('extend1D');
-
-  var edges = vertex.incidentEdges(edge);
-  if (edges.length === 0) { // no additional edges to explore; we're done
-    return;
-  } else if (edges.length === 1) { // exactly one other edge to explore
-    var extEdge = edges[0];
-    var oppVertex = extEdge.oppositeVertex(vertex);
-    extEdge.setStopLabelPosition((y > 0) ? 1 : -1, vertex);
-
-    if (this.exploredVertices.indexOf(oppVertex) !== -1) {
-      debug('extend1D: Warning: found cycle in 1d graph');
-      return;
-    }
-    this.exploredVertices.push(oppVertex);
-
-    oppVertex.moveTo(vertex.x + (extEdge.stopArray.length + 1) * direction, y);
-    this.extend1D(extEdge, oppVertex, direction, y);
-  } else { // branch case
-    //console.log('branch:');
-
-    // iterate through the branches
-    edges.forEach(function(extEdge, i) {
-      var oppVertex = extEdge.oppositeVertex(vertex);
-
-      if (this.exploredVertices.indexOf(oppVertex) !== -1) {
-        debug('extend1D: Warning: found cycle in 1d graph (branch)');
-        return;
-      }
-      this.exploredVertices.push(oppVertex);
-
-      // the first branch encountered is rendered as the straight line
-      // TODO: apply logic to this based on trip count, etc.
-      if (i === 0) {
-        oppVertex.moveTo(vertex.x + (extEdge.stopArray.length + 1) *
-          direction, y);
-        extEdge.setStopLabelPosition((y > 0) ? 1 : -1, vertex);
-        this.extend1D(extEdge, oppVertex, direction, y);
-      } else { // subsequent branches
-
-        //console.log('branch y+'+i);
-        var branchY = y + i;
-
-        if (extEdge.stopArray.length === 0) {
-          oppVertex.moveTo(vertex.x + 1 * direction, branchY);
-          return;
-        }
-
-        var newVertexStop;
-        if (extEdge.fromVertex === vertex) {
-          newVertexStop = extEdge.stopArray[0];
-          extEdge.stopArray.splice(0, 1);
-        } else if (extEdge.toVertex === vertex) {
-          newVertexStop = extEdge.stopArray[extEdge.stopArray.length - 1];
-          extEdge.stopArray.splice(extEdge.stopArray.length - 1, 1);
-        }
-
-        var newVertex = this.addVertex(newVertexStop, vertex.x + direction,
-          branchY);
-
-        this.splitEdge(extEdge, newVertex, vertex);
-        extEdge.setStopLabelPosition((branchY > 0) ? 1 : -1, vertex);
-
-        oppVertex.moveTo(newVertex.x + (extEdge.stopArray.length + 1) *
-          direction, branchY);
-        this.extend1D(extEdge, oppVertex, direction, branchY);
-      }
-      //console.log(extEdge);
-    }, this);
-  }
-};
-
-/**
- *
- */
-
-NetworkGraph.prototype.splitEdge = function(edge, newVertex, adjacentVertex) {
-
-  var newEdge;
-  // attach the existing edge to the inserted vertex
-  if (edge.fromVertex === adjacentVertex) {
-    newEdge = this.addEdge([], adjacentVertex, newVertex, edge.edgeGroup.type);
-    edge.fromVertex = newVertex;
-  } else if (edge.toVertex === adjacentVertex) {
-    newEdge = this.addEdge([], newVertex, adjacentVertex, edge.edgeGroup.type);
-    edge.toVertex = newVertex;
-  } else { // invalid params
-    console.log('Warning: invalid params to graph.splitEdge');
-    return;
-  }
-
-  // de-associate the existing edge from the adjacentVertex
-  adjacentVertex.removeEdge(edge);
-
-  // create new edge and copy the patterns
-  //var newEdge = this.addEdge([], adjacentVertex, newVertex);
-  edge.patterns.forEach(function(pattern) {
-    newEdge.addPattern(pattern);
-  });
-
-  // associate both edges with the new vertex
-  newVertex.edges = [newEdge, edge];
-
-  // update the affected patterns' edge lists
-  edge.patterns.forEach(function(pattern) {
-    var i = pattern.graphEdges.indexOf(edge);
-    pattern.insertEdge(i, newEdge);
-  });
-
-  // copy the pathSegment list
-  newEdge.copyPathSegments(edge);
-
 };
 
 NetworkGraph.prototype.splitEdgeAtInternalPoints = function(edge, points) {
   var subEdgePoints = [],
-    newEdge, newEdges = [];
+    newEdge, newEdgeInfoArr = [];
   var fromVertex = edge.fromVertex;
   each(edge.pointArray, function(point) {
     if (points.indexOf(point) !== -1) {
@@ -414,7 +254,10 @@ NetworkGraph.prototype.splitEdgeAtInternalPoints = function(edge, points) {
         .type);
       newEdge.isInternal = true;
       newEdge.copyPathSegments(edge);
-      newEdges.push(newEdge);
+      newEdgeInfoArr.push({
+        graphEdge: newEdge,
+        fromVertex: fromVertex
+      });
       subEdgePoints = [];
       fromVertex = newVertex;
     } else {
@@ -427,15 +270,24 @@ NetworkGraph.prototype.splitEdgeAtInternalPoints = function(edge, points) {
     .type);
   newEdge.isInternal = true;
   newEdge.copyPathSegments(edge);
-  newEdges.push(newEdge);
-
-  // remove the original edge from the graph
-  each(edge.pathSegments, function(pathSegment) {
-    pathSegment.replaceEdge(edge, newEdges);
+  newEdgeInfoArr.push({
+    graphEdge: newEdge,
+    fromVertex: fromVertex
   });
 
-  this.removeEdge(edge);
+  // insert the new edge sequence into the affected segments
+  each(edge.pathSegments, function(pathSegment) {
+    var indexInSegment = pathSegment.getEdgeIndex(edge);
+    var forward = pathSegment.edges[indexInSegment].forward;
+    var index = pathSegment.getEdgeIndex(edge);
+    each(forward ? newEdgeInfoArr : newEdgeInfoArr.reverse(), function(edgeInfo) {
+      pathSegment.insertEdgeAt(index, edgeInfo.graphEdge, forward ? edgeInfo.fromVertex : edgeInfo.toVertex);
+      index++;
+    });
+  });
 
+  // remove the original edge from the graph
+  this.removeEdge(edge);
 };
 
 /*NetworkGraph.prototype.collapseTransfers = function(threshold) {
@@ -499,8 +351,10 @@ NetworkGraph.prototype.mergeEdges = function(edge1, edge2) {
     edge1.edgeGroup.type);
   newEdge.pathSegments = edge1.pathSegments;
   each(newEdge.pathSegments, function(segment) {
-    var i = segment.graphEdges.indexOf(edge1);
-    segment.graphEdges.splice(i, 0, newEdge);
+    //var i = segment.graphEdges.indexOf(edge1);
+    //segment.graphEdges.splice(i, 0, newEdge);
+    var i = segment.getEdgeIndex(edge1);
+    segment.insertEdgeAt(i, newEdge, newEdge.fromVertex);
   });
   this.removeEdge(edge1);
   this.removeEdge(edge2);
@@ -579,16 +433,16 @@ NetworkGraph.prototype.apply2DOffsets = function() {
 
   var alignmentBundles = {}; // maps alignment ID to array of range-bounded bundles on that alignment
 
-  var addToBundle = function(segment, alignmentId) {
+  var addToBundle = function(rEdge, alignmentId) {
     var bundle;
 
-    // compute the alignment range of the segment being bundled
-    var range = segment.graphEdge.getAlignmentRange(alignmentId);
+    // compute the alignment range of the edge being bundled
+    var range = rEdge.graphEdge.getAlignmentRange(alignmentId);
 
     // check if bundles already exist for this alignment
     if (!(alignmentId in alignmentBundles)) { // if not, create new and add to collection
       bundle = new AlignmentBundle();
-      bundle.addSegment(segment, range.min, range.max);
+      bundle.addEdge(rEdge, range.min, range.max);
       alignmentBundles[alignmentId] = [bundle]; // new AlignmentBundle();
     } else { // 1 or more bundles currently exist for this alignmentId
       var bundleArr = alignmentBundles[alignmentId];
@@ -596,14 +450,14 @@ NetworkGraph.prototype.apply2DOffsets = function() {
       // see if the segment range overlaps with that of an existing bundle
       for (var i = 0; i < bundleArr.length; i++) {
         if (bundleArr[i].rangeOverlaps(range.min, range.max)) {
-          bundleArr[i].addSegment(segment, range.min, range.max);
+          bundleArr[i].addEdge(rEdge, range.min, range.max);
           return;
         }
       }
 
       // ..if not, create a new bundle
       bundle = new AlignmentBundle();
-      bundle.addSegment(segment, range.min, range.max);
+      bundle.addEdge(rEdge, range.min, range.max);
       bundleArr.push(bundle);
     }
   };
@@ -620,6 +474,7 @@ NetworkGraph.prototype.apply2DOffsets = function() {
   });
 
   var bundleSorter = (function(a, b) {
+
     var aId = a.patternIds || a.pathSegmentIds;
     var bId = b.patternIds || b.pathSegmentIds;
 
@@ -642,7 +497,8 @@ NetworkGraph.prototype.apply2DOffsets = function() {
       return a.route.route_type > b.route.route_type ? 1 : -1;
     }
 
-    return isOutward * (aId < bId ? -1 : 1);
+    var isForward = (a.forward &&  b.forward) ? 1 : -1;
+    return isForward * isOutward * (aId < bId ? -1 : 1);
   }).bind(this);
 
   each(alignmentBundles, function(alignmentId) {
@@ -654,13 +510,13 @@ NetworkGraph.prototype.apply2DOffsets = function() {
 
       this.currentAlignmentId = alignmentId;
       bundle.items.sort(bundleSorter);
-      each(bundle.items, function(segment, i) {
+      each(bundle.items, function(rEdge, i) {
         var offset = (-bundleWidth / 2) + i * lw;
-        if (segment.getType() === 'TRANSIT') {
-          each(segment.patterns, function(pattern) {
+        if (rEdge.getType() === 'TRANSIT') {
+          each(rEdge.patterns, function(pattern) {
             pattern.offsetAlignment(alignmentId, offset);
           });
-        } else segment.offsetAlignment(alignmentId, offset);
+        } else rEdge.offsetAlignment(alignmentId, offset);
       });
     }, this);
   }, this);
@@ -676,49 +532,49 @@ NetworkGraph.prototype.initComparisons = function() {
   this.bundleComparisons = {};
 
   each(this.vertices, function(vertex) {
-    var edges = vertex.incidentEdges();
+    var incidentGraphEdges = vertex.incidentEdges();
 
-    var angleSegments = {};
-    each(edges, function(edge) {
-      var angle = (edge.fromVertex === vertex) ? edge.fromAngle : edge.toAngle;
+    var angleREdges = {};
+    each(incidentGraphEdges, function(incidentGraphEdge) {
+      var angle = (incidentGraphEdge.fromVertex === vertex) ? incidentGraphEdge.fromAngle : incidentGraphEdge.toAngle;
       var angleDeg = 180 * angle / Math.PI;
-      if (!(angleDeg in angleSegments)) angleSegments[angleDeg] = [];
-      angleSegments[angleDeg] = angleSegments[angleDeg].concat(edge.renderedEdges);
+      if (!(angleDeg in angleREdges)) angleREdges[angleDeg] = [];
+      angleREdges[angleDeg] = angleREdges[angleDeg].concat(incidentGraphEdge.renderedEdges);
     });
 
-    each(angleSegments, function(angle) {
-      var segments = angleSegments[angle];
-      if (segments.length < 2) return;
-      for (var i = 0; i < segments.length - 1; i++) {
-        for (var j = i + 1; j < segments.length; j++) {
-          var s1 = segments[i],
-            s2 = segments[j];
+    each(angleREdges, function(angle) {
+      var rEdges = angleREdges[angle];
+      if (rEdges.length < 2) return;
+      for (var i = 0; i < rEdges.length - 1; i++) {
+        for (var j = i + 1; j < rEdges.length; j++) {
+          var re1 = rEdges[i],
+            re2 = rEdges[j];
 
-          var opp1 = s1.graphEdge.oppositeVertex(vertex);
-          var opp2 = s2.graphEdge.oppositeVertex(vertex);
+          var opp1 = re1.graphEdge.oppositeVertex(vertex);
+          var opp2 = re2.graphEdge.oppositeVertex(vertex);
 
           var ccw = Util.ccw(opp1.x, opp1.y, vertex.x, vertex.y, opp2.x,
             opp2.y);
 
           if (ccw === 0) {
-            var s1Ext = s1.findExtension(opp1);
-            var s2Ext = s2.findExtension(opp2);
+            var s1Ext = re1.findExtension(opp1);
+            var s2Ext = re2.findExtension(opp2);
             if (s1Ext) opp1 = s1Ext.graphEdge.oppositeVertex(opp1);
             if (s2Ext) opp2 = s2Ext.graphEdge.oppositeVertex(opp2);
             ccw = Util.ccw(opp1.x, opp1.y, vertex.x, vertex.y, opp2.x, opp2
               .y);
           }
 
-          ccw = getInverse(s1, s2, vertex) * ccw;
+          ccw = getInverse(re1, re2, vertex) * ccw;
 
           if (ccw > 0) {
             // e1 patterns are 'less' than e2 patterns
-            this.storeComparison(s1, s2);
+            this.storeComparison(re1, re2);
           }
 
           if (ccw < 0) {
             // e2 patterns are 'less' than e2 patterns
-            this.storeComparison(s2, s1);
+            this.storeComparison(re2, re1);
           }
 
         }
@@ -746,15 +602,15 @@ NetworkGraph.prototype.storeComparison = function(s1, s2) {
  */
 
 function AlignmentBundle() {
-  this.items = []; // RenderSegments
+  this.items = []; // RenderedEdges
   this.min = Number.MAX_VALUE;
   this.max = -Number.MAX_VALUE;
 }
 
-AlignmentBundle.prototype.addSegment = function(segment, min, max) {
+AlignmentBundle.prototype.addEdge = function(rEdge, min, max) {
 
-  if (this.items.indexOf(segment) === -1) {
-    this.items.push(segment);
+  if (this.items.indexOf(rEdge) === -1) {
+    this.items.push(rEdge);
   }
 
   this.min = Math.min(this.min, min);

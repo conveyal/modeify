@@ -13,5 +13,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "component/to-function"
+  "repository": "component/to-function",
+  "resolved": "126b2e2c939dc1b4026da6cc8ca2ba1a7c0e3c8f"
 }

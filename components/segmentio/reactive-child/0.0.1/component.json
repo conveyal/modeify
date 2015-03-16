@@ -10,5 +10,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "segmentio/reactive-child"
+  "repository": "segmentio/reactive-child",
+  "resolved": "a45c9094bbcb4571c03dd5091e51f6239de8340c"
 }

@@ -10,5 +10,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "segmentio/reactive-disabled"
+  "repository": "segmentio/reactive-disabled",
+  "resolved": "00fe5c06c9f55ea2d4e27591e4766de263e0ea2f"
 }

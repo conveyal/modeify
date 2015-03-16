@@ -1,0 +1,22 @@
+{
+  "name": "superagent",
+  "description": "awesome http requests",
+  "version": "1.1.0",
+  "keywords": [
+    "http",
+    "ajax",
+    "request",
+    "agent"
+  ],
+  "scripts": [
+    "lib/client.js"
+  ],
+  "main": "lib/client.js",
+  "dependencies": {
+    "component/emitter": "*",
+    "component/reduce": "*"
+  },
+  "license": "MIT",
+  "repository": "visionmedia/superagent",
+  "resolved": "8466dd845700a39638f57a6d21bb6c2ac70bb8d9"
+}

@@ -20,5 +20,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "yields/store"
+  "repository": "yields/store",
+  "resolved": "1903a0266cc771c5525e256f07baa1dc340b8c1f"
 }

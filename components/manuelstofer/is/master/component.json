@@ -18,5 +18,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "manuelstofer/is"
+  "repository": "manuelstofer/is",
+  "resolved": "1a6efc5b85ca8d3a86c7b162ceb8bc8d1b8e4e1a"
 }

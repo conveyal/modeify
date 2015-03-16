@@ -22,5 +22,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "ianstormtaylor/to-no-case"
+  "repository": "ianstormtaylor/to-no-case",
+  "resolved": "7f09bfd98f32a5197e408b9201dabda08a0b134e"
 }

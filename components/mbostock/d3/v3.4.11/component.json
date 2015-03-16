@@ -17,5 +17,6 @@
   "dependencies": {},
   "development": {},
   "license": "BSD",
-  "repository": "mbostock/d3"
+  "repository": "mbostock/d3",
+  "resolved": "48ad44fdeef32b518c6271bb99a9aed376c1a1d6"
 }

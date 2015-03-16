@@ -19,5 +19,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "ianstormtaylor/callback"
+  "repository": "ianstormtaylor/callback",
+  "resolved": "e802ba203ee5c74c2be0142e62c97e5a378b9638"
 }

@@ -11,5 +11,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "component/once"
+  "repository": "component/once",
+  "resolved": "e3dac29b008be90c1da6dddbd82ecff33fcd8a32"
 }

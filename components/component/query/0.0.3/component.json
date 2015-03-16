@@ -19,5 +19,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "component/query"
+  "repository": "component/query",
+  "resolved": "cfa981c3be3df3603c3b1d42106490f7246059c4"
 }

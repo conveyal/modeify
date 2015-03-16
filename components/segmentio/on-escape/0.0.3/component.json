@@ -24,5 +24,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "segmentio/on-escape"
+  "repository": "segmentio/on-escape",
+  "resolved": "fd7fa95405a545ad04057ab3d13fc0007fe5d5e8"
 }

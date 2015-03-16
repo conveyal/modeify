@@ -22,5 +22,6 @@
       "component/model": "*"
     }
   },
-  "repository": "segmentio/model-memoize"
+  "repository": "segmentio/model-memoize",
+  "resolved": "54a970742130743b82c56191a069270c100fb648"
 }

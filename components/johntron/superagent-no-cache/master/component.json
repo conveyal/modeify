@@ -1,0 +1,17 @@
+{
+  "name": "superagent-no-cache",
+  "description": "Plugin for visionmedia/superagent that adds headers to all requests that prevents caching",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "component/ie": "0.0.1"
+  },
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "repository": "johntron/superagent-no-cache",
+  "resolved": "e81c9b82be613a9e418045bdce4699f72c804e7a"
+}

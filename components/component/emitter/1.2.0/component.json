@@ -1,0 +1,15 @@
+{
+  "name": "emitter",
+  "description": "Event emitter",
+  "keywords": [
+    "emitter",
+    "events"
+  ],
+  "version": "1.2.0",
+  "scripts": [
+    "index.js"
+  ],
+  "license": "MIT",
+  "repository": "component/emitter",
+  "resolved": "4d18307a2cdd2cec16d1fadf9e04f02351a8d62e"
+}

@@ -23,5 +23,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "component/value"
+  "repository": "component/value",
+  "resolved": "46649d47cc9132a8f8d22d1c1ddd50046781ba77"
 }

@@ -14,5 +14,6 @@
     "file.js",
     "reader.js"
   ],
-  "repository": "component/file"
+  "repository": "component/file",
+  "resolved": "03242724c3c7f13d6e699ba995064d9f32c13fb7"
 }

@@ -12,5 +12,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "component/raf"
+  "repository": "component/raf",
+  "resolved": "248c5fbdc10d35caf0775ed8f1c283e7dab363b4"
 }

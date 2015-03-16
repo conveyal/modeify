@@ -7,5 +7,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "manuelstofer/each"
+  "repository": "manuelstofer/each",
+  "resolved": "eca83158e2a3339eb6cc3ca3d090490813db4a78"
 }

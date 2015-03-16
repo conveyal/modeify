@@ -12,5 +12,6 @@
     "index.js"
   ],
   "license": "MIT",
-  "repository": "pillarjs/path-to-regexp"
+  "repository": "pillarjs/path-to-regexp",
+  "resolved": "24c8f06ef17d4bee58f5a1d6f4747ff90cce66ca"
 }

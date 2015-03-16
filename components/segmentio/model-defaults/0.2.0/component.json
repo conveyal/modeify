@@ -24,5 +24,6 @@
       "segmentio/model": "*"
     }
   },
-  "repository": "segmentio/model-defaults"
+  "repository": "segmentio/model-defaults",
+  "resolved": "906b43faada58755df30d8e48bc4dca1d4d901c9"
 }

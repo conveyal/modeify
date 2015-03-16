@@ -7,5 +7,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "yields/svg-attributes"
+  "repository": "yields/svg-attributes",
+  "resolved": "410910ad890268194c528fe4a69be1c985de58f9"
 }
