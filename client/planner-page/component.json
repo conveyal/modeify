@@ -3,7 +3,8 @@
   "dependencies": {
     "component/querystring": "*",
     "conveyal/Leaflet.TransitiveLayer": "master",
-    "pazguille/scrolling": "*"
+    "pazguille/scrolling": "*",
+    "trevorgerhardt/scrollbar-size": "*"
   },
   "locals": [
     "config",
@@ -15,7 +16,6 @@
     "options-view",
     "planner-nav",
     "transitive",
-    "scrollbar-size",
     "session",
     "text-modal",
     "user-agent",

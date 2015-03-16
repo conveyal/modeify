@@ -5,7 +5,8 @@
     "locations-view",
     "log",
     "modal",
-    "request"
+    "request",
+    "session"
   ],
   "scripts": [
     "index.js"

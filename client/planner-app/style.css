@@ -234,12 +234,12 @@ select {
   cursor: pointer;
   color: var(--gold);
   font-weight: var(--bold);
-  padding: 5px 2px 5px 2px;
-  margin: 5px 6px;
-  text-align: center;
+  padding: 8px 0 0;
+  margin: 0 6px;
 
   border: none;
-  border-radius: var(--border-radius);
+  border-radius: 0;
+  border-bottom: 1px solid var(--gold);
 }
 
 select::-ms-expand {
