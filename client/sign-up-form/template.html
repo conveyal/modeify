@@ -1,7 +1,9 @@
 <form class="SignUpForm" on-submit="submit" data-visible="anonymous">
-  <div class="alerts">
-    <div class="alert alert-success">Sign up to <strong>save trips</strong>, receive tailored <strong>transit alerts</strong>, and hear about new features! <i class="fa fa-envelope"></i></div>
+  <div class="alerts"></div>
+  <div class="alert alert-success">
+    <p>Sign up to <strong>save trips</strong>, receive tailored <strong>transit alerts</strong>, and hear about new features! <i class="fa fa-envelope"></i></p>
+    <p><input type="email" name="email" class="form-control" placeholder="Email" on-input="showButton"></p>
+    <p><button type="submit" class="btn btn-block" style="display:none;">Sign Up!</button></p>
   </div>
-  <input type="email" name="email" class="form-control" placeholder="Email" on-input="showButton">
-  <button type="submit" class="btn btn-block" style="display:none;">Sign Up!</button>
+  <p class="centered">Already have an account? <a href="/login">Log in here.</a></p>
 </form>
