@@ -21,7 +21,7 @@ p('/', session.checkIfLoggedIn, utils.redirect('/organizations'));
 // Public links
 
 p('/login', require('login-page'));
-p('/logout', session.logoutMiddleware);
+p('/logout', session.logoutMiddleware, utils.redirect('/login'));
 p('/forgot-password', require('forgot-password-page'));
 p('/change-password/:key', require('change-password-page'));
 

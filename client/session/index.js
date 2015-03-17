@@ -82,6 +82,11 @@ Session.prototype.login = function(data) {
       commuter._organization(new Organization(data._organization));
     }
 
+    // is this user anonymous?
+    if (user.email_confirmed) {
+      commuter.anonymous(false);
+    }
+
     type = 'commuter';
     cookie('commuter', commuter.toJSON());
   } else {
@@ -185,12 +190,10 @@ session.commuterIsLoggedIn = function(ctx, next) {
  * Log out
  */
 
-session.logoutMiddleware = function(ctx) {
+session.logoutMiddleware = function(ctx, next) {
   log('logout %s', ctx.path);
 
-  session.logout(function() {
-    page('/manager/login');
-  });
+  session.logout(next);
 };
 
 /**

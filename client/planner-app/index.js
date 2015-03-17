@@ -12,6 +12,7 @@ var session = require('session');
 page('/', utils.redirect('/planner'));
 
 page('/login', require('commuter-login'));
+page('/logout', session.logoutMiddleware, utils.redirect('/welcome'));
 page('/forgot-password', require('forgot-password-page'));
 page('/change-password/:key', require('change-password-page'));
 page('/confirm-email/:key', Commuter.confirmEmail, utils.redirect('/login'));

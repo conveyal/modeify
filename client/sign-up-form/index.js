@@ -43,6 +43,9 @@ View.prototype.submit = function(e) {
         text: 'Thanks for signing up! An email has been sent to ' + email +
           ' with instructions to confirm your account.'
       }).el);
+      session.commuter().set({
+        anonymous: false
+      }).save();
     }
   });
 };

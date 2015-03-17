@@ -89,6 +89,9 @@ SignUpModal.prototype.save = function(e) {
         text: 'Failed to sign up. ' + msg
       }).el);
     } else {
+      session.commuter().set({
+        anonymous: false
+      }).save();
       ThanksModal().show();
     }
   });
