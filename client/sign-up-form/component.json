@@ -1,5 +1,8 @@
 {
   "name": "sign-up-form",
+  "dependencies": {
+    "component/value": "*"
+  },
   "local": [
     "alert",
     "log",
