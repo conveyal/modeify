@@ -1,0 +1,22 @@
+{
+  "name": "planner-router",
+  "dependencies": {
+    "visionmedia/page.js": "*"
+  },
+  "scripts": [
+    "index.js"
+  ],
+  "local": [
+    "analytics",
+    "commuter",
+    "commuter-login",
+    "change-password-page",
+    "forgot-password-page",
+    "modal",
+    "plan",
+    "planner-page",
+    "router-utils",
+    "session",
+    "style-guide"
+  ]
+}

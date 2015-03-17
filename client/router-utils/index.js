@@ -1,7 +1,6 @@
 var analytics = require('analytics');
 var Page404 = require('404-page');
 var log = require('./client/log')('router-utils');
-var Modal = require('./client/modal');
 var page = require('page');
 
 /**
@@ -29,8 +28,6 @@ module.exports.render = function(ctx, next) {
     view.off();
     if (view.el && view.el.remove) view.el.remove();
     if (view.category) $main.classList.remove(view.category);
-    // hide existing modals
-    Modal.hide();
   }
 
   // if no view has been created or ther was an error, create an error page

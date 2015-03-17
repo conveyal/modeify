@@ -1,4 +1,5 @@
 var Alert = require('./client/alert');
+var CommuterProfile = require('commuter-profile');
 var LocationsView = require('locations-view');
 var log = require('log')('rideshare-sign-up');
 var modal = require('modal');
@@ -10,6 +11,14 @@ var ThanksModal = modal({
   template: require('./thanks.html'),
   title: 'Thanks Modal'
 });
+
+ThanksModal.prototype.profile = function(e) {
+  if (e) e.preventDefault();
+  CommuterProfile({
+    commuter: session.commuter(),
+    plan: session.plan()
+  }).show();
+};
 
 var SignUpModal = module.exports = modal({
   closable: true,

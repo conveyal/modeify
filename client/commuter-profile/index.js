@@ -121,5 +121,5 @@ Modal.prototype['journeys-view'] = function() {
  */
 
 Modal.prototype.hasJourneys = function() {
-  return this.model.journeys.length() > 0;
+  return this.model.journeys && this.model.journeys.length() > 0;
 };

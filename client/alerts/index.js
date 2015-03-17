@@ -47,7 +47,7 @@ module.exports = function(ctx, next) {
 };
 
 function addBar() {
-  document.body.insertBefore(domify(require('./template.html')), document.body.firstChild);
+  document.body.insertBefore(domify(require('./template.html')), document.body.firstChild.nextSibling);
   return document.getElementById('alerts');
 }
 

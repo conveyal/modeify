@@ -1,7 +1,3 @@
-/**
- * Dependencies
- */
-
 var Nav = require('manager-nav');
 var router = require('manager-router');
 var onLoad = require('on-load');

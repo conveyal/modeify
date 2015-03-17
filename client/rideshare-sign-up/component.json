@@ -2,6 +2,7 @@
   "name": "rideshare-sign-up",
   "local": [
     "alert",
+    "commuter-profile",
     "locations-view",
     "log",
     "modal",

@@ -83,7 +83,7 @@ Session.prototype.login = function(data) {
     }
 
     // is this user anonymous?
-    if (user.email_confirmed) {
+    if (user.email_confirmed() === true) {
       commuter.anonymous(false);
     }
 
