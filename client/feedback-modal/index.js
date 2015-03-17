@@ -22,22 +22,21 @@ Modal.prototype.submit = function(e) {
   e.preventDefault();
   var alerts = this.find('.alerts');
   var button = this.find('button');
-  var feedback = this.find('textarea').value + '';
-  var plan = session.plan();
-  var results = this.model ? this.model.toJSON() : {};
+  var textarea = this.find('textarea');
+  var feedback = textarea.value + '';
+  var results = this.model.toJSON ? this.model.toJSON() : {};
   var self = this;
 
+  button.disabled = true;
   if (!feedback || feedback.length < 1) {
     alerts.appendChild(Alert({
       type: 'warning',
       text: 'Please fill in the feedback field below.'
     }).el);
   } else {
-    button.remove();
-
     var data = {
       feedback: feedback,
-      plan: plan.generateQuery(),
+      plan: session.plan().generateQuery(),
       results: results
     };
 
@@ -48,6 +47,7 @@ Modal.prototype.submit = function(e) {
           type: 'danger',
           text: 'Failed to submit feedback.'
         }).el);
+        button.disabled = false;
       } else {
         analytics.track('Submitted Feedback', data);
 
