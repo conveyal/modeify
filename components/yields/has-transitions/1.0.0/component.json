@@ -1,0 +1,15 @@
+{
+  "name": "has-transitions",
+  "description": "has transitions.",
+  "version": "1.0.0",
+  "keywords": [],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "repository": "yields/has-transitions",
+  "resolved": "30998f0aba86cc1e83c19fcb3e5659cf4d04a858"
+}

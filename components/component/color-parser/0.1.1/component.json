@@ -1,0 +1,19 @@
+{
+  "name": "color-parser",
+  "description": "CSS color string parser",
+  "version": "0.1.1",
+  "keywords": [
+    "css",
+    "color",
+    "parser",
+    "colors"
+  ],
+  "dependencies": {},
+  "development": {},
+  "scripts": [
+    "index.js",
+    "colors.js"
+  ],
+  "repository": "component/color-parser",
+  "resolved": "3a2f835580c8457ca3228fbfc93da48dd431fe0e"
+}

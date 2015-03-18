@@ -10,5 +10,6 @@
     "index.js"
   ],
   "license": "MIT",
-  "repository": "component/closest"
+  "repository": "component/closest",
+  "resolved": "9b1bf3f6abeae62ea07c43a1bc8b782f91872370"
 }

@@ -23,5 +23,6 @@
       "mishoo/uglifyjs2": "*"
     }
   },
-  "repository": "faisalman/ua-parser-js"
+  "repository": "faisalman/ua-parser-js",
+  "resolved": "0951cebd09f15037f1eb2460a478e7ccb94610e5"
 }

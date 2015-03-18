@@ -12,5 +12,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "trevorgerhard/tableize"
+  "repository": "trevorgerhard/tableize",
+  "resolved": "69b0d7d8b314d8056530ac35b3ed5ae7d0baf0f6"
 }

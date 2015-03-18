@@ -20,5 +20,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "ianstormtaylor/to-sentence-case"
+  "repository": "ianstormtaylor/to-sentence-case",
+  "resolved": "b52542295f4e65c91e703913e87c22d803c6cd9e"
 }

@@ -28,6 +28,11 @@ function BitBucket(options) {
 
 BitBucket.prototype.name = 'bitbucket'
 
+BitBucket.prototype.getHash =function* (repo, ref) {
+  console.log('BitBucket.prototype.getHash not implemented yet');
+  return null;
+};
+
 /**
  * DOES NOT SOLVE REDIRECTS!
  *

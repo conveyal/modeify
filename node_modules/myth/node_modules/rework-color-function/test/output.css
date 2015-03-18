@@ -24,3 +24,25 @@ body {
     border-color: rgb(138, 138, 138);
   }
 }
+
+@keyframes test {
+  0% {
+    color: rgb(255, 0, 0);
+    background-color: rgb(255, 128, 128);
+    border-color: rgba(64, 149, 191, 0.4);
+    /* nested color functions */
+    border-color: rgb(138, 138, 138);
+    /* inlined adjuster functions */
+    border-color: rgb(138, 138, 138);
+  }
+
+  80% {
+    color: rgb(255, 0, 0);
+    background-color: rgb(255, 128, 128);
+    border-color: rgba(64, 149, 191, 0.4);
+    /* nested color functions */
+    border-color: rgb(138, 138, 138);
+    /* inlined adjuster functions */
+    border-color: rgb(138, 138, 138);
+  }
+}

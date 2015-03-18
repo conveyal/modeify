@@ -20,17 +20,17 @@ function stringify(queryObj, removeEmptyQueries)
 	
 	for (var i in queryObj)
 	{
-		if ( i!="" && queryObj.hasOwnProperty(i) )
+		if ( i!=="" && queryObj.hasOwnProperty(i) )
 		{
 			var value = queryObj[i];
 			
-			if (value != "" || !removeEmptyQueries)
+			if (value !== "" || !removeEmptyQueries)
 			{
-				str += (++count==1) ? "?" : "&";
+				str += (++count===1) ? "?" : "&";
 				
 				i = encodeURIComponent(i);
 				
-				if (value != "")
+				if (value !== "")
 				{
 					str += i +"="+ encodeURIComponent(value).replace(/%20/g,"+");
 				}

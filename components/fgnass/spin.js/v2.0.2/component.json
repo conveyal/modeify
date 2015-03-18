@@ -1,0 +1,16 @@
+{
+  "name": "spin",
+  "description": "A spinning activity indicator",
+  "version": "2.0.2",
+  "main": "spin.js",
+  "scripts": [
+    "spin.js"
+  ],
+  "keywords": [
+    "spin",
+    "spinner",
+    "component"
+  ],
+  "repository": "fgnass/spin.js",
+  "resolved": "89734a25ac9b1428806a024e079d93ce83977372"
+}

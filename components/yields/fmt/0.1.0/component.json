@@ -17,5 +17,6 @@
       "component/assert": "*"
     }
   },
-  "repository": "yields/fmt"
+  "repository": "yields/fmt",
+  "resolved": "739698eeb0bb6b04f3f5718f2eb93481da3bbc72"
 }

@@ -14,5 +14,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "trevorgerhardt/csv-to-array"
+  "repository": "trevorgerhardt/csv-to-array",
+  "resolved": "3418d755bc21cfcad4212aaaa0457ad19bedc7e0"
 }

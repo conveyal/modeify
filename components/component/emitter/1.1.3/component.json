@@ -10,5 +10,6 @@
     "index.js"
   ],
   "license": "MIT",
-  "repository": "component/emitter"
+  "repository": "component/emitter",
+  "resolved": "1bd7d81f841323a29ced2f18532af21cada1c3b9"
 }

@@ -40,7 +40,8 @@ module.exports = function(session) {
       routeResource.findByTags(route.tags(plan), function(err, resources) {
         var routeModal = new RouteModal(route, null, {
           context: 'welcome-flow',
-          resources: resources
+          resources: resources,
+          plan: plan
         });
         routeModal.show();
         main.classList.remove('Welcome');

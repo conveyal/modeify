@@ -1,6 +1,7 @@
 var analytics = require('./client/analytics');
 var log = require('./client/log')('welcome-flow:finding-options');
 var modal = require('./client/modal');
+var RideshareSignUp = require('./client/rideshare-sign-up');
 var RouteComparisonTable = require('route-comparison-table');
 var RouteResourcesView = require('route-resources-view');
 var routeSummarySegments = require('route-summary-segments');
@@ -16,7 +17,6 @@ var RouteModal = module.exports = modal({
   template: require('./template.html'),
   title: 'Selected Option Modal'
 }, function(view, route) {
-
   var context = view.options.context;
   if (context !== 'welcome-flow') {
     analytics.track('Selected Route', {
@@ -34,6 +34,11 @@ var RouteModal = module.exports = modal({
 RouteModal.prototype.next = function(e) {
   e.preventDefault();
   this.emit('next');
+};
+
+RouteModal.prototype.signUpForRideshare = function(e) {
+  e.preventDefault();
+  RideshareSignUp().show();
 };
 
 RouteModal.prototype.routeComparisonTable = function() {

@@ -1,0 +1,16 @@
+{
+  "name": "ms",
+  "version": "0.7.0",
+  "description": "ms parsing / formatting",
+  "keywords": [
+    "ms",
+    "parse",
+    "format"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "license": "MIT",
+  "repository": "guille/ms.js",
+  "resolved": "1e9cd9b05ef0dc26f765434d2bfee42394376e52"
+}

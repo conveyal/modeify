@@ -12,5 +12,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "trevorgerhardt/serialize"
+  "repository": "trevorgerhardt/serialize",
+  "resolved": "c9916df1db94f8a98c2451ce2814ec194c421138"
 }

@@ -1,0 +1,37 @@
+{
+  "name": "modal",
+  "license": "MIT",
+  "version": "0.4.1",
+  "description": "A simple modal UI component.",
+  "keywords": [
+    "modal",
+    "ui",
+    "overlay"
+  ],
+  "dependencies": {
+    "component/domify": "*",
+    "component/emitter": "*",
+    "segmentio/overlay": "0.2.x",
+    "segmentio/showable": "0.1.x",
+    "segmentio/on-escape": "*",
+    "ianstormtaylor/classes": "0.1.0"
+  },
+  "development": {
+    "dependencies": {
+      "component/assert": "*",
+      "segmentio/on-enter": "*"
+    }
+  },
+  "scripts": [
+    "lib/index.js"
+  ],
+  "styles": [
+    "lib/index.css"
+  ],
+  "templates": [
+    "lib/index.html"
+  ],
+  "main": "lib/index.js",
+  "repository": "segmentio/modal",
+  "resolved": "c530b01553570a8e82b7d4bfa74fe3f4c6949b1b"
+}

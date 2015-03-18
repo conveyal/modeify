@@ -1,0 +1,13 @@
+
+.RideshareSignup .names {
+	width: 143px;
+	float: left;
+	margin: 0 5px 5px 0;
+	display: inline-block;
+}
+
+.RideshareSignup .half-button {
+	width: 135px;
+	display: inline-block;
+	margin-right: 5px;
+}

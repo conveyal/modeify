@@ -1,11 +1,7 @@
-<div class="commuter-profile">
-  <h3>
+<div class="CommuterProfile">
+  <h3 class="title">
     Your <strong>Settings</strong>
-    <span class="email" data-text="email" data-hidden="anonymous"></span>
 
-    <a class="close pull-right" href="#" on-tap="hide">
-      <i class="fa fa-times fa-times-top"></i>
-    </a>
   </h3>
 
   <div class="row">
@@ -15,6 +11,14 @@
         <br><span class="subtitle">Stay in touch!</span>
       </h4>
       <div reactive="signUpForm"></div>
+    </section>
+
+    <section class="col-sm-6" data-hidden="anonymous">
+      <h4>
+        <strong>Account</strong>
+        <br><span class="subtitle" data-text="email"></span>
+      </h4>
+      <p><a href="/logout" title="Sign out">Sign out</a></p>
     </section>
 
     <section class="col-sm-6 speed-preference">

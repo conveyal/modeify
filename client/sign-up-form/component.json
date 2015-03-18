@@ -1,7 +1,11 @@
 {
   "name": "sign-up-form",
+  "dependencies": {
+    "component/value": "*"
+  },
   "local": [
     "alert",
+    "config",
     "log",
     "request",
     "session",

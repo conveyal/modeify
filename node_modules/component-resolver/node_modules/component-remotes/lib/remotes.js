@@ -76,6 +76,33 @@ Remotes.prototype.use = function (remote) {
  * @api public
  */
 
+Remotes.prototype.check = function* (remotes, name, reference) {
+  var length = this.remotes.length;
+  if (!length) throw new Error('no remotes');
+
+  // resolve(name, [reference])
+  if (typeof remotes === 'string') {
+    reference = name;
+    name = remotes;
+    remotes = null;
+  }
+
+  remotes = remotes || this.remotes.map(toName);
+
+  // map to remote instances
+  var instances = remotes.map(function (name) {
+    return this.remote[name];
+  }, this).filter(Boolean);
+  remotes = instances.map(toName);
+
+  // loop through
+  for (var i = 0; i < instances.length; i++) {
+    if (yield* instances[i].isValid(remotes, name, reference)) {
+      return instances[i];
+    }
+  }
+};
+
 Remotes.prototype.resolve = function* (remotes, name, reference) {
   var length = this.remotes.length;
   if (!length) throw new Error('no remotes');
@@ -96,10 +123,11 @@ Remotes.prototype.resolve = function* (remotes, name, reference) {
   remotes = instances.map(toName);
 
   // loop through
-  for (var i = 0; i < instances.length; i++)
+  for (var i = 0; i < instances.length; i++) {
     if (yield* instances[i].resolve(remotes, name, reference))
       return instances[i];
-}
+  }
+};
 
 function toName(x) {
   return x.name;

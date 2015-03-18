@@ -10,5 +10,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "component/bind"
+  "repository": "component/bind",
+  "resolved": "0a0b368653bd53bd162646806e184d384134f402"
 }

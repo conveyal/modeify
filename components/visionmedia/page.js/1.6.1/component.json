@@ -1,0 +1,21 @@
+{
+  "name": "page",
+  "version": "1.6.1",
+  "description": "Tiny client-side router",
+  "keywords": [
+    "page",
+    "route",
+    "router",
+    "routes",
+    "pushState"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "pillarjs/path-to-regexp": "v1.0.1"
+  },
+  "repository": "visionmedia/page.js",
+  "resolved": "fa7d23cfadb7d906fc8cf4feb788cfa2a7356823"
+}

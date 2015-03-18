@@ -25,9 +25,12 @@ function clone(obj)
 
 
 
-function isObject(obj)
+/*
+	https://github.com/jonschlinkert/is-plain-object
+*/
+function isPlainObject(obj)
 {
-	return obj instanceof Object && !(obj instanceof Array);
+	return !!obj && typeof obj==="object" && obj.constructor===Object;
 }
 
 
@@ -35,20 +38,20 @@ function isObject(obj)
 /*
 	Shallow-merge two objects.
 */
-function shallowMerge(source, obj, type)
+function shallowMerge(target, source)
 {
-	if (source instanceof Object && obj instanceof Object)
+	if (target instanceof Object && source instanceof Object)
 	{
-		for (var i in obj)
+		for (var i in source)
 		{
-			if ( obj.hasOwnProperty(i) )
+			if ( source.hasOwnProperty(i) )
 			{
-				source[i] = obj[i];
+				target[i] = source[i];
 			}
 		}
 	}
 	
-	return source;
+	return target;
 }
 
 
@@ -56,6 +59,6 @@ function shallowMerge(source, obj, type)
 module.exports =
 {
 	clone: clone,
-	isObject: isObject,
+	isPlainObject: isPlainObject,
 	shallowMerge: shallowMerge
 };

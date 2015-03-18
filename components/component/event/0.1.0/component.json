@@ -9,5 +9,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "component/event"
+  "repository": "component/event",
+  "resolved": "9bd0291d3c3629d1d3120765ec137ae8c4191aa2"
 }

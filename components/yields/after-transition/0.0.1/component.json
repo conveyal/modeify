@@ -16,5 +16,6 @@
     "ecarter/css-emitter": "*",
     "component/once": "*"
   },
-  "repository": "yields/after-transition"
+  "repository": "yields/after-transition",
+  "resolved": "5d4d7b001106382ebf1bf4a406e6d595ab9408ff"
 }

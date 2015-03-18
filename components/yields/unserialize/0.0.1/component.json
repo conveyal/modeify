@@ -14,5 +14,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "yields/unserialize"
+  "repository": "yields/unserialize",
+  "resolved": "1de67783ba2f36f1e34e289d78631db81e689ab5"
 }

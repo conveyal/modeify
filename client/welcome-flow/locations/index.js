@@ -2,7 +2,10 @@ var Alert = require('alert');
 var log = require('./client/log')('welcome-flow:locations');
 var modal = require('./client/modal');
 
-var Locations = module.exports = modal(require('./template.html'), function(view, model) {
+var Locations = module.exports = modal({
+  logo: true,
+  template: require('./template.html')
+}, function(view, model) {
   var plan = model.plan;
 
   if (plan.validCoordinates()) {

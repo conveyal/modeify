@@ -50,6 +50,20 @@ GitHub.prototype._checkRedirect = function* (repo) {
   return null;
 }
 
+GitHub.prototype.getHash =function* (repo, ref) {
+  var uri = 'https://api.github.com/repos/' + repo + '/commits?sha=' + ref;
+  debug('GET "%s"', uri);
+  API_COUNTER++;
+  var hash = null;
+  var res = yield* this.request(uri, true);
+  if (res.statusCode === 404) {
+    debug('could not fetch hash for ' + repo, ref);
+  } else {
+    hash = res.body[0].sha;
+  }
+  return hash;
+};
+
 /**
  * @param {String} repo
  * @return {Array} references

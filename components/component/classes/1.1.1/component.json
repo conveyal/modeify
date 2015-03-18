@@ -15,5 +15,6 @@
   "dependencies": {
     "component/indexof": "*"
   },
-  "repository": "component/classes"
+  "repository": "component/classes",
+  "resolved": "9274af79d31ed2302496e03c1fc9536e688ad13c"
 }

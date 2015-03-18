@@ -23,7 +23,7 @@ function clean(urlObj)
 	if (scheme)
 	{
 		// Remove ":" suffix
-		if (scheme.indexOf(":") == scheme.length-1)
+		if (scheme.indexOf(":") === scheme.length-1)
 		{
 			scheme = scheme.substr(0, scheme.length-1);
 		}
@@ -70,7 +70,7 @@ function clean(urlObj)
 			minimumHashOnly: null,
 			empty: null,
 			
-			separatorOnlyQuery: urlObj.search=="?"
+			separatorOnlyQuery: urlObj.search==="?"
 		},
 		portIsDefault: null,
 		relation:
@@ -118,7 +118,7 @@ function validScheme(url, options)
 	
 	options.rejectedSchemes.every( function(rejectedScheme)
 	{
-		valid = !(url.indexOf(rejectedScheme+":") == 0);
+		valid = !(url.indexOf(rejectedScheme+":") === 0);
 		
 		// Break loop
 		return valid;

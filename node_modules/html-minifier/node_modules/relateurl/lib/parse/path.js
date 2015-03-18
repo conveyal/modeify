@@ -6,7 +6,7 @@ function isDirectoryIndex(resource, options)
 	
 	options.directoryIndexes.every( function(index)
 	{
-		if (index == resource)
+		if (index === resource)
 		{
 			verdict = true;
 			return false;
@@ -34,7 +34,7 @@ function parsePath(urlObj, options)
 			{
 				var resource = path.substr(lastSlash);
 				
-				if (resource!="." && resource!="..")
+				if (resource!=="." && resource!=="..")
 				{
 					urlObj.resource = resource;
 					path = path.substr(0, lastSlash);
@@ -48,7 +48,7 @@ function parsePath(urlObj, options)
 			urlObj.path.absolute.string = path;
 			urlObj.path.absolute.array = splitPath(path);
 		}
-		else if (path=="." || path=="..")
+		else if (path==="." || path==="..")
 		{
 			// "..?var", "..#anchor", etc ... not "..index.html"
 			path += "/";
@@ -73,14 +73,14 @@ function parsePath(urlObj, options)
 function splitPath(path)
 {
 	// TWEAK :: condition only for speed optimization
-	if (path != "/")
+	if (path !== "/")
 	{
 		var cleaned = [];
 		
 		path.split("/").forEach( function(dir)
 		{
 			// Cleanup -- splitting "/dir/" becomes ["","dir",""]
-			if (dir != "")
+			if (dir !== "")
 			{
 				cleaned.push(dir);
 			}

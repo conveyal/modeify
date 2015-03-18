@@ -82,6 +82,11 @@ Session.prototype.login = function(data) {
       commuter._organization(new Organization(data._organization));
     }
 
+    // is this user anonymous?
+    if (user.email_confirmed() === true) {
+      commuter.anonymous(false);
+    }
+
     type = 'commuter';
     cookie('commuter', commuter.toJSON());
   } else {
@@ -147,13 +152,13 @@ session.loginWithLink = function(ctx, next) {
 session.loginAnonymously = function(next) {
   log('--> logging in anonymously');
   request.get('/login-anonymously', function(err, res) {
-    if (res.ok && res.body) {
+    if (err) {
+      log.warn('<-- failed to log in anonymously: %e', err || res.error);
+      next(err || res.error || res.text);
+    } else {
       session.login(res.body);
       log('<-- logged in anonymously');
       next();
-    } else {
-      log.warn('<-- failed to log in anonymously: %e', err || res.error);
-      next(err || res.error || res.text);
     }
   });
 };
@@ -170,13 +175,13 @@ session.commuterIsLoggedIn = function(ctx, next) {
   }
 
   request.get('/commuter-is-logged-in', function(err, res) {
-    if (res.ok && res.body) {
+    if (err) {
+      log('<-- commuter is not logged in');
+      session.loginAnonymously(next);
+    } else {
       session.login(res.body);
       log('<-- commuter is logged in');
       next();
-    } else {
-      log('<-- commuter is not logged in');
-      session.loginAnonymously(next);
     }
   });
 };
@@ -185,12 +190,10 @@ session.commuterIsLoggedIn = function(ctx, next) {
  * Log out
  */
 
-session.logoutMiddleware = function(ctx) {
+session.logoutMiddleware = function(ctx, next) {
   log('logout %s', ctx.path);
 
-  session.logout(function() {
-    page('/manager/login');
-  });
+  session.logout(next);
 };
 
 /**

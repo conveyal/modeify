@@ -1,15 +1,50 @@
+
+.RouteResources > .resources {
+  margin: 10px 0;
+}
+
 .RouteResources > .resources > .resource {
-  margin-bottom: 15px;
+  margin-bottom: 1px;
+  border: 1px solid #e0e0e0;
+}
+
+.RouteResources > .resources > .resource:first-of-type {
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+}
+
+.RouteResources > .resources > .resource:last-of-type {
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
 }
 
 .RouteResources > .resources > .resource > .title {
   font-weight: var(--bold);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 8px;
 }
 
-.RouteResources > .resources > .resource > .description {
+.RouteResources > .resources > .resource.expanded > .details {
+  display: block;
+}
+
+.RouteResources > .resources > .resource > .details {
+  display: none;
   font-size: 12px;
+  padding: 0 8px 8px;
 }
 
-.RouteResources > .resources > .resource > .description a {
-  font-weight: var(--bold);
+.RouteResources > .resources > .resource > .title > i {
+  float: right;
+  line-height: 22px;
+}
+
+.RouteResources > .resources > .resource.expanded > .title > .show-details,
+.RouteResources > .resources > .resource > .title > .hide-details {
+  display: none;
+}
+
+.RouteResources > .resources > .resource.expanded > .title > .hide-details {
+  display: inline-block;
 }

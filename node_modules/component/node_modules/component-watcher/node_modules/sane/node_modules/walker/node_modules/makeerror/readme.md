@@ -1,4 +1,4 @@
-makeerror
+makeerror [![Build Status](https://secure.travis-ci.org/nshah/nodejs-makeerror.png)](http://travis-ci.org/nshah/nodejs-makeerror)
 =========
 
 A library to make errors.

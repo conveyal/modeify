@@ -17,5 +17,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "component/each"
+  "repository": "component/each",
+  "resolved": "a0843b21aece767487d247af1eebbaa524959073"
 }

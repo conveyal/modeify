@@ -6,17 +6,17 @@ function findRelation_upToPath(urlObj, siteUrlObj, options)
 	var pathOnly = urlObj.extra.hrefInfo.minimumPathOnly;
 	
 	// Matching scheme, scheme-relative or path-only
-	var minimumScheme = (urlObj.scheme==siteUrlObj.scheme || !urlObj.scheme);
+	var minimumScheme = (urlObj.scheme===siteUrlObj.scheme || !urlObj.scheme);
 	
 	// Matching auth, ignoring auth or path-only
-	var minimumAuth = minimumScheme && (urlObj.auth==siteUrlObj.auth || options.removeAuth || pathOnly);
+	var minimumAuth = minimumScheme && (urlObj.auth===siteUrlObj.auth || options.removeAuth || pathOnly);
 	
 	// Matching host or path-only
 	var www = options.ignore_www ? "stripped" : "full";
-	var minimumHost = minimumAuth && (urlObj.host[www]==siteUrlObj.host[www] || pathOnly);
+	var minimumHost = minimumAuth && (urlObj.host[www]===siteUrlObj.host[www] || pathOnly);
 	
 	// Matching port or path-only
-	var minimumPort = minimumHost && (urlObj.port==siteUrlObj.port || pathOnly);
+	var minimumPort = minimumHost && (urlObj.port===siteUrlObj.port || pathOnly);
 	
 	urlObj.extra.relation.minimumScheme = minimumScheme;
 	urlObj.extra.relation.minimumAuth   = minimumAuth;
@@ -41,19 +41,19 @@ function findRelation_pathOn(urlObj, siteUrlObj, options)
 	var minimumScheme = urlObj.extra.relation.minimumScheme;
 	
 	// Matching port and path
-	var minimumPath = minimumPort && urlObj.path.absolute.string==siteUrlObj.path.absolute.string;
+	var minimumPath = minimumPort && urlObj.path.absolute.string===siteUrlObj.path.absolute.string;
 	
 	// Matching resource or query/hash-only or empty
-	var matchingResource = (urlObj.resource==siteUrlObj.resource || !urlObj.resource && siteUrlObj.extra.resourceIsIndex) || (options.removeDirectoryIndexes && urlObj.extra.resourceIsIndex && !siteUrlObj.resource);
+	var matchingResource = (urlObj.resource===siteUrlObj.resource || !urlObj.resource && siteUrlObj.extra.resourceIsIndex) || (options.removeDirectoryIndexes && urlObj.extra.resourceIsIndex && !siteUrlObj.resource);
 	var minimumResource = minimumPath && (matchingResource || queryOnly || hashOnly || empty);
 	
 	// Matching query or hash-only/empty
 	var query = options.removeEmptyQueries ? "stripped" : "full";
 	var urlQuery = urlObj.query.string[query];
 	var siteUrlQuery = siteUrlObj.query.string[query];
-	var minimumQuery = (minimumResource && !!urlQuery && urlQuery==siteUrlQuery) || ((hashOnly || empty) && !urlObj.extra.hrefInfo.separatorOnlyQuery);
+	var minimumQuery = (minimumResource && !!urlQuery && urlQuery===siteUrlQuery) || ((hashOnly || empty) && !urlObj.extra.hrefInfo.separatorOnlyQuery);
 	
-	var minimumHash = minimumQuery && urlObj.hash==siteUrlObj.hash;
+	var minimumHash = minimumQuery && urlObj.hash===siteUrlObj.hash;
 	
 	urlObj.extra.relation.minimumPath     = minimumPath;
 	urlObj.extra.relation.minimumResource = minimumResource;

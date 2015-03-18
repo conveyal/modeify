@@ -79,7 +79,6 @@ b, strong {
 a {
   color: var(--gold);
   text-decoration: none;
-  font-size: 14px;
   font-weight: var(--bold);
   cursor: pointer;
 }

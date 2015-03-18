@@ -12,5 +12,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "redventures/reduce"
+  "repository": "redventures/reduce",
+  "resolved": "3cb6c196349d5d6f0a5b7fb462c184a155fe89da"
 }

@@ -6,7 +6,7 @@ var constants = require("./constants");
 
 function formatAuth(urlObj, options)
 {
-	if (urlObj.auth && !options.removeAuth && (urlObj.extra.relation.maximumHost || options.output==constants.ABSOLUTE))
+	if (urlObj.auth && !options.removeAuth && (urlObj.extra.relation.maximumHost || options.output===constants.ABSOLUTE))
 	{
 		return urlObj.auth + "@";
 	}
@@ -25,7 +25,7 @@ function formatHash(urlObj, options)
 
 function formatHost(urlObj, options)
 {
-	if (urlObj.host.full && (urlObj.extra.relation.maximumAuth || options.output==constants.ABSOLUTE))
+	if (urlObj.host.full && (urlObj.extra.relation.maximumAuth || options.output===constants.ABSOLUTE))
 	{
 		return urlObj.host.full;
 	}
@@ -43,15 +43,15 @@ function formatPath(urlObj, options)
 	var relativePath = urlObj.path.relative.string;
 	var resource = showResource(urlObj, options);
 	
-	if (urlObj.extra.relation.maximumHost || options.output==constants.ABSOLUTE || options.output==constants.ROOT_RELATIVE)
+	if (urlObj.extra.relation.maximumHost || options.output===constants.ABSOLUTE || options.output===constants.ROOT_RELATIVE)
 	{
 		str = absolutePath;
 	}
-	else if (relativePath.length<=absolutePath.length && options.output==constants.SHORTEST || options.output==constants.PATH_RELATIVE)
+	else if (relativePath.length<=absolutePath.length && options.output===constants.SHORTEST || options.output===constants.PATH_RELATIVE)
 	{
 		str = relativePath;
 		
-		if (str == "")
+		if (str === "")
 		{
 			var query = showQuery(urlObj,options) && !!getQuery(urlObj,options);
 			
@@ -70,7 +70,7 @@ function formatPath(urlObj, options)
 		str = absolutePath;
 	}
 	
-	if ( str=="/" && !resource && options.removeRootTrailingSlash && (!urlObj.extra.relation.minimumPort || options.output==constants.ABSOLUTE) )
+	if ( str==="/" && !resource && options.removeRootTrailingSlash && (!urlObj.extra.relation.minimumPort || options.output===constants.ABSOLUTE) )
 	{
 		str = "";
 	}
@@ -110,9 +110,9 @@ function formatScheme(urlObj, options)
 {
 	var str = "";
 	
-	if (urlObj.extra.relation.maximumHost || options.output==constants.ABSOLUTE)
+	if (urlObj.extra.relation.maximumHost || options.output===constants.ABSOLUTE)
 	{
-		if (!urlObj.extra.relation.minimumScheme || !options.schemeRelative || options.output==constants.ABSOLUTE)
+		if (!urlObj.extra.relation.minimumScheme || !options.schemeRelative || options.output===constants.ABSOLUTE)
 		{
 			str += urlObj.scheme + "://";
 		}
@@ -156,7 +156,7 @@ function getQuery(urlObj, options)
 
 function showQuery(urlObj, options)
 {
-	return !urlObj.extra.relation.minimumQuery || options.output==constants.ABSOLUTE || options.output==constants.ROOT_RELATIVE;
+	return !urlObj.extra.relation.minimumQuery || options.output===constants.ABSOLUTE || options.output===constants.ROOT_RELATIVE;
 }
 
 
@@ -164,7 +164,7 @@ function showQuery(urlObj, options)
 function showResource(urlObj, options)
 {
 	var removeIndex = options.removeDirectoryIndexes && urlObj.extra.resourceIsIndex;
-	var removeMatchingResource = urlObj.extra.relation.minimumResource && options.output!=constants.ABSOLUTE && options.output!=constants.ROOT_RELATIVE;
+	var removeMatchingResource = urlObj.extra.relation.minimumResource && options.output!==constants.ABSOLUTE && options.output!==constants.ROOT_RELATIVE;
 	
 	return !!urlObj.resource && !removeMatchingResource && !removeIndex;
 }

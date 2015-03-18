@@ -21,6 +21,12 @@ var events = ['showing', 'show', 'hiding', 'hide'];
  */
 
 module.exports = function(opts, fn) {
+  if (opts.closable) opts.template = require('./closable.html') + opts.template;
+  opts.template = '<div class="content">' + opts.template + '</div>';
+
+  // Wrap with a logo nav
+  if (opts.logo) opts.template = '<div>' + require('./logo.html') + opts.template + '</div>';
+
   var Modal = view(opts, fn);
 
   /**

@@ -18,5 +18,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "ianstormtaylor/on-load"
+  "repository": "ianstormtaylor/on-load",
+  "resolved": "e2e9ef97e28cee93a2ab6b1c9a82ffb72357d110"
 }

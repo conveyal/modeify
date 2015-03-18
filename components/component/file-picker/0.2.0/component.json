@@ -15,5 +15,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "component/file-picker"
+  "repository": "component/file-picker",
+  "resolved": "0f1957981da89239de50bcb06542ccdfc1438480"
 }

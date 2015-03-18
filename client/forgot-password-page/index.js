@@ -21,14 +21,12 @@ View.prototype.sendChangeRequest = function(e) {
   request.post('/users/change-password-request', {
     email: email
   }, function(err, res) {
-    if (res.ok) {
-      window.alert(
-        'Check your inbox for instructions to change your password.');
-      page(self.back());
+    if (err) {
+      log('%e', err || res.error || res.text);
+      window.alert(err || res.text || 'Failed to send change password request.');
     } else {
-      log(err || res.error || res.text);
-      window.alert(err || res.text ||
-        'Failed to send change password request.');
+      window.alert('Check your inbox for instructions to change your password.');
+      page(self.back());
     }
   });
 };

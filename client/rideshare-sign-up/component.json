@@ -1,0 +1,22 @@
+{
+  "name": "rideshare-sign-up",
+  "local": [
+    "alert",
+    "commuter-profile",
+    "locations-view",
+    "log",
+    "modal",
+    "request",
+    "session"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
+  ],
+  "templates": [
+    "template.html",
+    "thanks.html"
+  ]
+}

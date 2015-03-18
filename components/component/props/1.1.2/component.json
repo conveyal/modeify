@@ -14,5 +14,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "component/props"
+  "repository": "component/props",
+  "resolved": "e45d06d3b2827013035a992963e0e46000e96e45"
 }

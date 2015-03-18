@@ -1,0 +1,15 @@
+{
+  "name": "ie",
+  "description": "get the version of IE or return undefined",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "repository": "component/ie",
+  "resolved": "ec80782aeb8f2a6d3ea47b18badbd2c35e1d8d12"
+}

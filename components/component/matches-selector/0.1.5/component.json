@@ -18,5 +18,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "component/matches-selector"
+  "repository": "component/matches-selector",
+  "resolved": "b6a46650d8aa7a54f1ac431f83f50aa2c65f0153"
 }

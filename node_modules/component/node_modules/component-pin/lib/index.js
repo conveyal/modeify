@@ -1,7 +1,7 @@
 
 var log = require('component-consoler').log;
 var flatten = require('component-flatten');
-var remotes = require('remotes');
+var remotes = require('component-remotes');
 var semver = require('semver');
 var fs = require('fs');
 var write = fs.writeFile;

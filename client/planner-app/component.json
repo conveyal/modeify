@@ -2,21 +2,14 @@
   "name": "planner-app",
   "dependencies": {
     "devote/html5-history-api": "*",
+    "es-shims/es5-shim": "*",
+    "es-shims/es6-shim": "*",
     "ianstormtaylor/on-load": "*",
     "necolas/normalize.css": "*",
     "visionmedia/page.js": "*"
   },
-  "locals": [
-    "analytics",
-    "commuter",
-    "commuter-login",
-    "change-password-page",
-    "forgot-password-page",
-    "plan",
-    "planner-page",
-    "router-utils",
-    "session",
-    "style-guide"
+  "local": [
+    "planner-router"
   ],
   "scripts": [
     "index.js"

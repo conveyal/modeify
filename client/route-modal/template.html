@@ -1,11 +1,15 @@
-<div class="WelcomeFlow RouteModal">
-  <div class="content">
-    <a class="close pull-right" href="#" on-tap="hide"><i class="fa fa-times"></i></a>
-    <div class="segments" data-html="routeSummarySegments"></div>
-    <h3>{routeIntroText} <span data-text="modeDescriptor"></span>!</h3>
-    <div reactive="routeComparisonTable"></div>
+<div class="RouteModal">
+  <div class="segments" data-html="routeSummarySegments"></div>
+  <h3>{routeIntroText} <span data-text="modeDescriptor"></span>!</h3>
+  <div reactive="routeComparisonTable"></div>
+  <div class="sign-up-form" data-hidden="directCar">
     <div reactive="signUpForm"></div>
-    <div reactive="routeResourcesView"></div>
-    <button on-tap="next" class="btn btn-block">{nextButtonText}</button>
   </div>
+  <div class="rideshare-form" data-visible="directCar">
+    <h3 class="title">Interested in carpooling?</h3>
+    <p>Join our network to be matched with commuters in your neighborhood!</p>
+    <button on-tap="signUpForRideshare" class="btn btn-block">Sign up for carpooling</button>
+  </div>
+  <div reactive="routeResourcesView"></div>
+  <button on-tap="next" class="btn btn-block">{nextButtonText}</button>
 </div>

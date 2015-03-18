@@ -6,7 +6,7 @@ var objUtils = require("./util/object");
 
 function getOptions(options, defaults)
 {
-	if ( objUtils.isObject(options) )
+	if ( objUtils.isPlainObject(options) )
 	{
 		var newOptions = {};
 		
@@ -14,9 +14,9 @@ function getOptions(options, defaults)
 		{
 			if ( defaults.hasOwnProperty(i) )
 			{
-				if (options[i] != undefined)
+				if (options[i] !== undefined)
 				{
-					newOptions[i] = mergeOption(defaults[i], options[i]);
+					newOptions[i] = mergeOption(options[i], defaults[i]);
 				}
 				else
 				{
@@ -35,7 +35,7 @@ function getOptions(options, defaults)
 
 
 
-function mergeOption(defaultValues, newValues)
+function mergeOption(newValues, defaultValues)
 {
 	if (defaultValues instanceof Object && newValues instanceof Object)
 	{
@@ -45,9 +45,7 @@ function mergeOption(defaultValues, newValues)
 		}
 		else
 		{
-			defaultValues = objUtils.clone(defaultValues);
-			
-			return objUtils.shallowMerge(defaultValues, newValues);
+			return objUtils.shallowMerge(newValues, defaultValues);
 		}
 	}
 	

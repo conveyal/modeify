@@ -26,5 +26,6 @@
   ],
   "license": "MIT",
   "twitter": "@zcombinator",
-  "repository": "javascript/augment"
+  "repository": "javascript/augment",
+  "resolved": "9c2caeb4b93e56957f736505c2abac96c6404653"
 }

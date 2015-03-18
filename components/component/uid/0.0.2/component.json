@@ -16,5 +16,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "component/uid"
+  "repository": "component/uid",
+  "resolved": "2d912b897f31281e728317c47be03fd1111e778c"
 }

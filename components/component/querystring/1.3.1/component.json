@@ -15,5 +15,6 @@
   "dependencies": {
     "component/trim": "*",
     "component/type": "*"
-  }
+  },
+  "resolved": "29e30a276d399d2ecd173f7bbee67dea4173ffd7"
 }

@@ -18,5 +18,6 @@
     "index.js"
   ],
   "license": "MIT",
-  "repository": "component/enumerable"
+  "repository": "component/enumerable",
+  "resolved": "8eb6a3039fdcb492f092d1d1af310a2f67964e8d"
 }

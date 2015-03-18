@@ -28,5 +28,6 @@
     "lib/statics.js"
   ],
   "main": "lib/index.js",
-  "repository": "trevorgerhardt/view"
+  "repository": "trevorgerhardt/view",
+  "resolved": "2d82629be83fe06a3f1cae45391314dc9a927bc2"
 }

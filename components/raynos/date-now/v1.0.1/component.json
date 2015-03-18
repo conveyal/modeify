@@ -10,5 +10,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "Raynos/date-now"
+  "repository": "Raynos/date-now",
+  "resolved": "40056e932b53c767d42a1d06eefd1fa318360609"
 }

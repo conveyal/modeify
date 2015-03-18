@@ -1,0 +1,21 @@
+{
+  "name": "batch",
+  "description": "Async task batching",
+  "version": "0.5.2",
+  "keywords": [
+    "batch",
+    "async",
+    "utility",
+    "concurrency",
+    "concurrent"
+  ],
+  "dependencies": {
+    "component/emitter": "*"
+  },
+  "development": {},
+  "scripts": [
+    "index.js"
+  ],
+  "repository": "visionmedia/batch",
+  "resolved": "cd69ea173754c0fbd3a7ab33e0a678e6909f3bf3"
+}

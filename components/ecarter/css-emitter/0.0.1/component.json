@@ -16,5 +16,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "ecarter/css-emitter"
+  "repository": "ecarter/css-emitter",
+  "resolved": "1e657c14ad0e4d866031c2c02102658a29811276"
 }

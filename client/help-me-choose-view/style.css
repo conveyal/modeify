@@ -1,6 +1,10 @@
 
-.HelpMeChoose {
-  padding: 0 20px;
+.HelpMeChoose .multiplier-buttons {
+  float: right;
+}
+
+.FilterBy .btn-group>.btn:first-child {
+  margin-left: 5px;
 }
 
 @media (--narrow-window) {
@@ -8,27 +12,30 @@
     padding: 0;
   }
 
-  .HelpMeChoose h3,
-  .HelpMeChoose p,
-  .HelpMeChoose form {
-    padding: 0 20px;
+  .HelpMeChoose p {
+    display: none;
   }
 
   .HelpMeChoose form {
-    padding-bottom: 20px;
+    padding-bottom: 12px;
   }
 
   .HelpMeChoose .form-group {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 
   .HelpMeChoose .btn-group {
     margin-bottom: 10px;
+    margin-right: 1px;
   }
-}
 
-.FilterBy .btn-group>.btn:first-child {
-  margin-left: 5px;
+  .FilterBy .multiplier-buttons {
+    float: left;
+  }
+
+  .FilterBy .btn-group>.btn:first-child {
+    margin-left: 0;
+  }
 }
 
 .ComparisonTable {

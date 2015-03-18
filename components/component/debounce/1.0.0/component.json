@@ -16,5 +16,6 @@
   },
   "development": {},
   "license": "MIT",
-  "repository": "component/debounce"
+  "repository": "component/debounce",
+  "resolved": "0b58e834ede3bead70c09af22375e1d62671d7b9"
 }

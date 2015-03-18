@@ -30,3 +30,9 @@ View.prototype.resourceClicked = function(e) {
     window.open(linkUrl, '_blank');
   }
 };
+
+View.prototype.toggleDetails = function(e) {
+  var target = e.target;
+  while (!target.classList.contains('resource')) target = target.parentNode;
+  target.classList.toggle('expanded');
+};

@@ -16,5 +16,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "component/collection"
+  "repository": "component/collection",
+  "resolved": "b129ec5dcf9ba10228faeec3a951877fbf223cb1"
 }

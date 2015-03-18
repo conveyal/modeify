@@ -118,3 +118,26 @@
   background-color: var(--gold);
   color: #fff;
 }
+
+.Modal .Locations {
+  padding: 0;
+  margin: 15px 0;
+}
+
+.Modal .Locations > .input-group {
+  margin: 0;
+}
+
+.Modal .Locations > .input-group > input {
+  border: 1px solid var(--gray);
+  padding-top: 11px;
+}
+
+.Modal .Locations > .input-group:first-of-type > input {
+  border-bottom: none;
+}
+
+.Modal .Locations .suggestions {
+  border-left: 1px solid var(--gray);
+  border-right: 1px solid var(--gray);
+}

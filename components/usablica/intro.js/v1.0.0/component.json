@@ -9,5 +9,6 @@
   "styles": [
     "introjs.css"
   ],
-  "repository": "usablica/intro.js"
+  "repository": "usablica/intro.js",
+  "resolved": "ea5466317ab75de6f46b0b39bae7a29c2aa18d68"
 }

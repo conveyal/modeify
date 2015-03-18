@@ -28,6 +28,7 @@ View.prototype.login = function(e) {
     }, function(err, res) {
       if (res.ok) {
         session.login(res.body);
+        page('/planner');
       } else {
         window.alert(res.text || 'Failed to login.');
       }

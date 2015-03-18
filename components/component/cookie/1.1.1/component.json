@@ -16,5 +16,6 @@
   "scripts": [
     "index.js"
   ],
-  "repository": "component/cookie"
+  "repository": "component/cookie",
+  "resolved": "a4ff3b21b2d55916ed8eb7e0d7180d187495b719"
 }

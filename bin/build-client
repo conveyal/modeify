@@ -64,6 +64,7 @@ function bundle(app) {
       app
     ]
   }, {
+    dependencies: true,
     development: development,
     install: true,
     out: __dirname + '/../components',

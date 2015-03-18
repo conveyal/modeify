@@ -9,6 +9,7 @@ A watch utility for Component. It watches a `component.json`, then emits `resolv
 Options:
 
 - `root` <process.cwd()> - path where the main `component.json` is located.
+- `development` - if you want to watch for field within the `.development` property.
 - `extensions` - extensions to look up for `scripts` and `styles`. Default `{ scripts: ['js', 'json', 'html'], styles: ['css'] }`.
 - `fields` - fields to look up for `scripts` and `styles`. Default `{ scripts: ['scripts', 'json', 'templates'], styles: ['styles'] }`.
 

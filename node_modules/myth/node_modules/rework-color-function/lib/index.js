@@ -27,6 +27,7 @@ function plugin(stylesheet){
 function rule(obj){
   if (obj.declarations) obj.declarations.forEach(declaration);
   if (obj.rules) obj.rules.forEach(rule);
+  if (obj.keyframes) obj.keyframes.forEach(rule);
 }
 
 /**
