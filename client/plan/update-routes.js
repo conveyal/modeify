@@ -129,6 +129,12 @@ function filterOptions(data, scorer) {
   data.options.forEach(function(o, i) {
     o = formatProfile.option(o);
     o = filterUnreasonableAccessModes(o);
+    if (o.access && o.access.length > 0) {
+      o.access.forEach(function(a) {
+        console.log(a);
+        a.mode = a.qmode;
+      });
+    }
   });
 
   data.options = scorer.processOptions(data.options);
