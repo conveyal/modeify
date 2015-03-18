@@ -1,4 +1,5 @@
 var Alert = require('alert');
+var config = require('config');
 var log = require('log')('sign-up-form');
 var request = require('request');
 var session = require('session');
@@ -7,13 +8,16 @@ var view = require('view');
 
 var View = module.exports = view(require('./template.html'));
 
+View.prototype.applicationName = function() {
+  return config.application();
+};
+
 View.prototype.anonymous = function() {
   return session.commuter().anonymous();
 };
 
 View.prototype.showButton = function(e) {
-  var $button = this.find('button');
-  $button.style.display = 'block';
+  this.find('.SignUpForm-submitButton').classList.remove('hidden');
 };
 
 View.prototype.submit = function(e) {

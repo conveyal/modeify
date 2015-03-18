@@ -5,6 +5,7 @@
   },
   "local": [
     "alert",
+    "config",
     "log",
     "request",
     "session",
