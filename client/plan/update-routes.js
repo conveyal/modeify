@@ -131,7 +131,6 @@ function filterOptions(data, scorer) {
     o = filterUnreasonableAccessModes(o);
     if (o.access && o.access.length > 0) {
       o.access.forEach(function(a) {
-        console.log(a);
         a.mode = a.qmode;
       });
     }

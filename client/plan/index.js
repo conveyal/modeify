@@ -26,6 +26,7 @@ var LIMIT = 2;
 var Plan = module.exports = model('Plan')
   .use(defaults({
     bike: true,
+    bikeShare: true,
     bus: true,
     car: true,
     days: 'M—F',
@@ -42,6 +43,7 @@ var Plan = module.exports = model('Plan')
     walk: true
   }))
   .attr('bike')
+  .attr('bikeShare')
   .attr('bus')
   .attr('car')
   .attr('days')
@@ -255,6 +257,7 @@ Plan.prototype.coordinateIsValid = function(c) {
 Plan.prototype.modesCSV = function() {
   var modes = [];
   if (this.bike()) modes.push('BICYCLE');
+  if (this.bikeShare()) modes.push('BICYCLE_RENT');
   if (this.bus()) modes.push('BUS');
   if (this.train()) modes.push('TRAINISH');
   if (this.walk()) modes.push('WALK');
@@ -269,11 +272,13 @@ Plan.prototype.modesCSV = function() {
 
 Plan.prototype.setModes = function(csv) {
   if (!csv || csv.length < 1) return;
+  var modes = csv.split ? csv.split(',') : csv;
 
-  this.bike(csv.indexOf('BICYCLE') !== -1);
-  this.bus(csv.indexOf('BUS') !== -1);
-  this.train(csv.indexOf('TRAINISH') !== -1);
-  this.car(csv.indexOf('CAR') !== -1);
+  this.bike(modes.indexOf('BICYCLE') !== -1);
+  this.bikeShare(modes.indexOf('BICYCLE_RENT') !== -1);
+  this.bus(modes.indexOf('BUS') !== -1);
+  this.train(modes.indexOf('TRAINISH') !== -1);
+  this.car(modes.indexOf('CAR') !== -1);
 };
 
 /**
@@ -293,6 +298,11 @@ Plan.prototype.generateQuery = function() {
   if (this.bike()) {
     accessModes.push('BICYCLE');
     directModes.push('BICYCLE');
+  }
+  if (this.bikeShare()) {
+    accessModes.push('BICYCLE_RENT');
+    directModes.push('BICYCLE_RENT');
+    egressModes.push('BICYCLE_RENT');
   }
   if (this.bus()) transitModes.push('BUS');
   if (this.car()) accessModes.push('CAR');

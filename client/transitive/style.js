@@ -24,10 +24,14 @@ exports.segments = {
         return '#ef3026';
       case 'TRANSIT':
         var route = segment.patterns[0].route;
-        var id = route.route_id.split(':');
-        var agency = id[0].toLowerCase();
-        var line = id[1].toLowerCase();
-        return convert.routeToColor(segment.type, agency, line, route.route_color);
+        if (route.route_id) {
+          var id = route.route_id.split(':');
+          var agency = id[0].toLowerCase();
+          var line = id[1].toLowerCase();
+          return convert.routeToColor(segment.type, agency, line, route.route_color);
+        } else {
+          console.log(route);
+        }
     }
   },
 
