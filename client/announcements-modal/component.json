@@ -1,0 +1,16 @@
+{
+  "name": "announcements-modal",
+  "local": [
+    "modal",
+    "session"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}
