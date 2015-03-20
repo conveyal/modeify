@@ -43,7 +43,7 @@ function duplicateInstance(instance, callback) {
     AvailabilityZone: instance.AvailabilityZone,
     InstanceType: instance.InstanceType,
     LayerIds: instance.LayerIds.slice(),
-    Os: instance.OS,
+    Os: instance.ReportedOs,
     RootDeviceType: instance.RootDeviceType,
     StackId: instance.StackId
   };
