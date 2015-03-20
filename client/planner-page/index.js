@@ -45,9 +45,6 @@ module.exports = function(ctx, next) {
   var plan = ctx.plan;
   var query = querystring.parse(window.location.search);
 
-  // Set plan to loading
-  plan.loading(true);
-
   // Set up the views
   var views = {
     'filter-view': new FilterView(plan),
@@ -58,6 +55,9 @@ module.exports = function(ctx, next) {
 
   ctx.view = new View(views);
   ctx.view.on('rendered', function() {
+    // Set plan to loading
+    plan.loading(true);
+
     for (var key in views) {
       views[key].emit('rendered', views[key]);
     }

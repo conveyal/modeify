@@ -10,6 +10,7 @@
     "analytics",
     "commuter",
     "commuter-login",
+    "commuter-profile",
     "change-password-page",
     "forgot-password-page",
     "modal",

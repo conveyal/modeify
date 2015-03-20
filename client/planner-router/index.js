@@ -1,5 +1,6 @@
 var analytics = require('analytics');
 var Commuter = require('commuter');
+var CommuterProfile = require('commuter-profile');
 var page = require('page');
 var Plan = require('plan');
 var Modal = require('modal');
@@ -21,6 +22,14 @@ page('/confirm-email/:key', Commuter.confirmEmail, utils.redirect('/login'));
 
 page('/planner', session.commuterIsLoggedIn, Plan.load, require('planner-page'));
 page('/planner/:link', session.loginWithLink, utils.redirect('/planner'));
+
+page('/profile', session.commuterIsLoggedIn, Plan.load, require('planner-page'), function(ctx, next) {
+  ctx.modal = new CommuterProfile({
+    commuter: session.commuter(),
+    plan: session.plan()
+  });
+  next();
+});
 
 page('/style-guide', require('style-guide'));
 
