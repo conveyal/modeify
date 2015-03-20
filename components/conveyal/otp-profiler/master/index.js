@@ -95,13 +95,17 @@ Profiler.prototype.journey = function(opts, callback) {
  */
 
 Profiler.prototype.convertOtpData = function(opts) {
-  var data = {
+  var self = this;
+  self.data = {
     journeys: [],
     patterns: [],
     places: [],
     routes: [],
-    stops: []
+    stops: [],
+    streetEdges: []
   };
+
+  self.streetEdgeMap = {};
 
   var routeIds = [];
   var stopIds = [];
@@ -122,7 +126,7 @@ Profiler.prototype.convertOtpData = function(opts) {
     each(pattern.stops, function(stop) {
       var stopId = getStopId(stop);
       if (stopIds.indexOf(stopId) === -1) {
-        data.stops.push({
+        self.data.stops.push({
           stop_id: stopId,
           stop_name: stop.name,
           stop_lat: stop.lat,
@@ -136,7 +140,7 @@ Profiler.prototype.convertOtpData = function(opts) {
   // Collect routes
   each(opts.routes, function(route) {
     if (routeIds.indexOf(route.id) !== -1) {
-      data.routes.push({
+      self.data.routes.push({
         agency_id: route.agency,
         route_id: route.id,
         route_short_name: route.shortName,
@@ -163,13 +167,13 @@ Profiler.prototype.convertOtpData = function(opts) {
       });
     });
 
-    data.patterns.push(obj);
+    self.data.patterns.push(obj);
   });
 
   // Collect places
   // TODO: Remove this
   if (opts.from) {
-    data.places.push({
+    self.data.places.push({
       place_id: 'from',
       place_name: opts.from.name,
       place_lat: opts.from.lat,
@@ -178,7 +182,7 @@ Profiler.prototype.convertOtpData = function(opts) {
   }
 
   if (opts.to) {
-    data.places.push({
+    self.data.places.push({
       place_id: 'to',
       place_name: opts.to.name,
       place_lat: opts.to.lat,
@@ -195,8 +199,8 @@ Profiler.prototype.convertOtpData = function(opts) {
       // create separate journey for each non-transit mode contained in this option
       each(option.access, function(leg) {
         var mode = leg.mode.toUpperCase();
-        if(mode === 'WALK' || mode === 'BICYCLE' || mode === 'CAR') {
-          data.journeys.push(processNonTransitOption(leg, optionIndex));
+        if(mode === 'WALK' || mode === 'BICYCLE' || mode === 'CAR' || mode === 'BICYCLE_RENT') {
+          self.data.journeys.push(self.processNonTransitOption(leg, optionIndex));
         }
       });
       return;
@@ -217,21 +221,17 @@ Profiler.prototype.convertOtpData = function(opts) {
       var firstPattern = option.transit[0].segmentPatterns[0];
       var boardStop = getPattern(firstPattern.patternId).stops[firstPattern.fromIndex];
 
-      var accessSegment = {
-        type: bestAccess.mode,
-        from: {
-          type: 'PLACE',
-          place_id: 'from'
-        },
-        to: {
-          type: 'STOP',
-          stop_id: getStopId(boardStop),
-        },
-        turnPoints : getTurnPoints(bestAccess.walkSteps)
+      var accessFrom = {
+        type: 'PLACE',
+        place_id: 'from'
       };
-      if(bestAccess.geometry) accessSegment.geometry = bestAccess.geometry;
+      var accessTo = {
+        type: 'STOP',
+        stop_id: getStopId(boardStop),
+      };
 
-      journey.segments.push(accessSegment);
+      var accessSegments = self.processAccessEgress(bestAccess, accessFrom, accessTo);
+      journey.segments = journey.segments.concat(accessSegments);
     }
 
     each(option.transit, function(segment, segmentIndex) {
@@ -299,31 +299,54 @@ Profiler.prototype.convertOtpData = function(opts) {
       var lastPattern = option.transit[option.transit.length - 1].segmentPatterns[0];
       var alightStop = getPattern(lastPattern.patternId).stops[lastPattern.toIndex];
 
-      var egressSegment = {
-        type: bestEgress.mode,
-        from: {
-          type: 'STOP',
-          stop_id: getStopId(alightStop)
-        },
-        to: {
-          type: 'PLACE',
-          place_id: 'to'
-        },
-        turnPoints : getTurnPoints(bestEgress.walkSteps)
+      var egressFrom ={
+        type: 'STOP',
+        stop_id: getStopId(alightStop)
       };
-      if(bestEgress.geometry) egressSegment.geometry = bestEgress.geometry;
+      var egressTo = {
+        type: 'PLACE',
+        place_id: 'to'
+      };
 
-      journey.segments.push(egressSegment);
+      var egressSegments = self.processAccessEgress(bestEgress, egressFrom, egressTo);
+      journey.segments = journey.segments.concat(egressSegments);
     }
 
     // Add the journey
-    data.journeys.push(journey);
+    self.data.journeys.push(journey);
   });
 
-  return data;
+  // populate the street edge array from the map
+  each(self.streetEdgeMap, function(edgeId) {
+    var edge = self.streetEdgeMap[edgeId];
+    self.data.streetEdges.push({
+      edge_id: edgeId,
+      geometry: edge.geometry
+    });
+  });
+
+  return self.data;
 };
 
-function processNonTransitOption(option, optionIndex) {
+Profiler.prototype.processAccessEgress = function(leg, from, to) {
+
+  if(leg.mode === "BICYCLE_RENT") {
+    return this.processBikeRentalSegment(leg.streetEdges, from, to);
+  }
+  else {
+    /*var segment = {
+      type: leg.mode.toUpperCase(),
+      from: from,
+      to: to,
+      turnPoints : getTurnPoints(leg.walkSteps)
+    };
+    if(leg.geometry) segment.geometry = leg.geometry;*/
+    var journeySegment = this.constructJourneySegment(leg.mode, from, to, leg.streetEdges);
+    return [journeySegment];
+  }
+};
+
+Profiler.prototype.processNonTransitOption = function(option, optionIndex) {
   var journeyId = optionIndex + '_' + option.mode.toLowerCase();
   var journey = {
     journey_id: journeyId,
@@ -331,23 +354,118 @@ function processNonTransitOption(option, optionIndex) {
     segments: []
   };
 
-  var journeySegment = {
-    type: option.mode.toUpperCase(),
-    from: {
-      type: 'PLACE',
-      place_id: 'from'
-    },
-    to: {
-      type: 'PLACE',
-      place_id: 'to',
-    },
-    turnPoints : getTurnPoints(option.walkSteps)
-  };
-  if(option.geometry) journeySegment.geometry = option.geometry;
+  var fromPlace = constructPlaceEndpoint('from');
+  var toPlace = constructPlaceEndpoint('to');
 
-  journey.segments.push(journeySegment);
+  if(option.mode === "BICYCLE_RENT") {
+    var segments = this.processBikeRentalSegment(option.streetEdges, fromPlace, toPlace);
+    journey.segments = journey.segments.concat(segments);
+  }
+  else {
+    /*var journeySegment = {
+      type: option.mode.toUpperCase(),
+      from: fromPlace,
+      to: toPlace,
+      turnPoints : getTurnPoints(option.walkSteps)
+    };
+    if(option.geometry) journeySegment.geometry = option.geometry;*/
+    var journeySegment = this.constructJourneySegment(option.mode, fromPlace, toPlace, option.streetEdges);
+    journey.segments.push(journeySegment);
+  }
 
   return journey;
+};
+
+Profiler.prototype.processBikeRentalSegment = function(edges, from, to) {
+  var self = this;
+
+  var preWalkEdges = [], bikeRentalEdges = [], postWalkEdges = [];
+  var currentLeg = preWalkEdges;
+  var onStationEndpoint, offStationEndpoint;
+  each(edges, function(edge) {
+    if(edge.bikeRentalOnStation) {
+      currentLeg = bikeRentalEdges;
+      var onStation = self.addBikeRentalStation(edge.bikeRentalOnStation);
+      onStationEndpoint = constructPlaceEndpoint(onStation.place_id);
+    }
+    currentLeg.push(edge);
+    if(edge.bikeRentalOffStation) {
+      currentLeg = postWalkEdges;
+      var offStation = self.addBikeRentalStation(edge.bikeRentalOffStation);
+      offStationEndpoint = constructPlaceEndpoint(offStation.place_id);
+    }
+  });
+
+  var journeySegments = [];
+
+  // add the walk leg to the "on" station, if applicable
+  if(preWalkEdges.length > 0 ) {
+    if(!onStationEndpoint) {
+      return [self.constructJourneySegment('WALK', from, to, preWalkEdges)];
+    }
+    journeySegments.push(self.constructJourneySegment('WALK', from, onStationEndpoint, preWalkEdges));
+  }
+
+  // add the main bike leg
+  if(bikeRentalEdges.length > 0 && onStationEndpoint && offStationEndpoint) {
+    journeySegments.push(self.constructJourneySegment('BICYCLE', onStationEndpoint, offStationEndpoint, bikeRentalEdges));
+  }
+
+  // add the walk leg from the "off" station, if applicable
+  if(postWalkEdges && offStationEndpoint) {
+    journeySegments.push(self.constructJourneySegment('WALK', offStationEndpoint, to, postWalkEdges));
+  }
+
+  return journeySegments;
+};
+
+Profiler.prototype.addBikeRentalStation = function(station) {
+  var placeId = 'bicycle_rent_station_' + station.id;
+
+  // check if the station already exists
+  var existing = null;
+  each(this.data.places, function(place) {
+    if(place.place_id === placeId) existing = place;
+  });
+
+  if(existing) return existing;
+
+  var place = {
+    place_id: placeId,
+    place_name: "Bikeshare Station " + station.id + " (" + station.name + ")",
+    place_lat: station.lat,
+    place_lon: station.lon
+  };
+  this.data.places.push(place);
+
+  return place;
+};
+
+Profiler.prototype.constructJourneySegment = function(mode, from, to, edges) {
+  var self = this;
+
+  var journeySegment = {
+    type: mode.toUpperCase(),
+    from: from,
+    to: to,
+    streetEdges: []
+  };
+
+  each(edges, function(edge) {
+    if(!(edge.edgeId in self.streetEdgeMap)) {
+      self.streetEdgeMap[edge.edgeId] = edge;
+    }
+    journeySegment.streetEdges.push(edge.edgeId);
+  });
+
+  return journeySegment;
+};
+
+function constructPlaceEndpoint(id) {
+  return {
+    type: 'PLACE',
+    place_id: id
+  };
 }
 
 function getTurnPoints(walkSteps) {

@@ -51,6 +51,7 @@
   vertical-align: top;
 	color: var(--light-blue);
   font-size: 20px;
+  padding-right: 5px;
 }
 
 .SidePanel .title .fa:hover,

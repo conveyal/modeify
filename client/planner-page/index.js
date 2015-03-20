@@ -191,8 +191,7 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
         transitive.updateData(journey);
         map.fitBounds(transitiveLayer.getBounds());
       } catch (e) {
-        log('failed to update transitive: %e', e);
-        return;
+        console.error(e);
       }
     }
   });

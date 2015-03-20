@@ -29,8 +29,6 @@ exports.segments = {
           var agency = id[0].toLowerCase();
           var line = id[1].toLowerCase();
           return convert.routeToColor(segment.type, agency, line, route.route_color);
-        } else {
-          console.log(route);
         }
     }
   },
