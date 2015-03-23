@@ -1,5 +1,4 @@
 var analytics = require('analytics');
-var showAnnouncements = require('announcements');
 var config = require('config');
 var introJs = require('intro.js').introJs;
 var log = require('./client/log')('welcome-flow');
@@ -53,7 +52,8 @@ module.exports = function(session) {
           commuter.updateProfile('welcome_wizard_complete', true);
           commuter.save();
 
-          showAnnouncements();
+          routeModal.hide();
+          highlightResults();
         });
       });
 

@@ -6,7 +6,6 @@
   "locals": [
     "alert",
     "analytics",
-    "announcements",
     "config",
     "locations-view",
     "log",
