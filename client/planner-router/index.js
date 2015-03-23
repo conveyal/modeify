@@ -20,7 +20,7 @@ page('/forgot-password', require('forgot-password-page'));
 page('/change-password/:key', require('change-password-page'));
 page('/confirm-email/:key', Commuter.confirmEmail, utils.redirect('/login'));
 
-page('/planner', session.commuterIsLoggedIn, Plan.load, require('planner-page'));
+page('/planner', session.commuterIsLoggedIn, Plan.load, require('planner-page'), require('announcements'));
 page('/planner/:link', session.loginWithLink, utils.redirect('/planner'));
 
 page('/profile', session.commuterIsLoggedIn, Plan.load, require('planner-page'), function(ctx, next) {
@@ -33,17 +33,17 @@ page('/profile', session.commuterIsLoggedIn, Plan.load, require('planner-page'),
 
 page('/style-guide', require('style-guide'));
 
-page('/t/:code', function(ctx, next) {
-  session.loginAnonymously(function(err) {
-    analytics.track('Referred User', {
-      code: ctx.code
-    });
-    next(err);
+page('/t/:code', loginAnonymously, function(ctx, next) {
+  analytics.track('Referred User', {
+    code: ctx.code
   });
+  next();
 }, utils.redirect('/planner'));
 
-page('/welcome', function(ctx, next) {
-  session.loginAnonymously(next);
-}, utils.redirect('/planner'));
+page('/welcome', loginAnonymously, utils.redirect('/planner'));
 
 page('*', utils.render);
+
+function loginAnonymously(ctx, next) {
+  session.loginAnonymously(next);
+}

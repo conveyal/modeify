@@ -22,7 +22,7 @@ var events = ['showing', 'show', 'hiding', 'hide'];
 
 module.exports = function(opts, fn) {
   if (opts.closable) opts.template = require('./closable.html') + opts.template;
-  opts.template = '<div class="content">' + opts.template + '</div>';
+  if (!opts.noPadding) opts.template = '<div class="content">' + opts.template + '</div>';
 
   // Wrap with a logo nav
   if (opts.logo) opts.template = '<div>' + require('./logo.html') + opts.template + '</div>';
@@ -50,6 +50,7 @@ module.exports = function(opts, fn) {
       });
     });
 
+    if (opts.height) modal.el.style.minHeight = opts.height;
     if (opts.width) modal.el.style.maxWidth = opts.width;
     if (opts.closable) modal.closable();
 

@@ -1,6 +1,10 @@
 {
-  "name": "announcements-modal",
+  "name": "announcements",
+  "dependencies": {
+    "component/raf": "*"
+  },
   "local": [
+    "log",
     "modal",
     "session"
   ],

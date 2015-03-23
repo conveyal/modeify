@@ -1,4 +1,5 @@
 var analytics = require('analytics');
+var showAnnouncements = require('announcements');
 var config = require('config');
 var introJs = require('intro.js').introJs;
 var log = require('./client/log')('welcome-flow');
@@ -49,19 +50,16 @@ module.exports = function(session) {
         routeModal.on('next', function() {
           analytics.track('Completed Welcome Wizard');
 
-          commuter.updateProfile('commuter_activated', true);
           commuter.updateProfile('welcome_wizard_complete', true);
           commuter.save();
 
-          routeModal.hide();
-          highlightResults();
+          showAnnouncements();
         });
       });
 
     });
 
     locations.on('skip', function() {
-      commuter.updateProfile('commuter_activated', false);
       commuter.updateProfile('welcome_wizard_complete', true);
       commuter.save();
 
