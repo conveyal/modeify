@@ -19,6 +19,7 @@
     "localstorage-supported",
     "location",
     "log",
+    "messages",
     "journey",
     "otp",
     "route",

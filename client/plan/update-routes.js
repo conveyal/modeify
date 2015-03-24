@@ -2,6 +2,7 @@ var analytics = require('analytics');
 var convert = require('convert');
 var formatProfile = require('format-otp-profile');
 var log = require('./client/log')('plan:update-routes');
+var messages = require('messages');
 var otp = require('otp');
 var Route = require('route');
 var session = require('session');
@@ -47,7 +48,7 @@ function updateRoutes(plan, opts, callback) {
         places: plan.generatePlaces()
       }
     });
-    return done('Invalid coordinates.');
+    return done(messages('plan.update-routes.invalid-coordinates'));
   }
 
   // For event handlers
