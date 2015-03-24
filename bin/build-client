@@ -16,9 +16,12 @@ var zlib = require('zlib');
 var env = process.argv[2] || process.env.NODE_ENV || 'development';
 var development = env === 'development';
 
+var rootDir = __dirname + '/..';
+var deploymentDir = rootDir + '/deployment';
+
 // Convert the YAML config
 
-var config = yml2js(fs.readFileSync(__dirname + '/../deployment/config.yaml', 'utf8'));
+var config = yml2js(fs.readFileSync(deploymentDir + '/config.yaml', 'utf8'));
 
 // Set the rest of the public config.
 
@@ -28,11 +31,14 @@ for (var key in config.environments[env])
 
 delete config.environments;
 
-var aboutPage = marked(fs.readFileSync(__dirname + '/../deployment/about.md', 'utf8'));
-var termsPage = marked(fs.readFileSync(__dirname + '/../deployment/terms.md', 'utf8'));
-var messages = yml2js(fs.readFileSync(__dirname + '/../deployment/messages.yaml', 'utf8'));
+var aboutPage = marked(fs.readFileSync(deploymentDir + '/about.md', 'utf8'));
+var termsPage = marked(fs.readFileSync(deploymentDir + '/terms.md', 'utf8'));
 
-// Build all
+// Generate message files
+
+generateMessageFiles(rootDir + '/messages', rootDir + '/assets/build/messages');
+
+// Build apps
 
 ['manager-app', 'planner-app'].forEach(bundle);
 
@@ -48,11 +54,11 @@ var htmlMinifierOptions = {
 // Build.
 
 function bundle(app) {
-  var dest = 'assets/build/' + app;
+  var destDir = rootDir + '/assets/build/' + app;
 
   // mkdirp
 
-  mkdir.sync(__dirname + '/../' + dest);
+  mkdir.sync(destDir);
 
   // Builder.
 
@@ -67,8 +73,8 @@ function bundle(app) {
     dependencies: true,
     development: development,
     install: true,
-    out: __dirname + '/../components',
-    root: __dirname + '/..',
+    out: rootDir + '/components',
+    root: rootDir,
     verbose: true
   }, function(err, tree) {
     if (err) throw err;
@@ -90,7 +96,6 @@ function bundle(app) {
         // Add global vars first
         var globalVars = {
           config: config,
-          messages: messages,
           templates: {
             about: htmlMinifier(aboutPage, htmlMinifierOptions),
             terms: htmlMinifier(termsPage, htmlMinifierOptions)
@@ -105,7 +110,7 @@ function bundle(app) {
           js = zlib.gzipSync(js);
         }
 
-        fs.writeFileSync(path.resolve(__dirname + '/../' + dest, 'build.js'), js);
+        fs.writeFileSync(path.resolve(destDir, 'build.js'), js);
       });
 
     build
@@ -121,7 +126,7 @@ function bundle(app) {
           css = zlib.gzipSync(css);
         }
 
-        fs.writeFileSync(path.resolve(__dirname + '/../' + dest, 'build.css'), css);
+        fs.writeFileSync(path.resolve(destDir, 'build.css'), css);
       });
   });
 }
@@ -147,4 +152,26 @@ function templates(options) {
       done();
     });
   };
+}
+
+function generateMessageFiles(messagesPath, destinationPath) {
+  mkdir.sync(destinationPath);
+  fs.readdir(messagesPath, function(err, files) {
+    if (err) throw err;
+    files.forEach(function(filename) {
+      var lang = filename.split('.')[0];
+      fs.readFile(messagesPath + '/' + filename, {
+        encoding: 'utf8'
+      }, function(err, yml) {
+        if (err) throw err;
+        var messages = yml2js(yml);
+        var data = 'window.MESSAGES=' + JSON.stringify(messages) + ';';
+        fs.writeFileSync(destinationPath + '/' + lang + '.js', data, {
+          encoding: 'utf8'
+        }, function(err) {
+          if (err) throw err;
+        });
+      });
+    });
+  });
 }
