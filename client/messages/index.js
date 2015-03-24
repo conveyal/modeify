@@ -1,31 +1,44 @@
 var fmt = require('fmt');
 
-var Messages = {};
-
-module.exports = message;
-module.exports.set = set;
-
-set(window.MESSAGES);
+var DEFAULT_MESSAGES = window.MESSAGES;
 
 /**
- * A simple client side messaging module that utilizes [yields/fmt](https://github.com/yields/fmt).
+ * A simple client side messaging module that utilizes [yields/fmt](https://github.com/yields/fmt). Similar to [visionmedia/debug](https://github.com/visionmedia/debug), generates a function based on the passed in namespace.
  *
  * @module messages
- * @param {String} path The `.` path of the message corresponding it's place in the object hierarchy.
- * @param {...Mixed} data Values to be passed into `fmt` in order.
- * @returns {String} message
+ * @param {String} namespace - The namespace to use for the message function.
+ * @param {Object} [messages=window.MESSAGES] - The messages to use.
+ * @returns {Function} message
  * @example
- * var messages = require('messages')
- * console.log(messages('path.to.message', 'Parameter 1', 4, 5.0));
+ * var messages = require('messages')('namespace');
  */
 
-function message(path) {
-  var value = find(Messages, path.split('.'));
-  if (arguments.length > 1) {
-    value = fmt.apply(null, [value].concat([].slice.call(arguments)));
+module.exports = function messages(ns, msgs) {
+  msgs = msgs || DEFAULT_MESSAGES;
+  ns = ns.split(':');
+
+  /**
+   * Pass in the path
+   *
+   * @module messages
+   * @param {String} path - The path of the message corresponding it's place in the object hierarchy.
+   * @param {...*} data - Values to be passed into `fmt` in order.
+   * @returns {String} message
+   * @example
+   * var messages = require('messages')('namespace');
+   * console.log(messages('path:to:message', 'Parameter 1', 4, 5.0));
+   */
+
+  function message(path) {
+    var value = find(msgs, ns.concat(path.split(':')));
+    if (arguments.length > 1) {
+      value = fmt.apply(null, [value].concat([].slice.call(arguments)));
+    }
+    return value;
   }
-  return value;
-}
+
+  return message;
+};
 
 function find(messages, path) {
   if (path.length > 1) {
@@ -33,19 +46,4 @@ function find(messages, path) {
   } else {
     return messages[path.shift()];
   }
-}
-
-/**
- * Set the `messages` object. Defaults to `window.MESSAGES`.
- *
- * @module messages
- * @param {Object} messages object you want to set it to
- * @example
- * var messages = require('messages');
- * messages.set({ test: 'Test message %d' });
- * console.log(messages('test', '1'));
- */
-
-function set(messages) {
-  Messages = messages;
 }
