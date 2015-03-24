@@ -133,11 +133,32 @@ exports.segments_halo = {
 
 // start/end icons and eventually points of interest//
 
+function getIconSize(data) {
+
+  // bikeshare icon width/height:
+  if (isBikeshareStation(data.owner)) return 20;
+
+  // all other icons:
+  return 30;
+}
+
 exports.places_icon = {
-  x: -15,
-  y: -15,
-  width: 30,
-  height: 30,
+
+  // center the icon by offsetting by half the width/height
+  x: function(display, data) {
+    return -getIconSize(data)/2;
+  },
+  y: function(display, data) {
+    return -getIconSize(data)/2;
+  },
+
+  width: function(display, data) {
+    return getIconSize(data);
+  },
+  height: function(display, data) {
+    return getIconSize(data);
+  },
+
   'xlink:href': function(display, data) {
     if (isBikeshareStation(data.owner)) return config.static_url() + '/images/graphics/cabi.svg';
     if (data.owner.getId() === 'from') return config.static_url() + '/images/graphics/start.svg';
