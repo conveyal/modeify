@@ -2,8 +2,42 @@ var config = require('config');
 var convert = require('convert');
 var parse = require('color-parser');
 
+function isBikeshareStation(place) {
+  return place.place_id.lastIndexOf('bicycle_rent_station') !== -1;
+}
+
 exports.places = {
-  fill: 'none'
+  fill: function(display, data) {
+    var place = data.owner;
+    if(isBikeshareStation(place)) {
+      return '#f00';
+    }
+    else {
+      return 'none';
+    }
+  },
+
+  stroke: function(display, data) {
+    var place = data.owner;
+    if(isBikeshareStation(place)) {
+      return '#fff';
+    }
+  },
+
+  'stroke-width': function(display, data) {
+    var place = data.owner;
+    if(isBikeshareStation(place)) {
+      return '2px';
+    }
+  },
+
+  r: function(display, data) {
+    var place = data.owner;
+    if(isBikeshareStation(place)) {
+      return '6px';
+    }
+  }
+
 };
 
 exports.segment_labels = {
