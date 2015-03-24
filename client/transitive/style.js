@@ -10,7 +10,7 @@ exports.places = {
   fill: function(display, data) {
     var place = data.owner;
     if(isBikeshareStation(place)) {
-      return '#f00';
+      return '#ef3026'; 
     }
     else {
       return 'none';
@@ -20,7 +20,7 @@ exports.places = {
   stroke: function(display, data) {
     var place = data.owner;
     if(isBikeshareStation(place)) {
-      return '#fff';
+      return '#ffcb00';
     }
   },
 
@@ -34,7 +34,7 @@ exports.places = {
   r: function(display, data) {
     var place = data.owner;
     if(isBikeshareStation(place)) {
-      return '6px';
+      return '18px';
     }
   }
 
@@ -139,6 +139,7 @@ exports.places_icon = {
   width: 30,
   height: 30,
   'xlink:href': function(display, data) {
+    if (isBikeshareStation(data.owner)) return config.static_url() + '/images/graphics/cabi.svg';
     if (data.owner.getId() === 'from') return config.static_url() + '/images/graphics/start.svg';
     if (data.owner.getId() === 'to') return config.static_url() + '/images/graphics/end.svg';
   },
