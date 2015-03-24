@@ -358,9 +358,9 @@ NetworkGraph.prototype.mergeEdges = function(edge1, edge2) {
     segment.insertEdgeAt(i, newEdge, newEdge.fromVertex);
   });
 
-  console.log('merging:');
-  console.log(edge1);
-  console.log(edge2);
+  debug('merging:');
+  debug(edge1);
+  debug(edge2);
   this.removeEdge(edge1);
   this.removeEdge(edge2);
 };
@@ -501,7 +501,7 @@ NetworkGraph.prototype.apply2DOffsets = function() {
       return a.route.route_type > b.route.route_type ? 1 : -1;
     }
 
-    var isForward = (a.forward &&  b.forward) ? 1 : -1;
+    var isForward = (a.forward && b.forward) ? 1 : -1;
     return isForward * isOutward * (aId < bId ? -1 : 1);
   }).bind(this);
 
@@ -651,9 +651,9 @@ function getOutVector(edge, vertex) {
     return v;
   }
 
-  console.log('Warning: getOutVector() called on invalid edge / vertex pair');
-  console.log(' - Edge: ' + edge.toString());
-  console.log(' - Vertex: ' + vertex.toString());
+  debug('Warning: getOutVector() called on invalid edge / vertex pair');
+  debug(' - Edge: ' + edge.toString());
+  debug(' - Vertex: ' + vertex.toString());
 }
 
 /**

@@ -102,12 +102,12 @@ EdgeGroup.prototype.isNonTransitPath = function() {
 
 EdgeGroup.prototype.getTurnPoints = function(maxAngle) {
   var points = [];
-  maxAngle = maxAngle || .75 * Math.PI;
+  maxAngle = maxAngle || 0.75 * Math.PI;
   each(this.commonPoints, function(point) {
-    if(point.getType() !== 'TURN') return;
-    if(Math.abs(point.turnAngle) < maxAngle) {
+    if (point.getType() !== 'TURN') return;
+    if (Math.abs(point.turnAngle) < maxAngle) {
       points.push(point);
     }
   });
   return points;
-}
+};

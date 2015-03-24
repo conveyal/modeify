@@ -48,7 +48,6 @@ exports.utils = {
   }
 };
 
-
 /**
  * Default Wireframe Edge/Vertex Rules
  */
@@ -66,7 +65,6 @@ exports.wireframe_edges = {
   'stroke-dasharray': '3px 2px',
   fill: 'none'
 };
-
 
 /**
  * Default Merged Stops Rules
