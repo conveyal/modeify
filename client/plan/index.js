@@ -6,6 +6,7 @@ var Location = require('location');
 var log = require('./client/log')('plan');
 var defaults = require('model-defaults');
 var model = require('model');
+var ProfileScorer = require('otp-profile-score');
 var qs = require('querystring');
 
 var loadPlan = require('./load');
@@ -35,6 +36,7 @@ var Plan = module.exports = model('Plan')
     from_valid: false,
     loading: true,
     options: [],
+    scorer: new ProfileScorer(),
     start_time: 7,
     to: '',
     to_valid: false,
