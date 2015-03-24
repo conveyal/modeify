@@ -62,7 +62,7 @@ View.prototype.keydownInput = function(e) {
   // Currently highlighted suggestion
   var highlightedSuggestion = this.find('.suggestion.highlight');
 
-  switch(key) {
+  switch (key) {
     case 13: // enter key
       e.preventDefault();
       this.blurInput(e);
