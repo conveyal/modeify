@@ -34,7 +34,7 @@ exports.places = {
   r: function(display, data) {
     var place = data.owner;
     if(isBikeshareStation(place)) {
-      return '18px';
+      return '10px';
     }
   }
 
@@ -136,7 +136,7 @@ exports.segments_halo = {
 function getIconSize(data) {
 
   // bikeshare icon width/height:
-  if (isBikeshareStation(data.owner)) return 20;
+  if (isBikeshareStation(data.owner)) return 15;
 
   // all other icons:
   return 30;
