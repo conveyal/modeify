@@ -10,7 +10,7 @@ var session = require('session');
 page('*', function(ctx, next) {
   Modal.hide(); // clear all modals
   next();
-})
+});
 
 page('/', utils.redirect('/planner'));
 
