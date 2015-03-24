@@ -4,6 +4,7 @@
     "component/raf": "*"
   },
   "local": [
+    "config",
     "log",
     "modal",
     "session"
