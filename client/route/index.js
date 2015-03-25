@@ -134,7 +134,7 @@ Route.prototype.directBikeOrWalk = function() {
  */
 
 Route.prototype.average = function() {
-  if (this.hasTransit() || this.modes().indexOf('car') === -1) {
+  if (this.hasTransit() || !this.hasCar()) {
     return Math.round(this.time() / 60);
   } else {
     return Math.round(this.time() / 60 * 1.35);
@@ -146,7 +146,7 @@ Route.prototype.average = function() {
  */
 
 Route.prototype.freeflowTime = function() {
-  if (this.hasTransit() || this.modes().indexOf('car') === -1) {
+  if (this.hasTransit() || !this.hasCar()) {
     return false;
   } else {
     return Math.round(this.time() / 60);
@@ -184,7 +184,7 @@ Route.prototype.hasTransit = function() {
 };
 
 Route.prototype.hasBiking = function() {
-  return this.modes().indexOf('bicycle') !== -1;
+  return this.modes().indexOf('bicycle') !== -1 || this.modes().indexOf('bicycle_rent') !== -1;
 };
 
 Route.prototype.hasWalking = function() {
@@ -220,7 +220,7 @@ Route.prototype.calculatedCost = function() {
   if (this.transitCost()) {
     cost += this.transitCost();
   }
-  if (this.modes().indexOf('car') !== -1) {
+  if (this.hasCar()) {
     cost += this.vmtRate() * this.driveDistances();
     cost += this.carParkingCost();
   }
@@ -253,7 +253,7 @@ Route.prototype.totalCalories = function() {
   if (this.walkDistances() === 0 && this.bikeDistances() === 0) return 0;
 
   var cals = walkingCaloriesBurned(this.walkSpeed(), this.weight(), this.walkDistance() / this.walkSpeed() / 60 / 60);
-  if (this.modes().indexOf('bicycle') !== -1) {
+  if (this.hasBiking()) {
     cals += bikingCaloriesBurned(this.bikeSpeed(), this.weight(), this.bikeDistance() / this.bikeSpeed() / 60 / 60);
   }
 
@@ -286,7 +286,7 @@ Route.prototype.driveDistances = function() {
 };
 
 Route.prototype.bikeDistances = function() {
-  return this.distances('bicycle', 'bikeDistance');
+  return this.distances('bicycle', 'bikeDistance') || this.distances('bicycle_rent', 'bikeDistance');
 };
 
 Route.prototype.walkDistances = function() {
@@ -435,6 +435,8 @@ Route.prototype.tags = function(plan) {
 
   // add the access mode tags
   each(this.get('access'), function(accessLeg) {
+    if (accessLeg.mode === 'bicycle_rent')
+      tags.push('bicycle');
     tags.push(accessLeg.mode);
   });
 
