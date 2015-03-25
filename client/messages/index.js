@@ -7,7 +7,6 @@ module.exports = messages;
 /**
  * Sprintf style client side message management that utilizes [yields/fmt](https://github.com/yields/fmt). Similar to [visionmedia/debug](https://github.com/visionmedia/debug), generates a function based on the passed in namespace.
  *
- * @module messages
  * @param {String} namespace The namespace to use for the message function.
  * @param {Object} [messages=window.MESSAGES] The messages to use.
  * @returns {Function} message
@@ -22,7 +21,6 @@ function messages(ns, msgs) {
   /**
    * Pass in the path
    *
-   * @module message
    * @param {String} path The path of the message corresponding it's place in the object hierarchy.
    * @param {...Mixed} data Values to be passed into `fmt` in order.
    * @returns {String} message
