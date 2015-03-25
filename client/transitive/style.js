@@ -16,31 +16,30 @@ exports.places = {
 
   fill: function(display, data) {
     var place = data.owner;
-    if(isBikeshareStation(place)) {
+    if (isBikeshareStation(place)) {
       return '#ef3026';
-    }
-    else {
+    } else {
       return 'none';
     }
   },
 
   stroke: function(display, data) {
     var place = data.owner;
-    if(isBikeshareStation(place)) {
+    if (isBikeshareStation(place)) {
       return '#ffcb00';
     }
   },
 
   'stroke-width': function(display, data) {
     var place = data.owner;
-    if(isBikeshareStation(place)) {
+    if (isBikeshareStation(place)) {
       return '2px';
     }
   },
 
   r: function(display, data) {
     var place = data.owner;
-    if(isBikeshareStation(place)) {
+    if (isBikeshareStation(place)) {
       return '10px';
     }
   }
@@ -153,10 +152,10 @@ exports.places_icon = {
 
   // center the icon by offsetting by half the width/height
   x: function(display, data) {
-    return -getIconSize(data)/2;
+    return -getIconSize(data) / 2;
   },
   y: function(display, data) {
-    return -getIconSize(data)/2;
+    return -getIconSize(data) / 2;
   },
 
   width: function(display, data) {
