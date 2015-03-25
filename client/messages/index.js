@@ -2,8 +2,10 @@ var fmt = require('fmt');
 
 var DEFAULT_MESSAGES = window.MESSAGES;
 
+module.exports = messages;
+
 /**
- * A simple client side messaging module that utilizes [yields/fmt](https://github.com/yields/fmt). Similar to [visionmedia/debug](https://github.com/visionmedia/debug), generates a function based on the passed in namespace.
+ * Sprintf style client side message management that utilizes [yields/fmt](https://github.com/yields/fmt). Similar to [visionmedia/debug](https://github.com/visionmedia/debug), generates a function based on the passed in namespace.
  *
  * @module messages
  * @param {String} namespace The namespace to use for the message function.
@@ -13,9 +15,9 @@ var DEFAULT_MESSAGES = window.MESSAGES;
  * var messages = require('messages')('namespace');
  */
 
-module.exports = function messages(ns, msgs) {
+function messages(ns, msgs) {
   msgs = msgs || DEFAULT_MESSAGES;
-  ns = ns.split(':');
+  ns = ns ? ns.split(':') : [];
 
   /**
    * Pass in the path
@@ -38,12 +40,12 @@ module.exports = function messages(ns, msgs) {
   }
 
   return message;
-};
+}
 
 function find(messages, path) {
-  if (path.length > 1) {
-    return find(messages[path.shift()], path);
-  } else {
-    return messages[path.shift()];
+  var value = messages[path.shift()];
+  if (path.length > 0) {
+    value = find(value, path);
   }
+  return value;
 }

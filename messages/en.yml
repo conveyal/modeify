@@ -1,3 +1,6 @@
+announcements:
+  next: Next
+
 plan:
   update-routes:
     invalid-coordinates: Invalid Coordinates.
