@@ -166,6 +166,12 @@ function generateMessageFiles(messagesPath, destinationPath) {
         if (err) throw err;
         var messages = yml2js(yml);
         var data = 'window.MESSAGES=' + JSON.stringify(messages) + ';';
+
+        if (!development) {
+          data = uglify.minify(data, { fromString: true }).code;
+          data = zlib.gzipSync(data);
+        }
+
         fs.writeFileSync(destinationPath + '/' + lang + '.js', data, {
           encoding: 'utf8'
         }, function(err) {
