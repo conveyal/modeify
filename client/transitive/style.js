@@ -61,6 +61,7 @@ exports.segments = {
       case 'WALK':
         return '#0BC8F4';
       case 'BICYCLE':
+      case 'BICYCLE_RENT':
         return '#ef3026';
       case 'TRANSIT':
         var route = segment.patterns[0].route;
@@ -78,6 +79,7 @@ exports.segments = {
     switch (segment.type) {
       case 'CAR':
       case 'BICYCLE':
+      case 'BICYCLE_RENT':
         return '3px';
       case 'WALK':
         return '5px';
@@ -93,6 +95,7 @@ exports.segments = {
   'stroke-dasharray': function(display, segment) {
     switch (segment.type) {
       case 'BICYCLE':
+      case 'BICYCLE_RENT':
       case 'CAR':
         return '9,7';
       case 'WALK':
