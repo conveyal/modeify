@@ -1,6 +1,6 @@
 var fmt = require('fmt');
 
-var DEFAULT_MESSAGES = window.MESSAGES;
+var DEFAULT_MESSAGES = window.MESSAGES || {};
 
 module.exports = messages;
 
@@ -42,7 +42,7 @@ function messages(ns, msgs) {
 
 function find(messages, path) {
   var value = messages[path.shift()];
-  if (path.length > 0) {
+  if (value && path.length > 0) {
     value = find(value, path);
   }
   return value;
