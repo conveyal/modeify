@@ -20,13 +20,13 @@ module.exports = function messages(ns, msgs) {
   /**
    * Pass in the path
    *
-   * @module messages
+   * @module message
    * @param {String} path The path of the message corresponding it's place in the object hierarchy.
    * @param {...Mixed} data Values to be passed into `fmt` in order.
    * @returns {String} message
    * @example
-   * var messages = require('messages')('namespace');
-   * console.log(messages('path:to:message', 'Parameter 1', 4, 5.0));
+   * var message = require('messages')('namespace');
+   * console.log(message('path:to:message', 'Parameter 1', 4, 5.0));
    */
 
   function message(path) {
