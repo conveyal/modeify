@@ -7,10 +7,17 @@ function isBikeshareStation(place) {
 }
 
 exports.places = {
+  display: function(d, data) {
+    var place = data.owner;
+    if (isBikeshareStation(place) && !place.focused) {
+      return 'none';
+    }
+  },
+
   fill: function(display, data) {
     var place = data.owner;
     if(isBikeshareStation(place)) {
-      return '#ef3026'; 
+      return '#ef3026';
     }
     else {
       return 'none';
@@ -160,13 +167,23 @@ exports.places_icon = {
   },
 
   'xlink:href': function(display, data) {
-    if (isBikeshareStation(data.owner)) return config.static_url() + '/images/graphics/cabi.svg';
+    if (isBikeshareStation(data.owner)) {
+      if (data.owner.focused) return config.static_url() + '/images/graphics/cabi.svg';
+      else return false;
+    }
+
     if (data.owner.getId() === 'from') return config.static_url() + '/images/graphics/start.svg';
     if (data.owner.getId() === 'to') return config.static_url() + '/images/graphics/end.svg';
   },
   cursor: 'pointer',
   stroke: 0,
-  visibility: 'visible'
+  visibility: function(d, data) {
+    if (data.owner.focused) {
+      return 'visible';
+    } else {
+      return 'hidden';
+    }
+  }
 };
 
 exports.multipoints_merged = exports.stops_merged = {
