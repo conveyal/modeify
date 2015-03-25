@@ -365,7 +365,9 @@ Route.prototype.carParkingCost = function() {
 Route.prototype.modeDescriptor = function() {
   var modeStr;
 
-  if (this.bikeDistance() > 0) {
+  if (this.modes().indexOf('bicycle_rent') !== -1) {
+    modeStr = 'bikeshare';
+  } else if (this.bikeDistance() > 0) {
     modeStr = 'bike';
   } else if (this.driveDistance() > 0) {
     modeStr = 'drive';
