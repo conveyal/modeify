@@ -1,10 +1,13 @@
 var analytics = require('analytics');
 var log = require('./client/log')('welcome-flow:welcome');
+var message = require('messages')('welcome-flow:welcome');
 var modal = require('./client/modal');
+var template = require('./template.html');
 
 var Welcome = module.exports = modal({
   logo: true,
-  template: require('./template.html')
+  message: message,
+  template: template
 });
 
 /**

@@ -19,7 +19,7 @@ var pid = __dirname + '/../server.pid';
 // Set up Nodemon
 
 nodemon({
-  ext: 'js json css html',
+  ext: 'js json css html yml',
   ignore: ['*.out', '*.pid', '*.swp'],
   script: 'server.js',
   verbose: true,
