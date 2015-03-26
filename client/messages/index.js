@@ -30,10 +30,20 @@ function messages(ns, msgs) {
    */
 
   function message(path) {
-    var value = find(msgs, ns.concat(path.split(':')));
+    if (!path) {
+      throw new Error('Message requires a path.');
+    }
+
+    var fullPath = ns.concat(path.split(':'));
+    var value = find(msgs, fullPath);
     if (arguments.length > 1) {
       value = fmt.apply(null, [value].concat([].slice.call(arguments)));
     }
+
+    if (!value) {
+      throw new Error('Message not found for ' + fullPath.join(':'));
+    }
+
     return value;
   }
 
