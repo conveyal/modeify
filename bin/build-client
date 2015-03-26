@@ -164,7 +164,7 @@ function generateMessageFiles(messagesPath, destinationPath) {
         encoding: 'utf8'
       }, function(err, yml) {
         if (err) throw err;
-        var messages = yml2js(yml);
+        var messages = markdownify(yml2js(yml));
         var data = 'window.MESSAGES=' + JSON.stringify(messages) + ';';
 
         if (!development) {
@@ -180,4 +180,16 @@ function generateMessageFiles(messagesPath, destinationPath) {
       });
     });
   });
+}
+
+function markdownify(obj) {
+  if (typeof obj === 'string') {
+    obj = marked(obj);
+    obj = obj.slice(3, -5); // Remove opening and closing <p>'s
+  } else {
+    for (var i in obj) {
+      obj[i] = markdownify(obj[i]);
+    }
+  }
+  return obj;
 }
