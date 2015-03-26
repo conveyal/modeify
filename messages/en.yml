@@ -9,7 +9,7 @@ welcome-flow:
   welcome:
     headline: The region's **first multi-modal** trip planning and comparison tool.
     tagline: We're excited to help you travel smart. Let's get started!
-    question: "**How do you usually get to work?**"
+    question: "**How do you usually get around?**"
     answers:
       drive: I **drive** alone
       carpool: I **carpool**
