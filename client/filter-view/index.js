@@ -1,83 +1,38 @@
-var config = require('config');
-var debug = require('debug')(config.name() + ':filter-view');
+var reactiveSelect = require('reactive-select');
+var template = require('./template.html');
 var view = require('view');
 
-/**
- * Expose `View`
- */
-
-var View = module.exports = view(require('./template.html'));
-
-/**
- * On construct
- */
-
-View.on('construct', function(view, plan) {
-  view.reactive.use(require('reactive-select'));
-
+var View = module.exports = view(template, function(view, plan) {
+  view.reactive.use(reactiveSelect);
   view.on('active', function() {
     plan.updateRoutes();
   });
-
   view.on('selected', function() {
     plan.updateRoutes();
   });
-
-  view.setLoading(plan.loading());
-
-  plan.on('change loading', function(loading) {
-    view.setLoading(loading);
-  });
 });
 
-/**
- * Set loading
- */
-
-View.prototype.setLoading = function(loading) {
-  var submitButton = this.find('.submit i');
-  if (loading) {
-    submitButton.classList.remove('fa-search');
-    submitButton.classList.add('fa-refresh');
-    submitButton.classList.add('fa-spin');
-  } else {
-    submitButton.classList.add('fa-search');
-    submitButton.classList.remove('fa-refresh');
-    submitButton.classList.remove('fa-spin');
-  }
-};
-
-/**
- * Start Times
- */
+var times = hourOptions();
 
 View.prototype.startTimes = function() {
-  var opts = [];
-  for (var i = 0; i <= 23; i++) opts.push(toTime(i));
-  return opts;
+  return times.slice(0, -1);
 };
-
-/**
- * End Times
- */
 
 View.prototype.endTimes = function() {
-  var opts = [];
-  for (var i = 1; i <= 24; i++) opts.push(toTime(i));
-  return opts;
+  return times.slice(1);
 };
-
-/**
- * Parse Int
- */
 
 View.prototype.parseInt = parseInt;
 
-/**
- * Number to formatted time
- */
+function hourOptions() {
+  var times = [];
+  for (var i = 0; i <= 24; i++) {
+    times.push(toOption(i));
+  }
+  return times;
+}
 
-function toTime(n) {
+function toOption(n) {
   var opt = {
     name: '',
     value: n

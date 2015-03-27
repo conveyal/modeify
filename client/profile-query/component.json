@@ -1,0 +1,11 @@
+{
+  "name": "profile-query",
+  "dependencies": {
+    "component/clone": "*",
+    "component/model": "*",
+    "segmentio/model-defaults": "*"
+  },
+  "scripts": [
+    "index.js"
+  ]
+}

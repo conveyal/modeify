@@ -6,6 +6,7 @@ var Location = require('location');
 var log = require('./client/log')('plan');
 var defaults = require('model-defaults');
 var model = require('model');
+var ProfileQuery = require('profile-query');
 var ProfileScorer = require('otp-profile-score');
 var qs = require('querystring');
 
@@ -36,6 +37,7 @@ var Plan = module.exports = model('Plan')
     from_valid: false,
     loading: true,
     options: [],
+    query: new ProfileQuery(),
     scorer: new ProfileScorer(),
     start_time: 7,
     to: '',
@@ -57,6 +59,7 @@ var Plan = module.exports = model('Plan')
   .attr('loading')
   .attr('journey')
   .attr('options')
+  .attr('query')
   .attr('scorer')
   .attr('start_time')
   .attr('to')
@@ -319,6 +322,7 @@ Plan.prototype.generateQuery = function() {
 
   return {
     accessModes: accessModes.join(','),
+    bikeSafe: 1000,
     bikeSpeed: scorer.rates.bikeSpeed,
     date: this.nextDate(),
     directModes: directModes.join(','),
