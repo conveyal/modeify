@@ -11,7 +11,7 @@
     "visionmedia/batch": "*",
     "yields/store": "0.2.0"
   },
-  "locals": [
+  "local": [
     "analytics",
     "convert",
     "format-otp-profile",
