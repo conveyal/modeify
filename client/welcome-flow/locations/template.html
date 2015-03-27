@@ -1,14 +1,14 @@
 <div class="WelcomeFlow WelcomeLocations">
-  <h3><strong>Great!</strong> In addition to {initialMode}, you have many options for getting around.</h3>
+  <h3 data-message="headline"></h3>
   <div class="question">
-    <h3><strong>Where do you want to go?</strong></h3>
+    <h3 data-message="question"></h3>
     <div class="alerts"></div>
     <div reactive="locations-view"></div>
   </div>
-  <h3>Save <strong>money, time,</strong> and make traveling <strong>easy!</strong></h3>
+  <h3 data-message="tagline"></h3>
   <button on-tap="next" class="btn btn-block disabled">
-    <span class="find-text">Find my best option <i class="fa fa-fw fa-search"></i></span>
+    <span class="find-text"><span data-message="find"></span> <i class="fa fa-fw fa-search"></i></span>
     <span class="loading-text"><i class="fa fa-fw fa-refresh fa-spin"></i></span>
   </button>
-  <p><a href="#" on-tap="skip">Skip right to the application</a></p>
+  <p><a href="#" on-tap="skip" data-message="skip"></a></p>
 </div>

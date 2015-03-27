@@ -1,9 +1,11 @@
 var Alert = require('alert');
 var log = require('./client/log')('welcome-flow:locations');
+var message = require('./client/messages')('welcome-flow:locations');
 var modal = require('./client/modal');
 
 var Locations = module.exports = modal({
   logo: true,
+  message: message,
   template: require('./template.html')
 }, function(view, model) {
   var plan = model.plan;
@@ -56,23 +58,4 @@ Locations.prototype.next = function(e) {
 Locations.prototype.skip = function(e) {
   e.preventDefault();
   this.emit('skip');
-};
-
-Locations.prototype.initialMode = function(e) {
-  var commuter = this.model.commuter;
-  var profile = commuter.profile();
-
-  switch (profile.initial_mode_of_transportation) {
-    case 'drive':
-      return 'driving';
-    case 'carpool':
-      return 'carpooling';
-    case 'bike':
-      return 'biking';
-    case 'walk':
-      return 'walking';
-    case 'transit':
-      return 'taking transit';
-  }
-  return 'your current mode';
 };
