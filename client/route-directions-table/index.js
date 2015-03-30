@@ -1,0 +1,190 @@
+var convert = require('convert');
+var hogan = require('hogan.js');
+var session = require('session');
+var toSentenceCase = require('to-sentence-case');
+var view = require('view');
+
+var rowTemplate = require('./row.html');
+var template = require('./template.html');
+
+var row = hogan.compile(rowTemplate);
+
+var View = module.exports = view(template);
+
+/**
+ * To/from
+ */
+
+View.prototype.from = function() {
+  return session.plan().from().split(',')[0];
+};
+View.prototype.to = function() {
+  return session.plan().to().split(',')[0];
+};
+
+/**
+ * Details, details
+ */
+
+View.prototype.directions = function() {
+  var segments = this.model.transit();
+  var length = segments.length;
+  var details = '';
+
+  // Add a detail
+  function addDetail(d) {
+    details += row.render(d);
+  }
+
+  details += narrativeDirections(this.model.access()[0]);
+
+  // Add transit segments
+  var transferType = true;
+  var lastColor = null;
+  for (var i = 0; i < length; i++) {
+    var segment = segments[i];
+    var patterns = segment.segmentPatterns;
+    var color = patterns[0].color;
+
+    // Check for a walking distance to see if you are boarding or transferring
+    if (segment.walkTime !== 0 || i === 0) {
+      if (i > 0) {
+        addDetail({
+          description: 'Walk ' + Math.ceil(segment.walkTime / 60) + ' min',
+          icon: 'walk'
+        });
+      }
+
+      addDetail({
+        color: color,
+        description: strong(segment.fromName),
+        transfer: 'transfer board'
+      });
+    } else {
+      addDetail({
+        color: 'linear-gradient(to bottom, ' + lastColor + ' 0%, ' +
+          lastColor + ' 50%,' + color + ' 50%, ' + color + ' 100%)',
+        description: strong(segment.fromName),
+        transfer: 'transfer'
+      });
+    }
+
+    addDetail({
+      color: color,
+      description: 'Take ' + patterns.filter(patternFilter()).map(patternDescription).join(' / '),
+      segment: true
+    });
+
+    // Check if you are debaording
+    if (i + 1 >= length || segments[i + 1].walkTime > 0) {
+      addDetail({
+        color: color,
+        description: strong(segment.toName),
+        transfer: 'transfer alight'
+      });
+    }
+
+    lastColor = color;
+  }
+
+  var egress = this.model.egress();
+  if (egress && egress.length > 0) {
+    // Final Walk Segment
+    addDetail({
+      description: 'Walk ' + (egress[0].time / 60 + 1 | 0) + ' min',
+      icon: 'walk'
+    });
+  }
+
+  return details;
+};
+
+/**
+ * Pattern filter
+ */
+
+function patternFilter(by) {
+  by = by || 'shortName';
+  var names = [];
+  return function(p) {
+    if (by === 'shortName') {
+      p.shortName = p.shortName || p.longName;
+    }
+
+    if (names.indexOf(p[by]) === -1) {
+      names.push(p[by]);
+      return true;
+    } else {
+      return false;
+    }
+  };
+}
+
+/**
+ * Pattern description
+ */
+
+function patternDescription(p) {
+  return '<strong>' + p.shortName + '</strong>';
+}
+
+function strong(s) {
+  return '<strong>' + s + '</strong>';
+}
+
+/**
+ * Add narrative directions
+ */
+
+function narrativeDirections(access) {
+  if (!access.streetEdges) return '';
+
+  return access.streetEdges.map(function(se) {
+    if (!se.streetName && !se.bikeRentalOffStation) return '';
+
+    var step = {};
+    if (se.mode) {
+      if (se.bikeRentalOnStation) {
+        step.description = 'Rent bike from ' + se.bikeRentalOnStation.name + ' and ride ' + se.absoluteDirection.toLowerCase() + ' on ' + se.streetName;
+        step.icon = 'cabi';
+      } else {
+        step.description = MODE_TO_ACTION[se.mode] + ' ' + se.absoluteDirection.toLowerCase() + ' on ' + se.streetName;
+        step.icon = MODE_TO_ICON[se.mode];
+      }
+    } else {
+      if (se.bikeRentalOffStation) {
+        step.description = 'Park bike at ' + se.bikeRentalOffStation.name;
+        step.icon = 'cabi';
+      } else {
+        step.description = toSentenceCase(se.relativeDirection) + ' on ' + se.streetName;
+        step.direction = DIRECTION_TO_CARDINALITY[se.relativeDirection];
+      }
+    }
+
+    return row.render(step);
+  }).join('');
+}
+
+var MODE_TO_ACTION = {
+  BICYCLE: 'Bike',
+  BICYCLE_RENT: 'Bike',
+  CAR: 'Drive',
+  WALK: 'Walk'
+};
+
+var MODE_TO_ICON = {
+  BICYCLE: 'bike',
+  BICYCLE_RENT: 'cabi',
+  CAR: 'car',
+  WALK: 'walk'
+};
+
+var DIRECTION_TO_CARDINALITY = {
+  HARD_LEFT: 'west',
+  HARD_RIGHT: 'east',
+  RIGHT: 'east',
+  LEFT: 'west',
+  CONTINUE: 'north',
+  SLIGHTLY_RIGHT: 'northeast',
+  SLIGHTLY_LEFT: 'northwest'
+};

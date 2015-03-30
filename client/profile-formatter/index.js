@@ -128,5 +128,5 @@ function word(w) {
 }
 
 function startsWithDigit(s) {
-  return /^[0-9]/.test(s);
+  return /^[0-9]/.test(s) && !/st|nd|rd|th$/i;
 }

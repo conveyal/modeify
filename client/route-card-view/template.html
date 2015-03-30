@@ -37,21 +37,7 @@
       <span data-visible="transitCosts">, paying $<strong data-text="transitCosts"></strong> in transit fare</span><span data-visible="hasBiking">, biking <input type="text" data-value="bikeSpeedMph" name="bikeSpeed" on-input="inputChange"> mph for <strong data-text="bikeDistances"></strong> miles</span>
       <span data-visible="hasWalking"> and walking <input type="text" data-value="walkSpeedMph" name="walkSpeed" on-input="inputChange"> mph for <strong data-text="walkDistances"></strong> miles</i></span>.
     </form>
-    <table class="narrative-directions">
-      <thead>
-        <tr class="address">
-          <th class="icon"><i class="icon-start"></i></th>
-          <th class="description" data-text="from"></th>
-        </tr>
-      </thead>
-      <tfoot>
-        <tr class="address">
-          <td class="icon"><i class="icon-end"></i></td>
-          <td class="description" data-text="to"></td>
-        </tr>
-      </tfoot>
-      <tbody class="segmentDetails" data-html="segmentDetails"></tbody>
-    </table>
+    <div reactive="directions"></div>
     <div class="feedback">
       <a href="#" on-tap="feedback"><i class="fa fa-fw fa-gear"></i> help improve route</a>
     </div>
