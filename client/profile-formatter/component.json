@@ -1,5 +1,5 @@
 {
-  "name": "format-otp-profile",
+  "name": "profile-formatter",
   "dependencies": {
     "ianstormtaylor/to-capital-case": "0.1.1"
   },

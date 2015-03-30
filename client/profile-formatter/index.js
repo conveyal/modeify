@@ -1,7 +1,7 @@
 var toCapitalCase = require('to-capital-case');
 
 /**
- * Expose `formatOptions`
+ * Expose `formatOption`
  */
 
 module.exports.option = formatOption;
@@ -32,15 +32,31 @@ module.exports.journey = function(journey) {
  */
 
 function formatOption(o) {
-  // If there are no segments to format, return
-  if (!o.transit) return o;
-  for (var i = 0; i < o.transit.length; i++) {
-    var segment = o.transit[i];
+  if (o.access) {
+    o.access.forEach(function(a) {
+      if (a.walkSteps) {
+        a.walkSteps.forEach(function(w) {
+          w.streetName = format(w.streetName);
+        });
+      }
 
-    segment.fromName = format(segment.fromName);
-    segment.toName = format(segment.toName);
-    segment.longName = format(segment.longName);
-    segment.shortName = format(segment.shortName);
+      if (a.streetEdges) {
+        a.streetEdges.forEach(function(se) {
+          se.streetName = format(se.streetName);
+        });
+      }
+    });
+  }
+
+  if (o.transit) {
+    for (var i = 0; i < o.transit.length; i++) {
+      var segment = o.transit[i];
+
+      segment.fromName = format(segment.fromName);
+      segment.toName = format(segment.toName);
+      segment.longName = format(segment.longName);
+      segment.shortName = format(segment.shortName);
+    }
   }
 
   return o;
@@ -59,7 +75,7 @@ function format(text) {
     .replace('(MAIN)', '')
     .replace(/-/g, ' '); // remove hypens
 
-  // capitalize correctly
+  // capitalize
   text = toCapitalCase(text);
 
   // process individual words
@@ -87,22 +103,18 @@ var wordReplacementTable = {
   'Sq': 'Square',
   'Md': 'MD',
   'Nw': 'NW',
-  'Northwest': 'NW',
   'Ne': 'NE',
   'Nih': 'NIH',
-  'Northeast': 'NE',
-  'South': 'S',
   'Se': 'SE',
-  'Southeast': 'SE',
   'Sw': 'SW',
-  'Southwest': 'SW',
   'Metro/naval': 'Metro/Naval',
   'Noma': 'NoMa',
   'Noma-gallaudet': 'NoMa-Gallaudet',
   'Park/u': 'Park/U',
   '(new': '(New',
   'L\'enfant': 'L\'Enfant',
-  '(west)': '(West)'
+  '(west)': '(West)',
+  '=>': 'to'
 };
 
 /**

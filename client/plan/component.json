@@ -14,7 +14,6 @@
   "local": [
     "analytics",
     "convert",
-    "format-otp-profile",
     "geocode",
     "journey",
     "localstorage-supported",
@@ -22,6 +21,8 @@
     "log",
     "messages",
     "otp",
+    "profile-filter",
+    "profile-formatter",
     "profile-query",
     "route",
     "session"

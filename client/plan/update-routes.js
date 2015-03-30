@@ -1,9 +1,10 @@
 var analytics = require('analytics');
 var convert = require('convert');
-var formatProfile = require('format-otp-profile');
 var log = require('./client/log')('plan:update-routes');
 var message = require('./client/messages')('plan:update-routes');
 var otp = require('otp');
+var profileFilter = require('profile-filter');
+var profileFormatter = require('profile-formatter');
 var Route = require('route');
 var session = require('session');
 
@@ -58,7 +59,10 @@ function updateRoutes(plan, opts, callback) {
   var query = plan.generateQuery();
   var scorer = plan.scorer();
 
-  otp(query, scoreAndFilterOptions(scorer), function(err, data) {
+  otp(query, function(data) {
+    data.options = profileFilter(data.options, scorer);
+    return data;
+  }, function(err, data) {
     if (err || !data || data.options.length < 1) {
       plan.set({
         options: [],
@@ -105,7 +109,7 @@ function updateRoutes(plan, opts, callback) {
       }
 
       // Format the journey
-      data.journey = formatProfile.journey(data.journey);
+      data.journey = profileFormatter.journey(data.journey);
 
       // Store the results
       plan.set(data);
@@ -114,143 +118,6 @@ function updateRoutes(plan, opts, callback) {
       done(null, data);
     }
   });
-}
-
-function scoreAndFilterOptions(scorer) {
-  return function(data) {
-    return filterOptions(data, scorer);
-  };
-}
-
-/**
- * Filter the results
- */
-
-function filterOptions(data, scorer) {
-  data.options.forEach(function(o, i) {
-    o = formatProfile.option(o);
-    o = filterUnreasonableAccessModes(o);
-  });
-
-  data.options = scorer.processOptions(data.options);
-  data.options = filterDriveToTransitTrips(data.options);
-  data.options = filterBikeToTransitTrips(data.options);
-  data.options = filterTripsWithShortTransitLegs(data.options);
-
-  // Add the ids last so that they're in appropriate order
-  data.options.forEach(addId);
-
-  return data;
-}
-
-function addId(o, i) {
-  if (o.transit && o.transit.length > 0) {
-    o.id = i + '_transit';
-  } else {
-    o.id = i;
-  }
-  return o;
-}
-
-/**
- * Filter bike to transit trips
- */
-
-function filterBikeToTransitTrips(opts) {
-  var directBikeDistance = Infinity;
-
-  opts.forEach(function(o) {
-    if (o.access[0].mode === 'BICYCLE' && (!o.transit || o.transit.length === 0)) {
-      directBikeDistance = o.bikeDistance;
-    }
-  });
-
-  return opts.filter(function(o) {
-    if (o.access[0].mode !== 'BICYCLE' || !o.transit || o.transit.length === 0) return true;
-    return o.bikeDistance < (0.75 * directBikeDistance);
-  });
-}
-
-/**
- * Filter car based trips that are slower than the fastest non car trip * 1.25
- */
-
-function filterDriveToTransitTrips(opts) {
-  var fastestNonCarTrip = Infinity;
-  var directDriveDistance = Infinity;
-
-  opts.forEach(function(o) {
-    if (o.access[0].mode === 'CAR') {
-      if (!o.transit || o.transit.length === 0) {
-        directDriveDistance = o.driveDistance;
-      }
-    } else if (o.time < fastestNonCarTrip) {
-      fastestNonCarTrip = o.time;
-    }
-  });
-
-  return opts.filter(function(o) {
-    if (o.access[0].mode !== 'CAR') return true;
-    if (o.driveDistance > directDriveDistance * 1.5) return false;
-    return o.time < fastestNonCarTrip * 1.25;
-  });
-}
-
-/**
- * Filter transit trips with longer average ride times than average wait times.
- */
-
-function filterTripsWithShortTransitLegs(opts) {
-  var filtered = 0;
-  var maxFiltered = opts.length - 3;
-  return opts.filter(function(o) {
-    if (filtered >= maxFiltered) return true;
-    if (!o.transit) return true;
-
-    for (var i = 0; i < o.transit.length; i++) {
-      if (o.transit[i].rideStats.avg < o.transit[i].waitStats.avg / 2) {
-        filtered++;
-        return false;
-      }
-    }
-    return true;
-  });
-}
-
-function filterUnreasonableAccessModes(o) {
-  // Add ids to options
-  if (o.transit && o.transit.length > 0) {
-    // Filter access modes if they're not reasonable
-    filterMode(o, 'CAR', function(a) {
-      return a.time < 600;
-    });
-    filterMode(o, 'BICYCLE', function(a) {
-      return a.time < 600;
-    });
-    filterMode(o, 'WALK', function(a) {
-      return a.time > 3600;
-    });
-  }
-  return o;
-}
-
-function filterMode(option, mode, filter) {
-  if (option.access && option.access.length > 1) {
-    option.access = option.access.filter(function(a) {
-      return a.mode !== mode || !filter(a);
-    });
-  }
-}
-
-function getFastestNonCarJourney(option, fastestNonCarTrip) {
-  if (option.access && option.access.length > 0) {
-    var fastestAccess = 0;
-    option.access.filter(function(a) {
-      return a.mode !== 'CAR';
-    }).forEach(function(a) {
-      fastestAccess = 0;
-    });
-  }
 }
 
 /**
