@@ -178,14 +178,13 @@ ProfileScore.prototype.tally = function(o) {
 
   // Tally access
   var access = o.access[0];
-  var accessDistance = walkStepsDistance(access);
   var accessMode = access.mode.toLowerCase();
 
   o.modes.push(accessMode);
   o.time = access.time;
   switch (accessMode) {
     case 'car':
-      o.driveDistance = accessDistance;
+      o.driveDistance = streetEdgeDistanceForMode(access, 'car');
 
       o.carCost = this.rates.mileageRate * (o.driveDistance * METERS_TO_MILES) +
         this.rates.carParkingCost;
@@ -193,11 +192,14 @@ ProfileScore.prototype.tally = function(o) {
       o.emissions = o.driveDistance / this.rates.mpg * CO2_PER_GALLON;
       break;
     case 'bicycle':
+      o.bikeDistance = streetEdgeDistanceForMode(access, 'bicycle');
+      break;
     case 'bicycle_rent':
-      o.bikeDistance = accessDistance;
+      o.bikeDistance = streetEdgeDistanceForMode(access, 'bicycle');
+      o.walkDistance = streetEdgeDistanceForMode(access, 'walk');
       break;
     case 'walk':
-      o.walkDistance = accessDistance;
+      o.walkDistance = streetEdgeDistanceForMode(access, 'walk');
       break;
   }
 
@@ -205,7 +207,7 @@ ProfileScore.prototype.tally = function(o) {
   if (o.egress && o.egress.length > 0) {
     if (o.modes.indexOf('walk') === -1) o.modes.push('walk');
     o.time += o.egress[0].time;
-    o.walkDistance += walkStepsDistance(o.egress[0]);
+    o.walkDistance += streetEdgeDistanceForMode(o.egress[0], 'walk');
   }
 
   // Tally transit
@@ -261,9 +263,16 @@ ProfileScore.prototype.tally = function(o) {
   return o;
 };
 
-function walkStepsDistance(o) {
-  return o.walkSteps ? o.walkSteps.reduce(function(distance, step) {
-    return distance + step.distance;
+function streetEdgeDistanceForMode(o, mode) {
+  var tallyMode = false;
+  return o.streetEdges ? o.streetEdges.reduce(function(distance, step) {
+    if (step.mode) {
+      tallyMode = step.mode.toLowerCase() === mode;
+    }
+    if (tallyMode) {
+      distance += step.distance;
+    }
+    return distance;
   }, 0) : 0;
 }
 
