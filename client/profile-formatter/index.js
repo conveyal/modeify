@@ -114,7 +114,12 @@ var wordReplacementTable = {
   '(new': '(New',
   'L\'enfant': 'L\'Enfant',
   '(west)': '(West)',
-  '=>': 'to'
+  '=>': 'to',
+  'Northwest': 'NW',
+  'Northeast': 'NE',
+  'Southwest': 'SW',
+  'Southeast': 'SE',
+  'Street': 'St'
 };
 
 /**
