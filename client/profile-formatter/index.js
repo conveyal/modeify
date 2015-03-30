@@ -34,12 +34,6 @@ module.exports.journey = function(journey) {
 function formatOption(o) {
   if (o.access) {
     o.access.forEach(function(a) {
-      if (a.walkSteps) {
-        a.walkSteps.forEach(function(w) {
-          w.streetName = format(w.streetName);
-        });
-      }
-
       if (a.streetEdges) {
         a.streetEdges.forEach(function(se) {
           se.streetName = format(se.streetName);
