@@ -33,13 +33,7 @@ module.exports.journey = function(journey) {
 
 function formatOption(o) {
   if (o.access) {
-    o.access.forEach(function(a) {
-      if (a.streetEdges) {
-        a.streetEdges.forEach(function(se) {
-          se.streetName = format(se.streetName);
-        });
-      }
-    });
+    o.access = o.access.map(formatAccessEgress);
   }
 
   if (o.transit) {
@@ -53,7 +47,22 @@ function formatOption(o) {
     }
   }
 
+  if (o.egress) {
+    o.egress = o.egress.map(formatAccessEgress);
+  }
+
   return o;
+}
+
+function formatAccessEgress(ae) {
+  if (ae.streetEdges) {
+    ae.streetEdges = ae.streetEdges.map(function(se) {
+      se.streetName = format(se.streetName);
+      return se;
+    });
+  }
+
+  return ae;
 }
 
 /**

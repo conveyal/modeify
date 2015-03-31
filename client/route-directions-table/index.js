@@ -27,6 +27,8 @@ View.prototype.to = function() {
  */
 
 View.prototype.directions = function() {
+  var access = this.model.access()[0];
+  var egress = this.model.egress();
   var segments = this.model.transit();
   var length = segments.length;
   var details = '';
@@ -36,7 +38,7 @@ View.prototype.directions = function() {
     details += row.render(d);
   }
 
-  details += narrativeDirections(this.model.access()[0]);
+  details += narrativeDirections(access.streetEdges);
 
   // Add transit segments
   var transferType = true;
@@ -87,13 +89,8 @@ View.prototype.directions = function() {
     lastColor = color;
   }
 
-  var egress = this.model.egress();
   if (egress && egress.length > 0) {
-    // Final Walk Segment
-    addDetail({
-      description: 'Walk ' + (egress[0].time / 60 + 1 | 0) + ' min',
-      icon: 'walk'
-    });
+    details += narrativeDirections(egress[0].streetEdges);
   }
 
   return details;
@@ -136,10 +133,10 @@ function strong(s) {
  * Add narrative directions
  */
 
-function narrativeDirections(access) {
-  if (!access.streetEdges) return '';
+function narrativeDirections(edges) {
+  if (!edges) return '';
 
-  return access.streetEdges.map(function(se) {
+  return edges.map(function(se) {
     if (!se.streetName && !se.bikeRentalOffStation) return '';
 
     var step = {};

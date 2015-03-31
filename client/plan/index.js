@@ -307,6 +307,7 @@ Plan.prototype.generateQuery = function() {
   if (this.bikeShare()) {
     accessModes.push('BICYCLE_RENT');
     directModes.push('BICYCLE_RENT');
+    egressModes.push('BICYCLE_RENT');
   }
   if (this.bus()) transitModes.push('BUS');
   if (this.car()) accessModes.push('CAR');
