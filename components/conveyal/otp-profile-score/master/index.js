@@ -87,18 +87,26 @@ ProfileScore.prototype.processOption = function(o) {
 ProfileScore.prototype.processOptions = function(options) {
   var id = 0;
   var processed = [];
-  for (var i = 0; i < options.length; i++) {
-    var o = options[i];
+  var self = this;
 
+  options.forEach(function(o) {
     if (o.access) {
-      // Split each option by access mode and score individually
-      for (var j = 0; j < o.access.length; j++) {
-        var opt = clone(o);
-        opt.access = [opt.access[j]];
-        processed.push(this.processOption(opt));
-      }
+      o.access.forEach(function(a, accessIndex) {
+        if (o.egress && o.egress.length > 0) {
+          o.egress.forEach(function(e, egressIndex) {
+            var opt = clone(o);
+            opt.access = [clone(a)];
+            opt.egress = [clone(e)];
+            processed.push(self.processOption(opt));
+          });
+        } else {
+          var opt = clone(o);
+          opt.access = [clone(a)];
+          processed.push(self.processOption(opt));
+        }
+      });
     }
-  }
+  });
 
   processed.sort(function(a, b) {
     return a.score - b.score;
@@ -166,6 +174,7 @@ ProfileScore.prototype.tally = function(o) {
   o.cost = 0;
   o.emissions = 0;
   o.modes = [];
+  o.time = 0;
   o.timeInTransit = 0;
   o.transfers = 0;
   o.transitCost = 0;
@@ -177,37 +186,23 @@ ProfileScore.prototype.tally = function(o) {
   o.walkDistance = 0;
 
   // Tally access
-  var access = o.access[0];
-  var accessMode = access.mode.toLowerCase();
+  if (o.access && o.access.length > 0) {
+    var access = o.access[0];
+    var accessMode = access.mode.toLowerCase();
 
-  o.modes.push(accessMode);
-  o.time = access.time;
-  switch (accessMode) {
-    case 'car':
-      o.driveDistance = streetEdgeDistanceForMode(access, 'car');
+    addStreetEdges(o, accessMode, access.streetEdges);
 
-      o.carCost = this.rates.mileageRate * (o.driveDistance * METERS_TO_MILES) +
-        this.rates.carParkingCost;
-      o.cost += o.carCost;
-      o.emissions = o.driveDistance / this.rates.mpg * CO2_PER_GALLON;
-      break;
-    case 'bicycle':
-      o.bikeDistance = streetEdgeDistanceForMode(access, 'bicycle');
-      break;
-    case 'bicycle_rent':
-      o.bikeDistance = streetEdgeDistanceForMode(access, 'bicycle');
-      o.walkDistance = streetEdgeDistanceForMode(access, 'walk');
-      break;
-    case 'walk':
-      o.walkDistance = streetEdgeDistanceForMode(access, 'walk');
-      break;
+    o.time += access.time;
   }
 
   // Tally egress
   if (o.egress && o.egress.length > 0) {
-    if (o.modes.indexOf('walk') === -1) o.modes.push('walk');
-    o.time += o.egress[0].time;
-    o.walkDistance += streetEdgeDistanceForMode(o.egress[0], 'walk');
+    var egress = o.egress[0];
+    var egressMode = egress.mode.toLowerCase();
+
+    addStreetEdges(o, egressMode, egress.streetEdges);
+
+    o.time += egress.time;
   }
 
   // Tally transit
@@ -218,8 +213,7 @@ ProfileScore.prototype.tally = function(o) {
 
     var self = this;
     o.transit.forEach(function(segment) {
-      var mode = segment.mode.toLowerCase();
-      if (o.modes.indexOf(mode) === -1) o.modes.push(mode);
+      o.modes.push(segment.mode.toLowerCase());
 
       var trips = segment.segmentPatterns ? segment.segmentPatterns[0].nTrips : 0;
       if (trips < o.trips) o.trips = trips;
@@ -248,14 +242,28 @@ ProfileScore.prototype.tally = function(o) {
   }
 
   // Set the walking calories burned
-  if (o.modes.indexOf('walk') !== -1)
+  if (o.modes.indexOf('walk') !== -1) {
     o.walkCalories = caloriesBurned(WALKING_MET, this.rates.weight, (o.walkDistance / this.rates.walkSpeed) *
       SECONDS_TO_HOURS);
+  }
 
   // Set the biking calories burned
-  if (o.modes.indexOf('bicycle') !== -1 || o.modes.indexOf('bicycle_rent') !== -1)
+  if (o.modes.indexOf('bicycle') !== -1 || o.modes.indexOf('bicycle_rent') !== -1) {
     o.bikeCalories = caloriesBurned(CYCLING_MET, this.rates.weight, (o.bikeDistance / this.rates.bikeSpeed) *
       SECONDS_TO_HOURS);
+  }
+
+  // Set the parking costs
+  if (o.modes.indexOf('car') !== -1) {
+    o.carCost = this.rates.mileageRate * (o.driveDistance * METERS_TO_MILES) + this.rates.carParkingCost;
+    o.cost += o.carCost;
+    o.emissions = o.driveDistance / this.rates.mpg * CO2_PER_GALLON;
+  }
+
+  // unique modes only
+  o.modes = o.modes.reduce(function(modes, mode) {
+    return modes.indexOf(mode) === -1 ? modes.concat(mode) : modes;
+  }, [])
 
   // Total calories
   o.calories = o.bikeCalories + o.walkCalories;
@@ -263,9 +271,31 @@ ProfileScore.prototype.tally = function(o) {
   return o;
 };
 
-function streetEdgeDistanceForMode(o, mode) {
-  var tallyMode = false;
-  return o.streetEdges ? o.streetEdges.reduce(function(distance, step) {
+function addStreetEdges(o, mode, streetEdges) {
+  if (!streetEdges) return;
+  o.modes.push(mode);
+
+  switch (mode) {
+    case 'car':
+      o.driveDistance += streetEdgeDistanceForMode(streetEdges);
+      break;
+    case 'bicycle':
+      o.bikeDistance += streetEdgeDistanceForMode(streetEdges);
+      break;
+    case 'bicycle_rent':
+      o.modes.push('walk');
+      o.bikeDistance += streetEdgeDistanceForMode(streetEdges, 'bicycle');
+      o.walkDistance += streetEdgeDistanceForMode(streetEdges, 'walk');
+      break;
+    case 'walk':
+      o.walkDistance += streetEdgeDistanceForMode(streetEdges);
+      break;
+  }
+}
+
+function streetEdgeDistanceForMode(streetEdges, mode) {
+  var tallyMode = mode ? false : true;
+  return streetEdges.reduce(function(distance, step) {
     if (step.mode) {
       tallyMode = step.mode.toLowerCase() === mode;
     }
@@ -273,7 +303,7 @@ function streetEdgeDistanceForMode(o, mode) {
       distance += step.distance;
     }
     return distance;
-  }, 0) : 0;
+  }, 0);
 }
 
 function caloriesBurned(met, kg, hours) {
