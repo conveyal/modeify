@@ -99,12 +99,12 @@ View.prototype.directions = function() {
 
 function getUniquePatternNames(patterns) {
   return patterns.map(function(p) {
-    return p.shortName;
-  })
-  .reduce(function(names, name) {
-    if (names.indexOf(name) === -1) names.push(name);
-    return names;
-  }, []);
+      return p.shortName;
+    })
+    .reduce(function(names, name) {
+      if (names.indexOf(name) === -1) names.push(name);
+      return names;
+    }, []);
 }
 
 function strong(s) {
@@ -124,7 +124,8 @@ function narrativeDirections(edges) {
     var step = {};
     if (se.mode) {
       if (se.bikeRentalOnStation) {
-        step.description = 'Rent bike from ' + se.bikeRentalOnStation.name + ' and ride ' + se.absoluteDirection.toLowerCase() + ' on ' + se.streetName;
+        step.description = 'Rent bike from ' + se.bikeRentalOnStation.name + ' and ride ' + se.absoluteDirection.toLowerCase() +
+          ' on ' + se.streetName;
         step.icon = 'cabi';
       } else {
         step.description = MODE_TO_ACTION[se.mode] + ' ' + se.absoluteDirection.toLowerCase() + ' on ' + se.streetName;
