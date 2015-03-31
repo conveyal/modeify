@@ -12,6 +12,9 @@
   "scripts": [
     "index.js"
   ],
+  "styles": [
+    "style.css"
+  ],
   "templates": [
     "row.html",
     "template.html"

@@ -1,0 +1,83 @@
+.RouteDirections {
+  width: 100%;
+  border-collapse: separate;
+  color: var(--black);
+}
+
+.RouteDirections tr:nth-child(odd) {
+  background-color: var(--lightest-blue);
+}
+
+.RouteDirections tr.address {
+  background-color: #fff;
+}
+
+.RouteDirections .transfer {
+  width: 15px;
+  text-align: center;
+  margin-left: 5px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.RouteDirections .transfer.board {
+  margin-top: 18px;
+  padding-top: 0;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+}
+
+.RouteDirections .transfer.alight {
+  margin-bottom: 17px;
+  padding-bottom: 0;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.RouteDirections .icon {
+  height: 44px;
+  font-size: 25px;
+  text-align: center;
+  padding-left: 16px;
+}
+
+.RouteDirections .icon-start {
+  color: var(--green);
+}
+
+.RouteDirections .icon-end {
+  color: var(--gold);
+}
+
+.RouteDirections .transfer > .station {
+  background-color: #fff;
+  height: 15px;
+  width: 15px;
+  border-radius: 15px;
+  border: 2px solid var(--black);
+}
+
+.RouteDirections .segment > .icon > .fa {
+  color: var(--black);
+  font-size: 16px;
+  vertical-align: middle;
+}
+
+.RouteDirections .detail-route-bg {
+  background-color: var(--black);
+  width: 15px;
+  padding-top: 62px;
+  margin-left: 5px;
+}
+
+.RouteDirections .description {
+  text-align: left;
+  vertical-align: middle;
+  padding: 6px 16px;
+  line-height: 18px;
+}
+
+.RouteDirections .address .description {
+  color: var(--black);
+  font-weight: bold;
+}

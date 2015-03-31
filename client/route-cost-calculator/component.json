@@ -1,0 +1,9 @@
+{
+  "name": "route-cost-calculator",
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}
