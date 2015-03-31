@@ -120,25 +120,22 @@ function narrativeDirections(edges) {
 
   return edges.map(function(se) {
     if (!se.streetName && !se.bikeRentalOffStation) return '';
+    if (se.streetName === 'Link') return '';
 
     var step = {};
-    if (se.mode) {
-      if (se.bikeRentalOnStation) {
-        step.description = 'Rent bike from ' + se.bikeRentalOnStation.name + ' and ride ' + se.absoluteDirection.toLowerCase() +
-          ' on ' + se.streetName;
-        step.icon = 'cabi';
-      } else {
-        step.description = MODE_TO_ACTION[se.mode] + ' ' + se.absoluteDirection.toLowerCase() + ' on ' + se.streetName;
-        step.icon = MODE_TO_ICON[se.mode];
-      }
+    if (se.bikeRentalOnStation) {
+      step.description = 'Rent bike from ' + se.bikeRentalOnStation.name + ' and ride ' + se.absoluteDirection.toLowerCase() +
+        ' on ' + se.streetName;
+      step.icon = 'cabi';
+    } else if (se.bikeRentalOffStation) {
+      step.description = 'Park bike at ' + se.bikeRentalOffStation.name;
+      step.icon = 'cabi';
+    } else if (se.mode) {
+      step.description = MODE_TO_ACTION[se.mode] + ' ' + se.absoluteDirection.toLowerCase() + ' on ' + se.streetName;
+      step.icon = MODE_TO_ICON[se.mode];
     } else {
-      if (se.bikeRentalOffStation) {
-        step.description = 'Park bike at ' + se.bikeRentalOffStation.name;
-        step.icon = 'cabi';
-      } else {
-        step.description = toSentenceCase(se.relativeDirection) + ' on ' + se.streetName;
-        step.direction = DIRECTION_TO_CARDINALITY[se.relativeDirection];
-      }
+      step.description = toSentenceCase(se.relativeDirection) + ' on ' + se.streetName;
+      step.direction = DIRECTION_TO_CARDINALITY[se.relativeDirection];
     }
 
     return row.render(step);
