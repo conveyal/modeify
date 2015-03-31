@@ -131,7 +131,6 @@
   font-size: var(--h3);
 }
 
-
 /**
  * Expanded
  */
@@ -154,41 +153,6 @@
 
 .RouteCard > .details > p {
   padding: 0 16px 8px;
-}
-
-/**
- * Scoring Information
- */
-
-.Options .scoring-information {
-  padding: 12px 16px;
-  background-color: var(--mgreen);
-  color: var(--darkergreen);
-  line-height: 22px;
-}
-
-.Options .scoring-information a {
-  color: var(--darkergreen);
-}
-
-.Option .scoring-information a:active,
-.Option .scoring-information a:focus,
-.Option .scoring-information a:hover {
-  color: color(var(--darkergreen) shade(20%));
-}
-
-.Options .scoring-information input {
-  border: none;
-  background-color: transparent;
-  border-bottom: 2px dotted var(--lightgreen);
-  text-align: center;
-  cursor: pointer;
-  font-weight: var(--bold);
-  height: 22px;
-}
-
-.Options .scoring-information input:focus {
-  outline: none;
 }
 
 /** Feedback on a route */
