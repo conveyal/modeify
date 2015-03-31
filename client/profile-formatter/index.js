@@ -96,6 +96,7 @@ function format(text) {
  */
 
 var wordReplacementTable = {
+  '@': 'at',
   'Av': 'Ave',
   'Bwi': 'BWI',
   'Ci': 'Circle',
