@@ -119,22 +119,28 @@ function narrativeDirections(edges) {
   if (!edges) return '';
 
   return edges.map(function(se) {
-    if (!se.streetName && !se.bikeRentalOffStation) return '';
-    if (se.streetName === 'Link') return '';
+    if (!se.streetName && !se.bikeRentalOffStation) {
+      return '';
+    }
 
+    var linkOrPath = se.streetName === 'Link' || se.streetName === 'Path';
+    if (linkOrPath && se.relativeDirection === 'CONTINUE') {
+      return '';
+    }
+
+    var streetSuffix = ' on ' + se.streetName;
     var step = {};
     if (se.bikeRentalOnStation) {
-      step.description = 'Rent bike from ' + se.bikeRentalOnStation.name + ' and ride ' + se.absoluteDirection.toLowerCase() +
-        ' on ' + se.streetName;
+      step.description = 'Rent bike from ' + se.bikeRentalOnStation.name + ' and ride ' + se.absoluteDirection.toLowerCase() + streetSuffix;
       step.icon = 'cabi';
     } else if (se.bikeRentalOffStation) {
       step.description = 'Park bike at ' + se.bikeRentalOffStation.name;
       step.icon = 'cabi';
     } else if (se.mode) {
-      step.description = MODE_TO_ACTION[se.mode] + ' ' + se.absoluteDirection.toLowerCase() + ' on ' + se.streetName;
+      step.description = MODE_TO_ACTION[se.mode] + ' ' + se.absoluteDirection.toLowerCase() + streetSuffix;
       step.icon = MODE_TO_ICON[se.mode];
     } else {
-      step.description = toSentenceCase(se.relativeDirection) + ' on ' + se.streetName;
+      step.description = toSentenceCase(se.relativeDirection) + streetSuffix;
       step.direction = DIRECTION_TO_CARDINALITY[se.relativeDirection];
     }
 
