@@ -8,6 +8,7 @@
     "analytics",
     "convert",
     "feedback-modal",
+    "route-cost-calculator",
     "route-directions-table",
     "route-modal",
     "route-summary-segments",

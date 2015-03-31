@@ -3,6 +3,7 @@ var convert = require('convert');
 var Feedback = require('feedback-modal');
 var mouseenter = require('mouseenter');
 var mouseleave = require('mouseleave');
+var Calculator = require('route-cost-calculator');
 var RouteDirections = require('route-directions-table');
 var RouteModal = require('route-modal');
 var routeSummarySegments = require('route-summary-segments');
@@ -27,9 +28,11 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       transitive.focusJourney();
     }
   });
-
-  [].slice.call(view.findAll('input')).forEach(setInputSize);
 });
+
+View.prototype.calculator = function() {
+  return new Calculator(this.model);
+};
 
 View.prototype.directions = function() {
   return new RouteDirections(this.model);
@@ -78,56 +81,6 @@ View.prototype.hideDetails = function(e) {
     list.remove('expanded');
   }
 };
-
-/**
- * Input change
- */
-
-View.prototype.inputChange = function(e) {
-  e.preventDefault();
-  var input = e.target;
-  var name = input.name;
-  var value = parseFloat(input.value);
-
-  if (!isNaN(value)) {
-    var plan = session.plan();
-    var scorer = plan.scorer();
-
-    switch (name) {
-      case 'bikeSpeed':
-        scorer.rates.bikeSpeed = convert.mphToMps(value);
-        break;
-      case 'tripsPerYear':
-        plan.tripsPerYear(value);
-        break;
-      case 'carParkingCost':
-        scorer.rates.carParkingCost = value;
-        break;
-      case 'transitCost':
-        this.model.transitCost(value);
-        break;
-      case 'vmtRate':
-        scorer.rates.mileageRate = value;
-        break;
-      case 'walkSpeed':
-        scorer.rates.walkSpeed = convert.mphToMps(value);
-        break;
-    }
-
-    plan.rescoreOptions();
-  }
-
-  setInputSize(input);
-};
-
-/**
- * Set input size
- */
-
-function setInputSize(i) {
-  var size = i.value.length || 1;
-  i.setAttribute('size', size);
-}
 
 /**
  * Get the option number for display purposes (1-based)

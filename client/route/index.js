@@ -56,7 +56,7 @@ var Route = module.exports = model('Route')
  * Changes to emit on rescore
  */
 
-var emitAfterRescore = ['average', 'bikeTime', 'calculatedCost', 'calculatedCalories', 'transitCosts', 'tripsPerYear',
+var emitAfterRescore = ['average', 'bikeTime', 'calculatedCost', 'totalCalories', 'transitCosts', 'tripsPerYear',
   'carParkingCost', 'vmtRate', 'walkTime'
 ];
 
