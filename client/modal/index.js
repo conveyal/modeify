@@ -50,7 +50,7 @@ module.exports = function(opts, fn) {
       });
     });
 
-    if (opts.height) modal.el.style.minHeight = opts.height;
+    if (opts.height) modal.el.style.height = opts.height;
     if (opts.width) modal.el.style.maxWidth = opts.width;
     if (opts.closable) modal.closable();
 
