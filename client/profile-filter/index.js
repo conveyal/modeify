@@ -143,20 +143,26 @@ function filterAccessMode(option, mode, filter) {
 
 function filterBikeshareIfNoBiking(option) {
   if (option.access && option.access.length > 1) {
-    option.access = option.access.filter(function(a) {
-      if (a.mode === 'BICYCLE_RENT') {
-        return a.streetEdges.reduce(function(m, se) {
-          return m || se.mode === 'BICYCLE';
-        }, false);
-      }
-      return true;
-    });
+    option.access = option.access.filter(hasBicycleRent);
   }
+  if (option.egress && option.egress.length > 1) {
+    option.egress = option.egress.filter(hasBicycleRent);
+  }
+
   return option;
 }
 
+function hasBicycleRent(a) {
+  if (a.mode === 'BICYCLE_RENT') {
+    return a.streetEdges.reduce(function(m, se) {
+      return m || se.mode === 'BICYCLE';
+    }, false);
+  }
+  return true;
+}
+
 /**
- * Filter bike trips where bikeshare exists and is less than 25% slower.
+ * Filter bike trips where bikeshare exists and is less than 1.5 slower.
  *
  * @param {Object} option
  * @return {Object} option Filtered
@@ -172,7 +178,7 @@ function filterBikeIfBikeshareIsAvailable(option) {
     });
 
     option.access = option.access.filter(function(a) {
-      return a.mode !== 'BICYCLE' || a.time < (0.75 * bikeshareTime);
+      return a.mode !== 'BICYCLE' || a.time < (0.5 * bikeshareTime);
     });
   }
   return option;
