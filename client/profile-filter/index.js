@@ -7,17 +7,29 @@ var THIRTY_MINUTES = 30 * 60;
  */
 
 module.exports = function profileFilter(options, scorer) {
+  var FILTER_RESULTS = window.localStorage
+    ? window.localStorage.getItem('filterResults') !== 'false'
+    : true;
+
+  console.log('filter results?', FILTER_RESULTS);
+
   options.forEach(function(o, i) {
     o = profileFormatter.option(o);
-    o = filterUnreasonableAccessModes(o);
-    o = filterBikeIfBikeshareIsAvailable(o);
-    o = filterBikeshareIfNoBiking(o);
+
+    if (FILTER_RESULTS) {
+      o = filterUnreasonableAccessModes(o);
+      o = filterBikeIfBikeshareIsAvailable(o);
+      o = filterBikeshareIfNoBiking(o);
+    }
   });
 
   options = scorer.processOptions(options);
-  options = filterDriveToTransitTrips(options);
-  options = filterBikeToTransitTrips(options);
-  options = filterTripsWithShortTransitLegs(options);
+
+  if (FILTER_RESULTS) {
+    options = filterDriveToTransitTrips(options);
+    options = filterBikeToTransitTrips(options);
+    options = filterTripsWithShortTransitLegs(options);
+  }
 
   // Add the ids last so that they're in appropriate order
   options.forEach(addId);
