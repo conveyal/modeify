@@ -19,6 +19,7 @@
   padding: 4px 8px;
   border-top-left-radius: var(--border-radius);
   border-top-right-radius: var(--border-radius);
+  white-space: nowrap;
 }
 
 .Options .select-button {

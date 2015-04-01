@@ -363,22 +363,44 @@ Route.prototype.carParkingCost = function() {
  */
 
 Route.prototype.modeDescriptor = function() {
-  var modeStr;
+  var modeStr = '';
+  var accessMode = this.access()[0].mode.toLowerCase();
+  var egressMode = this.egress() ? this.egress()[0].mode.toLowerCase() : false;
+  var modes = this.modes();
 
-  if (this.modes().indexOf('bicycle_rent') !== -1) {
-    modeStr = 'bikeshare';
-  } else if (this.bikeDistance() > 0) {
-    modeStr = 'bike';
-  } else if (this.driveDistance() > 0) {
-    modeStr = 'drive';
-  } else {
-    modeStr = 'walk';
+  switch (accessMode) {
+    case 'bicycle_rent':
+      modeStr = 'bikeshare';
+      break;
+    case 'bicycle':
+      modeStr = 'bike';
+      break;
+    case 'car':
+      if (this.hasTransit()) {
+        modeStr = 'drive';
+      } else {
+        modeStr = 'rideshare';
+      }
+      break;
+    case 'walk':
+      if (!this.hasTransit()) {
+        modeStr = 'walk';
+      }
+      break;
   }
 
   if (this.hasTransit()) {
-    modeStr += ' to transit';
-  } else if (this.driveDistance() > 0) {
-    modeStr = 'rideshare';
+    if (modeStr.length > 0) modeStr += ' to ';
+    modeStr += 'transit';
+  }
+
+  if (egressMode && egressMode !== 'walk') {
+    modeStr += ' to ';
+    switch (egressMode) {
+      case 'bicycle_rent':
+        modeStr += 'bikeshare';
+        break;
+    }
   }
 
   return modeStr;
