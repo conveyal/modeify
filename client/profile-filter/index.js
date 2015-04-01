@@ -1,5 +1,7 @@
 var profileFormatter = require('profile-formatter');
 
+var THIRTY_MINUTES = 30 * 60;
+
 /**
  * Filter, format, and score the results.
  */
@@ -170,16 +172,22 @@ function hasBicycleRent(a) {
 
 function filterBikeIfBikeshareIsAvailable(option) {
   if (option.access && option.access.length > 1) {
-    var bikeshareTime = Infinity;
+    var bikeTime = false;
+    var bikeshareTime = false;
     option.access.forEach(function(a) {
       if (a.mode === 'BICYCLE_RENT') {
         bikeshareTime = a.time;
+      } else if (a.mode === 'BICYCLE') {
+        bikeTime = a.time;
       }
     });
 
-    option.access = option.access.filter(function(a) {
-      return a.mode !== 'BICYCLE' || a.time < (0.5 * bikeshareTime);
-    });
+    if (bikeTime && bikeshareTime) {
+      var filterMode = bikeshareTime > THIRTY_MINUTES ? 'BICYCLE_RENT' : 'BICYCLE';
+      option.access = option.access.filter(function(a) {
+        return a.mode !== filterMode;
+      });
+    }
   }
   return option;
 }
