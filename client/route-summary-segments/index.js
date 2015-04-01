@@ -8,14 +8,17 @@ module.exports = function(route, opts) {
   opts = opts || {};
 
   var accessMode = route.access()[0].mode.toLowerCase();
+  var accessModeIcon = convert.modeToIcon(accessMode);
   var egress = route.egress();
   var segments = [];
   var transitSegments = route.transit();
 
-  if (transitSegments.length < 1 && accessMode === 'car') accessMode = 'carshare';
+  if (transitSegments.length < 1 && accessMode === 'car') {
+    accessModeIcon = convert.modeToIcon('carshare');
+  }
 
   segments.push({
-    mode: convert.modeToIcon(accessMode),
+    mode: accessModeIcon,
     style: getModeStyles(accessMode),
     inline: !!opts.inline,
     small: !!opts.small,
