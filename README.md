@@ -18,6 +18,5 @@ Deliver personalized commute information to travelers. Supported by the [Mobilit
 
 ## Documentation
 
-* [Configuration](/docs/Configuration.md)
-* [Deployment](/docs/Deployment.md)
 * [Development](/docs/Development.md)
+* [Deployment](/docs/Deployment.md)
