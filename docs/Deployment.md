@@ -4,7 +4,7 @@ Install & configure the [aws](http://docs.aws.amazon.com/cli/latest/reference/) 
 
 ## S3
 
-Configure your S3 buckets per environment in `config/public.yaml`.
+Configure your S3 buckets per environment in `deployment/config.yaml`.
 
 ```bash
 modeify $ bin/deploy-assets staging
@@ -14,7 +14,7 @@ This builds the client files for staging & syncs the `assets` folder with your s
 
 ## OpsWorks
 
-Setup an OpsWorks Node.JS application and configure in `config/public.yaml`. The OpsWorks application will need to have all the environent variables set up that are in `config/env`.
+Setup an OpsWorks Node.JS application and configure in `deployment/config.yaml`. The OpsWorks application will need to have all the environment variables set up that are in `deployment/env`.
 
 **NOTE** This is dependent on files that get deployed to S3.
 

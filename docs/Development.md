@@ -1,4 +1,4 @@
-# Development
+# Development quick start
 
 Clone to your local directory to begin.
 
@@ -6,57 +6,36 @@ Clone to your local directory to begin.
 $ git clone git@github.com:conveyal/modeify.git
 $ cd modeify
 ```
+## Installation
 
-## Requirements
+### `bin/install`
 
-* [Node.js](https://nodejs.org/)
-* [MongoDB](https://www.mongodb.org/)
-* [OpenTripPlanner](http://www.opentripplanner.org/)
+This copies the configuration files into a `deployment` directory. On Macs this script also `brew install`s NodeJS and MongoDB.
 
-### Node.js & JavaScript
+### Requirements for running
 
-Follow the instructions [here](https://github.com/conveyal/javascript) to setup you're JavaScript development environment.
-
-All Node.js dependencies are checked in, but still requires a rebuild on each system.
-
-```bash
-modeify $ npm install
-```
-
-### MongoDB
-
-Install [locally](http://www.mongodb.org/downloads) or use a service like [MongoLab](https://mongolab.com/welcome/). Set `MONGODB_URL` in `deployment/env` accordingly.
-
-### OpenTripPlanner
-
-The planner requires an instance of [OpenTripPlanner](http://opentripplanner.com) running with the GTFS feeds you would like to analyze. Manage your OTP endpoint in `deployment/config.yaml`.
-
-## Building
-
-Client side dependencies are all checked in, but the final `.js` & `.css` files need to be built.
-
-```bash
-modeify $ make build
-```
+* [Node.js](https://nodejs.org/) — Version 0.10 and up
+* [MongoDB](https://www.mongodb.org/) — Can set `MONGODB_URL` in `deployment/env`
+* [OpenTripPlanner](http://www.opentripplanner.org/) — Set `otp` `host` and `port` in `deployment/config.yaml`
+* [Mapbox](https://mapbox.com) — Set the key in `deployment/config.yaml`
 
 ## Running
 
-The default way is to run the server as a daemon with automatic restarts using [nodemon](http://nodemon.io/) and stores the `pid` in `server.pid`. This watches the client and lib directories for changes and rebuilds and reloads the server accordingly.
+### `npm start`
 
-```bash
-modeify $ npm start
-```
+Run's the server in the background with automatic restarts using [nodemon](http://nodemon.io/) This watches the `client` and `lib` directories for changes and rebuilds and reloads the server accordingly. Logs are stored in `server.log`.
 
-In development, we store the logs locally.
+**NOTE:** Changes to the configuration files requires a manual restart. Just run `npm start` again.
 
-```bash
-modeify $ tail -f server.log
-```
-
-### Stopping
-
-```bash
-modeify $ npm stop
-```
+### `npm stop`
 
 Kills the server and cleans up the `.pid`.
+
+### `make build`
+
+Manually rebuilds the client assets.
+
+## Deployment Configuration
+
+If you manage your configurations elsewhere, `bin/set-deployment $DIRECTORY` allows you to switch between deployments.
+
