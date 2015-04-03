@@ -21,7 +21,7 @@ module.exports = function showAnnouncements(ctx, next) {
   var profile = session.commuter().profile();
 
   if (profile.welcome_wizard_complete) {
-    var unnseen = getUnseenAnnouncements([]);
+    var unnseen = getUnseenAnnouncements(profile.announcements_seen);
     if (unnseen.length > 0) {
       log('welcome complete, showing announcements');
       modal = new Modal({
