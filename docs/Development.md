@@ -9,7 +9,7 @@ $ cd modeify
 
 ### Node.js & JavaScript
 
-Follow the instructions [here](https://github.com/conveyal/javascript) to setup you're JavaScript development environment.
+Follow the instructions [here](https://github.com/conveyal/javascript) to set up your JavaScript development environment.
 
 ### Environment Variables & Config
 
