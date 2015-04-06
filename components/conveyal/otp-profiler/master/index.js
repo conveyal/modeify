@@ -383,16 +383,16 @@ Profiler.prototype.processBikeRentalSegment = function(edges, from, to) {
   var currentLeg = preWalkEdges;
   var onStationEndpoint, offStationEndpoint;
   each(edges, function(edge) {
-    if(edge.bikeRentalOnStation) {
-      currentLeg = bikeRentalEdges;
-      var onStation = self.addBikeRentalStation(edge.bikeRentalOnStation);
-      onStationEndpoint = constructPlaceEndpoint(onStation.place_id);
-    }
-    currentLeg.push(edge);
     if(edge.bikeRentalOffStation) {
       currentLeg = postWalkEdges;
       var offStation = self.addBikeRentalStation(edge.bikeRentalOffStation);
       offStationEndpoint = constructPlaceEndpoint(offStation.place_id);
+    }
+    currentLeg.push(edge);
+    if(edge.bikeRentalOnStation) {
+      currentLeg = bikeRentalEdges;
+      var onStation = self.addBikeRentalStation(edge.bikeRentalOnStation);
+      onStationEndpoint = constructPlaceEndpoint(onStation.place_id);
     }
   });
 

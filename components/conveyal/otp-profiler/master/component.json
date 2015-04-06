@@ -20,6 +20,5 @@
   "scripts": [
     "index.js"
   ],
-  "license": "MIT",
-  "resolved": "abade21dc1e2eb54768941e6f694a9cbad7fb26a"
+  "license": "MIT"
 }
