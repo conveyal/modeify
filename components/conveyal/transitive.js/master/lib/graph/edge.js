@@ -151,7 +151,6 @@ Edge.prototype.addRenderedEdge = function(rEdge) {
 /** internal geometry functions **/
 
 Edge.prototype.calculateGeometry = function(cellSize, angleConstraint) {
-
   //if(!this.hasTransit()) angleConstraint = 5;
   angleConstraint = angleConstraint || 45;
 
@@ -345,7 +344,7 @@ Edge.prototype.calculateAlignmentIds = function() {
 };
 
 Edge.prototype.hasTransit = function(cellSize) {
-  //console.log(this);
+  //debug(this);
   for (var i = 0; i < this.pathSegments.length; i++) {
     if (this.pathSegments[i].getType() === 'TRANSIT') {
       return true;
@@ -402,40 +401,97 @@ Edge.prototype.align = function(vertex, vector) {
   this.aligned = true;
 };
 
-Edge.prototype.getGeometricCoords = function(display) {
-  var coords = [];
+Edge.prototype.getGeometricCoords = function(fromOffsetPx, toOffsetPx, display, forward) {
+  var coords = [], lastX = null, lastY = null;
 
-  coords.push({
-    x: display.xScale(this.fromVertex.x),
-    y: display.yScale(this.fromVertex.y)
-  });
+  // reverse the coords array if needed
+  var geomCoords = forward ? this.geomCoords : this.geomCoords.concat().reverse();
 
-  each(this.geomCoords, function(coord) {
+  each(geomCoords, function(coord, i) {
+
+    var fromVector = null, toVector = null, rightVector;
+    var xOffset, yOffset;
+    var x1 = display.xScale(coord[0]);
+    var y1 = display.yScale(coord[1]);
+
+    // calculate the vector leading in to this coordinate
+    if (i > 0) {
+      var prevCoord = geomCoords[i - 1];
+      var x0 = display.xScale(prevCoord[0]);
+      var y0 = display.yScale(prevCoord[1]);
+      if (x1 === x0 && y1 === y0) return;
+
+      toVector = {
+        x: x1 - x0,
+        y: y1 - y0
+      };
+    }
+
+    // calculate the vector leading out from this coordinate
+    if (i < geomCoords.length - 1) {
+      var nextCoord = geomCoords[i + 1];
+      var x2 = display.xScale(nextCoord[0]);
+      var y2 = display.yScale(nextCoord[1]);
+      if(x2 === x1 && y2 === y1) return;
+
+      fromVector = {
+        x: x2 - x1,
+        y: y2 - y1
+      };
+    }
+
+    if(fromVector && !toVector) { // the first point in the geomCoords sequence
+      rightVector = Util.normalizeVector({
+        x: fromVector.y,
+        y: -fromVector.x
+      });
+      xOffset = fromOffsetPx * rightVector.x;
+      yOffset = fromOffsetPx * rightVector.y;
+    }
+    else if(!fromVector && toVector) { // the last point in the geomCoords sequence
+      rightVector = Util.normalizeVector({
+        x: toVector.y,
+        y: -toVector.x
+      });
+      xOffset = fromOffsetPx * rightVector.x;
+      yOffset = fromOffsetPx * rightVector.y;
+
+    }
+    else { // an internal point
+      rightVector = Util.normalizeVector({
+        x: fromVector.y,
+        y: -fromVector.x
+      });
+      xOffset = fromOffsetPx * rightVector.x;
+      yOffset = fromOffsetPx * rightVector.y;
+
+      // TODO: properly compute the offsets based on both vectors
+    }
+
     coords.push({
-      x: display.xScale(coord[0]),
-      y: display.yScale(coord[1])
+      x: x1 + xOffset,
+      y: y1 + yOffset
     });
   }, this);
-
-  coords.push({
-    x: display.xScale(this.toVertex.x),
-    y: display.yScale(this.toVertex.y)
-  });
-
   return coords;
 };
 
 Edge.prototype.getRenderCoords = function(fromOffsetPx, toOffsetPx, display, forward) {
-
+  var fromOffsetX, fromOffsetY;
   var isBase = (fromOffsetPx === 0 && toOffsetPx === 0);
 
   if (!this.baseRenderCoords && !isBase) {
     this.calculateBaseRenderCoords(display);
   }
 
-  var fromOffsetX = fromOffsetPx * this.fromRightVector.x;
-  var fromOffsetY = fromOffsetPx * this.fromRightVector.y;
-
+  // TODO: This can't be right...
+  try {
+    fromOffsetX = fromOffsetPx * this.fromRightVector.x;
+    fromOffsetY = fromOffsetPx * this.fromRightVector.y;
+  } catch (err) {
+    debug('edge err');
+    debug(this);
+  }
   var toOffsetX = toOffsetPx * this.toRightVector.x;
   var toOffsetY = toOffsetPx * this.toRightVector.y;
 
@@ -498,7 +554,7 @@ Edge.prototype.getRenderCoords = function(fromOffsetPx, toOffsetPx, display, for
         x2, y2));
       var arc = angleR * (180 / Math.PI) * (this.ccw < 0 ? 1 : -1);
 
-      if(forward) {
+      if (forward) {
         coords.push({
           x: x1,
           y: y1,
@@ -514,8 +570,7 @@ Edge.prototype.getRenderCoords = function(fromOffsetPx, toOffsetPx, display, for
         });
 
         len = Util.distance(x2, y2, tx, ty);
-      }
-      else {
+      } else {
         coords.push({
           x: x2,
           y: y2,

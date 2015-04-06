@@ -9,6 +9,7 @@
     "config",
     "locations-view",
     "log",
+    "messages",
     "modal",
     "planner-walkthrough",
     "route-modal",

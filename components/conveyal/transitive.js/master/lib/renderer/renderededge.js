@@ -108,13 +108,19 @@ RenderedEdge.prototype.setFocused = function(focused) {
 };
 
 RenderedEdge.prototype.refreshRenderData = function(display) {
+  if (this.graphEdge.fromVertex.x === this.graphEdge.toVertex.x &&
+    this.graphEdge.fromVertex.y === this.graphEdge.toVertex.y) {
+    this.renderData = [];
+    return;
+  }
+
   this.lineWidth = this.computeLineWidth(display, true);
 
   var fromOffsetPx = this.fromOffset * this.lineWidth;
   var toOffsetPx = this.toOffset * this.lineWidth;
 
   if (this.graphEdge.geomCoords) {
-    this.renderData = this.graphEdge.getGeometricCoords(display);
+    this.renderData = this.graphEdge.getGeometricCoords(fromOffsetPx, toOffsetPx, display, this.forward);
   } else {
     this.renderData = this.graphEdge.getRenderCoords(fromOffsetPx, toOffsetPx,
       display, this.forward);
@@ -138,6 +144,7 @@ RenderedEdge.prototype.refreshRenderData = function(display) {
   });
 
   each(this.graphEdge.pointArray, function(point, i) {
+    if(point.getType() === 'TURN') return;
     var t = (i + 1) / (this.graphEdge.pointArray.length + 1);
     var coord = this.graphEdge.coordAlongEdge(this.forward ? t : (1 - t),
       this.renderData, display);
@@ -184,11 +191,16 @@ RenderedEdge.prototype.getZIndex = function() {
 
 RenderedEdge.prototype.intersect = function(rEdge) {
 
+  // do no intersect adjacent edges of unequal bundle size
+  if (this.graphEdge.renderedEdges.length !== rEdge.graphEdge.renderedEdges.length) return;
+
   var commonVertex = this.graphEdge.commonVertex(rEdge.graphEdge);
   if (!commonVertex || commonVertex.point.isSegmentEndPoint) return;
 
-  var thisCheck = (commonVertex === this.graphEdge.fromVertex && this.forward) || (commonVertex === this.graphEdge.toVertex && !this.forward);
-  var otherCheck = (commonVertex === rEdge.graphEdge.fromVertex && rEdge.forward) || (commonVertex === rEdge.graphEdge.toVertex && !rEdge.forward);
+  var thisCheck = (commonVertex === this.graphEdge.fromVertex && this.forward) || (commonVertex === this.graphEdge.toVertex &&
+    !this.forward);
+  var otherCheck = (commonVertex === rEdge.graphEdge.fromVertex && rEdge.forward) || (commonVertex === rEdge.graphEdge.toVertex &&
+    !rEdge.forward);
 
   var p1 = (thisCheck) ? this.renderData[0] :
     this.renderData[this.renderData.length - 1];
@@ -248,5 +260,5 @@ RenderedEdge.prototype.findExtension = function(vertex) {
 
 RenderedEdge.prototype.toString = function() {
   return 'RenderedEdge ' + this.id + ' type=' + this.type + ' on ' + this.graphEdge
-    .toString() + ' w/ patterns ' + this.patternIds + ' fwd='+ this.forward;
+    .toString() + ' w/ patterns ' + this.patternIds + ' fwd=' + this.forward;
 };

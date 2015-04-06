@@ -68,7 +68,6 @@ EdgeGroup.prototype.getInternalVertexPQ = function() {
   }
 
   return pq;
-
 };
 
 EdgeGroup.prototype.getInternalVertexWeight = function(pointArray, index) {
@@ -99,4 +98,16 @@ EdgeGroup.prototype.hasTransit = function() {
 
 EdgeGroup.prototype.isNonTransitPath = function() {
   return (this.edges.length === 1 && this.edges[0].isNonTransitPath());
+};
+
+EdgeGroup.prototype.getTurnPoints = function(maxAngle) {
+  var points = [];
+  maxAngle = maxAngle || 0.75 * Math.PI;
+  each(this.commonPoints, function(point) {
+    if (point.getType() !== 'TURN') return;
+    if (Math.abs(point.turnAngle) < maxAngle) {
+      points.push(point);
+    }
+  });
+  return points;
 };

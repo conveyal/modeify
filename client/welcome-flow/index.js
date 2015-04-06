@@ -3,6 +3,7 @@ var config = require('config');
 var introJs = require('intro.js').introJs;
 var log = require('./client/log')('welcome-flow');
 var LocationsView = require('locations-view');
+var message = require('./client/messages')('welcomewelcome-flow');
 var showPlannerWalkthrough = require('planner-walkthrough');
 var RouteModal = require('route-modal');
 var routeResource = require('route-resource');
@@ -49,7 +50,6 @@ module.exports = function(session) {
         routeModal.on('next', function() {
           analytics.track('Completed Welcome Wizard');
 
-          commuter.updateProfile('commuter_activated', true);
           commuter.updateProfile('welcome_wizard_complete', true);
           commuter.save();
 
@@ -61,7 +61,6 @@ module.exports = function(session) {
     });
 
     locations.on('skip', function() {
-      commuter.updateProfile('commuter_activated', false);
       commuter.updateProfile('welcome_wizard_complete', true);
       commuter.save();
 
@@ -106,11 +105,11 @@ function highlightResults() {
     doneLabel: 'Close',
     steps: [{
       element: document.querySelector('.Options'),
-      intro: '<strong>Here are your best options!</strong> We\'ve searched all combinations of available travel modes to find the best trips for you, ranked based on their benefits versus driving alone.<br><br>Use this screen to explore your options and plan any other trips you\'d like to take!',
+      intro: message('best-options'),
       position: 'top'
     }, {
       element: document.querySelector('nav .fa-question-circle'),
-      intro: 'Click here to find out more!',
+      intro: message('find-more'),
       position: 'left'
     }]
   });

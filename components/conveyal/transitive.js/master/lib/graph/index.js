@@ -94,7 +94,8 @@ NetworkGraph.prototype.addEdge = function(stops, from, to, segmentType) {
   from.edges.push(edge);
   to.edges.push(edge);
 
-  var groupKey = this.getEdgeGroupKey(edge, segmentType);
+  var groupKey = this.network.transitive.options.groupEdges ?
+    this.getEdgeGroupKey(edge, segmentType) : edge.getId();
 
   if (!(groupKey in this.edgeGroups)) {
     this.edgeGroups[groupKey] = new EdgeGroup(edge.fromVertex, edge.toVertex,
@@ -356,6 +357,16 @@ NetworkGraph.prototype.mergeEdges = function(edge1, edge2) {
     var i = segment.getEdgeIndex(edge1);
     segment.insertEdgeAt(i, newEdge, newEdge.fromVertex);
   });
+
+  // if both input edges are have coordinate geometry, merge the coords arrays in the new edge
+  if(edge1.geomCoords && edge2.geomCoords) {
+    newEdge.geomCoords = edge1.geomCoords.concat(edge2.geomCoords.length > 0 ?
+      edge2.geomCoords.slice(1) : []);
+  }
+
+  debug('merging:');
+  debug(edge1);
+  debug(edge2);
   this.removeEdge(edge1);
   this.removeEdge(edge2);
 };
@@ -389,7 +400,6 @@ NetworkGraph.prototype.calculateGeometry = function(cellSize, angleConstraint) {
 
 NetworkGraph.prototype.resetCoordinates = function() {
   this.vertices.forEach(function(vertex) {
-    //console.log(vertex);
     vertex.x = vertex.origX;
     vertex.y = vertex.origY;
   });
@@ -497,7 +507,7 @@ NetworkGraph.prototype.apply2DOffsets = function() {
       return a.route.route_type > b.route.route_type ? 1 : -1;
     }
 
-    var isForward = (a.forward &&  b.forward) ? 1 : -1;
+    var isForward = (a.forward && b.forward) ? 1 : -1;
     return isForward * isOutward * (aId < bId ? -1 : 1);
   }).bind(this);
 
@@ -647,9 +657,9 @@ function getOutVector(edge, vertex) {
     return v;
   }
 
-  console.log('Warning: getOutVector() called on invalid edge / vertex pair');
-  console.log(' - Edge: ' + edge.toString());
-  console.log(' - Vertex: ' + vertex.toString());
+  debug('Warning: getOutVector() called on invalid edge / vertex pair');
+  debug(' - Edge: ' + edge.toString());
+  debug(' - Vertex: ' + vertex.toString());
 }
 
 /**

@@ -11,13 +11,15 @@
     "visionmedia/debug": "*"
   },
   "locals": [
-    "config"
+    "config",
+    "messages"
   ],
   "scripts": [
     "active.js",
     "dropdown.js",
     "each.js",
     "index.js",
+    "messages.js",
     "tap.js"
   ]
 }

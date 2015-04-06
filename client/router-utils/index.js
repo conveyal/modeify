@@ -23,33 +23,36 @@ module.exports.render = function(ctx, next) {
   // if no redirect, render the view
   log('render %s', ctx.path);
 
-  // remove old view
-  if (view) {
+  // remove old view if we're not showing a modal
+  if (view && !ctx.modal) {
+    $main.innerHTML = '';
     view.off();
     if (view.el && view.el.remove) view.el.remove();
     if (view.category) $main.classList.remove(view.category);
+    view = null;
   }
 
-  // if no view has been created or ther was an error, create an error page
-  if (!ctx.view || ctx.error) ctx.view = new Page404(ctx.error || {});
+  if (!view) {
+    // if no view has been created or ther was an error, create an error page
+    if (!ctx.view || ctx.error) ctx.view = new Page404(ctx.error || {});
 
-  // Store the new view
-  view = ctx.view;
+    // Store the new view
+    view = ctx.view;
 
-  // Add the category as a class
-  if (view.category) $main.classList.add(view.category);
+    // Add the category as a class
+    if (view.category) $main.classList.add(view.category);
 
-  $main.innerHTML = '';
-  $main.appendChild(view.el);
-  view.emit('rendered', view);
+    $main.appendChild(view.el);
+    view.emit('rendered', view);
+  }
+
+  if (ctx.modal) {
+    ctx.modal.show();
+  }
 
   // track the page view
   analytics.page();
 };
-
-/**
- * Expose `redirect`
- */
 
 module.exports.redirect = function(to) {
   return function(ctx, next) {

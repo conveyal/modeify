@@ -3,6 +3,8 @@ application: Modeify
 name: Modeify
 domain: modeify.co
 
+announcements:
+
 organization:
   name: Conveyal
   url: http://conveyal.com

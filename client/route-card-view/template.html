@@ -14,12 +14,12 @@
 
       <div data-visible="freeflowTime">{freeflowTime} without traffic</div>
       <div data-visible="hasTransit">
-        <div class="distance" data-visible="bikeDistances">{bikeTime} mins bike ride</div>
-        <div class="distance" data-visible="walkDistances">{walkTime} mins walk</div>
+        <div class="distance" data-visible="bikeDistances">{bikeTime} min biking</div>
+        <div class="distance" data-visible="walkDistances">{walkTime} min walking</div>
       </div>
       <div data-hidden="hasTransit">
-        <div class="distance" data-visible="bikeDistances">{bikeDistances} mi bike ride</div>
-        <div class="distance" data-visible="walkDistances">{walkDistances} mi walk</div>
+        <div class="distance" data-visible="bikeDistances">{bikeDistances} mi biking</div>
+        <div class="distance" data-visible="walkDistances">{walkDistances} mi walking</div>
       </div>
     </div>
 
@@ -31,27 +31,8 @@
     </div>
   </div>
   <div class="details">
-    <form class="scoring-information">
-      Take <input type="text" data-value="tripsPerYear" name="tripsPerYear" on-input="inputChange">trips<span data-visible="hasCar">, driving <strong data-text="driveDistances"></strong> miles at $ <input type="text" data-value="vmtRate" name="vmtRate" on-input="inputChange">
-      <a href="http://www.irs.gov/2014-Standard-Mileage-Rates-for-Business,-Medical-and-Moving-Announced" title="IRS's Standard Mileage Rate" target="_blank">per mile <i class="fa fa-external-link"></i></a> and $ <input type="text" data-value="carParkingCost" name="carParkingCost" on-input="inputChange"> for parking</span>
-      <span data-visible="transitCosts">, paying $<strong data-text="transitCosts"></strong> in transit fare</span><span data-visible="hasBiking">, biking <input type="text" data-value="bikeSpeedMph" name="bikeSpeed" on-input="inputChange"> mph for <strong data-text="bikeDistances"></strong> miles</span>
-      <span data-visible="hasWalking"> and walking <input type="text" data-value="walkSpeedMph" name="walkSpeed" on-input="inputChange"> mph for <strong data-text="walkDistances"></strong> miles</i></span>.
-    </form>
-    <table class="narrative-directions">
-      <thead>
-        <tr class="address">
-          <th class="icon"><i class="icon-start"></i></th>
-          <th class="description" data-text="from"></th>
-        </tr>
-      </thead>
-      <tfoot>
-        <tr class="address">
-          <td class="icon"><i class="icon-end"></i></td>
-          <td class="description" data-text="to"></td>
-        </tr>
-      </tfoot>
-      <tbody class="segmentDetails" data-html="segmentDetails"></tbody>
-    </table>
+    <div reactive="calculator"></div>
+    <div reactive="directions"></div>
     <div class="feedback">
       <a href="#" on-tap="feedback"><i class="fa fa-fw fa-gear"></i> help improve route</a>
     </div>

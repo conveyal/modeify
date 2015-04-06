@@ -11,14 +11,12 @@ var view = require('view');
  * Expose `View`
  */
 
-var View = module.exports = view(require('./template.html'), function(view,
-  plan) {
+var View = module.exports = view(require('./template.html'), function(view, plan) {
   view.on('rendered', function() {
     closest(view.el, 'form').onsubmit = function(e) {
       e.preventDefault();
 
-      plan.setAddresses(view.find('.from input').value, view.find(
-        '.to input').value, function(err) {
+      plan.setAddresses(view.find('.from input').value, view.find('.to input').value, function(err) {
         if (err) {
           log.error('%e', err);
         } else {
@@ -60,33 +58,26 @@ View.prototype.blurInput = function(e) {
 View.prototype.keydownInput = function(e) {
   var el = e.target;
   var key = e.keyCode;
-  var enterKey = key === 13;
-  var upKey = key === 38;
-  var downKey = key === 40;
 
   // Currently highlighted suggestion
   var highlightedSuggestion = this.find('.suggestion.highlight');
 
-  if (enterKey) {
-    e.preventDefault();
-    this.blurInput(e);
-  } else if (!downKey && !upKey) {
-    if (highlightedSuggestion) {
-      el.value = this.currentLocation || '';
-      setCursor(el, el.value.length);
-      highlightedSuggestion.classList.remove('highlight');
-    } else { // Just typing
-      this.currentLocation = el.value || '';
-    }
-  } else {
-    if (upKey) {
-      this.pressUp(highlightedSuggestion, el);
-    } else if (downKey) {
-      this.pressDown(highlightedSuggestion, el);
-    }
+  switch (key) {
+    case 13: // enter key
+      e.preventDefault();
+      this.blurInput(e);
+      break;
+    case 38: // up key
+    case 40: // down key
+      if (key === 38) {
+        this.pressUp(highlightedSuggestion, el);
+      } else {
+        this.pressDown(highlightedSuggestion, el);
+      }
 
-    var newHighlight = this.find('.suggestion.highlight');
-    if (newHighlight) el.value = newHighlight.textContent || '';
+      var newHighlight = this.find('.suggestion.highlight');
+      if (newHighlight) el.value = newHighlight.textContent || '';
+      break;
   }
 };
 
@@ -221,8 +212,7 @@ View.prototype.clear = function(e) {
  */
 
 function setCursor(node, pos) {
-  node = (typeof node === "string" || node instanceof String) ? document.getElementById(
-    node) : node;
+  node = (typeof node === "string" || node instanceof String) ? document.getElementById(node) : node;
 
   if (!node) return;
 

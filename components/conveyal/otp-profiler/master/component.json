@@ -1,0 +1,25 @@
+{
+  "name": "otp-profiler",
+  "version": "0.4.3",
+  "author": "Conveyal",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/conveyal/otp-profiler.git"
+  },
+  "dependencies": {
+    "component/clone": "*",
+    "component/each": "*",
+    "visionmedia/batch": "*",
+    "visionmedia/superagent": "*"
+  },
+  "development": {
+    "dependencies": {
+      "component/assert": "*"
+    }
+  },
+  "scripts": [
+    "index.js"
+  ],
+  "license": "MIT",
+  "resolved": "abade21dc1e2eb54768941e6f694a9cbad7fb26a"
+}

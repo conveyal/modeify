@@ -1,4 +1,4 @@
-# Development
+# Development quick start
 
 Clone to your local directory to begin.
 
@@ -6,94 +6,36 @@ Clone to your local directory to begin.
 $ git clone git@github.com:conveyal/modeify.git
 $ cd modeify
 ```
+## Installation
 
-### Node.js & JavaScript
+### `bin/install`
 
-Follow the instructions [here](https://github.com/conveyal/javascript) to set up your JavaScript development environment.
+This copies the configuration files into a `deployment` directory. On Macs this script also `brew install`s NodeJS and MongoDB.
 
-### Environment Variables & Config
+### Requirements for running
 
-All private environment variables needed can be found in `config/env.tmp` and client configuration specific variables can be found in `config/config.yaml`.
-
-**NOTE** Anything in `config/config.yaml` is exposed to the client.
-
-```bash
-modeify $ cp config/env.tmp config/env
-moedify $ cp config/config.yaml.tmp config/config.yaml
-```
-
-### MongoDB
-
-Install [locally](http://www.mongodb.org/downloads) or use a service like [MongoLab](https://mongolab.com/welcome/). Set `MONGODB_URL` in `config/env` accordingly.
-
-### OpenTripPlanner
-
-The planner requires an instance of [OpenTripPlanner](http://opentripplanner.com) running with the GTFS feeds you would like to analyze. Manage your OTP endpoint in `config/public.yaml`.
-
-### Install
-
-All Node.js dependencies are checked in, but still requires a rebuild on each system. Whenever you pull down a new version you'll want to run this also.
-
-```bash
-modeify $ npm install
-```
-
-Client side dependencies are also all checked in, but the final `.js` & `.css` files need to be built.
-
-```bash
-modeify $ make build
-```
+* [Node.js](https://nodejs.org/) — Version 0.10 and up
+* [MongoDB](https://www.mongodb.org/) — Can set `MONGODB_URL` in `deployment/env`
+* [OpenTripPlanner](http://www.opentripplanner.org/) — Set `otp` `host` and `port` in `deployment/config.yaml`
+* [Mapbox](https://mapbox.com) — Set the key in `deployment/config.yaml`
 
 ## Running
 
-The default way is to run the server as a daemon with automatic restarts using [nodemon](http://nodemon.io/) and stores the `pid` in `server.pid`
+### `npm start`
 
-```bash
-modeify $ npm start
-```
+Run's the server in the background with automatic restarts using [nodemon](http://nodemon.io/) This watches the `client` and `lib` directories for changes and rebuilds and reloads the server accordingly. Logs are stored in `server.log`.
 
-In development, we store the logs locally.
+**NOTE:** Changes to the configuration files requires a manual restart. Just run `npm start` again.
 
-```bash
-modeify $ tail -f server.log
-```
-
-### Stopping
-
-```bash
-modeify $ npm stop
-```
+### `npm stop`
 
 Kills the server and cleans up the `.pid`.
 
-## Deploying
+### `make build`
 
-Install & confiugre the [aws](http://docs.aws.amazon.com/cli/latest/reference/) CLI tool.
+Manually rebuilds the client assets.
 
-### S3
+## Deployment Configuration
 
-Configure your S3 buckets per environment in `config/public.yaml`.
+If you manage your configurations elsewhere, `bin/set-deployment $DIRECTORY` allows you to switch between deployments.
 
-```bash
-modeify $ bin/deploy-assets staging
-```
-
-This builds the client files for staging & syncs the `assets` folder with your specified S3 bucket.
-
-### OpsWorks
-
-Setup an OpsWorks Node.JS application and configure in `config/public.yaml`. The OpsWorks application will need to have all the environent variables set up that are in `config/env`.
-
-**NOTE** This is dependent on files that get deployed to S3.
-
-```bash
-modeify $ bin/deploy-server staging
-```
-
-### Environment
-
-Short hand to deploy all at once:
-
-```bash
-modeify $ bin/deploy staging
-```

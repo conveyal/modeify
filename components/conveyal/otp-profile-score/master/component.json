@@ -1,0 +1,20 @@
+{
+  "name": "otp-profile-score",
+  "description": "Score OTP profiles",
+  "dependencies": {
+    "component/clone": "*"
+  },
+  "version": "0.6.1",
+  "keywords": [
+    "OpenTripPlanner",
+    "otp",
+    "transit"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "repository": "conveyal/otp-profile-score",
+  "resolved": "fa0b7197429150bce01de31571af4f251ffce022"
+}

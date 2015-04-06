@@ -1,0 +1,22 @@
+{
+  "name": "route-directions-table",
+  "dependencies": {
+    "ianstormtaylor/to-sentence-case": "*",
+    "twitter/hogan.js": "*"
+  },
+  "local": [
+    "convert",
+    "session",
+    "view"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
+  ],
+  "templates": [
+    "row.html",
+    "template.html"
+  ]
+}

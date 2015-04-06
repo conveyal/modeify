@@ -15,6 +15,10 @@ var RenderedSegment = require('../renderer/renderedsegment');
 
 var Graph = require('../graph');
 
+var Polyline = require('../util/polyline.js');
+var SphericalMercator = require('../util/spherical-mercator');
+var sm = new SphericalMercator();
+
 /**
  * Expose `Network`
  */
@@ -54,6 +58,7 @@ Emitter(Network.prototype);
 
 Network.prototype.load = function(data) {
   debug('loading', data);
+  var self = this;
 
   // check data
   if (!data) data = {};
@@ -71,6 +76,21 @@ Network.prototype.load = function(data) {
 
   // maps lat_lon key to unique TurnPoint object
   this.turnPoints = {};
+
+  // Copy/decode the streetEdge objects
+  this.streetEdges = {};
+  each(data.streetEdges, function(data) {
+    var latLons = Polyline.decode(data.geometry.points);
+    var coords = [];
+    each(latLons, function(latLon) {
+      coords.push(sm.forward([latLon[1], latLon[0]]));
+    });
+    this.streetEdges[data.edge_id] = {
+      latLons: latLons,
+      worldCoords: coords,
+      length: data.geometry.length
+    };
+  }, this);
 
   // Generate the route objects
   this.routes = {};
@@ -94,10 +114,10 @@ Network.prototype.load = function(data) {
       route.addPattern(pattern);
       pattern.route = route;
     } else {
-      console.log('Error: pattern ' + data.pattern_id +
+      debug('Error: pattern ' + data.pattern_id +
         ' refers to route that was not found: ' + data.route_id);
     }
-    if(pattern.render) this.paths.push(pattern.createPath());
+    if (pattern.render) this.paths.push(pattern.createPath());
   }, this);
 
   // Generate the place objects
@@ -125,13 +145,31 @@ Network.prototype.load = function(data) {
 
   // when rendering pattern paths only, determine convergence/divergence vertex
   // stops by looking for stops w/ >2 adjacent stops
-  if(!data.journeys || data.journeys.length === 0) {
+  if (!data.journeys || data.journeys.length === 0) {
     for (var stopId in this.adjacentStops) {
       if (this.adjacentStops[stopId].length > 2) {
         this.addVertexPoint(this.stops[stopId]);
       }
     }
   }
+
+  // determine which TurnPoints should be base vertices
+  var turnLookup = {};
+  var addTurn = function(turn1, turn2) {
+    if (!(turn1.getId() in turnLookup)) turnLookup[turn1.getId()] = [];
+    if (turnLookup[turn1.getId()].indexOf(turn2) === -1) turnLookup[turn1.getId()].push(turn2);
+  };
+  each(this.streetEdges, function(streetEdgeId) {
+    var streetEdge = self.streetEdges[streetEdgeId];
+    if (streetEdge.fromTurnPoint && streetEdge.toTurnPoint) {
+      addTurn(streetEdge.toTurnPoint, streetEdge.fromTurnPoint);
+      addTurn(streetEdge.fromTurnPoint, streetEdge.toTurnPoint);
+    }
+  });
+  each(turnLookup, function(turnPointId) {
+    var count = turnLookup[turnPointId].length;
+    if (count > 2) self.addVertexPoint(self.turnPoints[turnPointId]);
+  });
 
   this.createGraph();
 
@@ -158,13 +196,10 @@ Network.prototype.createGraph = function() {
   }, this);
 
   // create the list of vertex points
-  var vertexPoints; // = this.baseVertexPoints.concat();
+  var vertexPoints;
   if (this.mergeVertexThreshold && this.mergeVertexThreshold > 0) {
     this.pointClusterMap = new PointClusterMap(this, this.mergeVertexThreshold);
     vertexPoints = this.pointClusterMap.getVertexPoints(this.baseVertexPoints);
-    /*each(this.pointClusterMap.vertexPoints, function(point) {
-      if(vertexPoints.indexOf(point) === -1) vertexPoints.push(point);
-    });*/
   } else vertexPoints = this.baseVertexPoints;
 
   // core graph creation steps
@@ -195,32 +230,26 @@ Network.prototype.createInternalVertexPoints = function() {
 
   this.internalVertexPoints = [];
 
-  // create a shallow-cloned copy
-  var edges = [];
-  each(this.graph.edges, function(e) {
-    //if(this.graph.getEdgeGroup(e) && this.graph.getEdgeGroup(e).length === 1) edges.push(e);
-    edges.push(e);
-  }, this);
-
-  //each(edges, function(edge) {
   for (var i in this.graph.edgeGroups) {
     var edgeGroup = this.graph.edgeGroups[i];
 
     var wlen = edgeGroup.getWorldLength();
-    //var wlen = edge.getWorldLength();
+
+    var splitPoints = [];
 
     // compute the maximum number of internal points for this edge to add as graph vertices
-    var vertexFactor = !edgeGroup.hasTransit() ? 1 : this.internalVertexFactor;
-    var newVertexCount = Math.floor(wlen / vertexFactor);
+    if (edgeGroup.hasTransit()) {
+      var vertexFactor = this.internalVertexFactor; //!edgeGroup.hasTransit() ? 1 : this.internalVertexFactor;
+      var newVertexCount = Math.floor(wlen / vertexFactor);
 
-    // get the priority queue of the edge's internal points
-    var pq = edgeGroup.getInternalVertexPQ();
+      // get the priority queue of the edge's internal points
+      var pq = edgeGroup.getInternalVertexPQ();
 
-    // pull the 'best' points from the queue until we reach the maximum
-    var splitPoints = [];
-    while (splitPoints.length < newVertexCount && pq.size() > 0) {
-      var el = pq.deq();
-      splitPoints.push(el.point);
+      // pull the 'best' points from the queue until we reach the maximum
+      while (splitPoints.length < newVertexCount && pq.size() > 0) {
+        var el = pq.deq();
+        splitPoints.push(el.point);
+      }
     }
 
     // perform the split operation (if needed)
@@ -232,7 +261,6 @@ Network.prototype.createInternalVertexPoints = function() {
     }
 
   }
-  //}, this);
 };
 
 Network.prototype.updateGeometry = function() {
@@ -325,6 +353,7 @@ Network.prototype.addStopAdjacency = function(stopIdA, stopIdB) {
  */
 
 Network.prototype.populateGraphEdges = function() {
+  var self = this;
   // vertex associated with the last vertex point we passed in this sequence
   var lastVertex = null;
 
@@ -332,59 +361,91 @@ Network.prototype.populateGraphEdges = function() {
   // since the last vertex point
   var internalPoints = [];
 
+  var streetEdges = {};
+
   each(this.paths, function(path) {
     each(path.segments, function(segment) {
 
-      if (segment.geomCoords && this.internalVertexFactor <= 1) {
-        var edge = this.graph.addEdge(internalPoints, segment.points[0].graphVertex,
-          segment.points[segment.points.length - 1].graphVertex, segment.getType()
-        );
-        edge.geomCoords = segment.geomCoords;
-        segment.addEdge(edge, segment.points[0].graphVertex);
-        edge.addPathSegment(segment);
-        return;
-      }
-
       lastVertex = null;
-      var lastVertexIndex = 0;
 
+      var streetEdgeIndex = 0;
+      var geomCoords = []; // the geographic coordinates for the graph edge currently being constructed
       each(segment.points, function(point, index) {
 
+        if (segment.streetEdges) {
+          for (var i = streetEdgeIndex; i < segment.streetEdges.length; i++) {
+            if (index === 0) break;
+
+            geomCoords = geomCoords.concat(geomCoords.length > 0 ? segment.streetEdges[i].worldCoords.slice(1) : segment.streetEdges[i].worldCoords);
+            if (segment.streetEdges[i].toTurnPoint === point) {
+              streetEdgeIndex = i + 1;
+              break;
+            }
+          }
+        }
+
         if (point.multipoint) point = point.multipoint;
+
         if (point.graphVertex) { // this is a vertex point
           if (lastVertex !== null) {
             if (lastVertex.point === point) return;
-            var edge = this.graph.getEquivalentEdge(internalPoints,
-              lastVertex,
-              point.graphVertex);
 
+            // see if an equivalent graph edge already exists
+            var fromVertex = lastVertex,
+              toVertex = point.graphVertex;
+            var edge = this.graph.getEquivalentEdge(internalPoints, fromVertex, toVertex);
+
+            // create a new graph edge if necessary
             if (!edge) {
-              edge = this.graph.addEdge(internalPoints, lastVertex, point
-                .graphVertex, segment.getType());
-
-              // calculate the angle and apply to edge stops
-              var dx = point.graphVertex.x - lastVertex.x;
-              var dy = point.graphVertex.y - lastVertex.y;
-              var angle = Math.atan2(dy, dx) * 180 / Math.PI;
-              point.angle = lastVertex.point.angle = angle;
-              for (var is = 0; is < internalPoints.length; is++) {
-                internalPoints[is].angle = angle;
-              }
+              edge = this.graph.addEdge(internalPoints, fromVertex, toVertex, segment.getType());
+              if (geomCoords && geomCoords.length > 0) edge.geomCoords = geomCoords;
             }
 
-            segment.addEdge(edge, lastVertex);
+            // associate the graph edge and path segment with each other
+            segment.addEdge(edge, fromVertex);
             edge.addPathSegment(segment);
+
+            geomCoords = []; // reset the geom coords array for the next edge
           }
 
           lastVertex = point.graphVertex;
-          lastVertexIndex = index;
           internalPoints = [];
         } else { // this is an internal point
           internalPoints.push(point);
         }
       }, this);
+      //}
     }, this);
   }, this);
+};
+
+Network.prototype.createGraphEdge = function(segment, fromVertex, toVertex, internalPoints, geomCoords) {
+
+  var edge = this.graph.getEquivalentEdge(internalPoints, fromVertex, toVertex);
+
+  if (!edge) {
+    edge = this.graph.addEdge(internalPoints, fromVertex, toVertex, segment.getType());
+
+    // calculate the angle and apply to edge stops
+    /*var dx = fromVertex.x - toVertex.x;
+    var dy = fromVertex.y - toVertex.y;
+    var angle = Math.atan2(dy, dx) * 180 / Math.PI;
+    point.angle = lastVertex.point.angle = angle;
+    for (var is = 0; is < internalPoints.length; is++) {
+      internalPoints[is].angle = angle;
+    }*/
+
+    if (geomCoords) edge.geomCoords = geomCoords;
+
+    debug("--- created edge " + edge.toString());
+    debug(edge);
+    each(edge.geomCoords, function(c) {
+      debug(c);
+    });
+  }
+
+  segment.addEdge(edge, fromVertex);
+  edge.addPathSegment(segment);
 };
 
 Network.prototype.annotateTransitPoints = function() {
@@ -500,16 +561,22 @@ Network.prototype.createRenderedSegment = function(pathSegment, patterns) {
 
 Network.prototype.createRenderedEdge = function(pathSegment, gEdge, forward, patterns) {
   var rEdge;
-  var key = gEdge.id + (forward ? 'F' : 'R') + '_' + pathSegment.getType();
 
+  // construct the edge key, disregarding mode qualifiers (e.g. "_RENT")
+  var type = pathSegment.getType().split('_')[0];
+  var key = gEdge.id + (forward ? 'F' : 'R') + '_' + type;
+
+  // for non-bus transit edges, append an exemplar pattern ID to the key
   if (patterns && patterns[0].route.route_type !== 3) {
     key += '_' + patterns[0].getId();
   }
 
+  // see if this r-edge already exists
   if (key in this.reLookup) {
     rEdge = this.reLookup[key];
-  } else {
-    rEdge = new RenderedEdge(gEdge, forward, pathSegment.type);
+  }
+  else { // if not, create it
+    rEdge = new RenderedEdge(gEdge, forward, type);
     if (patterns) {
       each(patterns, function(pattern) {
         pattern.addRenderedEdge(rEdge);

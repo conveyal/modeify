@@ -3,7 +3,7 @@
   "dependencies": {
     "component/clone": "*",
     "component/querystring": "*",
-    "conveyal/otp-profiler": "*",
+    "conveyal/otp-profiler": "master",
     "yields/fmt": "*"
   },
   "locals": [

@@ -1,0 +1,6 @@
+<form class="RouteCostCalculator">
+  Take <input type="text" data-value="tripsPerYear" name="tripsPerYear" on-input="inputChange">trips<span data-visible="hasCar">&nbsp;driving <strong data-text="driveDistances"></strong> miles at $ <input type="text" data-value="vmtRate" name="vmtRate" on-input="inputChange">
+  <a href="http://www.irs.gov/2014-Standard-Mileage-Rates-for-Business,-Medical-and-Moving-Announced" title="IRS's Standard Mileage Rate" target="_blank">per mile <i class="fa fa-external-link"></i></a> and $ <input type="text" data-value="carParkingCost" name="carParkingCost" on-input="inputChange"> for parking</span>
+  <span data-visible="transitCosts"> paying $<strong data-text="transitCosts"></strong> in transit fare</span><span data-visible="hasBiking">&nbsp;biking <input type="text" data-value="bikeSpeedMph" name="bikeSpeed" on-input="inputChange"> mph for <strong data-text="bikeDistances"></strong> miles</span>
+  <span data-visible="hasWalking"> and walking <input type="text" data-value="walkSpeedMph" name="walkSpeed" on-input="inputChange"> mph for <strong data-text="walkDistances"></strong> miles</i></span>
+</form>

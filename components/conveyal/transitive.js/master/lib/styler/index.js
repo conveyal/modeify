@@ -143,7 +143,6 @@ Styler.prototype.styleWireframeEdge = function(display, wfEdge) {
   );
 };
 
-
 /**
  * Style a Point using the rules defined in styles.js or the Transitive options
  *
@@ -157,7 +156,6 @@ Styler.prototype.stylePoint = function(display, point) {
   if (point.getType() === 'MULTI') this.styleMultiPoint(display, point);
   if (point.getType() === 'WIREFRAME_VERTEX') this.styleWireframeVertex(display, point);
 };
-
 
 /**
  * Style a Stop using the rules defined in styles.js or the Transitive options
@@ -353,7 +351,6 @@ Styler.prototype.compute = function(rules, display, data, index) {
  */
 
 Styler.prototype.getModeStyles = function(mode, display) {
-
   var modeStyles = {};
 
   // simulate a segment w/ the specified style
@@ -364,7 +361,7 @@ Styler.prototype.getModeStyles = function(mode, display) {
     }
   };
 
-  if (mode === "WALK" || mode === "BICYCLE" || mode === "CAR") {
+  if (mode === "WALK" || mode === "BICYCLE" ||  mode === "BICYCLE_RENT" || mode === "CAR") {
     segment.type = mode;
   } else { // assume a transit mode
     segment.type = "TRANSIT";

@@ -1,15 +1,15 @@
 <div class="WelcomeFlow Welcome">
-  <h3 class="headline">The region's <strong>first multi-modal</strong> trip planning and comparison tool.</h3>
+  <h3 class="headline" data-message="headline"></h3>
   <div class="graphic"></div>
   <div class="question">
-    <h3>We're excited to help you travel smart. Let's get started!</h3>
-    <h3><strong>How do you usually get to work?</strong></h3>
+    <h3 data-message="tagline"></h3>
+    <h3 data-message="question"></h3>
     <div class="answers">
-      <button on-tap="clickedAnswer" class="answer btn btn-block" data-answer="drive"><i class="icon-car"></i> I <strong>drive</strong> alone</button>
-      <button on-tap="clickedAnswer" class="answer btn btn-block" data-answer="carpool"><i class="icon-carshare"></i> I <strong>carpool</strong></button>
-      <button on-tap="clickedAnswer" class="answer btn btn-block" data-answer="bike"><i class="icon-bike"></i> I <strong>bike</strong></button>
-      <button on-tap="clickedAnswer" class="answer btn btn-block" data-answer="transit"><i class="icon-train"></i> I take public <strong>transit</strong></button>
-      <button on-tap="clickedAnswer" class="answer btn btn-block" data-answer="walk"><i class="icon-walk"></i> I <strong>walk</strong></button>
+      <button on-tap="clickedAnswer" class="answer btn btn-block" data-answer="drive"><i class="icon-car"></i> <span data-message="answers:drive"></span></button>
+      <button on-tap="clickedAnswer" class="answer btn btn-block" data-answer="carpool"><i class="icon-carshare"></i> <span data-message="answers:carpool"></span></button>
+      <button on-tap="clickedAnswer" class="answer btn btn-block" data-answer="bike"><i class="icon-bike"></i> <span data-message="answers:bike"></span></button>
+      <button on-tap="clickedAnswer" class="answer btn btn-block" data-answer="transit"><i class="icon-train"></i> <span data-message="answers:transit"></span></button>
+      <button on-tap="clickedAnswer" class="answer btn btn-block" data-answer="walk"><i class="icon-walk"></i> <span data-message="answers:walk"></span></button>
     </div>
   </div>
 </div>

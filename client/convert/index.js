@@ -108,6 +108,8 @@ exports.modeToIcon = function(m) {
     case 'subway':
     case 'tram':
       return 'train';
+    case 'bicycle_rent':
+      return 'cabi';
     default:
       return m;
   }

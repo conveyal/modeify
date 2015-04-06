@@ -19,6 +19,7 @@
   padding: 4px 8px;
   border-top-left-radius: var(--border-radius);
   border-top-right-radius: var(--border-radius);
+  white-space: nowrap;
 }
 
 .Options .select-button {
@@ -131,7 +132,6 @@
   font-size: var(--h3);
 }
 
-
 /**
  * Expanded
  */
@@ -156,163 +156,9 @@
   padding: 0 16px 8px;
 }
 
-.RouteCard > .details .narrative-directions {
-  width: 100%;
-  border-collapse: separate;
-  color: var(--black);
-}
-
-.Options .details .narrative-directions tr:nth-child(odd) {
-  background-color: var(--lightest-blue);
-}
-
-.Options .details .narrative-directions tr.address {
-  background-color: #fff;
-}
-
-.narrative-directions .transfer {
-  width: 15px;
-  text-align: center;
-  margin-left: 5px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-}
-
-.Options .details .transfer.board {
-  margin-top: 18px;
-  padding-top: 0;
-  border-top-right-radius: 15px;
-  border-top-left-radius: 15px;
-}
-
-.Options .details .transfer.alight {
-  margin-bottom: 17px;
-  padding-bottom: 0;
-  border-bottom-right-radius: 15px;
-  border-bottom-left-radius: 15px;
-}
-
-.Options .details .detail-route-bg {
-  background-color: var(--black);
-  width: 15px;
-  padding-top: 62px;
-  margin-left: 5px;
-}
-
-.narrative-directions .icon {
-  height: 44px;
-  font-size: 25px;
-  text-align: center;
-  padding-left: 16px;
-}
-
-.narrative-directions .icon-start {
-  color: var(--green);
-}
-
-.narrative-directions .icon-end {
-  color: var(--gold);
-}
-
-.narrative-directions .transfer > .station {
-  background-color: #fff;
-  height: 15px;
-  width: 15px;
-  border-radius: 15px;
-  border: 2px solid var(--black);
-}
-
-.narrative-directions .segment > .icon > .fa {
-  color: var(--black);
-  font-size: 16px;
-  vertical-align: middle;
-}
-
-.Options .details .description {
-  text-align: left;
-  vertical-align: middle;
-  padding: 6px 16px;
-  line-height: 18px;
-}
-
-.Options .details .address .description {
-  color: var(--black);
-  font-weight: bold;
-}
-
-/**
- * Scoring Information
- */
-
-.Options .scoring-information {
-  padding: 12px 16px;
-  background-color: var(--mgreen);
-  color: var(--darkergreen);
-  line-height: 22px;
-}
-
-.Options .scoring-information a {
-  color: var(--darkergreen);
-}
-
-.Option .scoring-information a:active,
-.Option .scoring-information a:focus,
-.Option .scoring-information a:hover {
-  color: color(var(--darkergreen) shade(20%));
-}
-
-.Options .scoring-information input {
-  border: none;
-  background-color: transparent;
-  border-bottom: 2px dotted var(--lightgreen);
-  text-align: center;
-  cursor: pointer;
-  font-weight: var(--bold);
-  height: 22px;
-}
-
-.Options .scoring-information input:focus {
-  outline: none;
-}
-
 /** Feedback on a route */
 
 .Options .feedback {
   margin: 10px;
   text-align: right;
-}
-
-/**
- * Font awesome rotations
- */
-
-.fa-north {
-  transform: rotate(270deg);
-}
-
-.fa-northeast {
-  transform: rotate(315deg);
-}
-
-.fa-east {
-}
-
-.fa-southeast {
-  transform: rotate(45deg);
-}
-
-.fa-south {
-  transform: rotate(90deg);
-}
-
-.fa-southwest {
-  transform: rotate(135deg);
-}
-
-.fa-west {
-  transform: rotate(180deg);
-}
-
-.fa-northwest {
-  transform: rotate(225deg);
 }

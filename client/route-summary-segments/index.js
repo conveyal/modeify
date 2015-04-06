@@ -8,20 +8,24 @@ module.exports = function(route, opts) {
   opts = opts || {};
 
   var accessMode = route.access()[0].mode.toLowerCase();
-  var segments = '';
+  var accessModeIcon = convert.modeToIcon(accessMode);
+  var egress = route.egress();
+  var segments = [];
   var transitSegments = route.transit();
 
-  if (transitSegments.length < 1 && accessMode === 'car') accessMode = 'carshare';
+  if (transitSegments.length < 1 && accessMode === 'car') {
+    accessModeIcon = convert.modeToIcon('carshare');
+  }
 
-  segments += template.render({
-    mode: convert.modeToIcon(accessMode),
-    style: getModeStyles(route.access()[0].mode),
+  segments.push({
+    mode: accessModeIcon,
+    style: getModeStyles(accessMode),
     inline: !!opts.inline,
     small: !!opts.small,
     svg: true
   });
 
-  transitSegments.forEach(function(segment) {
+  segments = segments.concat(transitSegments.map(function(segment) {
     var patterns = segment.segmentPatterns.filter(patternFilter('color'));
     var background = patterns[0].color;
 
@@ -37,16 +41,33 @@ module.exports = function(route, opts) {
       background += ')';
     }
 
-    segments += template.render({
+    return {
       background: background,
       mode: convert.modeToIcon(segment.mode),
       inline: !!opts.inline,
       small: !!opts.small,
       name: patterns[0].shield
-    });
-  });
+    };
+  }));
 
-  return segments;
+  if (egress && egress.length > 0) {
+    var egressMode = egress[0].mode.toLowerCase();
+    if (egressMode !== 'walk') {
+      segments.push({
+        mode: convert.modeToIcon(egressMode),
+        style: getModeStyles(egressMode),
+        inline: !!opts.inline,
+        small: !!opts.small,
+        svg: true
+      });
+    }
+  }
+
+  return segments
+    .map(function(s) {
+      return template.render(s);
+    })
+    .join('');
 };
 
 /**
@@ -71,7 +92,7 @@ function patternFilter(by) {
 }
 
 function getModeStyles(mode) {
-  var styles = transitive.getModeStyles(mode);
+  var styles = transitive.getModeStyles(mode.toUpperCase());
   var s = '';
   for (var i in styles) {
     s += i + ':' + styles[i] + ';';

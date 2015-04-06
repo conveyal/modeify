@@ -254,3 +254,38 @@ select:focus {
 .fa-spin {
   animation: fa-spin 1s infinite linear;
 }
+
+/**
+ * Font awesome rotations
+ */
+
+.fa-north {
+  transform: rotate(270deg);
+}
+
+.fa-northeast {
+  transform: rotate(315deg);
+}
+
+.fa-east {
+}
+
+.fa-southeast {
+  transform: rotate(45deg);
+}
+
+.fa-south {
+  transform: rotate(90deg);
+}
+
+.fa-southwest {
+  transform: rotate(135deg);
+}
+
+.fa-west {
+  transform: rotate(180deg);
+}
+
+.fa-northwest {
+  transform: rotate(225deg);
+}

@@ -1,11 +1,6 @@
 {
   "name": "filter-view",
-  "dependencies": {
-    "component/value": "*",
-    "visionmedia/debug": "*"
-  },
   "locals": [
-    "config",
     "reactive-select",
     "view"
   ],

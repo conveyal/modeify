@@ -14,8 +14,9 @@
 [david-image]: http://img.shields.io/david/conveyal/modeify.svg?style=flat-square
 [david-url]: https://david-dm.org/conveyal/modeify
 
-A web-based UI for delivering personalized commute information to travelers. Supported by the [Mobility Lab](http://mobilitylab.org/) [Transit Tech Initiative](http://mobilitylab.org/tech/transit-tech-initiative/).
+Deliver personalized commute information to travelers. Supported by the [Mobility Lab](http://mobilitylab.org/) [Transit Tech Initiative](http://mobilitylab.org/tech/transit-tech-initiative/).
 
 ## Documentation
 
 * [Development](/docs/Development.md)
+* [Deployment](/docs/Deployment.md)

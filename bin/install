@@ -40,24 +40,25 @@ if [ $OS == "Darwin" ]; then
 fi
 
 # Make deployment dir
-mkdir deployment || true
-mkdir assets/images/application || true
+[ -d deployment ] || mkdir deployment
+[ -d assets/images/application ] || mkdir -p assets/images/application
 
 # Copy the config files
 echo 'Copying the config files...'
-cp -n config/about.md.tmp deployment/about.md
-cp -n config/config.yaml.tmp deployment/config.yaml
-cp -n config/env.tmp deployment/env
-cp -n config/messages.yaml.tmp deployment/messages.yaml
-cp -n config/terms.md.tmp deployment/terms.md
+[ -f deployment/about.md ] || cp -n config/about.md.tmp deployment/about.md
+[ -f deployment/config.yaml ] || cp -n config/config.yaml.tmp deployment/config.yaml
+[ -f deployment/env ] || cp -n config/env.tmp deployment/env
+[ -f deployment/messages.yaml ] || cp -n config/messages.yaml.tmp deployment/messages.yaml
+[ -f deployment/terms.md ] || cp -n config/terms.md.tmp deployment/terms.md
 
 # Source the .env file
 echo 'Sourcing deployment/env file...'
 source deployment/env
 
 # Install & build
-echo 'Rebuilding node dependcies & building client files...'
+echo 'Rebuilding node dependencies & building client files...'
+npm rebuild
 make build
 
 # Finish
-echo 'Finished! Start the server with `npm start`'
+echo '##### Finished! Start the server with `npm start` #####'

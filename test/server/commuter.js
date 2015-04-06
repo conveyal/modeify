@@ -179,7 +179,7 @@ describe(base, function() {
             last: 'Name'
           }
         })
-        .expect(400, done)
+        .expect(400, done);
     });
 
     it('400 if email or name is not passed', function(done) {
@@ -192,7 +192,7 @@ describe(base, function() {
           }
         })
         .expect(400, done);
-    })
+    });
 
     it('204 if appropriate values are sent', function(done) {
       agent

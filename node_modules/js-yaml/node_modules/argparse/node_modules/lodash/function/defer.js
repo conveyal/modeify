@@ -1,4 +1,5 @@
-var baseDelay = require('../internal/baseDelay');
+var baseDelay = require('../internal/baseDelay'),
+    restParam = require('./restParam');
 
 /**
  * Defers invoking the `func` until the current call stack has cleared. Any
@@ -12,11 +13,13 @@ var baseDelay = require('../internal/baseDelay');
  * @returns {number} Returns the timer id.
  * @example
  *
- * _.defer(function(text) { console.log(text); }, 'deferred');
+ * _.defer(function(text) {
+ *   console.log(text);
+ * }, 'deferred');
  * // logs 'deferred' after one or more milliseconds
  */
-function defer(func) {
-  return baseDelay(func, 1, arguments, 1);
-}
+var defer = restParam(function(func, args) {
+  return baseDelay(func, 1, args);
+});
 
 module.exports = defer;

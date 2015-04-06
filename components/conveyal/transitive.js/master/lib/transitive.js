@@ -44,6 +44,7 @@ module.exports.version = '0.7.1';
  *   - mapboxId {String} an Mapbox tileset id for rendering background tiles (Deprecated -- use Leaflet with Leaflet.TransitiveLayer)
  *   - zoomEnabled {Boolean} whether to enable the display's built-in zoom/pan functionality (defaults to true)
  *   - autoResize {Boolean} whether the display should listen for window resize events and update automatically (defaults to true)
+ *   - groupEdges {Boolean} whether to consider edges with the same origin/destination equivalent for rendering, even if intermediate stop sequence is different (defaults to true)
  */
 
 function Transitive(options) {
@@ -53,6 +54,7 @@ function Transitive(options) {
   this.options = options;
   if (this.options.zoomEnabled === undefined) this.options.zoomEnabled = true;
   if (this.options.autoResize === undefined) this.options.autoResize = true;
+  if (this.options.groupEdges === undefined) this.options.groupEdges = true;
 
   if (options.el) this.setElement(options.el);
 
@@ -137,7 +139,7 @@ Transitive.prototype.setElement = function(el, legendEl) {
  */
 
 Transitive.prototype.setRenderer = function(type) {
-  switch(type) {
+  switch (type) {
     case 'wireframe':
       this.renderer = new WireframeRenderer(this);
       break;
@@ -201,7 +203,6 @@ Transitive.prototype.focusJourney = function(journeyId) {
   this.renderer.focusPath(path);
 };
 
-
 /**
  * Sets the Display bounds
  * @param {Array} lon/lat bounds expressed as [[west, south], [east, north]]
@@ -218,11 +219,14 @@ Transitive.prototype.setDisplayBounds = function(llBounds) {
  */
 
 Transitive.prototype.getNetworkBounds = function() {
-  if(!this.network || !this.network.graph) return null;
+  if (!this.network || !this.network.graph) return null;
   var graphBounds = this.network.graph.bounds();
-  var ll1 = sm.inverse(graphBounds[0]), ll2 = sm.inverse(graphBounds[1]);
-  return [[Math.min(ll1[0], ll2[0]), Math.min(ll1[1], ll2[1])],
-          [Math.max(ll1[0], ll2[0]), Math.max(ll1[1], ll2[1])]];
+  var ll1 = sm.inverse(graphBounds[0]),
+    ll2 = sm.inverse(graphBounds[1]);
+  return [
+    [Math.min(ll1[0], ll2[0]), Math.min(ll1[1], ll2[1])],
+    [Math.max(ll1[0], ll2[0]), Math.max(ll1[1], ll2[1])]
+  ];
 };
 
 /**
@@ -230,7 +234,7 @@ Transitive.prototype.getNetworkBounds = function() {
  */
 
 Transitive.prototype.resize = function(width, height) {
-  if(!this.display) return;
+  if (!this.display) return;
   d3.select(this.display.el)
     .style("width", width + 'px')
     .style("height", height + 'px');

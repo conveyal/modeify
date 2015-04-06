@@ -7,12 +7,6 @@ BUCKET=`./bin/config-val $1 s3_bucket`
 echo "Building client..."
 ./bin/build-client $1
 
-echo "Bundle server..."
-./bin/bundle-server $1
-
-echo "Bundle cookbooks..."
-./bin/bundle-cookbooks $1
-
 echo "Syncing assets to $BUCKET"
 aws s3 sync assets $BUCKET \
   --acl public-read \
