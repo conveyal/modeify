@@ -6,6 +6,8 @@ LIBJS = $(shell find lib -name '*.js')
 TESTJS = $(shell find test -name '*.js')
 JSON = $(shell find client -name '*.json')
 
+RB = $(shell find cookbooks -name '*.rb')
+
 build: $(CSS) $(HTML) $(CLIENTJS) $(JSON)
 	@./bin/build-client $(NODE_ENV)
 
@@ -14,6 +16,18 @@ beautify:
 		--config config/jsbeautify.json \
 		--replace $(CLIENTJS) $(LIBJS) $(TESTJS) \
 		--quiet
+
+assets/cookbooks.tar.gz: $(RB)
+	@tar cvzf assets/cookbooks.tar.gz cookbooks
+
+assets/server.tar.gz: $(LIBJS)
+	@git archive --output=assets/server.tar HEAD
+	@tar -rvf assets/server.tar deployment/config.yaml # Add the config to the archvie before gzipping
+	@gzip -c assets/server.tar > assets/server.tar.gz
+	@rm assets/server.tar # cleanup
+
+install:
+	@bin/install
 
 # Lint JavaScript with JSHint
 lint:
@@ -30,6 +44,6 @@ serve: stop
 	@echo "Logs stored in server.log"
 
 stop:
-	@kill `cat server.pid` || true
+	@[ -f server.pid ] && kill `cat server.pid`
 
-.PHONY: beautify lint serve
+.PHONY: beautify build install lint serve
