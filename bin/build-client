@@ -105,12 +105,12 @@ function bundle(app) {
 
         js += build.scripts.require + '\n' + str + ';require("' + build.scripts.canonical(tree).canonical + '");\n';
 
-        fs.writeFileSync(path.resolve(destDir, 'build.js'), js);
+        writeFile(path.resolve(destDir, 'build.js'), js);
 
         if (!development) {
-          js = uglify.minify(js, { fromString: true }).code;
-          js = zlib.gzipSync(js);
-          fs.writeFileSync(path.resolve(destDir, 'build.min.js.gz'), js);
+          zlib.gzip(uglify.minify(js, { fromString: true }).code, function(err, data) {
+            writeFile(path.resolve(destDir, 'build.min.js.gz'), data);
+          });
         }
       });
 
@@ -122,12 +122,12 @@ function bundle(app) {
         var css = myth(str);
         css = css.replace(/\burl *\(([^)]+)\)/g, rewrite);
 
-        fs.writeFileSync(path.resolve(destDir, 'build.css'), css);
+        writeFile(path.resolve(destDir, 'build.css'), css);
 
         if (!development) {
-          css = sqwish.minify(css);
-          css = zlib.gzipSync(css);
-          fs.writeFileSync(path.resolve(destDir, 'build.min.css.gz'), css);
+          zlib.gzip(sqwish.minify(css), function(err, data) {
+            writeFile(path.resolve(destDir, 'build.min.css.gz'), data);
+          });
         }
       });
   });
@@ -169,16 +169,13 @@ function generateMessageFiles(messagesPath, destinationPath) {
         var messages = markdownify(yml2js(yml));
         var data = 'window.MESSAGES=' + JSON.stringify(messages) + ';';
 
-        if (!development) {
-          data = uglify.minify(data, { fromString: true }).code;
-          data = zlib.gzipSync(data);
-        }
+        writeFile(destinationPath + '/' + lang + '.js', data);
 
-        fs.writeFileSync(destinationPath + '/' + lang + '.js', data, {
-          encoding: 'utf8'
-        }, function(err) {
-          if (err) throw err;
-        });
+        if (!development) {
+          zlib.gzip(uglify.minify(data, { fromString: true }).code, function(err, data) {
+            writeFile(destinationPath + '/' + lang + '.min.js.gz', data);
+          });
+        }
       });
     });
   });
@@ -194,4 +191,12 @@ function markdownify(obj) {
     }
   }
   return obj;
+}
+
+function writeFile(path, data) {
+  fs.writeFile(path, data, {
+    encoding: 'utf8'
+  }, function(err) {
+    if (err) throw err;
+  });
 }
