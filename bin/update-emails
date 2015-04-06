@@ -1,27 +1,27 @@
 #!/usr/bin/env node
 
-var processEmails = require('../lib/email/process').syncAllWithMandrill;
+var processEmails = require('../lib/email/process').syncAllWithMandrill
 
 // get a batch process
-processEmails(function(err, batch) {
+processEmails(function (err, batch) {
   if (err) {
-    console.error(err);
-    process.exit(1);
+    console.error(err)
+    process.exit(1)
   } else {
-    console.log('processing', batch.fns.length, 'emails');
+    console.log('processing', batch.fns.length, 'emails')
 
-    batch.on('progress', function(e) {
-      console.log(e.complete + ' / ' + e.total);
-    });
+    batch.on('progress', function (e) {
+      console.log(e.complete + ' / ' + e.total)
+    })
 
-    batch.end(function(err, results) {
+    batch.end(function (err, results) {
       if (err) {
-        console.error(err);
-        process.exit(1);
+        console.error(err)
+        process.exit(1)
       } else {
-        console.log('processing finished');
-        process.exit(0);
+        console.log('processing finished')
+        process.exit(0)
       }
-    });
+    })
   }
-});
+})

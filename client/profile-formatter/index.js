@@ -1,94 +1,94 @@
-var toCapitalCase = require('to-capital-case');
+var toCapitalCase = require('to-capital-case')
 
 /**
  * Expose `formatOption`
  */
 
-module.exports.option = formatOption;
+module.exports.option = formatOption
 
 /**
  * Format Journey
  */
 
-module.exports.journey = function(journey) {
-  var i;
+module.exports.journey = function (journey) {
+  var i
 
   for (i = 0; i < journey.routes.length; i++) {
-    var r = journey.routes[i];
-    r.route_long_name = format(r.route_long_name);
-    r.route_short_name = format(r.route_short_name) || r.route_long_name;
+    var r = journey.routes[i]
+    r.route_long_name = format(r.route_long_name)
+    r.route_short_name = format(r.route_short_name) || r.route_long_name
   }
 
   for (i = 0; i < journey.stops.length; i++) {
-    var s = journey.stops[i];
-    s.stop_name = format(s.stop_name) || '';
+    var s = journey.stops[i]
+    s.stop_name = format(s.stop_name) || ''
   }
 
-  return journey;
-};
+  return journey
+}
 
 /**
  * Format a given option summary and it's segments
  */
 
-function formatOption(o) {
+function formatOption (o) {
   if (o.access) {
-    o.access = o.access.map(formatAccessEgress);
+    o.access = o.access.map(formatAccessEgress)
   }
 
   if (o.transit) {
     for (var i = 0; i < o.transit.length; i++) {
-      var segment = o.transit[i];
+      var segment = o.transit[i]
 
-      segment.fromName = format(segment.fromName);
-      segment.toName = format(segment.toName);
-      segment.longName = format(segment.longName);
-      segment.shortName = format(segment.shortName);
+      segment.fromName = format(segment.fromName)
+      segment.toName = format(segment.toName)
+      segment.longName = format(segment.longName)
+      segment.shortName = format(segment.shortName)
     }
   }
 
   if (o.egress) {
-    o.egress = o.egress.map(formatAccessEgress);
+    o.egress = o.egress.map(formatAccessEgress)
   }
 
-  return o;
+  return o
 }
 
-function formatAccessEgress(ae) {
+function formatAccessEgress (ae) {
   if (ae.streetEdges) {
-    ae.streetEdges = ae.streetEdges.map(function(se) {
-      se.streetName = format(se.streetName);
-      return se;
-    });
+    ae.streetEdges = ae.streetEdges.map(function (se) {
+      se.streetName = format(se.streetName)
+      return se
+    })
   }
 
-  return ae;
+  return ae
 }
 
 /**
  * Format text
  */
 
-function format(text) {
-  if (!text) return;
+function format (text) {
+  if (!text) return
 
   text = text
     .replace('METRO STATION', '') // remove metro station
     .replace('METRORAIL STATION', '')
     .replace('(MAIN)', '')
-    .replace(/-/g, ' '); // remove hypens
+    .replace(/-/g, ' ') // remove hypens
 
   // capitalize
-  text = toCapitalCase(text);
+  text = toCapitalCase(text)
 
   // process individual words
   text = text
     .split(' ')
     .map(word)
     .join(' ')
-    .trim();
+    .trim()
 
-  return text;
+  return text
 }
 
 /**
@@ -116,7 +116,7 @@ var wordReplacementTable = {
   'Noma-gallaudet': 'NoMa-Gallaudet',
   'Park/u': 'Park/U',
   '(new': '(New',
-  'L\'enfant': 'L\'Enfant',
+  "L'enfant": "L'Enfant",
   '(west)': '(West)',
   '=>': 'to',
   'Northwest': 'NW',
@@ -124,18 +124,18 @@ var wordReplacementTable = {
   'Southwest': 'SW',
   'Southeast': 'SE',
   'Street': 'St'
-};
+}
 
 /**
  * Word replacement
  */
 
-function word(w) {
-  if (startsWithDigit(w)) return w.toUpperCase();
-  if (wordReplacementTable.hasOwnProperty(w)) return wordReplacementTable[w];
-  return w;
+function word (w) {
+  if (startsWithDigit(w)) return w.toUpperCase()
+  if (wordReplacementTable.hasOwnProperty(w)) return wordReplacementTable[w]
+  return w
 }
 
-function startsWithDigit(s) {
-  return /^[0-9]/.test(s) && !/st|nd|rd|th$/i;
+function startsWithDigit (s) {
+  return /^[0-9]/.test(s) && !/st|nd|rd|th$/i
 }

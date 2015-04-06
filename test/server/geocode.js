@@ -1,10 +1,7 @@
-/**
- * Dependencies
- */
+/* global describe, it */
 
-var async = require('async');
-var geocode = require('../../lib/geocode');
-var request = require('./supertest');
+var async = require('async')
+var geocode = require('../../lib/geocode')
 
 /**
  * Valid addresses
@@ -27,45 +24,41 @@ var valid = [{
   ll: {
     lng: -77.03453573533511,
     lat: 38.90486028317662
-  },
-}];
-
-/**
- * Invalid addresses
- */
+  }
+}]
 
 /**
  * BDD
  */
 
-describe('gecoder', function() {
-  describe('#encode()', function() {
+describe('gecoder', function () {
+  describe('#encode()', function () {
     it('should correctly convert the valid addresses into ll points',
-      function(done) {
-        async.each(valid, function(row, next) {
-          geocode.encode(row, function(err, addresses) {
-            if (err) return next(err);
-            var ll = addresses[0].coordinate;
+      function (done) {
+        async.each(valid, function (row, next) {
+          geocode.encode(row, function (err, addresses) {
+            if (err) return next(err)
+            var ll = addresses[0].coordinate
             row.ll.should.eql({
               lng: ll.lng,
               lat: ll.lat
-            });
-            next();
-          });
-        }, done);
-      });
-  });
+            })
+            next()
+          })
+        }, done)
+      })
+  })
 
-  describe('#reverse()', function() {
+  describe('#reverse()', function () {
     it('should correctly convert the valid ll points into addresses',
-      function(done) {
-        async.each(valid, function(row, next) {
-          geocode.reverse(row.ll, function(err, address) {
-            if (err) return next(err);
-            address.address.should.eql(row.address);
-            next();
-          });
-        }, done);
-      });
-  });
-});
+      function (done) {
+        async.each(valid, function (row, next) {
+          geocode.reverse(row.ll, function (err, address) {
+            if (err) return next(err)
+            address.address.should.eql(row.address)
+            next()
+          })
+        }, done)
+      })
+  })
+})

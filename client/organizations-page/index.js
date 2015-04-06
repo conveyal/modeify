@@ -1,43 +1,42 @@
-var config = require('config');
-var debug = require('debug')(config.name() + ':organizations-page');
-var map = require('map');
-var Organization = require('organization');
-var Row = require('./row');
-var template = require('./template.html');
-var view = require('view');
+var config = require('config')
+var debug = require('debug')(config.name() + ':organizations-page')
+var Organization = require('organization')
+var Row = require('./row')
+var template = require('./template.html')
+var view = require('view')
 
 /**
  * Create `View`
  */
 
-var View = view(template);
+var View = view(template)
 
 /**
  * Expose `render` middleware
  */
 
-module.exports = function(ctx, next) {
-  debug('render');
+module.exports = function (ctx, next) {
+  debug('render')
 
-  Organization.all(function(err, orgs, res) {
+  Organization.all(function (err, orgs, res) {
     if (err || !res.ok) {
-      debug(err || res.error || res.text);
-      window.alert(res.text || 'Failed to load organizations.');
+      debug(err || res.error || res.text)
+      window.alert(res.text || 'Failed to load organizations.') // eslint-disable-line no-alert
     } else {
-      debug('showing %s org(s)', orgs.length());
+      debug('showing %s org(s)', orgs.length())
       ctx.view = new View({
         organizations: orgs
-      });
+      })
 
-      next();
+      next()
     }
-  });
-};
+  })
+}
 
 /**
  * Orgs view
  */
 
-View.prototype['organizations-view'] = function() {
-  return Row;
-};
+View.prototype['organizations-view'] = function () {
+  return Row
+}

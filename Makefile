@@ -1,9 +1,13 @@
 
 CSS = $(shell find client -name '*.css')
 HTML = $(shell find client -name '*.html')
+
+BINJS = bin/add-route-resource bin/build-client bin/config-val bin/create-admin bin/geocode bin/list-route-resources bin/load-route-resources bin/reload-opsworks-layer bin/server bin/update-emails bin/update-status
 CLIENTJS = $(shell find client -name '*.js')
 LIBJS = $(shell find lib -name '*.js')
 TESTJS = $(shell find test -name '*.js')
+ALLJS = $(BINJS) $(CLIENTJS) $(LIBJS) $(TESTJS)
+
 JSON = $(shell find client -name '*.json')
 
 RB = $(shell find cookbooks -name '*.rb')
@@ -12,12 +16,6 @@ BUCKET = $(shell bin/config-val $(NODE_ENV) s3_bucket)
 
 build-client: $(CSS) $(HTML) $(CLIENTJS) $(JSON)
 	@bin/build-client $(NODE_ENV)
-
-beautify:
-	@node_modules/.bin/js-beautify \
-		--config config/jsbeautify.json \
-		--replace $(CLIENTJS) $(LIBJS) $(TESTJS) \
-		--quiet
 
 assets/cookbooks.tar.gz: $(RB)
 	@tar cvzf assets/cookbooks.tar.gz cookbooks
@@ -31,10 +29,13 @@ assets/server.tar.gz: $(LIBJS)
 install:
 	@bin/install
 
-# Lint JavaScript with JSHint
-lint:
-	@node_modules/.bin/jshint \
-		--config config/jshint.json $(CLIENTJS) $(LIBJS) $(TESTJS)
+# Lint JavaScript with Standard
+lint: $(ALLJS)
+	@node_modules/.bin/standard --verbose $(ALLJS)
+
+# Format JavaScript with Standard
+format-js: $(ALLJS)
+	@node_modules/.bin/standard --format $(ALLJS)
 
 # Reinstall if package.json has changed
 node_modules: package.json

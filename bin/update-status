@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
-var processEmails = require('../lib/email/process').syncAllWithMandrill;
-var updateStatus = require('../lib/commuter/process').updateStatus;
-var runBatch = require('../lib/worker').run;
+var processEmails = require('../lib/email/process').syncAllWithMandrill
+var updateStatus = require('../lib/commuter/process').updateStatus
+var runBatch = require('../lib/worker').run
 
-runBatch(processEmails, function(err) {
+runBatch(processEmails, function (err) {
   if (err) {
-    console.error(err);
-    process.exit(1);
+    console.error(err)
+    process.exit(1)
   } else {
-    runBatch(updateStatus);
+    runBatch(updateStatus)
   }
-});
+})

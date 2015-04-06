@@ -1,4 +1,4 @@
-var Org = require('../../lib/organization/model');
+var Org = require('../../lib/organization/model')
 
 /**
  * Expose `info`
@@ -10,21 +10,21 @@ var info = module.exports.info = {
   city: 'Washington',
   state: 'DC',
   zip: 20005
-};
+}
 
 /**
  * Expose `login`
  */
 
-module.exports.create = function(done) {
-  if (module.exports.info._id) return done(null, module.exports.info);
+module.exports.create = function (done) {
+  if (module.exports.info._id) return done(null, module.exports.info)
 
-  Org.findOrCreate(info, function(err, org) {
+  Org.findOrCreate(info, function (err, org) {
     if (err) {
-      done(err);
+      done(err)
     } else {
-      module.exports.info = org;
-      done(null, org);
+      module.exports.info = org
+      done(null, org)
     }
-  });
-};
+  })
+}

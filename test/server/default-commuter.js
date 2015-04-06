@@ -1,5 +1,5 @@
-var Commuter = require('../../lib/commuter/model');
-var Org = require('./default-organization');
+var Commuter = require('../../lib/commuter/model')
+var Org = require('./default-organization')
 
 /**
  * Expose `info`
@@ -12,26 +12,27 @@ var info = module.exports.info = {
   },
   name: 'Jay Johnson',
   address: '1800 Clarendon Blvd, Arlington, VA'
-};
+}
 
 /**
  * Expose `create`
  */
 
-module.exports.create = function(done) {
-  if (module.exports.info._id) return done();
+module.exports.create = function (done) {
+  if (module.exports.info._id) return done()
 
-  Org.create(function(err, org) {
+  Org.create(function (err, org) {
+    if (err) return done(err)
     Commuter.generate(info._user, {
       name: info.name,
       _organization: org._id
-    }, function(err, commuter) {
+    }, function (err, commuter) {
       if (err) {
-        done(err);
+        done(err)
       } else {
-        module.exports.info = commuter;
-        done(null, commuter);
+        module.exports.info = commuter
+        done(null, commuter)
       }
-    });
-  });
-};
+    })
+  })
+}

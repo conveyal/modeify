@@ -1,5 +1,8 @@
 {
   "name": "stats",
+  "dependencies": {
+    "component/raf": "*"
+  },
   "scripts": [
     "index.js",
     "memory-stats.js",

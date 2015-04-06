@@ -1,96 +1,98 @@
-var analytics = require('analytics');
-var config = require('config');
-var introJs = require('intro.js').introJs;
-var log = require('./client/log')('welcome-flow');
-var LocationsView = require('locations-view');
-var message = require('./client/messages')('welcomewelcome-flow');
-var showPlannerWalkthrough = require('planner-walkthrough');
-var RouteModal = require('route-modal');
-var routeResource = require('route-resource');
+var analytics = require('analytics')
+var config = require('config')
+var introJs = require('intro.js').introJs
+var log = require('./client/log')('welcome-flow')
+var LocationsView = require('locations-view')
+var message = require('./client/messages')('welcomewelcome-flow')
+var showPlannerWalkthrough = require('planner-walkthrough')
+var RouteModal = require('route-modal')
+var routeResource = require('route-resource')
 
-var Locations = require('./locations');
-var Welcome = require('./welcome');
+var Locations = require('./locations')
+var Welcome = require('./welcome')
 
-var FROM = config.geocode().start_address;
-var TO = config.geocode().end_address;
+var FROM = config.geocode().start_address
+var TO = config.geocode().end_address
 
 /**
  * Show Modal
  */
 
-module.exports = function(session) {
-  var commuter = session.commuter();
-  var plan = session.plan();
-  var main = document.querySelector('#main');
+module.exports = function (session) {
+  var commuter = session.commuter()
+  var plan = session.plan()
+  var main = document.querySelector('#main')
 
-  main.classList.add('Welcome');
+  main.classList.add('Welcome')
 
-  var welcome = new Welcome(commuter);
+  var welcome = new Welcome(commuter)
 
-  welcome.on('next', function() {
+  welcome.on('next', function () {
     var locations = new Locations({
       'locations-view': new LocationsView(plan),
       plan: plan,
       commuter: commuter
-    });
-    locations.show();
+    })
+    locations.show()
 
-    locations.on('next', function() {
-      var route = plan.options()[0];
+    locations.on('next', function () {
+      var route = plan.options()[0]
 
-      routeResource.findByTags(route.tags(plan), function(err, resources) {
+      routeResource.findByTags(route.tags(plan), function (err, resources) {
+        if (err) log.error(err)
+
         var routeModal = new RouteModal(route, null, {
           context: 'welcome-flow',
           resources: resources,
           plan: plan
-        });
-        routeModal.show();
-        main.classList.remove('Welcome');
+        })
+        routeModal.show()
+        main.classList.remove('Welcome')
 
-        routeModal.on('next', function() {
-          analytics.track('Completed Welcome Wizard');
+        routeModal.on('next', function () {
+          analytics.track('Completed Welcome Wizard')
 
-          commuter.updateProfile('welcome_wizard_complete', true);
-          commuter.save();
+          commuter.updateProfile('welcome_wizard_complete', true)
+          commuter.save()
 
-          routeModal.hide();
-          highlightResults();
-        });
-      });
+          routeModal.hide()
+          highlightResults()
+        })
+      })
 
-    });
+    })
 
-    locations.on('skip', function() {
-      commuter.updateProfile('welcome_wizard_complete', true);
-      commuter.save();
+    locations.on('skip', function () {
+      commuter.updateProfile('welcome_wizard_complete', true)
+      commuter.save()
 
-      main.classList.remove('Welcome');
-      locations.hide();
-      showPlannerWalkthrough();
+      main.classList.remove('Welcome')
+      locations.hide()
+      showPlannerWalkthrough()
 
-      plan.setAddresses(FROM, TO, function(err) {
+      plan.setAddresses(FROM, TO, function (err) {
         if (err) {
-          log.error('%e', err);
+          log.error('%e', err)
         } else {
           plan.journey({
             places: plan.generatePlaces()
-          });
-          plan.updateRoutes();
+          })
+          plan.updateRoutes()
         }
-      });
-    });
-  });
+      })
+    })
+  })
 
   // Start!
-  welcome.show();
-};
+  welcome.show()
+}
 
 /**
  * Intro JS
  */
 
-function highlightResults() {
-  var intro = introJs();
+function highlightResults () {
+  var intro = introJs()
 
   intro.setOptions({
     disableInteraction: false,
@@ -112,7 +114,7 @@ function highlightResults() {
       intro: message('find-more'),
       position: 'left'
     }]
-  });
+  })
 
-  intro.start();
+  intro.start()
 }

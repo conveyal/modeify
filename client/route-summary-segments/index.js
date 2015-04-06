@@ -1,20 +1,20 @@
-var convert = require('convert');
-var hogan = require('hogan.js');
-var transitive = require('transitive');
+var convert = require('convert')
+var hogan = require('hogan.js')
+var transitive = require('transitive')
 
-var template = hogan.compile(require('./template.html'));
+var template = hogan.compile(require('./template.html'))
 
-module.exports = function(route, opts) {
-  opts = opts || {};
+module.exports = function (route, opts) {
+  opts = opts || {}
 
-  var accessMode = route.access()[0].mode.toLowerCase();
-  var accessModeIcon = convert.modeToIcon(accessMode);
-  var egress = route.egress();
-  var segments = [];
-  var transitSegments = route.transit();
+  var accessMode = route.access()[0].mode.toLowerCase()
+  var accessModeIcon = convert.modeToIcon(accessMode)
+  var egress = route.egress()
+  var segments = []
+  var transitSegments = route.transit()
 
   if (transitSegments.length < 1 && accessMode === 'car') {
-    accessModeIcon = convert.modeToIcon('carshare');
+    accessModeIcon = convert.modeToIcon('carshare')
   }
 
   segments.push({
@@ -23,22 +23,22 @@ module.exports = function(route, opts) {
     inline: !!opts.inline,
     small: !!opts.small,
     svg: true
-  });
+  })
 
-  segments = segments.concat(transitSegments.map(function(segment) {
-    var patterns = segment.segmentPatterns.filter(patternFilter('color'));
-    var background = patterns[0].color;
+  segments = segments.concat(transitSegments.map(function (segment) {
+    var patterns = segment.segmentPatterns.filter(patternFilter('color'))
+    var background = patterns[0].color
 
     if (patterns.length > 0) {
-      var percent = 0;
-      var increment = 1 / patterns.length * 100;
-      background = 'linear-gradient(to right';
+      var percent = 0
+      var increment = 1 / patterns.length * 100
+      background = 'linear-gradient(to right'
       for (var i = 0; i < patterns.length; i++) {
-        var color = patterns[i].color;
-        background += ',' + color + ' ' + percent + '%, ' + color + ' ' + (percent + increment) + '%';
-        percent += increment;
+        var color = patterns[i].color
+        background += ',' + color + ' ' + percent + '%, ' + color + ' ' + (percent + increment) + '%'
+        percent += increment
       }
-      background += ')';
+      background += ')'
     }
 
     return {
@@ -47,11 +47,11 @@ module.exports = function(route, opts) {
       inline: !!opts.inline,
       small: !!opts.small,
       name: patterns[0].shield
-    };
-  }));
+    }
+  }))
 
   if (egress && egress.length > 0) {
-    var egressMode = egress[0].mode.toLowerCase();
+    var egressMode = egress[0].mode.toLowerCase()
     if (egressMode !== 'walk') {
       segments.push({
         mode: convert.modeToIcon(egressMode),
@@ -59,43 +59,43 @@ module.exports = function(route, opts) {
         inline: !!opts.inline,
         small: !!opts.small,
         svg: true
-      });
+      })
     }
   }
 
   return segments
-    .map(function(s) {
-      return template.render(s);
+    .map(function (s) {
+      return template.render(s)
     })
-    .join('');
-};
+    .join('')
+}
 
 /**
  * Pattern filter
  */
 
-function patternFilter(by) {
-  by = by || 'shortName';
-  var names = [];
-  return function(p) {
+function patternFilter (by) {
+  by = by || 'shortName'
+  var names = []
+  return function (p) {
     if (by === 'shortName') {
-      p.shortName = p.shortName || p.longName;
+      p.shortName = p.shortName || p.longName
     }
 
     if (names.indexOf(p[by]) === -1) {
-      names.push(p[by]);
-      return true;
+      names.push(p[by])
+      return true
     } else {
-      return false;
+      return false
     }
-  };
+  }
 }
 
-function getModeStyles(mode) {
-  var styles = transitive.getModeStyles(mode.toUpperCase());
-  var s = '';
+function getModeStyles (mode) {
+  var styles = transitive.getModeStyles(mode.toUpperCase())
+  var s = ''
   for (var i in styles) {
-    s += i + ':' + styles[i] + ';';
+    s += i + ':' + styles[i] + ';'
   }
-  return s;
+  return s
 }

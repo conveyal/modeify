@@ -1,7 +1,7 @@
-var modal = require('./client/modal');
+var modal = require('./client/modal')
 
-var Modal = module.exports = modal({
+module.exports = modal({
   closable: true,
   width: '640px',
   template: require('./template.html')
-});
+})

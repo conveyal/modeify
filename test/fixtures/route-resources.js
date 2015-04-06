@@ -17,4 +17,4 @@ module.exports = [{
     ['walk', 'arlington'],
     ['walk', 'loudon']
   ]
-}];
+}]

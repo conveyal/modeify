@@ -1,6 +1,7 @@
 
-## 1.3.0 — 2015-04-06
+## Latest
 
+* Use [standard](/feross/standard) JS formatter and linter
 * Update dependencies
 * Add `BICYCLE_RENT` as an access mode
 * Add `announcements`

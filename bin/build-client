@@ -1,46 +1,46 @@
 #!/usr/bin/env node
 
-var build = require('component-builder');
-var resolve = require('component-resolver');
-var fs = require('fs');
-var htmlMinifier = require('html-minifier').minify;
-var yml2js = require('js-yaml').load;
-var marked = require('marked');
-var mkdir = require('mkdirp');
-var myth = require('myth');
-var path = require('path');
-var sqwish = require('sqwish');
-var uglify = require('uglify-js');
-var zlib = require('zlib');
+var build = require('component-builder')
+var resolve = require('component-resolver')
+var fs = require('fs')
+var htmlMinifier = require('html-minifier').minify
+var yml2js = require('js-yaml').load
+var marked = require('marked')
+var mkdir = require('mkdirp')
+var myth = require('myth')
+var path = require('path')
+var sqwish = require('sqwish')
+var uglify = require('uglify-js')
+var zlib = require('zlib')
 
-var env = process.argv[2] || process.env.NODE_ENV || 'development';
-var development = env === 'development';
+var env = process.argv[2] || process.env.NODE_ENV || 'development'
+var development = env === 'development'
 
-var rootDir = __dirname + '/..';
-var deploymentDir = rootDir + '/deployment';
+var rootDir = __dirname + '/..'
+var deploymentDir = rootDir + '/deployment'
 
 // Convert the YAML config
 
-var config = yml2js(fs.readFileSync(deploymentDir + '/config.yaml', 'utf8'));
+var config = yml2js(fs.readFileSync(deploymentDir + '/config.yaml', 'utf8'))
 
 // Set the rest of the public config.
 
-config.env = env;
+config.env = env
 for (var key in config.environments[env])
-  config[key] = config.environments[env][key] || config[key] || '';
+  config[key] = config.environments[env][key] || config[key] || ''
 
-delete config.environments;
+delete config.environments
 
-var aboutPage = marked(fs.readFileSync(deploymentDir + '/about.md', 'utf8'));
-var termsPage = marked(fs.readFileSync(deploymentDir + '/terms.md', 'utf8'));
+var aboutPage = marked(fs.readFileSync(deploymentDir + '/about.md', 'utf8'))
+var termsPage = marked(fs.readFileSync(deploymentDir + '/terms.md', 'utf8'))
 
 // Generate message files
 
-generateMessageFiles(rootDir + '/messages', rootDir + '/assets/build/messages');
+generateMessageFiles(rootDir + '/messages', rootDir + '/assets/build/messages')
 
 // Build apps
 
-['manager-app', 'planner-app'].forEach(bundle);
+;['manager-app', 'planner-app'].forEach(bundle)
 
 // HTML Minifier Options
 
@@ -49,16 +49,16 @@ var htmlMinifierOptions = {
   collapseBooleanAttributes: true,
   removeEmptyAttributes: true,
   removeOptionalTags: true
-};
+}
 
 // Build.
 
-function bundle(app) {
-  var destDir = rootDir + '/assets/build/' + app;
+function bundle (app) {
+  var destDir = rootDir + '/assets/build/' + app
 
   // mkdirp
 
-  mkdir.sync(destDir);
+  mkdir.sync(destDir)
 
   // Builder.
 
@@ -76,8 +76,8 @@ function bundle(app) {
     out: rootDir + '/components',
     root: rootDir,
     verbose: true
-  }, function(err, tree) {
-    if (err) throw err;
+  }, function (err, tree) {
+    if (err) throw err
 
     build
       .scripts(tree, {
@@ -90,8 +90,8 @@ function bundle(app) {
       .use('templates', templates({
         development: development
       }))
-      .end(function(err, str) {
-        if (err) throw err;
+      .end(function (err, str) {
+        if (err) throw err
 
         // Add global vars first
         var globalVars = {
@@ -100,103 +100,104 @@ function bundle(app) {
             about: htmlMinifier(aboutPage, htmlMinifierOptions),
             terms: htmlMinifier(termsPage, htmlMinifierOptions)
           }
-        };
-        var js = 'window.modeify=' + JSON.stringify(globalVars, null, '\t')  + ';\n';
+        }
+        var js = 'window.modeify=' + JSON.stringify(globalVars, null, '\t') + ';\n'
 
-        js += build.scripts.require + '\n' + str + ';require("' + build.scripts.canonical(tree).canonical + '");\n';
+        js += build.scripts.require + '\n' + str + ';require("' + build.scripts.canonical(tree).canonical + '");\n'
 
-        writeFile(path.resolve(destDir, 'build.js'), js);
+        writeFile(path.resolve(destDir, 'build.js'), js)
 
         if (!development) {
-          zlib.gzip(uglify.minify(js, { fromString: true }).code, function(err, data) {
-            writeFile(path.resolve(destDir, 'build.min.js.gz'), data);
-          });
+          gzip(path.resolve(destDir, 'build.min.js.gz'), uglify.minify(js, { fromString: true }).code)
         }
-      });
+      })
 
     build
       .styles(tree)
       .use('styles', build.plugins.css())
-      .end(function(err, str) {
-        if (err) throw err;
-        var css = myth(str);
-        css = css.replace(/\burl *\(([^)]+)\)/g, rewrite);
+      .end(function (err, str) {
+        if (err) throw err
+        var css = myth(str)
+        css = css.replace(/\burl *\(([^)]+)\)/g, rewrite)
 
-        writeFile(path.resolve(destDir, 'build.css'), css);
+        writeFile(path.resolve(destDir, 'build.css'), css)
 
         if (!development) {
-          zlib.gzip(sqwish.minify(css), function(err, data) {
-            writeFile(path.resolve(destDir, 'build.min.css.gz'), data);
-          });
+          gzip(path.resolve(destDir, 'build.min.css.gz'), sqwish.minify(css))
         }
-      });
-  });
+      })
+  })
 }
 
-function rewrite(_, url) {
-  var orig = 'url("' + url + '")';
-  if (isData(url)) return orig;
-  return 'url("' + config.static_url + url + '")';
+function rewrite (_, url) {
+  var orig = 'url("' + url + '")'
+  if (isData(url)) return orig
+  return 'url("' + config.static_url + url + '")'
 }
 
-function isData(url) {
-  return url.indexOf('data:') === 0;
+function isData (url) {
+  return url.indexOf('data:') === 0
 }
 
-function templates(options) {
-  return function(file, done) {
+function templates (options) {
+  return function (file, done) {
     file.read(function (err, string) {
-      if (err) return done(err);
-      if (file.extension === 'md') string = marked(string);
+      if (err) return done(err)
+      if (file.extension === 'md') string = marked(string)
 
-      file.string = JSON.stringify(htmlMinifier(string, htmlMinifierOptions));
-      file.define = true;
-      done();
-    });
-  };
+      file.string = JSON.stringify(htmlMinifier(string, htmlMinifierOptions))
+      file.define = true
+      done()
+    })
+  }
 }
 
-function generateMessageFiles(messagesPath, destinationPath) {
-  mkdir.sync(destinationPath);
-  fs.readdir(messagesPath, function(err, files) {
-    if (err) throw err;
-    files.forEach(function(filename) {
-      var lang = filename.split('.')[0];
+function generateMessageFiles (messagesPath, destinationPath) {
+  mkdir.sync(destinationPath)
+  fs.readdir(messagesPath, function (err, files) {
+    if (err) throw err
+    files.forEach(function (filename) {
+      var lang = filename.split('.')[0]
       fs.readFile(messagesPath + '/' + filename, {
         encoding: 'utf8'
-      }, function(err, yml) {
-        if (err) throw err;
-        var messages = markdownify(yml2js(yml));
-        var data = 'window.MESSAGES=' + JSON.stringify(messages) + ';';
+      }, function (err, yml) {
+        if (err) throw err
+        var messages = markdownify(yml2js(yml))
+        var data = 'window.MESSAGES=' + JSON.stringify(messages) + ';'
 
-        writeFile(destinationPath + '/' + lang + '.js', data);
+        writeFile(destinationPath + '/' + lang + '.js', data)
 
         if (!development) {
-          zlib.gzip(uglify.minify(data, { fromString: true }).code, function(err, data) {
-            writeFile(destinationPath + '/' + lang + '.min.js.gz', data);
-          });
+          gzip(destinationPath + '/' + lang + '.min.js.gz', uglify.minify(data, { fromString: true }).code)
         }
-      });
-    });
-  });
+      })
+    })
+  })
 }
 
-function markdownify(obj) {
+function markdownify (obj) {
   if (typeof obj === 'string') {
-    obj = marked(obj);
-    obj = obj.slice(3, -5); // Remove opening and closing <p>'s
+    obj = marked(obj)
+    obj = obj.slice(3, -5) // Remove opening and closing <p>'s
   } else {
     for (var i in obj) {
-      obj[i] = markdownify(obj[i]);
+      obj[i] = markdownify(obj[i])
     }
   }
-  return obj;
+  return obj
 }
 
-function writeFile(path, data) {
+function writeFile (path, data) {
   fs.writeFile(path, data, {
     encoding: 'utf8'
-  }, function(err) {
-    if (err) throw err;
-  });
+  }, function (err) {
+    if (err) throw err
+  })
+}
+
+function gzip (path, data) {
+  zlib.gzip(data, function (err, data) {
+    if (err) throw err
+    writeFile(path, data)
+  })
 }

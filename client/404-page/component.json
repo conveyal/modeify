@@ -1,10 +1,6 @@
 {
   "name": "404-page",
-  "dependencies": {
-    "visionmedia/debug": "*"
-  },
   "locals": [
-    "config",
     "view"
   ],
   "scripts": [

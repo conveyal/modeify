@@ -1,35 +1,35 @@
-var Alert = require('alert');
-var domify = require('domify');
-var log = require('./client/log')('alerts');
-var each = require('each');
+var Alert = require('alert')
+var domify = require('domify')
+var log = require('./client/log')('alerts')
+var each = require('each')
 
 /**
  * Alerts
  */
 
-var alerts = [];
-var el = null;
+var alerts = []
+var el = null
 
 /**
  * Expose `render` middleware
  */
 
-module.exports = function(ctx, next) {
-  log('displaying alerts');
+module.exports = function (ctx, next) {
+  log('displaying alerts')
 
   // remove all alerts
-  if (el) el.innerHTML = '';
+  if (el) el.innerHTML = ''
 
   // create all alerts in local storage
-  each(alerts, function(info) {
-    newAlert(info);
-  });
+  each(alerts, function (info) {
+    newAlert(info)
+  })
 
   // reset local storage
-  alerts = [];
+  alerts = []
 
   // create all alerts in the query parameters
-  each(ctx.query, function(name, val) {
+  each(ctx.query, function (name, val) {
     switch (name) {
       case 'danger':
       case 'info':
@@ -38,43 +38,43 @@ module.exports = function(ctx, next) {
         newAlert({
           type: name,
           text: val
-        });
-        break;
+        })
+        break
     }
-  });
+  })
 
-  next();
-};
+  next()
+}
 
-function addBar() {
-  document.body.insertBefore(domify(require('./template.html')), document.body.firstChild.nextSibling);
-  return document.getElementById('alerts');
+function addBar () {
+  document.body.insertBefore(domify(require('./template.html')), document.body.firstChild.nextSibling)
+  return document.getElementById('alerts')
 }
 
 /**
  * Push
  */
 
-module.exports.push = function(info) {
-  alerts = [info].concat(alerts);
-};
+module.exports.push = function (info) {
+  alerts = [info].concat(alerts)
+}
 
 /**
  * Show
  */
 
-module.exports.show = function(info) {
-  return newAlert(info);
-};
+module.exports.show = function (info) {
+  return newAlert(info)
+}
 
 /**
  * Alert!
  */
 
-function newAlert(o) {
-  if (!el) el = addBar();
+function newAlert (o) {
+  if (!el) el = addBar()
 
-  var al = new Alert(o);
-  el.appendChild(al.el);
-  return al;
+  var al = new Alert(o)
+  el.appendChild(al.el)
+  return al
 }

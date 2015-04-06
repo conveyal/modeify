@@ -1,14 +1,14 @@
-var analytics = require('analytics');
-var cookie = require('cookie');
-var Commuter = require('commuter');
-var log = require('./client/log')('session');
-var defaults = require('model-defaults');
-var model = require('model');
-var Organization = require('organization');
-var page = require('page');
-var request = require('./client/request');
-var uid = require('uid');
-var User = require('user');
+var analytics = require('analytics')
+var cookie = require('cookie')
+var Commuter = require('commuter')
+var log = require('./client/log')('session')
+var defaults = require('model-defaults')
+var model = require('model')
+var Organization = require('organization')
+var page = require('page')
+var request = require('./client/request')
+var uid = require('uid')
+var User = require('user')
 
 /**
  * Session
@@ -28,218 +28,218 @@ var Session = model('Session')
   .attr('user')
   .attr('isAdmin')
   .attr('isLoggedIn')
-  .attr('isManager');
+  .attr('isManager')
 
-/**
- * Logout
- */
+  /**
+   * Logout
+   */
 
-Session.prototype.logout = function(next) {
-  log('--> logging out');
+Session.prototype.logout = function (next) {
+  log('--> logging out')
 
-  var plan = this.plan();
-  if (plan) plan.clearStore();
+  var plan = this.plan()
+  if (plan) plan.clearStore()
 
-  session.isAdmin(false);
-  session.isLoggedIn(false);
-  session.isManager(false);
-  session.user(null);
-  session.plan(null);
-  session.commuter(null);
+  session.isAdmin(false)
+  session.isLoggedIn(false)
+  session.isManager(false)
+  session.user(null)
+  session.plan(null)
+  session.commuter(null)
 
-  request.get('/logout', function(err, res) {
-    cookie('commuter', null);
-    cookie('user', null);
+  request.get('/logout', function (err, res) {
+    cookie('commuter', null)
+    cookie('user', null)
 
-    document.cookie = null;
+    document.cookie = null
 
-    log('<-- logged out %s', res.text);
-    if (next) next(err, res);
-  });
-};
+    log('<-- logged out %s', res.text)
+    if (next) next(err, res)
+  })
+}
 
 /**
  * Login
  */
 
-Session.prototype.login = function(data) {
-  log('--> login');
+Session.prototype.login = function (data) {
+  log('--> login')
 
-  var commuter = null;
-  var type = null;
-  var user = null;
+  var commuter = null
+  var type = null
+  var user = null
 
   // is this a commuter object with a reference to a user?
   if (data._user) {
-    log('--- login as %s', data._user.email);
+    log('--- login as %s', data._user.email)
 
     // Create the commuter object
-    commuter = new Commuter(data);
-    user = new User(data._user);
+    commuter = new Commuter(data)
+    user = new User(data._user)
 
     // is this user associated with an organization?
     if (data._organization && data._organization._id) {
-      commuter._organization(new Organization(data._organization));
+      commuter._organization(new Organization(data._organization))
     }
 
     // is this user anonymous?
     if (user.email_confirmed() === true) {
-      commuter.anonymous(false);
+      commuter.anonymous(false)
     }
 
-    type = 'commuter';
-    cookie('commuter', commuter.toJSON());
+    type = 'commuter'
+    cookie('commuter', commuter.toJSON())
   } else {
-    user = new User(data);
-    type = user.type();
+    user = new User(data)
+    type = user.type()
   }
 
-  cookie('user', user.toJSON());
+  cookie('user', user.toJSON())
 
-  session.commuter(commuter);
-  session.user(user);
-  session.isAdmin(type === 'administrator');
-  session.isManager(type !== 'commuter');
-  session.isLoggedIn(true);
+  session.commuter(commuter)
+  session.user(user)
+  session.isAdmin(type === 'administrator')
+  session.isManager(type !== 'commuter')
+  session.isLoggedIn(true)
 
-  log('<-- login complete');
-};
+  log('<-- login complete')
+}
 
 /**
  * Track user
  */
 
-Session.on('change user', function(session, user, prev) {
-  log('--> identifying user');
+Session.on('change user', function (session, user, prev) {
+  log('--> identifying user')
   if (user && user._id) {
-    analytics.identify(user._id(), user.toJSON());
-    log('<-- tracking %s', user.email());
+    analytics.identify(user._id(), user.toJSON())
+    log('<-- tracking %s', user.email())
   } else if (user !== prev) {
-    var id = 'guest-' + uid(9);
-    analytics.identify(id);
-    log('<-- tracking %s', id);
+    var id = 'guest-' + uid(9)
+    analytics.identify(id)
+    log('<-- tracking %s', id)
   }
-});
+})
 
 /**
  * Expose `session`
  */
 
-var session = window.session = module.exports = new Session();
+var session = window.session = module.exports = new Session()
 
 /**
  * Log in with link middleware
  */
 
-session.loginWithLink = function(ctx, next) {
-  log('--> logging in with link %s', ctx.params.link);
-  request.get('/login/' + ctx.params.link, function(err, res) {
+session.loginWithLink = function (ctx, next) {
+  log('--> logging in with link %s', ctx.params.link)
+  request.get('/login/' + ctx.params.link, function (err, res) {
     if (res.ok && res.body) {
-      session.login(res.body);
-      log('<-- successfully logged in with link');
-      next();
+      session.login(res.body)
+      log('<-- successfully logged in with link')
+      next()
     } else {
-      log.warn('<-- failed to login with link: %e', err);
-      next(err || new Error(res.text));
+      log.warn('<-- failed to login with link: %e', err)
+      next(err || new Error(res.text))
     }
-  });
-};
+  })
+}
 
 /**
  * Log in anonymously
  */
 
-session.loginAnonymously = function(next) {
-  log('--> logging in anonymously');
-  request.get('/login-anonymously', function(err, res) {
+session.loginAnonymously = function (next) {
+  log('--> logging in anonymously')
+  request.get('/login-anonymously', function (err, res) {
     if (err) {
-      log.warn('<-- failed to log in anonymously: %e', err || res.error);
-      next(err || res.error || res.text);
+      log.warn('<-- failed to log in anonymously: %e', err || res.error)
+      next(err || res.error || res.text)
     } else {
-      session.login(res.body);
-      log('<-- logged in anonymously');
-      next();
+      session.login(res.body)
+      log('<-- logged in anonymously')
+      next()
     }
-  });
-};
+  })
+}
 
 /**
  * Check if logged in
  */
 
-session.commuterIsLoggedIn = function(ctx, next) {
-  log('--> checking if commuter is logged in %s', ctx.path);
+session.commuterIsLoggedIn = function (ctx, next) {
+  log('--> checking if commuter is logged in %s', ctx.path)
   if (session.isLoggedIn()) {
-    log('<-- commuter already logged in');
-    return next();
+    log('<-- commuter already logged in')
+    return next()
   }
 
-  request.get('/commuter-is-logged-in', function(err, res) {
+  request.get('/commuter-is-logged-in', function (err, res) {
     if (err) {
-      log('<-- commuter is not logged in');
-      session.loginAnonymously(next);
+      log('<-- commuter is not logged in')
+      session.loginAnonymously(next)
     } else {
-      session.login(res.body);
-      log('<-- commuter is logged in');
-      next();
+      session.login(res.body)
+      log('<-- commuter is logged in')
+      next()
     }
-  });
-};
+  })
+}
 
 /**
  * Log out
  */
 
-session.logoutMiddleware = function(ctx, next) {
-  log('logout %s', ctx.path);
+session.logoutMiddleware = function (ctx, next) {
+  log('logout %s', ctx.path)
 
-  session.logout(next);
-};
+  session.logout(next)
+}
 
 /**
  * Redirect to `/login` if not logged in middleware
  */
 
-session.checkIfLoggedIn = function(ctx, next) {
-  log('check if user is logged in %s', ctx.path);
+session.checkIfLoggedIn = function (ctx, next) {
+  log('check if user is logged in %s', ctx.path)
 
   if (session.isLoggedIn() && session.isManager()) {
-    next();
+    next()
   } else {
-    request.get('/is-logged-in', function(err, res) {
+    request.get('/is-logged-in', function (err, res) {
       if (err || !res.ok) {
-        page('/manager/login');
+        page('/manager/login')
       } else {
-        session.login(res.body);
-        if (!session.isManager()) window.location = '/';
-        else next();
+        session.login(res.body)
+        if (!session.isManager()) window.location = '/'
+        else next()
       }
-    });
+    })
   }
-};
+}
 
 /**
  * Check if admin
  */
 
-session.checkIfAdmin = function(ctx, next) {
-  log('is admin %s', ctx.path);
+session.checkIfAdmin = function (ctx, next) {
+  log('is admin %s', ctx.path)
   if (session.user().type() !== 'administrator') {
-    page('/manager/organizations');
+    page('/manager/organizations')
   } else {
-    next();
+    next()
   }
-};
+}
 
 /**
  * Check if manager
  */
 
-session.checkIfManager = function(ctx, next) {
-  log('is manager %s', ctx.path);
+session.checkIfManager = function (ctx, next) {
+  log('is manager %s', ctx.path)
   if (session.user().type() === 'commuter') {
-    page('/manager/login');
+    page('/manager/login')
   } else {
-    next();
+    next()
   }
-};
+}

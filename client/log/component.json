@@ -1,12 +1,10 @@
 {
   "name": "log",
   "dependencies": {
-    "ianstormtaylor/to-capital-case": "*",
     "visionmedia/debug": "*",
     "yields/fmt": "*"
   },
   "locals": [
-    "analytics",
     "config",
     "request"
   ],

@@ -2,11 +2,11 @@
  * Dependencies
  */
 
-var template = require('./row.html');
-var view = require('view');
+var template = require('./row.html')
+var view = require('view')
 
 /**
  * Expose `Row`
  */
 
-var Row = module.exports = view(template);
+module.exports = view(template)

@@ -1,4 +1,4 @@
-var modal = require('./client/modal');
+var modal = require('./client/modal')
 
 /**
  * Default Modal
@@ -7,18 +7,18 @@ var modal = require('./client/modal');
 var Modal = modal({
   closable: true,
   template: require('./template.html')
-});
+})
 
 /**
  * Expose `show`
  */
 
-module.exports = function show(text) {
+module.exports = function show (text) {
   var m = Modal({
     text: text
-  });
+  })
 
-  m.show();
+  m.show()
 
-  return m;
-};
+  return m
+}

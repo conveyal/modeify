@@ -1,20 +1,20 @@
 #!/usr/bin/env node
 
-var env = process.env.NODE_ENV;
+var env = process.env.NODE_ENV
 
 // If `NODE_ENV` is not set exit
 
 if (env === undefined) {
-  console.error('Envrionment variables must be set. See `.env.tmp`.');
-  process.exit(1);
+  console.error('Envrionment variables must be set. See `.env.tmp`.')
+  process.exit(1)
 }
 
 // Dependencies
 
-var execFile = require('child_process').execFile;
-var fs = require('fs');
-var nodemon = require('nodemon');
-var pid = __dirname + '/../server.pid';
+var execFile = require('child_process').execFile
+var fs = require('fs')
+var nodemon = require('nodemon')
+var pid = __dirname + '/../server.pid'
 
 // Set up Nodemon
 
@@ -24,23 +24,28 @@ nodemon({
   script: 'server.js',
   verbose: true,
   watch: ['assets/email', 'bin', 'client', 'lib', 'messages']
-});
+})
 
 // Build on start/restart
 
 nodemon
   .on('start', build)
-  .on('restart', build);
+  .on('restart', build)
 
-function build() {
-  if (env === 'development') execFile(__dirname + '/build-client', function(err) {
-    if (err) console.error(err);
-  });
+function build () {
+  if (env === 'development') {
+    execFile(__dirname + '/build-client', function (err) {
+      if (err) {
+        console.error(err)
+      }
+    })
+  }
 }
 
 // Remove .pid file on exit
 
-process.on('exit', function() {
-  if (fs.existsSync(pid))
-    fs.unlinkSync(pid);
-});
+process.on('exit', function () {
+  if (fs.existsSync(pid)) {
+    fs.unlinkSync(pid)
+  }
+})

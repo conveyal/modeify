@@ -6,7 +6,6 @@
   },
   "locals": [
     "config",
-    "map",
     "organization",
     "view"
   ],

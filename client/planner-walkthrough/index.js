@@ -1,19 +1,19 @@
-var config = require('config');
-var introJs = require('intro.js').introJs;
+var config = require('config')
+var introJs = require('intro.js').introJs
 
 /**
  * Expose a function to activate the walktrhough
  */
 
-module.exports = function walkthrough() {
-  var intro = introJs();
+module.exports = function walkthrough () {
+  var intro = introJs()
 
-  intro.onbeforechange(function(el) {
+  intro.onbeforechange(function (el) {
     if (el.classList.contains('option')) {
-      var simple = el.querySelector('.simple .show-hide');
-      simple.click();
+      var simple = el.querySelector('.simple .show-hide')
+      simple.click()
     }
-  });
+  })
 
   intro.setOptions({
     disableInteraction: false,
@@ -26,10 +26,10 @@ module.exports = function walkthrough() {
     showStepNumbers: false,
     skipLabel: 'Skip',
     steps: [{
-      intro: 'Let\'s take a look at how to use ' + config.application() + '!'
+      intro: "Let's take a look at how to use " + config.application() + '!'
     }, {
       element: document.querySelector('#locations-form'),
-      intro: 'Here you can change your start and end locations, the day and time you typically travel, and the travel modes you\'d like to see.',
+      intro: "Here you can change your start and end locations, the day and time you typically travel, and the travel modes you'd like to see.",
       position: 'bottom'
     }, {
       element: document.querySelector('.Options'),
@@ -41,14 +41,14 @@ module.exports = function walkthrough() {
       position: 'left'
     }, {
       element: document.querySelectorAll('.option')[0],
-      intro: 'Here you can explore the details of a specifc option including step by step directions and the factors we\'ve used to rate this option.',
+      intro: "Here you can explore the details of a specifc option including step by step directions and the factors we've used to rate this option.",
       position: 'top'
     }, {
       element: document.querySelector('.show-profile-button'),
       intro: 'Go to your profile to change your travel preferences, manage your account, or view saved journeys.',
-      position: 'bottom',
+      position: 'bottom'
     }]
-  });
+  })
 
-  intro.start();
-};
+  intro.start()
+}

@@ -1,11 +1,6 @@
-/**
- * Dependencies
- */
-
-var config = require('config');
-var debug = require('debug')(config.name() + ':commuter');
-var model = require('model');
-var request = require('./client/request');
+var config = require('config')
+var model = require('model')
+var request = require('./client/request')
 
 /**
  * Expose `Campaign`
@@ -17,12 +12,12 @@ var Campaign = module.exports = model('campaign')
   .attr('_organization')
   .attr('completed')
   .attr('filters')
-  .attr('status');
+  .attr('status')
 
-/**
- * Send
- */
+  /**
+   * Send
+   */
 
-Campaign.prototype.send = function(callback) {
-  request.get('/campaigns/' + this._id() + '/send', callback);
-};
+Campaign.prototype.send = function (callback) {
+  request.get('/campaigns/' + this._id() + '/send', callback)
+}

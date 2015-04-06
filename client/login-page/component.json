@@ -1,12 +1,10 @@
 {
   "name": "login-page",
   "dependencies": {
-    "visionmedia/debug": "*",
     "visionmedia/page.js": "*"
   },
   "locals": [
     "alerts",
-    "config",
     "request",
     "session",
     "view"

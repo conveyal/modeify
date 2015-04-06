@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-var geocode = require('../lib/geocode');
+var geocode = require('../lib/geocode')
 
-geocode.encode(process.argv[2], function(err, res) {
-  if (err) throw err;
-  console.log(JSON.stringify(res, null, '\t'));
-  process.exit();
-});
+geocode.encode(process.argv[2], function (err, res) {
+  if (err) throw err
+  console.log(JSON.stringify(res, null, '\t'))
+  process.exit()
+})

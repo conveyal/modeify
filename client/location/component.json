@@ -3,8 +3,7 @@
   "dependencies": {
     "component/model": "*",
     "segmentio/model-defaults": "0.2.0",
-    "segmentio/model-memoize": "0.0.2",
-    "visionmedia/debug": "*"
+    "segmentio/model-memoize": "0.0.2"
   },
   "locals": [
     "config",

@@ -1,14 +1,16 @@
 #!/usr/bin/env node
 
-var env = process.argv[2];
-var read = require('fs').readFileSync;
-var yml2js = require('js-yaml').load;
-var config = yml2js(read(__dirname + '/../deployment/config.yaml', 'utf8'));
+var env = process.argv[2]
+var read = require('fs').readFileSync
+var yml2js = require('js-yaml').load
+var config = yml2js(read(__dirname + '/../deployment/config.yaml', 'utf8'))
 
-for (var key in config.environments[env])
-  config[key] = config.environments[env][key] || config[key] || '';
+for (var key in config.environments[env]) {
+  config[key] = config.environments[env][key] || config[key] || ''
+}
 
-for (var i = 0, path = process.argv[3].split('.'), len = path.length; i < len; i++)
-  config = config[path[i]];
+for (var i = 0, path = process.argv[3].split('.'), len = path.length; i < len; i++) {
+  config = config[path[i]]
+}
 
-process.stdout.write(config);
+process.stdout.write(config)
