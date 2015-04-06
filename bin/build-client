@@ -105,12 +105,13 @@ function bundle(app) {
 
         js += build.scripts.require + '\n' + str + ';require("' + build.scripts.canonical(tree).canonical + '");\n';
 
+        fs.writeFileSync(path.resolve(destDir, 'build.js'), js);
+
         if (!development) {
           js = uglify.minify(js, { fromString: true }).code;
           js = zlib.gzipSync(js);
+          fs.writeFileSync(path.resolve(destDir, 'build.min.js.gz'), js);
         }
-
-        fs.writeFileSync(path.resolve(destDir, 'build.js'), js);
       });
 
     build
@@ -121,12 +122,13 @@ function bundle(app) {
         var css = myth(str);
         css = css.replace(/\burl *\(([^)]+)\)/g, rewrite);
 
+        fs.writeFileSync(path.resolve(destDir, 'build.css'), css);
+
         if (!development) {
           css = sqwish.minify(css);
           css = zlib.gzipSync(css);
+          fs.writeFileSync(path.resolve(destDir, 'build.min.css.gz'), css);
         }
-
-        fs.writeFileSync(path.resolve(destDir, 'build.css'), css);
       });
   });
 }

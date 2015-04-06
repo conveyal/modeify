@@ -8,11 +8,13 @@ JSON = $(shell find client -name '*.json')
 
 RB = $(shell find cookbooks -name '*.rb')
 
-build: $(CSS) $(HTML) $(CLIENTJS) $(JSON)
-	@./bin/build-client $(NODE_ENV)
+BUCKET = $(shell bin/config-val $(NODE_ENV) s3_bucket)
+
+build-client: $(CSS) $(HTML) $(CLIENTJS) $(JSON)
+	@bin/build-client $(NODE_ENV)
 
 beautify:
-	@./node_modules/.bin/js-beautify \
+	@node_modules/.bin/js-beautify \
 		--config config/jsbeautify.json \
 		--replace $(CLIENTJS) $(LIBJS) $(TESTJS) \
 		--quiet
@@ -31,7 +33,7 @@ install:
 
 # Lint JavaScript with JSHint
 lint:
-	@./node_modules/.bin/jshint \
+	@node_modules/.bin/jshint \
 		--config config/jshint.json $(CLIENTJS) $(LIBJS) $(TESTJS)
 
 # Reinstall if package.json has changed
@@ -45,5 +47,8 @@ serve: stop
 
 stop:
 	@[ -f server.pid ] && kill `cat server.pid`
+
+sync: assets/cookbooks.tar.gz assets/server.tar.gz build-client
+	@aws s3 sync assets $(BUCKET) --acl public-read
 
 .PHONY: beautify build install lint serve

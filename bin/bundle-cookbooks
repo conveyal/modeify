@@ -1,6 +1,0 @@
-#!/bin/sh
-
-cd "$(dirname "$0")"
-
-echo "Packaging cookbooks..."
-tar cvzf ../assets/cookbooks.tar.gz ../cookbooks

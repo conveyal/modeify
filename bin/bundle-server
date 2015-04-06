@@ -1,8 +1,0 @@
-#!/bin/sh
-
-cd "$(dirname "$0")"/..
-
-git archive --output=assets/server.tar HEAD
-tar -rvf assets/server.tar deployment/config.yaml
-gzip -c assets/server.tar > assets/server.tar.gz
-rm assets/server.tar
