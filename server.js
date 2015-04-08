@@ -1,2 +1,2 @@
 // for opsworks
-require('./lib/server');
+require('./lib/server')
