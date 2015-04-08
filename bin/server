@@ -5,7 +5,7 @@ var env = process.env.NODE_ENV
 // If `NODE_ENV` is not set exit
 
 if (env === undefined) {
-  console.error('Envrionment variables must be set. See `.env.tmp`.')
+  console.error('Envrionment variables must be set. See `config/env.tmp`.')
   process.exit(1)
 }
 
@@ -34,6 +34,7 @@ nodemon
 
 function build () {
   if (env === 'development') {
+    console.log('Building client...')
     execFile(__dirname + '/build-client', function (err) {
       if (err) {
         console.error(err)
