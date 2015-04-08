@@ -47,7 +47,7 @@ serve: stop
 	@echo "Logs stored in server.log"
 
 stop:
-	@[ -f server.pid ] && kill `cat server.pid`
+	@kill $(cat server.pid) || true
 
 sync: assets/cookbooks.tar.gz assets/server.tar.gz build-client
 	@aws s3 sync assets $(BUCKET) --acl public-read
