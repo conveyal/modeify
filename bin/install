@@ -48,7 +48,6 @@ echo 'Copying the config files...'
 [ -f deployment/about.md ] || cp -n config/about.md.tmp deployment/about.md
 [ -f deployment/config.yaml ] || cp -n config/config.yaml.tmp deployment/config.yaml
 [ -f deployment/env ] || cp -n config/env.tmp deployment/env
-[ -f deployment/messages.yaml ] || cp -n config/messages.yaml.tmp deployment/messages.yaml
 [ -f deployment/terms.md ] || cp -n config/terms.md.tmp deployment/terms.md
 
 # Source the .env file
