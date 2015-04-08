@@ -3,11 +3,12 @@ var log = require('./client/log')('announcements')
 var modal = require('modal')
 var raf = require('raf')
 var session = require('session')
+var template = require('./template.html')
 
 var Modal = modal({
   height: '500px',
   noPadding: true,
-  template: require('./template.html')
+  template: template
 }, function (view, model) {
   view.nextAnnouncement()
   raf(function () {
@@ -17,16 +18,23 @@ var Modal = modal({
 
 module.exports = function showAnnouncements (ctx, next) {
   var autoshow = arguments.length === 0
+  var announcements = config.announcements ? config.announcements() : false
   var modal
   var profile = session.commuter().profile()
 
-  if (profile.welcome_wizard_complete) {
+  if (announcements && profile.welcome_wizard_complete) {
     var unnseen = getUnseenAnnouncements(profile.announcements_seen)
     if (unnseen.length > 0) {
       log('welcome complete, showing announcements')
       modal = new Modal({
         announcements: unnseen
       })
+
+      if (autoshow) {
+        modal.show()
+      } else {
+        ctx.modal = modal
+      }
     } else {
       log('no announcements to show')
     }
@@ -34,11 +42,8 @@ module.exports = function showAnnouncements (ctx, next) {
     log('welcome incomplete, not showing announcements')
   }
 
-  if (!autoshow) {
-    ctx.modal = modal
+  if (next) {
     next()
-  } else if (modal) {
-    modal.show()
   }
 }
 
@@ -74,7 +79,7 @@ Modal.prototype.setStyled = function () {
 }
 
 function getUnseenAnnouncements (seenAnnouncements) {
-  var announcements = config.announcements ? config.announcements() : []
+  var announcements = config.announcements()
   var unnseen = []
   for (var i = 0; i < announcements.length; i++) {
     var id = announcements[i].id
