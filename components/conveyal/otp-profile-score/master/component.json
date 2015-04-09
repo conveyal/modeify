@@ -4,7 +4,7 @@
   "dependencies": {
     "component/clone": "*"
   },
-  "version": "0.6.1",
+  "version": "0.6.2",
   "keywords": [
     "OpenTripPlanner",
     "otp",
@@ -16,5 +16,5 @@
     "index.js"
   ],
   "repository": "conveyal/otp-profile-score",
-  "resolved": "fa0b7197429150bce01de31571af4f251ffce022"
+  "resolved": "64615183286fdd56d901fc9fb49af212850c6c97"
 }
