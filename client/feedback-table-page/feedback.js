@@ -1,15 +1,15 @@
 var config = require('config')
 var fmt = require('fmt')
 var otp = require('otp')
-var Plan = require('plan')
 var view = require('view')
 
 var Feedback = module.exports = view(require('./feedback.html'))
 
 Feedback.prototype.link = function () {
-  var plan = new Plan(this.model.plan)
-  return fmt('%s/planner?%s', config.base_url(), decodeURIComponent(plan.generateQueryString()))
+  return fmt('%s/planner?%s', config.base_url(), decodeURIComponent(this.model.plan.generateQueryString()))
 }
+
+Feedback
 
 Feedback.prototype.summary = function () {
   return this.model.results ? this.model.results.summary : ''
@@ -21,6 +21,16 @@ Feedback.prototype.name = function () {
 }
 
 Feedback.prototype.resultsLink = function () {
-  var plan = new Plan(this.model.plan)
-  return otp.url(plan.generateQuery())
+  var query = this.model.plan.generateQuery()
+  query.from = this.model.plan.from().split(',')
+  query.from = {
+    lat: query.from[1],
+    lon: query.from[0]
+  }
+  query.to = this.model.plan.to().split(',')
+  query.to = {
+    lat: query.to[1],
+    lon: query.to[0]
+  }
+  return otp.url(query)
 }

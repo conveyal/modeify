@@ -26,7 +26,7 @@ module.exports = function profileFilter (options, scorer) {
   if (FILTER_RESULTS) {
     options = filterDriveToTransitTrips(options)
     options = filterBikeToTransitTrips(options)
-    // options = filterTripsWithShortTransitLegs(options)
+  // options = filterTripsWithShortTransitLegs(options)
   }
 
   // Add the ids last so that they're in appropriate order
