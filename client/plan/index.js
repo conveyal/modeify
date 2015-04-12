@@ -197,7 +197,9 @@ Plan.prototype.setAddress = function (name, address, callback) {
     } else {
       var changes = {}
       if (isCoordinate) {
-        changes[name] = res.body.address + ', ' + res.body.city + ', ' + res.body.state
+        changes[name] = res.body.address
+        if (res.body.city) changes[name] += ', ' + res.body.city
+        if (res.body.state) changes[name] += ', ' + res.body.state
       } else {
         changes[name] = address
       }
