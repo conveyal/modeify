@@ -5,7 +5,7 @@ var resolve = require('component-resolver')
 var fs = require('fs')
 var htmlMinifier = require('html-minifier').minify
 var yml2js = require('js-yaml').load
-var marked = require('marked')
+var markdown = require('markdown-it')()
 var mkdir = require('mkdirp')
 var myth = require('myth')
 var path = require('path')
@@ -31,8 +31,8 @@ for (var key in config.environments[env])
 
 delete config.environments
 
-var aboutPage = marked(fs.readFileSync(deploymentDir + '/about.md', 'utf8'))
-var termsPage = marked(fs.readFileSync(deploymentDir + '/terms.md', 'utf8'))
+var aboutPage = markdown.render(fs.readFileSync(deploymentDir + '/about.md', 'utf8'))
+var termsPage = markdown.render(fs.readFileSync(deploymentDir + '/terms.md', 'utf8'))
 
 // Generate message files
 
@@ -143,7 +143,7 @@ function templates (options) {
   return function (file, done) {
     file.read(function (err, string) {
       if (err) return done(err)
-      if (file.extension === 'md') string = marked(string)
+      if (file.extension === 'md') string = markdown.render(string)
 
       file.string = JSON.stringify(htmlMinifier(string, htmlMinifierOptions))
       file.define = true
@@ -177,7 +177,7 @@ function generateMessageFiles (messagesPath, destinationPath) {
 
 function markdownify (obj) {
   if (typeof obj === 'string') {
-    obj = marked(obj)
+    obj = markdown.render(obj)
     obj = obj.slice(3, -5) // Remove opening and closing <p>'s
   } else {
     for (var i in obj) {
