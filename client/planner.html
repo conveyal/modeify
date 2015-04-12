@@ -41,7 +41,13 @@
     </script>
 
     <script src="https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.js"></script>
-    <script src="{{static_url}}/build/messages/en.js?v={{version}}"></script>
-    <script src="{{static_url}}/build/planner-app/build.js?v={{version}}"></script>
+
+    {{#if minified}}
+      <script src="{{static_url}}/build/messages/en.min.js.gz?v={{version}}"></script>
+      <script src="{{static_url}}/build/planner-app/build.min.js.gz?v={{version}}"></script>
+    {{^}}
+      <script src="{{static_url}}/build/messages/en.js?v={{version}}"></script>
+      <script src="{{static_url}}/build/planner-app/build.js?v={{version}}"></script>
+    {{/if}}
   </body>
 </html>
