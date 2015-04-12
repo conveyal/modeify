@@ -2,16 +2,17 @@
 
 var config = require('../../lib/config')
 var fs = require('fs')
-var hogan = require('hogan.js')
+var handlebars = require('handlebars')
 var request = require('./supertest')
 
 /**
  * Manager
  */
 
-var manager = hogan.compile(fs.readFileSync(__dirname +
-  '/../../client/manager.html', 'utf8')).render({
+var manager = handlebars.compile(fs.readFileSync(__dirname +
+  '/../../client/manager.html', 'utf8'))({
   application: config.application,
+  minified: true,
   segmentio_key: config.segmentio_key,
   static_url: config.static_url,
   version: config.version
@@ -21,9 +22,10 @@ var manager = hogan.compile(fs.readFileSync(__dirname +
  * Planner
  */
 
-var planner = hogan.compile(fs.readFileSync(__dirname +
-  '/../../client/planner.html', 'utf8')).render({
+var planner = handlebars.compile(fs.readFileSync(__dirname +
+  '/../../client/planner.html', 'utf8'))({
   application: config.application,
+  minified: true,
   segmentio_key: config.segmentio_key,
   static_url: config.static_url,
   version: config.version
