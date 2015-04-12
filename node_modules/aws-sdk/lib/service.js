@@ -342,6 +342,9 @@ AWS.Service = inherit({
     switch (error.code) {
       case 'ProvisionedThroughputExceededException':
       case 'Throttling':
+      case 'ThrottlingException':
+      case 'RequestLimitExceeded':
+      case 'RequestThrottled':
         return true;
       default:
         return false;
