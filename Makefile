@@ -14,8 +14,6 @@ RB = $(shell find cookbooks -name '*.rb')
 
 BUCKET = $(shell bin/config-val $(NODE_ENV) s3_bucket)
 
-NODE_ENV = development
-
 build-client: $(CSS) $(HTML) $(CLIENTJS) $(JSON)
 	@bin/build-client $(NODE_ENV)
 
