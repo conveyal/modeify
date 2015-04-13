@@ -50,6 +50,12 @@ stop:
 	@kill $(cat server.pid) || true
 
 sync: assets/cookbooks.tar.gz assets/server.tar.gz build-client
-	@aws s3 sync assets $(BUCKET) --acl public-read
+	@aws s3 sync assets $(BUCKET) \
+		--acl public-read \
+		--exclude "*.gz"
+	@aws s3 sync assets $(BUCKET) \
+		--acl public-read \
+		--content-encoding "gzip" \
+		--include "*.gz"
 
-.PHONY: beautify build install lint serve
+.PHONY: build-client install lint serve sync
