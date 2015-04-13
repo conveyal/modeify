@@ -17,7 +17,11 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.css" rel="stylesheet">
 
-    <link href="{{static_url}}/build/planner-app/build.css?v={{version}}" rel="stylesheet">
+    {{#if minified}}
+      <link href="{{static_url}}/build/planner-app/build.css?v={{version}}" rel="stylesheet">
+    {{^}}
+      <link href="{{static_url}}/build/planner-app/build.min.css.gz?v={{version}}" rel="stylesheet">
+    {{/if}}
 
     {{#segmentio_key}}
       <script type="text/javascript">
