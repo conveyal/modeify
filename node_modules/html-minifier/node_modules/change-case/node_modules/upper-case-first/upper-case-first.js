@@ -1,4 +1,4 @@
-var upperCase = require('upper-case');
+var upperCase = require('upper-case')
 
 /**
  * Upper case the first character of a string.
@@ -8,10 +8,10 @@ var upperCase = require('upper-case');
  */
 module.exports = function (str, locale) {
   if (str == null) {
-    return '';
+    return ''
   }
 
-  str = String(str);
+  str = String(str)
 
-  return upperCase(str.charAt(0), locale) + str.substr(1);
-};
+  return upperCase(str.charAt(0), locale) + str.substr(1)
+}
