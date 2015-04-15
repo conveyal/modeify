@@ -10,7 +10,6 @@ if (env === undefined) {
 }
 
 // Dependencies
-
 var execFile = require('child_process').execFile
 var fs = require('fs')
 var nodemon = require('nodemon')
