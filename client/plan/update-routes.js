@@ -5,6 +5,7 @@ var message = require('./client/messages')('plan:update-routes')
 var otp = require('otp')
 var profileFilter = require('profile-filter')
 var profileFormatter = require('profile-formatter')
+var request = require('request')
 var Route = require('route')
 
 /**
@@ -55,6 +56,7 @@ function updateRoutes (plan, opts, callback) {
   plan.loading(true)
   plan.emit('updating options')
 
+  var driveOption = null
   var query = plan.generateQuery()
   var scorer = plan.scorer()
 
@@ -78,7 +80,7 @@ function updateRoutes (plan, opts, callback) {
       })
 
       // Get the car data
-      var driveOption = new Route(data.options.filter(function (o) {
+      driveOption = window.driveOption = new Route(data.options.filter(function (o) {
         return o.access[0].mode === 'CAR' && (!o.transit || o.transit.length < 1)
       })[0])
 
@@ -100,6 +102,10 @@ function updateRoutes (plan, opts, callback) {
       for (var i = 0; i < data.options.length; i++) {
         data.options[i] = new Route(data.options[i])
 
+        if (plan.car() && data.options[i].directCar()) {
+          data.options[i] = driveOption;
+        }
+
         data.options[i].setCarData({
           cost: driveOption.cost(),
           emissions: driveOption.emissions(),
@@ -117,6 +123,28 @@ function updateRoutes (plan, opts, callback) {
       done(null, data)
     }
   })
+
+  var from_ll = plan.from_ll()
+  var to_ll = plan.to_ll()
+
+  request
+    .get('/carpool/external-matches', {
+      from: from_ll.lng + ',' + from_ll.lat,
+      to: to_ll.lng + ',' + to_ll.lat
+    }, function (err, res) {
+      if (err) {
+        log('error finding matches: %e', err)
+      } else {
+        log('found %d matches', res.body)
+        var waitForOtp = setInterval(function () {
+          if (driveOption) {
+            clearInterval(waitForOtp)
+            log('setting external carpool matches')
+            driveOption.externalCarpoolMatches(res.body)
+          }
+        }, 100)
+      }
+    })
 }
 
 /**

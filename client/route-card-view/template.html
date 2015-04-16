@@ -1,8 +1,8 @@
-<li class="RouteCard" title="{modeDescriptor} - score: {score}">
+<li class="RouteCard">
   <div class="benefits-badge savings" data-visible="costSavings">Save <strong>${costSavings}</strong></div>
   <div class="benefits-badge time-savings" data-visible="timeSavingsAndNoCostSavings">Gain <strong>{timeSavings}</strong> hour(s)</div>
 
-  <div class="header">
+  <div class="header" title="score: {score}">
     <strong>#{optionNumber}</strong> {modeDescriptor}
   </div>
 
@@ -23,7 +23,10 @@
       </div>
     </div>
 
-    <button class="btn btn-default select-button" on-tap="selectOption">select</button>
+    <button class="btn btn-default select-button" on-tap="selectOption">
+      <span data-hidden="externalCarpoolMatches">select</span>
+      <span data-visible="externalCarpoolMatches">{externalCarpoolMatches} matched rides</span>
+    </button>
 
     <div class="details-buttons">
       <button class="btn btn-sm btn-dark show-hide show-details" href="#" on-tap="showDetails"><i class="fa fa-fw fa-plus-circle"></i> details</button>

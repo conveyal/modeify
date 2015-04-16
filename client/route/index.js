@@ -36,6 +36,7 @@ var Route = module.exports = model('Route')
   .attr('egress')
   .attr('emissions')
   .attr('emissionsDifference')
+  .attr('externalCarpoolMatches')
   .attr('hasTransit')
   .attr('modes')
   .attr('score')
@@ -378,7 +379,7 @@ Route.prototype.modeDescriptor = function () {
       if (this.hasTransit()) {
         modeStr = 'drive'
       } else {
-        modeStr = 'rideshare'
+        modeStr = 'carpool'
       }
       break
     case 'walk':
