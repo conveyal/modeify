@@ -26,7 +26,7 @@ assets/server.tar.gz: $(LIBJS)
 	@gzip -c assets/server.tar > assets/server.tar.gz
 	@rm assets/server.tar # cleanup
 
-install:
+deployment/env:
 	@bin/install
 
 # Lint JavaScript with Standard
@@ -42,7 +42,7 @@ node_modules: package.json
 	@npm install
 
 # Watch & reload server
-serve: node_modules stop
+serve: deployment/env node_modules stop
 	@nohup bin/server > server.log </dev/null & echo "$$!" > server.pid
 	@echo "Logs stored in server.log"
 
