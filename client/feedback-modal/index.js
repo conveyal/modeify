@@ -58,7 +58,7 @@ Modal.prototype.submit = function (e) {
 
         setTimeout(function () {
           self.hide()
-        }, 2500)
+        }, 2000)
       }
     })
   }
