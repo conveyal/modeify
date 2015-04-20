@@ -3,7 +3,8 @@
   <div class="benefits-badge time-savings" data-visible="timeSavingsAndNoCostSavings">Gain <strong>{timeSavings}</strong> hour(s)</div>
 
   <div class="header" title="score: {score}">
-    <strong>#{optionNumber}</strong> {modeDescriptor}
+    <span data-visible="externalCarpoolMatches">{externalCarpoolMatches} {modeDescriptor} matches</span>
+    <span data-hidden="externalCarpoolMatches">{modeDescriptor}</span>
   </div>
 
   <div class="simple clearfix">
@@ -23,10 +24,7 @@
       </div>
     </div>
 
-    <button class="btn btn-default select-button" on-tap="selectOption">
-      <span data-hidden="externalCarpoolMatches">select</span>
-      <span data-visible="externalCarpoolMatches">{externalCarpoolMatches} matches</span>
-    </button>
+    <button class="btn btn-default select-button" on-tap="selectOption">select</button>
 
     <div class="details-buttons">
       <button class="btn btn-sm btn-dark show-hide show-details" href="#" on-tap="showDetails"><i class="fa fa-fw fa-plus-circle"></i> details</button>
