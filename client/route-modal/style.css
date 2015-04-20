@@ -7,3 +7,11 @@
   text-align: center;
   margin: 15px 0;
 }
+
+.RouteModal-externalMatches {
+  margin: 10px 0 20px;
+}
+
+.RouteModal-commuterConnectionsLogo {
+  width: 100%;
+}

@@ -2,6 +2,7 @@
   "name": "route-modal",
   "local": [
     "analytics",
+    "config",
     "log",
     "modal",
     "rideshare-sign-up",
