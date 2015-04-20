@@ -33,7 +33,6 @@ nodemon
 
 function build () {
   if (env === 'development') {
-    console.log('Building client...')
     execFile(__dirname + '/build-client', function (err) {
       if (err) {
         console.error(err)
