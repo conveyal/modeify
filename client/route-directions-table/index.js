@@ -97,7 +97,7 @@ View.prototype.directions = function () {
 
 function getUniquePatternNames (patterns) {
   return patterns.map(function (p) {
-    return p.shortName || p.longName
+    return p.shortName && p.shortName.length > 3 ? p.shortName : p.longName
   })
     .reduce(function (names, name) {
       if (names.indexOf(name) === -1) names.push(name)

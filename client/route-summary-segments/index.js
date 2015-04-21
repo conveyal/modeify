@@ -46,7 +46,8 @@ module.exports = function (route, opts) {
       mode: convert.modeToIcon(segment.mode),
       inline: !!opts.inline,
       small: !!opts.small,
-      name: patterns[0].shield
+      shortName: patterns[0].shield,
+      longName: patterns[0].longName || patterns[0].shield
     }
   }))
 

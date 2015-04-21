@@ -8,7 +8,7 @@ var transitive = module.exports = new Transitive({
     right: 330,
     top: 43
   },
-  draggableTypes: { 'PLACE' : [ 'from', 'to' ] },
+  draggableTypes: { PLACE: [ 'from', 'to' ] },
   gridCellSize: 200,
   useDynamicRendering: true,
   styles: require('./style')

@@ -16,7 +16,7 @@ module.exports.journey = function (journey) {
   for (i = 0; i < journey.routes.length; i++) {
     var r = journey.routes[i]
     r.route_long_name = format(r.route_long_name)
-    r.route_short_name = format(r.route_short_name) || r.route_long_name
+    r.route_short_name = format(r.route_short_name) || format(r.route_long_name)
   }
 
   for (i = 0; i < journey.stops.length; i++) {
@@ -123,7 +123,8 @@ var wordReplacementTable = {
   'Northeast': 'NE',
   'Southwest': 'SW',
   'Southeast': 'SE',
-  'Street': 'St'
+  'Street': 'St',
+  'Vienna/gmu': 'Vienna/GMU'
 }
 
 /**
