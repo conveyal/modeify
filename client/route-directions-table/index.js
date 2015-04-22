@@ -161,11 +161,12 @@ var MODE_TO_ICON = {
 }
 
 var DIRECTION_TO_CARDINALITY = {
-  HARD_LEFT: 'west',
-  HARD_RIGHT: 'east',
-  RIGHT: 'east',
-  LEFT: 'west',
-  CONTINUE: 'north',
-  SLIGHTLY_RIGHT: 'northeast',
-  SLIGHTLY_LEFT: 'northwest'
+  CIRCLE_COUNTERCLOCKWISE: 'fa-repeat',
+  HARD_LEFT: 'fa-arrow-left',
+  HARD_RIGHT: 'fa-arrow-right',
+  RIGHT: 'fa-arrow-right',
+  LEFT: 'fa-arrow-left',
+  CONTINUE: 'fa-arrow-up',
+  SLIGHTLY_RIGHT: 'fa-arrow-right fa-northeast',
+  SLIGHTLY_LEFT: 'fa-arrow-right fa-northwest'
 }
