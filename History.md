@@ -1,5 +1,5 @@
 
-## Latest
+## 1.3.0 — 2015-03-23
 
 * Use [standard](/feross/standard) JS formatter and linter
 * Update dependencies
