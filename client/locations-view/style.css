@@ -54,7 +54,7 @@
   border-top-right-radius: 0;
 }
 
-.Locations > .input-group > .clear {
+.Locations > .input-group > i.add-on {
   cursor: pointer;
   color: var(--gray);
   right: 0;
