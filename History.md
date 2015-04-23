@@ -6,6 +6,7 @@
 * Add `BICYCLE_RENT` as an access mode
 * Add `announcements`
 * Update docs
+* Add device geolocation
 
 ## 1.2.2 — 2015-03-04
 
