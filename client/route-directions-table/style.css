@@ -66,7 +66,7 @@
 .RouteDirections .detail-route-bg {
   background-color: var(--black);
   width: 15px;
-  padding-top: 62px;
+  height: 100%;
   margin-left: 5px;
 }
 

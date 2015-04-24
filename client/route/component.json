@@ -3,10 +3,12 @@
   "dependencies": {
     "component/model": "*",
     "segmentio/model-defaults": "*",
-    "component/each": "*"
+    "component/each": "*",
+    "visionmedia/batch": "*"
   },
   "locals": [
     "convert",
+    "request",
     "session"
   ],
   "scripts": [

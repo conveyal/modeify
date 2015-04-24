@@ -8,7 +8,11 @@ var template = require('./template.html')
 
 var row = hogan.compile(rowTemplate)
 
-var View = module.exports = view(template)
+var View = module.exports = view(template, function (view, route) {
+  route.on('generatedStopTimes', function () {
+    route.emit('change directions')
+  })
+})
 
 /**
  * To/from
@@ -26,6 +30,8 @@ View.prototype.to = function () {
  */
 
 View.prototype.directions = function () {
+  console.log('showing directions...', this.model.summary())
+
   var access = this.model.access()[0]
   var egress = this.model.egress()
   var segments = this.model.transit()
@@ -43,6 +49,7 @@ View.prototype.directions = function () {
   var lastColor = null
   for (var i = 0; i < length; i++) {
     var segment = segments[i]
+    var departureTimes = segment.departureTimes || []
     var fromName = segment.fromName
     var patterns = segment.segmentPatterns
     var color = patterns[0].color
@@ -72,11 +79,12 @@ View.prototype.directions = function () {
 
     addDetail({
       color: color,
+      departureTimes: formatDepartureTimes(departureTimes),
       description: 'Take ' + getUniquePatternNames(patterns).map(strong).join(' / '),
       segment: true
     })
 
-    // Check if you are debaording
+    // Check if you are deboarding
     if (i + 1 >= length || segments[i + 1].walkTime > 0) {
       addDetail({
         color: color,
@@ -107,6 +115,59 @@ function getUniquePatternNames (patterns) {
 
 function strong (s) {
   return '<strong>' + s + '</strong>'
+}
+
+function formatDepartureTimes (times) {
+  var hours = {}
+  var maxPerHour = 0
+  var text = ''
+
+  if (!times || times.length < 1) return
+
+  times.forEach(function (t) {
+    var h = t.getHours()
+    if (hours[h] === undefined) hours[h] = []
+    hours[h].push(t.getMinutes())
+    maxPerHour = hours[h].length > maxPerHour ? hours[h].length : maxPerHour
+  })
+
+  if (maxPerHour > 6) {
+    var startDate = times[0]
+    var endDate = times[times.length - 1]
+    var freq = parseInt((endDate - startDate) / 1000 / 60 / times.length, 10)
+
+    text += '<br>' + toLocale(startDate) + ' to ' + toLocale(endDate) + ' every ' + freq + ' min'
+  } else {
+    for (var i in hours) {
+      text += '<br><strong>'
+      if (i > 12) {
+        text += String(i - 12)
+      } else if (i === 0) {
+        text += '12'
+      } else {
+        text += String(i)
+      }
+
+      text += '</strong> '
+
+      text += hours[i].map(function (m) {
+        if (m < 10) return '<strong>:</strong>0' + m
+        else return '<strong>:</strong>' + m
+      }).join('&nbsp;&nbsp;&nbsp;')
+
+      if (i > 12) {
+        text += '&nbsp;&nbsp;&nbsp;PM'
+      } else {
+        text += '&nbsp;&nbsp;&nbsp;AM'
+      }
+    }
+  }
+
+  return text
+}
+
+function toLocale (d) {
+  return d.toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' })
 }
 
 /**

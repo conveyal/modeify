@@ -1,6 +1,8 @@
+var Batch = require('batch')
 var convert = require('convert')
 var model = require('model')
 var defaults = require('model-defaults')
+var request = require('request')
 var session = require('session')
 var each = require('each')
 
@@ -357,6 +359,77 @@ Route.prototype.weight = function () {
 
 Route.prototype.carParkingCost = function () {
   return session.plan().scorer().rates.carParkingCost
+}
+
+/**
+ * Get stop times
+ */
+
+Route.prototype.generateStopTimes = function (date, startTime, endTime) {
+  if (this.transit && this.transit() && this.transit().length > 0) {
+    var dateString = date.replace(/-/g, '')
+    var segmentsBatch = new Batch()
+    var self = this
+
+    this.transit().forEach(function (segment) {
+      segmentsBatch.push(function (done) {
+        var patternsBatch = new Batch()
+        segment.segmentPatterns.forEach(function (pattern) {
+          patternsBatch.push(function (done) {
+            findDepartureTimes(pattern.patternId, pattern.stopId, dateString, done)
+          })
+        })
+
+        patternsBatch.end(function (err, patternsTimes) {
+          if (err) {
+            done(err)
+          } else {
+            var times = patternsTimes.reduce(function (times, patternTimes) {
+              return times.concat(patternTimes)
+            }, [])
+
+            times.sort()
+
+            times = times.map(function (t) {
+              return new Date(t)
+            }).filter(inTimeWindow)
+
+            segment.departureTimes = times
+
+            done(null, times)
+          }
+        })
+      })
+    })
+
+    segmentsBatch.end(function (err, times) {
+      if (err) {
+        console.error(err)
+      } else if (times && times.length > 0) {
+        self.emit('generatedStopTimes', times)
+      }
+    })
+  }
+
+  function findDepartureTimes (patternId, stopId, date, done) {
+    request.get('/otp/index/stops/' + stopId + '/stoptimes/' + date, function (err, res) {
+      if (err) {
+        done(err)
+      } else {
+        var patterns = res.body.filter(function (pattern) {
+          return pattern.pattern.id === patternId
+        })
+
+        done(null, patterns[0].times.map(function (t) {
+          return (t.serviceDay + t.scheduledDeparture) * 1000
+        }))
+      }
+    })
+  }
+
+  function inTimeWindow (time) {
+    return time.getHours() >= startTime && time.getHours() <= endTime
+  }
 }
 
 /**

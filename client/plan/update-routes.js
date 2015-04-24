@@ -101,6 +101,7 @@ function updateRoutes (plan, opts, callback) {
       // Create a new Route object for each option
       for (var i = 0; i < data.options.length; i++) {
         data.options[i] = new Route(data.options[i])
+        data.options[i].generateStopTimes(plan.nextDate(), plan.start_time(), plan.end_time())
 
         if (plan.car() && data.options[i].directCar()) {
           data.options[i] = driveOption
@@ -171,6 +172,8 @@ function populateSegments (options, journey) {
         routeId = routeId[0] + ':' + routeId[1]
         var route = getRoute(routeId, journey.routes)
 
+        pattern.stopId = getStopId(patternId, pattern.fromIndex, journey.patterns)
+
         pattern.longName = route.route_long_name
         pattern.shortName = route.route_short_name
 
@@ -185,6 +188,15 @@ function getRouteId (patternId, patterns) {
   for (var i = 0; i < patterns.length; i++) {
     var pattern = patterns[i]
     if (pattern.pattern_id === patternId) return pattern.route_id
+  }
+}
+
+function getStopId (patternId, fromIndex, patterns) {
+  for (var i = 0; i < patterns.length; i++) {
+    var pattern = patterns[i]
+    if (pattern.pattern_id === patternId) {
+      return pattern.stops[fromIndex].stop_id
+    }
   }
 }
 
