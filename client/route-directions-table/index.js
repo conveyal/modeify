@@ -10,7 +10,7 @@ var row = hogan.compile(rowTemplate)
 
 var View = module.exports = view(template, function (view, route) {
   route.on('generatedStopTimes', function () {
-    route.emit('change directions')
+    route.emit('change itinerary')
   })
 })
 
@@ -29,9 +29,7 @@ View.prototype.to = function () {
  * Details, details
  */
 
-View.prototype.directions = function () {
-  console.log('showing directions...', this.model.summary())
-
+View.prototype.itinerary = function () {
   var access = this.model.access()[0]
   var egress = this.model.egress()
   var segments = this.model.transit()
