@@ -26,7 +26,7 @@ module.exports = function profileFilter (options, scorer) {
   if (FILTER_RESULTS) {
     options = filterDriveToTransitTrips(options)
     options = filterBikeToTransitTrips(options)
-  // options = filterTripsWithShortTransitLegs(options)
+    options = filterTripsWithShortTransitLegs(options)
   }
 
   // Add the ids last so that they're in appropriate order
@@ -100,7 +100,7 @@ function filterTripsWithShortTransitLegs (opts) {
     if (!o.transit) return true
 
     for (var i = 0; i < o.transit.length; i++) {
-      if (o.transit[i].rideStats.avg < o.transit[i].waitStats.avg / 2) {
+      if (o.transit[i].rideStats.avg < o.transit[i].waitStats.avg / 3) {
         filtered++
         return false
       }
