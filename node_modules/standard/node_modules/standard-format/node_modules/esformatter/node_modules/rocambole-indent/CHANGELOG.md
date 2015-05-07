@@ -1,5 +1,9 @@
 # rocambole-indent changelog
 
+## v2.0.4 (2015-05-02)
+
+ - align comments surrounded by empty lines with next non-empty line. (#6)
+
 ## v2.0.3 (2015-03-26)
 
  - fix comment alignment if surrounded by empty lines (#5)

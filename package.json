@@ -48,7 +48,7 @@
     "prompt": "^0.2.14",
     "should": "^5.2.0",
     "sqwish": "~0.2.2",
-    "standard": "^3.6.0",
+    "standard": "^3.7.3",
     "supertest": "~0.15.0",
     "uglify-js": "^2.4.20"
   },

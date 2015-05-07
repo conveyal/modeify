@@ -91,6 +91,18 @@ function foo() {
 
 }
 
+foo
+  .bar();
+
+// next
+
+function dolor() {
+  return 123;
+
+  // prev
+
+}
+
 function bar() {
   foo();
 

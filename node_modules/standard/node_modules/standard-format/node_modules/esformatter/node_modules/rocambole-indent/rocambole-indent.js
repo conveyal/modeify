@@ -235,9 +235,11 @@ function isFirstNonEmptyTokenOfLine(token) {
 function findReferenceIndent(start) {
   var prevLine = findPrevReference(start);
   var nextLine = findNextReference(start);
-  if (isAtBeginingOfBlock(start)) {
+  if (isAtBeginingOfBlock(start) || isDetached(start, nextLine)) {
     // this handles an edge case of comment just after "{" followed by an empty
     // line (would use the previous line as reference by mistake)
+    // and also an edge case where comment is surrounded by empty lines but
+    // should still use the next non-empty line as a reference
     while (nextLine && tk.isBr(nextLine)) {
       nextLine = findNextReference(nextLine.prev);
     }
@@ -251,15 +253,11 @@ function findReferenceIndent(start) {
 
 function findPrevReference(start) {
   var token = start.prev;
-  var changedLine = false;
   while (token) {
     // multiple consecutive comments should use the same reference (consider as
     // a single block)
-    if (changedLine && tk.isBr(token) && !tk.isBr(token.next) && nextInLineNotComment(token)) {
+    if (tk.isBr(token) && !tk.isBr(token.next) && nextInLineNotComment(token)) {
       return token.next;
-    }
-    if (tk.isBr(token)) {
-      changedLine = true;
     }
     token = token.prev;
   }
@@ -275,6 +273,26 @@ function findNextReference(start) {
     }
     token = token.next;
   }
+}
+
+function isDetached(start, nextLine) {
+  return hasEmptyLineBefore(start) && tk.isBr(nextLine) &&
+    !isAtEndOfBlock(nextLine);
+}
+
+function hasEmptyLineBefore(token) {
+  token = token.prev;
+  var count = 0;
+  while (token && tk.isEmpty(token)) {
+    if (tk.isBr(token)) {
+      count += 1;
+    }
+    if (count > 1) {
+      return true;
+    }
+    token = token.prev;
+  }
+  return false;
 }
 
 function isIndentOrWs(token) {

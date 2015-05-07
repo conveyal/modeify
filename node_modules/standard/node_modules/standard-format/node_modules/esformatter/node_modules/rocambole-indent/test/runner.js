@@ -2,7 +2,7 @@
 'use strict';
 
 var assert = require('assert');
-var diff = require('diff');
+var disparity = require('disparity');
 var fs = require('fs');
 var indent = require('../rocambole-indent');
 var path = require('path');
@@ -34,7 +34,11 @@ assert.equal(ws3.level, undefined);
 // yes, this will throw if it doesn't support empty nodes/ast
 indent.alignComments({});
 
-formatAndCompare('align_comment-input.js', 'align_comment-output.js', indent.alignComments);
+formatAndCompare(
+  'align_comment-input.js',
+  'align_comment-output.js',
+  indent.alignComments
+);
 
 function formatAndCompare(inputFile, expectedFile, method) {
   var input = getFile(inputFile);
@@ -44,7 +48,9 @@ function formatAndCompare(inputFile, expectedFile, method) {
   var output = ast.toString();
 
   if (output !== expected) {
-    process.stderr.write(diff.createPatch(expectedFile, expected, output));
+    process.stderr.write(disparity.chars(output, expected, {
+      paths: ['actual', 'expected']
+    }));
     process.exit(1);
   } else {
     console.error('ok %s', inputFile);
