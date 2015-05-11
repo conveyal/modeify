@@ -428,7 +428,7 @@ Route.prototype.generateStopTimes = function (date, startTime, endTime) {
   }
 
   function inTimeWindow (time) {
-    return time.getHours() >= startTime && time.getHours() <= endTime
+    return time.getHours() >= startTime && time.getHours() < endTime
   }
 }
 
