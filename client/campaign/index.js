@@ -14,9 +14,9 @@ var Campaign = module.exports = model('campaign')
   .attr('filters')
   .attr('status')
 
-  /**
-   * Send
-   */
+/**
+ * Send
+ */
 
 Campaign.prototype.send = function (callback) {
   request.get('/campaigns/' + this._id() + '/send', callback)

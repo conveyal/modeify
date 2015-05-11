@@ -27,9 +27,9 @@ var Organization = module.exports = model('Organization')
   .attr('email')
   .attr('labels')
 
-  /**
-   * Load middleware
-   */
+/**
+ * Load middleware
+ */
 
 Organization.load = function (ctx, next) {
   if (ctx.params.organization === 'new') return next()

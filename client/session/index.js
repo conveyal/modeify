@@ -29,9 +29,9 @@ var Session = model('Session')
   .attr('isLoggedIn')
   .attr('isManager')
 
-  /**
-   * Logout
-   */
+/**
+ * Logout
+ */
 
 Session.prototype.logout = function (next) {
   log('--> logging out')

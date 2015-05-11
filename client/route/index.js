@@ -55,9 +55,9 @@ var Route = module.exports = model('Route')
   .attr('walkTime')
   .attr('weightLost')
 
-  /**
-   * Changes to emit on rescore
-   */
+/**
+ * Changes to emit on rescore
+ */
 
 var emitAfterRescore = ['average', 'bikeTime', 'calculatedCost', 'totalCalories', 'transitCosts', 'tripsPerYear',
   'carParkingCost', 'vmtRate', 'walkTime'

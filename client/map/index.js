@@ -11,8 +11,8 @@ var L = window.L
 module.exports = function (el, opts) {
   opts = opts || {}
   opts.tileLayer = opts.tileLayer || {
-    detectRetina: true
-  }
+      detectRetina: true
+    }
 
   // create a map in the el with given options
   return new Map(L.mapbox.map(el, config.mapbox_map_id(), opts))

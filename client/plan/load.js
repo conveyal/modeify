@@ -14,9 +14,9 @@ var defaultCalorieScale = d3.scale.sqrt()
   .range([0, -3, 0])
   .exponent(2)
 
-  /**
-   * Expose `load`
-   */
+/**
+ * Expose `load`
+ */
 
 module.exports = load
 

@@ -13,9 +13,9 @@ module.exports = function (Model) {
     .attr('state')
     .attr('zip')
 
-    /**
-     * Full address
-     */
+  /**
+   * Full address
+   */
 
   Model.prototype.fullAddress = function () {
     var addr = this.address() || ''

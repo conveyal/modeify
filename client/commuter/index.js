@@ -33,9 +33,9 @@ var Commuter = module.exports = model('Commuter')
   .attr('profile')
   .attr('status')
 
-  /**
-   * Load middleware
-   */
+/**
+ * Load middleware
+ */
 
 Commuter.load = function (ctx, next) {
   if (ctx.params.commuter === 'new') return next()

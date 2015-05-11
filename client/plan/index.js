@@ -70,9 +70,9 @@ var Plan = module.exports = model('Plan')
   .attr('tripsPerYear')
   .attr('walk')
 
-  /**
-   * Expose `load`
-   */
+/**
+ * Expose `load`
+ */
 
 module.exports.load = function (ctx, next) {
   loadPlan(Plan, ctx, next)
