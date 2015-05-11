@@ -28,7 +28,7 @@ View.prototype.login = function (e) {
       if (err) {
         window.alert(res.text || 'Failed to login.') // eslint-disable-line no-alert
       } else {
-        session.login(res.body)
+        session.commuterLogin(res.body)
         page('/planner')
       }
     })

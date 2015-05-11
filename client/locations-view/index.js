@@ -11,6 +11,10 @@ var view = require('view')
  */
 
 var View = module.exports = view(require('./template.html'), function (view, plan) {
+  plan.on('change', function () {
+    view.resetIcons()
+  })
+
   view.on('rendered', function () {
     // Reset the icons
     view.resetIcons()

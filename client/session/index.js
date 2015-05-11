@@ -7,7 +7,6 @@ var model = require('model')
 var Organization = require('organization')
 var page = require('page')
 var request = require('./client/request')
-var uid = require('uid')
 var User = require('user')
 
 /**
@@ -110,16 +109,14 @@ Session.prototype.commuterLogin = function (data) {
     cookie('user', user.toJSON())
     session.user(user)
 
-    // is this user anonymous?
-    if (user.email_confirmed() === true) {
-      commuter.anonymous(false)
-    }
+    commuter.anonymous(false)
   }
 
   session.isAdmin(false)
   session.isManager(false)
   session.isLoggedIn(true)
 
+  log('-- identifying as %s', commuter._id())
   analytics.identify(commuter._id(), commuter.toJSON())
 
   log('<-- commuterLogin complete')

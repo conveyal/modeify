@@ -3,7 +3,6 @@
   "dependencies": {
     "component/cookie": "*",
     "component/model": "*",
-    "component/uid": "0.0.2",
     "segmentio/model-defaults": "0.2.0",
     "visionmedia/debug": "*",
     "visionmedia/page.js": "*"
