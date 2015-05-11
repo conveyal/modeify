@@ -65,61 +65,65 @@ Session.prototype.logout = function (next) {
 Session.prototype.login = function (data) {
   log('--> login')
 
-  var commuter = null
-  var type = null
-  var user = null
-
   // is this a commuter object with a reference to a user?
   if (data._user) {
     log('--- login as %s', data._user.email)
-
-    // Create the commuter object
-    commuter = new Commuter(data)
-    user = new User(data._user)
-
-    // is this user associated with an organization?
-    if (data._organization && data._organization._id) {
-      commuter._organization(new Organization(data._organization))
-    }
-
-    // is this user anonymous?
-    if (user.email_confirmed() === true) {
-      commuter.anonymous(false)
-    }
-
-    type = 'commuter'
-    cookie('commuter', commuter.toJSON())
+    this.commuterLogin(data)
   } else {
-    user = new User(data)
-    type = user.type()
+    var user = new User(data)
+    var type = user.type()
+
+    cookie('user', user.toJSON())
+    session.user(user)
+
+    session.isAdmin(type === 'administrator')
+    session.isManager(type !== 'commuter')
+    session.isLoggedIn(true)
+
+    analytics.identify(user._id(), user.toJSON())
   }
-
-  cookie('user', user.toJSON())
-
-  session.commuter(commuter)
-  session.user(user)
-  session.isAdmin(type === 'administrator')
-  session.isManager(type !== 'commuter')
-  session.isLoggedIn(true)
 
   log('<-- login complete')
 }
 
 /**
- * Track user
+ * Log in as commuter
  */
 
-Session.on('change user', function (session, user, prev) {
-  log('--> identifying user')
-  if (user && user._id) {
-    analytics.identify(user._id(), user.toJSON())
-    log('<-- tracking %s', user.email())
-  } else if (user !== prev) {
-    var id = 'guest-' + uid(9)
-    analytics.identify(id)
-    log('<-- tracking %s', id)
+Session.prototype.commuterLogin = function (data) {
+  log('--> commuterLogin')
+
+  // Create the commuter object
+  var commuter = new Commuter(data)
+
+  // is this user associated with an organization?
+  if (data._organization && data._organization._id) {
+    commuter._organization(new Organization(data._organization))
   }
-})
+
+  cookie('commuter', commuter.toJSON())
+  session.commuter(commuter)
+
+  if (data._user) {
+    var user = new User(data._user)
+
+    cookie('user', user.toJSON())
+    session.user(user)
+
+    // is this user anonymous?
+    if (user.email_confirmed() === true) {
+      commuter.anonymous(false)
+    }
+  }
+
+  session.isAdmin(false)
+  session.isManager(false)
+  session.isLoggedIn(true)
+
+  analytics.identify(commuter._id(), commuter.toJSON())
+
+  log('<-- commuterLogin complete')
+}
 
 /**
  * Expose `session`
@@ -156,7 +160,7 @@ session.loginAnonymously = function (next) {
       log.warn('<-- failed to log in anonymously: %e', err || res.error)
       next(err || res.error || res.text)
     } else {
-      session.login(res.body)
+      session.commuterLogin(res.body)
       log('<-- logged in anonymously')
       next()
     }
@@ -179,7 +183,7 @@ session.commuterIsLoggedIn = function (ctx, next) {
       log('<-- commuter is not logged in')
       session.loginAnonymously(next)
     } else {
-      session.login(res.body)
+      session.commuterLogin(res.body)
       log('<-- commuter is logged in')
       next()
     }
