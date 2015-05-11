@@ -1,4 +1,4 @@
-var AST = {
+let AST = {
   Program: function(statements, blockParams, strip, locInfo) {
     this.loc = locInfo;
     this.type = 'Program';
@@ -27,8 +27,8 @@ var AST = {
     this.path = path;
     this.params = params || [];
     this.hash = hash;
-    this.program  = program;
-    this.inverse  = inverse;
+    this.program = program;
+    this.inverse = inverse;
 
     this.openStrip = openStrip;
     this.inverseStrip = inverseStrip;
@@ -76,8 +76,8 @@ var AST = {
 
     this.data = data;
     this.original = original;
-    this.parts    = parts;
-    this.depth    = depth;
+    this.parts = parts;
+    this.depth = depth;
   },
 
   StringLiteral: function(string, locInfo) {
@@ -101,6 +101,18 @@ var AST = {
       this.value = bool === 'true';
   },
 
+  UndefinedLiteral: function(locInfo) {
+    this.loc = locInfo;
+    this.type = 'UndefinedLiteral';
+    this.original = this.value = undefined;
+  },
+
+  NullLiteral: function(locInfo) {
+    this.loc = locInfo;
+    this.type = 'NullLiteral';
+    this.original = this.value = null;
+  },
+
   Hash: function(pairs, locInfo) {
     this.loc = locInfo;
     this.type = 'Hash';
@@ -118,7 +130,6 @@ var AST = {
     // a mustache is definitely a helper if:
     // * it is an eligible helper, and
     // * it has at least one parameter or hash segment
-    // TODO: Make these public utility methods
     helperExpression: function(node) {
       return !!(node.type === 'SubExpression' || node.params.length || node.hash);
     },

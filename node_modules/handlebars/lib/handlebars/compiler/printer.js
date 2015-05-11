@@ -1,4 +1,5 @@
-import Visitor from "./visitor";
+/*eslint-disable new-cap */
+import Visitor from './visitor';
 
 export function print(ast) {
   return new PrintVisitor().accept(ast);
@@ -11,31 +12,31 @@ export function PrintVisitor() {
 PrintVisitor.prototype = new Visitor();
 
 PrintVisitor.prototype.pad = function(string) {
-  var out = "";
+  let out = '';
 
-  for(var i=0,l=this.padding; i<l; i++) {
-    out = out + "  ";
+  for (let i = 0, l = this.padding; i < l; i++) {
+    out = out + '  ';
   }
 
-  out = out + string + "\n";
+  out = out + string + '\n';
   return out;
 };
 
 PrintVisitor.prototype.Program = function(program) {
-  var out = '',
+  let out = '',
       body = program.body,
       i, l;
 
   if (program.blockParams) {
-    var blockParams = 'BLOCK PARAMS: [';
-    for(i=0, l=program.blockParams.length; i<l; i++) {
+    let blockParams = 'BLOCK PARAMS: [';
+    for (i = 0, l = program.blockParams.length; i < l; i++) {
        blockParams += ' ' + program.blockParams[i];
     }
     blockParams += ' ]';
     out += this.pad(blockParams);
   }
 
-  for(i=0, l=body.length; i<l; i++) {
+  for (i = 0, l = body.length; i < l; i++) {
     out = out + this.accept(body[i]);
   }
 
@@ -49,7 +50,7 @@ PrintVisitor.prototype.MustacheStatement = function(mustache) {
 };
 
 PrintVisitor.prototype.BlockStatement = function(block) {
-  var out = "";
+  let out = '';
 
   out = out + this.pad('BLOCK:');
   this.padding++;
@@ -74,8 +75,8 @@ PrintVisitor.prototype.BlockStatement = function(block) {
 };
 
 PrintVisitor.prototype.PartialStatement = function(partial) {
-  var content = 'PARTIAL:' + partial.name.original;
-  if(partial.params[0]) {
+  let content = 'PARTIAL:' + partial.name.original;
+  if (partial.params[0]) {
     content += ' ' + this.accept(partial.params[0]);
   }
   if (partial.hash) {
@@ -93,21 +94,23 @@ PrintVisitor.prototype.CommentStatement = function(comment) {
 };
 
 PrintVisitor.prototype.SubExpression = function(sexpr) {
-  var params = sexpr.params, paramStrings = [], hash;
+  let params = sexpr.params,
+      paramStrings = [],
+      hash;
 
-  for(var i=0, l=params.length; i<l; i++) {
+  for (let i = 0, l = params.length; i < l; i++) {
     paramStrings.push(this.accept(params[i]));
   }
 
-  params = "[" + paramStrings.join(", ") + "]";
+  params = '[' + paramStrings.join(', ') + ']';
 
-  hash = sexpr.hash ? " " + this.accept(sexpr.hash) : "";
+  hash = sexpr.hash ? ' ' + this.accept(sexpr.hash) : '';
 
-  return this.accept(sexpr.path) + " " + params + hash;
+  return this.accept(sexpr.path) + ' ' + params + hash;
 };
 
 PrintVisitor.prototype.PathExpression = function(id) {
-  var path = id.parts.join('/');
+  let path = id.parts.join('/');
   return (id.data ? '@' : '') + 'PATH:' + path;
 };
 
@@ -117,18 +120,26 @@ PrintVisitor.prototype.StringLiteral = function(string) {
 };
 
 PrintVisitor.prototype.NumberLiteral = function(number) {
-  return "NUMBER{" + number.value + "}";
+  return 'NUMBER{' + number.value + '}';
 };
 
 PrintVisitor.prototype.BooleanLiteral = function(bool) {
-  return "BOOLEAN{" + bool.value + "}";
+  return 'BOOLEAN{' + bool.value + '}';
+};
+
+PrintVisitor.prototype.UndefinedLiteral = function() {
+  return 'UNDEFINED';
+};
+
+PrintVisitor.prototype.NullLiteral = function() {
+  return 'NULL';
 };
 
 PrintVisitor.prototype.Hash = function(hash) {
-  var pairs = hash.pairs;
-  var joinedPairs = [];
+  let pairs = hash.pairs,
+      joinedPairs = [];
 
-  for (var i=0, l=pairs.length; i<l; i++) {
+  for (let i = 0, l = pairs.length; i < l; i++) {
     joinedPairs.push(this.accept(pairs[i]));
   }
 
@@ -137,3 +148,4 @@ PrintVisitor.prototype.Hash = function(hash) {
 PrintVisitor.prototype.HashPair = function(pair) {
   return pair.key + '=' + this.accept(pair.value);
 };
+/*eslint-enable new-cap */
