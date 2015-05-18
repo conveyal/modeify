@@ -14,7 +14,9 @@
 [david-image]: http://img.shields.io/david/conveyal/modeify.svg?style=flat-square
 [david-url]: https://david-dm.org/conveyal/modeify
 
-Deliver personalized commute information to travelers. Supported by the [Mobility Lab](http://mobilitylab.org/) [Transit Tech Initiative](http://mobilitylab.org/tech/transit-tech-initiative/).
+[Modeify](http://modeify.co) is an open-source platform for multimodal commuter engagement. Utilizing the latest advances in open transportation technology, Modeify uses personalized outreach to promote commuter behavior change and improve outcomes for travelers, employers, and transportation demand management (TDM) providers.
+
+Development of Modeify is supported by the [Mobility Lab](http://mobilitylab.org/) [Transit Tech Initiative](http://mobilitylab.org/tech/transit-tech-initiative/).
 
 ## Documentation
 
