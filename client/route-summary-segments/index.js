@@ -8,6 +8,10 @@ module.exports = function (route, opts) {
   opts = opts || {}
 
   var accessMode = route.access()[0].mode.toLowerCase()
+
+  // style a park-and-ride access mode the same as a regular car trip
+  if(accessMode === 'car_park') accessMode = 'car';
+
   var accessModeIcon = convert.modeToIcon(accessMode)
   var egress = route.egress()
   var segments = []

@@ -209,6 +209,7 @@ var MODE_TO_ACTION = {
   BICYCLE: 'Bike',
   BICYCLE_RENT: 'Bike',
   CAR: 'Drive',
+  CAR_PARK: 'Drive',
   WALK: 'Walk'
 }
 
@@ -216,6 +217,7 @@ var MODE_TO_ICON = {
   BICYCLE: 'bike',
   BICYCLE_RENT: 'cabi',
   CAR: 'car',
+  CAR_PARK: 'car',
   WALK: 'walk'
 }
 

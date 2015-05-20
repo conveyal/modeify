@@ -56,6 +56,7 @@ exports.segments = {
 
     switch (segment.type) {
       case 'CAR':
+      case 'CAR_PARK':
         return '#888'
       case 'WALK':
         return '#0BC8F4'
@@ -77,6 +78,7 @@ exports.segments = {
   'stroke-width': function (display, segment, index, utils) {
     switch (segment.type) {
       case 'CAR':
+      case 'CAR_PARK':
       case 'BICYCLE':
       case 'BICYCLE_RENT':
         return '3px'
@@ -96,6 +98,7 @@ exports.segments = {
       case 'BICYCLE':
       case 'BICYCLE_RENT':
       case 'CAR':
+      case 'CAR_PARK':
         return '9,7'
       case 'WALK':
         return '0.1,9'
@@ -106,6 +109,7 @@ exports.segments = {
   'stroke-linecap': function (display, segment) {
     switch (segment.type) {
       case 'CAR':
+      case 'CAR_PARK':
         return 'butt'
       case 'WALK':
         return 'round'

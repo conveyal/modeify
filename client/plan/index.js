@@ -305,7 +305,7 @@ Plan.prototype.generateQuery = function () {
     egressModes.push('BICYCLE_RENT')
   }
   if (this.bus()) transitModes.push('BUS')
-  if (this.car()) accessModes.push('CAR')
+  if (this.car()) accessModes.push('CAR_PARK')
   if (this.train()) transitModes.push('TRAINISH')
 
   var startTime = this.start_time()
