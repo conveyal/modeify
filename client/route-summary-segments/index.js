@@ -28,6 +28,14 @@ module.exports = function(route, opts) {
   segments = segments.concat(transitSegments.map(function(segment) {
     var patterns = segment.segmentPatterns.filter(patternFilter('color'));
     var background = patterns[0].color;
+    var longNamePatterns = segment.segmentPatterns.filter(patternFilter('longName')),
+      caltrainNames = ['Local', 'Limited', 'Bullet', 'LOCAL', 'LIMITED', 'BULLET'];
+
+    for (var i = 0; i < longNamePatterns.length; i++) {
+      if (caltrainNames.indexOf(longNamePatterns[i].longName) !== -1) {
+        patterns[0].shield = 'CAL';
+      }
+    }
 
     if (patterns.length > 0) {
       var percent = 0;
