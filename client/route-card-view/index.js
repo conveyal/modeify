@@ -108,6 +108,12 @@ View.prototype.selectOption = function() {
   var plan = session.plan();
   var tags = route.tags(plan);
 
+  analytics.send_ga({
+    category: 'route-card',
+    action: 'select route',
+    label: JSON.stringify(tags),
+    value: 1
+  });
   routeResource.findByTags(tags, function(err, resources) {
     var routeModal = new RouteModal(route, null, {
       context: 'route-card',
