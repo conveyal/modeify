@@ -41,7 +41,7 @@ node_modules: package.json
 	@npm install
 
 # Watch & reload server
-serve: stop
+serve: 
 	@nohup bin/server > server.log </dev/null & echo "$$!" > server.pid
 	@echo "Logs stored in server.log"
 
