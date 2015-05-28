@@ -79,6 +79,14 @@
   margin: 6px 8px;
 }
 
+.SidePanel .footer .btn.send-feedback{
+  background-color: #8EC449;
+  color: #4B6A20;
+  float: right;
+  margin-left: 0;
+  margin-right: 0;
+}
+
 .SidePanel .footer .more-options {
   color: var(--light-blue);
   font-size: 18px;
