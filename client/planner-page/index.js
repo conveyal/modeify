@@ -20,6 +20,7 @@ var showWelcomeWizard = require('welcome-flow');
 var FROM = config.geocode().start_address;
 var TO = config.geocode().end_address;
 var isMobile = window.innerWidth <= 480;
+var center = config.geocode().center.split(',').map(parseFloat);
 
 var View = view(require('./template.html'), function(view, model) {
   view.scrollable = view.find('.scrollable');
@@ -191,6 +192,7 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
         transitive.updateData(journey);
         map.fitBounds(transitiveLayer.getBounds());
       } catch (e) {
+	map.setView([center[1], center[0]], config.geocode().zoom);
         console.error(e);
       }
     }
