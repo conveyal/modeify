@@ -1,4 +1,4 @@
-var config = require('config');
+var config = require('config'); 
 var debug = require('debug')(config.name() + ':map');
 var page = require('page');
 
@@ -13,7 +13,11 @@ module.exports = function(el, opts) {
   };
 
   // create a map in the el with given options
-  return new Map(L.mapbox.map(el, config.mapbox_map_id(), opts));
+  if (config.map_provider && config.map_provider() === 'AmigoCloud') {
+    return new Map(L.amigo.map(el, opts));
+  } else {
+    return new Map(L.mapbox.map(el, config.mapbox_map_id(), opts));
+  }
 };
 
 /**
@@ -23,14 +27,28 @@ module.exports = function(el, opts) {
 module.exports.createMarker = function(opts) {
   debug('creating marker %s', opts);
 
-  var marker = L.marker(new L.LatLng(opts.coordinate[1], opts.coordinate[0]), {
-    icon: L.mapbox.marker.icon({
-      'marker-size': opts.size || 'medium',
-      'marker-color': opts.color || '#ccc',
-      'marker-symbol': opts.icon || ''
-    }),
-    title: opts.title || ''
-  });
+  var marker;
+
+  if (config.map_provider && config.map_provider() === 'AmigoCloud') {
+    marker = L.marker(new L.LatLng(opts.coordinate[1], opts.coordinate[0]), {
+      icon: L.amigo.marker.icon({
+        'marker-size': opts.size || 'medium',
+        'marker-color': opts.color || '#ccc',
+        'marker-symbol': opts.icon || ''
+      }),
+      title: opts.title || ''
+    });
+  } else {
+    marker = L.marker(new L.LatLng(opts.coordinate[1], opts.coordinate[0]), {
+      icon: L.mapbox.marker.icon({
+        'marker-size': opts.size || 'medium',
+        'marker-color': opts.color || '#ccc',
+        'marker-symbol': opts.icon || ''
+      }),
+      title: opts.title || ''
+    });
+  }
+
   if (opts.url) {
     marker.on('click', function() {
       page(opts.url);
@@ -45,7 +63,11 @@ module.exports.createMarker = function(opts) {
 
 function Map(map) {
   this.map = map;
-  this.featureLayer = L.mapbox.featureLayer().addTo(map);
+  if (config.map_provider && config.map_provider() === 'AmigoCloud') {
+    this.featureLayer = L.amigo.featureLayer().addTo(map);
+  } else {
+    this.featureLayer = L.mapbox.featureLayer().addTo(map);
+  }
 }
 
 /**
