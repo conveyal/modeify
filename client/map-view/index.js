@@ -29,6 +29,16 @@ module.exports = function(el) {
       provider: 'mapbox'
     });
     map.addBaseLayer(L.amigo.AmigoGray);
+    map.layersControl.addBaseLayer(
+      L.bingLayer(
+        config.bing_key(),
+	{
+	  type: 'Road',
+	  attribution: 'Bing Maps'
+	}
+      ),
+      'Bing Road'
+    );
   } else {
     map = L.mapbox.map(el, config.mapbox_map_id(), {
       attributionControl: false,

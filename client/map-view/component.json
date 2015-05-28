@@ -4,7 +4,8 @@
     "config"
   ],
   "scripts": [
-    "index.js"
+    "index.js",
+    "leaflet_plugins.js"
   ],
   "styles": [
     "style.css"

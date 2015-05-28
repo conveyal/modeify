@@ -171,13 +171,7 @@ View.prototype.suggest = function(e) {
   var inputGroup = input.parentNode;
   var suggestionList = inputGroup.getElementsByTagName('ul')[0];
   var view = this;
-
-  // If the text is too short or does not contain a space yet, return
-  if (text.length < 4 || text.indexOf(' ') === -1 || text.lastIndexOf(' ') + 1 ===
-    text.length) return;
-
-  // Get a suggestion!
-  geocode.suggest(text, function(err, suggestions) {
+  var resultsCallback = function(err, suggestions) {
     if (err) {
       log.error('%e', err);
     } else {
@@ -205,7 +199,13 @@ View.prototype.suggest = function(e) {
         inputGroup.classList.remove('suggestions-open');
       }
     }
-  });
+  };
+
+  // If the text is too short or does not contain a space yet, return
+  if (text.length < 4) return;
+
+  // Get a suggestion!
+    geocode.suggest(text, resultsCallback);
 };
 
 /**
