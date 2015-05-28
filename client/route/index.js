@@ -257,7 +257,7 @@ Route.prototype.totalCalories = function() {
     cals += bikingCaloriesBurned(this.bikeSpeed(), this.weight(), this.bikeDistance() / this.bikeSpeed() / 60 / 60);
   }
 
-  return cals;
+  return Math.round(cals);
 };
 
 /**
