@@ -4,6 +4,8 @@ var log = require('./client/log')('feedback-modal');
 var modal = require('./client/modal');
 var request = require('./client/request');
 var session = require('session');
+var config = require('config');
+var superagent = require('superagent');
 
 /**
  * Expose `Modal`
@@ -23,9 +25,17 @@ Modal.prototype.submit = function(e) {
   var alerts = this.find('.alerts');
   var button = this.find('button');
   var textarea = this.find('textarea');
+  var input = this.find('input');
   var feedback = textarea.value + '';
+  var email = input.value + '';
   var results = this.model.toJSON ? this.model.toJSON() : {};
   var self = this;
+  var changeset = {
+    parent: null,
+    entity: config.feedback_table_name(), 
+    type: 'DML',
+    action: 'INSERT'
+  };
 
   button.disabled = true;
   if (!feedback || feedback.length < 1) {
@@ -36,19 +46,32 @@ Modal.prototype.submit = function(e) {
   } else {
     var data = {
       feedback: feedback,
-      plan: session.plan().generateQuery(),
-      results: results
+      plan: JSON.stringify(session.plan().generateQuery()),
+      results: JSON.stringify(results),
+      timestamp: (new Date()).toISOString(), 
+      email: email,
+      url: location.href
     };
+    var url = config.feedback_write_url() + 
+      '?token=' + config.feedback_write_token();
+    if (location.host.indexOf(config.ignore_events_from()) !== -1) {
+      alerts.appendChild(Alert({
+        type: 'success',
+        text: 'Thanks! We appreciate the feedback!'
+      }).el);
 
-    request.post('/feedback', data, function(err) {
-      if (err) {
-        log.error('%e', err);
-        alerts.appendChild(Alert({
-          type: 'danger',
-          text: 'Failed to submit feedback.'
-        }).el);
-        button.disabled = false;
-      } else {
+      setTimeout(function() {
+        self.hide();
+      }, 2500);
+      return;
+    } 
+
+    changeset.data = [{amigo_id: null, new: data}];
+
+    $.post(
+      url,
+      $.param({change: JSON.stringify(changeset)}),
+      function (e) {
         analytics.track('Submitted Feedback', data);
 
         alerts.appendChild(Alert({
@@ -60,6 +83,6 @@ Modal.prototype.submit = function(e) {
           self.hide();
         }, 2500);
       }
-    });
+    );
   }
 };

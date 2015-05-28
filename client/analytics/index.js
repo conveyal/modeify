@@ -22,3 +22,28 @@ module.exports.send_ga = function (e) {
     ga('send', 'event', e.category, e.action, e.label, e.value);
   }
 };
+
+module.exports.send_ac = function (e) {
+  var url, changeset,
+    ignore = location.host.indexOf(config.ignore_events_from()) !== -1; 
+
+  if (!ignore && config.ac_key && config.ac_key()) {
+    url = config.ac_event_url() + 
+      '?token=' + config.ac_key();
+
+    changeset = {
+      parent: null,
+      entity: config.ac_event_table(), 
+      type: 'DML',
+      action: 'INSERT',
+      data: [{
+	amigo_id: null,
+	new: e
+      }]
+    };
+    $.post(
+      url,
+      $.param({change: JSON.stringify(changeset)})
+    );
+  }
+};

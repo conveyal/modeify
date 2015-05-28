@@ -6,6 +6,7 @@ var log = require('./client/log')('locations-view');
 var mouse = require('mouse-position');
 var textModal = require('text-modal');
 var view = require('view');
+var analytics = require('analytics');
 
 /**
  * Expose `View`
@@ -126,8 +127,20 @@ View.prototype.save = function(el) {
   this.model.setAddress(name, val, function(err, location) {
     if (err) {
       log.error('%e', err);
+      analytics.send_ga({
+	category: 'geocoder',
+	action: 'change address invalid',
+	label: val,
+	value: 0
+      });
       textModal('Invalid address.');
     } else if (location) {
+      analytics.send_ga({
+	category: 'geocoder',
+	action: 'change address success',
+	label: val,
+	value: 0
+      });
       plan.updateRoutes();
     }
   });

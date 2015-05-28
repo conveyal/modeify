@@ -78,6 +78,13 @@ function updateRoutes(plan, opts, callback) {
         results: data.options.length
       });
 
+      analytics.send_ga({
+	category: 'route',
+	action: 'calculate route',
+	label: plan.generateQueryString(),
+	value: 1
+      });
+
       // Get the car data
       var driveOption = new Route(data.options.filter(function(o) {
         return o.access[0].mode === 'CAR' && (!o.transit || o.transit.length < 1);
@@ -113,6 +120,15 @@ function updateRoutes(plan, opts, callback) {
 
       // Store the results
       plan.set(data);
+
+      analytics.send_ac({
+        event_type: 'query',
+	url: location.href,
+	results: JSON.stringify(data),
+	timestamp: (new Date()).toISOString(),
+	from_address: plan.from(),
+	to_address: plan.to()
+      });
 
       log('<-- updated routes');
       done(null, data);

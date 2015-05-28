@@ -6,3 +6,7 @@
 .Feedback > form > button {
   margin-top: 10px;
 }
+
+.Feedback > form > input {
+  margin-top: 10px;
+}
