@@ -18,7 +18,7 @@ var updateRoutes = require('./update-routes');
  * Debounce updates to once every 50ms
  */
 
-var DEBOUNCE_UPDATES = 25;
+var DEBOUNCE_UPDATES = 5;
 var LIMIT = 2;
 
 /**
@@ -28,18 +28,18 @@ var LIMIT = 2;
 var Plan = module.exports = model('Plan')
   .use(defaults({
     bike: true,
-    bikeShare: true,
+    bikeShare: false,
     bus: true,
     car: true,
     days: 'M—F',
-    end_time: 9,
+    end_time: (new Date()).getHours() + 4,
     from: '',
     from_valid: false,
     loading: true,
     options: [],
     query: new ProfileQuery(),
     scorer: new ProfileScorer(),
-    start_time: 7,
+    start_time: (new Date()).getHours() - 1,
     to: '',
     to_valid: false,
     train: true,
@@ -296,8 +296,8 @@ Plan.prototype.generateQuery = function() {
 
   // Transit modes
   var accessModes = ['WALK'];
-  var directModes = ['CAR', 'WALK'];
-  var egressModes = ['WALK'];
+  var directModes = ['WALK'];
+  var egressModes = ['WALK','BICYCLE'];
   var transitModes = [];
 
   if (this.bike()) {
@@ -310,7 +310,10 @@ Plan.prototype.generateQuery = function() {
     egressModes.push('BICYCLE_RENT');
   }
   if (this.bus()) transitModes.push('BUS');
-  if (this.car()) accessModes.push('CAR');
+  if (this.car()) {
+    accessModes.push('CAR');
+    directModes.push('CAR');
+  }
   if (this.train()) transitModes.push('TRAINISH');
 
   var startTime = this.start_time();
@@ -342,7 +345,11 @@ Plan.prototype.generateQuery = function() {
     },
     limit: LIMIT,
     transitModes: transitModes.join(','),
-    walkSpeed: scorer.rates.walkSpeed
+    walkSpeed: scorer.rates.walkSpeed,
+    maxWalkTime: 20,
+    minCarTime: 10,
+    maxCarTime: 30,
+    maxBikeTime: 20 
   };
 };
 
