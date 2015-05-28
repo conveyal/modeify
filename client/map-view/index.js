@@ -1,4 +1,5 @@
 var config = require('config');
+var mapModule = require('map');
 var plugins = require('./leaflet_plugins');
 
 var center = config.geocode().center.split(',').map(parseFloat);
@@ -39,6 +40,9 @@ module.exports = function(el) {
       ),
       'Bing Road'
     );
+    module.exports.activeMap = map;
+
+    realtime = mapModule.realtime();
   } else {
     map = L.mapbox.map(el, config.mapbox_map_id(), {
       attributionControl: false,
@@ -49,3 +53,8 @@ module.exports = function(el) {
 
   return map;
 };
+
+module.exports.getMap = function () {
+  return this.activeMap;
+};
+

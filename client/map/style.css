@@ -1,4 +1,3 @@
-
 .map {
   margin-top: 20px;
   margin-bottom: 10px;
@@ -42,3 +41,111 @@
 .marker-cluster-large div {
   background-color: rgba(241, 128, 23, 0.6);
 }
+
+/**
+ * Custom Icon style
+ */
+.leaflet-marker-icon {
+  text-align: center;
+}
+
+.leaflet-marker-icon .number,
+.leaflet-marker-icon .number-inactive {
+  top: -25px;
+  position: relative;
+  font-weight: 700;
+  padding: 0 8px;
+}
+
+.leaflet-marker-icon .number > span {
+  background-color: #8EC449;
+  border: 1px solid #4B6A20;
+  color: #4B6A20;
+  font-size: 8px;
+  padding: 0;
+  display: block;
+  border-radius: 3px;
+}
+
+.leaflet-marker-icon .number-inactive > span {
+  background-color: #EDEFF0;
+  border: 1px solid #303D49;
+  color: #303D49;
+  font-size: 8px;
+  padding: 0;
+  display: block;
+  border-radius: 3px;
+}
+
+/**
+ * Custom popup style
+ */
+.leaflet-popup-content-wrapper {
+    background-color: #667789;
+}
+
+.leaflet-popup-content {
+    margin: 15px;
+}
+
+.leaflet-popup-content .popup-header {
+    background-color: #F5A81C;
+    padding: 5px 10px;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.leaflet-popup-content .popup-header > h5{
+    margin: 0;
+    font-weight: 600;
+    color: #fff;
+}
+
+.leaflet-popup-content .popup-header > h5 a{
+  color: #fff;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.leaflet-popup-content .popup-body {
+  background-color: #fff;
+  margin-top: 7px;
+  border-radius: 3px;
+}
+
+.leaflet-popup-content .popup-body .popup-item {
+  border-top: 1px solid #ccc;
+  padding: 5px 10px;
+}
+
+.leaflet-popup-content .popup-body .popup-item:first-child {
+  border-top: none;
+  padding-top: 6px;
+}
+
+.leaflet-popup-content .popup-body .popup-row td.label {
+  padding: 10px;
+  display: block;
+  vertical-align: bottom;
+  color: #455a71;
+  text-align: center;
+  font-weight: 600;
+  background-color: #EDEFF0;
+  font-size: inherit;
+  line-height: inherit;
+  border-radius: inherit;
+}
+
+.leaflet-popup-content .popup-body .popup-row td.value {
+  padding: 10px;
+}
+
+.leaflet-popup-content .popup-body .popup-row:first-child td.label {
+  border-top-left-radius: 3px;
+}
+
+.leaflet-popup-content .popup-body .popup-row:last-child td.label {
+  border-bottom-left-radius: 3px;
+}
+
+

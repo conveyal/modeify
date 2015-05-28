@@ -56,6 +56,17 @@ nav .menu > li:last-of-type a {
   border-bottom: transparent;
 }
 
+nav .menu > li i.fa-bus {
+  font-size: 10px;
+}
+
+nav .menu > li i.fa-rss {
+  position: absolute;
+  left: 15px;
+  bottom: 100px;
+  font-size: 10px;
+}
+
 .dark-button {
   color: var(--light-blue);
   background-color: var(--darkest);

@@ -5,6 +5,8 @@ var showWalkThrough = require('planner-walkthrough');
 var getTemplate = require('./client/template');
 var page = require('page');
 var view = require('view');
+var map = require('map-view');
+var mapModule = require('map');
 
 /**
  * Expose `View`
@@ -58,6 +60,15 @@ View.prototype.showTermsAndConditions = function(e) {
   MarkdownModal({
     content: getTemplate('terms')
   }).show();
+};
+
+/**
+ * Toggle Realtime Data
+ */
+View.prototype.toggleRealtime = function(e) {
+  if (e) e.preventDefault();
+  this.hideMenu();
+  mapModule.toggleRealtime(map.getMap());
 };
 
 /**

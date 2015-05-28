@@ -8,7 +8,8 @@
     "config"
   ],
   "scripts": [
-    "index.js"
+    "index.js",
+    "leaflet-plugins.js"
   ],
   "styles": [
     "style.css"
