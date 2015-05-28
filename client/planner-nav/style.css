@@ -1,11 +1,11 @@
 
 nav {
-  background-color: var(--black);
-  background-image: url(/images/application/nav-logo.png);
+  background-color: var(--vta-logo-back);
+  background-image: url(/images/application/VTA1.png);
   background-repeat: no-repeat;
-  background-size: auto 24px;
+  background-size: auto 54px;
   background-position: 8px 10px;
-  height: 44px;
+  height: 70px;
   cursor: pointer;
   width: 320px;
   position: absolute;
@@ -21,8 +21,9 @@ nav {
 }
 
 nav .show-menu {
-  color: var(--light-blue);
+  color: var(--black);
   background: transparent;
+  padding-top: 26px;
   height: 44px;
   width: 44px;
   border: none;

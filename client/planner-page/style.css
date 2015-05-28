@@ -30,7 +30,7 @@
   overflow-y: scroll;
 
   height: 100%;
-  padding-top: 44px;
+  padding-top: 70px;
 }
 
 .scrollable::-webkit-scrollbar {
