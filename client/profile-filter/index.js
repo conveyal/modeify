@@ -82,9 +82,9 @@ function filterDriveToTransitTrips (opts) {
   })
 
   return opts.filter(function (o) {
-    if (o.access[0].mode !== 'CAR') return true
+    if (o.access[0].mode !== 'CAR_PARK') return true
     if (o.driveDistance > directDriveDistance * 1.5) return false
-    return o.time < fastestNonCarTrip * 1.25
+    return o.time < fastestNonCarTrip
   })
 }
 
@@ -124,7 +124,7 @@ function filterUnreasonableAccessModes (o) {
   // Add ids to options
   if (o.transit && o.transit.length > 0) {
     // Filter access modes if they're not reasonable
-    filterAccessMode(o, 'CAR', function (a) {
+    filterAccessMode(o, 'CAR_PARK', function (a) {
       return a.time < 600
     })
     filterAccessMode(o, 'BICYCLE', function (a) {
