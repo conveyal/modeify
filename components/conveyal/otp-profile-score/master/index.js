@@ -128,6 +128,7 @@ ProfileScore.prototype.score = function (o) {
   o.modes.forEach(function (mode) {
     switch (mode) {
       case 'car':
+      case 'car_park':
         // Add time for parking
         score += applyFactor(1, factors.carParking)
 
@@ -252,7 +253,7 @@ ProfileScore.prototype.tally = function (o) {
   }
 
   // Set the parking costs
-  if (o.modes.indexOf('car') !== -1) {
+  if (o.modes.indexOf('car') !== -1 || o.modes.indexOf('car_park') !== -1) {
     o.carCost = this.rates.mileageRate * (o.driveDistance * METERS_TO_MILES) + this.rates.carParkingCost
     o.cost += o.carCost
     o.emissions = o.driveDistance / this.rates.mpg * CO2_PER_GALLON
@@ -275,6 +276,7 @@ function addStreetEdges (o, mode, streetEdges) {
 
   switch (mode) {
     case 'car':
+    case 'car_park':
       o.driveDistance += streetEdgeDistanceForMode(streetEdges, 'car')
       break
     case 'bicycle':
