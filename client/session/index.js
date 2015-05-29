@@ -1,5 +1,4 @@
 var analytics = require('analytics')
-var cookie = require('cookie')
 var Commuter = require('commuter')
 var log = require('./client/log')('session')
 var defaults = require('model-defaults')
@@ -47,11 +46,6 @@ Session.prototype.logout = function (next) {
   session.commuter(null)
 
   request.get('/logout', function (err, res) {
-    cookie('commuter', null)
-    cookie('user', null)
-
-    document.cookie = null
-
     log('<-- logged out %s', res.text)
     if (next) next(err, res)
   })
@@ -72,9 +66,7 @@ Session.prototype.login = function (data) {
     var user = new User(data)
     var type = user.type()
 
-    cookie('user', user.toJSON())
     session.user(user)
-
     session.isAdmin(type === 'administrator')
     session.isManager(type !== 'commuter')
     session.isLoggedIn(true)
@@ -100,15 +92,12 @@ Session.prototype.commuterLogin = function (data) {
     commuter._organization(new Organization(data._organization))
   }
 
-  cookie('commuter', commuter.toJSON())
   session.commuter(commuter)
 
   if (data._user) {
     var user = new User(data._user)
 
-    cookie('user', user.toJSON())
     session.user(user)
-
     commuter.anonymous(false)
   }
 
