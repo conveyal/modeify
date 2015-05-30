@@ -94,7 +94,7 @@ Session.prototype.commuterLogin = function (data) {
 
   session.commuter(commuter)
 
-  if (data._user) {
+  if (data._user && data._user._id) {
     var user = new User(data._user)
 
     session.user(user)

@@ -11,6 +11,7 @@ var request = require('./client/request')
 
 var Commuter = module.exports = model('Commuter')
   .use(defaults({
+    anonymous: true,
     _user: {},
     name: '',
     link: '',

@@ -15,7 +15,7 @@ Feedback.prototype.summary = function () {
 }
 
 Feedback.prototype.name = function () {
-  var commuter = this.model._commuter || {}
+  var commuter = this.model._commuter ? this.model._commuter.toJSON() : {}
   return commuter.name || commuter.email || 'Anonymous'
 }
 
