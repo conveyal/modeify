@@ -20,7 +20,7 @@ build-client: $(CSS) $(HTML) $(CLIENTJS) $(JSON)
 assets/cookbooks.tar.gz: $(RB)
 	@tar cvzf assets/cookbooks.tar.gz cookbooks
 
-assets/server.tar.gz: $(LIBJS)
+assets/server.tar.gz: $(LIBJS) deployment/config.yaml
 	@git archive --output=assets/server.tar HEAD
 	@tar -rvf assets/server.tar deployment/config.yaml # Add the config to the archvie before gzipping
 	@gzip -c assets/server.tar > assets/server.tar.gz
@@ -50,7 +50,7 @@ stop:
 	@kill $(cat server.pid) || true
 
 sync: assets/cookbooks.tar.gz assets/server.tar.gz build-client
-	@echo Syncing $(NODE_ENV)
+	@echo Syncing $(NODE_ENV) to $(BUCKET)
 	@aws s3 sync assets $(BUCKET) \
 		--acl public-read \
 		--exclude "*.gz"
