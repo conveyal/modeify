@@ -47,7 +47,7 @@ serve: deployment/env node_modules stop
 	@echo "Logs stored in server.log"
 
 stop:
-	@kill $(cat server.pid) || true
+	@kill $(shell cat server.pid) || true
 
 sync: assets/cookbooks.tar.gz assets/server.tar.gz build-client
 	@echo Syncing $(NODE_ENV) to $(BUCKET)
