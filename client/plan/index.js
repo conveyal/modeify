@@ -175,12 +175,12 @@ Plan.prototype.validCoordinates = function () {
 
 Plan.prototype.setAddress = function (name, address, callback) {
   callback = callback || function () {} // noop callback
+  if (!address || address.length < 1) return callback()
+
   var location = new Location()
   var plan = this
   var c = address.split(',')
   var isCoordinate = c.length === 2 && !isNaN(parseFloat(c[0])) && !isNaN(parseFloat(c[1]))
-
-  if (!address || address.length < 1) return callback()
 
   if (isCoordinate) {
     location.coordinate({
