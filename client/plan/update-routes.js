@@ -28,6 +28,7 @@ function updateRoutes (plan, opts, callback) {
         error: err,
         plan: plan.generateQuery()
       })
+      plan.clear()
     }
 
     plan.emit('updating options complete', {
@@ -43,12 +44,6 @@ function updateRoutes (plan, opts, callback) {
 
   // Check for valid locations
   if (!plan.validCoordinates()) {
-    plan.set({
-      options: [],
-      journey: {
-        places: plan.generatePlaces()
-      }
-    })
     return done(message('invalid-coordinates'))
   }
 
@@ -64,14 +59,10 @@ function updateRoutes (plan, opts, callback) {
     data.options = profileFilter(data.options, scorer)
     return data
   }, function (err, data) {
-    if (err || !data || data.options.length < 1) {
-      plan.set({
-        options: [],
-        journey: {
-          places: plan.generatePlaces()
-        }
-      })
+    if (err) {
       done(err, data)
+    } else if (!data || data.options.length < 1) {
+      done(message('no-options-found'), data)
     } else {
       // Track the commute
       analytics.track('Found Route', {

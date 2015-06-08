@@ -422,3 +422,16 @@ Plan.prototype.generateQueryString = function () {
     days: this.days()
   })
 }
+
+/**
+ * Clear
+ */
+
+Plan.prototype.clear = function () {
+  this.set({
+    options: [],
+    journey: {
+      places: this.generatePlaces()
+    }
+  })
+}
