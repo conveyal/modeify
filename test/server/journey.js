@@ -27,7 +27,7 @@ var journey = null
  * BDD
  */
 
-describe.only(base, function () {
+describe(base, function () {
   before(function (done) {
     agent
       .get('/api/login-anonymously')
