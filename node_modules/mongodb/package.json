@@ -1,0 +1,64 @@
+{
+  "name": "mongodb",
+  "version": "2.0.33",
+  "description": "MongoDB legacy driver emulation layer on top of mongodb-core",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mongodb/node-mongodb-native.git"
+  },
+  "keywords": [
+    "mongodb",
+    "driver",
+    "legacy"
+  ],
+  "dependencies": {
+    "mongodb-core": "1.1.32",
+    "readable-stream": "1.0.31"
+  },
+  "devDependencies": {
+    "integra": "0.1.8",
+    "optimist": "0.6.1",
+    "bson": "~0.3",
+    "jsdoc": "3.3.0-beta3",
+    "semver": "4.1.0",
+    "rimraf": "2.2.6",
+    "gleak": "0.5.0",
+    "mongodb-version-manager": "^0.5.0",
+    "mongodb-tools": "~1.0"
+  },
+  "author": {
+    "name": "Christian Kvalheim"
+  },
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/mongodb/node-mongodb-native/issues"
+  },
+  "scripts": {
+    "test": "node test/runner.js -t functional"
+  },
+  "homepage": "https://github.com/mongodb/node-mongodb-native",
+  "gitHead": "711c2564985232e04323f3fdc75ddfe329e19989",
+  "_id": "mongodb@2.0.33",
+  "_shasum": "0ff6918c003423f92ca76e85da1624080359f313",
+  "_from": "mongodb@2.0.33",
+  "_npmVersion": "2.7.6",
+  "_nodeVersion": "1.7.1",
+  "_npmUser": {
+    "name": "christkv",
+    "email": "christkv@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "christkv",
+      "email": "christkv@gmail.com"
+    }
+  ],
+  "dist": {
+    "shasum": "0ff6918c003423f92ca76e85da1624080359f313",
+    "tarball": "http://registry.npmjs.org/mongodb/-/mongodb-2.0.33.tgz"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/mongodb/-/mongodb-2.0.33.tgz",
+  "readme": "ERROR: No README data found!"
+}

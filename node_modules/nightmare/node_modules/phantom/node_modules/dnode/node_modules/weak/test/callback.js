@@ -45,6 +45,29 @@ describe('weak()', function () {
       assert(called2)
     })
 
+    it('should preempt code for GC callback but not nextTick callbacks'
+    , function(done) {
+      var calledGcCallback = false
+      , calledTickCallback = false
+      weak({}, function() {
+        calledGcCallback = true
+      })
+
+      process.nextTick(function() {
+        calledTickCallback = true
+      });
+
+      assert(!calledGcCallback)
+      assert(!calledTickCallback)
+      gc()
+      assert(calledGcCallback)
+      assert(!calledTickCallback)
+      setTimeout(function() {
+        assert(calledTickCallback);
+        done();
+      }, 0)
+    })
+
   })
 })
 

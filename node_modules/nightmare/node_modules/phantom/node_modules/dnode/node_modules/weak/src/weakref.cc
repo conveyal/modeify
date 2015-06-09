@@ -136,7 +136,8 @@ NAN_PROPERTY_ENUMERATOR(WeakPropertyEnumerator) {
 }
 
 /**
- * Weakref callback function. Invokes the "global" callback function.
+ * Weakref callback function. Invokes the "global" callback function,
+ * which emits the _CB event on the per-object EventEmitter.
  */
 
 NAN_WEAK_CALLBACK(TargetCallback) {
@@ -150,7 +151,11 @@ NAN_WEAK_CALLBACK(TargetCallback) {
     NanNew<Object>(cont->cbinfo->persistent),
     NanNew<Object>(cont->emitter)
   };
-  globalCallback->Call(2, argv);
+  // Invoke callback directly, not via NanCallback->Call() which uses
+  // node::MakeCallback() which calls into process._tickCallback()
+  // too. Those other callbacks are not safe to run from here.
+  v8::Local<v8::Function> globalCallbackDirect = globalCallback->GetFunction();
+  globalCallbackDirect->Call(NanGetCurrentContext()->Global(), 2, argv);
 
   // clean everything up
   Local<Object> proxy = NanNew<Object>(cont->proxy);
