@@ -7,7 +7,7 @@ var View = view(require('./template.html'))
 module.exports = function (ctx, next) {
   log('render')
 
-  ctx.view = new View()
+  ctx.view = new View(ctx.location)
 
   next()
 }
