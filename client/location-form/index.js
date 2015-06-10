@@ -26,8 +26,8 @@ View.prototype.action = function () {
 }
 
 View.prototype.back = function () {
-  return this.model.isNew() ? '/manager/organizations/' + this.options.organization._id() + '/show' :
-    '/manager/locations/' + this.model._id() + '/show'
+  var prefix = '/manager/organizations/' + this.options.organization._id()
+  return prefix + (this.model.isNew() ? '/show' : '/locations/' + this.model._id() + '/show')
 }
 
 /**
