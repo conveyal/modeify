@@ -1,5 +1,7 @@
 var Commuter = require('commuter')
 var commuterForm = require('commuter-form')
+var Location = require('location')
+var LocationForm = require('location-form')
 var Organization = require('organization')
 var organizationForm = require('organization-form')
 var p = require('page')
@@ -36,6 +38,13 @@ p('/organizations/new', organizationForm)
 p('/organizations/:organization/(.*)', Organization.load)
 p('/organizations/:organization/show', Commuter.loadOrg, require('organization-page'))
 p('/organizations/:organization/edit', organizationForm)
+
+// Locations
+
+p('/organizations/:organization/locations/new', LocationForm)
+p('/organizations/:organization/locations/:location/(.*)', Location.load)
+p('/organizations/:organization/locations/:location/show', require('location-page'))
+p('/organizations/:organization/locations/:location/edit', LocationForm)
 
 // Commuters
 

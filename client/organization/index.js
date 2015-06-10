@@ -1,8 +1,8 @@
 var alerts = require('alerts')
 var Campaign = require('campaign')
 var config = require('config')
-var debug = require('debug')(config.name() + ':organization')
 var defaults = require('model-defaults')
+var log = require('log')('organization')
 var map = require('map')
 var model = require('model')
 
@@ -34,6 +34,7 @@ var Organization = module.exports = model('Organization')
 Organization.load = function (ctx, next) {
   if (ctx.params.organization === 'new') return next()
 
+  log('loading %s', ctx.params.organization)
   Organization.get(ctx.params.organization, function (err, org) {
     if (err) {
       next(err)
@@ -51,10 +52,7 @@ Organization.load = function (ctx, next) {
 Organization.prototype.mapMarker = function () {
   var c = this.coordinate()
   return map.createMarker({
-    title: '<a href="/manager/organizations/' + this._id() + '/show">' +
-      this
-        .name() +
-      '</a>',
+    title: '<a href="/manager/organizations/' + this._id() + '/show">' + this.name() + '</a>',
     description: this.fullAddress(),
     color: '#428bca',
     coordinate: [c.lng, c.lat],
@@ -67,19 +65,19 @@ Organization.prototype.mapMarker = function () {
  */
 
 Organization.prototype.sendPlan = function () {
-  if (window.confirm("Send personalized plan to this organization's commuters?")) { // eslint-disable-line no-alert
-    debug('--> sending plans to %s', this.name())
+  if (window.confirm("Send personalized plan to this organization's commuters?")) {
+    log('--> sending plans to %s', this.name())
     var campaign = new Campaign({
       _organization: this._id()
     })
     campaign.save(function (err) {
-      if (err) debug(err)
+      if (err) log.error(err)
       campaign.send(function (err, res) {
         if (err) {
-          debug('<-- sending plans failed: %s', err || res.error || res.text)
-          window.alert('Failed to send emails.') // eslint-disable-line no-alert
+          log.error('<-- sending plans failed: %s', err || res.error || res.text)
+          window.alert('Failed to send emails.')
         } else {
-          debug('<-- plans sent')
+          log('<-- plans sent')
           alerts.show({
             type: 'success',
             text: 'Plans sent to organization.'

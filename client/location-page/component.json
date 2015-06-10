@@ -1,0 +1,15 @@
+{
+  "name": "location-page",
+  "dependencies": {
+    "visionmedia/page.js": "*"
+  },
+  "local": [
+    "log"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}

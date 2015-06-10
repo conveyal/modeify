@@ -81,9 +81,9 @@ Commuter.confirmEmail = function (ctx, next) {
 
   request.get('/users/confirm-email/' + key, function (err, res) {
     if (err || !res.ok) {
-      window.alert(res.text || err.message) // eslint-disable-line no-alert
+      window.alert(res.text || err.message)
     } else {
-      window.alert('Email confirmed!') // eslint-disable-line no-alert
+      window.alert('Email confirmed!')
     }
     next()
   })
