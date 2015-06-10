@@ -1,0 +1,13 @@
+{
+  "name": "commute-analysis-page",
+  "local": [
+    "log",
+    "view"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}

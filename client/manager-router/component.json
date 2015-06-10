@@ -6,6 +6,8 @@
   "locals": [
     "alerts",
     "change-password-page",
+    "commute-analysis-page",
+    "commute-distribution-page",
     "commuter",
     "commuter-form",
     "commuter-page",

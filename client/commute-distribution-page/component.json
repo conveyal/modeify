@@ -1,0 +1,12 @@
+{
+  "name": "commute-distribution-page",
+  "local": [
+    "view"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}
