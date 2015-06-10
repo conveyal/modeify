@@ -26,7 +26,7 @@ View.prototype.action = function () {
 }
 
 View.prototype.back = function () {
-  return this.model.isNew() ? '/manager/organizations/' + this.options.organization._id() :
+  return this.model.isNew() ? '/manager/organizations/' + this.options.organization._id() + '/show' :
     '/manager/locations/' + this.model._id() + '/show'
 }
 
@@ -35,9 +35,10 @@ View.prototype.back = function () {
  */
 
 View.prototype.save = function (e) {
-  log('save')
+  log('saving')
 
   this.model.set(serialize(this.el))
+  this.model.created_by(this.options.organization._id())
 
   var text = this.model.isNew() ? 'Created new location.' : 'Saved changes to location.'
   var self = this
@@ -52,7 +53,7 @@ View.prototype.save = function (e) {
         type: 'success',
         text: text
       })
-      page('/manager/organizations/' + this.options.organization._id() + '/locations/' + self.model._id() + '/show')
+      page('/manager/organizations/' + self.options.organization._id() + '/locations/' + self.model._id() + '/show')
     }
   })
 }

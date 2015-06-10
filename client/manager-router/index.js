@@ -36,7 +36,7 @@ p('/organizations/(.*)', session.checkIfLoggedIn)
 p('/organizations/', require('organizations-page'))
 p('/organizations/new', organizationForm)
 p('/organizations/:organization/(.*)', Organization.load)
-p('/organizations/:organization/show', Commuter.loadOrg, require('organization-page'))
+p('/organizations/:organization/show', Commuter.loadOrg, Location.loadOrg, require('organization-page'))
 p('/organizations/:organization/edit', organizationForm)
 
 // Locations

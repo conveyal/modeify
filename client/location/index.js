@@ -1,5 +1,7 @@
 var config = require('config')
+var log = require('log')('location')
 var model = require('model')
+var request = require('request')
 
 /**
  * Expose `Location`
@@ -25,4 +27,19 @@ Location.load = function (ctx, next) {
       next()
     }
   })
+}
+
+Location.loadOrg = function (ctx, next) {
+  request
+    .get('/locations/created_by/' + ctx.params.organization, function (err, res) {
+      if (err) {
+        next(err)
+      } else {
+        log('load org found %s location(s)', res.body.length)
+        ctx.locations = res.body.map(function (l) {
+          return new Location(l)
+        })
+        next()
+      }
+    })
 }

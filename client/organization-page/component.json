@@ -28,6 +28,7 @@
     "commuter-confirm-input.html",
     "commuter-confirm-modal.html",
     "commuter.html",
+    "location.html",
     "template.html"
   ]
 }

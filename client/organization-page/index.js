@@ -10,6 +10,7 @@ module.exports = function (ctx, next) {
   log('attach view')
 
   ctx.organization.commuters = ctx.commuters
+  ctx.organization.locations = ctx.locations
   ctx.view = window.view = new View(ctx.organization)
   ctx.view.on('rendered', function () {
     var m = map(ctx.view.find('.map'), {

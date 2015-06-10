@@ -21,18 +21,15 @@ var View = module.exports = view({
   title: 'Organization Page'
 })
 
-/**
- * Commuter View
- */
-
 var CommuterRow = view(require('./commuter.html'))
-
-/**
- * Commuter View
- */
+var LocationRow = view(require('./location.html'))
 
 View.prototype['commuters-view'] = function () {
   return CommuterRow
+}
+
+View.prototype['locations-view'] = function () {
+  return LocationRow
 }
 
 /**
