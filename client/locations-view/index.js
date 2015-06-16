@@ -40,7 +40,13 @@ View.prototype.blurInput = function(e) {
   inputGroup.classList.remove('suggestions-open');
 
   var highlight = this.find('.suggestion.highlight');
-  if (highlight) e.target.value = highlight.textContent || '';
+  if (highlight) {
+      e.target.value = highlight.textContent || '';
+      if (highlight.dataset.lat) {
+	  e.target.lat = highlight.dataset.lat;
+	  e.target.lng = highlight.dataset.lng;
+      }
+  }
 
   suggestionList.classList.add('empty');
 
@@ -124,26 +130,49 @@ View.prototype.save = function(el) {
   var val = el.value;
   if (!val || plan[name]() === val) return;
 
-  this.model.setAddress(name, val, function(err, location) {
-    if (err) {
-      log.error('%e', err);
-      analytics.send_ga({
-	category: 'geocoder',
-	action: 'change address invalid',
-	label: val,
-	value: 0
-      });
-      textModal('Invalid address.');
-    } else if (location) {
-      analytics.send_ga({
-	category: 'geocoder',
-	action: 'change address success',
-	label: val,
-	value: 0
-      });
-      plan.updateRoutes();
+    if (el.lat) {
+	this.model.setAddress(name, el.lng + ',' + el.lat, function(err, location) {
+	    if (err) {
+		log.error('%e', err);
+		analytics.send_ga({
+		    category: 'geocoder',
+		    action: 'change address invalid',
+		    label: val,
+		    value: 0
+		});
+		textModal('Invalid address.');
+	    } else if (location) {
+		analytics.send_ga({
+		    category: 'geocoder',
+		    action: 'change address success',
+		    label: val,
+		    value: 0
+		});
+		plan.updateRoutes();
+	    }
+	});
+    } else {
+	this.model.setAddress(name, val, function(err, location) {
+	    if (err) {
+		log.error('%e', err);
+		analytics.send_ga({
+		    category: 'geocoder',
+		    action: 'change address invalid',
+		    label: val,
+		    value: 0
+		});
+		textModal('Invalid address.');
+	    } else if (location) {
+		analytics.send_ga({
+		    category: 'geocoder',
+		    action: 'change address success',
+		    label: val,
+		    value: 0
+		});
+		plan.updateRoutes();
+	    }
+	});
     }
-  });
 };
 
 /**
@@ -176,7 +205,29 @@ View.prototype.suggest = function(e) {
       log.error('%e', err);
     } else {
       if (suggestions && suggestions.length > 0) {
-        suggestions = suggestions.slice(0, 4);
+          for (var i = 0; i < suggestions.length; i++) {
+              if (!suggestions[i].text) {
+	      suggestions[i].text = suggestions[i].display_name;
+/*                  suggestions[i].text = '';
+                  if (!suggestions[i].address.road) {
+                      suggestions[i].text += (suggestions[i].address[suggestions[i].type] || '');
+                      suggestions[i].text += ', ';
+                  } else {
+                      suggestions[i].text += (suggestions[i].address.house_number || '');
+                      suggestions[i].text += ', ';
+                      suggestions[i].text += (suggestions[i].address.road || '');
+                      suggestions[i].text += ', ';
+                  }
+                  suggestions[i].text += (suggestions[i].address.city || suggestions[i].address.town || '');
+                  suggestions[i].text += ', ';
+                  suggestions[i].text += (suggestions[i].address.state || '');
+                  suggestions[i].text += ', ';
+                  suggestions[i].text += (suggestions[i].address.postcode || '');
+              }
+*/
+          }
+}
+        suggestions = suggestions.slice(0, 5);
 
         suggestionList.innerHTML = suggestionsTemplate.render({
           suggestions: suggestions
@@ -202,7 +253,7 @@ View.prototype.suggest = function(e) {
   };
 
   // If the text is too short or does not contain a space yet, return
-  if (text.length < 4) return;
+  if (text.length < 3) return;
 
   // Get a suggestion!
     geocode.suggest(text, resultsCallback);

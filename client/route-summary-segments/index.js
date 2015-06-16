@@ -5,12 +5,36 @@ var transitive = require('transitive');
 var template = hogan.compile(require('./template.html'));
 
 module.exports = function(route, opts) {
+    console.log(route);
   opts = opts || {};
+
+    function isTransit(mode) {
+        return (mode !== 'WALK' && mode !== 'CAR' && mode !== 'BICYCLE');
+    }
+
+  var segments = [];
+    var legs = route.attrs.plan.legs;
+    for (var i = 0; i < legs.length; i++) {
+	if (!isTransit(legs[i].mode) && (i + 1) < legs.length && i > 0) {
+	    continue;
+	}
+        segments.push({
+            background: '#fff',
+            mode: convert.modeToIcon(legs[i].mode),
+            inline: !!opts.inline,
+            small: !!opts.small,
+        })
+    }
+
+  return segments
+    .map(function(s) {
+      return template.render(s);
+    })
+    .join('');
 
   var accessMode = route.access()[0].mode.toLowerCase();
   var accessModeIcon = convert.modeToIcon(accessMode);
   var egress = route.egress();
-  var segments = [];
   var transitSegments = route.transit();
 
   if (transitSegments.length < 1 && accessMode === 'car') {

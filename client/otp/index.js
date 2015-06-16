@@ -4,6 +4,7 @@ var fmt = require('fmt');
 var log = require('./client/log')('otp');
 var Profiler = require('otp-profiler');
 var qs = require('querystring');
+var superagent = require('superagent');
 
 /**
  * Create profiler
@@ -44,6 +45,20 @@ module.exports = function profile(query, filter, callback) {
       });
     }
   });
+};
+
+module.exports.plan = function (query, callback) {
+    superagent
+        .get('/api/otp/plan')
+        .query(query)
+        .end(function(err, res) {
+            if (err || res.error || !res.ok) {
+                callback(err || res.error || res.text, res);
+            } else {
+                callback(null, res.body);
+            }
+        });
+
 };
 
 /**

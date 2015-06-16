@@ -50,7 +50,8 @@ var Route = module.exports = model('Route')
   .attr('walkCalories')
   .attr('walkDistance')
   .attr('walkTime')
-  .attr('weightLost');
+  .attr('weightLost')
+  .attr('plan');
 
 /**
  * Changes to emit on rescore
@@ -134,6 +135,7 @@ Route.prototype.directBikeOrWalk = function() {
  */
 
 Route.prototype.average = function() {
+    return Math.round(this.plan().duration / 60);
   if (this.hasTransit() || !this.hasCar()) {
     return Math.round(this.time() / 60);
   } else {
@@ -176,6 +178,7 @@ Route.prototype.hasCost = function() {
 };
 
 Route.prototype.hasCar = function() {
+    return findKeyValuePair(this.plan().legs, 'mode', 'CAR');
   return this.modes().indexOf('car') !== -1;
 };
 
@@ -184,10 +187,13 @@ Route.prototype.hasTransit = function() {
 };
 
 Route.prototype.hasBiking = function() {
+    return findKeyValuePair(this.plan().legs, 'mode', 'BICYCLE') ||
+	findKeyValuePair(this.plan().legs, 'mode', 'BICYCLE_RENT');
   return this.modes().indexOf('bicycle') !== -1 || this.modes().indexOf('bicycle_rent') !== -1;
 };
 
 Route.prototype.hasWalking = function() {
+    return findKeyValuePair(this.plan().legs, 'mode', 'WALK');
   return this.modes().indexOf('walk') !== -1;
 };
 
@@ -286,10 +292,26 @@ Route.prototype.driveDistances = function() {
 };
 
 Route.prototype.bikeDistances = function() {
+    var legs = this.plan().legs;
+    var distance = 0;
+    for (var i = 0; i < legs.length; i++) {
+        if (legs[i].mode === 'BICYCLE') {
+            distance += legs[i].distance;
+        }
+    }
+    return convert.metersToMiles(distance);
   return this.distances('bicycle', 'bikeDistance') || this.distances('bicycle_rent', 'bikeDistance');
 };
 
 Route.prototype.walkDistances = function() {
+    var legs = this.plan().legs;
+    var distance = 0;
+    for (var i = 0; i < legs.length; i++) {
+        if (legs[i].mode === 'WALK') {
+            distance += legs[i].distance;
+        }
+    }
+    return convert.metersToMiles(distance);
   return this.distances('walk', 'walkDistance');
 };
 
@@ -364,8 +386,8 @@ Route.prototype.carParkingCost = function() {
 
 Route.prototype.modeDescriptor = function() {
   var modeStr = '';
-  var accessMode = this.access()[0].mode.toLowerCase();
-  var egressMode = this.egress() ? this.egress()[0].mode.toLowerCase() : false;
+  var accessMode = this.plan().legs[0].mode.toLowerCase();//this.access()[0].mode.toLowerCase();
+//  var egressMode = this.egress() ? this.egress()[0].mode.toLowerCase() : false;
   var modes = this.modes();
 
   switch (accessMode) {
@@ -389,12 +411,25 @@ Route.prototype.modeDescriptor = function() {
       break;
   }
 
-  if (this.hasTransit()) {
+    function isTransit(mode) {
+        return (mode !== 'WALK' && mode !== 'CAR' && mode !== 'BICYCLE');
+    }
+
+    function hasTransit(legs) {
+	for (var i = 0; i < legs.length; i++) {
+	    if (isTransit(legs[i])) {
+		return true;
+	    }
+	}
+	return false;
+    };
+
+  if (hasTransit(this.plan().legs)) {
     if (modeStr.length > 0) modeStr += ' to ';
     modeStr += 'transit';
   }
 
-  if (egressMode && egressMode !== 'walk') {
+/*  if (egressMode && egressMode !== 'walk') {
     modeStr += ' to ';
     switch (egressMode) {
       case 'bicycle_rent':
@@ -402,7 +437,7 @@ Route.prototype.modeDescriptor = function() {
         break;
     }
   }
-
+*/
   return modeStr;
 };
 
@@ -494,3 +529,12 @@ function locationToTags(location) {
   }
   return location.split(',').slice(1);
 }
+
+function findKeyValuePair(array, key, value) {
+    for (var i = 0; i < array.length; i++) {
+        if (array[i][key] && array[i][key] === value) {
+            return true;
+        }
+    }
+    return false;
+};

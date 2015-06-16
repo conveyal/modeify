@@ -27,16 +27,81 @@ View.prototype.to = function() {
  */
 
 View.prototype.directions = function() {
-  var access = this.model.access()[0];
-  var egress = this.model.egress();
-  var segments = this.model.transit();
-  var length = segments.length;
+    var legs = this.model.plan().legs;
+    var i = 0;
+//  var access = this.model.access()[0];
+//  var egress = this.model.egress();
+//  var segments = this.model.transit();
+//  var length = segments.length;
   var details = '';
 
   // Add a detail
   function addDetail(d) {
     details += row.render(d);
   }
+
+    function isTransit(mode) {
+        return (mode !== 'WALK' && mode !== 'CAR' && mode !== 'BICYCLE');
+    }
+
+    if (!isTransit(legs[0].mode)) {
+	details += narrativeDirectionsForSteps(legs[i].steps, legs[0].mode);
+	i++;
+    }
+
+    var lastColor = null;
+    for (var i = 1; i < legs.length; ) {
+        var leg = legs[i];
+        var fromName = leg.from.name;
+        var color = '#000';
+
+        if (!isTransit(leg.mode)) {
+            details += narrativeDirectionsForSteps(legs[i].steps, legs[i].mode);
+            if ((i + 1) < legs.length && isTransit(legs[i + 1].mode)) {
+                i++;
+
+                addDetail({
+                    color: color,
+                    description: strong(legs[i].from.name),
+                    transfer: 'transfer board'
+                });
+
+                addDetail({
+                    color: color,
+                    description: 'Take ' + (legs[i].routeShortName || legs[i].routeLongName),
+                    segment: true
+                });
+
+                addDetail({
+                    color: color,
+                    description: strong(legs[i].to.name),
+                    transfer: 'transfer alight'
+                });
+            }
+        } else {
+                addDetail({
+                    color: color,
+                    description: strong(legs[i].from.name),
+                    transfer: 'transfer board'
+                });
+
+                addDetail({
+                    color: color,
+                    description: 'Take ' + (legs[i].routeShortName || legs[i].routeLongName),
+                    segment: true
+                });
+
+                addDetail({
+                    color: color,
+                    description: strong(legs[i].to.name),
+                    transfer: 'transfer alight'
+                });
+	}
+        i++;
+        lastColor = color;
+    }
+
+    return details;
 
   details += narrativeDirections(access.streetEdges);
 
@@ -145,6 +210,43 @@ function narrativeDirections(edges) {
     }
 
     return row.render(step);
+  }).join('');
+}
+
+function narrativeDirectionsForSteps(steps, mode) {
+  if (!steps) return '';
+
+  return steps.map(function(step) {
+    if (!step.streetName && !step.bikeRentalOffStation) {
+      return '';
+    }
+
+    var linkOrPath = step.streetName === 'Link' || step.streetName === 'Path';
+    if (linkOrPath && step.relativeDirection === 'CONTINUE') {
+      return '';
+    }
+
+      if (step.relativeDirection === 'DEPART') {
+	  step.mode = mode;
+      }
+
+    var streetSuffix = ' on ' + step.streetName;
+    var newStep = {};
+    if (step.bikeRentalOnStation) {
+      newStep.description = 'Rent bike from ' + step.bikeRentalOnStation.name + ' and ride ' + step.absoluteDirection.toLowerCase() + streetSuffix;
+      newStep.icon = 'cabi';
+    } else if (step.bikeRentalOffStation) {
+      newStep.description = 'Park bike at ' + step.bikeRentalOffStation.name;
+      newStep.icon = 'cabi';
+    } else if (step.mode) {
+      newStep.description = MODE_TO_ACTION[step.mode] + ' ' + step.absoluteDirection.toLowerCase() + streetSuffix;
+      newStep.icon = MODE_TO_ICON[step.mode];
+    } else {
+      newStep.description = toSentenceCase(step.relativeDirection) + streetSuffix;
+      newStep.direction = DIRECTION_TO_CARDINALITY[step.relativeDirection];
+    }
+
+    return row.render(newStep);
   }).join('');
 }
 

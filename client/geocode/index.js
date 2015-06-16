@@ -48,6 +48,7 @@ function reverse(ll, callback) {
  */
 
 function suggest(text, callback) {
+  var bingSuggestions, nominatimSuggestions, totalSuggestions;
   log('--> getting suggestion for %s', text);
   get('/geocode/suggest/' + text, function(err, res) {
     if (err) {
@@ -55,7 +56,20 @@ function suggest(text, callback) {
       callback(err, res);
     } else {
       log('<-- got %s suggestions', res.body.length);
-      callback(null, res.body);
+	bingSuggestions = res.body;
+//      callback(null, res.body);
+	get('http://nominatim.openstreetmap.org/search' +
+	    '?format=json&addressdetails=1&' +
+	    'countrycodes=us&q=' + text, function (err, nRes) {
+	    nominatimSuggestions = nRes.body;
+	    console.log(nominatimSuggestions.slice(0,2).concat(bingSuggestions.slice(0,3)));
+	    callback(
+		null,
+		nominatimSuggestions.slice(0,2).
+		    concat(bingSuggestions.slice(0,3))
+	    );
+	});
     }
   });
+
 }

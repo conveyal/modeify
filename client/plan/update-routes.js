@@ -59,11 +59,11 @@ function updateRoutes(plan, opts, callback) {
   var query = plan.generateQuery();
   var scorer = plan.scorer();
 
-  otp(query, function(data) {
-    data.options = profileFilter(data.options, scorer);
-    return data;
-  }, function(err, data) {
-    if (err || !data || data.options.length < 1) {
+  otp.plan(query, function(err, data) {
+      var planData = {options: []},
+      itineraries = data.plan.itineraries;
+
+    if (err || !data || !data.plan) {
       plan.set({
         options: [],
         journey: {
@@ -74,16 +74,29 @@ function updateRoutes(plan, opts, callback) {
     } else {
       // Track the commute
       analytics.track('Found Route', {
-        plan: plan.generateQuery(),
-        results: data.options.length
+        plan: '',
+        results: data.plan.itineraries.length
       });
 
       analytics.send_ga({
 	category: 'route',
 	action: 'calculate route',
-	label: plan.generateQueryString(),
+//	label: plan.generateQueryString(),
 	value: 1
       });
+
+	for (var i = 0; i < itineraries.length; i++) {
+	    planData.options.push(
+		new Route({
+		    from: data.plan.from.name,
+		    to: data.plan.to.name,
+		    plan: itineraries[i]
+		})
+	    );
+        }
+	plan.set(planData);
+	done(null, data);
+	return;
 
       // Get the car data
       var driveOption = new Route(data.options.filter(function(o) {

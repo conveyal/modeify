@@ -9,6 +9,7 @@ var model = require('model');
 var ProfileQuery = require('profile-query');
 var ProfileScorer = require('otp-profile-score');
 var qs = require('querystring');
+var mapView = require('map-view');
 
 var loadPlan = require('./load');
 var store = require('./store');
@@ -179,6 +180,7 @@ Plan.prototype.setAddress = function(name, address, callback) {
   var plan = this;
   var c = address.split(',');
   var isCoordinate = c.length === 2 && !isNaN(parseFloat(c[0])) && !isNaN(parseFloat(c[1]));
+    var map = mapView.getMap();
 
   if (!address || address.length < 1) return callback();
 
@@ -207,6 +209,12 @@ Plan.prototype.setAddress = function(name, address, callback) {
 
       plan.set(changes);
       callback(null, res.body);
+
+      if (name === 'from') {
+	  map.startMarker.setLatLng(res.body.coordinate);
+      } else {
+	  map.endMarker.setLatLng(res.body.coordinate);
+      }
     }
   });
 };
@@ -263,7 +271,7 @@ Plan.prototype.modesCSV = function() {
   var modes = [];
   if (this.bike()) modes.push('BICYCLE');
   if (this.bikeShare()) modes.push('BICYCLE_RENT');
-  if (this.bus()) modes.push('BUS');
+  if (this.bus()) modes.push('BUSISH');
   if (this.train()) modes.push('TRAINISH');
   if (this.walk()) modes.push('WALK');
   if (this.car()) modes.push('CAR');
@@ -280,8 +288,10 @@ Plan.prototype.setModes = function(csv) {
   var modes = csv.split ? csv.split(',') : csv;
 
   this.bike(modes.indexOf('BICYCLE') !== -1);
-  this.bikeShare(modes.indexOf('BICYCLE_RENT') !== -1);
-  this.bus(modes.indexOf('BUS') !== -1);
+//  this.bikeShare(modes.indexOf('BICYCLE_RENT') !== -1);
+  this.bikeShare(false);
+  this.bus(true);
+//  this.bus(modes.indexOf('BUSISH') !== -1);
   this.train(modes.indexOf('TRAINISH') !== -1);
   this.car(modes.indexOf('CAR') !== -1);
 };
@@ -296,25 +306,26 @@ Plan.prototype.generateQuery = function() {
 
   // Transit modes
   var accessModes = ['WALK'];
-  var directModes = ['WALK'];
-  var egressModes = ['WALK','BICYCLE'];
+  var directModes = [];// = ['WALK'];
+  var egressModes = [];// = ['WALK','BICYCLE'];
   var transitModes = [];
 
   if (this.bike()) {
     accessModes.push('BICYCLE');
     directModes.push('BICYCLE');
+    egressModes.push('BICYCLE');
   }
   if (this.bikeShare()) {
     accessModes.push('BICYCLE_RENT');
     directModes.push('BICYCLE_RENT');
     egressModes.push('BICYCLE_RENT');
   }
-  if (this.bus()) transitModes.push('BUS');
+  if (this.bus()) directModes.push('BUSISH');
   if (this.car()) {
     accessModes.push('CAR');
     directModes.push('CAR');
   }
-  if (this.train()) transitModes.push('TRAINISH');
+  if (this.train()) directModes.push('TRAINISH');
 
   var startTime = this.start_time();
   var endTime = this.end_time();
@@ -325,31 +336,33 @@ Plan.prototype.generateQuery = function() {
   endTime = endTime === 24 ? '23:59' : endTime + ':00';
 
   return {
-    accessModes: accessModes.join(','),
-    bikeSafe: 1000,
-    bikeSpeed: scorer.rates.bikeSpeed,
+//    accessModes: accessModes.join(','),
+//    bikeSafe: 1000,
+//    bikeSpeed: scorer.rates.bikeSpeed,
     date: this.nextDate(),
-    directModes: directModes.join(','),
-    egressModes: egressModes.join(','),
-    endTime: endTime,
-    from: {
-      lat: from.lat,
-      lon: from.lng,
-      name: 'From'
-    },
-    startTime: startTime,
-    to: {
-      lat: to.lat,
-      lon: to.lng,
-      name: 'To'
-    },
-    limit: LIMIT,
-    transitModes: transitModes.join(','),
-    walkSpeed: scorer.rates.walkSpeed,
-    maxWalkTime: 20,
-    minCarTime: 10,
-    maxCarTime: 30,
-    maxBikeTime: 20 
+    //mode: directModes.concat('TRANSIT').join(','),
+    mode: directModes.join(','),
+//    directModes: directModes.join(','),
+//    egressModes: egressModes.join(','),
+//    endTime: endTime,
+//    from: {
+//      lat: from.lat,
+//      lon: from.lng,
+//      name: 'From'
+//    },
+//    startTime: startTime,
+      time: startTime,
+      fromPlace: (from.lat + ',' + from.lng),
+      toPlace: (to.lat + ',' + to.lng),
+      numItineraries: 5
+//    to: {
+//      lat: to.lat,
+//      lon: to.lng,
+//      name: 'To'
+//    },
+//    limit: LIMIT,
+//    transitModes: transitModes.join(','),
+//    walkSpeed: scorer.rates.walkSpeed
   };
 };
 
