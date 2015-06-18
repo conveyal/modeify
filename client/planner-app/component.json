@@ -1,6 +1,7 @@
 {
   "name": "planner-app",
   "dependencies": {
+    "conveyal/modeify-icons.css": "*",
     "devote/html5-history-api": "*",
     "es-shims/es5-shim": "*",
     "es-shims/es6-shim": "*",
@@ -15,7 +16,6 @@
     "index.js"
   ],
   "styles": [
-    "icons.css",
     "style.css"
   ],
   "development": {
