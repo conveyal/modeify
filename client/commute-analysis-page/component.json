@@ -1,11 +1,20 @@
 {
   "name": "commute-analysis-page",
+  "dependencies": {
+    "dc-js/dc.js": "*",
+    "davidbau/seedrandom": "*",
+    "trevorgerhardt/names": "*"
+  },
   "local": [
     "log",
+    "map",
     "view"
   ],
   "scripts": [
     "index.js"
+  ],
+  "styles": [
+    "style.css"
   ],
   "templates": [
     "template.html"

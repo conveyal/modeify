@@ -4,7 +4,8 @@
     "visionmedia/page.js": "*"
   },
   "local": [
-    "log"
+    "log",
+    "map"
   ],
   "scripts": [
     "index.js"

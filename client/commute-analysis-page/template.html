@@ -1,1 +1,44 @@
-<h1>Commute Analysis</h1>
+<div class="row">
+  <div class="col-sm-12">
+    <h3>
+      <i class="fa fa-signal"></i> {name} Commute Analysis
+      <a class="btn btn-default pull-right" href="/manager/organizations/{created_by}/locations/{_id}/show"><i class="fa fa-arrow-left"></i> Back</a>
+      <button class="btn btn-primary pull-right"><i class="fa fa-refresh"></i> Run Analysis</button>
+    </h3>
+  </div>
+  <div class="col-sm-12">
+    <div class="map map-small"></div>
+  </div>
+  <div class="col-sm-4">
+    <br>
+    <div class="mode-split-pie-chart" style="text-align: center; float: none;"></div>
+  </div>
+  <div class="col-sm-4">
+    <br>
+    <div class="time-bar-chart" style="text-align: center; float: none;"></div>
+  </div>
+  <div class="col-sm-4">
+    <h4>Commuter Averages</h4>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <span class="badge">$4.50</span>
+        Cost per trip
+      </li>
+      <li class="list-group-item">
+        <span class="badge">$2,150</span>
+        Cost per year
+      </li>
+      <li class="list-group-item">
+        <span class="badge">36 min</span>
+        Length
+      </li>
+      <li class="list-group-item">
+        <span class="badge">4.5 miles</span>
+        Distance
+      </li>
+    </ul>
+  </div>
+  <div class="col-sm-12">
+    <table class="table table-striped commuter-data-table"></table>
+  </div>
+</div>

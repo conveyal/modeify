@@ -1,0 +1,17 @@
+{
+  "name": "seedrandom",
+  "version": "2.4.0",
+  "description": "Seeded random number generator for Javascript",
+  "repository": "davidbau/seedrandom",
+  "main": "seedrandom.js",
+  "scripts": [
+    "seedrandom.js"
+  ],
+  "keywords": [
+    "random",
+    "seed",
+    "crypto"
+  ],
+  "license": "MIT",
+  "resolved": "2db70112f66f31de2ea3f82f112c932adb0f515a"
+}
