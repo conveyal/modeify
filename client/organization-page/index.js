@@ -9,7 +9,6 @@ var View = require('./view')
 module.exports = function (ctx, next) {
   log('attach view')
 
-  ctx.organization.commuters = ctx.commuters
   ctx.organization.locations = ctx.locations
   ctx.view = window.view = new View(ctx.organization)
   ctx.view.on('rendered', function () {
@@ -17,11 +16,10 @@ module.exports = function (ctx, next) {
       center: ctx.organization.coordinate(),
       zoom: 13
     })
-    m.addMarker(ctx.organization.mapMarker())
 
     var cluster = new window.L.MarkerClusterGroup()
-    ctx.commuters.forEach(function (commuter) {
-      if (commuter.validCoordinate()) cluster.addLayer(commuter.mapMarker())
+    ctx.locations.forEach(function (l) {
+      cluster.addLayer(l.mapMarker())
     })
 
     m.addLayer(cluster)

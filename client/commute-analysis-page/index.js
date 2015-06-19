@@ -1,29 +1,10 @@
 var dc = require('dc.js')
 var d3 = require('d3')
+var commuters = require('fake-commuters')
 var crossfilter = require('crossfilter').crossfilter
 var log = require('log')('commute-analysis-page')
 var map = require('map')
-var names = require('names')
-require('seedrandom')
 var view = require('view')
-
-var modes = [ 'metro', 'bus', 'bike', 'walk', 'drive' ]
-var commuters = []
-var latMin = 38.85, latMultiple = 0.20
-var lonMin = -77.30, lonMultiple = 0.4
-
-Math.seedrandom('modeify')
-for (var i = 0; i < 100; i++) {
-  commuters.push({
-    name: names(),
-    mode: modes[Math.floor(Math.random() * modes.length)],
-    coords: [ lonMin + Math.random() * lonMultiple, latMin + Math.random() * latMultiple ],
-    time: Math.ceil(Math.random() * 45 + 15),
-    calories: Math.ceil(Math.random() * 100),
-    cost: (Math.random() * 10 + 1).toFixed(2),
-    matches: Math.floor(Math.random() * 5)
-  })
-}
 
 var View = view(require('./template.html'), function (view, model) {
   view.on('rendered', function () {
@@ -69,10 +50,9 @@ var View = view(require('./template.html'), function (view, model) {
       .group(modeDimension.group())
 
     bar
-      .width(320)
+      .width(400)
       .height(190)
       .brushOn(false)
-      .title(function (d) { return 'Commute Times' })
       .x(d3.scale.linear().domain([15, 60]))
       .dimension(timeD)
       .group(timeD.group(function (t) { return t }))

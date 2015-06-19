@@ -1,5 +1,6 @@
 var config = require('config')
 var log = require('log')('location')
+var map = require('map')
 var model = require('model')
 var request = require('request')
 
@@ -27,6 +28,17 @@ Location.load = function (ctx, next) {
       next()
     }
   })
+}
+
+Location.prototype.mapMarker = function () {
+  var c = this.coordinate()
+  return map.createMarker({
+    title: '<a href="/manager/organizations/' + this.created_by() + '/locations/' + this._id() + 'show">' + this.name() + '</a>',
+    description: this.fullAddress(),
+    color: '#428bca',
+    coordinate: [c.lng, c.lat],
+    icon: 'commercial'
+ })
 }
 
 Location.loadOrg = function (ctx, next) {

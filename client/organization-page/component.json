@@ -1,13 +1,6 @@
 {
   "name": "organization-page",
   "dependencies": {
-    "component/each": "*",
-    "component/domify": "*",
-    "component/file": "0.1.1",
-    "component/file-picker": "0.2.0",
-    "component/value": "*",
-    "trevorgerhardt/csv-to-array": "0.0.1",
-    "visionmedia/batch": "*",
     "visionmedia/page.js": "*"
   },
   "locals": [
@@ -25,9 +18,6 @@
     "view.js"
   ],
   "templates": [
-    "commuter-confirm-input.html",
-    "commuter-confirm-modal.html",
-    "commuter.html",
     "location.html",
     "template.html"
   ]

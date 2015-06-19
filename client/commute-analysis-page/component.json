@@ -1,11 +1,10 @@
 {
   "name": "commute-analysis-page",
   "dependencies": {
-    "dc-js/dc.js": "*",
-    "davidbau/seedrandom": "*",
-    "trevorgerhardt/names": "*"
+    "dc-js/dc.js": "*"
   },
   "local": [
+    "fake-commuters",
     "log",
     "map",
     "view"
