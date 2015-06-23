@@ -18,26 +18,21 @@ module.exports = function (ctx, next) {
   ctx.location.commuters = ctx.commuters
   ctx.view = new View(ctx.location)
   ctx.view.on('rendered', function (view) {
-    console.log(ctx.location.coordinate())
     var m = map(view.find('.map'), {
       center: ctx.location.coordinate(),
       zoom: 13
     })
     m.addLayer(ctx.location.mapMarker())
-    var layers = [m.featureLayer]
 
     if (ctx.commuters.length > 0) {
       var cluster = new window.L.MarkerClusterGroup()
       ctx.commuters.forEach(function (commuter) {
-        console.log(commuter)
         cluster.addLayer(commuter.mapMarker())
       })
 
       m.addLayer(cluster)
-      layers.push(cluster)
+      m.fitLayers([m.featureLayer, cluster])
     }
-
-    m.fitLayers(layers)
   })
 
   next()
