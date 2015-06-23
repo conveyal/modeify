@@ -1,14 +1,11 @@
 var alerts = require('alerts')
-var Batch = require('batch')
-var commuters = require('fake-commuters')
-var Commuter = require('commuter')
+var CommuterLocation = require('commuter-location')
 var csvToArray = require('csv-to-array')
 var each = require('each')
 var file = require('file')
 var filePicker = require('file-picker')
 var log = require('log')('location-page')
 var map = require('map')
-var page = require('page')
 var spin = require('spinner')
 var value = require('value')
 var view = require('view')
@@ -18,26 +15,29 @@ var View = view(require('./template.html'))
 module.exports = function (ctx, next) {
   log('render')
 
+  ctx.location.commuters = ctx.commuters
   ctx.view = new View(ctx.location)
   ctx.view.on('rendered', function (view) {
+    console.log(ctx.location.coordinate())
     var m = map(view.find('.map'), {
       center: ctx.location.coordinate(),
       zoom: 13
     })
     m.addLayer(ctx.location.mapMarker())
+    var layers = [m.featureLayer]
 
-    var cluster = new window.L.MarkerClusterGroup()
-    commuters.forEach(function (commuter) {
-      cluster.addLayer(map.createMarker({
-        color: '#5cb85c',
-        coordinate: commuter.coords,
-        icon: 'building',
-        size: 'small'
-      }))
-    })
+    if (ctx.commuters.length > 0) {
+      var cluster = new window.L.MarkerClusterGroup()
+      ctx.commuters.forEach(function (commuter) {
+        console.log(commuter)
+        cluster.addLayer(commuter.mapMarker())
+      })
 
-    m.addLayer(cluster)
-    m.fitLayers([m.featureLayer, cluster])
+      m.addLayer(cluster)
+      layers.push(cluster)
+    }
+
+    m.fitLayers(layers)
   })
 
   next()
@@ -46,25 +46,18 @@ module.exports = function (ctx, next) {
 var CommuterRow = view(require('./commuter.html'))
 
 CommuterRow.prototype.status = function () {
-  var status = this.model.status()
+  var status = this.model.status
   var label = this.model.statusLabel()
   return '<span class="label label-' + label + '">' + status + '</span>'
 }
 
 View.prototype.commuterCount = function () {
-  return commuters.length
+  return this.model.commuters.length
 }
 
 View.prototype['commuters-view'] = function () {
   return CommuterRow
 }
-
-View.prototype.commuters = function () {
-  return commuters.map(function (c) {
-    return '<tr><td>' + c.name + '</td><td><span class="badge">' + c.status + '</span></td></tr>'
-  }).join('')
-}
-
 
 /**
  * Upload CSV
@@ -102,7 +95,7 @@ var Modal = view(require('./commuter-confirm-modal.html'))
 View.prototype.showConfirmUpload = function (commuters) {
   var modal = new Modal({
     commuters: commuters,
-    organization: this.model
+    location: this.model
   })
   document.body.appendChild(modal.el)
 }
@@ -130,45 +123,32 @@ Modal.prototype.close = function (e) {
 
 Modal.prototype.upload = function (e) {
   e.preventDefault()
-  var batch = new Batch()
-  var spinner = spin()
   var modal = this
-  var organization = modal.model.organization
+  var location = this.model
 
+  var commuters = []
   each(modal.findAll('tr'), function (el) {
     // if confirm is unchecked, skip
     if (!value(el.querySelector('.confirm'))) return
 
     // get the other data
-    var data = {
+    commuters.push({
       address: el.querySelector('.address').textContent || '',
       email: (el.querySelector('.email').textContent || '').toLowerCase(),
       name: el.querySelector('.name').textContent || ''
-    }
-
-    batch.push(function (done) {
-      var commuter = new Commuter(data)
-      commuter._user({
-        email: data.email,
-        type: 'commuter'
-      })
-      commuter._organization(organization._id())
-      commuter.save(done)
     })
   })
 
-  batch.end(function (err) {
+  CommuterLocation.addCommuters(location._id(), commuters, function (err, res) {
     if (err) {
       log.error('%e', err)
-      window.alert('Error while uploading commuters. ' + err) // eslint-disable-line no-alert
+      window.alert('Error while uploading commuters. ' + err)
     } else {
       alerts.push({
         type: 'success',
-        text: 'Upload succesful, commuters created & invited.'
+        text: 'Upload succesful, ' + res.length + ' commuters added to this location.'
       })
     }
-    spinner.remove()
     modal.el.remove()
-    page('/manager/organizations/' + organization._id() + '/show')
   })
 }
