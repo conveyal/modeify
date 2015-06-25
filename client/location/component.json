@@ -9,7 +9,8 @@
     "config",
     "log",
     "map",
-    "model-geo"
+    "model-geo",
+    "request"
   ],
   "scripts": [
     "index.js"

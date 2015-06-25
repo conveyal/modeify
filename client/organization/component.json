@@ -11,6 +11,7 @@
     "alerts",
     "campaign",
     "config",
+    "log",
     "map",
     "model-geo",
     "spinner"

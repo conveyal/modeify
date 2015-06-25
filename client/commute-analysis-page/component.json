@@ -1,7 +1,9 @@
 {
   "name": "commute-analysis-page",
   "dependencies": {
-    "dc-js/dc.js": "*"
+    "dc-js/dc.js": "*",
+    "mbostock/d3": "*",
+    "square/crossfilter": "*"
   },
   "local": [
     "fake-commuters",

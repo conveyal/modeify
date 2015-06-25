@@ -15,7 +15,8 @@
     "log",
     "map",
     "request",
-    "spinner"
+    "spinner",
+    "view"
   ],
   "scripts": [
     "index.js"
