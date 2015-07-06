@@ -95,6 +95,16 @@ View.prototype.showConfirmUpload = function (commuters) {
   document.body.appendChild(modal.el)
 }
 
+View.prototype.profileAndMatch = function () {
+  this.model.profileAndMatch(function (err) {
+    if (err) {
+      window.alert('Failed to profile commuters.')
+    } else {
+      window.alert('Profiling commuters.')
+    }
+  })
+}
+
 /**
  * Inputs
  */

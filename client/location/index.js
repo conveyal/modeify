@@ -55,3 +55,15 @@ Location.loadOrg = function (ctx, next) {
       }
     })
 }
+
+Location.prototype.profileAndMatch = function (callback) {
+  request.get('/commuter-locations/profile-and-match', {
+    _location: this._id()
+  }, function (err, res) {
+      if (err) {
+        callback(err)
+      } else {
+        callback(null, res.text)
+      }
+    })
+}

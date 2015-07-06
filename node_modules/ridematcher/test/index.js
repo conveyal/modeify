@@ -22,7 +22,7 @@ function getCommuters (numCommuters) {
   for (let i = 0; i < numCommuters; i++) {
     commuters.push({
       _id: i + 1,
-      coordinates: [left + Math.random() * (right - left), bottom + Math.random() * (top - bottom)]
+      from: [left + Math.random() * (right - left), bottom + Math.random() * (top - bottom)]
     })
   }
 

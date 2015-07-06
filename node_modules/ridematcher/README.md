@@ -5,15 +5,16 @@
 Find carpool/vanpool matches within a commuter population
 
 
-### `findMatches(opts)`
+### `findMatches(commuters, opts)`
 
 Make a SOAP request to [Commuter Connections](http://www.commuterconnections.org/) to get the number of carpools available for a given starting, ending location, and search radius.
 
 ### Parameters
 
-| parameter | type   | description    |
-| --------- | ------ | -------------- |
-| `opts`    | Object | Options object |
+| parameter   | type   | description                               |
+| ----------- | ------ | ----------------------------------------- |
+| `commuters` | Array  | Array of commuters to match to each other |
+| `opts`      | Object | Options object                            |
 
 
 ### Example
@@ -23,7 +24,8 @@ import {findMatches} from 'commuter-connections'
 findMatches({
   commuters: [{
     _id: 1,
-    coordinates: [-77.4875, 39.0436]
+    from: [-77.4875, 39.0436],
+    to: [..]
   }], {
     radius: .5,
     units: 'miles'
