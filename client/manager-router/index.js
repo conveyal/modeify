@@ -51,10 +51,10 @@ p('/organizations/:organization/locations/:location/distribute', require('commut
 
 // Commuters
 
-p('/organizations/:organization/commuters/new', commuterForm)
-p('/organizations/:organization/commuters/:commuter/(.*)', Commuter.load)
-p('/organizations/:organization/commuters/:commuter/show', require('commuter-page'))
-p('/organizations/:organization/commuters/:commuter/edit', commuterForm)
+p('/organizations/:organization/locations/:location/commuters/new', commuterForm)
+p('/organizations/:organization/locations/:location/commuters/:commuter/(.*)', Commuter.load)
+p('/organizations/:organization/locations/:location/commuters/:commuter/show', require('commuter-page'))
+p('/organizations/:organization/locations/:location/commuters/:commuter/edit', commuterForm)
 
 // Feedback
 
