@@ -104,8 +104,7 @@ View.prototype.save = function (e) {
   // set the rest of the data
   this.model.set(data)
 
-  var text = this.model.isNew() ? 'Added & invited new commuter.' :
-    'Saved changes to commuter.'
+  var text = this.model.isNew() ? 'Added & invited new commuter.' : 'Saved changes to commuter.'
 
   var self = this
   this.model.save(function (err) {
