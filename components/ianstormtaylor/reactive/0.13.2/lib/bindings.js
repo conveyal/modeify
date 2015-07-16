@@ -59,7 +59,11 @@ module.exports = function(reactive){
   attrs.forEach(function(attr){
     reactive.bind('data-' + attr, function(el, name, obj){
       this.change(function(){
-        el.setAttribute(attr, this.interpolate(name));
+        var value = this.interpolate(name);
+        el.setAttribute(attr, value);
+        if(attr === 'value' && $('#' + el.id)) {
+           $('#' + el.id).val(value);
+        }
       });
     });
   });
