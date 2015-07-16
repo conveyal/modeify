@@ -46,7 +46,7 @@ p('/organizations/:organization/locations/new', LocationForm)
 p('/organizations/:organization/locations/:location/(.*)', Location.load)
 p('/organizations/:organization/locations/:location/show', CommuterLocation.forLocationMiddleware, require('location-page'))
 p('/organizations/:organization/locations/:location/edit', LocationForm)
-p('/organizations/:organization/locations/:location/analyze', require('commute-analysis-page'))
+p('/organizations/:organization/locations/:location/analyze', CommuterLocation.forLocationMiddleware, require('commute-analysis-page'))
 p('/organizations/:organization/locations/:location/distribute', require('commute-distribution-page'))
 
 // Commuters

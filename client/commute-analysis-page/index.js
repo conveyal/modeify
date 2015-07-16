@@ -1,40 +1,61 @@
 var dc = require('dc.js')
 var d3 = require('d3')
-var commuters = require('fake-commuters')
 var crossfilter = require('crossfilter').crossfilter
+var haversine = require('haversine')
 var log = require('log')('commute-analysis-page')
 var map = require('map')
+var ProfileScorer = require('otp-profile-score')
 var view = require('view')
 
-var View = view(require('./template.html'), function (view, model) {
-  view.on('rendered', function () {
+module.exports = function (ctx, next) {
+  log('render')
+
+  ctx.location.commuterLocations = ctx.commuterLocations
+  ctx.view = new View(ctx.location)
+  ctx.view.on('rendered', function (view) {
     var m = map(view.find('.map'), {
-      center: model.coordinate(),
+      center: ctx.location.coordinate(),
       zoom: 13
     })
+    m.addLayer(ctx.location.mapMarker())
 
-    var c = model.coordinate()
+    if (ctx.location.commuterLocations.length > 0) {
+      var cluster = new window.L.MarkerClusterGroup()
+      ctx.location.commuterLocations.forEach(function (cl) {
+        if (cl._commuter.validCoordinate()) cluster.addLayer(cl._commuter.mapMarker())
+      })
 
-    m.addMarker(map.createMarker({
-      color: '#428bca',
-      coordinate: [c.lng, c.lat],
-      icon: 'commercial'
-    }))
+      if (cluster.getBounds()._northEast) {
+        m.addLayer(cluster)
+      }
+    }
+  })
 
-    var cluster = new window.L.MarkerClusterGroup()
-    commuters.forEach(function (commuter) {
-      cluster.addLayer(map.createMarker({
-        color: '#5cb85c',
-        coordinate: commuter.coords,
-        icon: 'building',
-        size: 'small'
-      }))
+  next()
+}
+
+var View = view(require('./template.html'), function (view, model) {
+  var scorer = new ProfileScorer()
+
+  view.on('rendered', function () {
+    var profiles = model.commuterLocations.map(function (cl) {
+      var profile = scorer.processOptions(JSON.parse(cl.profile).options)[0]
+      var matches = cl.matches || []
+      var to = cl._location.coordinate()
+      var from = cl._commuter.coordinate()
+      return {
+        commuter: cl._commuter._user().email,
+        calories: parseInt(profile.calories, 10),
+        cost: profile.cost,
+        distance: parseFloat(haversine(from.lat, from.lng, to.lat, to.lng, true).toFixed(2)),
+        mode: profile.modes.join(', '),
+        score: profile.score,
+        time: profile.time / 60,
+        matches: matches.length
+      }
     })
 
-    m.addLayer(cluster)
-    m.fitLayers([m.featureLayer, cluster])
-
-    var ndx = crossfilter(commuters)
+    var ndx = crossfilter(profiles)
     var bar = dc.barChart('.time-bar-chart')
     var pie = dc.pieChart('.mode-split-pie-chart')
     var table = dc.dataTable('.commuter-data-table')
@@ -53,7 +74,7 @@ var View = view(require('./template.html'), function (view, model) {
       .width(400)
       .height(190)
       .brushOn(false)
-      .x(d3.scale.linear().domain([15, 60]))
+      .x(d3.scale.linear().domain([0, 60]))
       .dimension(timeD)
       .group(timeD.group(function (t) { return t }))
 
@@ -61,27 +82,41 @@ var View = view(require('./template.html'), function (view, model) {
       .dimension(nameD)
       .group(function (d) { return true })
       .columns([
-        'name',
+        'commuter',
         'mode',
         'time',
+        'distance',
         'cost',
         'calories',
         'matches'
       ])
       .size(100)
       .sortBy(function (d) {
-        return d.name
+        return d.score
       })
 
     pie.render()
     bar.render()
     table.render()
+
+    var $costAvg = view.find('#costAverage')
+    var $costPYAvg = view.find('#costPerYearAverage')
+    var $timeAvg = view.find('#timeAverage')
+    var $distanceAvg = view.find('#distanceAverage')
+
+    var costAvg = profiles.reduce(function (total, p) {
+      return total + p.cost
+    }, 0) / profiles.length
+    var distAvg = profiles.reduce(function (total, p) {
+      return total + p.distance
+    }, 0) / profiles.length
+    var timeAvg = profiles.reduce(function (total, p) {
+      return total + p.time
+    }, 0) / profiles.length
+
+    $costAvg.textContent = '$' + costAvg
+    $costPYAvg.textContent = '$' + parseInt(costAvg * 470, 10)
+    $timeAvg.textContent = parseInt(timeAvg, 10) + ' min'
+    $distanceAvg.textContent = distAvg.toFixed(2) + ' mi'
   })
 })
-
-module.exports = function (ctx, next) {
-  log('render')
-
-  ctx.view = new View(ctx.location)
-  next()
-}

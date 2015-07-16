@@ -32,7 +32,6 @@ module.exports = function (ctx, next) {
 
       if (cluster.getBounds()._northEast) {
         m.addLayer(cluster)
-        m.fitLayers([cluster, m.featureLayer])
       }
     }
   })
