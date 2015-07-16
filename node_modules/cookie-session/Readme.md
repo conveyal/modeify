@@ -22,42 +22,39 @@ $ npm install cookie-session
 
 ## API
 
-  View counter example:
-
 ```js
-var express = require('express')
-var session = require('cookie-session')
-
-var app = express()
-
-app.set('trust proxy', 1) // trust first proxy
-
-app.use(session({
-  keys: ['key1', 'key2']
-}))
-
-app.use(function (req, res, next) {
-  var n = req.session.views || 0
-  req.session.views = ++n
-  res.end(n + ' views')
-})
-
-app.listen(3000)
+var cookieSession = require('cookie-session')
 ```
 
-### Options
+### cookieSession(options)
 
-  - `name` - The cookie name. Defaults to `express:sess`.
-  - `keys` - Keys with which to sign the cookie. See `signed` in cookie options. Multiple keys allows for using rotating credentials.
-  - `secret` - A string which will be used as single key if `keys` is not found.
+Create a new cookie session middleware with the provided options.
 
-  Other options are passed to `cookies.get()` and
-  `cookies.set()` allowing you to control security, domain, path,
-  and signing among other settings.
+#### Options
 
-#### Cookie Options
+Cookie session accepts these properties in the options object.
 
-The options can also contain any of the follow (for the full list, see [cookies module documentation](https://www.npmjs.org/package/cookies#readme):
+##### name
+
+The name of the cookie to set, defaults to `express:sess`.
+
+##### keys
+
+The list of keys to use to sign & verify cookie values. Set cookies are always
+signed with `keys[0]`, while the other keys are valid for verification, allowing
+for key rotation.
+
+##### secret
+
+A string which will be used as single key if `keys` is not provided.
+
+##### Cookie Options
+
+Other options are passed to `cookies.get()` and `cookies.set()` allowing you
+to control security, domain, path, and signing among other settings.
+
+The options can also contain any of the follow (for the full list, see
+[cookies module documentation](https://www.npmjs.org/package/cookies#readme):
 
   - `maxAge`: a number representing the milliseconds from `Date.now()` for expiry
   - `expires`: a `Date` object indicating the cookie's expiration date (expires at the end of session by default).
@@ -67,11 +64,25 @@ The options can also contain any of the follow (for the full list, see [cookies 
   - `secureProxy`: a boolean indicating whether the cookie is only to be sent over HTTPS (use this if you handle SSL not in your node process).
   - `httpOnly`: a boolean indicating whether the cookie is only to be sent over HTTP(S), and not made available to client JavaScript (`true` by default).
   - `signed`: a boolean indicating whether the cookie is to be signed (`false` by default). If this is true, another cookie of the same name with the `.sig` suffix appended will also be sent, with a 27-byte url-safe base64 SHA1 value representing the hash of _cookie-name_=_cookie-value_ against the first [Keygrip](https://github.com/expressjs/keygrip) key. This signature key is used to detect tampering the next time a cookie is received.
-  - `overwrite`: a boolean indicating whether to overwrite previously set cookies of the same name (`false` by default). If this is true, all cookies set during the same request with the same name (regardless of path or domain) are filtered out of the Set-Cookie header when setting this cookie.
+  - `overwrite`: a boolean indicating whether to overwrite previously set cookies of the same name (`true` by default). If this is true, all cookies set during the same request with the same name (regardless of path or domain) are filtered out of the Set-Cookie header when setting this cookie.
 
-### Session.isNew
+### req.session
 
-  Is `true` if the session is new.
+Represents the session for the given request.
+
+#### .isNew
+
+Is `true` if the session is new.
+
+#### .populated
+
+Determine if the session has been populated with data or is empty.
+
+### req.sessionOptions
+
+Represents the session options for the current request. These options are a
+shallow clone of what was provided at middleware construction and can be
+altered to change cookie setting behavior on a per-request basis.
 
 ### Destroying a session
 
@@ -81,17 +92,67 @@ The options can also contain any of the follow (for the full list, see [cookies 
 req.session = null
 ```
 
+## Example
+
+### Simple view counter example
+
+```js
+var cookieSession = require('cookie-session')
+var express = require('express')
+
+var app = express()
+
+app.set('trust proxy', 1) // trust first proxy
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1', 'key2']
+}))
+
+app.use(function (req, res, next) {
+  var n = req.session.views || 0
+  req.session.views = n++
+  res.end(n + ' views')
+})
+
+app.listen(3000)
+```
+
+## Per-user sticky max age
+
+```js
+var cookieSession = require('cookie-session')
+var express = require('express')
+
+var app = express()
+
+app.set('trust proxy', 1) // trust first proxy
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1', 'key2']
+}))
+
+// This allows you to set req.session.maxAge to let certain sessions
+// have a different value than the default.
+app.use(function (req, res, next) {
+  req.sessionOptions.maxAge = req.session.maxAge || req.sessionOptions.maxAge
+})
+
+// ... your logic here ...
+```
+
 ## License
 
 [MIT](LICENSE)
 
-[npm-image]: https://img.shields.io/npm/v/cookie-session.svg?style=flat
+[npm-image]: https://img.shields.io/npm/v/cookie-session.svg
 [npm-url]: https://npmjs.org/package/cookie-session
-[travis-image]: https://img.shields.io/travis/expressjs/cookie-session.svg?style=flat
+[travis-image]: https://img.shields.io/travis/expressjs/cookie-session/master.svg
 [travis-url]: https://travis-ci.org/expressjs/cookie-session
-[coveralls-image]: https://img.shields.io/coveralls/expressjs/cookie-session.svg?style=flat
+[coveralls-image]: https://img.shields.io/coveralls/expressjs/cookie-session.svg
 [coveralls-url]: https://coveralls.io/r/expressjs/cookie-session?branch=master
-[downloads-image]: https://img.shields.io/npm/dm/cookie-session.svg?style=flat
+[downloads-image]: https://img.shields.io/npm/dm/cookie-session.svg
 [downloads-url]: https://npmjs.org/package/cookie-session
-[gratipay-image]: https://img.shields.io/gratipay/dougwilson.svg?style=flat
+[gratipay-image]: https://img.shields.io/gratipay/dougwilson.svg
 [gratipay-url]: https://www.gratipay.com/dougwilson/

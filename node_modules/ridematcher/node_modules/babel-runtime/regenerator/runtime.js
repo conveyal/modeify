@@ -136,9 +136,24 @@ var _Promise = require("babel-runtime/core-js/promise")["default"];
       var result = generator[method](arg);
       var value = result.value;
       return value instanceof AwaitArgument ? _Promise.resolve(value.arg).then(invokeNext, invokeThrow) : _Promise.resolve(value).then(function (unwrapped) {
+        // When a yielded Promise is resolved, its final value becomes
+        // the .value of the Promise<{value,done}> result for the
+        // current iteration. If the Promise is rejected, however, the
+        // result for this iteration will be rejected with the same
+        // reason. Note that rejections of yielded Promises are not
+        // thrown back into the generator function, as is the case
+        // when an awaited Promise is rejected. This difference in
+        // behavior between yield and await is important, because it
+        // allows the consumer to decide what to do with the yielded
+        // rejection (swallow it and continue, manually .throw it back
+        // into the generator, abandon iteration, whatever). With
+        // await, by contrast, there is no opportunity to examine the
+        // rejection reason outside the generator function, so the
+        // only option is to throw it from the await expression, and
+        // let the generator function handle the exception.
         result.value = unwrapped;
         return result;
-      }, invokeThrow);
+      });
     }
 
     if (typeof process === "object" && process.domain) {
@@ -171,9 +186,8 @@ var _Promise = require("babel-runtime/core-js/promise")["default"];
       });
 
       // Avoid propagating enqueueResult failures to Promises returned by
-      // later invocations of the iterator, and call generator.return() to
-      // allow the generator a chance to clean up.
-      previousPromise = enqueueResult["catch"](invokeReturn);
+      // later invocations of the iterator.
+      previousPromise = enqueueResult["catch"](function (ignored) {});
 
       return enqueueResult;
     }
@@ -206,6 +220,10 @@ var _Promise = require("babel-runtime/core-js/promise")["default"];
       }
 
       if (state === GenStateCompleted) {
+        if (method === "throw") {
+          throw arg;
+        }
+
         // Be forgiving, per 25.3.3.3.3 of the spec:
         // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
         return doneResult();
@@ -274,7 +292,7 @@ var _Promise = require("babel-runtime/core-js/promise")["default"];
           if (state === GenStateSuspendedYield) {
             context.sent = arg;
           } else {
-            delete context.sent;
+            context.sent = undefined;
           }
         } else if (method === "throw") {
           if (state === GenStateSuspendedStart) {
@@ -365,7 +383,7 @@ var _Promise = require("babel-runtime/core-js/promise")["default"];
     // locations where there is no enclosing try statement.
     this.tryEntries = [{ tryLoc: "root" }];
     tryLocsList.forEach(pushTryEntry, this);
-    this.reset();
+    this.reset(true);
   }
 
   runtime.keys = function (object) {
@@ -439,7 +457,7 @@ var _Promise = require("babel-runtime/core-js/promise")["default"];
   Context.prototype = {
     constructor: Context,
 
-    reset: function reset() {
+    reset: function reset(skipTempReset) {
       this.prev = 0;
       this.next = 0;
       this.sent = undefined;
@@ -448,10 +466,13 @@ var _Promise = require("babel-runtime/core-js/promise")["default"];
 
       this.tryEntries.forEach(resetTryEntry);
 
-      // Pre-initialize at least 20 temporary variables to enable hidden
-      // class optimizations for simple generators.
-      for (var tempIndex = 0, tempName; hasOwn.call(this, tempName = "t" + tempIndex) || tempIndex < 20; ++tempIndex) {
-        this[tempName] = null;
+      if (!skipTempReset) {
+        for (var name in this) {
+          // Not sure about the optimal order of these conditions:
+          if (name.charAt(0) === "t" && hasOwn.call(this, name) && !isNaN(+name.slice(1))) {
+            this[name] = undefined;
+          }
+        }
       }
     },
 

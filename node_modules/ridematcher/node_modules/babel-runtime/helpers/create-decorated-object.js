@@ -13,7 +13,7 @@ exports["default"] = function (descriptors) {
     delete descriptor.decorators;
     descriptor.enumerable = true;
     descriptor.configurable = true;
-    descriptor.writable = true;
+    if ("value" in descriptor || descriptor.initializer) descriptor.writable = true;
 
     if (decorators) {
       for (var f = 0; f < decorators.length; f++) {

@@ -1,4 +1,8 @@
 
+## 0.2.0 — 2015—07-16
+
+* Add vanpool matching functionality.
+
 ## 0.1.0 — 2015-07-01
 
 * Precompile es6 with Babel before publishing
