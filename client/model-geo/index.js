@@ -55,7 +55,7 @@ module.exports = function (Model) {
    */
 
   Model.prototype.fuzzyCoordinate = function () {
-    var ll = this.coordinate()
+    var ll = this.coordinate() || {}
     return {
       lat: obscure(ll.lat),
       lng: obscure(ll.lng)
@@ -67,7 +67,7 @@ module.exports = function (Model) {
    */
 
   Model.prototype.validCoordinate = function () {
-    var c = this.coordinate()
+    var c = this.coordinate() || {}
     return c && !!c.lat && !!c.lng
   }
 }

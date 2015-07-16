@@ -7,16 +7,17 @@ module.exports = {
   addCommuters: addCommuters,
   forLocation: forLocation,
   forLocationMiddleware: forLocationMiddleware,
-  forCommuter: forCommuter
+  forCommuter: forCommuter,
+  remove: remove
 }
 
 function forLocationMiddleware (ctx, next) {
   if (!ctx.location || ctx.location === 'new') return next()
-  forLocation(ctx.location._id(), function (err, res) {
+  forLocation(ctx.location._id(), function (err, commuterLocations) {
     if (err) {
       next(err)
     } else {
-      ctx.commuters = res.body || []
+      ctx.commuterLocations = commuterLocations || []
       next()
     }
   })
@@ -29,11 +30,9 @@ function forLocation (_location, callback) {
       callback(err)
     } else {
       callback(null, (res.body || []).map(function (entry) {
-        return {
-          commuter: new Commuter(entry._commuter),
-          matches: entry.matches,
-          profile: entry.profile
-        }
+        entry._commuter = new Commuter(entry._commuter)
+        entry._location = new Location(entry._location)
+        return entry
       }))
     }
   })
@@ -68,4 +67,8 @@ function addCommuters (_location, commuters, callback) {
       callback(null, res.body)
     }
   })
+}
+
+function remove (_id, callback) {
+  request.del('/commuter-locations/' + _id, callback)
 }

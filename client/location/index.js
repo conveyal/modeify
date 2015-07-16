@@ -18,6 +18,7 @@ var Location = module.exports = model('Location')
   .attr('name')
 
 Location.load = function (ctx, next) {
+  log('loading %s', ctx.params.location)
   if (ctx.params.location === 'new') return next()
 
   Location.get(ctx.params.location, function (err, location) {

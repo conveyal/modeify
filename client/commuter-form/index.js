@@ -25,12 +25,18 @@ module.exports = function (ctx, next) {
   debug('render')
 
   if (ctx.commuter) {
-    ctx.view = new View(ctx.commuter)
+    ctx.view = new View(ctx.commuter, {
+      location: ctx.location,
+      organization: ctx.organization
+    })
     ctx.view.organization = ctx.organization
   } else {
     ctx.view = new View(new Commuter({
       _organization: ctx.params.organization
-    }))
+    }), {
+      location: ctx.location,
+      organization: ctx.organization
+    })
   }
 
   next()
@@ -69,8 +75,8 @@ View.prototype.email = function () {
 View.prototype.back = function () {
   var m = this.model
   var org = m._organization()
-  return m.isNew() ? '/manager/organizations/' + org + '/show' :
-    '/manager/organizations/' + org + '/commuters/' + m._id() + '/show'
+  return m.isNew() ? '/manager/organizations/' + org + '/locations/' + this.options.location._id() + '/show' :
+    '/manager/organizations/' + org + '/locations/' + this.options.location._id() + '/show'
 }
 
 /**
@@ -93,6 +99,11 @@ View.prototype.save = function (e) {
   data.labels = data.labels.map(function (label) {
     return label.trim()
   })
+
+  if (this.options.location) {
+    data._location = this.options.location._id()
+  }
+
   data.zip = parseInt(data.zip, 10)
 
   // set the email address

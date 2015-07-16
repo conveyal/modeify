@@ -15,7 +15,7 @@ var View = view(require('./template.html'))
 module.exports = function (ctx, next) {
   log('render')
 
-  ctx.location.commuters = ctx.commuters
+  ctx.location.commuterLocations = ctx.commuterLocations
   ctx.view = new View(ctx.location)
   ctx.view.on('rendered', function (view) {
     var m = map(view.find('.map'), {
@@ -24,14 +24,16 @@ module.exports = function (ctx, next) {
     })
     m.addLayer(ctx.location.mapMarker())
 
-    if (ctx.commuters.length > 0) {
+    if (ctx.location.commuterLocations.length > 0) {
       var cluster = new window.L.MarkerClusterGroup()
-      ctx.commuters.forEach(function (commuter) {
-        cluster.addLayer(commuter.mapMarker())
+      ctx.location.commuterLocations.forEach(function (cl) {
+        if (cl._commuter.validCoordinate()) cluster.addLayer(cl._commuter.mapMarker())
       })
 
-      m.addLayer(cluster)
-      m.fitLayers([m.featureLayer, cluster])
+      if (cluster.getBounds()._northEast) {
+        m.addLayer(cluster)
+        m.fitLayers([cluster, m.featureLayer])
+      }
     }
   })
 
@@ -41,16 +43,38 @@ module.exports = function (ctx, next) {
 var CommuterRow = view(require('./commuter.html'))
 
 CommuterRow.prototype.status = function () {
-  var status = this.model.status
-  var label = this.model.statusLabel()
+  var commuter = this.model._commuter
+  var status = commuter.status() || ' '
+  var label = commuter.statusLabel() || 'default'
   return '<span class="label label-' + label + '">' + status + '</span>'
 }
 
-View.prototype.commuterCount = function () {
-  return this.model.commuters.length
+CommuterRow.prototype.name = function () {
+  var user = this.model._commuter._user()
+  if (user && user.email) {
+    return user.email
+  } else {
+    return this.model.name()
+  }
 }
 
-View.prototype['commuters-view'] = function () {
+CommuterRow.prototype.remove = function () {
+  var self = this
+  CommuterLocation.remove(this.model._id, function (err) {
+    if (err) {
+      console.error(err)
+      window.alert(err)
+    } else {
+      self.el.remove()
+    }
+  })
+}
+
+View.prototype.commuterCount = function () {
+  return this.model.commuterLocations.length
+}
+
+View.prototype['commuterLocations-view'] = function () {
   return CommuterRow
 }
 
