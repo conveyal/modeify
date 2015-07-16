@@ -50,7 +50,7 @@ var View = view(require('./template.html'), function (view, model) {
         distance: parseFloat(haversine(from.lat, from.lng, to.lat, to.lng, true).toFixed(2)),
         mode: profile.modes.join(', '),
         score: profile.score,
-        time: profile.time / 60,
+        time: parseInt(profile.time / 60, 10),
         matches: matches.length
       }
     })
