@@ -1,0 +1,18 @@
+{
+  "name": "names",
+  "version": "0.0.2",
+  "description": "Generate random names.",
+  "keywords": [
+    "random",
+    "name",
+    "generator"
+  ],
+  "scripts": [
+    "index.js",
+    "lib/names.js",
+    "lib/fore.js",
+    "lib/sur.js"
+  ],
+  "repository": "trevorgerhardt/names",
+  "resolved": "e4beb88b8de26c6f4b7f19c482b2d802055954d0"
+}

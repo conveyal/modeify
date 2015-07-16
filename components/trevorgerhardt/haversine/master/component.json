@@ -1,0 +1,15 @@
+{
+  "name": "haversine",
+  "description": "Calculate haversine distance",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "repository": "trevorgerhardt/haversine",
+  "resolved": "15b96203dd3b129a532aaf3e267a0e6cfcd8a9ab"
+}

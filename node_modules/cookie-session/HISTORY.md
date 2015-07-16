@@ -1,3 +1,14 @@
+1.2.0 / 2015-07-01
+==================
+
+  * Make `isNew` non-enumerable and non-writeable
+  * Make `req.sessionOptions` a shallow clone to override per-request
+  * deps: debug@~2.2.0
+    - Fix high intensity foreground color for bold
+    - deps: ms@0.7.0
+  * perf: enable strict mode
+  * perf: remove argument reassignments
+
 1.1.0 / 2014-11-09
 ==================
 

@@ -1,0 +1,10 @@
+{
+  "name": "fake-commuters",
+  "dependencies": {
+    "davidbau/seedrandom": "*",
+    "trevorgerhardt/names": "*"
+  },
+  "scripts": [
+    "index.js"
+  ]
+}

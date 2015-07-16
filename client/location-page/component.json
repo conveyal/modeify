@@ -1,0 +1,30 @@
+{
+  "name": "location-page",
+  "dependencies": {
+    "component/each": "*",
+    "component/domify": "*",
+    "component/file": "0.1.1",
+    "component/file-picker": "0.2.0",
+    "component/value": "*",
+    "trevorgerhardt/csv-to-array": "0.0.1",
+    "visionmedia/page.js": "*"
+  },
+  "local": [
+    "alerts",
+    "commuter-location",
+    "log",
+    "map",
+    "request",
+    "spinner",
+    "view"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "commuter-confirm-input.html",
+    "commuter-confirm-modal.html",
+    "commuter.html",
+    "template.html"
+  ]
+}

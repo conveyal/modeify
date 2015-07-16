@@ -1,0 +1,11 @@
+{
+  "name": "modeify-icons.css",
+  "description": "Icons for Modeify",
+  "version": "0.0.1",
+  "license": "MIT",
+  "styles": [
+    "icons.css"
+  ],
+  "repository": "conveyal/modeify-icons.css",
+  "resolved": "51e2a650a852d52038cef88c9ff8dab5c79b16a9"
+}

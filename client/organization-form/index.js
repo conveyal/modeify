@@ -1,7 +1,3 @@
-/**
- * Dependencies
- */
-
 var alerts = require('alerts')
 var config = require('config')
 var debug = require('debug')(config.name() + ':organization-form')

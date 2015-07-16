@@ -1,6 +1,7 @@
 {
   "name": "manager-app",
   "dependencies": {
+    "conveyal/modeify-icons.css": "*",
     "ianstormtaylor/on-load": "0.0.2",
     "visionmedia/page.js": "*"
   },

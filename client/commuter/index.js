@@ -24,6 +24,7 @@ var Commuter = module.exports = model('Commuter')
   .use(require('model-memoize'))
   .route(config.api_url() + '/commuters')
   .attr('_id')
+  .attr('_location')
   .attr('_organization')
   .attr('_user')
   .attr('anonymous')
@@ -81,9 +82,9 @@ Commuter.confirmEmail = function (ctx, next) {
 
   request.get('/users/confirm-email/' + key, function (err, res) {
     if (err || !res.ok) {
-      window.alert(res.text || err.message) // eslint-disable-line no-alert
+      window.alert(res.text || err.message)
     } else {
-      window.alert('Email confirmed!') // eslint-disable-line no-alert
+      window.alert('Email confirmed!')
     }
     next()
   })
