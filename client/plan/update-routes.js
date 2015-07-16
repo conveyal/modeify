@@ -60,8 +60,8 @@ function updateRoutes(plan, opts, callback) {
   var scorer = plan.scorer();
 
   otp.plan(query, function(err, data) {
-      var planData = {options: []},
-      itineraries = data.plan.itineraries;
+      var planData,
+      itineraries;
 
     if (err || !data || !data.plan) {
       plan.set({
@@ -72,6 +72,8 @@ function updateRoutes(plan, opts, callback) {
       });
       done(err, data);
     } else {
+      var planData = {options: []},
+      itineraries = data.plan.itineraries;
       // Track the commute
       analytics.track('Found Route', {
         plan: '',
@@ -85,16 +87,51 @@ function updateRoutes(plan, opts, callback) {
 	value: 1
       });
 
+	var legs;
+	var fare;
+	var timeInTransit;
+	var bikeTime;
+	var bikeDistance;
+	var walkTime;
+	var walkDistance;
 	for (var i = 0; i < itineraries.length; i++) {
+	    legs = itineraries[i].legs;
+	    timeInTransit = 0;
+	    bikeTime = 0;
+	    bikeDistance = 0;
+	    walkTime = 0;
+	    walkDistance = 0;
+	    for (var j = 0; j < legs.length; j++) {
+		if (legs[j].transitLeg) {
+		    timeInTransit += legs[j].duration;
+		} else {
+		    if (legs[j].mode === 'BICYCLE') {
+			bikeTime += legs[j].duration;
+			bikeDistance += legs[j].distance;
+		    } else if (legs[j].mode === 'WALK') {
+			walkTime += legs[j].duration;
+			walkDistance += legs[j].distance;
+		    }
+		}
+	    }
+	    fare = (itineraries[i].fare ? itineraries[i].fare.fare.regular.cents : 0);
 	    planData.options.push(
 		new Route({
 		    from: data.plan.from.name,
 		    to: data.plan.to.name,
+		    time: timeInTransit + bikeTime + walkTime,
+		    timeInTransit: timeInTransit / 60,
+		    cost: fare / 100,
+		    transitCost: fare / 100,
+		    bikeTime: bikeTime,
+		    bikeDistance: bikeDistance,
+		    walkDistance: walkDistance,
+		    walkTime: walkTime,
 		    plan: itineraries[i]
 		})
 	    );
         }
-	plan.set(planData);
+	plan.set({options: planData.options, journey: data.journey});
 	done(null, data);
 	return;
 

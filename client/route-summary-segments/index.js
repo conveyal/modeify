@@ -5,14 +5,13 @@ var transitive = require('transitive');
 var template = hogan.compile(require('./template.html'));
 
 module.exports = function(route, opts) {
-    console.log(route);
   opts = opts || {};
 
     function isTransit(mode) {
         return (mode !== 'WALK' && mode !== 'CAR' && mode !== 'BICYCLE');
     }
 
-  var segments = [];
+/*  var segments = [];
     var legs = route.attrs.plan.legs;
     for (var i = 0; i < legs.length; i++) {
 	if (!isTransit(legs[i].mode) && (i + 1) < legs.length && i > 0) {
@@ -36,8 +35,22 @@ module.exports = function(route, opts) {
   var accessModeIcon = convert.modeToIcon(accessMode);
   var egress = route.egress();
   var transitSegments = route.transit();
+*/
 
-  if (transitSegments.length < 1 && accessMode === 'car') {
+  var legs = route.plan().legs;
+  var accessMode = legs[0].mode.toLowerCase();
+  var accessModeIcon = convert.modeToIcon(accessMode);
+  var egress = legs[legs.length - 1];
+  var segments = [];
+  var transitLegs = [];
+
+  for (var i = 0; i < legs.length; i++) {
+    if (isTransit(legs[i].mode)) {
+      transitLegs.push(legs[i]);
+    }
+  }
+
+  if (transitLegs.length < 1 && accessMode === 'car') {
     accessModeIcon = convert.modeToIcon('carshare');
   }
 
@@ -49,7 +62,43 @@ module.exports = function(route, opts) {
     svg: true
   });
 
-  segments = segments.concat(transitSegments.map(function(segment) {
+  segments = segments.concat(transitLegs.map(function (leg) {
+    var background = '#333';
+    var name = leg.routeShortName;
+
+    if (!leg.routeShortName) {
+      if (leg.agencyId === 'caltrain-ca-us') {
+        switch (leg.routeId) {
+          case 'Bu-121':
+            name = 'BUL';
+            break;
+          case 'Lo-121':
+            name = 'LOC';
+            break;
+          case 'Li-121':
+            name = 'LIM';
+            break;
+          case 'TaSj-121':
+            name = 'TSJ';
+            break;
+        }
+      } else if (leg.agencyId === '123') {
+        name = '123';
+      } else {
+        name = 'BAR';
+      }
+    }
+
+    return {
+      background: background,
+      mode: convert.modeToIcon(leg.mode),
+      inline: !!opts.inline,
+      small: !!opts.small,
+      name: name
+    }
+  }));
+
+/*  segments = segments.concat(transitSegments.map(function(segment) {
     var patterns = segment.segmentPatterns.filter(patternFilter('color'));
     var background = patterns[0].color;
     var longNamePatterns = segment.segmentPatterns.filter(patternFilter('longName')),
@@ -81,9 +130,9 @@ module.exports = function(route, opts) {
       name: patterns[0].shield
     };
   }));
-
-  if (egress && egress.length > 0) {
-    var egressMode = egress[0].mode.toLowerCase();
+*/
+  if (egress) {
+    var egressMode = egress.mode.toLowerCase();
     if (egressMode !== 'walk') {
       segments.push({
         mode: convert.modeToIcon(egressMode),

@@ -29,7 +29,7 @@ module.exports = function walkthrough() {
       intro: 'Let\'s take a look at how to use ' + config.application() + '!'
     }, {
       element: document.querySelector('#locations-form'),
-      intro: 'Here you can change your start and end locations, the day and time you typically travel, and the travel modes you\'d like to see.',
+      intro: 'Here you can change your start and end locations and the travel modes you\'d like to see.',
       position: 'bottom'
     }, {
       element: document.querySelector('.Options'),

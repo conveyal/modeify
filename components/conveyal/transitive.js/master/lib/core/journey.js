@@ -93,6 +93,7 @@ function Journey(data, network) {
         pathSegment.streetEdges = streetEdges;
       }
       pathSegment.points.push(getEndPoint(segmentInfo.to, network));
+
     }
     this.path.addSegment(pathSegment);
   }, this);

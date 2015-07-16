@@ -52,13 +52,26 @@ module.exports.plan = function (query, callback) {
         .get('/api/otp/plan')
         .query(query)
         .end(function(err, res) {
-            if (err || res.error || !res.ok) {
-                callback(err || res.error || res.text, res);
+            if (err || res.body.error || !res.ok) {
+                callback(err || res.body.error || res.text, res);
             } else {
-                callback(null, res.body);
+		profiler.journeyWithPlan(res.body, function(err, journey) {
+		    if (err) {
+			log.error('<-- error profiling', err);
+			callback(err, journey);
+		    } else {
+			log('<-- profiled %s options', res.body.length);
+			callback(null, {
+			    journey: journey,
+//			    options: data.options
+			    options: res.body,
+			    plan: res.body.plan
+			});
+//			callback(null, res.body);
+		    }
+		});
             }
         });
-
 };
 
 /**

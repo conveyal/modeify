@@ -16,6 +16,7 @@ var transitive = require('transitive');
 var ua = require('user-agent');
 var view = require('view');
 var showWelcomeWizard = require('welcome-flow');
+var showPlannerWalkthrough = require('planner-walkthrough');
 
 var FROM = config.geocode().start_address;
 var TO = config.geocode().end_address;
@@ -79,11 +80,17 @@ module.exports = function(ctx, next) {
     plan.clearStore();
 
     // If it's a shared URL or welcome is complete skip the welcome screen
-    if ((query.from && query.to) || session.commuter().profile().welcome_wizard_complete) {
+//    if ((query.from && query.to) || session.commuter().profile().welcome_wizard_complete) {
+    if ((query.from && query.to)) {
       showQuery(query);
     } else {
-      showWelcomeWizard(session);
+//	showPlannerWalkthrough();
+	plan.loading(false);
     }
+
+// else {
+//      showWelcomeWizard(session);
+//    }
   });
 
   plan.on('updating options', function() {
@@ -165,6 +172,10 @@ function showQuery(query) {
     });
     plan.updateRoutes();
   } else {
+      if (!plan.validCoordinates()) {
+	  plan.loading(false);
+	  return;
+      } else {
     // Set addresses and update the routes
     plan.setAddresses(from, to, function(err) {
       if (err) {
@@ -176,6 +187,7 @@ function showQuery(query) {
         plan.updateRoutes();
       }
     });
+}
   }
 }
 

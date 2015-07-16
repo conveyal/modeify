@@ -42,6 +42,7 @@ var Route = module.exports = model('Route')
   .attr('stats')
   .attr('summary')
   .attr('time')
+  .attr('timeInTransit')
   .attr('timeSavings')
   .attr('transfers')
   .attr('transitCost')
@@ -159,7 +160,7 @@ Route.prototype.freeflowTime = function() {
  * Time in transit
  */
 
-Route.prototype.timeInTransit = function() {
+/*Route.prototype.timeInTransit = function() {
   if (!this.hasTransit()) {
     return 0;
   } else {
@@ -168,7 +169,7 @@ Route.prototype.timeInTransit = function() {
     }, 0) / 60;
   }
 };
-
+*/
 /**
  * Shorthand helpers
  */
@@ -258,9 +259,11 @@ Route.prototype.transitCosts = function() {
 Route.prototype.totalCalories = function() {
   if (this.walkDistances() === 0 && this.bikeDistances() === 0) return 0;
 
-  var cals = walkingCaloriesBurned(this.walkSpeed(), this.weight(), this.walkDistance() / this.walkSpeed() / 60 / 60);
+//  var cals = walkingCaloriesBurned(this.walkSpeed(), this.weight(), this.walkDistances() / this.walkSpeed() / 60 / 60);
+  var cals = walkingCaloriesBurned(this.walkSpeed(), this.weight(), this.walkDistances() / this.walkSpeed());
   if (this.hasBiking()) {
-    cals += bikingCaloriesBurned(this.bikeSpeed(), this.weight(), this.bikeDistance() / this.bikeSpeed() / 60 / 60);
+//    cals += bikingCaloriesBurned(this.bikeSpeed(), this.weight(), this.bikeDistances() / this.bikeSpeed() / 60 / 60);
+    cals += bikingCaloriesBurned(this.bikeSpeed(), this.weight(), this.bikeDistances() / this.bikeSpeed());
   }
 
   return Math.round(cals);
@@ -339,14 +342,14 @@ Route.prototype.walkSpeedMph = function() {
  * Walk/bike time in minutes
  */
 
-Route.prototype.bikeTime = function() {
+/*Route.prototype.bikeTime = function() {
   return timeFromSpeedAndDistance(this.bikeSpeed(), this.bikeDistance());
 };
 
 Route.prototype.walkTime = function() {
   return timeFromSpeedAndDistance(this.walkSpeed(), this.walkDistance());
 };
-
+*/
 function timeFromSpeedAndDistance(s, d) {
   var t = d / s;
   if (t < 60) {

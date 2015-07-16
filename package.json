@@ -45,6 +45,7 @@
     "mocha": "^2.2.1",
     "myth": "^1.4.0",
     "nightmare": "^1.7.0",
+    "polyline-encoded": "0.0.7",
     "prompt": "^0.2.14",
     "should": "^5.2.0",
     "sqwish": "~0.2.2",

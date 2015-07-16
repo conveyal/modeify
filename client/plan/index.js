@@ -9,7 +9,6 @@ var model = require('model');
 var ProfileQuery = require('profile-query');
 var ProfileScorer = require('otp-profile-score');
 var qs = require('querystring');
-var mapView = require('map-view');
 
 var loadPlan = require('./load');
 var store = require('./store');
@@ -174,13 +173,12 @@ Plan.prototype.validCoordinates = function() {
  * Set Address
  */
 
-Plan.prototype.setAddress = function(name, address, callback) {
+Plan.prototype.setAddress = function(name, address, callback, extra) {
   callback = callback || function() {}; // noop callback
   var location = new Location();
   var plan = this;
   var c = address.split(',');
   var isCoordinate = c.length === 2 && !isNaN(parseFloat(c[0])) && !isNaN(parseFloat(c[1]));
-    var map = mapView.getMap();
 
   if (!address || address.length < 1) return callback();
 
@@ -192,10 +190,20 @@ Plan.prototype.setAddress = function(name, address, callback) {
   } else {
     location.address(address);
   }
-
   location.save(function(err, res) {
+  
     if (err) {
-      callback(err);
+	if (isCoordinate) {
+	    var changes = {};
+	    changes[name] = extra.display_name;
+	    changes[name + '_ll'] = location.coordinate();
+	    changes[name + '_valid'] = true;
+
+	    plan.set(changes);
+	    callback(null, extra);
+	} else {
+	    callback(err);
+	}
     } else {
       var changes = {};
       if (isCoordinate)
@@ -209,12 +217,6 @@ Plan.prototype.setAddress = function(name, address, callback) {
 
       plan.set(changes);
       callback(null, res.body);
-
-      if (name === 'from') {
-	  map.startMarker.setLatLng(res.body.coordinate);
-      } else {
-	  map.endMarker.setLatLng(res.body.coordinate);
-      }
     }
   });
 };
@@ -260,7 +262,7 @@ function toLowerCase(s) {
 }
 
 Plan.prototype.coordinateIsValid = function(c) {
-  return !!c && !!parseFloat(c.lat) && !!parseFloat(c.lng);
+  return !!c && !!parseFloat(c.lat) && !!parseFloat(c.lng) && parseFloat(c.lat) !== 0.0 && parseFloat(c.lng) !== 0.0;
 };
 
 /**
@@ -305,27 +307,21 @@ Plan.prototype.generateQuery = function() {
   var to = this.to_ll() || {};
 
   // Transit modes
-  var accessModes = ['WALK'];
-  var directModes = [];// = ['WALK'];
-  var egressModes = [];// = ['WALK','BICYCLE'];
-  var transitModes = [];
+  var modes = [];//['WALK'];
 
-  if (this.bike()) {
-    accessModes.push('BICYCLE');
-    directModes.push('BICYCLE');
-    egressModes.push('BICYCLE');
-  }
-  if (this.bikeShare()) {
-    accessModes.push('BICYCLE_RENT');
-    directModes.push('BICYCLE_RENT');
-    egressModes.push('BICYCLE_RENT');
-  }
-  if (this.bus()) directModes.push('BUSISH');
+  if (this.bikeShare()) modes.push('BICYCLE_RENT');
+
   if (this.car()) {
-    accessModes.push('CAR');
-    directModes.push('CAR');
+    modes.push('CAR');
   }
-  if (this.train()) directModes.push('TRAINISH');
+  if (this.bike()) {
+    modes.push('BICYCLE');
+  } else {
+    modes.push('WALK');
+  }
+  if (this.bus()) modes.push('BUSISH');
+  if (this.train()) modes.push('TRAINISH');
+  if (modes.length==0) modes.push('WALK');
 
   var startTime = this.start_time();
   var endTime = this.end_time();
@@ -336,33 +332,22 @@ Plan.prototype.generateQuery = function() {
   endTime = endTime === 24 ? '23:59' : endTime + ':00';
 
   return {
-//    accessModes: accessModes.join(','),
-//    bikeSafe: 1000,
-//    bikeSpeed: scorer.rates.bikeSpeed,
     date: this.nextDate(),
-    //mode: directModes.concat('TRANSIT').join(','),
-    mode: directModes.join(','),
-//    directModes: directModes.join(','),
-//    egressModes: egressModes.join(','),
-//    endTime: endTime,
-//    from: {
-//      lat: from.lat,
-//      lon: from.lng,
-//      name: 'From'
-//    },
-//    startTime: startTime,
+    mode: modes.join(','),
       time: startTime,
       fromPlace: (from.lat + ',' + from.lng),
       toPlace: (to.lat + ',' + to.lng),
-      numItineraries: 5
-//    to: {
-//      lat: to.lat,
-//      lon: to.lng,
-//      name: 'To'
-//    },
-//    limit: LIMIT,
-//    transitModes: transitModes.join(','),
-//    walkSpeed: scorer.rates.walkSpeed
+      numItineraries: 3,
+      maxWalkDistance: 20000,
+      bikeSpeed: 10,
+      bikeBoardCost: 15,
+      walkReluctance: 10,
+      clampInitialWait: 60,
+//      waitAtBeginningFactor: 0.5,
+      triangleSafetyFactor: 0.9,
+      triangleSlopeFactor: 0.5,
+      triangleTimeFactor: 0.9,
+      optimize: 'QUICK'
   };
 };
 

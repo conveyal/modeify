@@ -26,6 +26,7 @@
 }
 
 .FilterView > .mode-filters {
+  margin-top: 5px;
   display: inline-block;
 }
 
@@ -74,6 +75,7 @@
 }
 
 .submit {
+  margin-top: 5px;
   margin-left: 4px;
   width: 84px;
   height: 44px;

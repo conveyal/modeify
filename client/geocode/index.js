@@ -1,6 +1,9 @@
 var log = require('./client/log')('geocode');
 var get = require('./client/request').get;
 
+var southWest = [-123.099060058594, 36.745486924699];
+var northEast = [-121.192932128906, 38.182068998322];
+
 /**
  * Geocode
  */
@@ -60,9 +63,21 @@ function suggest(text, callback) {
 //      callback(null, res.body);
 	get('http://nominatim.openstreetmap.org/search' +
 	    '?format=json&addressdetails=1&' +
+	    'viewbox=' + southWest[0] + ',' +
+	    northEast[1] + ',' + northEast[0] + ',' + southWest[1] +
+	    '&bounded=1' +
 	    'countrycodes=us&q=' + text, function (err, nRes) {
-	    nominatimSuggestions = nRes.body;
-	    console.log(nominatimSuggestions.slice(0,2).concat(bingSuggestions.slice(0,3)));
+		var inside = false;
+	    nominatimSuggestions = [];
+            for (var i = 0; i < nRes.body.length; i++) {
+//		inside = inside && (nRes.body[i].lng > southWest[0]);
+//		inside = inside && (nRes.body[i].lng < northEast[0]);
+//		inside = inside && (nRes.body[i].lat > southWest[1]);
+//		inside = inside && (nRes.body[i].lat < northEast[1]);
+//		if (inside) {
+                    nominatimSuggestions.push(nRes.body[i]);
+//		}
+            }
 	    callback(
 		null,
 		nominatimSuggestions.slice(0,2).

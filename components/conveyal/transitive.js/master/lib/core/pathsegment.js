@@ -149,7 +149,7 @@ PathSegment.prototype.addPattern = function(pattern, fromIndex, toIndex) {
   if ((toIndex - fromIndex + 1) > this.points.length) {
     this.points = [];
     var lastStop = null;
-    for (var i = fromIndex; i <= toIndex; i++) {
+    for (var i = fromIndex; i <= toIndex && i < pattern.stops.length; i++) {
       var stop = pattern.stops[i];
       if (lastStop !== stop) this.points.push(stop);
       lastStop = stop;
