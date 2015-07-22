@@ -1,5 +1,8 @@
 {
   "name": "route-modal",
+   "dependencies": {
+    "twitter/hogan.js": "*"
+  },
   "local": [
     "analytics",
     "config",
@@ -19,6 +22,7 @@
     "style.css"
   ],
   "templates": [
-    "template.html"
+    "template.html",
+    "internal-matches.html"
   ]
 }

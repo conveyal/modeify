@@ -1,25 +1,20 @@
 {
-  "name": "organization-page",
+  "name": "ridepool-form",
   "dependencies": {
+    "trevorgerhardt/serialize": "*",
     "visionmedia/page.js": "*"
   },
-  "locals": [
+  "local": [
     "alerts",
-    "commuter",
+    "ridepool",
     "log",
-    "map",
     "organization",
-    "request",
-    "spinner",
     "view"
   ],
   "scripts": [
-    "index.js",
-    "view.js"
+    "index.js"
   ],
   "templates": [
-    "location.html",
-    "ridepool.html",
     "template.html"
   ]
 }

@@ -1,0 +1,26 @@
+<form>
+  <h3>{action} Ridepool <a class="btn btn-default pull-right" data-href="back"><i class="fa fa-arrow-left"></i> Back</a></h3>
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" name="name" placeholder="Name" data-value="name">
+  </div>
+  <div class="form-group">
+    <label for="type">Type</label>
+    <input type="text" class="form-control" name="type" placeholder="Type" data-value="type">
+  </div>
+  <div class="form-group">
+    <label for="visibility">Visibility</label>
+    <input type="text" class="form-control" name="visibility" placeholder="Visibility" data-value="visibility">
+  </div>
+  <div class="form-group">
+    <label for="from_lat">From Lat/Lon</label>
+    <input type="text" class="form-control" name="from_lat" data-value="from_lat">
+    <input type="text" class="form-control" name="from_lng" data-value="from_lng">
+  </div>
+  <div class="form-group">
+    <label for="from_lat">To Lat/Lon</label>
+    <input type="text" class="form-control" name="to_lat" data-value="to_lat">
+    <input type="text" class="form-control" name="to_lng" data-value="to_lng">
+  </div>
+  <button type="button" class="btn btn-primary" on-tap="save">{action}</button>
+</form>

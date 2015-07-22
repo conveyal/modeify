@@ -19,6 +19,12 @@ View.prototype['locations-view'] = function () {
   return LocationRow
 }
 
+var RidepoolRow = view(require('./ridepool.html'))
+
+View.prototype['ridepools-view'] = function () {
+  return RidepoolRow
+}
+
 /**
  * Destroy
  */

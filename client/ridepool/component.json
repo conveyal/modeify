@@ -1,0 +1,15 @@
+{
+  "name": "ridepool",
+  "dependencies": {
+    "component/model": "*"
+  },
+  "locals": [
+    "config",
+    "log",
+    "map",
+    "request"
+  ],
+  "scripts": [
+    "index.js"
+  ]
+}
