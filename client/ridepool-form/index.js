@@ -53,7 +53,7 @@ View.prototype.save = function (e) {
         type: 'success',
         text: text
       })
-      page('/manager/organizations/' + self.options.organization._id() + '/ridepools/' + self.model._id() + '/show')
+      page('/manager/organizations/' + self.options.organization._id() + '/show')
     }
   })
 }
