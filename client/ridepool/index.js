@@ -41,10 +41,12 @@ Ridepool.loadOrg = function (ctx, next) {
         log.info('ridepool loadOrg err ' + err)
         next(err)
       } else {
-        log.info('load org found %s ridepools(s)', res.body.length)
-        ctx.ridepools = res.body.map(function (l) {
-          return new Ridepool(l)
-        })
+        if(res.body) {
+          log.info('load org found %s ridepools(s)', res.body.length)
+          ctx.ridepools = res.body.map(function (l) {
+            return new Ridepool(l)
+          })
+        }
         next()
       }
     })
