@@ -1,0 +1,51 @@
+#!/usr/bin/env node
+
+require('../babelify')
+var names = require('names')
+var Commuter = require('../lib/commuter/model')
+var CommuterLocation = require('../lib/commuter-locations/model')
+
+var _location = '55b0ed104b281d23bb421a3a'
+var commuters = []
+var latMin = 38.85, latMultiple = 0.20
+var lonMin = -77.30, lonMultiple = 0.4
+
+for (var i = 0; i < 100; i++) {
+  commuters.push(new Promise(function (resolve, reject) {
+    Commuter
+      .generate( {
+        email: 'tgerhardt+modeifydev' + i + '@conveyal.com'
+      }, {
+        name: names(),
+        coordinate: {
+          lng: lonMin + Math.random() * lonMultiple,
+          lat: latMin + Math.random() * latMultiple
+        }
+      })
+      .then(function (commuter) {
+        if (!commuter.zip) {
+          return commuter.remove()
+        } else {
+          return CommuterLocation.create({
+            _commuter: commuter._id,
+            _location: _location
+          })
+        }
+      })
+      .then(resolve)
+      .catch(function (error) {
+        resolve({
+          message: 'Failed to create commuter',
+          error: error
+        })
+      })
+  }))
+}
+
+Promise.all(commuters).then(function (commuters) {
+  console.log('Created commuters', commuters)
+  process.exit(1)
+}).catch(function (err) {
+  console.error(err)
+  process.exit(0)
+})
