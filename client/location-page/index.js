@@ -51,9 +51,9 @@ CommuterRow.prototype.status = function () {
 CommuterRow.prototype.name = function () {
   var user = this.model._commuter._user()
   if (user && user.email) {
-    return user.email
+    return this.model._commuter.name() || user.email
   } else {
-    return this.model.name()
+    return this.model._commuter.name()
   }
 }
 
