@@ -123,7 +123,7 @@ View.prototype.profileAndMatch = function () {
     if (err) {
       window.alert('Failed to profile commuters.')
     } else {
-      window.alert('Profiling commuters.')
+      window.alert('Profiling commuters. Please come back in a few minutes to see the results.')
     }
   })
 }
