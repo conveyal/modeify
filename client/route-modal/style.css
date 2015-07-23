@@ -8,8 +8,11 @@
   margin: 15px 0;
 }
 
-.RouteModal-externalMatches {
-  margin: 10px 0 20px;
+.RouteModal-rideshareMatches {
+  margin: 10px 0 10px;
+  padding: 8px;
+  background-color: #eee;
+  border-radius: 5px;
 }
 
 .RouteModal-commuterConnectionsLogo {

@@ -22,4 +22,22 @@
       <tbody data-each="locations"></tbody>
     </table>
   </div>
+  <div class="col-sm-12">
+    <h3>Carpools/Vanpools <span class="label label-primary">{ridepoolCount}</span>
+      <button class="btn btn-info pull-right" on-tap="ridepoolCSV"><i class="fa fa-upload"></i> CSV</button>
+      <a class="btn btn-success pull-right" href="/manager/organizations/{_id}/ridepools/new"><i class="fa fa-plus"></i> Add</a></h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Origin</th>
+          <th>Destination</th>
+          <th>Type</th>
+          <th>Visibility</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody data-each="ridepools"></tbody>
+    </table>
+  </div>
 </div>
