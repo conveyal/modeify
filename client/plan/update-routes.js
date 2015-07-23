@@ -137,6 +137,29 @@ function updateRoutes (plan, opts, callback) {
         }, 100)
       }
     })
+
+  request
+    .get('/carpool/internal-matches', {
+      from: from_ll.lng + ',' + from_ll.lat,
+      to: to_ll.lng + ',' + to_ll.lat
+    }, function (err, res) {
+      if (err) {
+        log.info('error finding internal matches: %e', err)
+      } else {
+        var waitForOtp = setInterval(function () {
+          if (driveOption) {
+            clearInterval(waitForOtp)
+            if(res.body.length > 0) {
+              driveOption.internalCarpoolMatches({
+                matches: res.body
+              })
+            }
+            log.info('set internal carpool matches')
+          }
+        }, 100)
+      }
+    })
+
 }
 
 /**

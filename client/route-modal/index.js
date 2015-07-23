@@ -7,6 +7,7 @@ var RouteResourcesView = require('route-resources-view')
 var routeSummarySegments = require('route-summary-segments')
 var session = require('session')
 var SignUpForm = require('sign-up-form')
+var hogan = require('hogan.js')
 
 /**
  * Create `Modal`
@@ -84,3 +85,10 @@ RouteModal.prototype.nextButtonText = function () {
       return 'Return to my options'
   }
 }
+
+var intMatchesTemplate = hogan.compile(require('./internal-matches.html'))
+
+RouteModal.prototype.internalMatches = function () {
+  return intMatchesTemplate.render(this.model.get('internalCarpoolMatches'))
+}
+

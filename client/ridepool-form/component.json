@@ -1,0 +1,20 @@
+{
+  "name": "ridepool-form",
+  "dependencies": {
+    "trevorgerhardt/serialize": "*",
+    "visionmedia/page.js": "*"
+  },
+  "local": [
+    "alerts",
+    "ridepool",
+    "log",
+    "organization",
+    "view"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}
