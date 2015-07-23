@@ -3,6 +3,10 @@ var log = require('./client/log')('organization-page:view')
 var page = require('page')
 var view = require('view')
 var request = require('request')
+var spin = require('spinner')
+var file = require('file')
+var filePicker = require('file-picker')
+var csvToArray = require('csv-to-array')
 
 /**
  * Expose `View`
@@ -38,6 +42,34 @@ RidepoolRow.prototype.remove = function () {
 
 View.prototype['ridepools-view'] = function () {
   return RidepoolRow
+}
+
+View.prototype.ridepoolCSV = function (e) {
+  var view = this
+  var spinner = spin()
+  filePicker({
+    accept: ['.csv']
+  }, function (files) {
+    var csv = file(files[0])
+    csv.toText(function (err, text) {
+      if (err) log.error(err)
+      spinner.remove()
+
+      var ridepools = csvToArray(text)
+      ridepools = ridepools.map(function(ridepool) {
+        ridepool.created_by = view.model.get('_id')
+        return ridepool
+      })
+
+      request.post('/ridepools/batch', ridepools, function (err, res) {
+        if (err) {
+          alert('Error uploading: ' + err)
+        } else {
+          page('/manager/organizations/' + view.model.get('_id') + '/show')
+        }
+      })
+    })
+  })
 }
 
 /**
