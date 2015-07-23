@@ -38,22 +38,26 @@ var View = view(require('./template.html'), function (view, model) {
   var scorer = new ProfileScorer()
 
   view.on('rendered', function () {
-    var profiles = model.commuterLocations.map(function (cl) {
-      var profile = scorer.processOptions(JSON.parse(cl.profile).options)[0]
-      var matches = cl.matches || []
-      var to = cl._location.coordinate()
-      var from = cl._commuter.coordinate()
-      return {
-        commuter: cl._commuter._user().email,
-        calories: parseInt(profile.calories, 10),
-        cost: profile.cost,
-        distance: parseFloat(haversine(from.lat, from.lng, to.lat, to.lng, true).toFixed(2)),
-        mode: profile.modes.join(', '),
-        score: profile.score,
-        time: parseInt(profile.time / 60, 10),
-        matches: matches.length
-      }
-    })
+    var profiles = model.commuterLocations
+      .filter(function (cl) {
+        return !!cl.profile
+      })
+      .map(function (cl) {
+        var profile = scorer.processOptions(JSON.parse(cl.profile).options)[0]
+        var matches = cl.matches || []
+        var to = cl._location.coordinate()
+        var from = cl._commuter.coordinate()
+        return {
+          commuter: cl._commuter.name() || cl._commuter._user().email,
+          calories: parseInt(profile.calories, 10),
+          cost: profile.cost.toFixed(2),
+          distance: parseFloat(haversine(from.lat, from.lng, to.lat, to.lng, true).toFixed(2)),
+          mode: profile.modes.join(', '),
+          score: profile.score,
+          time: parseInt(profile.time / 60, 10),
+          matches: matches.length
+        }
+      })
 
     var ndx = crossfilter(profiles)
     var bar = dc.barChart('.time-bar-chart')
@@ -105,7 +109,7 @@ var View = view(require('./template.html'), function (view, model) {
     var $distanceAvg = view.find('#distanceAverage')
 
     var costAvg = profiles.reduce(function (total, p) {
-      return total + p.cost
+      return total + parseFloat(p.cost)
     }, 0) / profiles.length
     var distAvg = profiles.reduce(function (total, p) {
       return total + p.distance
@@ -114,7 +118,7 @@ var View = view(require('./template.html'), function (view, model) {
       return total + p.time
     }, 0) / profiles.length
 
-    $costAvg.textContent = '$' + costAvg
+    $costAvg.textContent = '$' + costAvg.toFixed(2)
     $costPYAvg.textContent = '$' + parseInt(costAvg * 470, 10)
     $timeAvg.textContent = parseInt(timeAvg, 10) + ' min'
     $distanceAvg.textContent = distAvg.toFixed(2) + ' mi'
