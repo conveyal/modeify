@@ -19,7 +19,7 @@ lib-cov
 .DS_Store
 .env
 
-# node_modules
+node_modules
 **/build/Makefile
 **/build/*.Makefile
 **/bson/build
