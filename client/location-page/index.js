@@ -128,6 +128,17 @@ View.prototype.profileAndMatch = function () {
   })
 }
 
+View.prototype.sendPlansAndMatches = function () {
+  this.model.sendPlansAndMatches(function (err) {
+    if (err) {
+      console.error(err)
+      window.alert('Failed to send plans.')
+    } else {
+      window.alert('Sending plans to your commuters. They should arrive shortly!')
+    }
+  })
+}
+
 /**
  * Inputs
  */

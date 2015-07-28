@@ -68,3 +68,15 @@ Location.prototype.profileAndMatch = function (callback) {
       }
     })
 }
+
+Location.prototype.sendProfilesAndMatches = function (callback) {
+  request.get('/commuter-locations/send-profiles-and-matches', {
+    _location: this._id()
+  }, function (err, res) {
+    if (err) {
+      callback(err)
+    } else {
+      callback(null, res.text)
+    }
+  })
+}
