@@ -13,6 +13,7 @@
   },
   "local": [
     "analytics",
+    "commuter-location",
     "convert",
     "geocode",
     "journey",

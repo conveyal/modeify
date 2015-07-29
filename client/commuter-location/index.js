@@ -40,16 +40,14 @@ function forLocation (_location, callback) {
 }
 
 function forCommuter (_commuter, callback) {
+  log('loading locations for commuter %s', _commuter)
   request.get('/commuter-locations/', { _commuter: _commuter }, function (err, res) {
     if (err) {
       callback(err)
     } else {
       callback(null, (res.body || []).map(function (entry) {
-        return {
-          location: new Location(entry._location),
-          matches: entry.matches,
-          profile: entry.profile
-        }
+        entry._location = new Location(entry._location)
+        return entry
       }))
     }
   })

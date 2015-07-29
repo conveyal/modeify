@@ -1,4 +1,5 @@
 var analytics = require('analytics')
+var CommuterLocation = require('commuter-location')
 var convert = require('convert')
 var log = require('./client/log')('plan:update-routes')
 var message = require('./client/messages')('plan:update-routes')
@@ -7,6 +8,7 @@ var profileFilter = require('profile-filter')
 var profileFormatter = require('profile-formatter')
 var request = require('request')
 var Route = require('route')
+var session = require('session')
 
 /**
  * Expose `updateRoutes`
@@ -149,7 +151,7 @@ function updateRoutes (plan, opts, callback) {
         var waitForOtp = setInterval(function () {
           if (driveOption) {
             clearInterval(waitForOtp)
-            if(res.body.length > 0) {
+            if (res.body.length > 0) {
               driveOption.internalCarpoolMatches({
                 matches: res.body
               })
@@ -160,6 +162,10 @@ function updateRoutes (plan, opts, callback) {
       }
     })
 
+  CommuterLocation.forCommuter(session.commuter()._id(), function (err, cls) {
+    console.error(err)
+    console.log(cls)
+  })
 }
 
 /**
