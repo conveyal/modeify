@@ -25,14 +25,12 @@
 
   <div class="row">
     <div class="form-group col-md-6">
-      <label for="from_lat">From Lat/Lon</label>
-      <input type="text" class="form-control" name="from_lat" data-value="from_lat">
-      <input type="text" class="form-control" name="from_lng" data-value="from_lng">
+      <label for="from">Origin</label>
+      <select class="form-control" id="from-locations" name="from"></select>
     </div>
     <div class="form-group col-md-6">
-      <label for="from_lat">To Lat/Lon</label>
-      <input type="text" class="form-control" name="to_lat" data-value="to_lat">
-      <input type="text" class="form-control" name="to_lng" data-value="to_lng">
+      <label for="to">Destination</label>
+      <select class="form-control" id="to-locations" name="to"></select>
     </div>
   </div>
   <button type="button" class="btn btn-primary" on-tap="save">{action}</button>

@@ -9,8 +9,19 @@ var View = require('./view')
 module.exports = function (ctx, next) {
   log('attach view')
 
+  // create lookup table mapping location IDs -> names
   ctx.organization.locations = ctx.locations
-  ctx.organization.ridepools = ctx.ridepools
+  var locationNames = {}
+  ctx.locations.forEach(function(location) {
+    locationNames[location.get('_id')] = location.get('name')
+  })
+
+  ctx.organization.ridepools = ctx.ridepools.map(function(ridepool){
+    var fromId = ridepool.get('from'), toId = ridepool.get('to')
+    ridepool.from_name = locationNames[ridepool.get('from')]
+    ridepool.to_name = locationNames[ridepool.get('to')]
+    return ridepool
+  })
 
   ctx.view = window.view = new View(ctx.organization)
   ctx.view.on('rendered', function () {

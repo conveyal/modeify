@@ -4,6 +4,7 @@ var log = require('log')('ridepool-form')
 var page = require('page')
 var serialize = require('serialize')
 var view = require('view')
+var Location = require('location')
 
 var View = view(require('./template.html'))
 
@@ -17,6 +18,8 @@ module.exports = function (ctx, next) {
   ctx.view = new View(ctx.ridepool || new Ridepool(), {
     organization: ctx.organization
   })
+
+  ctx.view.refreshLocations()
 
   next()
 }
@@ -39,7 +42,6 @@ View.prototype.save = function (e) {
 
   this.model.set(serialize(this.el))
   this.model.created_by(this.options.organization._id())
-
   var text = this.model.isNew() ? 'Created new ridepool.' : 'Saved changes to ridepool.'
   var self = this
   this.model.save(function (err) {
@@ -56,4 +58,25 @@ View.prototype.save = function (e) {
       page('/manager/organizations/' + self.options.organization._id() + '/show')
     }
   })
+}
+
+View.prototype.refreshLocations = function (e) {
+  var view = this
+  var ctx = {
+    params : { organization : this.options.organization.get('_id') }
+  }
+  Location.loadOrg(ctx, function(err) {
+    ctx.locations.forEach(function(location) {
+      document.getElementById('from-locations').appendChild(getOption(location, view.model.get('from')))
+      document.getElementById('to-locations').appendChild(getOption(location, view.model.get('to')))
+    })
+  })
+}
+
+function getOption(location, idToSelect) {
+  var option = document.createElement('option')
+  option.text = location.get('name')
+  option.value = location.get('_id')
+  if(location.get('_id') === idToSelect) option.selected = true;
+  return option
 }
