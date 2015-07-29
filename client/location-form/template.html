@@ -1,5 +1,11 @@
 <form>
-  <h3>{action} Location <a class="btn btn-default pull-right" data-href="back"><i class="fa fa-arrow-left"></i> Back</a></h3>
+  <ol class="breadcrumb">
+    <li><a href="/manager/">Manager</a></li>
+    <li><a href="/manager/organizations">Organizations</a></li>
+    <li><a href="/manager/organizations/{organizationId}/show">{organizationName}</a></li>
+    <li class="active">{action} Location</li>
+  </ol>
+  <h3>{action} Location</h3>
   <div class="form-group">
     <label for="name">Name</label>
     <input type="text" class="form-control" name="name" placeholder="Name" data-value="name">

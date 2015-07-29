@@ -28,9 +28,13 @@ View.prototype.action = function () {
   return this.model.isNew() ? 'Create' : 'Edit'
 }
 
-View.prototype.back = function () {
-  var prefix = '/manager/organizations/' + this.options.organization._id()
-  return prefix + (this.model.isNew() ? '/show' : '/ridepools/' + this.model._id() + '/show')
+
+View.prototype.organizationId = function () {
+  return this.options.organization.get('_id')
+}
+
+View.prototype.organizationName = function () {
+  return this.options.organization.get('name')
 }
 
 /**

@@ -16,7 +16,9 @@ module.exports = function (ctx, next) {
   log('render')
 
   ctx.location.commuterLocations = ctx.commuterLocations
-  ctx.view = new View(ctx.location)
+  ctx.view = new View(ctx.location, {
+    organization : ctx.organization
+  })
   ctx.view.on('rendered', function (view) {
     var m = map(view.find('.map'), {
       center: ctx.location.coordinate(),
@@ -83,6 +85,10 @@ CommuterRow.prototype.sendProfileAndMatches = function () {
 
 View.prototype.commuterCount = function () {
   return this.model.commuterLocations.length
+}
+
+View.prototype.organizationName = function () {
+  return this.options.organization.get('name')
 }
 
 View.prototype['commuterLocations-view'] = function () {

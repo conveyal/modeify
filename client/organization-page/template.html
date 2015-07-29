@@ -1,8 +1,12 @@
 <div class="row">
   <div class="col-sm-12">
+    <ol class="breadcrumb">
+      <li><a href="/manager/organizations">Manager</a></li>
+      <li><a href="/manager/">Organizations</a></li>
+      <li class="active">{name}</li>
+    </ol>
     <h3>
       <i class="fa fa-building-o"></i> {name}
-      <a class="btn btn-default pull-right" href="/manager/organizations"><i class="fa fa-arrow-left"></i> Back</a>
       <a class="btn btn-warning pull-right" href="/manager/organizations/{_id}/edit"><i class="fa fa-pencil"></i> Edit</a>
     </h3>
     <p>{contact} — <a href="mailto:{email}">{email}</a></p>
