@@ -69,6 +69,18 @@ CommuterRow.prototype.remove = function () {
   })
 }
 
+CommuterRow.prototype.sendProfileAndMatches = function () {
+  var name = this.model._commuter.name() || this.model._commuter._user().email
+  CommuterLocation.sendProfileAndMatches(this.model._id, function (err) {
+    if (err) {
+      console.error(err)
+      window.alert(err)
+    } else {
+      window.alert('Commute profile and plans have been sent to ' + name + '!')
+    }
+  })
+}
+
 View.prototype.commuterCount = function () {
   return this.model.commuterLocations.length
 }

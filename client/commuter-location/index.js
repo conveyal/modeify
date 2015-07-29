@@ -8,7 +8,8 @@ module.exports = {
   forLocation: forLocation,
   forLocationMiddleware: forLocationMiddleware,
   forCommuter: forCommuter,
-  remove: remove
+  remove: remove,
+  sendProfileAndMatches: sendProfileAndMatches
 }
 
 function forLocationMiddleware (ctx, next) {
@@ -71,4 +72,8 @@ function addCommuters (_location, commuters, callback) {
 
 function remove (_id, callback) {
   request.del('/commuter-locations/' + _id, callback)
+}
+
+function sendProfileAndMatches (_id, callback) {
+  request.get('/commuter-locations/' + _id + '/send-profile-and-matches', callback)
 }

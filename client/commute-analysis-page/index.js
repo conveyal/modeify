@@ -40,6 +40,9 @@ var View = view(require('./template.html'), function (view, model) {
   view.on('rendered', function () {
     var profiles = model.commuterLocations
       .filter(function (cl) {
+        if (!cl.profile) {
+          console.log(cl)
+        }
         return !!cl.profile
       })
       .map(function (cl) {
