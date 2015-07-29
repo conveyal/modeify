@@ -7,7 +7,7 @@ Install & configure the [aws](http://docs.aws.amazon.com/cli/latest/reference/) 
 Configure your S3 buckets per environment in `deployment/config.yaml`.
 
 ```bash
-modeify $ bin/deploy-assets staging
+modeify $ NODE_ENV=environment make sync
 ```
 
 This builds the client files for staging & syncs the `assets` folder with your specified S3 bucket.
