@@ -15,10 +15,8 @@ var Ridepool = module.exports = model('Ridepool')
   .attr('name')
   .attr('type')
   .attr('visibility')
-  .attr('from_lat')
-  .attr('from_lng')
-  .attr('to_lat')
-  .attr('to_lng')
+  .attr('from')
+  .attr('to')
 
 Ridepool.load = function (ctx, next) {
   if (ctx.params.ridepool === 'new') return next()
