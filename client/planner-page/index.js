@@ -183,6 +183,7 @@ function showQuery (query) {
  */
 
 function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
+  var matchedFeatures = null
   // Register plan update events
   plan.on('change journey', function (journey) {
     if (journey && !isMobile) {
@@ -193,6 +194,37 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
       } catch (e) {
         console.error(e)
       }
+    }
+  })
+
+  plan.on('change matches', function (matches) {
+    if (matchedFeatures) {
+      map.removeLayer(matchedFeatures)
+      matchedFeatures = null
+    }
+
+    if (matches && !isMobile) {
+      matchedFeatures = window.L.mapbox.featureLayer({
+        type: 'FeatureCollection',
+        features: matches.map(function (match) {
+          return {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [match.commuter.coordinate.lng, match.commuter.coordinate.lat]
+            },
+            properties: {
+              title: match.distance.toFixed(2) + ' miles away',
+              description: '<a href="#">Email match.commuter.name to set up your carpool!</a>',
+              'marker-size': 'small',
+              'marker-color': '#455a71',
+              'marker-symbol': 'car'
+            }
+          }
+        })
+      })
+
+      matchedFeatures.addTo(map)
     }
   })
 }

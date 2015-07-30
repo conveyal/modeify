@@ -36,6 +36,7 @@ var Plan = module.exports = model('Plan')
     from: '',
     from_valid: false,
     loading: true,
+    matches: [],
     options: [],
     query: new ProfileQuery(),
     scorer: new ProfileScorer(),
@@ -57,6 +58,7 @@ var Plan = module.exports = model('Plan')
   .attr('from_ll')
   .attr('from_valid')
   .attr('loading')
+  .attr('matches')
   .attr('journey')
   .attr('options')
   .attr('query')

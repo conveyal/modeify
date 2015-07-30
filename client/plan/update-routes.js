@@ -162,9 +162,11 @@ function updateRoutes (plan, opts, callback) {
       }
     })
 
+  plan.matches([])
   CommuterLocation.forCommuter(session.commuter()._id(), function (err, cls) {
-    console.error(err)
-    console.log(cls)
+    if (!err) {
+      plan.matches(cls[0].matches)
+    }
   })
 }
 
