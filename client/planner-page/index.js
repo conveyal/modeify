@@ -215,7 +215,7 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
             },
             properties: {
               title: match.distance.toFixed(2) + ' miles away',
-              description: '<a href="#">Email match.commuter.name to set up your carpool!</a>',
+              description: '<a href="#">Email ' + match.commuter.name + ' to set up your carpool!</a>',
               'marker-size': 'small',
               'marker-color': '#455a71',
               'marker-symbol': 'car'
