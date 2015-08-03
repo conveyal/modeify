@@ -1,0 +1,51 @@
+/**
+ * Suggestions
+ */
+
+.Locations .suggestions {
+  position: absolute;
+  z-index: 151;
+  background-color: #fff;
+
+  margin-top: -3px;
+  padding-left: 0;
+
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+
+  max-height: 1000px;
+  opacity: 1;
+  visibility: visible;
+  transition: max-height 0.25s, opacity 0.25s, visibility 0.25s;
+
+  width: 50%;
+}
+
+.Locations .suggestions.empty {
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.Locations .suggestion {
+  list-style-type: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+  overflow: hidden;
+  padding: 8px;
+  border-bottom: 1px solid var(--light-blue);
+  cursor: pointer;
+  color: var(--black);
+}
+
+.Locations .suggestion:last-of-type {
+  border-bottom-color: var(--black);
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+.Locations .suggestion.highlight {
+  background-color: var(--gold);
+  color: #fff;
+}

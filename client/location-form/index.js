@@ -4,6 +4,8 @@ var log = require('log')('location-form')
 var page = require('page')
 var serialize = require('serialize')
 var view = require('view')
+var LocationSuggest = require('location-suggest')
+var extend = require('extend')
 
 var View = view(require('./template.html'))
 
@@ -21,6 +23,8 @@ module.exports = function (ctx, next) {
   next()
 }
 
+extend(View.prototype, LocationSuggest.prototype)
+
 View.prototype.action = function () {
   return this.model.isNew() ? 'Create' : 'Edit'
 }
@@ -36,6 +40,10 @@ View.prototype.organizationName = function () {
 View.prototype.back = function () {
   var prefix = '/manager/organizations/' + this.options.organization._id()
   return prefix + (this.model.isNew() ? '/show' : '/locations/' + this.model._id() + '/show')
+}
+
+
+View.prototype.locationSelected = function(target) {
 }
 
 /**

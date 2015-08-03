@@ -1,26 +1,18 @@
 {
-  "name": "locations-view",
+  "name": "location-suggest",
   "dependencies": {
     "component/closest": "*",
     "component/each": "*",
-    "segmentio/extend": "*",
     "twitter/hogan.js": "*"
   },
   "locals": [
     "geocode",
-    "location-suggest",
-    "log",
-    "mouse-position",
-    "text-modal",
-    "view"
+    "log"
   ],
   "scripts": [
     "index.js"
   ],
-  "styles": [
-    "style.css"
-  ],
   "templates": [
-    "template.html"
+    "suggestions.html"
   ]
 }
