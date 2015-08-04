@@ -2,17 +2,22 @@
   "name": "location-form",
   "dependencies": {
     "trevorgerhardt/serialize": "*",
-    "visionmedia/page.js": "*"
+    "visionmedia/page.js": "*",
+    "segmentio/extend": "*"
   },
   "local": [
     "alerts",
     "location",
+    "location-suggest",
     "log",
     "organization",
     "view"
   ],
   "scripts": [
     "index.js"
+  ],
+  "styles": [
+    "style.css"
   ],
   "templates": [
     "template.html"
