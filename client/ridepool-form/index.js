@@ -79,7 +79,7 @@ View.prototype.refreshLocations = function (e) {
 
 function getOption(location, idToSelect) {
   var option = document.createElement('option')
-  option.text = location.get('name')
+  option.text = location.get('name') || (location.get('address') + ', ' + location.get('city'))
   option.value = location.get('_id')
   if(location.get('_id') === idToSelect) option.selected = true;
   return option
