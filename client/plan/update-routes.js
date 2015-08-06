@@ -77,6 +77,10 @@ function updateRoutes (plan, opts, callback) {
         return o.access[0].mode === 'CAR' && (!o.transit || o.transit.length < 1)
       })[0])
 
+      driveOption.hasRideshareMatches(false)
+      driveOption.externalCarpoolMatches(0)
+      driveOption.internalCarpoolMatchesCount(0)
+
       // Remove the car option if car is turned off
       if (!plan.car()) {
         data.options = data.options.filter(function (o) {
@@ -135,6 +139,7 @@ function updateRoutes (plan, opts, callback) {
             clearInterval(waitForOtp)
             log('setting external carpool matches')
             driveOption.externalCarpoolMatches(res.body)
+            if(res.body > 0) driveOption.hasRideshareMatches(true)
           }
         }, 100)
       }
@@ -155,6 +160,8 @@ function updateRoutes (plan, opts, callback) {
               driveOption.internalCarpoolMatches({
                 matches: res.body
               })
+              driveOption.internalCarpoolMatchesCount(res.body.length)
+              driveOption.hasRideshareMatches(true)
             }
             log.info('set internal carpool matches')
           }
