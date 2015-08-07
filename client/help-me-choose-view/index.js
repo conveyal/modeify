@@ -248,11 +248,11 @@ function rankRoutes(routes, primary, secondary) {
 
   var primaryColor = d3.scale.linear()
     .domain(primaryDomain)
-    .range(['#f5a81c', '#fff']);
+    .range(['#00587b', '#fff']);
 
   var secondaryColor = d3.scale.linear()
     .domain(secondaryDomain)
-    .range(['#8ec449', '#fff']);
+    .range(['#99c5d2', '#fff']);
 
   routes = routes.map(function(r) {
     r.primaryRank = primaryScale(primary(r));

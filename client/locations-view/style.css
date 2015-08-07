@@ -8,11 +8,11 @@
 }
 
 .Locations .icon-start {
-  color: var(--green);
+  color: var(--vta-dark-blue);
 }
 
 .Locations .icon-end {
-  color: var(--gold);
+  color: var(--vta-burgundy);
 }
 
 .Locations .input-group {

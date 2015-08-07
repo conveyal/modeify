@@ -9,7 +9,7 @@ if (config.map_provider && config.map_provider() !== 'AmigoCloud') {
 }
 
 module.exports = function(el) {
-  var map, realtime, southWest, northEast;
+  var map, realtime, southWest, northEast, blurLayer;
 
   if (config.map_provider && config.map_provider() === 'AmigoCloud') {
     southWest = L.latLng(35.946877085397,-123.480610897013);
@@ -22,6 +22,17 @@ module.exports = function(el) {
       maxBounds: L.latLngBounds(southWest, northEast),
       minZoom: 8
     })).setView([center[1], center[0]], config.geocode().zoom);
+
+    L.amigo.auth.setToken(config.support_data_token());
+
+    blurLayer = L.tileLayer(
+      'https://www.amigocloud.com/api/v1/users/'+
+	'23/projects/3019/datasets/23835/tiles/{z}/{x}/{y}.png?' +
+	'token=' + config.support_data_token(),
+      {
+        name: 'Uncovered Area'
+      }
+    );
 
     map.addAuthLayer({
       id: config.mapbox_map_id(),
@@ -40,6 +51,8 @@ module.exports = function(el) {
       ),
       'Bing Road'
     );
+    map.layersControl.addOverlay(blurLayer);
+    blurLayer.addTo(map);
     module.exports.activeMap = map;
 
     realtime = mapModule.realtime();

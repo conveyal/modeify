@@ -4,6 +4,13 @@
  */
 
 :root {
+  --vta-light-blue: #c8e4ec;
+  --vta-dark-gray: #666;
+  --vta-light-gray: #eee;
+  --vta-dark-blue: #00587b;
+  --vta-middle-blue: #99c5d2;
+  --vta-burgundy: #a2002f;
+
   --black: #455a71;
   --vta-logo-back: #ddd;
 
@@ -69,7 +76,7 @@ body {
 
   color: var(--black);
 
-  background-color: var(--gold); /* for the tint */
+  background-color: var(--vta-burgundy); /* for the tint */
   background-image: linear-gradient(to bottom, var(--land-color) 0%, var(--land-color) 100%); /* for the body */
 }
 
@@ -78,7 +85,7 @@ b, strong {
 }
 
 a {
-  color: var(--gold);
+  color: var(--vta-dark-blue);
   text-decoration: none;
   font-weight: var(--bold);
   cursor: pointer;
@@ -87,7 +94,7 @@ a {
 a:active,
 a:focus,
 a:hover {
-  color: color(var(--gold) shade(20%));
+  color: color(var(--vta-dark-blue) shade(20%));
   text-decoration: none;
 }
 
@@ -101,7 +108,7 @@ a:hover {
 .introjs-button:focus,
 .introjs-button:hover,
 .introjs-button:visited {
-  background: var(--gold);
+  background: var(--vta-burgundy);
   color: #fff;
   outline: none;
   border: none;
@@ -110,13 +117,13 @@ a:hover {
 
 .btn:hover,
 .introjs-button:hover {
-  background-color: color(var(--gold) shade(10%));
+  background-color: color(var(--vta-burgundy) shade(10%));
 }
 
 .btn:active,
 .btn.active,
 .introjs-button:active {
-  background-color: color(var(--gold) shade(20%));
+  background-color: color(var(--vta-burgundy) shade(20%));
 }
 
 .btn-dark,
@@ -233,14 +240,14 @@ select {
   -webkit-appearance: none;
 
   cursor: pointer;
-  color: var(--gold);
+  color: var(--vta-dark-blue);
   font-weight: var(--bold);
   padding: 8px 0 0;
   margin: 0 6px;
 
   border: none;
   border-radius: 0;
-  border-bottom: 1px solid var(--gold);
+  border-bottom: 1px solid var(--vta-dark-blue);
 }
 
 select::-ms-expand {

@@ -15,3 +15,8 @@
 .amigocloud-attribution-logo img {
   vertical-align: inherit;
 }
+
+.leaflet-control-layers-separator,
+.leaflet-control-layers-overlays {
+  display: none;
+}

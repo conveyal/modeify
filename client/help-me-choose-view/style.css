@@ -65,14 +65,14 @@
 }
 
 .ComparisonTable th.primaryFilter {
-  color: var(--gold);
+  color: var(--vta-dark-blue);
 }
 
 .ComparisonTable th.secondaryFilter {
-  color: var(--green);
+  color: var(--vta-middle-blue);
 }
 
 .HelpMeChoose select.secondaryFilter {
-  color: var(--green);
-  border-bottom-color: var(--green);
+  color: var(--vta-middle-blue);
+  border-bottom-color: var(--vta-middle-blue);
 }

@@ -42,11 +42,11 @@
 }
 
 .RouteDirections .icon-start {
-  color: var(--green);
+  color: var(--vta-dark-blue);
 }
 
 .RouteDirections .icon-end {
-  color: var(--gold);
+  color: var(--vta-burgundy);
 }
 
 .RouteDirections .transfer > .station {

@@ -7,7 +7,7 @@
 
 .SidePanel {
   position: absolute;
-  background-color: color(var(--black) alpha(80%));
+  background-color: color(var(--vta-light-blue) alpha(80%));
   z-index: 150;
   top: 0;
   bottom: 0;
@@ -43,13 +43,13 @@
 
 .SidePanel .title {
   width: 100%;
-  color: var(--light-blue);
+  color: var(--vta-dark-gray);
   font-size: 15px;
 }
 
 .SidePanel .title .fa {
   vertical-align: top;
-	color: var(--light-blue);
+	color: var(--vta-dark-gray);
   font-size: 20px;
   padding-right: 5px;
 }
@@ -80,8 +80,8 @@
 }
 
 .SidePanel .footer .btn.send-feedback{
-  background-color: #8EC449;
-  color: #4B6A20;
+  background-color: var(--vta-burgundy);
+  color: #fff;
   float: right;
   margin-left: 0;
   margin-right: 0;

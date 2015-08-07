@@ -133,6 +133,16 @@ function updateRoutes(plan, opts, callback) {
         }
 	plan.set({options: planData.options, journey: data.journey});
 	done(null, data);
+
+        analytics.send_ac({
+          event_type: 'query',
+          url: location.href,
+          results: JSON.stringify(data),
+          timestamp: (new Date()).toISOString(),
+          from_address: plan.from(),
+          to_address: plan.to()
+        });
+
 	return;
 
       // Get the car data
@@ -170,15 +180,6 @@ function updateRoutes(plan, opts, callback) {
 
       // Store the results
       plan.set(data);
-
-      analytics.send_ac({
-        event_type: 'query',
-	url: location.href,
-	results: JSON.stringify(data),
-	timestamp: (new Date()).toISOString(),
-	from_address: plan.from(),
-	to_address: plan.to()
-      });
 
       log('<-- updated routes');
       done(null, data);
