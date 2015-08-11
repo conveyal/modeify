@@ -125,6 +125,7 @@ var wordReplacementTable = {
   'Southwest': 'SW',
   'Southeast': 'SE',
   'Street': 'St',
+  'Uturn': 'U-Turn',
   'Vienna/gmu': 'Vienna/GMU'
 }
 

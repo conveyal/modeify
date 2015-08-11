@@ -343,6 +343,13 @@ Plan.prototype.generateQuery = function () {
   }
 }
 
+Plan.prototype.generateOtpQuery = function () {
+  var query = this.generateQuery()
+  query.from = query.from.lat + ',' + query.from.lon
+  query.to = query.to.lat + ',' + query.to.lon
+  return query
+}
+
 /**
  * Store in localStorage. Restrict this I/O to once every 25ms.
  */

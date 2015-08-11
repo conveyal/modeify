@@ -1,14 +1,11 @@
 var analytics = require('analytics')
-var CommuterLocation = require('commuter-location')
-var convert = require('convert')
 var log = require('./client/log')('plan:update-routes')
 var message = require('./client/messages')('plan:update-routes')
-var otp = require('otp')
+var otpProfileToTransitive = require('otp-profile-to-transitive')
 var profileFilter = require('profile-filter')
 var profileFormatter = require('profile-formatter')
 var request = require('request')
 var Route = require('route')
-var session = require('session')
 
 /**
  * Expose `updateRoutes`
@@ -41,7 +38,7 @@ function updateRoutes (plan, opts, callback) {
     plan.loading(false)
     plan.saveURL()
 
-    if (callback) callback.call(null, err, res)
+    if (callback) callback(err, res)
   }
 
   // Check for valid locations
@@ -53,185 +50,84 @@ function updateRoutes (plan, opts, callback) {
   plan.loading(true)
   plan.emit('updating options')
 
-  var driveOption = null
   var query = plan.generateQuery()
   var scorer = plan.scorer()
 
-  otp(query, function (data) {
-    data.options = profileFilter(data.options, scorer)
-    return data
-  }, function (err, data) {
+  request.get('/plan', plan.generateOtpQuery(), function (err, res) {
+    var results = res.body
     if (err) {
-      done(err, data)
-    } else if (!data || data.options.length < 1) {
-      done(message('no-options-found'), data)
+      done(err, res)
+    } else if (!results || results.profile.length < 1) {
+      done(message('no-options-found'), res)
     } else {
+      var profile = profileFilter(results.profile, scorer)
+      var journeys = otpProfileToTransitive({
+        from: query.from,
+        to: query.to,
+        patterns: results.patterns,
+        profile: {
+          options: profile
+        },
+        routes: results.routes
+      })
+
       // Track the commute
       analytics.track('Found Route', {
         plan: plan.generateQuery(),
-        results: data.options.length
+        results: profile.length
       })
 
       // Get the car data
-      driveOption = window.driveOption = new Route(data.options.filter(function (o) {
+      var driveOption = window.driveOption = new Route(profile.filter(function (o) {
         return o.access[0].mode === 'CAR' && (!o.transit || o.transit.length < 1)
       })[0])
 
+      if (driveOption) {
+        driveOption.set({
+          externalCarpoolMatches: results.externalMatches,
+          internalCarpoolMatches: {
+            matches: results.ridepoolMatches
+          }
+        })
+      }
+
       // Remove the car option if car is turned off
       if (!plan.car()) {
-        data.options = data.options.filter(function (o) {
+        profile = profile.filter(function (o) {
           return o.access[0].mode !== 'CAR'
         })
 
-        data.journey.journeys = data.journey.journeys.filter(function (o) {
+        journeys = journeys.filter(function (o) {
           return o.journey_name.indexOf('CAR') === -1
         })
       }
 
-      // Populate segments
-      populateSegments(data.options, data.journey)
-
       // Create a new Route object for each option
-      for (var i = 0; i < data.options.length; i++) {
-        data.options[i] = new Route(data.options[i])
-        data.options[i].generateStopTimes(plan.nextDate(), plan.start_time(), plan.end_time())
+      for (var i = 0; i < profile.length; i++) {
+        profile[i] = new Route(profile[i])
 
-        if (plan.car() && data.options[i].directCar()) {
-          data.options[i] = driveOption
+        if (plan.car() && profile[i].directCar()) {
+          profile[i] = driveOption
         }
 
-        data.options[i].setCarData({
+        profile[i].setCarData({
           cost: driveOption.cost(),
           emissions: driveOption.emissions(),
           time: driveOption.average()
         })
       }
 
-      // Format the journey
-      data.journey = profileFormatter.journey(data.journey)
-
       // Store the results
-      plan.set(data)
+      plan.set({
+        matches: results.internalMatches,
+        options: profile,
+        journey: profileFormatter.journey(journeys)
+      })
 
       log('<-- updated routes')
-      done(null, data)
+      done(null, results)
     }
   })
-
-  var from_ll = plan.from_ll()
-  var to_ll = plan.to_ll()
-
-  request
-    .get('/carpool/external-matches', {
-      from: from_ll.lng + ',' + from_ll.lat,
-      to: to_ll.lng + ',' + to_ll.lat
-    }, function (err, res) {
-      if (err) {
-        log('error finding matches: %e', err)
-      } else {
-        log('found %d matches', res.body)
-        var waitForOtp = setInterval(function () {
-          if (driveOption) {
-            clearInterval(waitForOtp)
-            log('setting external carpool matches')
-            driveOption.externalCarpoolMatches(res.body)
-          }
-        }, 100)
-      }
-    })
-
-  request
-    .get('/carpool/internal-matches', {
-      from: from_ll.lng + ',' + from_ll.lat,
-      to: to_ll.lng + ',' + to_ll.lat
-    }, function (err, res) {
-      if (err) {
-        log.info('error finding internal matches: %e', err)
-      } else {
-        var waitForOtp = setInterval(function () {
-          if (driveOption) {
-            clearInterval(waitForOtp)
-            if (res.body.length > 0) {
-              driveOption.internalCarpoolMatches({
-                matches: res.body
-              })
-            }
-            log.info('set internal carpool matches')
-          }
-        }, 100)
-      }
-    })
-
-  plan.matches([])
-  CommuterLocation.forCommuter(session.commuter()._id(), function (err, cls) {
-    if (!err) {
-      plan.matches(cls[0].matches)
-    }
-  })
-}
-
-/**
- * Populate segments
- */
-
-function populateSegments (options, journey) {
-  for (var i = 0; i < options.length; i++) {
-    var option = options[i]
-    if (!option.transit || option.transit.length < 1) continue
-
-    for (var j = 0; j < option.transit.length; j++) {
-      var segment = option.transit[j]
-
-      for (var k = 0; k < segment.segmentPatterns.length; k++) {
-        var pattern = segment.segmentPatterns[k]
-        var patternId = pattern.patternId
-        var routeId = getRouteId(patternId, journey.patterns)
-
-        routeId = routeId.split(':')
-        var agency = routeId[0].toLowerCase()
-        var line = routeId[1].toLowerCase()
-
-        routeId = routeId[0] + ':' + routeId[1]
-        var route = getRoute(routeId, journey.routes)
-
-        pattern.stopId = getStopId(patternId, pattern.fromIndex, journey.patterns)
-
-        pattern.longName = route.route_long_name
-        pattern.shortName = route.route_short_name
-
-        pattern.color = convert.routeToColor(route.route_type, agency, line, route.route_color)
-        pattern.shield = getRouteShield(agency, route)
-      }
-    }
-  }
-}
-
-function getRouteId (patternId, patterns) {
-  for (var i = 0; i < patterns.length; i++) {
-    var pattern = patterns[i]
-    if (pattern.pattern_id === patternId) return pattern.route_id
-  }
-}
-
-function getStopId (patternId, fromIndex, patterns) {
-  for (var i = 0; i < patterns.length; i++) {
-    var pattern = patterns[i]
-    if (pattern.pattern_id === patternId) {
-      return pattern.stops[fromIndex].stop_id
-    }
-  }
-}
-
-function getRoute (routeId, routes) {
-  for (var i = 0; i < routes.length; i++) {
-    var route = routes[i]
-    if (route.route_id === routeId) return route
-  }
-}
-
-function getRouteShield (agency, route) {
-  if (agency === 'dc' && route.route_type === 1) return 'M'
-  return route.route_short_name || route.route_long_name.toUpperCase()
 }
 
 function generateErrorMessage (plan, response) {

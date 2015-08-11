@@ -122,6 +122,10 @@ function formatDepartureTimes (times) {
 
   if (!times || times.length < 1) return
 
+  times = times.map(function (t) {
+    return new Date(t)
+  })
+
   times.forEach(function (t) {
     var h = t.getHours()
     if (hours[h] === undefined) hours[h] = []
@@ -222,12 +226,14 @@ var MODE_TO_ICON = {
 }
 
 var DIRECTION_TO_CARDINALITY = {
-  CIRCLE_COUNTERCLOCKWISE: 'fa-repeat',
+  CIRCLE_COUNTERCLOCKWISE: 'fa-repeat fa-flip-horizontal',
   HARD_LEFT: 'fa-arrow-left',
   HARD_RIGHT: 'fa-arrow-right',
   RIGHT: 'fa-arrow-right',
   LEFT: 'fa-arrow-left',
   CONTINUE: 'fa-arrow-up',
   SLIGHTLY_RIGHT: 'fa-arrow-right fa-northeast',
-  SLIGHTLY_LEFT: 'fa-arrow-right fa-northwest'
+  SLIGHTLY_LEFT: 'fa-arrow-right fa-northwest',
+  UTURN_LEFT: 'fa-repeat fa-flip-horizontal',
+  UTURN_RIGHT: 'fa-repeat'
 }
