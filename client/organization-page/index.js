@@ -13,7 +13,7 @@ module.exports = function (ctx, next) {
   ctx.organization.locations = ctx.locations
   var locationNames = {}
   ctx.locations.forEach(function(location) {
-    locationNames[location.get('_id')] = location.get('name')
+    locationNames[location.get('_id')] = location.get('name') || (location.get('address') + ', ' + location.get('city'))
   })
 
   ctx.organization.ridepools = ctx.ridepools.map(function(ridepool){

@@ -41,6 +41,8 @@ var Route = module.exports = model('Route')
   .attr('emissionsDifference')
   .attr('externalCarpoolMatches')
   .attr('internalCarpoolMatches')
+  .attr('internalCarpoolMatchesCount')
+  .attr('hasRideshareMatches')
   .attr('hasTransit')
   .attr('modes')
   .attr('score')
@@ -383,7 +385,7 @@ Route.prototype.modeDescriptor = function () {
       if (this.hasTransit()) {
         modeStr = 'drive'
       } else {
-        modeStr = 'carpool'
+        modeStr = 'carpool/vanpool'
       }
       break
     case 'walk':

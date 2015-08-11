@@ -43,6 +43,18 @@ module.exports = function (ctx, next) {
 
 var CommuterRow = view(require('./commuter.html'))
 
+CommuterRow.prototype.organizationId = function () {
+  return this.model._commuter._organization()
+}
+
+CommuterRow.prototype.locationId = function () {
+  return this.model._location._id()
+}
+
+CommuterRow.prototype.commuterId = function () {
+  return this.model._commuter._id()
+}
+
 CommuterRow.prototype.status = function () {
   var commuter = this.model._commuter
   var status = commuter.status() || ' '

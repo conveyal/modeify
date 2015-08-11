@@ -4,14 +4,26 @@
       <i class="fa fa-user"></i> {name || 'Commuter'} — {_user().email}
       <a class="btn btn-default pull-right" href="/manager/organizations/{_organization}/show"><i class="fa fa-arrow-left"></i> Back</a>
       <a class="btn btn-warning pull-right" href="/manager/organizations/{_organization}/commuters/{_id}/edit"><i class="fa fa-pencil"></i> Edit</a>
+      <a class="btn btn-warning pull-right" on-tap="sendPlan"><i class="fa fa-envelope"></i> Resend Invitation</a>
       <a class="btn btn-danger pull-right" on-tap="destroy"><i class="fa fa-times"></i> Delete</a>
     </h3>
-    <p>From <i class="fa fa-home"></i> {fuzzyAddress} to <i class="fa fa-building-o"></i> {toLocation}</p>
+    <p><strong>Organization</strong>: {organizationName}</p>
+    <p><strong>Home Location</strong>: <i class="fa fa-home"></i> {fuzzyAddress}</p>
   </div>
   <div class="col-lg-12 col-md-12 col-sm-12">
     <div class="map map-small"></div>
   </div>
   <div class="col-lg-12 col-md-12 col-sm-12">
-    <button class="btn btn-block btn-primary" on-tap="sendPlan"><i class="fa fa-envelope"></i> Resend Invitation</button>
+    <h4>Organization Locations</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Address</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody data-each="commuterLocations"></tbody>
+    </table>
   </div>
 </div>

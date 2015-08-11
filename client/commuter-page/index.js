@@ -7,6 +7,8 @@ var request = require('./client/request')
 var template = require('./template.html')
 var view = require('view')
 
+var CommuterLocation = require('commuter-location')
+
 /**
  * Create `View`
  */
@@ -21,23 +23,31 @@ module.exports = function (ctx, next) {
   debug('render')
   if (ctx.params.commuter === 'new' || !ctx.commuter) return
 
-  ctx.view = new View(ctx.commuter, {
-    organization: ctx.organization
-  })
-  ctx.view.on('rendered', function (v) {
-    if (ctx.commuter.validCoordinate()) {
-      var m = window.map = map(v.find('.map'), {
-        center: ctx.commuter.coordinate(),
-        zoom: 13
-      })
+  CommuterLocation.forCommuter(ctx.commuter.get('_id'), function (err, commuterLocations) {
+    commuterLocations = commuterLocations.map(function (commuterLocation) {
+      return commuterLocation._location
+    })
 
-      m.addMarker(ctx.commuter.mapMarker())
-      m.addMarker(ctx.organization.mapMarker())
-      m.fitLayer(m.featureLayer)
-    }
+    ctx.view = new View(ctx.commuter, {
+      organization: ctx.organization,
+      commuterLocations: commuterLocations
+    })
+    ctx.view.on('rendered', function (v) {
+      if (ctx.commuter.validCoordinate()) {
+        var m = window.map = map(v.find('.map'), {
+          center: ctx.commuter.coordinate(),
+          zoom: 13
+        })
+
+        m.addMarker(ctx.commuter.mapMarker())
+        //TODO: add organization location marker(s)
+        //m.fitLayer(m.featureLayer)
+      }
+    })
+
+    next()
   })
 
-  next()
 }
 
 /**
@@ -85,10 +95,18 @@ View.prototype.sendPlan = function (e) {
   }
 }
 
-/**
- * To Location
- */
+View.prototype.organizationName = function () {
+  return this.options.organization.name()
+}
 
-View.prototype.toLocation = function () {
-  return this.options.organization.fullAddress()
+
+View.prototype.commuterLocations = function () {
+  return this.options.commuterLocations
+}
+
+
+var LocationRow = view(require('./location.html'))
+
+View.prototype['commuterLocations-view'] = function () {
+  return LocationRow
 }

@@ -85,9 +85,11 @@ function updateRoutes (plan, opts, callback) {
       if (driveOption) {
         driveOption.set({
           externalCarpoolMatches: results.externalMatches,
+          hasRideshareMatches: (results.externalMatches > 0 || results.ridepoolMatches.length > 0),
           internalCarpoolMatches: {
             matches: results.ridepoolMatches
-          }
+          },
+          internalCarpoolMatchesCount: results.ridepoolMatches.length
         })
       }
 
