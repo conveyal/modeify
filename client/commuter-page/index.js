@@ -24,6 +24,10 @@ module.exports = function (ctx, next) {
   if (ctx.params.commuter === 'new' || !ctx.commuter) return
 
   CommuterLocation.forCommuter(ctx.commuter.get('_id'), function (err, commuterLocations) {
+    if (err) {
+      console.error(err)
+    }
+
     commuterLocations = commuterLocations.map(function (commuterLocation) {
       return commuterLocation._location
     })
@@ -32,16 +36,16 @@ module.exports = function (ctx, next) {
       organization: ctx.organization,
       commuterLocations: commuterLocations
     })
-    ctx.view.on('rendered', function (v) {
+    ctx.view.on('rendered', function (view) {
       if (ctx.commuter.validCoordinate()) {
-        var m = window.map = map(v.find('.map'), {
+        var m = window.map = map(view.find('.map'), {
           center: ctx.commuter.coordinate(),
           zoom: 13
         })
 
         m.addMarker(ctx.commuter.mapMarker())
-        //TODO: add organization location marker(s)
-        //m.fitLayer(m.featureLayer)
+        // TODO: add organization location marker(s)
+        // m.fitLayer(m.featureLayer)
       }
     })
 
@@ -99,11 +103,9 @@ View.prototype.organizationName = function () {
   return this.options.organization.name()
 }
 
-
 View.prototype.commuterLocations = function () {
   return this.options.commuterLocations
 }
-
 
 var LocationRow = view(require('./location.html'))
 
