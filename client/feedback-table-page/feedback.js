@@ -1,6 +1,5 @@
 var config = require('config')
 var fmt = require('fmt')
-var otp = require('otp')
 var request = require('request')
 var view = require('view')
 
@@ -20,18 +19,7 @@ Feedback.prototype.name = function () {
 }
 
 Feedback.prototype.resultsLink = function () {
-  var query = this.model.plan.generateQuery()
-  query.from = this.model.plan.from().split(',')
-  query.from = {
-    lat: query.from[1],
-    lon: query.from[0]
-  }
-  query.to = this.model.plan.to().split(',')
-  query.to = {
-    lat: query.to[1],
-    lon: query.to[0]
-  }
-  return otp.url(query)
+  return this.model.plan.generateURL()
 }
 
 Feedback.prototype.delete = function () {

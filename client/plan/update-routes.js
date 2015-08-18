@@ -53,6 +53,8 @@ function updateRoutes (plan, opts, callback) {
   var query = plan.generateQuery()
   var scorer = plan.scorer()
 
+  log('-- see raw results here: %s', plan.generateURL())
+
   request.get('/plan', plan.generateOtpQuery(), function (err, res) {
     var results = res.body
     if (err) {

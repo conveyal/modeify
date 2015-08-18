@@ -1,4 +1,5 @@
 var Batch = require('batch')
+var config = require('config')
 var debounce = require('debounce')
 var geocode = require('geocode')
 var Journey = require('journey')
@@ -348,6 +349,10 @@ Plan.prototype.generateOtpQuery = function () {
   query.from = query.from.lat + ',' + query.from.lon
   query.to = query.to.lat + ',' + query.to.lon
   return query
+}
+
+Plan.prototype.generateURL = function () {
+  return config.base_url() + config.api_url() + '/plan?' + decodeURIComponent(qs.stringify(this.generateOtpQuery()))
 }
 
 /**
