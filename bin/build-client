@@ -120,7 +120,7 @@ function bundle (app) {
         writeFile(path.resolve(destDir, 'build.js'), js)
 
         if (!development) {
-          gzip(path.resolve(destDir, 'build.min.js.gz'), js) // uglify.minify(js, { fromString: true }).code)
+          gzip(path.resolve(destDir, 'build.min.js.gz'), uglify.minify(js, { fromString: true }).code)
         }
       })
 
