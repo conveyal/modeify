@@ -35,6 +35,8 @@ delete config.environments
 var aboutPage = markdown.render(fs.readFileSync(deploymentDir + '/about.md', 'utf8'))
 var termsPage = markdown.render(fs.readFileSync(deploymentDir + '/terms.md', 'utf8'))
 
+// Set the version by commit tag and hash
+
 config.version = exec('git describe --always --tag').toString().split('\n').join('')
 
 // Generate message files
