@@ -5,7 +5,6 @@
   },
   "locals": [
     "config",
-    "otp",
     "plan",
     "request",
     "view"
