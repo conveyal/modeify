@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var build = require('component-builder')
+var exec = require('child_process').execSync
 var resolve = require('component-resolver')
 var fs = require('fs')
 var htmlMinifier = require('html-minifier').minify
@@ -33,6 +34,8 @@ delete config.environments
 
 var aboutPage = markdown.render(fs.readFileSync(deploymentDir + '/about.md', 'utf8'))
 var termsPage = markdown.render(fs.readFileSync(deploymentDir + '/terms.md', 'utf8'))
+
+config.version = exec('git describe --always --tag --abbrev=0').toString().split('\n').join('')
 
 // Generate message files
 
@@ -108,7 +111,7 @@ function bundle (app) {
         writeFile(path.resolve(destDir, 'build.js'), js)
 
         if (!development) {
-          gzip(path.resolve(destDir, 'build.min.js.gz'), uglify.minify(js, { fromString: true }).code)
+          gzip(path.resolve(destDir, 'build.min.js.gz'), js) // uglify.minify(js, { fromString: true }).code)
         }
       })
 
