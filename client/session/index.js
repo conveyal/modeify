@@ -158,7 +158,7 @@ session.loginAnonymously = function (next) {
  */
 
 session.commuterIsLoggedIn = function (ctx, next) {
-  log('--> checking if commuter is logged in %s', ctx.path)
+  log('--> checking if commuter is logged in %s', decodeURIComponent(ctx.path))
   if (session.isLoggedIn()) {
     log('<-- commuter already logged in')
     return next()
