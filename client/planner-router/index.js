@@ -16,11 +16,7 @@ page('*', function (ctx, next) {
 
 page('/', redirectToPlanner)
 
-page('/login', require('commuter-login'))
 page('/logout', session.logoutMiddleware, utils.redirect('/welcome'))
-page('/forgot-password', require('forgot-password-page'))
-page('/change-password/:key', require('change-password-page'))
-page('/confirm-email/:key', Commuter.confirmEmail, utils.redirect('/login'))
 
 page('/planner', session.commuterIsLoggedIn, Plan.load, require('planner-page'), require('announcements'))
 page('/planner/:link', session.loginWithLink, redirectToPlanner)
