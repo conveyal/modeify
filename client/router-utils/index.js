@@ -16,12 +16,12 @@ var view = null
 
 module.exports.render = function (ctx, next) {
   if (ctx.redirect) {
-    log('redirecting from %s to %s', ctx.path, ctx.redirect)
+    log('redirecting from %s to %s', decodeURIComponent(ctx.path), ctx.redirect)
     return page.redirect(ctx.redirect + window.location.search)
   }
 
   // if no redirect, render the view
-  log('render %s', ctx.path)
+  log('render %s', decodeURIComponent(ctx.path))
 
   // remove old view if we're not showing a modal
   if (view && !ctx.modal) {

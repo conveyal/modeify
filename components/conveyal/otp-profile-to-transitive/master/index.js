@@ -242,7 +242,7 @@ module.exports = function (opts) {
 
 function processAccessEgress (data, streetEdgeMap, leg, from, to) {
   if (leg.mode === 'BICYCLE_RENT') {
-    return processBikeRentalSegment(data, leg.streetEdges, from, to)
+    return processBikeRentalSegment(data, streetEdgeMap, leg.streetEdges, from, to)
   } else {
     var journeySegment = constructJourneySegment(streetEdgeMap, leg.mode, from, to, leg.streetEdges)
     return [journeySegment]

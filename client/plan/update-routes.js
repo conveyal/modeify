@@ -53,6 +53,8 @@ function updateRoutes (plan, opts, callback) {
   var query = plan.generateQuery()
   var scorer = plan.scorer()
 
+  log('-- see raw results here: %s', plan.generateURL())
+
   request.get('/plan', plan.generateOtpQuery(), function (err, res) {
     var results = res.body
     if (err) {
@@ -95,11 +97,15 @@ function updateRoutes (plan, opts, callback) {
 
       // Remove the car option if car is turned off
       if (!plan.car()) {
+        if (profile.length === 1) {
+          return done('No non-driving results.', res)
+        }
+
         profile = profile.filter(function (o) {
           return o.access[0].mode !== 'CAR'
         })
 
-        journeys = journeys.filter(function (o) {
+        journeys.journeys = journeys.journeys.filter(function (o) {
           return o.journey_name.indexOf('CAR') === -1
         })
       }

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var build = require('component-builder')
+var exec = require('child_process').exec
 var resolve = require('component-resolver')
 var fs = require('fs')
 var htmlMinifier = require('html-minifier').minify
@@ -38,9 +39,20 @@ var termsPage = markdown.render(fs.readFileSync(deploymentDir + '/terms.md', 'ut
 
 generateMessageFiles(rootDir + '/messages', rootDir + '/assets/build/messages')
 
-// Build apps
+// apps
+var apps = ['manager-app', 'planner-app']
 
-;['manager-app', 'planner-app'].forEach(bundle)
+exec('git describe --always --tag', function (err, stdout) {
+  if (err) throw err
+
+  // Set the version by commit tag and hash
+
+  config.version = stdout.toString().split('\n').join('')
+
+  // Build apps
+
+  apps.forEach(bundle)
+})
 
 // HTML Minifier Options
 

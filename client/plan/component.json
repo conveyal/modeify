@@ -15,6 +15,7 @@
   "local": [
     "analytics",
     "commuter-location",
+    "config",
     "convert",
     "geocode",
     "journey",
@@ -22,7 +23,6 @@
     "location",
     "log",
     "messages",
-    "otp",
     "profile-filter",
     "profile-formatter",
     "profile-query",

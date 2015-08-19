@@ -193,6 +193,7 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
         map.fitBounds(transitiveLayer.getBounds())
       } catch (e) {
         console.error(e)
+        console.error(e.stack)
       }
     }
   })
