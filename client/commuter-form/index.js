@@ -65,7 +65,7 @@ View.prototype.isEditing = function () {
  */
 
 View.prototype.email = function () {
-  return this.model._user().email || ''
+  return this.model.account().email || ''
 }
 
 /**
@@ -107,7 +107,7 @@ View.prototype.save = function (e) {
   data.zip = parseInt(data.zip, 10)
 
   // set the email address
-  this.model._user({
+  this.model.account({
     email: data.email
   })
   delete data.email

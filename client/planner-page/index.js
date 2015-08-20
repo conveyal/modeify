@@ -42,7 +42,7 @@ var View = view(require('./template.html'), function (view, model) {
 module.exports = function (ctx, next) {
   log('render')
 
-  var plan = ctx.plan
+  var plan = ctx.session.plan()
   var query = querystring.parse(window.location.search)
 
   // Set up the views
@@ -81,7 +81,7 @@ module.exports = function (ctx, next) {
     if ((query.from && query.to) || session.commuter().profile().welcome_wizard_complete) {
       showQuery(query)
     } else {
-      showWelcomeWizard(session)
+      showWelcomeWizard(session.commuter(), session.plan())
     }
   })
 

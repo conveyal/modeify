@@ -48,7 +48,7 @@ var View = view(require('./template.html'), function (view, model) {
         var to = cl._location.coordinate()
         var from = cl._commuter.coordinate()
         return {
-          commuter: cl._commuter.name() || cl._commuter._user().email,
+          commuter: cl.commuter.name() || cl.commuter.account().email,
           calories: parseInt(profile.calories, 10),
           cost: profile.cost.toFixed(2),
           distance: parseFloat(haversine(from.lat, from.lng, to.lat, to.lng, true).toFixed(2)),

@@ -1,8 +1,6 @@
 var analytics = require('analytics')
-var Commuter = require('commuter')
 var CommuterProfile = require('commuter-profile')
 var page = require('page')
-var Plan = require('plan')
 var Modal = require('modal')
 var utils = require('router-utils')
 var session = require('session')
@@ -18,10 +16,10 @@ page('/', redirectToPlanner)
 
 page('/logout', session.logoutMiddleware, utils.redirect('/welcome'))
 
-page('/planner', session.commuterIsLoggedIn, Plan.load, require('planner-page'), require('announcements'))
+page('/planner', session.touch, require('planner-page'), require('announcements'))
 page('/planner/:link', session.loginWithLink, redirectToPlanner)
 
-page('/profile', session.commuterIsLoggedIn, Plan.load, require('planner-page'), function (ctx, next) {
+page('/profile', session.touch, require('planner-page'), function (ctx, next) {
   ctx.modal = new CommuterProfile({
     commuter: session.commuter(),
     plan: session.plan()
@@ -31,24 +29,19 @@ page('/profile', session.commuterIsLoggedIn, Plan.load, require('planner-page'),
 
 page('/style-guide', require('style-guide'))
 
-page('/welcome', loginAnonymously, redirectToPlanner)
+// Allow for an easy path for resetting the user credentials and handle all unknown addresses by tracking them and redirecting to the welcome screen.
 
-/**
- * Handle all unknown addresses by tracking them and redirecting to the welcome screen
- */
-
+page('/welcome', trackAndRedirect)
 page('/:code', trackAndRedirect)
 page('/t/:code', trackAndRedirect)
 
-page('*', utils.render)
+// Render!
 
-function loginAnonymously (ctx, next) {
-  session.loginAnonymously(next)
-}
+page('*', utils.render)
 
 function trackAndRedirect (ctx, next) {
   if (!ctx.view) {
-    loginAnonymously(ctx, function () {
+    session.logoutMiddleware(ctx, function (err) {
       analytics.track('Tracking Code', {
         code: ctx.params.code
       })

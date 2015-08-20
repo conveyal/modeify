@@ -9,17 +9,16 @@
     "conveyal/otp-profile-to-transitive": "master",
     "segmentio/model-defaults": "0.2.0",
     "mbostock/d3": "*",
-    "visionmedia/batch": "*",
-    "yields/store": "0.2.0"
+    "visionmedia/batch": "*"
   },
   "local": [
     "analytics",
+    "browser-store",
     "commuter-location",
     "config",
     "convert",
     "geocode",
     "journey",
-    "localstorage-supported",
     "location",
     "log",
     "messages",
@@ -27,8 +26,7 @@
     "profile-formatter",
     "profile-query",
     "request",
-    "route",
-    "session"
+    "route"
   ],
   "scripts": [
     "index.js",

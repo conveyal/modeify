@@ -18,9 +18,7 @@ var TO = config.geocode().end_address
  * Show Modal
  */
 
-module.exports = function (session) {
-  var commuter = session.commuter()
-  var plan = session.plan()
+module.exports = function (commuter, plan) {
   var main = document.querySelector('#main')
 
   main.classList.add('Welcome')

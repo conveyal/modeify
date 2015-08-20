@@ -63,7 +63,7 @@ CommuterRow.prototype.status = function () {
 }
 
 CommuterRow.prototype.name = function () {
-  var user = this.model._commuter._user()
+  var user = this.model._commuter.account()
   if (user && user.email) {
     return this.model._commuter.name() || user.email
   } else {
@@ -84,7 +84,7 @@ CommuterRow.prototype.remove = function () {
 }
 
 CommuterRow.prototype.sendProfileAndMatches = function () {
-  var name = this.model._commuter.name() || this.model._commuter._user().email
+  var name = this.model._commuter.name() || this.model._commuter.account().email
   CommuterLocation.sendProfileAndMatches(this.model._id, function (err) {
     if (err) {
       console.error(err)

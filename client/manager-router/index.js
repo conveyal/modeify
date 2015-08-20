@@ -20,7 +20,7 @@ p('*', function (ctx, next) {
 
 // If the user is logged in, redirect to orgs, else redirect to login
 
-p('/', session.checkIfLoggedIn, utils.redirect('/organizations'))
+p('/', session.touch, utils.redirect('/organizations'))
 
 // Public links
 
@@ -28,11 +28,11 @@ p('/logout', session.logoutMiddleware, utils.redirect('/login'))
 
 // Admin only
 
-p('/managers', session.checkIfLoggedIn, session.checkIfAdmin, require('managers-page'))
+p('/managers', session.touch, require('managers-page'))
 
 // Organizations
 
-p('/organizations/(.*)', session.checkIfLoggedIn)
+p('/organizations/(.*)', session.touch)
 p('/organizations/', require('organizations-page'))
 p('/organizations/new', organizationForm)
 p('/organizations/:organization/(.*)', Organization.load)
@@ -63,7 +63,7 @@ p('/organizations/:organization/locations/:location/commuters/:commuter/edit', c
 
 // Feedback
 
-p('/feedback', session.checkIfLoggedIn, require('feedback-table-page'))
+p('/feedback', session.touch, require('feedback-table-page'))
 
 // Render all
 

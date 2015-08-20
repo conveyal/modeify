@@ -78,7 +78,7 @@ var Plan = module.exports = model('Plan')
  */
 
 module.exports.load = function (ctx, next) {
-  loadPlan(Plan, ctx, next)
+  return loadPlan(Plan)
 }
 
 /**
