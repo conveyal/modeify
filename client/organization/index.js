@@ -25,6 +25,7 @@ var Organization = module.exports = model('Organization')
   .attr('name')
   .attr('contact')
   .attr('email')
+  .attr('main_url')
   .attr('labels')
 
 /**
