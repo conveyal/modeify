@@ -154,14 +154,7 @@ function loadUser (next) {
   } else if (window.USER) {
     next(null, new User(window.USER))
   } else {
-    request.get('/auth/is-logged-in', function (err, res) {
-      if (err || !res.body) {
-        // Not being logged in is fine
-        next()
-      } else {
-        next(null, new User(res.body))
-      }
-    })
+    next()
   }
 }
 
