@@ -40,6 +40,9 @@ Modal.prototype.submit = function (e) {
       results: results
     }
 
+    // Remove the plan from the results (we have the query)
+    delete data.results.plan
+
     request.post('/feedback', data, function (err) {
       if (err) {
         log.error('%e', err)
