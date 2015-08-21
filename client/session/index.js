@@ -62,7 +62,10 @@ Session.prototype.logout = function (next) {
 }
 
 Session.prototype.clear = function () {
+  store('commuter', null)
+  store('plan', null)
   store('session', null)
+  store('user', null)
 
   session.set({
     commuter: null,
