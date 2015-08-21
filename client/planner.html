@@ -46,6 +46,10 @@
 
     <script src="https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.js"></script>
 
+    {{#if user}}
+      <script>window.USER={{{user}}}</script>
+    {{/if}}
+
     {{#if minified}}
       <script src="{{static_url}}/build/messages/en.min.js.gz?v={{version}}"></script>
       <script src="{{static_url}}/build/planner-app/build.min.js.gz?v={{version}}"></script>

@@ -36,6 +36,11 @@
 
     <script src="https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js"></script>
     <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js"></script>
+
+    {{#if user}}
+      <script>window.USER={{{user}}}</script>
+    {{/if}}
+
     <script src="{{static_url}}/build/manager-app/build.js?v={{version}}"></script>
     <script type="text/javascript">
       if (!document.body.classList) {

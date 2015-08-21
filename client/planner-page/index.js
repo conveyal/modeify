@@ -183,7 +183,6 @@ function showQuery (query) {
  */
 
 function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
-  var matchedFeatures = null
   // Register plan update events
   plan.on('change journey', function (journey) {
     if (journey && !isMobile) {
@@ -198,7 +197,7 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
     }
   })
 
-  plan.on('change matches', function (matches) {
+  /* plan.on('change matches', function (matches) {
     if (matchedFeatures) {
       map.removeLayer(matchedFeatures)
       matchedFeatures = null
@@ -208,15 +207,16 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
       matchedFeatures = window.L.mapbox.featureLayer({
         type: 'FeatureCollection',
         features: matches.map(function (match) {
+          console.log(match)
           return {
             type: 'Feature',
             geometry: {
               type: 'Point',
-              coordinates: [match.commuter.coordinate.lng, match.commuter.coordinate.lat]
+              coordinates: [match._commuter.coordinate.lng, match._commuter.coordinate.lat]
             },
             properties: {
               title: match.distance.toFixed(2) + ' miles away',
-              description: '<a href="#">Email ' + match.commuter.name + ' to set up your carpool!</a>',
+              description: '<a href="#">Email ' + match._commuter.name + ' to set up your carpool!</a>',
               'marker-size': 'small',
               'marker-color': '#455a71',
               'marker-symbol': 'car'
@@ -227,5 +227,5 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
 
       matchedFeatures.addTo(map)
     }
-  })
+  }) */
 }

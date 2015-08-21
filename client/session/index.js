@@ -4,7 +4,6 @@ var Commuter = require('commuter')
 var log = require('./client/log')('session')
 var defaults = require('model-defaults')
 var model = require('model')
-var Organization = require('organization')
 var page = require('page')
 var Plan = require('plan')
 var request = require('./client/request')
@@ -78,66 +77,6 @@ Session.prototype.clear = function () {
 }
 
 /**
- * Login
- */
-
-Session.prototype.login = function (data) {
-  log('--> login')
-
-  // is this a commuter object with a reference to a user?
-  if (data._user) {
-    log('--- login as %s', data._user.email)
-    this.commuterLogin(data)
-  } else {
-    var user = new User(data)
-    var type = user.type()
-
-    session.user(user)
-    session.isAdmin(type === 'administrator')
-    session.isManager(type !== 'commuter')
-    session.isLoggedIn(true)
-
-    analytics.identify(user._id(), user.toJSON())
-  }
-
-  log('<-- login complete')
-}
-
-/**
- * Log in as commuter
- */
-
-Session.prototype.commuterLogin = function (data) {
-  log('--> commuterLogin')
-
-  // Create the commuter object
-  var commuter = new Commuter(data)
-
-  // is this user associated with an organization?
-  if (data._organization && data._organization._id) {
-    commuter._organization(new Organization(data._organization))
-  }
-
-  session.commuter(commuter)
-
-  if (data._user && data._user._id) {
-    var user = new User(data._user)
-
-    session.user(user)
-    commuter.anonymous(false)
-  }
-
-  session.isAdmin(false)
-  session.isManager(false)
-  session.isLoggedIn(true)
-
-  log('-- identifying as %s', commuter._id())
-  analytics.identify(commuter._id(), commuter.toJSON())
-
-  log('<-- commuterLogin complete')
-}
-
-/**
  * Expose `session`
  */
 
@@ -165,6 +104,9 @@ session.load = function (ctx, next) {
     if (user) {
       session.user(user)
       session.isLoggedIn(true)
+
+      analytics.identify(user.id(), user.toJSON())
+
       user.on('change', function () {
         store('user', user.toJSON())
       })
@@ -188,6 +130,10 @@ session.load = function (ctx, next) {
       // Store commuter changes
       commuter.on('change', function () {
         store('commuter', commuter.toJSON())
+
+        if (!commuter.anonymous()) {
+          commuter.save()
+        }
       })
 
       next(null, session)
@@ -202,6 +148,8 @@ function loadUser (next) {
     next(null, session.user())
   } else if (userData) {
     next(null, new User(userData))
+  } else if (window.USER) {
+    next(null, new User(window.USER))
   } else {
     request.get('/auth/is-logged-in', function (err, res) {
       if (err || !res.body) {
@@ -216,10 +164,16 @@ function loadUser (next) {
 
 function loadCommuter (next) {
   var commuterData = store('commuter')
+  var user = session.user()
 
   if (session.commuter()) {
     next(null, session.commuter())
   } else if (commuterData) {
+    if (user) {
+      commuterData.account = user.id()
+      commuterData.anonymous = false
+    }
+
     next(null, new Commuter(commuterData))
   } else if (session.isLoggedIn()) {
     request.get('/commuter', {
@@ -276,8 +230,10 @@ session.logoutMiddleware = function (ctx, next) {
  */
 
 session.checkIfAdmin = function (ctx, next) {
-  log('is admin %s', ctx.path)
-  if (session.user().type() !== 'administrator') {
+  log('is admin %s', decodeURIComponent(ctx.path))
+  var groups = ctx.session.user().groups()
+
+  if (groups.indexOf('administrator') === -1) {
     page('/manager/organizations')
   } else {
     next()
@@ -290,8 +246,10 @@ session.checkIfAdmin = function (ctx, next) {
 
 session.checkIfManager = function (ctx, next) {
   log('is manager %s', ctx.path)
-  if (session.user().type() === 'commuter') {
-    page('/manager/login')
+  var groups = ctx.session.user().groups()
+
+  if (groups.indexOf('manager') === -1) {
+    window.location.href = '/login'
   } else {
     next()
   }
