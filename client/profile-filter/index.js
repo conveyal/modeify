@@ -83,7 +83,7 @@ function filterDriveToTransitTrips (opts) {
 
   return opts.filter(function (o) {
     if (o.access[0].mode !== 'CAR_PARK') return true
-    if (o.driveDistance > directDriveDistance * 2) return false
+    if (o.driveDistance > directDriveDistance) return false
     return o.time < fastestNonCarTrip * 1.5
   })
 }
