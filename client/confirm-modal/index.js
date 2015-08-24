@@ -15,9 +15,15 @@ var Modal = modal({
 
 Modal.prototype.confirm = function (e) {
   e.preventDefault()
-  this.model.confirmCallback.apply(this, e)
+  if(this.model.confirmCallback) {
+    this.model.confirmCallback.apply(this, e)
+  }
   this.hide()
 }
+
+/*Modal.prototype.showCancel = function (e) {
+  return false
+}*/
 
 /**
  * Expose `confirm`
@@ -27,7 +33,8 @@ module.exports = function (opts, callback) {
   var m = Modal({
     confirmCallback: callback,
     confirmText: opts.confirmText || 'Ok',
-    text: opts.text
+    text: opts.text,
+    showCancel: opts.showCancel !== undefined ? opts.showCancel : true
   })
 
   m.show()

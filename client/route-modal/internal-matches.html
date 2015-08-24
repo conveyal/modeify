@@ -1,6 +1,9 @@
-<h4>Found <a href="https://vanpoolalliance.rideproweb.com/rp/?Authenticated=False" target="_blank"><strong>{{matches.length}} vanpool matches</strong> <i class="fa fa-external-link"></i></a> from Vanpool Alliance:</h4>
-<ul>
-	{{#matches}}
-		<li>{{name}}</li>
-	{{/matches}}
-</ul>
+
+{{#organizations}}
+  <h4>Found <a href="{{url}}" target="_blank"><strong>{{matches.length}} matches</strong> <i class="fa fa-external-link"></i></a> with {{name}}:</h4>
+  <ul>
+    {{#matches}}
+      <li>{{name}}</li>
+    {{/matches}}
+  </ul>
+{{/organizations}}

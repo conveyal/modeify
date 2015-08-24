@@ -11,6 +11,7 @@ var value = require('value')
 var view = require('view')
 
 var View = view(require('./template.html'))
+var ConfirmModal = require('confirm-modal')
 
 module.exports = function (ctx, next) {
   log('render')
@@ -73,13 +74,17 @@ CommuterRow.prototype.name = function () {
 
 CommuterRow.prototype.remove = function () {
   var self = this
-  CommuterLocation.remove(this.model._id, function (err) {
-    if (err) {
-      console.error(err)
-      window.alert(err)
-    } else {
-      self.el.remove()
-    }
+  var modal = ConfirmModal({
+    text: 'Are you sure want to delete ' + this.name() + '?'
+  }, function() {
+    CommuterLocation.remove(self.model._id, function (err) {
+      if (err) {
+        console.error(err)
+        window.alert(err)
+      } else {
+        self.el.remove()
+      }
+    })
   })
 }
 

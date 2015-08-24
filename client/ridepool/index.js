@@ -49,3 +49,16 @@ Ridepool.loadOrg = function (ctx, next) {
       }
     })
 }
+
+Ridepool.forLocation = function (_location, callback) {
+  log('loading ridepools for location %s', _location)
+  request.get('/ridepools/by-location/' + _location, function (err, res) {
+    if (err) {
+      callback(err)
+    } else {
+      callback(null, (res.body || []).map(function (rp) {
+        return new Ridepool(rp)
+      }))
+    }
+  })
+}

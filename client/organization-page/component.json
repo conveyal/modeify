@@ -9,10 +9,13 @@
   "locals": [
     "alerts",
     "commuter",
+    "commuter-location",
+    "confirm-modal",
     "log",
     "map",
     "organization",
     "request",
+    "ridepool",
     "spinner",
     "view"
   ],

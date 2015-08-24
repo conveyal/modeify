@@ -8,6 +8,10 @@ var file = require('file')
 var filePicker = require('file-picker')
 var csvToArray = require('csv-to-array')
 
+var ConfirmModal = require('confirm-modal')
+var CommuterLocation = require('commuter-location')
+var Ridepool = require('ridepool')
+
 /**
  * Expose `View`
  */
@@ -20,6 +24,34 @@ var View = module.exports = view({
 
 var LocationRow = view(require('./location.html'))
 
+LocationRow.prototype.remove = function () {
+  var self = this
+  CommuterLocation.forLocation(self.model._id(), function(err, cls) {
+    Ridepool.forLocation(self.model._id(), function(err, ridepools) {
+      if (cls.length > 0 || ridepools.length > 0) {
+        var modal = ConfirmModal({
+          text: 'Cannot delete ' + self.model.name() + '; in use by ' + cls.length + ' commuter(s) and ' + ridepools.length + ' ridepool(s)',
+          showCancel: false
+        })
+      }
+      else {
+        var modal = ConfirmModal({
+          text: 'Are you sure <br>want to delete ' + self.model.get('name') + '?'
+        }, function() {
+          request.del('/locations/' + self.model._id(), function (err) {
+            if (err) {
+              console.error(err)
+              window.alert(err)
+            } else {
+              self.el.remove()
+            }
+          })
+        })
+      }
+    })
+  })
+}
+
 View.prototype['locations-view'] = function () {
   return LocationRow
 }
@@ -28,8 +60,11 @@ var RidepoolRow = view(require('./ridepool.html'))
 
 RidepoolRow.prototype.remove = function () {
   var self = this
-  if (window.confirm('Delete ridepool ' + this.model.get('name') + '?')) {
-    request.del('/ridepools/' + this.model.get('_id'), function (err) {
+
+  var modal = ConfirmModal({
+    text: 'Are you sure want to delete ' + self.model.get('name') + '?'
+  }, function() {
+    request.del('/ridepools/' + self.model.get('_id'), function (err) {
       if (err) {
         console.error(err)
         window.alert(err)
@@ -37,7 +72,7 @@ RidepoolRow.prototype.remove = function () {
         self.el.remove()
       }
     })
-  }
+  })
 }
 
 View.prototype['ridepools-view'] = function () {
