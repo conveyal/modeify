@@ -18,7 +18,7 @@ module.exports = function (ctx, next) {
 
   ctx.location.commuterLocations = ctx.commuterLocations
   ctx.view = new View(ctx.location, {
-    organization : ctx.organization
+    organization: ctx.organization
   })
   ctx.view.on('rendered', function (view) {
     var m = map(view.find('.map'), {
@@ -74,9 +74,9 @@ CommuterRow.prototype.name = function () {
 
 CommuterRow.prototype.remove = function () {
   var self = this
-  var modal = ConfirmModal({
+  ConfirmModal({
     text: 'Are you sure want to delete ' + this.name() + '?'
-  }, function() {
+  }, function () {
     CommuterLocation.remove(self.model._id, function (err) {
       if (err) {
         console.error(err)

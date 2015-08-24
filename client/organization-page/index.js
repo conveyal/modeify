@@ -12,12 +12,11 @@ module.exports = function (ctx, next) {
   // create lookup table mapping location IDs -> names
   ctx.organization.locations = ctx.locations
   var locationNames = {}
-  ctx.locations.forEach(function(location) {
+  ctx.locations.forEach(function (location) {
     locationNames[location.get('_id')] = location.get('name') || (location.get('address') + ', ' + location.get('city'))
   })
 
-  ctx.organization.ridepools = ctx.ridepools.map(function(ridepool){
-    var fromId = ridepool.get('from'), toId = ridepool.get('to')
+  ctx.organization.ridepools = ctx.ridepools.map(function (ridepool) {
     ridepool.from_name = locationNames[ridepool.get('from')]
     ridepool.to_name = locationNames[ridepool.get('to')]
     return ridepool

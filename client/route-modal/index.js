@@ -93,7 +93,7 @@ RouteModal.prototype.internalMatches = function () {
 
   // group matches by organization
   var matchesByOrg = {}
-  matches.forEach(function(match) {
+  matches.forEach(function (match) {
     if (!(match.organization.id in matchesByOrg)) {
       matchesByOrg[match.organization.id] = {
         name: match.organization.name,
@@ -106,7 +106,7 @@ RouteModal.prototype.internalMatches = function () {
 
   // pass array of organizations (w/ matches) to template
   var orgArray = []
-  for(id in matchesByOrg) orgArray.push(matchesByOrg[id])
+  for (var id in matchesByOrg) orgArray.push(matchesByOrg[id])
   return intMatchesTemplate.render({ organizations: orgArray })
 }
 

@@ -41,7 +41,7 @@ page('*', utils.render)
 
 function trackAndRedirect (ctx, next) {
   if (!ctx.view) {
-    session.logoutMiddleware(ctx, function (err) {
+    session.logoutMiddleware(ctx, function () {
       analytics.track('Tracking Code', {
         code: ctx.params.code
       })

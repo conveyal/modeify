@@ -6,7 +6,6 @@
   "locals": [
     "config",
     "log",
-    "map",
     "request"
   ],
   "scripts": [

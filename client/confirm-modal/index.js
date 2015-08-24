@@ -15,13 +15,13 @@ var Modal = modal({
 
 Modal.prototype.confirm = function (e) {
   e.preventDefault()
-  if(this.model.confirmCallback) {
+  if (this.model.confirmCallback) {
     this.model.confirmCallback.apply(this, e)
   }
   this.hide()
 }
 
-/*Modal.prototype.showCancel = function (e) {
+/* Modal.prototype.showCancel = function (e) {
   return false
 }*/
 

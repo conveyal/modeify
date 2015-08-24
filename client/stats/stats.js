@@ -3,16 +3,16 @@
  */
 
 var Stats = function () {
-  var startTime = Date.now(),
-    prevTime = startTime
-  var ms = 0,
-    msMin = Infinity,
-    msMax = 0
-  var fps = 0,
-    fpsMin = Infinity,
-    fpsMax = 0
-  var frames = 0,
-    mode = 0
+  var startTime = Date.now()
+  var prevTime = startTime
+  var ms = 0
+  var msMin = Infinity
+  var msMax = 0
+  var fps = 0
+  var fpsMin = Infinity
+  var fpsMax = 0
+  var frames = 0
+  var mode = 0
   var bar
 
   var container = document.createElement('div')
