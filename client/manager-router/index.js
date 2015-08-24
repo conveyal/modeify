@@ -24,7 +24,7 @@ p('/', session.touch, utils.redirect('/organizations'))
 
 // Public links
 
-p('/logout', session.logoutMiddleware, utils.redirect('/login'))
+p('/logout', session.logoutMiddleware, utils.redirect('/'))
 
 // Admin only
 
