@@ -30,7 +30,7 @@ var Plan = module.exports = model('Plan')
     bike: true,
     bikeShare: false,
     bus: true,
-    car: true,
+    car: false,
     days: 'M—F',
     end_time: (new Date()).getHours() + 4,
     from: '',

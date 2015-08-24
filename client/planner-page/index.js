@@ -120,8 +120,6 @@ module.exports = function(ctx, next) {
 	plan.setAddress('to', e.latlng.lng + ',' + e.latlng.lat, function (err, res) {
 	    plan.updateRoutes();
 	});
-      } else {
-        plan.updateRoutes();
       }
     });
 

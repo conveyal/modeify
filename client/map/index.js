@@ -306,9 +306,17 @@ module.exports.addPoint = function (map, point) {
     newPoint.marker.realtimeData = point;
     newPoint.marker.bindPopup(module.exports.makePopup(point));
     newPoint.marker.on('popupopen', function () {
+	// Workaround for bug where you can no longer
+	// click on start and end markers after opening
+	// a real-time popup
+	var zoomHideEl = document.querySelectorAll('svg.leaflet-zoom-hide')[0];
+	if (zoomHideEl) zoomHideEl.style.display = 'inherit';
 	module.exports.drawRoute(this);
     });
     newPoint.marker.on('popupclose', function () {
+	// Workaround counterpart
+	var zoomHideEl = document.querySelectorAll('svg.leaflet-zoom-hide')[0];
+	if (zoomHideEl) zoomHideEl.style.display = 'none';
 	module.exports.deleteRoute(this);
     });
 
