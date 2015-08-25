@@ -1,6 +1,7 @@
 {
   "name": "route-modal",
-   "dependencies": {
+  "dependencies": {
+    "component/each": "*",
     "twitter/hogan.js": "*"
   },
   "local": [

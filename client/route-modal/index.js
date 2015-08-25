@@ -8,6 +8,7 @@ var routeSummarySegments = require('route-summary-segments')
 var session = require('session')
 var SignUpForm = require('sign-up-form')
 var hogan = require('hogan.js')
+var each = require('each')
 
 /**
  * Create `Modal`
@@ -89,11 +90,13 @@ RouteModal.prototype.nextButtonText = function () {
 var intMatchesTemplate = hogan.compile(require('./internal-matches.html'))
 
 RouteModal.prototype.internalMatches = function () {
-  var matches = this.model.get('internalCarpoolMatches').matches
+  if(this.model.get('internalCarpoolMatches')) {
+    var matches = this.model.get('internalCarpoolMatches').matches
+  }
 
   // group matches by organization
   var matchesByOrg = {}
-  matches.forEach(function(match) {
+  each(matches, function(match) {
     if (!(match.organization.id in matchesByOrg)) {
       matchesByOrg[match.organization.id] = {
         name: match.organization.name,
