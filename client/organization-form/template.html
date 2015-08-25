@@ -2,23 +2,23 @@
   <h3>{action} Organization <a class="btn btn-default pull-right" data-href="back"><i class="fa fa-arrow-left"></i> Back</a></h3>
   <div class="form-group">
     <label for="name">Name</label>
-    <input type="text" class="form-control" name="name" placeholder="Name" data-value="name">
+    <input type="text" class="form-control" name="name" placeholder="Name" value="{name || ''}">
   </div>
   <div class="form-group">
     <label for="main_url">Main URL</label>
-    <input type="text" class="form-control" name="main_url" placeholder="main_url" data-value="main_url">
+    <input type="text" class="form-control" name="main_url" placeholder="URL" value="{main_url || ''}">
   </div>
   <div class="form-group">
     <label for="logo_url">Logo URL</label>
-    <input type="text" class="form-control" name="logo_url" placeholder="logo_url" data-value="logo_url">
+    <input type="text" class="form-control" name="logo_url" placeholder="Logo URL" value="{logo_url || ''}">
   </div>
   <div class="form-group">
     <label for="contact">Contact</label>
-    <input type="text" class="form-control" name="contact" placeholder="Contact" data-value="contact">
+    <input type="text" class="form-control" name="contact" placeholder="Contact" value="{contact || ''}">
   </div>
   <div class="form-group">
     <label for="email">Email</label>
-    <input type="text" class="form-control" name="email" placeholder="Email" data-value="email">
+    <input type="text" class="form-control" name="email" placeholder="Email" value="{email || ''}">
   </div>
   <button type="button" class="btn btn-primary" on-tap="save">{action}</button>
 </form>
