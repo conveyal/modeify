@@ -19,7 +19,10 @@ module.exports = function (ctx, next) {
     organization: ctx.organization
   })
 
-  ctx.view.refreshLocations()
+  ctx.view.on('rendered', function (view) {
+    view.selectOptions()
+    view.refreshLocations()
+  })
 
   next()
 }
@@ -64,6 +67,11 @@ View.prototype.save = function (e) {
   })
 }
 
+View.prototype.selectOptions = function () {
+  selectOptionByValue(document.getElementById('type'), this.model.type())
+  selectOptionByValue(document.getElementById('visibility'), this.model.visibility())
+}
+
 View.prototype.refreshLocations = function (e) {
   var view = this
   var ctx = {
@@ -83,4 +91,15 @@ function getOption(location, idToSelect) {
   option.value = location.get('_id')
   if(location.get('_id') === idToSelect) option.selected = true;
   return option
+}
+
+
+function selectOptionByValue(selectEl, value) {
+  var options = selectEl.options
+  for (var i = 0; i < options.length; i++) {
+    if (options[i].value == value) {
+      selectEl.selectedIndex = i
+      break
+    }
+  }
 }
