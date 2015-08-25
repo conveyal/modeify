@@ -14,5 +14,8 @@
   ],
   "templates": [
     "suggestions.html"
+  ],
+  "styles": [
+    "style.css"
   ]
 }

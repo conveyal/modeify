@@ -71,7 +71,9 @@ LocationSuggest.prototype.blurInput = function (e) {
   inputGroup.classList.remove('suggestions-open')
 
   var highlight = this.find('.suggestion.highlight')
-  if (highlight) e.target.value = highlight.textContent || ''
+  if (highlight) {
+    e.target.value = highlight.textContent || ''
+  }
 
   suggestionList.classList.add('empty')
 
@@ -81,7 +83,7 @@ LocationSuggest.prototype.blurInput = function (e) {
 
   inputGroup.classList.remove('highlight')
 
-  this.locationSelected(e.target)
+  this.locationSelected(e.target, e.target.value)
 }
 
 /**

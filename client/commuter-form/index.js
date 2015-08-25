@@ -6,6 +6,9 @@ var debug = require('debug')(config.name() + ':commuter-form')
 var page = require('page')
 var serialize = require('serialize')
 var view = require('view')
+var LocationSuggest = require('location-suggest')
+var extend = require('extend')
+var geocode = require('geocode')
 
 /**
  * Create `View`
@@ -16,6 +19,8 @@ var View = view({
   template: require('./template.html'),
   title: 'Commuter Form'
 })
+
+extend(View.prototype, LocationSuggest.prototype)
 
 /**
  * Expose `render`
@@ -40,6 +45,15 @@ module.exports = function (ctx, next) {
   }
 
   next()
+}
+
+View.prototype.locationSelected = function (target, address) {
+  document.getElementById('address').value = address.split(',')[0]
+  geocode.extended(address, function (err, res) {
+    if(res.city) document.getElementById('city').value = res.city
+    if(res.state) document.getElementById('state').value = res.state
+    if(res.zip) document.getElementById('zip').value = res.zip
+  })
 }
 
 /**
