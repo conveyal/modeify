@@ -1,6 +1,9 @@
 {
   "private": true,
   "main": "server.js",
+  "engines": {
+    "iojs": "3.x.x"
+  },
   "dependencies": {
     "analytics-node": "^1.2.0",
     "async": "^1.3.0",
@@ -56,8 +59,8 @@
     "uglify-js": "^2.4.23"
   },
   "scripts": {
-    "start": ". deployment/env && make serve",
-    "run": ". deployment/env && bin/server",
+    "start": "node server.js",
+    "develop": ". deployment/env && make serve",
     "stop": "make stop",
     "test": "NODE_ENV=test node_modules/.bin/mocha --compilers js:./babelify --recursive --reporter spec --require should --slow 10 --timeout 10s",
     "test-cov": "NODE_ENV=test node_modules/.bin/isparta cover node_modules/mocha/bin/_mocha -- --recursive --compilers js:./babelify --reporter dot --require should --slow 10 --timeout 30s",
