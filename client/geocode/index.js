@@ -6,16 +6,34 @@ var get = require('./client/request').get
  */
 
 module.exports = geocode
+module.exports.extended = extended
 module.exports.reverse = reverse
 module.exports.suggest = suggest
 
 /**
- * Geocode
+ * Geocode -- returns lat/lng coordinate only
  */
 
 function geocode (address, callback) {
   log('--> geocoding %s', address)
   get('/geocode/' + address, function (err, res) {
+    if (err) {
+      log('<-- geocoding error %s', err)
+      callback(err, res)
+    } else {
+      log('<-- geocoding complete %j', res.body)
+      callback(null, res.body)
+    }
+  })
+}
+
+/**
+ * Extended Geocode -- returns all address properties in addition to coordinate
+ */
+
+function extended (address, callback) {
+  log('--> extended geocoding %s', address)
+  get('/geocode/extended/' + address, function (err, res) {
     if (err) {
       log('<-- geocoding error %s', err)
       callback(err, res)

@@ -89,7 +89,9 @@ RouteModal.prototype.nextButtonText = function () {
 var intMatchesTemplate = hogan.compile(require('./internal-matches.html'))
 
 RouteModal.prototype.internalMatches = function () {
-  var matches = this.model.get('internalCarpoolMatches').matches
+  if (this.model.get('internalCarpoolMatches')) {
+    var matches = this.model.get('internalCarpoolMatches').matches
+  }
 
   // group matches by organization
   var matchesByOrg = {}

@@ -8,20 +8,20 @@
   <h3>{action} Ridepool</h3>
   <div class="form-group">
     <label for="name">Name</label>
-    <input type="text" class="form-control" name="name" placeholder="Name" data-value="name">
+    <input type="text" class="form-control" name="name" placeholder="Name" value="{name || ''}">
   </div>
 
   <div class="row">
     <div class="form-group col-md-6">
       <label for="type">Type</label>
-      <select class="form-control" name="type" data-value="type">
+      <select class="form-control" id="type" name="type">
         <option value="carpool">Carpool</option>
         <option value="vanpool">Vanpool</option>
       </select>
     </div>
     <div class="form-group col-md-6">
       <label for="visibility">Visibility</label>
-      <select class="form-control" name="visibility" data-value="visibility">
+      <select class="form-control" id="visibility" name="visibility">
         <option value="public">Public</option>
         <option value="organization">This Organization Only</option>
       </select>

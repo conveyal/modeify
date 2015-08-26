@@ -8,6 +8,12 @@
   --darkest: #303d49;
 }
 
+
+.nopadding {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
 /**
  * Custom Media Queries
  */

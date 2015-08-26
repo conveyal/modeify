@@ -5,12 +5,17 @@
       <li><a href="/manager/">Organizations</a></li>
       <li class="active">{name}</li>
     </ol>
-    <h3>
-      <i class="fa fa-building-o"></i> {name}
-      <a class="btn btn-warning pull-right" href="/manager/organizations/{_id}/edit"><i class="fa fa-pencil"></i> Edit</a>
-    </h3>
-    <p><a href="{main_url}">{main_url}</a></p>
-    <p><strong>Contact</strong>: {contact} — <a href="mailto:{email}">{email}</a></p>
+    <div class="col-sm-1 nopadding">
+      <h3><img src="{logo_url}" style="max-width:100%; max-height:100%;"></h3>
+    </div>
+    <div class="col-sm-11">
+      <h3>
+        <i class="fa fa-building-o"></i> {name}
+        <a class="btn btn-warning pull-right" href="/manager/organizations/{_id}/edit"><i class="fa fa-pencil"></i> Edit</a>
+      </h3>
+      <p><a href="{main_url}">{main_url}</a></p>
+      <p><strong>Contact</strong>: {contact} — <a href="mailto:{email}">{email}</a></p>
+    </div>
   </div>
   <div class="col-sm-12">
     <div class="map map-small"></div>

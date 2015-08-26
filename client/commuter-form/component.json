@@ -3,13 +3,16 @@
   "dependencies": {
     "trevorgerhardt/serialize": "0.0.1",
     "visionmedia/debug": "*",
-    "visionmedia/page.js": "*"
+    "visionmedia/page.js": "*",
+    "segmentio/extend": "*"
   },
   "locals": [
     "alert",
     "alerts",
     "commuter",
     "config",
+    "geocode",
+    "location-suggest",
     "view"
   ],
   "scripts": [
