@@ -24,8 +24,14 @@ module.exports = function (ctx, next) {
   if (ctx.params.commuter === 'new' || !ctx.commuter) return
 
   CommuterLocation.forCommuter(ctx.commuter.get('_id'), function (err, commuterLocations) {
-    commuterLocations = commuterLocations.map(function (commuterLocation) {
-      return commuterLocation._location
+    commuterLocations = commuterLocations.map(function (cl) {
+      return {
+        organizationId : cl._location.get('created_by'),
+        locationId : cl._location.get('_id'),
+        name : cl._location.get('name'),
+        fullAddress : cl._location.get('address') + ', ' + cl._location.get('city') + ', ' + cl._location.get('state'),
+        matches: cl.matches
+      }
     })
 
     ctx.view = new View(ctx.commuter, {
@@ -105,7 +111,17 @@ View.prototype.commuterLocations = function () {
 }
 
 
+var Match = view(require('./match.html'))
+
+Match.prototype.distanceMi = function () {
+  return Math.round(this.model.distance * 100) / 100
+}
+
 var LocationRow = view(require('./location.html'))
+
+LocationRow.prototype['matches-view'] = function () {
+  return Match
+}
 
 View.prototype['commuterLocations-view'] = function () {
   return LocationRow

@@ -18,6 +18,7 @@
   ],
   "templates": [
     "template.html",
-    "location.html"
+    "location.html",
+    "match.html"
   ]
 }
