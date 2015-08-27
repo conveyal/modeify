@@ -1,4 +1,3 @@
----
 application: Modeify
 name: Modeify
 domain: modeify.co
@@ -8,9 +7,6 @@ announcements:
 organization:
   name: Conveyal
   url: http://conveyal.com
-
-# Applicatio
-version: 1.2.1
 
 # Support Email Address
 email:

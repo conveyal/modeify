@@ -9,3 +9,5 @@ mkdir -p $APP
 
 cp -r $1/* $DEP
 cp -r $1/images/* $APP
+
+source $DEP/env
