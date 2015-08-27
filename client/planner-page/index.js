@@ -198,16 +198,17 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
     }
   })
 
-  plan.on('change matches', function (matches) {
+  plan.on('change matches', function (matchLocations) {
     if (matchedFeatures) {
       map.removeLayer(matchedFeatures)
       matchedFeatures = null
     }
 
-    if (matches && !isMobile) {
-      matchedFeatures = window.L.mapbox.featureLayer({
-        type: 'FeatureCollection',
-        features: matches.map(function (match) {
+    if (matchLocations && matchLocations.length > 0 && !isMobile) {
+
+      var features = []
+      matchLocations.forEach(function(matchLocation) {
+        features = features.concat(matchLocation.matches.map(function (match) {
           return {
             type: 'Feature',
             geometry: {
@@ -222,7 +223,12 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
               'marker-symbol': 'car'
             }
           }
-        })
+        }))
+      })
+
+      matchedFeatures = window.L.mapbox.featureLayer({
+        type: 'FeatureCollection',
+        features: features
       })
 
       matchedFeatures.addTo(map)
