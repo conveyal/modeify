@@ -67,6 +67,8 @@ Session.prototype.clear = function () {
   store('session', null)
   store('user', null)
 
+  document.cookie = 'expires=Thu, 01 Jan 1970 00:00:00 UTC'
+
   session.set({
     commuter: null,
     isAdmin: false,
