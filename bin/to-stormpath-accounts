@@ -1,0 +1,65 @@
+#!/usr/bin/env babel-node
+
+import stormpath from 'stormpath'
+import Commuter from '../lib/commuter/model'
+import User from '../lib/user/model'
+
+Promise
+  .all([getStormpathDirectory(), Commuter.find().populate('_user').exec()])
+  .then(mapCommutersToAccounts)
+  .then(accounts => {
+    accounts = accounts.filter(a => !!a)
+    console.log(`Created ${accounts.length} accounts`)
+    process.exit(0)
+  })
+  .catch((err) => {
+    console.error(err)
+    console.error(err.stack)
+    process.exit(1)
+  })
+
+function mapCommutersToAccounts ([directory, commuters]) {
+  return Promise.all(commuters.map(commuter => {
+    console.log(commuter.anonymous, commuter._user)
+    if (commuter.anonymous || !commuter._user) return Promise.resolve()
+
+    return new Promise((resolve, reject) => {
+      const [givenName, surname] = commuter.name ? commuter.name.split(' ') : [ 'CarFreeAtoZ', 'Commuter' ]
+
+      directory.createAccount({
+        email: commuter._user.email,
+        givenName,
+        surname,
+        password: commuter._user.password
+      }, {
+        registrationWorkflowEnabled: false
+      }, (err, account) => {
+        if (err) {
+          console.error(err)
+          console.error(err.stack)
+          return resolve()
+        }
+
+        console.log(`Created account ${account.id} for ${commuter._user.email}`)
+        commuter.account = account.id
+        commuter.save().then(err => {
+          if (err) return reject(err)
+          resolve(account)
+        })
+      })
+    })
+  }))
+}
+
+function getStormpathDirectory () {
+  return new Promise((resolve, reject) => {
+    stormpath.loadApiKey(`${__dirname}/../deployment/stormpath.properties`, (err, apiKey) => {
+      if (err) reject(err)
+      const client = new stormpath.Client({ apiKey })
+      client.getDirectory('https://api.stormpath.com/v1/directories/6Z8v5rY3MPf97OYN6DLVMx', (err, directory) => {
+        if (err) reject(err)
+        else resolve(directory)
+      })
+    })
+  })
+}
