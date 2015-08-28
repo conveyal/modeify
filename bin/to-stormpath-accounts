@@ -2,10 +2,12 @@
 
 import stormpath from 'stormpath'
 import Commuter from '../lib/commuter/model'
-import User from '../lib/user/model'
+
+const DIRECTORY = '4PFp7n2H9kvTvN7wf6oayN'
+const GROUP = '5SBSMYZ2OaMw7FXiq2kNPv'
 
 Promise
-  .all([getStormpathDirectory(), Commuter.find().populate('_user').exec()])
+  .all([getStormpathDirectoryAndGroup(), Commuter.find().populate('_user').exec()])
   .then(mapCommutersToAccounts)
   .then(accounts => {
     accounts = accounts.filter(a => !!a)
@@ -18,9 +20,8 @@ Promise
     process.exit(1)
   })
 
-function mapCommutersToAccounts ([directory, commuters]) {
+function mapCommutersToAccounts ([{ directory, group }, commuters]) {
   return Promise.all(commuters.map(commuter => {
-    console.log(commuter.anonymous, commuter._user)
     if (commuter.anonymous || !commuter._user) return Promise.resolve()
 
     return new Promise((resolve, reject) => {
@@ -40,25 +41,37 @@ function mapCommutersToAccounts ([directory, commuters]) {
           return resolve()
         }
 
-        console.log(`Created account ${account.id} for ${commuter._user.email}`)
-        commuter.account = account.id
-        commuter.save().then(err => {
-          if (err) return reject(err)
-          resolve(account)
+        const id = account.href.split('/').pop()
+
+        account.addToGroup(group, (err) => {
+          if (err) {
+            console.error(err)
+            return resolve()
+          }
+
+          console.log(`Created account ${id} for ${commuter._user.email}`)
+          commuter.account = id
+          commuter.save().then(err => {
+            if (err) return reject(err)
+            resolve(account)
+          })
         })
       })
     })
   }))
 }
 
-function getStormpathDirectory () {
+function getStormpathDirectoryAndGroup () {
   return new Promise((resolve, reject) => {
     stormpath.loadApiKey(`${__dirname}/../deployment/stormpath.properties`, (err, apiKey) => {
       if (err) reject(err)
       const client = new stormpath.Client({ apiKey })
-      client.getDirectory('https://api.stormpath.com/v1/directories/6Z8v5rY3MPf97OYN6DLVMx', (err, directory) => {
+      client.getDirectory(`https://api.stormpath.com/v1/directories/${DIRECTORY}`, (err, directory) => {
         if (err) reject(err)
-        else resolve(directory)
+        client.getGroup(`https://api.stormpath.com/v1/groups/${GROUP}`, (err, group) => {
+          if (err) reject(err)
+          resolve({ directory, group })
+        })
       })
     })
   })
