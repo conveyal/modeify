@@ -1,0 +1,13 @@
+{
+  "name": "browser-store",
+  "dependencies": {
+    "component/cookie": "*",
+    "yields/store": "*"
+  },
+  "local": [
+    "localstorage-supported"
+  ],
+  "scripts": [
+    "index.js"
+  ]
+}

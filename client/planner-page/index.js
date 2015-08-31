@@ -42,7 +42,7 @@ var View = view(require('./template.html'), function (view, model) {
 module.exports = function (ctx, next) {
   log('render')
 
-  var plan = ctx.plan
+  var plan = ctx.session.plan()
   var query = querystring.parse(window.location.search)
 
   // Set up the views
@@ -81,7 +81,7 @@ module.exports = function (ctx, next) {
     if ((query.from && query.to) || session.commuter().profile().welcome_wizard_complete) {
       showQuery(query)
     } else {
-      showWelcomeWizard(session)
+      showWelcomeWizard(session.commuter(), session.plan())
     }
   })
 
@@ -183,7 +183,6 @@ function showQuery (query) {
  */
 
 function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
-  var matchedFeatures = null
   // Register plan update events
   plan.on('change journey', function (journey) {
     if (journey && !isMobile) {
@@ -198,7 +197,7 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
     }
   })
 
-  plan.on('change matches', function (matchLocations) {
+  /* plan.on('change matches', function (matches) {
     if (matchedFeatures) {
       map.removeLayer(matchedFeatures)
       matchedFeatures = null
@@ -213,11 +212,11 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
             type: 'Feature',
             geometry: {
               type: 'Point',
-              coordinates: [match.commuter.coordinate.lng, match.commuter.coordinate.lat]
+              coordinates: [match._commuter.coordinate.lng, match._commuter.coordinate.lat]
             },
             properties: {
               title: match.distance.toFixed(2) + ' miles away',
-              description: '<a href="#">Email ' + match.commuter.name + ' to set up your carpool!</a>',
+              description: '<a href="#">Email ' + match._commuter.name + ' to set up your carpool!</a>',
               'marker-size': 'small',
               'marker-color': '#455a71',
               'marker-symbol': 'car'
@@ -233,5 +232,5 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
 
       matchedFeatures.addTo(map)
     }
-  })
+  }) */
 }

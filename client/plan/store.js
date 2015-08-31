@@ -1,7 +1,5 @@
-var localStorageSupported = require('localstorage-supported')()
 var log = require('./client/log')('plan:store')
-var session = require('session')
-var store = require('store')
+var store = require('browser-store')
 
 /**
  * Expose `storePlan`
@@ -15,7 +13,6 @@ module.exports = storePlan
 
 function storePlan (plan) {
   log('--> storing plan')
-  if (!localStorageSupported) return
 
   // convert to "JSON", remove routes & patterns
   var json = {}
@@ -24,21 +21,9 @@ function storePlan (plan) {
     json[key] = plan.attrs[key]
   }
 
-  // if we've created a commuter object, save to the commuter
-  var commuter = session.commuter()
-  if (commuter) {
-    json._commuter = commuter._id()
-    commuter.opts(json)
-    commuter.save()
-  }
-
   // save in local storage
-  try {
-    store('plan', json)
-    log('<-- stored plan')
-  } catch (e) {
-    log.error('<-- failed to store plan %e', e)
-  }
+  store('plan', json)
+  log('<-- stored plan')
 
   return json
 }
@@ -48,7 +33,5 @@ function storePlan (plan) {
  */
 
 module.exports.clear = function () {
-  if (localStorageSupported) {
-    store('plan', null)
-  }
+  store('plan', null)
 }

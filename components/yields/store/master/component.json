@@ -1,0 +1,17 @@
+{
+  "name": "store",
+  "remotes": [
+    "https://raw.githubusercontent.com"
+  ],
+  "version": "1.0.2",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "dependencies": {
+    "yields/unserialize": "*",
+    "component/each": "*"
+  },
+  "repository": "yields/store",
+  "resolved": "5b56173f4e3b745cee3043edf328e7c1eeabc1cd"
+}

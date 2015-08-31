@@ -50,9 +50,11 @@ module.exports = function (ctx, next) {
 View.prototype.locationSelected = function (target, address) {
   document.getElementById('address').value = address.split(',')[0]
   geocode.extended(address, function (err, res) {
-    if(res.city) document.getElementById('city').value = res.city
-    if(res.state) document.getElementById('state').value = res.state
-    if(res.zip) document.getElementById('zip').value = res.zip
+    if (err) console.error(err)
+
+    if (res.city) document.getElementById('city').value = res.city
+    if (res.state) document.getElementById('state').value = res.state
+    if (res.zip) document.getElementById('zip').value = res.zip
   })
 }
 
@@ -79,7 +81,7 @@ View.prototype.isEditing = function () {
  */
 
 View.prototype.email = function () {
-  return this.model._user().email || ''
+  return this.model.account().email || ''
 }
 
 /**
@@ -121,7 +123,7 @@ View.prototype.save = function (e) {
   data.zip = parseInt(data.zip, 10)
 
   // set the email address
-  this.model._user({
+  this.model.account({
     email: data.email
   })
   delete data.email

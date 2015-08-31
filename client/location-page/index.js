@@ -18,7 +18,7 @@ module.exports = function (ctx, next) {
 
   ctx.location.commuterLocations = ctx.commuterLocations
   ctx.view = new View(ctx.location, {
-    organization : ctx.organization
+    organization: ctx.organization
   })
   ctx.view.on('rendered', function (view) {
     var m = map(view.find('.map'), {
@@ -64,7 +64,7 @@ CommuterRow.prototype.status = function () {
 }
 
 CommuterRow.prototype.name = function () {
-  var user = this.model._commuter._user()
+  var user = this.model._commuter.account()
   if (user && user.email) {
     return this.model._commuter.name() || user.email
   } else {
@@ -74,9 +74,9 @@ CommuterRow.prototype.name = function () {
 
 CommuterRow.prototype.remove = function () {
   var self = this
-  var modal = ConfirmModal({
+  ConfirmModal({
     text: 'Are you sure want to delete ' + this.name() + '?'
-  }, function() {
+  }, function () {
     CommuterLocation.remove(self.model._id, function (err) {
       if (err) {
         console.error(err)
@@ -89,7 +89,7 @@ CommuterRow.prototype.remove = function () {
 }
 
 CommuterRow.prototype.sendProfileAndMatches = function () {
-  var name = this.model._commuter.name() || this.model._commuter._user().email
+  var name = this.model._commuter.name() || this.model._commuter.account().email
   CommuterLocation.sendProfileAndMatches(this.model._id, function (err) {
     if (err) {
       console.error(err)

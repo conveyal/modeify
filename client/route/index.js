@@ -1,9 +1,6 @@
-var Batch = require('batch')
 var convert = require('convert')
 var model = require('model')
 var defaults = require('model-defaults')
-var request = require('request')
-var session = require('session')
 var each = require('each')
 
 /**
@@ -45,6 +42,7 @@ var Route = module.exports = model('Route')
   .attr('hasRideshareMatches')
   .attr('hasTransit')
   .attr('modes')
+  .attr('plan')
   .attr('score')
   .attr('stats')
   .attr('summary')
@@ -203,7 +201,7 @@ Route.prototype.hasWalking = function () {
  */
 
 Route.prototype.tripsPerYear = function () {
-  return session.plan().tripsPerYear()
+  return this.plan().tripsPerYear()
 }
 
 /**
@@ -211,7 +209,7 @@ Route.prototype.tripsPerYear = function () {
  */
 
 Route.prototype.tripm = function () {
-  return session.plan().tripsPerYear()
+  return this.plan().tripsPerYear()
 }
 
 /**
@@ -277,7 +275,7 @@ Route.prototype.frequency = function () {
     return false
   }
 
-  var plan = session.plan()
+  var plan = this.plan()
   var start = plan.start_time()
   var end = plan.end_time()
 
@@ -346,23 +344,23 @@ function timeFromSpeedAndDistance (s, d) {
  */
 
 Route.prototype.bikeSpeed = function () {
-  return session.plan().scorer().rates.bikeSpeed
+  return this.plan().scorer().rates.bikeSpeed
 }
 
 Route.prototype.walkSpeed = function () {
-  return session.plan().scorer().rates.walkSpeed
+  return this.plan().scorer().rates.walkSpeed
 }
 
 Route.prototype.vmtRate = function () {
-  return session.plan().scorer().rates.mileageRate
+  return this.plan().scorer().rates.mileageRate
 }
 
 Route.prototype.weight = function () {
-  return session.plan().scorer().rates.weight
+  return this.plan().scorer().rates.weight
 }
 
 Route.prototype.carParkingCost = function () {
-  return session.plan().scorer().rates.carParkingCost
+  return this.plan().scorer().rates.carParkingCost
 }
 
 /**

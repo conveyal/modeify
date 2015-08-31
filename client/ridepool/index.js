@@ -1,6 +1,5 @@
 var config = require('config')
 var log = require('log')('ridepool')
-var map = require('map')
 var model = require('model')
 var request = require('request')
 
@@ -39,7 +38,7 @@ Ridepool.loadOrg = function (ctx, next) {
         log.info('ridepool loadOrg err ' + err)
         next(err)
       } else {
-        if(res.body) {
+        if (res.body) {
           log.info('load org found %s ridepools(s)', res.body.length)
           ctx.ridepools = res.body.map(function (l) {
             return new Ridepool(l)

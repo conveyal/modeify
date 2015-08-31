@@ -31,7 +31,6 @@ View.prototype.action = function () {
   return this.model.isNew() ? 'Create' : 'Edit'
 }
 
-
 View.prototype.organizationId = function () {
   return this.options.organization.get('_id')
 }
@@ -75,29 +74,28 @@ View.prototype.selectOptions = function () {
 View.prototype.refreshLocations = function (e) {
   var view = this
   var ctx = {
-    params : { organization : this.options.organization.get('_id') }
+    params: { organization: this.options.organization.get('_id') }
   }
-  Location.loadOrg(ctx, function(err) {
-    ctx.locations.forEach(function(location) {
+  Location.loadOrg(ctx, function () {
+    ctx.locations.forEach(function (location) {
       document.getElementById('from-locations').appendChild(getOption(location, view.model.get('from')))
       document.getElementById('to-locations').appendChild(getOption(location, view.model.get('to')))
     })
   })
 }
 
-function getOption(location, idToSelect) {
+function getOption (location, idToSelect) {
   var option = document.createElement('option')
   option.text = location.get('name') || (location.get('address') + ', ' + location.get('city'))
   option.value = location.get('_id')
-  if(location.get('_id') === idToSelect) option.selected = true;
+  if (location.get('_id') === idToSelect) option.selected = true
   return option
 }
 
-
-function selectOptionByValue(selectEl, value) {
+function selectOptionByValue (selectEl, value) {
   var options = selectEl.options
   for (var i = 0; i < options.length; i++) {
-    if (options[i].value == value) {
+    if (options[i].value === value) {
       selectEl.selectedIndex = i
       break
     }

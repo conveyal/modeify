@@ -45,10 +45,7 @@ Modal.prototype.anonymous = function () {
   return this.model.commuter.anonymous()
 }
 Modal.prototype.email = function () {
-  return this.model.commuter._user().email
-}
-Modal.prototype.emailConfirmed = function () {
-  return this.model.commuter._user().email_confirmed
+  return this.model.commuter.account().email
 }
 
 /**

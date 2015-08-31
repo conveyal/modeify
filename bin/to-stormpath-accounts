@@ -1,0 +1,79 @@
+#!/usr/bin/env babel-node
+
+import stormpath from 'stormpath'
+import Commuter from '../lib/commuter/model'
+import User from '../lib/user/model'
+
+const DIRECTORY = '1Q64vzaRiRa15nm21YsW8L'
+const GROUP = 'JQMurZbkE5fpp339NmqjP'
+
+Promise
+  .all([getStormpathDirectoryAndGroup(), Commuter.find().populate('_user').exec()])
+  .then(mapCommutersToAccounts)
+  .then(accounts => {
+    accounts = accounts.filter(a => !!a)
+    console.log(`Created ${accounts.length} accounts`)
+    process.exit(0)
+  })
+  .catch((err) => {
+    console.error(err)
+    console.error(err.stack)
+    process.exit(1)
+  })
+
+function mapCommutersToAccounts ([{ directory, group }, commuters]) {
+  return Promise.all(commuters.map(commuter => {
+    if (commuter.anonymous || !commuter._user) return Promise.resolve()
+
+    return new Promise((resolve, reject) => {
+      const [givenName, surname] = commuter.name ? commuter.name.split(' ') : [ 'CarFreeAtoZ', 'Commuter' ]
+
+      directory.createAccount({
+        email: commuter._user.email,
+        givenName,
+        surname,
+        password: commuter._user.password
+      }, {
+        registrationWorkflowEnabled: false
+      }, (err, account) => {
+        if (err) {
+          console.error(err)
+          console.error(err.stack)
+          return resolve()
+        }
+
+        const id = account.href.split('/').pop()
+
+        account.addToGroup(group, (err) => {
+          if (err) {
+            console.error(err)
+            return resolve()
+          }
+
+          console.log(`Created account ${id} for ${commuter._user.email}`)
+          commuter.account = id
+          commuter.save().then(err => {
+            if (err) return reject(err)
+            resolve(account)
+          })
+        })
+      })
+    })
+  }))
+}
+
+function getStormpathDirectoryAndGroup () {
+  return new Promise((resolve, reject) => {
+    stormpath.loadApiKey(`${__dirname}/../deployment/stormpath.properties`, (err, apiKey) => {
+      if (err) reject(err)
+      const client = new stormpath.Client({ apiKey })
+      client.getDirectory(`https://api.stormpath.com/v1/directories/${DIRECTORY}`, (err, directory) => {
+        if (err) reject(err)
+        client.getGroup(`https://api.stormpath.com/v1/groups/${GROUP}`, (err, group) => {
+          if (err) reject(err)
+          resolve({ directory, group })
+        })
+      })
+    })
+  })
+}

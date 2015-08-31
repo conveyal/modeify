@@ -8,8 +8,6 @@
     "visionmedia/debug": "*"
   },
   "locals": [
-    "alerts",
-    "campaign",
     "config",
     "log",
     "map",

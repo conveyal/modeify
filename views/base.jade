@@ -1,0 +1,352 @@
+block vars
+doctype html
+| <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+| <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+| <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+| <!--[if gt IE 8]><!-->
+html(class='no-js', lang='en')
+  | <!--<![endif]-->
+  head
+    meta(charset='utf-8')
+    title #{title} — #{application}
+    meta(content='#{description}', name='description')
+    meta(content='width=device-width', name='viewport')
+
+    link(rel='shortcut icon', href='#{static_url}/images/favicon.png')
+    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600', rel='stylesheet')
+    link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css', rel='stylesheet')
+    link(href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', rel='stylesheet')
+    style.
+      html,
+      body {
+        height: 100%;
+        color: #455a71;
+      }
+
+      @media (max-width: 767px) {
+        html,
+        body {
+          padding: 0 4px;
+        }
+      }
+
+      body {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      body,
+      div,
+      p,
+      a,
+      label {
+        font-family: "Open Sans";
+        font-size: 14px;
+        font-weight: 400;
+      }
+      
+      a {
+        color: #F5A81C
+      }
+      
+      a:hover,
+      a:focus {
+        color: rgb(196, 134, 22)
+      }
+
+      p {
+        line-height: 21px;
+      }
+
+      .container {
+        max-width: 620px;
+      }
+
+      .logo {
+        margin: 34px auto 25px auto;
+        display: block;
+      }
+
+      .btn-sp-green {
+        height: 45px;
+        line-height: 22.5px;
+        padding: 0 40px;
+        color: #fff;
+        font-size: 17px;
+        background-color: #F5A81C;
+      }
+
+      .btn-sp-green:hover,
+      .btn-sp-green:focus {
+        color: #fff;
+        background-color: rgb(196, 134, 22);
+      }
+
+      .btn-social {
+        height: 37px;
+        line-height: 18.5px;
+        color: #fff;
+        font-size: 16px;
+        border-radius: 3px;
+      }
+
+      .btn-social:hover,
+      .btn-social:focus {
+        color: #fff;
+      }
+
+      .btn-register {
+        font-size: 16px;
+      }
+
+      .form-control {
+        font-size: 15px;
+        box-shadow: none;
+      }
+
+      .form-control::-webkit-input-placeholder {
+        color: #aaadb0;
+      }
+
+      .form-control::-moz-placeholder {
+        color: #aaadb0;
+      }
+
+      .form-control:-ms-input-placeholder {
+        color: #aaadb0;
+      }
+
+      .form-control::placeholder {
+        color: #aaadb0;
+      }
+
+      .form-control:focus {
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px rgba(0, 132, 255, 0.4);
+      }
+
+      .view .header {
+        padding: 34px 0;
+      }
+
+      .view .header,
+      .view .header a {
+        font-weight: 300;
+        font-size: 21px;
+      }
+
+      .view input[type="text"],
+      .view input[type="password"] {
+        background-color: #f6f6f6;
+        height: 45px;
+      }
+
+      .view a.forgot,
+      .view a.to-login {
+        float: right;
+        padding: 17px 0;
+        font-size: 13px;
+      }
+
+      .view form button {
+        display: block;
+        float: right;
+        margin-bottom: 25px;
+      }
+
+      .view form label {
+        height: 45px;
+        line-height: 45px;
+      }
+
+      .box {
+        border: 1px solid #455a71;
+        border-radius: 3px;
+        padding: 0;
+      }
+      
+      .box > div {
+        padding: 0 50px;
+      }
+
+      .sp-form .has-error,
+      .sp-form .has-error .help-block {
+        color: #ec3e3e;
+        font-weight: 600;
+      }
+
+      .sp-form .has-error input[type="text"],
+      .sp-form .has-error input[type="password"] {
+        border-color: #ec3e3e;
+      }
+
+      .sp-form .form-group {
+        margin-bottom: 21px;
+      }
+
+      .sp-form input[type="text"],
+      .sp-form input[type="password"] {
+        position: relative;
+      }
+
+      .sp-form .help-block {
+        font-size: 12px;
+        position: absolute;
+        top: 43px;
+      }
+
+      .verify-view .box {
+        padding-bottom: 30px;
+      }
+
+      .verify-view .box .header {
+        padding-bottom: 20px;
+      }
+
+      .unverified-view .box {
+        padding-bottom: 30px;
+      }
+
+      .unverified-view .box .header {
+        padding-bottom: 25px;
+      }
+
+      .login-view .box {
+        background-color: #f6f6f6;
+        padding: 0;
+      }
+
+      .login-view label {
+        margin-bottom: 7px;
+      }
+
+      .login-view .header p {
+        margin-top: 2em;
+      }
+
+      .login-view .email-password-area {
+        background-color: white;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+      }
+
+      @media (min-width: 767px) {
+        .login-view .email-password-area {
+          padding: 0 30px;
+        }
+      }
+
+      .login-view .email-password-area label {
+        height: 14px;
+        line-height: 14px;
+      }
+
+      .login-view .email-password-area input[type='checkbox'] {
+        visibility: hidden;
+      }
+
+      .login-view .email-password-area input[type='checkbox'] + label {
+        position: relative;
+        padding-left: 8px;
+        line-height: 16px;
+        font-size: 13px;
+      }
+
+      .login-view .email-password-area input[type='checkbox'] + label:after {
+        position: absolute;
+        left: -16px;
+        width: 16px;
+        height: 16px;
+        border: 1px solid #cacaca;
+        background-color: #f6f6f6;
+        content: "";
+      }
+
+      .login-view .email-password-area input[type='checkbox']:checked + label:after {
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowRTVBQUVGMzJEODBFMjExODQ2N0NBMjk4MjdCNDBCNyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo0RTY4NUM4NURGNEYxMUUyQUE5QkExOTlGODU3RkFEOCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo0RTY4NUM4NERGNEYxMUUyQUE5QkExOTlGODU3RkFEOCIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjQxNDQ4M0NEM0JERkUyMTE4MEYwQjNBRjIwMUNENzQxIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkZDMEMxNjY2OUVCMUUyMTFBRjVDQkQ0QjE5MTNERDU2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+3YY4qgAAALlJREFUeNpi/P//PwMlgImBQjDwBrCgCwQHB+NUfObMGT9mZuboe/fuheM0ABu4fv060/fv32cBNTNycHBE4nUBNs0/f/7cAWSeMzQ0rCA5DICaNwKj+qGRkVEFUYF47ty5GWfPns2EsjsYGRlFgM5OJzoQ//37t5eLi2sRMMDec3Jypn79+lVXX1//H9HRaGJisvr379/nuLm5lwKdP9vMzOwZyekAaEA3EF8G4hZCYcQ4mhcYAAIMAJGST/dDIpNQAAAAAElFTkSuQmCC);
+        background-position: -1px -1px;
+      }
+
+      @media (min-width: 767px) {
+        .login-view .email-password-area.small {
+          border-right: 1px solid #cacaca;
+        }
+
+        .login-view .email-password-area.small .group-email {
+          margin-bottom: 21px;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .login-view .email-password-area.small {
+          border-bottom: 1px solid #cacaca;
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+      }
+
+      .login-view .email-password-area.large {
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+      }
+
+      @media (min-width: 767px) {
+        .login-view .email-password-area.large {
+          padding: 0 50px;
+        }
+
+        .login-view .email-password-area.large .group-email label,
+        .login-view .email-password-area.large .group-password label {
+          height: 45px;
+          line-height: 45px;
+        }
+      }
+
+      .login-view .social-area {
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        padding: 0 20px;
+        position: relative;
+        padding-bottom: 20px;
+        background-color: #f6f6f6;
+      }
+
+      .login-view .social-area .header {
+        margin-bottom: -6px;
+      }
+
+      @media (max-width: 767px) {
+        .login-view .social-area .header {
+          padding: 0px;
+        }
+      }
+
+      .login-view .social-area button {
+        display: block;
+        width: 100%;
+        margin-bottom: 15px;
+      }
+
+      .login, .register { display: table; }
+      .va-wrapper { display: table-cell; width: 100%; vertical-align: middle; }
+      .custom-container { display: table-row; height: 100%; }
+      
+      .nav-logo {
+        background-color: #455a71;
+        padding: 20px 140px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+    | <!--[if lt IE 9]>
+    |  <script src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'></script>
+    |  <script src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js'></script>
+    | <![endif]-->
+
+    block head
+
+  body(class='#{bodytag}')      
+
+    block body
+
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js')
+    script(src='//netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')

@@ -118,6 +118,8 @@ function updateRoutes (plan, opts, callback) {
           profile[i] = driveOption
         }
 
+        profile[i].plan(plan)
+
         profile[i].setCarData({
           cost: driveOption.cost(),
           emissions: driveOption.emissions(),

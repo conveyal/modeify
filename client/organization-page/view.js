@@ -26,18 +26,22 @@ var LocationRow = view(require('./location.html'))
 
 LocationRow.prototype.remove = function () {
   var self = this
-  CommuterLocation.forLocation(self.model._id(), function(err, cls) {
-    Ridepool.forLocation(self.model._id(), function(err, ridepools) {
+  CommuterLocation.forLocation(self.model._id(), function (err, cls) {
+    Ridepool.forLocation(self.model._id(), function (err, ridepools) {
+      if (err) {
+        console.error(err)
+        window.alert(err)
+      }
+
       if (cls.length > 0 || ridepools.length > 0) {
-        var modal = ConfirmModal({
+        ConfirmModal({
           text: 'Cannot delete ' + self.model.name() + '; in use by ' + cls.length + ' commuter(s) and ' + ridepools.length + ' ridepool(s)',
           showCancel: false
         })
-      }
-      else {
-        var modal = ConfirmModal({
+      } else {
+        ConfirmModal({
           text: 'Are you sure <br>want to delete ' + self.model.get('name') + '?'
-        }, function() {
+        }, function () {
           request.del('/locations/' + self.model._id(), function (err) {
             if (err) {
               console.error(err)
@@ -61,9 +65,9 @@ var RidepoolRow = view(require('./ridepool.html'))
 RidepoolRow.prototype.remove = function () {
   var self = this
 
-  var modal = ConfirmModal({
+  ConfirmModal({
     text: 'Are you sure want to delete ' + self.model.get('name') + '?'
-  }, function() {
+  }, function () {
     request.del('/ridepools/' + self.model.get('_id'), function (err) {
       if (err) {
         console.error(err)
@@ -91,14 +95,14 @@ View.prototype.ridepoolCSV = function (e) {
       spinner.remove()
 
       var ridepools = csvToArray(text)
-      ridepools = ridepools.map(function(ridepool) {
+      ridepools = ridepools.map(function (ridepool) {
         ridepool.created_by = view.model.get('_id')
         return ridepool
       })
 
       request.post('/ridepools/batch', ridepools, function (err, res) {
         if (err) {
-          alert('Error uploading: ' + err)
+          window.alert('Error uploading: ' + err)
         } else {
           page('/manager/organizations/' + view.model.get('_id') + '/show')
         }

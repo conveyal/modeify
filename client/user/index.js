@@ -1,4 +1,3 @@
-var config = require('config')
 var model = require('model')
 
 /**
@@ -6,11 +5,8 @@ var model = require('model')
  */
 
 module.exports = model('User')
-  .route(config.api_url() + '/users')
-  .use(require('model-query'))
-  .attr('_id')
+  .attr('id')
+  .attr('customData')
   .attr('email')
-  .attr('email_confirmed')
-  .attr('type')
-  .attr('created')
-  .attr('modified')
+  .attr('givenName')
+  .attr('surname')

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd "$(dirname "$0")"
+CONFIG=$(yaml2json ../deployment/config.yaml | base64)
+heroku config:set MODEIFY_CONFIG=$CONFIG --app $1

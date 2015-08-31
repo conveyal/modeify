@@ -3,8 +3,7 @@ var hogan = require('hogan.js')
 var log = require('./client/log')('location-suggest')
 var each = require('each')
 
-
-var LocationSuggest = module.exports = function() {}
+var LocationSuggest = module.exports = function () {}
 
 /**
  * Suggestions Template

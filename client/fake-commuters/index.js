@@ -3,8 +3,10 @@ require('seedrandom')
 
 var modes = [ 'metro', 'bus', 'bike', 'walk', 'drive' ]
 var commuters = []
-var latMin = 38.85, latMultiple = 0.20
-var lonMin = -77.30, lonMultiple = 0.4
+var latMin = 38.85
+var latMultiple = 0.20
+var lonMin = -77.30
+var lonMultiple = 0.4
 
 Math.seedrandom('modeify')
 for (var i = 0; i < 100; i++) {

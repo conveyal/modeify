@@ -3,7 +3,6 @@ var log = require('./client/log')('commuter')
 var defaults = require('model-defaults')
 var map = require('map')
 var model = require('model')
-var request = require('./client/request')
 
 /**
  * Expose `Commuter`
@@ -12,7 +11,7 @@ var request = require('./client/request')
 var Commuter = module.exports = model('Commuter')
   .use(defaults({
     anonymous: true,
-    _user: {},
+    account: {},
     name: '',
     link: '',
     labels: [],
@@ -26,7 +25,7 @@ var Commuter = module.exports = model('Commuter')
   .attr('_id')
   .attr('_location')
   .attr('_organization')
-  .attr('_user')
+  .attr('account')
   .attr('anonymous')
   .attr('name')
   .attr('link')
@@ -73,24 +72,6 @@ Commuter.loadOrg = function (ctx, next) {
 }
 
 /**
- * Confirm email address
- */
-
-Commuter.confirmEmail = function (ctx, next) {
-  var key = ctx.params.key
-  if (!key) return next()
-
-  request.get('/users/confirm-email/' + key, function (err, res) {
-    if (err || !res.ok) {
-      window.alert(res.text || err.message)
-    } else {
-      window.alert('Email confirmed!')
-    }
-    next()
-  })
-}
-
-/**
  * Return map marker opts
  */
 
@@ -98,10 +79,8 @@ Commuter.prototype.mapMarker = function () {
   var c = this.fuzzyCoordinate()
 
   return map.createMarker({
-    title: 'Approx. location of ' + this._user().email,
-    description: '<a href="/manage/organizations/' + this._organization() +
-      '/commuters/' +
-      this._id() + '/show">' + this.fuzzyAddress() + '</a>',
+    title: 'Approx. location of ' + this.account().email,
+    description: '<a href="/manage/organizations/' + this._organization() + '/commuters/' + this._id() + '/show">' + this.fuzzyAddress() + '</a>',
     color: '#5cb85c',
     coordinate: [c.lng, c.lat],
     icon: 'building',

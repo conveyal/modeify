@@ -1,5 +1,4 @@
 var closest = require('closest')
-var each = require('each')
 var log = require('./client/log')('locations-view')
 var textModal = require('text-modal')
 var view = require('view')
@@ -95,8 +94,6 @@ View.prototype.currentLocation = function (e) {
   }
 }
 
-
-
 View.prototype.locationSelected = function (target) {
   this.save(target)
 }
@@ -145,4 +142,3 @@ View.prototype.clear = function (e) {
 
   this.resetIcons()
 }
-
