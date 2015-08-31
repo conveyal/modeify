@@ -2,9 +2,10 @@
 
 import stormpath from 'stormpath'
 import Commuter from '../lib/commuter/model'
+import User from '../lib/user/model'
 
-const DIRECTORY = '4PFp7n2H9kvTvN7wf6oayN'
-const GROUP = '5SBSMYZ2OaMw7FXiq2kNPv'
+const DIRECTORY = '1Q64vzaRiRa15nm21YsW8L'
+const GROUP = 'JQMurZbkE5fpp339NmqjP'
 
 Promise
   .all([getStormpathDirectoryAndGroup(), Commuter.find().populate('_user').exec()])
