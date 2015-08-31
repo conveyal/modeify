@@ -92,11 +92,10 @@ function getOption (location, idToSelect) {
   return option
 }
 
-
-function selectOptionByValue(selectEl, value) {
+function selectOptionByValue (selectEl, value) {
   var options = selectEl.options
   for (var i = 0; i < options.length; i++) {
-    if (options[i].value == value) {
+    if (options[i].value === value) {
       selectEl.selectedIndex = i
       break
     }

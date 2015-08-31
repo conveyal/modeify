@@ -31,7 +31,9 @@ LocationRow.prototype.remove = function () {
       if (err) {
         console.error(err)
         window.alert(err)
-      } else if (cls.length > 0 || ridepools.length > 0) {
+      }
+
+      if (cls.length > 0 || ridepools.length > 0) {
         ConfirmModal({
           text: 'Cannot delete ' + self.model.name() + '; in use by ' + cls.length + ' commuter(s) and ' + ridepools.length + ' ridepool(s)',
           showCancel: false

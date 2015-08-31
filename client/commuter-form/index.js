@@ -50,9 +50,11 @@ module.exports = function (ctx, next) {
 View.prototype.locationSelected = function (target, address) {
   document.getElementById('address').value = address.split(',')[0]
   geocode.extended(address, function (err, res) {
-    if(res.city) document.getElementById('city').value = res.city
-    if(res.state) document.getElementById('state').value = res.state
-    if(res.zip) document.getElementById('zip').value = res.zip
+    if (err) console.error(err)
+
+    if (res.city) document.getElementById('city').value = res.city
+    if (res.state) document.getElementById('state').value = res.state
+    if (res.zip) document.getElementById('zip').value = res.zip
   })
 }
 
