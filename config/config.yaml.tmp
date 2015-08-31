@@ -49,7 +49,6 @@ environments:
   production:
     base_url:
     opsworks:
-      node_app_id:
       otp_app_id:
       otp_layer_id:
       stack_id:
