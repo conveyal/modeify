@@ -1,6 +1,7 @@
 
-## Latest
+## 1.4.0
 
+* StormPath integration
 * Add timetable information to the results inline
 
 ## 1.3.0 — 2015-03-23
