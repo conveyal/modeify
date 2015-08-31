@@ -7,13 +7,15 @@ var CommuterLocation = require('../lib/commuter-locations/model')
 
 var _location = '55a7d82dab54890d34f0c5c6'
 var commuters = []
-var latMin = 38.85, latMultiple = 0.20
-var lonMin = -77.30, lonMultiple = 0.4
+var latMin = 38.85
+var latMultiple = 0.20
+var lonMin = -77.30
+var lonMultiple = 0.4
 
 for (var i = 0; i < 300; i++) {
   commuters.push(new Promise(function (resolve, reject) {
     Commuter
-      .generate( {
+      .generate({
         email: 'tgerhardt+2s' + i + '@conveyal.com'
       }, {
         name: names(),
