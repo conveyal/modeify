@@ -24,12 +24,16 @@ module.exports = function (ctx, next) {
   if (ctx.params.commuter === 'new' || !ctx.commuter) return
 
   CommuterLocation.forCommuter(ctx.commuter.get('_id'), function (err, commuterLocations) {
+    if (err) {
+      console.error(err)
+    }
+
     commuterLocations = commuterLocations.map(function (cl) {
       return {
-        organizationId : cl._location.get('created_by'),
-        locationId : cl._location.get('_id'),
-        name : cl._location.get('name'),
-        fullAddress : cl._location.get('address') + ', ' + cl._location.get('city') + ', ' + cl._location.get('state'),
+        organizationId: cl._location.get('created_by'),
+        locationId: cl._location.get('_id'),
+        name: cl._location.get('name'),
+        fullAddress: cl._location.get('address') + ', ' + cl._location.get('city') + ', ' + cl._location.get('state'),
         matches: cl.matches
       }
     })
