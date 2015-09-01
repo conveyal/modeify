@@ -75,7 +75,7 @@ CommuterRow.prototype.name = function () {
 CommuterRow.prototype.remove = function () {
   var self = this
   ConfirmModal({
-    text: 'Are you sure want to delete ' + this.name() + '?'
+    text: 'Are you sure want to delete this commuter?'
   }, function () {
     CommuterLocation.remove(self.model._id, function (err) {
       if (err) {
