@@ -1,8 +1,10 @@
 var config = require('config')
-var debug = require('debug')(config.name() + ':map')
+var log = require('log')('map')
 var page = require('page')
 
 var L = window.L
+
+L.mapbox.accessToken = config.mapbox_access_token()
 
 /**
  * Expose `map`
@@ -15,7 +17,7 @@ module.exports = function (el, opts) {
     }
 
   // create a map in the el with given options
-  return new Map(L.mapbox.map(el, config.mapbox_map_id(), opts))
+  return new Mapp(L.mapbox.map(el, config.mapbox_map_id(), opts))
 }
 
 /**
@@ -23,7 +25,7 @@ module.exports = function (el, opts) {
  */
 
 module.exports.createMarker = function (opts) {
-  debug('creating marker %s', opts)
+  log('creating marker %s', opts)
 
   var marker = L.marker(new L.LatLng(opts.coordinate[1], opts.coordinate[0]), {
     icon: L.mapbox.marker.icon({
@@ -45,7 +47,7 @@ module.exports.createMarker = function (opts) {
  * Map
  */
 
-function Map (map) {
+function Mapp (map) {
   this.map = map
   this.featureLayer = L.mapbox.featureLayer().addTo(map)
 }
@@ -54,7 +56,7 @@ function Map (map) {
  * Add Marker
  */
 
-Map.prototype.addMarker = function (marker) {
+Mapp.prototype.addMarker = function (marker) {
   this.featureLayer.addLayer(marker)
 }
 
@@ -62,7 +64,7 @@ Map.prototype.addMarker = function (marker) {
  * Add Layer
  */
 
-Map.prototype.addLayer = function (layer) {
+Mapp.prototype.addLayer = function (layer) {
   this.map.addLayer(layer)
 }
 
@@ -70,14 +72,14 @@ Map.prototype.addLayer = function (layer) {
  * Fit bounds
  */
 
-Map.prototype.fitLayer = function (layer) {
-  debug('fitting layer %s', layer)
+Mapp.prototype.fitLayer = function (layer) {
+  log('fitting layer %s', layer)
   var map = this.map
   map.whenReady(function () {
-    debug('map ready')
+    log('map ready')
     setTimeout(function () {
       var bounds = layer.getBounds()
-      debug('fitting to bounds %s', bounds)
+      log('fitting to bounds %s', bounds)
       map.fitBounds(bounds)
     }, 200)
   })
@@ -87,11 +89,11 @@ Map.prototype.fitLayer = function (layer) {
  * Fit to multiple layers
  */
 
-Map.prototype.fitLayers = function (layers) {
-  debug('fitting to %s layers', layers.length)
+Mapp.prototype.fitLayers = function (layers) {
+  log('fitting to %s layers', layers.length)
   var map = this.map
   map.whenReady(function () {
-    debug('map ready')
+    log('map ready')
     setTimeout(function () {
       var bounds = layers[0].getBounds()
       for (var i = 1; i < layers.length; i++) {
