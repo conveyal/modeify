@@ -1,0 +1,31 @@
+#!/usr/bin/env babel-node
+
+import stormpath from 'stormpath'
+
+import Commuter from '../../../lib/commuter/model'
+
+Promise.all([initializeStormpath(), Commuter.find().exec()])
+  .then(([client, commuters]) => {
+    console.log(commuters.map(c => c.account))
+    return Promise.all(commuters.filter(c => !!c.account).map(c => {
+      return c.syncWithAccount(client)
+    }))
+  })
+  .then((commuters) => {
+    console.log(`Mapped ${commuters.length} commuter accounts`)
+    process.exit()
+  })
+  .catch(err => {
+    console.error(err)
+    console.error(err.stack)
+    process.exit(1)
+  })
+
+function initializeStormpath () {
+  return new Promise((resolve, reject) => {
+    stormpath.loadApiKey(`${__dirname}/../../../deployment/stormpath.properties`, (err, apiKey) => {
+      if (err) reject(err)
+      else resolve(new stormpath.Client({ apiKey }))
+    })
+  })
+}
