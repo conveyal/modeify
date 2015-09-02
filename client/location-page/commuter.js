@@ -32,6 +32,18 @@ View.prototype.name = function () {
   }
 }
 
+View.prototype.email = function () {
+  var acct = this.model._commuter._account()
+  if (acct) return acct.email
+  return ''
+}
+
+View.prototype.location = function () {
+  var commuter = this.model._commuter
+  if(commuter) return commuter.city() + ', ' + commuter.state() + ' ' + commuter.zip()
+  return ''
+}
+
 View.prototype.remove = function () {
   var self = this
   ConfirmModal({
