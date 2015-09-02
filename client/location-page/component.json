@@ -20,7 +20,9 @@
     "view"
   ],
   "scripts": [
-    "index.js"
+    "commuter.js",
+    "index.js",
+    "modal.js"
   ],
   "templates": [
     "commuter-confirm-input.html",

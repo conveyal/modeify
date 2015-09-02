@@ -1,17 +1,14 @@
-var alerts = require('alerts')
-var CommuterLocation = require('commuter-location')
 var csvToArray = require('csv-to-array')
-var each = require('each')
 var file = require('file')
 var filePicker = require('file-picker')
 var log = require('log')('location-page')
 var map = require('map')
 var spin = require('spinner')
-var value = require('value')
 var view = require('view')
 
+var CommuterRow = require('./commuter')
+var Modal = require('./modal')
 var View = view(require('./template.html'))
-var ConfirmModal = require('confirm-modal')
 
 module.exports = function (ctx, next) {
   log('render')
@@ -40,64 +37,6 @@ module.exports = function (ctx, next) {
   })
 
   next()
-}
-
-var CommuterRow = view(require('./commuter.html'))
-
-CommuterRow.prototype.organizationId = function () {
-  return this.model._commuter._organization()
-}
-
-CommuterRow.prototype.locationId = function () {
-  return this.model._location._id()
-}
-
-CommuterRow.prototype.commuterId = function () {
-  return this.model._commuter._id()
-}
-
-CommuterRow.prototype.status = function () {
-  var commuter = this.model._commuter
-  var status = commuter.status() || ' '
-  var label = commuter.statusLabel() || 'default'
-  return '<span class="label label-' + label + '">' + status + '</span>'
-}
-
-CommuterRow.prototype.name = function () {
-  var user = this.model._commuter.account()
-  if (user && user.email) {
-    return this.model._commuter.name() || user.email
-  } else {
-    return this.model._commuter.name()
-  }
-}
-
-CommuterRow.prototype.remove = function () {
-  var self = this
-  ConfirmModal({
-    text: 'Are you sure want to delete this commuter?'
-  }, function () {
-    CommuterLocation.remove(self.model._id, function (err) {
-      if (err) {
-        console.error(err)
-        window.alert(err)
-      } else {
-        self.el.remove()
-      }
-    })
-  })
-}
-
-CommuterRow.prototype.sendProfileAndMatches = function () {
-  var name = this.model._commuter.name() || this.model._commuter.account().email
-  CommuterLocation.sendProfileAndMatches(this.model._id, function (err) {
-    if (err) {
-      console.error(err)
-      window.alert(err)
-    } else {
-      window.alert('Commute profile and plans have been sent to ' + name + '!')
-    }
-  })
 }
 
 View.prototype.commuterCount = function () {
@@ -135,13 +74,6 @@ View.prototype.parseCSV = function (e) {
 }
 
 /**
- * Modal, Input
- */
-
-var Input = view(require('./commuter-confirm-input.html'))
-var Modal = view(require('./commuter-confirm-modal.html'))
-
-/**
  * Confirm Upload
  */
 
@@ -171,58 +103,5 @@ View.prototype.sendPlansAndMatches = function () {
     } else {
       window.alert('Sending plans to your commuters. They should arrive shortly!')
     }
-  })
-}
-
-/**
- * Inputs
- */
-
-Modal.prototype['commuters-view'] = function () {
-  return Input
-}
-
-/**
- * Close
- */
-
-Modal.prototype.close = function (e) {
-  e.preventDefault()
-  this.el.remove()
-}
-
-/**
- * Upload Commuters
- */
-
-Modal.prototype.upload = function (e) {
-  e.preventDefault()
-  var modal = this
-  var location = this.model
-
-  var commuters = []
-  each(modal.findAll('tr'), function (el) {
-    // if confirm is unchecked, skip
-    if (!value(el.querySelector('.confirm'))) return
-
-    // get the other data
-    commuters.push({
-      address: el.querySelector('.address').textContent || '',
-      email: (el.querySelector('.email').textContent || '').toLowerCase(),
-      name: el.querySelector('.name').textContent || ''
-    })
-  })
-
-  CommuterLocation.addCommuters(location._id(), commuters, function (err, res) {
-    if (err) {
-      log.error('%e', err)
-      window.alert('Error while uploading commuters. ' + err)
-    } else {
-      alerts.push({
-        type: 'success',
-        text: 'Upload succesful, ' + res.length + ' commuters added to this location.'
-      })
-    }
-    modal.el.remove()
   })
 }
