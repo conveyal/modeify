@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12">
     <h3>
-      <i class="fa fa-user"></i> {name || 'Commuter'} — {account().email}
+      <i class="fa fa-user"></i> {commuterName || 'Commuter'} — {email}
       <a class="btn btn-default pull-right" href="/manager/organizations/{_organization}/show"><i class="fa fa-arrow-left"></i> Back</a>
       <a class="btn btn-warning pull-right" href="/manager/organizations/{_organization}/commuters/{_id}/edit"><i class="fa fa-pencil"></i> Edit</a>
       <a class="btn btn-warning pull-right" on-tap="sendPlan"><i class="fa fa-envelope"></i> Resend Invitation</a>
