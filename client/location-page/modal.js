@@ -36,7 +36,7 @@ Modal.prototype.close = function (e) {
 Modal.prototype.upload = function (e) {
   e.preventDefault()
   var modal = this
-  var location = this.model
+  var location = this.model.location
 
   var commuters = []
   each(modal.findAll('tr'), function (el) {
