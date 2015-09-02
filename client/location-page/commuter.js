@@ -24,10 +24,10 @@ View.prototype.status = function () {
 }
 
 View.prototype.name = function () {
-  var user = this.model._commuter.account()
-  if (user && user.email) {
-    return this.model._commuter.name() || user.email
-  } else {
+  var acct = this.model._commuter._account()
+  if (acct) {
+    return acct.fullName
+  } else { // legacy support
     return this.model._commuter.name()
   }
 }
