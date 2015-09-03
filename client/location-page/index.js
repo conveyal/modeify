@@ -80,7 +80,8 @@ View.prototype.parseCSV = function (e) {
 View.prototype.showConfirmUpload = function (commuters) {
   var modal = new Modal({
     commuters: commuters,
-    location: this.model
+    location: this.model,
+    organization: this.options.organization
   })
   document.body.appendChild(modal.el)
 }

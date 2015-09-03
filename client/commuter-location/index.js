@@ -53,10 +53,11 @@ function forCommuter (_commuter, callback) {
   })
 }
 
-function addCommuters (_location, commuters, callback) {
+function addCommuters (_location, _organization, commuters, callback) {
   request.post('/commuter-locations', commuters.map(function (c) {
     return {
       _location: _location,
+      _organization: _organization,
       _commuter: c
     }
   }), function (err, res) {
