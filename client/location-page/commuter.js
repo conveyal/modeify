@@ -61,13 +61,16 @@ View.prototype.remove = function () {
 }
 
 View.prototype.sendProfileAndMatches = function () {
-  var name = this.model._commuter.name() || this.model._commuter.account().email
+  var name = this.model._commuter._account().fullName || this.model._commuter._account().email
   CommuterLocation.sendProfileAndMatches(this.model._id, function (err) {
     if (err) {
       console.error(err)
       window.alert(err)
     } else {
-      window.alert('Commute profile and plans have been sent to ' + name + '!')
+      ConfirmModal({
+        text: 'Commute profile and plans have been sent to ' + name + '!',
+        showCancel: false
+      })
     }
   })
 }
