@@ -1,18 +1,49 @@
 #!/usr/bin/env babel-node
 
+import async from 'async'
 import stormpath from 'stormpath'
 
 import Commuter from '../../../lib/commuter/model'
 
-Promise.all([initializeStormpath(), Commuter.find().exec()])
-  .then(([client, commuters]) => {
-    console.log(commuters.map(c => c.account))
-    return Promise.all(commuters.filter(c => !!c.account).map(c => {
-      return c.syncWithAccount(client)
-    }))
+const MAX = 100
+
+initializeStormpath()
+  .then(client => {
+    return new Promise((resolve, reject) => {
+      let moreCommuters = true
+      let count = 0
+      async.doWhilst(
+        (cb) => {
+          Commuter
+            .find()
+            .limit(MAX)
+            .skip(MAX * count++)
+            .exec()
+            .then(commuters => {
+              if (!commuters || commuters.length === 0) {
+                moreCommuters = false
+                cb()
+              } else {
+                return Promise.all(commuters.filter(c => !!c.account).map(c => c.syncWithAccount(client)))
+              }
+            })
+            .then(commuters => {
+              console.log(`${count}: Mapped ${commuters.length} account(s)`)
+              cb(null, commuters)
+            })
+        },
+        () => {
+          return moreCommuters
+        },
+        (err) => {
+          if (err) reject(err)
+          else resolve()
+        }
+      )
+    })
   })
-  .then((commuters) => {
-    console.log(`Mapped ${commuters.length} commuter accounts`)
+  .then(() => {
+    console.log(`FINISHED!`)
     process.exit()
   })
   .catch(err => {
