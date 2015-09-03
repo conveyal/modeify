@@ -36,7 +36,7 @@ Modal.prototype.close = function (e) {
 Modal.prototype.upload = function (e) {
   e.preventDefault()
   var modal = this
-  var location = this.model
+  var location = this.model.location
 
   var commuters = []
   each(modal.findAll('tr'), function (el) {
@@ -47,11 +47,12 @@ Modal.prototype.upload = function (e) {
     commuters.push({
       address: el.querySelector('.address').textContent || '',
       email: (el.querySelector('.email').textContent || '').toLowerCase(),
-      name: el.querySelector('.name').textContent || ''
+      givenName: el.querySelector('.givenName').textContent || '',
+      surname: el.querySelector('.surname').textContent || ''
     })
   })
 
-  CommuterLocation.addCommuters(location._id(), commuters, function (err, res) {
+  CommuterLocation.addCommuters(location._id(), this.model.organization._id(), commuters, function (err, res) {
     if (err) {
       log.error('%e', err)
       window.alert('Error while uploading commuters. ' + err)

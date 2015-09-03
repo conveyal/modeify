@@ -105,6 +105,14 @@ View.prototype.sendPlan = function (e) {
   }
 }
 
+View.prototype.commuterName = function () {
+  return this.model._account().fullName
+}
+
+View.prototype.email = function () {
+  return this.model._account().email
+}
+
 View.prototype.organizationName = function () {
   return this.options.organization.name()
 }

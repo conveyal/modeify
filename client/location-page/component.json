@@ -6,7 +6,7 @@
     "component/file": "0.1.1",
     "component/file-picker": "0.2.0",
     "component/value": "*",
-    "trevorgerhardt/csv-to-array": "0.0.1",
+    "trevorgerhardt/csv-to-array": "0.0.2",
     "visionmedia/page.js": "*"
   },
   "local": [

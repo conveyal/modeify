@@ -77,6 +77,24 @@ View.prototype.isEditing = function () {
 }
 
 /**
+ * First Name
+ */
+
+View.prototype.givenName = function () {
+  if(this.model._account()) return this.model._account().givenName || ''
+  return ''
+}
+
+/**
+ * Last Name
+ */
+
+View.prototype.surname = function () {
+  if(this.model._account()) return this.model._account().surname || ''
+  return ''
+}
+
+/**
  * Email
  */
 
@@ -124,9 +142,13 @@ View.prototype.save = function (e) {
 
   // set the email address
   this.model.account({
-    email: data.email
+    email: data.email,
+    givenName: data.givenName,
+    surname: data.surname
   })
   delete data.email
+  delete data.givenName
+  delete data.surname
 
   // set the rest of the data
   this.model.set(data)

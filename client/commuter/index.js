@@ -25,7 +25,8 @@ var Commuter = module.exports = model('Commuter')
   .attr('_id')
   .attr('_location')
   .attr('_organization')
-  .attr('account')
+  .attr('account') // account href
+  .attr('_account') // populated account object
   .attr('anonymous')
   .attr('name')
   .attr('link')
