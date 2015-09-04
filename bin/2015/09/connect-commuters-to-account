@@ -1,0 +1,93 @@
+#!/usr/bin/env babel-node
+
+import async from 'async'
+
+import Commuter from '../../../lib/commuter/model'
+import {getClient, getDefaultDirectory} from '../../../lib/stormpath'
+import User from '../../../lib/user/model'
+
+const LIMIT = 100
+let stormpathClient = null
+
+getClient()
+  .then(client => {
+    stormpathClient = client
+    return getDefaultDirectory(client)
+  })
+  .then(directory => {
+    return getAllAccounts(directory)
+  })
+  .then(accounts => {
+    console.log(`Searching for ${accounts.length} user account(s)`)
+    return Promise.all(accounts.map(a => mapToUser(a)))
+  })
+  .then(users => {
+    users = users.filter(u => u._user)
+    console.log(`Mapping ${users.length} user(s)`)
+    return Promise.all(users.map(u => mapToCommuter(u)))
+  })
+  .then(commuters => {
+    commuters = commuters.filter(c => !!c)
+    console.log(`Syncing ${commuters.length} commuter(s)`)
+    return Promise.all(commuters.map(c => c.syncWithAccount(stormpathClient)))
+  })
+  .then(commuters => {
+    console.log(`Synced ${commuters.length} commuter(s)`)
+    process.exit()
+  })
+  .catch(err => {
+    console.error(err)
+    console.error(err.stack)
+    process.exit(1)
+  })
+
+function getAllAccounts (dir) {
+  return new Promise((resolve, reject) => {
+    let accounts = []
+    let moreAccounts = true
+    let offset = 0
+
+    async.doWhilst(function (done) {
+      getAccounts(dir, offset++)
+        .then(a => {
+          if (!a || a.length === 0) moreAccounts = false
+          else accounts = accounts.concat(a)
+          done()
+        })
+        .catch(done)
+    }, () => moreAccounts, (err) => {
+      if (err) reject(err)
+      else resolve(accounts)
+    })
+  })
+}
+
+function getAccounts (dir, offset = 0) {
+  return new Promise((resolve, reject) => {
+    return dir.getAccounts({ limit: LIMIT, offset: LIMIT * offset }, (err, accounts) => {
+      if (err) reject(err)
+      else resolve(accounts.items)
+    })
+  })
+}
+
+function mapToUser (a) {
+  return User.findOne({ email: a.email })
+    .exec()
+    .then(u => {
+      return {
+        href: a.href,
+        _user: u ? u._id : false
+      }
+    })
+}
+
+function mapToCommuter (a) {
+  return Commuter.findOne({ _user: a._user })
+    .exec()
+    .then(c => {
+      if (!c) return
+      c.account = a.href
+      return c
+    })
+}
