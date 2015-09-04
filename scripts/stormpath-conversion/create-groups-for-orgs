@@ -1,7 +1,7 @@
 #!/usr/bin/env babel-node
 
-import {getClient, getDefaultDirectory} from '../../../lib/stormpath'
-import Organization from '../../../lib/organization/model'
+import {createGroups, getClient, getDefaultDirectory} from '../../lib/stormpath'
+import Organization from '../../lib/organization/model'
 
 let directory = null
 
@@ -15,7 +15,7 @@ getClient()
   })
   .then(orgs => {
     console.log(`Creating groups for ${orgs.length} organization(s)`)
-    return Promise.all(orgs.map(o => createGroupForOrg(directory, o)))
+    return Promise.all(orgs.map(o => createGroups(directory, [`organization-${o._id}`, `organization-${o._id}-manager`])))
   })
   .then(groups => {
     console.log(groups[0])
@@ -27,14 +27,3 @@ getClient()
     console.error(err.stack)
     process.exit(1)
   })
-
-function createGroupForOrg (dir, org) {
-  return new Promise((resolve, reject) => {
-    dir.createGroup({ name: `organization-${org._id}` }, (err, group) => {
-      if (err) {
-        if (err.code === 2001) resolve(`Group exists for ${org._id}`)
-        else reject(err)
-      } else resolve(group)
-    })
-  })
-}
