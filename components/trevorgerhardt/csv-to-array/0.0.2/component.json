@@ -1,0 +1,19 @@
+{
+  "name": "csv-to-array",
+  "description": "Convert CSV string into an array of data",
+  "version": "0.0.2",
+  "keywords": [
+    "csv"
+  ],
+  "development": {
+    "dependencies": {
+      "component/assert": "*"
+    }
+  },
+  "license": "MIT",
+  "scripts": [
+    "index.js"
+  ],
+  "repository": "trevorgerhardt/csv-to-array",
+  "resolved": "c573a324b361942764d920c75b373afffe843936"
+}
