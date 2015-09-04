@@ -1,6 +1,6 @@
 var alerts = require('alerts')
 var Ridepool = require('ridepool')
-var log = require('log')('ridepool-form')
+var log = require('./client/log')('ridepool-form')
 var page = require('page')
 var serialize = require('serialize')
 var view = require('view')

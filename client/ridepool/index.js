@@ -1,5 +1,5 @@
 var config = require('config')
-var log = require('log')('ridepool')
+var log = require('./client/log')('ridepool')
 var model = require('model')
 var request = require('request')
 

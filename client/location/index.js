@@ -1,5 +1,5 @@
 var config = require('config')
-var log = require('log')('location')
+var log = require('./client/log')('location')
 var map = require('map')
 var model = require('model')
 var request = require('request')

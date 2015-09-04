@@ -1,5 +1,5 @@
 var config = require('config')
-var log = require('log')('map')
+var log = require('./client/log')('map')
 var page = require('page')
 
 var L = window.L

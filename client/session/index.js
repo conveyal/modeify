@@ -146,6 +146,10 @@ session.load = function (ctx, next) {
   })
 }
 
+session.groupsRequired = function (groups, all) {
+
+}
+
 function loadUser (next) {
   var userData = store('user')
 

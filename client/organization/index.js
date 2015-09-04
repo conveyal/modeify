@@ -1,6 +1,6 @@
 var config = require('config')
 var defaults = require('model-defaults')
-var log = require('log')('organization')
+var log = require('./client/log')('organization')
 var map = require('map')
 var model = require('model')
 

@@ -1,6 +1,6 @@
 var alerts = require('alerts')
 var Location = require('location')
-var log = require('log')('location-form')
+var log = require('./client/log')('location-form')
 var page = require('page')
 var serialize = require('serialize')
 var view = require('view')
