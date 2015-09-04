@@ -106,11 +106,7 @@ View.prototype.sendPlan = function (e) {
 }
 
 View.prototype.commuterName = function () {
-  return this.model._account().fullName
-}
-
-View.prototype.email = function () {
-  return this.model._account().email
+  return this.model.givenName() + ' ' + this.model.surname()
 }
 
 View.prototype.organizationName = function () {

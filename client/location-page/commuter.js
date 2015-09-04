@@ -24,23 +24,16 @@ View.prototype.status = function () {
 }
 
 View.prototype.name = function () {
-  var acct = this.model._commuter._account()
-  if (acct) {
-    return acct.fullName
-  } else { // legacy support
-    return this.model._commuter.name()
-  }
+  return this.model._commuter.givenName() + ' ' + this.model._commuter.surname()
 }
 
 View.prototype.email = function () {
-  var acct = this.model._commuter._account()
-  if (acct) return acct.email
-  return ''
+  return this.model._commuter.email()
 }
 
 View.prototype.location = function () {
   var commuter = this.model._commuter
-  if(commuter) return commuter.city() + ', ' + commuter.state() + ' ' + commuter.zip()
+  if (commuter) return commuter.city() + ', ' + commuter.state() + ' ' + commuter.zip()
   return ''
 }
 
@@ -61,7 +54,7 @@ View.prototype.remove = function () {
 }
 
 View.prototype.sendProfileAndMatches = function () {
-  var name = this.model._commuter._account().fullName || this.model._commuter._account().email
+  var name = this.model._commuter.givenName || this.model._commuter.email
   CommuterLocation.sendProfileAndMatches(this.model._id, function (err) {
     if (err) {
       console.error(err)

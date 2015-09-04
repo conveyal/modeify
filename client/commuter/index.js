@@ -26,7 +26,9 @@ var Commuter = module.exports = model('Commuter')
   .attr('_location')
   .attr('_organization')
   .attr('account') // account href
-  .attr('_account') // populated account object
+  .attr('email')
+  .attr('givenName')
+  .attr('surname')
   .attr('anonymous')
   .attr('name')
   .attr('link')
@@ -80,7 +82,7 @@ Commuter.prototype.mapMarker = function () {
   var c = this.fuzzyCoordinate()
 
   return map.createMarker({
-    title: 'Approx. location of ' + this.account().email,
+    title: 'Approx. location of ' + this.email,
     description: '<a href="/manage/organizations/' + this._organization() + '/commuters/' + this._id() + '/show">' + this.fuzzyAddress() + '</a>',
     color: '#5cb85c',
     coordinate: [c.lng, c.lat],
