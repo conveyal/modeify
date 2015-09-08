@@ -8,7 +8,7 @@ var routeSummarySegments = require('route-summary-segments')
 var session = require('session')
 var SignUpForm = require('sign-up-form')
 var hogan = require('hogan.js')
-
+var each = require('each')
 /**
  * Create `Modal`
  */
@@ -95,7 +95,7 @@ RouteModal.prototype.internalMatches = function () {
 
   // group matches by organization
   var matchesByOrg = {}
-  matches.forEach(function (match) {
+  each(matches, function (match) {
     if (!(match.organization.id in matchesByOrg)) {
       matchesByOrg[match.organization.id] = {
         name: match.organization.name,
