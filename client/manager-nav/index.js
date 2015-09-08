@@ -1,8 +1,3 @@
-/**
- * Dependencies
- */
-
-var template = require('./template.html')
 var config = require('config')
 var page = require('page')
 var view = require('view')
@@ -11,7 +6,7 @@ var view = require('view')
  * Nav
  */
 
-var Nav = module.exports = view(template)
+var Nav = module.exports = view(require('./template.html'))
 
 /**
  * Application Name

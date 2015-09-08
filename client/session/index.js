@@ -26,18 +26,14 @@ var Session = model('Session')
     plan: null,
     settings: {},
     user: null,
-    isAdmin: false,
-    isLoggedIn: false,
-    isManager: false
+    isLoggedIn: false
   }))
   .attr('commuter')
   .attr('loaded')
   .attr('plan')
   .attr('settings')
   .attr('user')
-  .attr('isAdmin')
   .attr('isLoggedIn')
-  .attr('isManager')
 
 /**
  * Save settings on changes
@@ -71,14 +67,24 @@ Session.prototype.clear = function () {
 
   session.set({
     commuter: null,
-    isAdmin: false,
     isLoggedIn: false,
-    isManager: false,
     loaded: false,
     plan: null,
     settings: {},
     user: null
   })
+}
+
+Session.prototype.isAdmin = function () {
+  return this.inGroups(['administrator'])
+}
+
+Session.prototype.isManager = function () {
+  return this.inGroups(['manager'])
+}
+
+Session.prototype.inGroups = function (groups, all) {
+  return this.isLoggedIn() && this.user().inGroups(groups, all)
 }
 
 /**
@@ -110,7 +116,7 @@ session.load = function (ctx, next) {
       session.user(user)
       session.isLoggedIn(true)
 
-      analytics.identify(user.id(), user.toJSON())
+      analytics.identify(user.href().split('/').shift(), user.toJSON())
 
       user.on('change', function () {
         store('user', user.toJSON())
@@ -172,18 +178,18 @@ function loadCommuter (next) {
     next(null, session.commuter())
   } else if (commuterData) {
     if (user) {
-      commuterData.account = user.id()
+      commuterData.account = user.href()
       commuterData.anonymous = false
     }
 
     next(null, new Commuter(commuterData))
   } else if (session.isLoggedIn()) {
     request.get('/commuter', {
-      account: session.user().id()
+      account: session.user().href()
     }, function (err, res) {
       if (err || !res.body) {
         var commuter = new Commuter({
-          account: session.user().id(),
+          account: session.user().href(),
           anonymous: false
         })
         next(null, commuter)
