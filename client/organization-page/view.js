@@ -1,16 +1,16 @@
 var alerts = require('alerts')
-var log = require('./client/log')('organization-page:view')
-var page = require('page')
-var view = require('view')
-var request = require('request')
-var spin = require('spinner')
-var file = require('file')
-var filePicker = require('file-picker')
-var csvToArray = require('csv-to-array')
-
 var ConfirmModal = require('confirm-modal')
 var CommuterLocation = require('commuter-location')
+var csvToArray = require('csv-to-array')
+var file = require('file')
+var filePicker = require('file-picker')
+var log = require('./client/log')('organization-page:view')
+var page = require('page')
+var request = require('request')
 var Ridepool = require('ridepool')
+var session = require('session')
+var spin = require('spinner')
+var view = require('view')
 
 /**
  * Expose `View`
@@ -52,6 +52,10 @@ LocationRow.prototype.remove = function () {
       }
     })
   })
+}
+
+View.prototype.isAdmin = function () {
+  return session.isAdmin()
 }
 
 View.prototype['locations-view'] = function () {

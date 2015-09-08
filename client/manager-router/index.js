@@ -20,7 +20,7 @@ p('*', function (ctx, next) {
 
 // If the user is logged in, redirect to orgs, else redirect to login
 
-p('/', session.touch, utils.redirect('/organizations'))
+p('/', session.touch, redirectToOrgIfManager, utils.redirect('/organizations'))
 
 // Public links
 
@@ -28,13 +28,14 @@ p('/logout', session.logoutMiddleware, utils.redirect('/'))
 
 // Admin only
 
-p('/managers', session.touch, require('managers-page'))
+p('/managers', session.touch, required(['administrator'], '/organizations'), require('managers-page'))
 
 // Organizations
 
-p('/organizations/(.*)', session.touch)
-p('/organizations/', require('organizations-page'))
-p('/organizations/new', organizationForm)
+p('/organizations(.*)', session.touch)
+p('/organizations', redirectToOrgIfManager, require('organizations-page'))
+p('/organizations/new', redirectToOrgIfManager, organizationForm)
+
 p('/organizations/:organization/(.*)', Organization.load)
 p('/organizations/:organization/show', Commuter.loadOrg, Location.loadOrg, Ridepool.loadOrg, require('organization-page'))
 p('/organizations/:organization/edit', organizationForm)
@@ -68,3 +69,23 @@ p('/feedback', session.touch, require('feedback-table-page'))
 // Render all
 
 p('*', utils.render)
+
+// Has rights or redirect to
+
+function required (groups, all, redirectTo) {
+  return function (ctx, next) {
+    if (ctx.session.inGroups(groups, all)) {
+      next()
+    } else {
+      utils.redirect(redirectTo)(ctx, next)
+    }
+  }
+}
+
+function redirectToOrgIfManager (ctx, next) {
+  if (ctx.session.inGroups(['administrator'])) {
+    next()
+  } else {
+    utils.redirect('/organizations/' + ctx.session.user().getOrganizationId() + '/show')(ctx, next)
+  }
+}

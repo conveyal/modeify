@@ -80,7 +80,7 @@ Session.prototype.isAdmin = function () {
 }
 
 Session.prototype.isManager = function () {
-  return this.inGroups(['manager'])
+  return this.inGroups(['administrator', 'manager'])
 }
 
 Session.prototype.inGroups = function (groups, all) {
@@ -88,7 +88,7 @@ Session.prototype.inGroups = function (groups, all) {
 }
 
 /**
- * Expose `session`
+ * Expose singleton `session`
  */
 
 var session = window.session = module.exports = new Session()
@@ -184,7 +184,7 @@ function loadCommuter (next) {
 
     next(null, new Commuter(commuterData))
   } else if (session.isLoggedIn()) {
-    request.get('/commuter', {
+    request.get('/commuters', {
       account: session.user().href()
     }, function (err, res) {
       if (err || !res.body) {

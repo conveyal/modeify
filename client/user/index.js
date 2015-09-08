@@ -9,11 +9,26 @@ var User = module.exports = model('User')
   .attr('groups')
 
 User.prototype.inGroups = function (names, all) {
-  var groups = this.groups().items
-    .map(function (i) { return i.name })
+  var groups = this.groupNames()
     .reduce(function (memo, n) {
       if (names.indexOf(n) !== -1) memo.push(n)
       return memo
     }, [])
   return all ? groups.length === names.length : groups.length > 0
+}
+
+User.prototype.getOrganizationId = function () {
+  return this.groupNames().reduce(function (m, n) {
+    if (n.indexOf('organization-') !== -1 && n.indexOf('-manager') !== -1) {
+      return n.split('-')[1]
+    } else {
+      return n
+    }
+  }, false)
+}
+
+User.prototype.groupNames = function () {
+  return this.groups().items.map(function (i) {
+    return i.name
+  })
 }
