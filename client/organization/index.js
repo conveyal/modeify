@@ -1,7 +1,6 @@
 var config = require('config')
 var defaults = require('model-defaults')
 var log = require('./client/log')('organization')
-var map = require('map')
 var model = require('model')
 
 /**
@@ -15,7 +14,6 @@ var Organization = module.exports = model('Organization')
     email: '',
     labels: []
   }))
-  .use(require('model-memoize'))
   .use(require('model-query'))
   .route(config.api_url() + '/organizations')
   .attr('_id')
@@ -35,6 +33,9 @@ Organization.load = function (ctx, next) {
 
   log('loading %s', ctx.params.organization)
   Organization.get(ctx.params.organization, function (err, org) {
+    console.log(err)
+    console.log(org)
+
     if (err) {
       next(err)
     } else {

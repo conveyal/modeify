@@ -2,8 +2,7 @@
   "name": "location",
   "dependencies": {
     "component/model": "*",
-    "segmentio/model-defaults": "0.2.0",
-    "segmentio/model-memoize": "0.0.2"
+    "segmentio/model-defaults": "0.2.0"
   },
   "locals": [
     "config",

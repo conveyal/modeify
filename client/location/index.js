@@ -10,7 +10,6 @@ var request = require('request')
 
 var Location = module.exports = model('Location')
   .use(require('model-geo'))
-  .use(require('model-memoize'))
   .route(config.api_url() + '/locations')
   .attr('_id')
   .attr('category')

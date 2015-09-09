@@ -3,15 +3,12 @@
   "dependencies": {
     "component/model": "*",
     "segmentio/model-defaults": "0.2.0",
-    "segmentio/model-memoize": "0.0.2",
     "trevorgerhardt/model-query": "*",
     "visionmedia/debug": "*"
   },
   "locals": [
     "config",
     "log",
-    "map",
-    "model-geo",
     "spinner"
   ],
   "scripts": [

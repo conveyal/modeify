@@ -1,8 +1,7 @@
 {
   "name": "journey",
   "dependencies": {
-    "component/model": "*",
-    "segmentio/model-memoize": "0.0.2"
+    "component/model": "*"
   },
   "locals": [
     "config"
