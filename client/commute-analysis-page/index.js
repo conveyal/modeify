@@ -40,7 +40,7 @@ var View = view(require('./template.html'), function (view, model) {
   view.on('rendered', function () {
     var profiles = model.commuterLocations
       .filter(function (cl) {
-        return !!cl.profile
+        return cl.profile && cl.profile.options
       })
       .map(function (cl) {
         var profile = scorer.processOptions(cl.profile.options)[0]
