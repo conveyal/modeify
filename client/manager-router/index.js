@@ -24,7 +24,9 @@ p('/', session.touch, redirectToOrgIfManager, utils.redirect('/organizations'))
 
 // Public links
 
-p('/logout', session.logoutMiddleware, utils.redirect('/'))
+p('/logout', session.logoutMiddleware, function () {
+  window.location.href = '/manager'
+})
 
 // Admin only
 

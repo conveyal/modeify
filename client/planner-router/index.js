@@ -14,7 +14,9 @@ page('*', function (ctx, next) {
 
 page('/', redirectToPlanner)
 
-page('/logout', session.logoutMiddleware, utils.redirect('/planner'))
+page('/logout', session.logoutMiddleware, function () {
+  window.location.href = '/'
+})
 
 page('/planner', session.touch, require('planner-page'), require('announcements'))
 page('/planner/:link', session.loginWithLink, redirectToPlanner)
