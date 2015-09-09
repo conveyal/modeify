@@ -1,3 +1,4 @@
+var alerts = require('alerts')
 var dc = require('dc.js')
 var d3 = require('d3')
 var crossfilter = require('crossfilter').crossfilter
@@ -10,7 +11,15 @@ var view = require('view')
 module.exports = function (ctx, next) {
   log('render')
 
-  ctx.location.commuterLocations = ctx.commuterLocations
+  var cls = ctx.location.commuterLocations = ctx.commuterLocations
+
+  if (cls.length > haveProfileOptions(cls)) {
+    alerts.show({
+      type: 'warning',
+      text: 'Not all commuter locations have been profiled. Run Profile & Match from the location page to see the full results.'
+    })
+  }
+
   ctx.view = new View(ctx.location)
   ctx.view.on('rendered', function (view) {
     var m = map(view.find('.map'), {
@@ -124,3 +133,9 @@ var View = view(require('./template.html'), function (view, model) {
     $distanceAvg.textContent = distAvg.toFixed(2) + ' mi'
   })
 })
+
+function haveProfileOptions (commuterLocations) {
+  return commuterLocations.filter(function (cl) {
+    return cl.profile && cl.profile.options
+  })
+}

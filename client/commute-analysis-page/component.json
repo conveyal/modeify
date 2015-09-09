@@ -8,7 +8,7 @@
     "trevorgerhardt/haversine": "*"
   },
   "local": [
-    "fake-commuters",
+    "alerts",
     "log",
     "map",
     "view"
