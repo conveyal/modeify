@@ -1,3 +1,4 @@
+var config = require('config')
 var log = require('./client/log')('organization-page')
 var map = require('map')
 var View = require('./view')
@@ -24,8 +25,19 @@ module.exports = function (ctx, next) {
 
   ctx.view = window.view = new View(ctx.organization)
   ctx.view.on('rendered', function () {
+    var center = ctx.locations && ctx.locations.length > 0
+      ? ctx.locations[0].coordinate()
+      : config.geocode().center.split(',').map(parseFloat)
+
+    if (!center.lat) {
+      center = {
+        lat: center[1],
+        lng: center[0]
+      }
+    }
+
     var m = map(ctx.view.find('.map'), {
-      center: ctx.organization.coordinate(),
+      center: center,
       zoom: 13
     })
 
@@ -35,7 +47,10 @@ module.exports = function (ctx, next) {
     })
 
     m.addLayer(cluster)
-    m.fitLayers([m.featureLayer, cluster])
+
+    if (ctx.locations.length > 0) {
+      m.fitLayers([m.featureLayer, cluster])
+    }
   })
 
   next()

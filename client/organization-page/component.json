@@ -10,6 +10,7 @@
     "alerts",
     "commuter",
     "commuter-location",
+    "config",
     "confirm-modal",
     "log",
     "map",

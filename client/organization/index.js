@@ -15,7 +15,6 @@ var Organization = module.exports = model('Organization')
     email: '',
     labels: []
   }))
-  .use(require('model-geo'))
   .use(require('model-memoize'))
   .use(require('model-query'))
   .route(config.api_url() + '/organizations')
@@ -42,20 +41,5 @@ Organization.load = function (ctx, next) {
       ctx.organization = org
       next()
     }
-  })
-}
-
-/**
- * Return map marker opts
- */
-
-Organization.prototype.mapMarker = function () {
-  var c = this.coordinate()
-  return map.createMarker({
-    title: '<a href="/manager/organizations/' + this._id() + '/show">' + this.name() + '</a>',
-    description: this.fullAddress(),
-    color: '#428bca',
-    coordinate: [c.lng, c.lat],
-    icon: 'commercial'
   })
 }
