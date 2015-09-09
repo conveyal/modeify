@@ -43,12 +43,12 @@ var View = view(require('./template.html'), function (view, model) {
         return !!cl.profile
       })
       .map(function (cl) {
-        var profile = scorer.processOptions(JSON.parse(cl.profile).options)[0]
+        var profile = scorer.processOptions(cl.profile.options)[0]
         var matches = cl.matches || []
         var to = cl._location.coordinate()
         var from = cl._commuter.coordinate()
         return {
-          commuter: cl.commuter.givenName || cl.commuter.email,
+          commuter: (cl._commuter.givenName() && cl._commuter.surname()) ? cl._commuter.givenName() + ' ' + cl._commuter.surname() : cl._commuter.email(),
           calories: parseInt(profile.calories, 10),
           cost: profile.cost.toFixed(2),
           distance: parseFloat(haversine(from.lat, from.lng, to.lat, to.lng, true).toFixed(2)),
