@@ -18,6 +18,7 @@ module.exports.get = function (url, params, callback) {
   debug('--> %s', name)
   return superagent
     .get(url)
+    .accept('json')
     .use(prefix)
     .use(nocache)
     .query(params)
@@ -33,6 +34,7 @@ module.exports.post = function (url, data, callback) {
   debug('--> %s', name)
   return superagent
     .post(url)
+    .accept('json')
     .use(prefix)
     .use(nocache)
     .send(data)
@@ -48,6 +50,7 @@ module.exports.del = function (url, callback) {
   debug('--> %s', name)
   return superagent
     .del(url)
+    .accept('json')
     .use(prefix)
     .use(nocache)
     .end(response(name, callback))

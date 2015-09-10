@@ -185,16 +185,18 @@ function loadCommuter (next) {
     next(null, new Commuter(commuterData))
   } else if (session.isLoggedIn()) {
     request.get('/commuters', {
-      account: session.user().href()
+      account: user.href()
     }, function (err, res) {
-      if (err || !res.body) {
-        var commuter = new Commuter({
-          account: session.user().href(),
+      if (err || !res.body || res.body.length === 0) {
+        next(null, new Commuter({
+          account: user.href(),
+          email: user.email(),
+          givenName: user.givenName(),
+          surname: user.surname(),
           anonymous: false
-        })
-        next(null, commuter)
+        }))
       } else {
-        next(null, new Commuter(res.body))
+        next(null, new Commuter(res.body[0]))
       }
     })
   } else {

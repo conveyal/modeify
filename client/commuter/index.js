@@ -114,3 +114,14 @@ Commuter.prototype.updateProfile = function (name, val) {
   profile[name] = val
   this.profile(profile)
 }
+
+/**
+ * Don't save for anonymous users
+ */
+
+var save = Commuter.prototype.save
+Commuter.prototype.save = function () {
+  if (this.anonymous()) return
+  save.apply(this, arguments)
+}
+
