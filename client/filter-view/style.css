@@ -93,16 +93,65 @@
   height: 44px;
 }
 
-.settings-form .icon-bike {
+.settings-form {
+  margin-top: 10px;
+}
+
+.settings-form i {
   margin-top: 5px;
   color: var(--lightest-blue);
-  font-size: 32px;
+  font-size: 45px;
+}
+
+.settings-form .bike {
   display: inline-block;
 }
 
-.measurements {
+.settings-form .walk {
   display: inline-block;
+}
+
+.settings-form .drive {
+  display: inline-block;
+}
+
+.settings-form label {
   color: var(--lightest-blue);
   font-weight: bold;
-  font-size: 14px;
+  font-size: 13px;
 }
+
+.settings-form .input-group-sm {
+  width: 40%;
+  display: inline-block;
+  padding-left: 15px;
+}
+
+.settings-form .dropdown {
+  width: 40%;
+  display: inline-block;
+  padding-left: 15px;
+}
+
+.settings-form .dropdown button {
+  background-color: #fff;
+  color: var(--gold);
+  width: 40%;
+  outline: none;
+}
+
+.settings-form .form-control {
+  color: var(--gold);
+  font-weight: bold;
+  font-size: 15px;
+  box-shadow: none;
+  border: none;
+  border-radius: var(--border-radius);
+}
+
+.settings-form hr {
+  border-width: 1px;
+  border-color: var(--lightest-blue);
+  opacity: 0.2;
+}
+
