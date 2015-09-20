@@ -23,9 +23,7 @@ var ManagerView = view(require('./manager.html'))
 
 module.exports = function (ctx, next) {
   ctx.view = new View()
-  User.query({
-    $query: 'type:administrator OR type:manager'
-  }, function (err, managers, res) {
+  request.get('/users/managers', function (err, managers, res) {
     if (err || !res.ok) {
       log.error(err || res.error || res.text)
       window.alert(err || res.text || 'Failed to load managers.') // eslint-disable-line no-alert
