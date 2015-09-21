@@ -1,9 +1,12 @@
 var model = require('model')
 
+var request = require('./client/request')
+
 var User = module.exports = model('User')
   .attr('href')
   .attr('customData')
   .attr('email')
+  .attr('fullName')
   .attr('givenName')
   .attr('surname')
   .attr('groups')
@@ -30,5 +33,17 @@ User.prototype.getOrganizationId = function () {
 User.prototype.groupNames = function () {
   return this.groups().items.map(function (i) {
     return i.name
+  })
+}
+
+User.getManagers = function (callback) {
+  request.get('/users/managers', function (err, res) {
+    if (err) {
+      callback(err)
+    } else {
+      callback(null, (res.body || []).map(function (user) {
+        return new User(user)
+      }))
+    }
   })
 }
