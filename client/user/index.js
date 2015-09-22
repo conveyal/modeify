@@ -51,7 +51,7 @@ User.getManagers = function (callback) {
 User.createManager = function (info, callback) {
   request.post('/users/managers', info, function (err, res) {
     if (err) {
-      callback(err)
+      callback(res.text || err)
     } else {
       callback(null, res.body)
     }

@@ -49,18 +49,21 @@ View.prototype.create = function (e) {
   var givenName = this.find('#givenName').value
   var surname = this.find('#surname').value
 
+  alerts.clear()
   User.createManager({
     email: email,
     givenName: givenName,
     surname: surname
   }, function (err, user) {
     if (err) {
-      log.error(err)
-      window.alert('Failed to create manager.')
+      alerts.show({
+        type: 'danger',
+        text: err.message || err
+      })
     } else {
       alerts.push({
         type: 'success',
-        text: 'Invited ' + givenName + ' at ' + email + ' to be a new manager.'
+        text: 'Invited ' + givenName + ' ' + surname + ' at ' + email + ' to be a new manager.'
       })
       page('/manager/managers')
     }

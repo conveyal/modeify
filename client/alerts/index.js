@@ -52,6 +52,14 @@ function addBar () {
 }
 
 /**
+ * Clear
+ */
+
+module.exports.clear = function () {
+  if (el) el.innerHTML = ''
+}
+
+/**
  * Push
  */
 
