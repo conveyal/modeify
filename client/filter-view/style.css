@@ -91,10 +91,32 @@
   width: 100%;
   margin-top: 8px;
   height: 44px;
+  display: none;
 }
 
 .settings-form {
   margin-top: 8px;
+}
+
+
+.settings-form .bike-settings, 
+.settings-form .walk-settings,
+.settings-form .drive-settings {
+  display: inline-block;
+  display: none;
+}
+
+.settings-form-open .bike-settings, 
+.settings-form-open .walk-settings,
+.settings-form-open .drive-settings,
+.settings-form-open .hide-settings {
+  display: inline-block;
+  display: visible;
+}
+
+.settings-form-open .show-settings {
+  display: inline-block;
+  display: none;
 }
 
 .settings-form i {
@@ -103,12 +125,6 @@
   color: var(--lightest-blue);
   font-size: 28px;
   padding-left: 5px;
-  vertical-align: center;
-}
-
-.settings-form .bike, 
-.settings-form .walk,
-.settings-form .drive {
   display: inline-block;
 }
 
@@ -124,6 +140,7 @@
   box-shadow: none;
   border: none;
   border-radius: var(--border-radius);
+  display: inline-block;
 }
 
 .settings-form .label-text {
@@ -140,5 +157,6 @@
     padding-left: 0;
     padding-right: 0;
     text-align: center;
+    display: inline-block;
   }
 }

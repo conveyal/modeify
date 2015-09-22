@@ -45,3 +45,23 @@ function toOption (n) {
 
   return opt
 }
+
+View.prototype.showSettings = function () {
+  // this.el = document.querySelector('.FilterView')
+
+  // this.find = this.el.querySelector('')
+  
+  var settingsFormElement = this.find('.settings-form')
+
+  settingsFormElement.classList.add('settings-form-open')
+  settingsFormElement.classList.add('settings-form-open')
+
+}
+
+View.prototype.hideSettings = function () {
+  this.find('.settings-form').classList.remove('settings-form-open')
+}
+
+
+
+
