@@ -26,66 +26,54 @@
   </button>
 
   <!-- settings -->
-  <div class="custom-settings">
-    <button class="btn btn-dark show-hide show-settings" href="#" on-tap="showSettings"><i class="fa fa-gear"></i> Show Custom Settings <i class="fa fa-chevron-down"></i></button>
-    <button class="btn btn-dark show-hide hide-settings" href="#" on-tap="hideSettings"><i class="fa fa-gear"></i> Hide Custom Settings <i class="fa fa-chevron-up"></button>
-  </div>
+      <div class="custom-settings">
+          <button class="btn btn-dark show-hide show-settings" href="#" on-tap="showSettings"><i class="fa fa-gear"></i> Show Custom Settings <i class="fa fa-chevron-down"></i></button>
+          <button class="btn btn-dark show-hide hide-settings" href="#" on-tap="hideSettings"><i class="fa fa-gear"></i> Hide Custom Settings <i class="fa fa-chevron-up"></button>
 
-  <div class="settings-form">
-    <div class="bike-settings">
-      <div class="bike">
-        <i class="icon-bike"></i>
+        <div class="settings-form">
+          <div class="bike-settings">
+            <div class="bike">
+              <i class="icon-bike"></i>
+            </div>
+            <label class="label-text">speed</label>
+            <select>
+                <option>avg 6 mph</option>
+                <option>fast 10 mph</option>
+                <option>slow 4 mph</option>
+            </select>
+            <label class="label-text">distance</label>
+            <div class="input-group-sm distance">
+              <input type="text" class="form-control" placeholder="miles"></input>
+            </div>
+        </div>
+        <div class="walk-settings">
+            <div class="walk">
+              <i class="icon-walk"></i>
+            </div>
+            <label class="label-text">speed</label>
+            <select>
+                <option>avg 3 mph</option>
+                <option>fast 6 mph</option>
+                <option>slow 2 mph</option>
+            </select>
+            <label class="label-text">distance</label>
+            <div class="input-group-sm distance">
+              <input type="text" class="form-control" placeholder="miles"></input>
+            </div>
+          </div>
+        <div class="drive-settings">
+            <div class="drive">
+              <i class="icon-car"></i>
+            </div>
+            <label class="label-text">parking</label>
+            <div class="input-group-sm parking">
+              <input type="text" class="form-control" placeholder="$"></input>
+            </div>
+            <label class="label-text" style="padding-left: 10px; padding-right: 0;">cpm<i class="fa fa-question-circle" style="font-size: 14px;"></i></label>
+            <div class="input-group-sm c-p-m">
+              <input type="text" class="form-control" placeholder="$"></input>
+            </div>
+        </div>   
       </div>
-      <div class="dropdown">
-        <label>speed</label><br>
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-          <li><a href="#">fast 10 mph</a></li>
-          <li><a href="#">avg 6 mph</a></li>
-          <li><a href="#">slow 4 mph</a></li>
-        </ul>
-      </div>
-      <div class="input-group-sm distance">
-        <label>max distance</label>
-        <input type="text" class="form-control" placeholder="miles"></input>
-      </div>
-  </div>
-  <hr>
-  <div class="walk-settings">
-      <div class="walk">
-        <i class="icon-walk"></i>
-      </div>
-      <div class="dropdown">
-        <label>speed</label><br>
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-        <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-          <li><a href="#">fast 6 mph</a></li>
-          <li><a href="#">avg 3 mph</a></li>
-          <li><a href="#">slow 2 mph</a></li>
-        </ul>
-      </div>
-      <div class="input-group-sm distance">
-        <label>max distance</label>
-        <input type="text" class="form-control" placeholder="miles"></input>
-      </div>
-  </div>
-  <hr> 
-  <div class="drive-settings">
-      <div class="drive">
-        <i class="icon-car"></i>
-      </div>
-      <div class="input-group-sm parking">
-        <label>daily parking</label>
-        <input type="text" class="form-control" placeholder="$"></input>
-      </div>
-      <div class="input-group-sm c-p-m">
-        <label>cost per mile</label>
-        <input type="text" class="form-control" placeholder="$"></input>
-      </div>
-  </div>   
-  <hr>
-</div>
+    </div>
+
