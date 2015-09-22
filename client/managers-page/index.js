@@ -71,39 +71,21 @@ View.prototype.create = function (e) {
 }
 
 /**
- * Delete
- */
-
-ManagerView.prototype.destroy = function (e) {
-  e.preventDefault()
-  if (window.confirm('Delete this manager?')) { // eslint-disable-line no-alert
-    this.model.destroy(function (err) {
-      if (err) {
-        log.error(err)
-        window.alert('Failed to delete manager.') // eslint-disable-line no-alert
-      } else {
-        alerts.push({
-          type: 'success',
-          text: 'Created new manager.'
-        })
-        page('/manager/managers')
-      }
-    })
-  }
-}
-
-/**
  * Reset password
  */
 
 ManagerView.prototype.resetPassword = function (e) {
   if (window.confirm('Reset user\'s password?')) { // eslint-disable-line no-alert
+    alerts.clear()
     request.post('/users/change-password-request', {
       email: this.model.email()
     }, function (err, res) {
       if (err || !res.ok) {
         log.error(err || res.error || res.text)
-        window.alert('Failed to send reset password request.') // eslint-disable-line no-alert
+        alerts.show({
+          type: 'danger',
+          text: 'Failed to send reset password request.'
+        })
       } else {
         alerts.show({
           type: 'success',

@@ -1,0 +1,12 @@
+{
+  "name": "manager-page",
+  "local": [
+    "view"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}

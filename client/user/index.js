@@ -11,6 +11,10 @@ var User = module.exports = model('User')
   .attr('surname')
   .attr('groups')
 
+User.prototype.id = function () {
+  return this.href().split('/').pop()
+}
+
 User.prototype.inGroups = function (names, all) {
   var groups = this.groupNames()
     .reduce(function (memo, n) {
@@ -31,7 +35,7 @@ User.prototype.getOrganizationId = function () {
 }
 
 User.prototype.groupNames = function () {
-  return this.groups().items.map(function (i) {
+  return (this.groups().items || []).map(function (i) {
     return i.name
   })
 }
