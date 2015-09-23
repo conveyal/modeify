@@ -40,6 +40,41 @@ User.prototype.groupNames = function () {
   })
 }
 
+User.prototype.grantManagementPermission = function (org, callback) {
+  request.get('/users/' + this.id() + '/add-to-group', {
+    group: 'organization-' + org + '-manager'
+  }, function (err, res) {
+    if (err || !res.ok) {
+      callback(res.text, res)
+    } else {
+      callback(null, res)
+    }
+  })
+}
+
+User.prototype.revokeManagementPermission = function (org, callback) {
+  request.get('/users/' + this.id() + '/remove-from-group', {
+    group: 'organization-' + org + '-manager'
+  }, function (err, res) {
+    if (err || !res.ok) {
+      callback(res.text, res)
+    } else {
+      callback(null, res)
+    }
+  })
+}
+
+User.loadManager = function (ctx, next) {
+  request.get('/users/' + ctx.params.manager, function (err, res) {
+    if (err || !res.ok) {
+      next(err || res.text)
+    } else {
+      ctx.manager = new User(res.body)
+      next()
+    }
+  })
+}
+
 User.getManagers = function (callback) {
   request.get('/users/managers', function (err, res) {
     if (err) {

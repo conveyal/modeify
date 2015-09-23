@@ -1,12 +1,10 @@
 {
   "name": "organizations-page",
   "dependencies": {
-    "visionmedia/debug": "*",
     "visionmedia/page.js": "*"
   },
   "locals": [
-    "config",
-    "organization",
+    "log",
     "view"
   ],
   "scripts": [

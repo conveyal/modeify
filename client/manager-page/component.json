@@ -1,12 +1,17 @@
 {
   "name": "manager-page",
+  "dependencies": {
+    "visionmedia/page.js": "*"
+  },
   "local": [
+    "alerts",
     "view"
   ],
   "scripts": [
     "index.js"
   ],
   "templates": [
+    "row.html",
     "template.html"
   ]
 }

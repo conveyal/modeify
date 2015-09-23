@@ -42,3 +42,14 @@ Organization.load = function (ctx, next) {
     }
   })
 }
+
+Organization.loadAll = function (ctx, next) {
+  Organization.all(function (err, orgs, res) {
+    if (err || !res.ok) {
+      next(err || res.text)
+    } else {
+      ctx.organizations = orgs
+      next()
+    }
+  })
+}
