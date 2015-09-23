@@ -85,7 +85,8 @@ function Display(transitive) {
 
   if (bounds) {
     this.setScale(bounds, transitive.options);
-    this.updateActiveZoomFactors(this.scale);
+//    this.updateActiveZoomFactors(this.scale);
+    this.updateActiveZoomFactors(1);
     this.lastScale = this.scale;
   } else {
     this.updateActiveZoomFactors(1);
@@ -117,7 +118,8 @@ function Display(transitive) {
  */
 
 Display.prototype.zoomChanged = function() {
-  if (this.updateActiveZoomFactors(this.scale)) {
+//  if (this.updateActiveZoomFactors(this.scale)) {
+  if (this.updateActiveZoomFactors(1)) {
     this.transitive.network = null;
     this.transitive.render();
   } else this.transitive.refresh();
@@ -125,7 +127,14 @@ Display.prototype.zoomChanged = function() {
 };
 
 Display.prototype.updateActiveZoomFactors = function(scale) {
+  // Overriding default behavior to always show maximum detail
+  // on displayed routes.
   var updated = false;
+
+  this.activeZoomFactors = this.zoomFactors[this.zoomFactors.length - 1];
+  return true;
+  // Override ends here.
+
   for (var i = 0; i < this.zoomFactors.length; i++) {
     var min = this.zoomFactors[i].minScale;
     var max = (i < this.zoomFactors.length - 1) ?

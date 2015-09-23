@@ -55,6 +55,8 @@ module.exports = function(el) {
     blurLayer.addTo(map);
     module.exports.activeMap = map;
 
+    map.realtimeControl = L.control.toggleRealTime().addTo(map);
+
     realtime = mapModule.realtime();
   } else {
     map = L.mapbox.map(el, config.mapbox_map_id(), {

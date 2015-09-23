@@ -1,5 +1,7 @@
 <div class="fullscreen">
-  <div class="MapView"></div>
+  <div class="MapView">
+  <a href="#" class="hide-map" on-tap="showSidePanel"><i class="fa fa-fw fa-chevron-right"></i></a>
+</div>
   <div class="SidePanel">
     <div id="scrollable" class="scrollable">
       <form autosubmit id="locations-form">
@@ -11,10 +13,12 @@
     </div>
     <div reactive="planner-nav"></div>
     <div class="footer hidden">
+      <a href="#" class="show-map" on-tap="hideSidePanel"><i class="fa fa-fw fa-chevron-left"></i></a>
       <button class="btn btn-default help-me-choose" on-tap="helpMeChoose"><i class="fa fa-fw fa-list"></i> help me choose</button>
       <a href="#" class="more-options pull-right" on-tap="scroll"><i class="fa fa-fw fa-chevron-down"></i></a>
       <a class="btn btn-default send-feedback"
-	 href="https://www.surveymonkey.com/r/KMMNCBN"
+	 href="#"
+	 on-tap="feedback"
 	 title="Send feedback"
 	 target="_blank"><i class="fa fa-fw fa-bullhorn"></i> feedback</a>
     </div>

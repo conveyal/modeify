@@ -24,6 +24,18 @@
     left: 0;
     width: 100%;
   }
+
+  .SidePanel .footer .more-options {
+      display: none !important;
+  }
+
+  .SidePanel .footer .show-map {
+      display: inline-block !important;
+  }
+
+  .MapView .hide-map {
+      display: inline-block !important;
+  }
 }
 
 .scrollable {
@@ -95,4 +107,29 @@
   line-height: 44px;
   text-align: right;
   padding: 0 12px 0 16px;
+}
+
+.SidePanel .footer .show-map {
+  color: var(--light-blue);
+  font-size: 18px;
+  height: 44px;
+  display: none;
+  line-height: 44px;
+  text-align: left;
+  padding: 0 12px 0 16px;
+}
+
+.MapView .hide-map {
+  position: absolute;
+  right: 10px;
+  bottom: 60px;
+  color: black;
+  z-index: 1000;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 5px 5px 5px 7px;
+  box-shadow: 0 1px 5px rgba(0,0,0,.4);
+  font-size: 14px;
+  display: none;
 }

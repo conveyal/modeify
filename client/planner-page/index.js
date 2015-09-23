@@ -1,4 +1,5 @@
 var config = require('config');
+var FeedbackModal = require('feedback-modal');
 var FilterView = require('filter-view');
 var HelpMeChoose = require('help-me-choose-view');
 var LeafletTransitiveLayer = require('Leaflet.TransitiveLayer');
@@ -205,6 +206,66 @@ View.prototype.helpMeChoose = function(e) {
 };
 
 /**
+ * Show feedback modal
+ */
+View.prototype.feedback = function(e) {
+  e.preventDefault();
+  FeedbackModal().show();
+};
+
+/**
+ * Hide Side Panel
+ */
+
+View.prototype.hideSidePanel = function (e) {
+  var sidePanel = $('.SidePanel');
+  var fullscreen = $('.fullscreen');
+  var width = sidePanel.width();
+  var map = showMapView.getMap();
+
+  sidePanel.css({
+    'transition': 'transform 2s',
+    '-webkit-transition': '-webkit-transform 2s',
+    'transform': 'translate3d(' + width + 'px, 0, 0)'
+  });
+
+  fullscreen.css({
+    'transition': 'padding 2s',
+    'padding': '0'
+  });
+
+  setTimeout(function () {
+    map.invalidateSize();
+  }, 2100)
+};
+
+/**
+ * Show Side Panel
+ */
+
+View.prototype.showSidePanel = function (e) {
+  var sidePanel = $('.SidePanel');
+  var fullscreen = $('.fullscreen');
+  var width = sidePanel.width();
+  var map = showMapView.getMap();
+
+  sidePanel.css({
+    'transition': 'transform 2s',
+    '-webkit-transition': '-webkit-transform 2s',
+    'transform': 'translate3d(0, 0, 0)'
+  });
+
+  fullscreen.css({
+    'transition': 'padding 2s',
+    'padding-right': '320px'
+  });
+
+  setTimeout(function () {
+    map.invalidateSize();
+  }, 2100)
+};
+
+/**
  * Show Journey
  */
 
@@ -261,7 +322,6 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
         map.fitBounds(transitiveLayer.getBounds());
       } catch (e) {
 	map.setView([center[1], center[0]], config.geocode().zoom);
-        console.error(e);
       }
     }
   });
