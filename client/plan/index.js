@@ -49,9 +49,13 @@ var Plan = module.exports = model('Plan')
     walk: true
   }))
   .attr('bike')
+  .attr('bikeDistanceMax')
   .attr('bikeShare')
+  .attr('bikeSpeed')
   .attr('bus')
   .attr('car')
+  .attr('carParkingCost')
+  .attr('carCostPerMile')
   .attr('days')
   .attr('end_time')
   .attr('from')
@@ -72,6 +76,8 @@ var Plan = module.exports = model('Plan')
   .attr('train')
   .attr('tripsPerYear')
   .attr('walk')
+  .attr('walkDistanceMax')
+  .attr('walkSpeed')
 
 /**
  * Expose `load`
