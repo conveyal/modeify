@@ -36,10 +36,10 @@
               <i class="icon-bike"></i>
             </div>
             <label class="label-text">speed</label>
-            <select>
-                <option>avg 6 mph</option>
-                <option>fast 10 mph</option>
-                <option>slow 4 mph</option>
+            <select select-value="speeds" on-change="updateBikeSpeed">
+                <option value="6mph">avg 6 mph</option>
+                <option value="10mph">fast 10 mph</option>
+                <option value="4mph">slow 4 mph</option>
             </select>
             <label class="label-text">distance</label>
             <div class="input-group-sm distance">
