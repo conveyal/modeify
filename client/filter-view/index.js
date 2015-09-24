@@ -62,13 +62,16 @@ View.prototype.hideSettings = function () {
   this.find('.settings-form').classList.remove('settings-form-open')
 }
 
-var bikeSelect = this.find('bike-settings select');
 
-var bikeSpeed = bikeSelect.value;
 
 View.prototype.updateBikeSpeed = function () {
-  console.log("bikeSelect");
-  console.log("bikeSpeed");
+
+var bikeSelect = this.find('.bike-settings select')
+var bikeSpeed = bikeSelect.value
+
+console.log(bikeSelect)
+console.log(bikeSpeed)
+
 }
 
 
