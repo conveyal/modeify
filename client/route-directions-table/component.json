@@ -1,6 +1,7 @@
 {
   "name": "route-directions-table",
   "dependencies": {
+    "component/each": "*",
     "ianstormtaylor/to-sentence-case": "*",
     "twitter/hogan.js": "*"
   },

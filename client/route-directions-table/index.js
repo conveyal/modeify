@@ -2,6 +2,7 @@ var hogan = require('hogan.js')
 var session = require('session')
 var toSentenceCase = require('to-sentence-case')
 var view = require('view')
+var each = require('each')
 
 var rowTemplate = require('./row.html')
 var template = require('./template.html')
@@ -51,6 +52,10 @@ View.prototype.itinerary = function () {
     var fromName = segment.fromName
     var patterns = segment.segmentPatterns
     var color = patterns[0].color
+    var routeAgencyNames = {}
+    each(segment.routes, function(route) {
+      routeAgencyNames[route.id] = route.agencyName
+    })
 
     // Check for a walking distance to see if you are boarding or transferring
     if (segment.walkTime !== 0 || i === 0) {
@@ -78,7 +83,7 @@ View.prototype.itinerary = function () {
     addDetail({
       color: color,
       departureTimes: formatDepartureTimes(departureTimes),
-      description: 'Take ' + getUniquePatternNames(patterns).map(strong).join(' / '),
+      description: 'Take ' + getUniquePatternNames(patterns, routeAgencyNames).map(strong).join(' / '),
       segment: true
     })
 
@@ -101,14 +106,29 @@ View.prototype.itinerary = function () {
   return details
 }
 
-function getUniquePatternNames (patterns) {
+function getUniquePatternNames (patterns, routeAgencyNames) {
   return patterns.map(function (p) {
-    return p.shortName
+    var idArr = p.patternId.split(':')
+    var routeId = idArr[0] + ':' + idArr[1]
+    return getAgencyName(routeAgencyNames[routeId]) + ' ' + p.shortName
   })
     .reduce(function (names, name) {
       if (names.indexOf(name) === -1) names.push(name)
       return names
     }, [])
+}
+
+function getAgencyName(internalName) {
+  switch(internalName) {
+    case 'MET': return 'Metro'
+    case 'Arlinton Transit': return 'ART'
+    case 'Maryland Transit Administration': return 'MTA'
+    case 'Potomac and Rappahannock Transportation Commission': return 'PRTC'
+    case 'Virginia Railway Express': return 'VRE'
+    case 'Montgomery County MD Ride On': return 'Ride On'
+    case 'Alexandria Transit Company (DASH)': 'DASH'
+  }
+  return internalName
 }
 
 function strong (s) {
