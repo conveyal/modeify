@@ -74,5 +74,15 @@ console.log(bikeSpeed)
 
 }
 
+View.prototype.updateWalkSpeed = function () {
+
+var walkSelect = this.find('.walk-settings select')
+var walkSpeed = walkSelect.value
+
+console.log(walkSelect)
+console.log(walkSpeed)
+
+}
+
 
 

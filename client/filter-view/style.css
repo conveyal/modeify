@@ -124,7 +124,7 @@
 
 .settings-form i {
   margin-top: 5px;
-  margin-left: 8px;
+  margin-left: 5px;
   color: var(--lightest-blue);
   font-size: 28px;
   padding-left: 5px;
@@ -132,7 +132,7 @@
 }
 
 .settings-form .input-group-sm {
-  width: 21%;
+  width: 20%;
   display: inline-block;
   padding-left: 5px;
 }
@@ -160,7 +160,7 @@
 .settings-form .label-text {
   font-size: 15px;
   font-weight: 400;
-  padding-left: 5px;
+  padding-left: 3px;
   padding-bottom: 5px;
   color: var(--lightest-blue);
   display: inline-block;

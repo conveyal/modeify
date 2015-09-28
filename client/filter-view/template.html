@@ -36,10 +36,10 @@
               <i class="icon-bike"></i>
             </div>
             <label class="label-text">speed</label>
-            <select select-value="speeds" on-change="updateBikeSpeed">
-                <option value="6mph">avg 6 mph</option>
-                <option value="10mph">fast 10 mph</option>
-                <option value="4mph">slow 4 mph</option>
+            <select select-value="bikeSpeed" on-change="updateBikeSpeed" select-parse-value="parseFloat">
+                <option value="9.7">avg 6 mph</option>
+                <option value="16.1">fast 10 mph</option>
+                <option value="6.4">slow 4 mph</option>
             </select>
             <label class="label-text">distance</label>
             <div class="input-group-sm distance">
@@ -51,10 +51,10 @@
               <i class="icon-walk"></i>
             </div>
             <label class="label-text">speed</label>
-            <select>
-                <option>avg 3 mph</option>
-                <option>fast 6 mph</option>
-                <option>slow 2 mph</option>
+            <select select-value="walkSpeed" on-change="updateWalkSpeed" select-parse-value="parseFloat">
+                <option value="3.8">avg 3 mph</option>
+                <option value="9.7">fast 6 mph</option>
+                <option value="3.2">slow 2 mph</option>
             </select>
             <label class="label-text">distance</label>
             <div class="input-group-sm distance">
