@@ -5,15 +5,15 @@
   </h3>
   <div class="form-group">
     <label for="givenName">First Name</label>
-    <input type="text" class="form-control" name="givenName" placeholder="First Name" data-value="givenName">
+    <input type="text" class="form-control" name="givenName" placeholder="First Name" value="{givenName || ''}">
   </div>
   <div class="form-group">
     <label for="surname">Last Name</label>
-    <input type="text" class="form-control" name="surname" placeholder="Last Name" data-value="surname">
+    <input type="text" class="form-control" name="surname" placeholder="Last Name" value="{surname || ''}">
   </div>
   <div class="form-group">
     <label for="email">Email</label>
-    <input type="text" class="form-control" name="email" placeholder="Email" data-value="email" data-disabled="isEditing">
+    <input type="text" class="form-control" name="email" placeholder="Email" value="{email || ''}" data-disabled="isEditing">
   </div>
   <div class="form-group Locations">
     <label for="contact">Address</label>
