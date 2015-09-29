@@ -65,7 +65,7 @@ View.prototype.save = function (e) {
   data.labels = data.labels.map(function (label) {
     return label.trim()
   })
-  data.zip = parseInt(data.zip, 10)
+
   this.model.set(data)
 
   var text = this.model.isNew() ? 'Created new organization.' :
