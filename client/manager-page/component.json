@@ -1,15 +1,14 @@
 {
-  "name": "organizations-page",
+  "name": "manager-page",
   "dependencies": {
     "visionmedia/page.js": "*"
   },
-  "locals": [
-    "log",
+  "local": [
+    "alerts",
     "view"
   ],
   "scripts": [
-    "index.js",
-    "row.js"
+    "index.js"
   ],
   "templates": [
     "row.html",

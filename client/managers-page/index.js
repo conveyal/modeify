@@ -23,15 +23,13 @@ var ManagerView = view(require('./manager.html'))
 
 module.exports = function (ctx, next) {
   ctx.view = new View()
-  User.query({
-    $query: 'type:administrator OR type:manager'
-  }, function (err, managers, res) {
-    if (err || !res.ok) {
-      log.error(err || res.error || res.text)
-      window.alert(err || res.text || 'Failed to load managers.') // eslint-disable-line no-alert
+  User.getManagers(function (err, managers) {
+    if (err) {
+      log.error(err)
+      window.alert(err)
     } else {
       var tbody = ctx.view.find('tbody')
-      managers.each(function (user) {
+      managers.forEach(function (user) {
         if (user.email() === session.user().email()) return
         var view = new ManagerView(user)
         tbody.appendChild(view.el)
@@ -48,18 +46,24 @@ module.exports = function (ctx, next) {
 View.prototype.create = function (e) {
   e.preventDefault()
   var email = this.find('#email').value
-  var user = new User({
+  var givenName = this.find('#givenName').value
+  var surname = this.find('#surname').value
+
+  alerts.clear()
+  User.createManager({
     email: email,
-    type: 'manager'
-  })
-  user.save(function (err) {
+    givenName: givenName,
+    surname: surname
+  }, function (err, user) {
     if (err) {
-      log.error(err)
-      window.alert('Failed to create manager.') // eslint-disable-line no-alert
+      alerts.show({
+        type: 'danger',
+        text: err.message || err
+      })
     } else {
       alerts.push({
         type: 'success',
-        text: 'Created new manager.'
+        text: 'Invited ' + givenName + ' ' + surname + ' at ' + email + ' to be a new manager.'
       })
       page('/manager/managers')
     }
@@ -67,39 +71,21 @@ View.prototype.create = function (e) {
 }
 
 /**
- * Delete
- */
-
-ManagerView.prototype.destroy = function (e) {
-  e.preventDefault()
-  if (window.confirm('Delete this manager?')) { // eslint-disable-line no-alert
-    this.model.destroy(function (err) {
-      if (err) {
-        log.error(err)
-        window.alert('Failed to delete manager.') // eslint-disable-line no-alert
-      } else {
-        alerts.push({
-          type: 'success',
-          text: 'Created new manager.'
-        })
-        page('/manager/managers')
-      }
-    })
-  }
-}
-
-/**
  * Reset password
  */
 
 ManagerView.prototype.resetPassword = function (e) {
-  if (window.confirm("Reset user's password?")) { // eslint-disable-line no-alert
+  if (window.confirm('Reset user\'s password?')) { // eslint-disable-line no-alert
+    alerts.clear()
     request.post('/users/change-password-request', {
       email: this.model.email()
     }, function (err, res) {
       if (err || !res.ok) {
         log.error(err || res.error || res.text)
-        window.alert('Failed to send reset password request.') // eslint-disable-line no-alert
+        alerts.show({
+          type: 'danger',
+          text: 'Failed to send reset password request.'
+        })
       } else {
         alerts.show({
           type: 'success',
@@ -108,60 +94,4 @@ ManagerView.prototype.resetPassword = function (e) {
       }
     })
   }
-}
-
-/**
- * Make admin
- */
-
-ManagerView.prototype.makeAdmin = function (e) {
-  this.switchTo('administrator', function (err) {
-    if (err) {
-      log.error(err)
-    } else {
-      alerts.push({
-        type: 'success',
-        text: 'Manager now has administrator access.'
-      })
-      page('/manager/managers')
-    }
-  })
-}
-
-/**
- * Remove admin
- */
-
-ManagerView.prototype.removeAdmin = function (e) {
-  this.switchTo('manager', function (err) {
-    if (err) {
-      log.error(err)
-    } else {
-      alerts.push({
-        type: 'success',
-        text: 'Manager no longer has administrator access.'
-      })
-      page('/manager/managers')
-    }
-  })
-}
-
-/**
- * Switch to
- */
-
-ManagerView.prototype.switchTo = function (to, fn) {
-  this.model.type(to)
-  this.model.save(fn)
-}
-
-/**
- * Is Admin?
- */
-
-ManagerView.prototype.isAdmin = function () {
-  return this.model.type() === 'administrator'
-}
-ManagerView.prototype.isNotAdmin = function () {
-  return this.model.type() !== 'administrator'
 }

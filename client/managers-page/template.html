@@ -2,6 +2,8 @@
   <div class="col-lg-12 col-md-12 col-sm-12">
     <h3>Managers
     <form class="form-inline pull-right">
+      <input class="form-control" id="givenName" type="text" placeholder="Given name" />
+      <input class="form-control" id="surname" type="text" placeholder="Surname" />
       <input class="form-control" id="email" type="email" placeholder="Email" />
       <button class="btn btn-success" on-tap="create"><i class="fa fa-plus"></i> Invite Manager</button>
     </form>
@@ -11,6 +13,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
+          <th>Name</th>
           <th>Email</th>
           <th>Action</th>
         </tr>

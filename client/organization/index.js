@@ -33,13 +33,22 @@ Organization.load = function (ctx, next) {
 
   log('loading %s', ctx.params.organization)
   Organization.get(ctx.params.organization, function (err, org) {
-    console.log(err)
-    console.log(org)
-
     if (err) {
+      log.error(err)
       next(err)
     } else {
       ctx.organization = org
+      next()
+    }
+  })
+}
+
+Organization.loadAll = function (ctx, next) {
+  Organization.all(function (err, orgs, res) {
+    if (err || !res.ok) {
+      next(err || res.text)
+    } else {
+      ctx.organizations = orgs
       next()
     }
   })

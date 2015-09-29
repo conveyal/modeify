@@ -17,13 +17,15 @@
     "location-page",
     "ridepool",
     "ridepool-form",
+    "manager-page",
     "managers-page",
     "organization",
     "organization-form",
     "organization-page",
     "organizations-page",
     "router-utils",
-    "session"
+    "session",
+    "user"
   ],
   "scripts": [
     "index.js"

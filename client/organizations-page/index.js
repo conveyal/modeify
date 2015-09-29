@@ -1,9 +1,8 @@
-var config = require('config')
-var debug = require('debug')(config.name() + ':organizations-page')
-var Organization = require('organization')
+var log = require('./client/log')('organizations-page')
+var view = require('view')
+
 var Row = require('./row')
 var template = require('./template.html')
-var view = require('view')
 
 /**
  * Create `View`
@@ -16,21 +15,13 @@ var View = view(template)
  */
 
 module.exports = function (ctx, next) {
-  debug('render')
+  log('render')
 
-  Organization.all(function (err, orgs, res) {
-    if (err || !res.ok) {
-      debug(err || res.error || res.text)
-      window.alert(res.text || 'Failed to load organizations.') // eslint-disable-line no-alert
-    } else {
-      debug('showing %s org(s)', orgs.length())
-      ctx.view = new View({
-        organizations: orgs
-      })
-
-      next()
-    }
+  ctx.view = new View({
+    organizations: ctx.organizations
   })
+
+  next()
 }
 
 /**

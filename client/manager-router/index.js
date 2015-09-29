@@ -9,6 +9,7 @@ var Organization = require('organization')
 var organizationForm = require('organization-form')
 var p = require('page')
 var session = require('session')
+var User = require('user')
 var utils = require('router-utils')
 
 // Setup & show alerts
@@ -30,12 +31,14 @@ p('/logout', session.logoutMiddleware, function () {
 
 // Admin only
 
-p('/managers', session.touch, required(['administrator'], '/organizations'), require('managers-page'))
+p('/managers(.*)', session.touch, required(['administrator'], '/organizations'))
+p('/managers', require('managers-page'))
+p('/managers/:manager/show', Organization.loadAll, User.loadManager, require('manager-page'))
 
 // Organizations
 
 p('/organizations(.*)', session.touch)
-p('/organizations', redirectToOrgIfManager, require('organizations-page'))
+p('/organizations', redirectToOrgIfManager, Organization.loadAll, require('organizations-page'))
 p('/organizations/new', redirectToOrgIfManager, organizationForm)
 
 p('/organizations/:organization/(.*)', Organization.load)

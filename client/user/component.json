@@ -1,12 +1,10 @@
 {
   "name": "user",
   "dependencies": {
-    "component/model": "*",
-    "trevorgerhardt/model-query": "*",
-    "visionmedia/debug": "*"
+    "component/model": "*"
   },
   "locals": [
-    "config"
+    "request"
   ],
   "scripts": [
     "index.js"
