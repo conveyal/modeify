@@ -35,21 +35,21 @@
       <label>speed</label>
       <select select-value="bikeSpeed" select-options="bikeSpeeds" select-parse-value="parseInt"></select>
       <label class="label-text">max distance</label>
-      <input name="bikeDistanceMax" type="text" placeholder="miles"></input>
+      <input name="bikeDistanceMax" type="text" placeholder="miles" data-value="bikeDistanceMax" on-change="save"></input>
     </div>
     <div class="ExpandedSettings-walk">
       <i class="icon-walk ExpandedSettings-typeIcon"></i>
       <label>speed</label>
       <select select-value="walkSpeed" select-options="walkSpeeds" select-parse-value="parseInt"></select>
       <label class="label-text">max distance</label>
-      <input name="walkDistanceMax" type="text" placeholder="miles"></input>
+      <input name="walkDistanceMax" type="text" placeholder="miles" data-value="walkDistanceMax" on-change="save"></input>
     </div>
     <div class="ExpandedSettings-drive">
       <i class="icon-car ExpandedSettings-typeIcon"></i>
       <label>parking</label>
-      <input name="carParkingCost" type="text" placeholder="$"></input>
+      <input name="carParkingCost" type="text" placeholder="$" data-value="carParkingCost" on-change="save"></input>
       <label>and per mile</label>
-      <input name="carCostPerMile" type="text" placeholder="$"></input>
+      <input name="carCostPerMile" type="text" placeholder="$" data-value="carCostPerMile" on-change="save"></input>
     </div>
   </div>
 </div>

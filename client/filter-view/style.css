@@ -130,7 +130,7 @@
 
 .settings-form i {
   margin-top: 5px;
-  margin-left: 8px;
+  margin-left: 5px;
   color: var(--lightest-blue);
   font-size: 28px;
   padding-left: 5px;
@@ -186,11 +186,10 @@
 }
 
 .ExpandedSettings-typeIcon {
-  width: 44px;
   display: inline-block;
-  text-align: center;
   font-size: 28px;
   vertical-align: middle;
+  margin: 0 6px;
 }
 
 .ExpandedSettings input {
@@ -203,7 +202,7 @@
   background-color: #fff;
   border-radius: 3px;
   margin-left: 6px;
-  padding: 6px;
+  padding: 4px;
 }
 
 .ExpandedSettings input[name=carParkingCost] {
@@ -212,7 +211,7 @@
 }
 
 .ExpandedSettings > div {
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .ExpandedSettings-bike,
@@ -221,6 +220,12 @@
 .ExpandedSettings.open .ExpandedSettings-show,
 .ExpandedSettings-walk {
   display: none;
+}
+
+.ExpandedSettings-drive {
+  margin-top: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  padding-bottom: 6px;
 }
 
 .ExpandedSettings.open .ExpandedSettings-bike,
