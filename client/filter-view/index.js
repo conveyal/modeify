@@ -22,6 +22,24 @@ View.prototype.endTimes = function () {
   return times.slice(1)
 }
 
+View.prototype.bikeSpeeds = function () {
+  return [4, 6, 10].map(function (s) {
+    return {
+      name: s + ' mph',
+      value: s
+    }
+  })
+}
+
+View.prototype.walkSpeeds = function () {
+  return [2, 3, 4].map(function (s) {
+    return {
+      name: s + ' mph&nbsp;&nbsp;',
+      value: s
+    }
+  })
+}
+
 View.prototype.parseInt = parseInt
 
 function hourOptions () {
@@ -47,32 +65,9 @@ function toOption (n) {
 }
 
 View.prototype.showSettings = function () {
-  // this.el = document.querySelector('.FilterView')
-
-  // this.find = this.el.querySelector('')
-  
-  var settingsFormElement = this.find('.settings-form')
-
-  settingsFormElement.classList.add('settings-form-open')
-  settingsFormElement.classList.add('settings-form-open')
-
+  this.find('.ExpandedSettings').classList.add('open')
 }
 
 View.prototype.hideSettings = function () {
-  this.find('.settings-form').classList.remove('settings-form-open')
+  this.find('.ExpandedSettings').classList.remove('open')
 }
-
-
-
-View.prototype.updateBikeSpeed = function () {
-
-var bikeSelect = this.find('.bike-settings select')
-var bikeSpeed = bikeSelect.value
-
-console.log(bikeSelect)
-console.log(bikeSpeed)
-
-}
-
-
-

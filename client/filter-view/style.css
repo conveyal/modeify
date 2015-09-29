@@ -1,8 +1,16 @@
 
+.FilterView {
+  color: var(--light-blue);
+  font-size: 15px;
+}
+
 .FilterView > .time-filters {
   white-space: nowrap;
   padding-bottom: 8px;
-  font-size: 15px;
+}
+
+.FilterView label {
+  font-weight: var(--font-weight);
 }
 
 @media (--narrow-window) {
@@ -20,8 +28,6 @@
 }
 
 .FilterView > .time-filters > label {
-  color: var(--light-blue);
-  font-weight: var(--font-weight);
   margin-bottom: 3px;
 }
 
@@ -94,14 +100,14 @@
   display: none;
 }
 
-.settings-form .bike-settings, 
+.settings-form .bike-settings,
 .settings-form .walk-settings,
 .settings-form .drive-settings {
   display: inline-block;
   display: none;
 }
 
-.settings-form-open .bike-settings, 
+.settings-form-open .bike-settings,
 .settings-form-open .walk-settings,
 .settings-form-open .drive-settings,
 .settings-form-open .hide-settings {
@@ -173,4 +179,57 @@
     text-align: center;
     display: inline-block;
   }
+}
+
+.ExpandedSettings {
+  margin-top: 8px;
+}
+
+.ExpandedSettings-typeIcon {
+  width: 44px;
+  display: inline-block;
+  text-align: center;
+  font-size: 28px;
+  vertical-align: middle;
+}
+
+.ExpandedSettings input {
+  display: inline-block;
+  color: #455a71;
+  box-shadow: none;
+  border: none;
+  width: 57px;
+  text-overflow: ellipsis;
+  background-color: #fff;
+  border-radius: 3px;
+  margin-left: 6px;
+  padding: 6px;
+}
+
+.ExpandedSettings input[name=carParkingCost] {
+  margin-right: 6px;
+  width: 50px;
+}
+
+.ExpandedSettings > div {
+  margin-top: 8px;
+}
+
+.ExpandedSettings-bike,
+.ExpandedSettings-drive,
+.ExpandedSettings-hide,
+.ExpandedSettings.open .ExpandedSettings-show,
+.ExpandedSettings-walk {
+  display: none;
+}
+
+.ExpandedSettings.open .ExpandedSettings-bike,
+.ExpandedSettings.open .ExpandedSettings-drive,
+.ExpandedSettings.open .ExpandedSettings-hide,
+.ExpandedSettings.open .ExpandedSettings-walk {
+  display: block;
+}
+
+.ExpandedSettings hr {
+  color: color(var(--gold) alpha(0.5));
 }
