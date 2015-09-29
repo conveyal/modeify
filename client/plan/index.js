@@ -1,5 +1,6 @@
 var Batch = require('batch')
 var config = require('config')
+var convert = require('convert')
 var debounce = require('debounce')
 var geocode = require('geocode')
 var Journey = require('journey')
@@ -30,14 +31,19 @@ var Plan = module.exports = model('Plan')
   .use(defaults({
     bike: true,
     bikeShare: true,
+    bikeSpeed: 6,
     bus: true,
     car: true,
+    carParkingCost: 10,
+    carCostPerMile: 0.56,
     days: 'M—F',
     end_time: 9,
     from: '',
     from_valid: false,
     loading: true,
     matches: [],
+    maxBikeTime: 20,
+    maxWalkTime: 15,
     options: [],
     query: new ProfileQuery(),
     scorer: new ProfileScorer(),
@@ -46,10 +52,10 @@ var Plan = module.exports = model('Plan')
     to_valid: false,
     train: true,
     tripsPerYear: 235,
-    walk: true
+    walk: true,
+    walkSpeed: 3
   }))
   .attr('bike')
-  .attr('bikeDistanceMax')
   .attr('bikeShare')
   .attr('bikeSpeed')
   .attr('bus')
@@ -64,6 +70,8 @@ var Plan = module.exports = model('Plan')
   .attr('from_valid')
   .attr('loading')
   .attr('matches')
+  .attr('maxBikeTime')
+  .attr('maxWalkTime')
   .attr('journey')
   .attr('options')
   .attr('query')
@@ -76,7 +84,6 @@ var Plan = module.exports = model('Plan')
   .attr('train')
   .attr('tripsPerYear')
   .attr('walk')
-  .attr('walkDistanceMax')
   .attr('walkSpeed')
 
 /**
@@ -93,6 +100,13 @@ module.exports.load = function (ctx, next) {
 
 Plan.on('change', function (plan, name, val) {
   log('plan.%s changed to %s', name, val)
+
+  if (name === 'bikeSpeed') {
+    console.log(val, convert.mphToMps(val))
+    plan.scorer().rates.bikeSpeed = convert.mphToMps(val)
+  } else if (name === 'walkSpeed') {
+    plan.scorer().rates.walkSpeed = convert.mphToMps(val)
+  }
 
   // Store in localStorage & track the change
   if (name !== 'options' && name !== 'journey' && name !== 'loading') plan.store()
@@ -319,7 +333,6 @@ Plan.prototype.generateQuery = function () {
 
   var startTime = this.start_time()
   var endTime = this.end_time()
-  var scorer = this.scorer()
 
   // Convert the hours into strings
   startTime += ':00'
@@ -328,7 +341,7 @@ Plan.prototype.generateQuery = function () {
   return {
     accessModes: accessModes.join(','),
     bikeSafe: 1000,
-    bikeSpeed: scorer.rates.bikeSpeed,
+    bikeSpeed: convert.mphToMps(this.bikeSpeed()),
     date: this.nextDate(),
     directModes: directModes.join(','),
     egressModes: egressModes.join(','),
@@ -338,6 +351,8 @@ Plan.prototype.generateQuery = function () {
       lon: from.lng,
       name: 'From'
     },
+    maxBikeTime: this.maxBikeTime(),
+    maxWalkTime: this.maxWalkTime(),
     startTime: startTime,
     to: {
       lat: to.lat,
@@ -346,7 +361,7 @@ Plan.prototype.generateQuery = function () {
     },
     limit: LIMIT,
     transitModes: transitModes.join(','),
-    walkSpeed: scorer.rates.walkSpeed
+    walkSpeed: convert.mphToMps(this.walkSpeed())
   }
 }
 

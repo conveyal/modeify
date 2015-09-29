@@ -87,91 +87,6 @@
   border: none;
 }
 
-.show-settings {
-  width: 100%;
-  margin-top: 10px;
-  height: 44px;
-}
-
-.hide-settings {
-  width: 100%;
-  margin-top: 8px;
-  height: 44px;
-  display: none;
-}
-
-.settings-form .bike-settings,
-.settings-form .walk-settings,
-.settings-form .drive-settings {
-  display: inline-block;
-  display: none;
-}
-
-.settings-form-open .bike-settings,
-.settings-form-open .walk-settings,
-.settings-form-open .drive-settings,
-.settings-form-open .hide-settings {
-  display: inline-block;
-  display: visible;
-  padding-top: 8px;
-}
-
-.settings-form-open .show-settings {
-  display: inline-block;
-  display: none;
-}
-
-.settings-form .bike,
-.settings-form .walk,
-.settings-form .drive {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.settings-form i {
-  margin-top: 5px;
-  margin-left: 5px;
-  color: var(--lightest-blue);
-  font-size: 28px;
-  padding-left: 5px;
-  display: inline-block;
-}
-
-.settings-form .input-group-sm {
-  width: 21%;
-  display: inline-block;
-  padding-left: 5px;
-}
-
-.settings-form .drive-settings .input-group-sm {
-  width: 25%;
-  display: inline-block;
-  padding-left: 5px;
-}
-
-.settings-form .c-p-m {
-  text-align: right;
-  float: right;
-}
-
-.settings-form .form-control {
-  color: var(--gold);
-  font-size: 15px;
-  box-shadow: none;
-  border: none;
-  border-radius: var(--border-radius);
-  display: inline-block;
-}
-
-.settings-form .label-text {
-  font-size: 15px;
-  font-weight: 400;
-  padding-left: 5px;
-  padding-bottom: 5px;
-  color: var(--lightest-blue);
-  display: inline-block;
-}
-
 @media (--narrow-window) {
   .FilterView > .settings-form > select {
     padding-left: 0;
@@ -197,21 +112,17 @@
   color: #455a71;
   box-shadow: none;
   border: none;
-  width: 57px;
+  width: 51px;
   text-overflow: ellipsis;
   background-color: #fff;
   border-radius: 3px;
-  margin-left: 6px;
+  margin: 0 6px;
   padding: 4px;
 }
 
-.ExpandedSettings input[name=carParkingCost] {
-  margin-right: 6px;
-  width: 50px;
-}
-
-.ExpandedSettings > div {
-  margin-top: 6px;
+.ExpandedSettings-bike,
+.ExpandedSettings-walk {
+  margin-top: 8px;
 }
 
 .ExpandedSettings-bike,
@@ -223,9 +134,9 @@
 }
 
 .ExpandedSettings-drive {
-  margin-top: 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-  padding-bottom: 6px;
+  margin-top: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  padding-bottom: 12px;
 }
 
 .ExpandedSettings.open .ExpandedSettings-bike,
@@ -233,8 +144,4 @@
 .ExpandedSettings.open .ExpandedSettings-hide,
 .ExpandedSettings.open .ExpandedSettings-walk {
   display: block;
-}
-
-.ExpandedSettings hr {
-  color: color(var(--gold) alpha(0.5));
 }
