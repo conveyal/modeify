@@ -10,7 +10,7 @@ var model = require('model')
 
 var Commuter = module.exports = model('Commuter')
   .use(defaults({
-    anonymous: true,
+    anonymous: false,
     account: {},
     name: '',
     link: '',
@@ -124,4 +124,3 @@ Commuter.prototype.save = function () {
   if (this.anonymous()) return
   save.apply(this, arguments)
 }
-
