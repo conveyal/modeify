@@ -33,9 +33,9 @@ View.prototype.bikeSpeeds = function () {
 }
 
 View.prototype.walkSpeeds = function () {
-  return [2, 3, 4].map(function (s) {
+  return [2.3, 3, 4].map(function (s) {
     return {
-      name: s + ' mph&nbsp;&nbsp;',
+      name: parseInt(s, 10) + ' mph&nbsp;&nbsp;',
       value: s
     }
   })
