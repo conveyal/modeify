@@ -101,7 +101,6 @@ View.prototype.labels = function () {
 
 View.prototype.save = function (e) {
   debug('save')
-
   var data = serialize(this.el)
   data.labels = data.labels && data.labels.length > 0 ? data.labels.split(',') : []
   data.labels = data.labels.map(function (label) {
@@ -131,7 +130,11 @@ View.prototype.save = function (e) {
         type: 'success',
         text: text
       })
-      page(self.back())
+
+      // refresh the profiles/matches for this location
+      self.options.location.profileAndMatch(function() {
+        page(self.back())
+      })
     }
   })
 }

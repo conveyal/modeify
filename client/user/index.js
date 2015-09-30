@@ -87,6 +87,20 @@ User.getManagers = function (callback) {
   })
 }
 
+User.getManagersForOrg = function (org, callback) {
+  request.get('/users/managers-for-organization', {
+      organization: org
+    }, function (err, res) {
+    if (err) {
+      callback(err)
+    } else {
+      callback(null, (res.body || []).map(function (user) {
+        return new User(user)
+      }))
+    }
+  })
+}
+
 User.createManager = function (info, callback) {
   request.post('/users/managers', info, function (err, res) {
     if (err) {
