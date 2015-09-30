@@ -25,20 +25,32 @@
     <i data-visible="loading" class="fa fa-refresh fa-spin"></i>
   </button>
 
-  <!--
-  <div class="custom-settings">
-    <button class="btn btn-dark show-hide show-settings" href="#" on-tap="showSettings"><i class="fa fa-gear"></i> Show Custom Settings <i class="fa fa-chevron-down"></i></button>
-    <button class="btn btn-dark show-hide hide-settings" href="#" on-tap="hideSettings"><i class="fa fa-gear"></i> Hide Custom Settings <i class="fa fa-chevron-up"></button>
-  </div>
+  <!-- settings -->
+  <div class="ExpandedSettings">
+    <button class="btn btn-dark btn-block ExpandedSettings-show" on-tap="showSettings">More Settings <i class="fa fa-chevron-down"></i></button>
+    <button class="btn btn-dark btn-block ExpandedSettings-hide" on-tap="hideSettings">Hide Settings <i class="fa fa-chevron-up"></button>
 
-  <div class="settings-form">
-    <div class="bike-settings">
-      <div class="bike">
-        <i class="icon-bike"></i>
-      </div>
-      <div class="speed">
-        <p>speed</p>
-        <input></input>
-      </div>
-  </div> -->
+    <div class="ExpandedSettings-bike">
+      <i class="icon-bike ExpandedSettings-typeIcon"></i>
+      <label>speed</label>
+      <select select-value="bikeSpeed" select-options="bikeSpeeds" select-parse-value="parseInt"></select>
+      <label class="label-text">max time</label>
+      <input name="maxBikeTime" type="text" placeholder="min" data-value="maxBikeTime" on-change="save"></input>
+    </div>
+    <div class="ExpandedSettings-walk">
+      <i class="icon-walk ExpandedSettings-typeIcon"></i>
+      <label>speed</label>
+      <select select-value="walkSpeed" select-options="walkSpeeds" select-parse-value="parseInt"></select>
+      <label class="label-text">max time</label>
+      <input name="maxWalkTime" type="text" placeholder="min" data-value="maxWalkTime" on-change="save"></input>
+    </div>
+    <div class="ExpandedSettings-drive">
+      <i class="icon-car ExpandedSettings-typeIcon"></i>
+      <label>parking $</label>
+      <input name="carParkingCost" type="text" placeholder="$" data-value="carParkingCost" on-change="save"></input>
+      <label>per mile $</label>
+      <input name="carCostPerMile" type="text" placeholder="$" data-value="carCostPerMile" on-change="save"></input>
+    </div>
+  </div>
 </div>
+

@@ -1,8 +1,16 @@
 
+.FilterView {
+  color: var(--light-blue);
+  font-size: 15px;
+}
+
 .FilterView > .time-filters {
   white-space: nowrap;
   padding-bottom: 8px;
-  font-size: 15px;
+}
+
+.FilterView label {
+  font-weight: var(--font-weight);
 }
 
 @media (--narrow-window) {
@@ -20,8 +28,6 @@
 }
 
 .FilterView > .time-filters > label {
-  color: var(--light-blue);
-  font-weight: var(--font-weight);
   margin-bottom: 3px;
 }
 
@@ -81,28 +87,61 @@
   border: none;
 }
 
-.show-settings {
-  width: 100%;
-  margin-top: 10px;
-  height: 44px;
+@media (--narrow-window) {
+  .FilterView > .settings-form > select {
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+    display: inline-block;
+  }
 }
 
-.hide-settings {
-  width: 100%;
-  margin-top: 10px;
-  height: 44px;
+.ExpandedSettings {
+  margin-top: 8px;
 }
 
-.settings-form .icon-bike {
-  margin-top: 5px;
-  color: var(--lightest-blue);
-  font-size: 32px;
+.ExpandedSettings-typeIcon {
   display: inline-block;
+  font-size: 28px;
+  vertical-align: middle;
+  margin: 0 6px;
 }
 
-.measurements {
+.ExpandedSettings input {
   display: inline-block;
-  color: var(--lightest-blue);
-  font-weight: bold;
-  font-size: 14px;
+  color: #455a71;
+  box-shadow: none;
+  border: none;
+  width: 51px;
+  text-overflow: ellipsis;
+  background-color: #fff;
+  border-radius: 3px;
+  margin: 0 6px;
+  padding: 4px;
+}
+
+.ExpandedSettings-bike,
+.ExpandedSettings-walk {
+  margin-top: 8px;
+}
+
+.ExpandedSettings-bike,
+.ExpandedSettings-drive,
+.ExpandedSettings-hide,
+.ExpandedSettings.open .ExpandedSettings-show,
+.ExpandedSettings-walk {
+  display: none;
+}
+
+.ExpandedSettings-drive {
+  margin-top: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  padding-bottom: 12px;
+}
+
+.ExpandedSettings.open .ExpandedSettings-bike,
+.ExpandedSettings.open .ExpandedSettings-drive,
+.ExpandedSettings.open .ExpandedSettings-hide,
+.ExpandedSettings.open .ExpandedSettings-walk {
+  display: block;
 }

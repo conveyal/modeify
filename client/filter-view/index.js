@@ -1,3 +1,4 @@
+var debounce = require('debounce')
 var reactiveSelect = require('reactive-select')
 var template = require('./template.html')
 var view = require('view')
@@ -20,6 +21,24 @@ View.prototype.startTimes = function () {
 
 View.prototype.endTimes = function () {
   return times.slice(1)
+}
+
+View.prototype.bikeSpeeds = function () {
+  return [4, 6, 10].map(function (s) {
+    return {
+      name: s + ' mph',
+      value: s
+    }
+  })
+}
+
+View.prototype.walkSpeeds = function () {
+  return [2.3, 3, 4].map(function (s) {
+    return {
+      name: parseInt(s, 10) + ' mph&nbsp;&nbsp;',
+      value: s
+    }
+  })
 }
 
 View.prototype.parseInt = parseInt
@@ -45,3 +64,25 @@ function toOption (n) {
 
   return opt
 }
+
+View.prototype.showSettings = function () {
+  this.find('.ExpandedSettings').classList.add('open')
+}
+
+View.prototype.hideSettings = function () {
+  this.find('.ExpandedSettings').classList.remove('open')
+}
+
+View.prototype.save = debounce(function (e) {
+  var names = ['maxBikeTime', 'maxWalkTime', 'carParkingCost', 'carCostPerMile']
+  var self = this
+  var values = {}
+  names.forEach(function (n) {
+    values[n] = parseFloat(self.find('input[name=' + n + ']').value)
+  })
+  var scorer = this.model.scorer()
+  scorer.rates.carParkingCost = values.carParkingCost
+  scorer.rates.mileageRate = values.carCostPerMile
+  this.model.set(values)
+  this.model.updateRoutes()
+}, 1000)
