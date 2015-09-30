@@ -1,6 +1,7 @@
 {
   "name": "location-ridematch-settings",
   "dependencies": {
+    "visionmedia/page.js": "*"
   },
   "locals": [
     "log",

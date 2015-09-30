@@ -1,3 +1,4 @@
+var page = require('page')
 var User = require('user')
 var view = require('view')
 var log = require('./client/log')('location-ridematch-settings')
@@ -27,6 +28,7 @@ View.prototype['managers-view'] = function () {
 }
 
 View.prototype.save = function () {
+  var self = this
   var notifyManager = this.find('.notify-manager').checked
   var selectedManager = notifyManager ? this.model.managers[this.find('.manager-select').selectedIndex] : null;
   this.model.location.rideshare_manager(selectedManager ? selectedManager.href().split('/').pop() : null)
@@ -35,5 +37,6 @@ View.prototype.save = function () {
       log.error(err)
       window.alert(err)
     }
+    page.redirect('/organizations/' + self.model.organization._id() + '/locations/' + self.model.location._id() + '/show')
   })
 }
