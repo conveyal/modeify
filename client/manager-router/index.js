@@ -53,6 +53,7 @@ p('/organizations/:organization/locations/:location/show', CommuterLocation.forL
 p('/organizations/:organization/locations/:location/edit', LocationForm)
 p('/organizations/:organization/locations/:location/analyze', CommuterLocation.forLocationMiddleware, require('commute-analysis-page'))
 p('/organizations/:organization/locations/:location/distribute', require('commute-distribution-page'))
+p('/organizations/:organization/locations/:location/ridematch', require('location-ridematch-settings'))
 
 // Carpool/Vanpools
 

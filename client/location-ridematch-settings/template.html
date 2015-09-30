@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-sm-12">
+    <ol class="breadcrumb">
+      <li><a href="/manager/organizations">Organizations</a></li>
+      <li><a href="/manager/organizations/{organization._id()}/show">{organization.name()}</a></li>
+      <li><a href="/manager/organizations/{organization._id()}/locations/{location._id()}/show">{location.name()}</a></li>
+      <li class="active">Ridematch Settings</li>
+    </ol>
+    <h3>
+      Ridematch Settings
+    </h3>
+  </div>
+  <div class="col-sm-12">
+    <div class="form-group">
+      <div class="checkbox">
+        <label>
+          <input class="notify-manager" type="checkbox"> Notify Organization Manager:&nbsp;
+          <select class="manager-select" data-each="managers"></select>
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"> Notify Commuters Directly following Opt-in
+        </label>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary" on-tap="save">Save</button>
+  </div>
+</div>

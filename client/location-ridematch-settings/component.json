@@ -1,0 +1,17 @@
+{
+  "name": "location-ridematch-settings",
+  "dependencies": {
+  },
+  "locals": [
+    "log",
+    "user",
+    "view"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "template.html",
+    "manager.html"
+  ]
+}
