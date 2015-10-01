@@ -110,7 +110,7 @@ function getUniquePatternNames (patterns, routeAgencyNames) {
   return patterns.map(function (p) {
     var idArr = p.patternId.split(':')
     var routeId = idArr[0] + ':' + idArr[1]
-    return getAgencyName(routeAgencyNames[routeId]) + ' ' + p.shortName
+    return (routeAgencyNames[routeId] ? getAgencyName(routeAgencyNames[routeId]) + ' ' : '') + p.shortName
   })
     .reduce(function (names, name) {
       if (names.indexOf(name) === -1) names.push(name)
