@@ -82,3 +82,48 @@
   font-size: 20px;
   border: none;
 }
+
+.btn-default.icon-parknride {
+    background-image: url(/images/application/parknride_alpha.png);
+    background-size: 33px;
+    background-repeat: no-repeat;
+    background-position-x: 5px;
+    background-position-y: 7px;
+}
+
+.btn-default.icon-parknride:hover {
+    background-image: url(/images/application/parknride_alpha_dark.png);
+    background-size: 33px;
+    background-repeat: no-repeat;
+    background-position-x: 5px;
+    background-position-y: 7px;
+}
+
+#datepicker {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+#datepicker .ui-datepicker {
+    position: absolute;
+    z-index: 1000;
+    left: 10px;
+    background: none;
+    background-color: #00587B;
+    color: #fff;
+}
+
+#datepicker .ui-datepicker .ui-datepicker-header {
+    background: none;
+    background-color: #CFE5EB;
+    color: #666666;
+}
+
+#datepicker .ui-state-default,
+#datepicker .ui-widget-content .ui-state-default,
+#datepicker .ui-widget-header .ui-state-default {
+    border: 1px solid #d3d3d3;
+    background: none;
+    background-color: #fff;
+    border-radius: 3px;
+}

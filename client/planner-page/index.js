@@ -261,7 +261,12 @@ View.prototype.showSidePanel = function (e) {
   });
 
   setTimeout(function () {
+    var plan = session.plan();
     map.invalidateSize();
+
+    plan = session.plan();
+//    plan.updateRoutes();
+    transitive.updateData(plan.journey());
   }, 2100)
 };
 
