@@ -4,7 +4,6 @@ var Feedback = require('feedback-modal')
 var log = require('./client/log')('route-card-view')
 var mouseenter = require('mouseenter')
 var mouseleave = require('mouseleave')
-var Calculator = require('route-cost-calculator')
 var RouteDirections = require('route-directions-table')
 var RouteModal = require('route-modal')
 var routeSummarySegments = require('route-summary-segments')
@@ -30,10 +29,6 @@ var View = module.exports = view(require('./template.html'), function (view, mod
     }
   })
 })
-
-View.prototype.calculator = function () {
-  return new Calculator(this.model)
-}
 
 View.prototype.directions = function () {
   return new RouteDirections(this.model)
