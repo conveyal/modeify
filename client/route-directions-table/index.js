@@ -53,7 +53,7 @@ View.prototype.itinerary = function () {
     var patterns = segment.segmentPatterns
     var color = patterns[0].color
     var routeAgencyNames = {}
-    each(segment.routes, function(route) {
+    each(segment.routes, function (route) {
       routeAgencyNames[route.id] = route.agencyName
     })
 
@@ -118,8 +118,8 @@ function getUniquePatternNames (patterns, routeAgencyNames) {
     }, [])
 }
 
-function getAgencyName(internalName) {
-  switch(internalName) {
+function getAgencyName (internalName) {
+  switch (internalName) {
     case 'MET': return 'Metro'
     case 'Arlinton Transit': return 'ART'
     case 'Maryland Transit Administration': return 'MTA'
