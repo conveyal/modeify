@@ -167,8 +167,8 @@ Route.prototype.timeInTransit = function () {
     return 0
   } else {
     return this.transit().reduce(function (m, t) {
-        return m + t.waitStats.avg + t.rideStats.avg
-      }, 0) / 60
+      return m + t.waitStats.avg + t.rideStats.avg
+    }, 0) / 60
   }
 }
 
@@ -217,6 +217,15 @@ Route.prototype.tripm = function () {
  */
 
 Route.prototype.calculatedCost = function () {
+  var total = this.costPerTrip() * this.tripm()
+  if (total > 100) {
+    return parseInt(total, 10)
+  } else {
+    return total.toFixed(2)
+  }
+}
+
+Route.prototype.costPerTrip = function () {
   if (this.cost() === 0) {
     return false
   }
@@ -230,12 +239,7 @@ Route.prototype.calculatedCost = function () {
     cost += this.carParkingCost()
   }
 
-  var total = cost * this.tripm()
-  if (total > 100) {
-    return parseInt(total, 10)
-  } else {
-    return total.toFixed(2)
-  }
+  return parseInt(cost * 100, 10) / 100
 }
 
 /**
