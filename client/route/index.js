@@ -217,7 +217,7 @@ Route.prototype.tripm = function () {
  */
 
 Route.prototype.calculatedCost = function () {
-  var total = this.costPerTrip() * this.tripm()
+  var total = parseFloat(this.costPerTrip()) * this.tripm()
   if (total > 100) {
     return parseInt(total, 10)
   } else {
@@ -239,7 +239,7 @@ Route.prototype.costPerTrip = function () {
     cost += this.carParkingCost()
   }
 
-  return parseInt(cost * 100, 10) / 100
+  return cost.toFixed(2)
 }
 
 /**
