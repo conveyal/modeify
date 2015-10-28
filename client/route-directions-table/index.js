@@ -121,7 +121,7 @@ function getUniquePatternNames (patterns, routeAgencyNames) {
 function getAgencyName (internalName) {
   switch (internalName) {
     case 'MET': return 'Metro'
-    case 'Arlinton Transit': return 'ART'
+    case 'Arlington Transit': return 'ART'
     case 'Maryland Transit Administration': return 'MTA'
     case 'Potomac and Rappahannock Transportation Commission': return 'PRTC'
     case 'Virginia Railway Express': return 'VRE'
