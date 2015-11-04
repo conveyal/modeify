@@ -39,7 +39,7 @@ Location.prototype.mapMarker = function () {
     color: '#428bca',
     coordinate: [c.lng, c.lat],
     icon: 'commercial'
- })
+  })
 }
 
 Location.loadOrg = function (ctx, next) {
@@ -61,12 +61,12 @@ Location.prototype.profileAndMatch = function (callback) {
   request.get('/commuter-locations/profile-and-match', {
     _location: this._id()
   }, function (err, res) {
-      if (err) {
-        callback(err)
-      } else {
-        callback(null, res.text)
-      }
-    })
+    if (err) {
+      callback(err)
+    } else {
+      callback(null, res.text)
+    }
+  })
 }
 
 Location.prototype.sendProfilesAndMatches = function (callback) {

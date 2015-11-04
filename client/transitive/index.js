@@ -17,7 +17,8 @@ var transitive = module.exports = new Transitive({
 var placeChanged = debounce(function (name, coordinate) {
   var plan = session.plan()
   plan.setAddress(name, coordinate.lng + ',' + coordinate.lat, function (err, rees) {
-    if (!err) plan.updateRoutes()
+    if (err) console.error(err)
+    else plan.updateRoutes()
   })
 }, 150, true)
 

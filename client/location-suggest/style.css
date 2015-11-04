@@ -10,8 +10,6 @@
   margin-top: -3px;
   padding-left: 0;
 
-  border-left: 1px solid var(--black);
-  border-right: 1px solid var(--black);
   border-bottom-left-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
 
