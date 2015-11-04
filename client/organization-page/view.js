@@ -27,6 +27,7 @@ var LocationRow = view(require('./location.html'))
 LocationRow.prototype.remove = function () {
   var self = this
   CommuterLocation.forLocation(self.model._id(), function (err, cls) {
+    if (err) console.error(err)
     Ridepool.forLocation(self.model._id(), function (err, ridepools) {
       if (err) {
         console.error(err)

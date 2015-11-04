@@ -30,10 +30,10 @@ View.prototype['managers-view'] = function () {
 View.prototype.save = function () {
   var self = this
   var notifyManager = this.find('.notify-manager').checked
-  var selectedManager = notifyManager ? this.model.managers[this.find('.manager-select').selectedIndex] : null;
+  var selectedManager = notifyManager ? this.model.managers[this.find('.manager-select').selectedIndex] : null
   this.model.location.rideshare_manager(selectedManager ? selectedManager.href().split('/').pop() : null)
-  this.model.location.save(function(err) {
-    if(err) {
+  this.model.location.save(function (err) {
+    if (err) {
       log.error(err)
       window.alert(err)
     }

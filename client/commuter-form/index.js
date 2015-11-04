@@ -83,8 +83,9 @@ View.prototype.isEditing = function () {
 View.prototype.back = function () {
   var m = this.model
   var org = m._organization()
-  return m.isNew() ? '/manager/organizations/' + org + '/locations/' + this.options.location._id() + '/show' :
-    '/manager/organizations/' + org + '/locations/' + this.options.location._id() + '/show'
+  return m.isNew()
+    ? '/manager/organizations/' + org + '/locations/' + this.options.location._id() + '/show'
+    : '/manager/organizations/' + org + '/locations/' + this.options.location._id() + '/show'
 }
 
 /**
@@ -132,7 +133,7 @@ View.prototype.save = function (e) {
       })
 
       // refresh the profiles/matches for this location
-      self.options.location.profileAndMatch(function() {
+      self.options.location.profileAndMatch(function () {
         page(self.back())
       })
     }

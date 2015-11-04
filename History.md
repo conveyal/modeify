@@ -1,4 +1,10 @@
 
+## 1.5.0
+
+* Expand amount of settings in the sidebar
+* Switch to Mapbox geocoder
+* Remove old settings from profile
+
 ## 1.4.0
 
 * StormPath integration
