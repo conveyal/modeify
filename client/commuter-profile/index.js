@@ -11,9 +11,6 @@ var Modal = module.exports = modal({
   closable: true,
   width: '640px',
   template: require('./template.html')
-}, function (view, model) {
-  view.selectWalkSpeed()
-  view.selectBikeSpeed()
 })
 
 /**
@@ -46,63 +43,6 @@ Modal.prototype.anonymous = function () {
 }
 Modal.prototype.email = function () {
   return this.model.commuter.email()
-}
-
-/**
- * Set Walk Speed
- */
-
-Modal.prototype.setWalkSpeed = function (e) {
-  this.setSpeed('walkSpeed', 1.4, 1.75, e.target.classList.contains('stroller'))
-}
-
-/**
- * Set Bike Speed
- */
-
-Modal.prototype.setBikeSpeed = function (e) {
-  this.setSpeed('bikeSpeed', 4.1, 5.125, e.target.classList.contains('cruiser'))
-}
-
-/**
- * Set the speed
- */
-
-Modal.prototype.setSpeed = function (name, slow, fast, isSlow) {
-  var plan = this.model.plan
-  var scorer = plan.scorer()
-  if (isSlow) {
-    scorer.rates[name] = slow
-  } else {
-    scorer.rates[name] = fast
-  }
-
-  this.selectBikeSpeed()
-  this.selectWalkSpeed()
-  plan.rescoreOptions()
-}
-
-Modal.prototype.selectWalkSpeed = function () {
-  this.selectSpeed('walkSpeed', this.find('.stroller'), this.find(
-    '.speedwalker'), 1.5)
-}
-
-Modal.prototype.selectBikeSpeed = function () {
-  this.selectSpeed('bikeSpeed', this.find('.cruiser'), this.find('.racer'), 4.2)
-}
-
-/**
- * Select Speed
- */
-
-Modal.prototype.selectSpeed = function (name, slow, fast, speed) {
-  var plan = this.model.plan
-
-  slow.classList.remove('selected')
-  fast.classList.remove('selected')
-
-  if (plan.scorer().rates[name] < speed) slow.classList.add('selected')
-  else fast.classList.add('selected')
 }
 
 /**

@@ -21,24 +21,6 @@
       <p><a href="/logout" title="Sign out">Sign out</a></p>
     </section>
 
-    <section class="col-sm-6 speed-preference">
-      <h4>
-        <strong>Speed</strong>
-        <br><span class="subtitle">Set your preferred bike and walk speeds.</span>
-      </h4>
-
-      <div class="walk-speed">
-        <p class="speed-description"> Are you a <strong>Stroller</strong> (2 mph) or a <strong>Speedwalker</strong> (4 mph)? Choose below:</p>
-        <button class="stroller icon-walk" on-tap="setWalkSpeed" title="Stroller"></button>
-        <button class="speedwalker icon-speedwalker" on-tap="setWalkSpeed" title="Speedwalker"></button>
-      </div>
-      <div class="bike-speed">
-        <p class="speed-description"> Are you a <strong>Cruiser</strong> (6 mph) or a <strong>Racer</strong>? (10 mph)? Choose below: </p>
-        <button class="cruiser icon-cruiserbike" on-tap="setBikeSpeed" title="Cruiser"></button>
-        <button class="racer icon-racerbike" on-tap="setBikeSpeed" title="Racer"></button>
-      </div>
-    </section>
-
     <section class="col-sm-6">
       <h4>
         <strong>Saved Trips</strong>
@@ -47,29 +29,6 @@
       <div class="journey-alerts"></div>
       <ul class="journeys" data-each="journeys"></ul>
       <p style="text-align:center;" data-hidden="hasJourneys"><strong>No saved journeys!</strong></p>
-    </section>
-
-    <section class="col-sm-6 walk-time-preference" style="display: none;">
-      <h4>
-        <strong>Walk Time</strong>
-        <br><span class="subtitle">Maximum walk time.</span>
-      </h4>
-      <form>
-        <select disabled>
-          <option value="5">5 min</option>
-          <option value="10">10 min</option>
-          <option value="15">15 min</option>
-          <option value="20">20 min</option>
-          <option value="25">25 min</option>
-          <option value="30">30 min</option>
-          <option value="35">35 min</option>
-          <option value="40">40 min</option>
-          <option value="45">45 min</option>
-          <option value="50">50 min</option>
-          <option value="55">55 min</option>
-          <option value="60">60 min</option>
-        </select>
-      </form>
     </section>
   </div>
 </div>
