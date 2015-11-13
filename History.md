@@ -1,4 +1,8 @@
 
+## Latest
+
+* Remove "Saved Journeys" from profile.
+
 ## 1.5.0
 
 * Expand amount of settings in the sidebar

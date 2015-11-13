@@ -44,19 +44,3 @@ Modal.prototype.anonymous = function () {
 Modal.prototype.email = function () {
   return this.model.commuter.email()
 }
-
-/**
- * Journey Modal
- */
-
-Modal.prototype['journeys-view'] = function () {
-  return require('./journey')
-}
-
-/**
- * Has journeyrs
- */
-
-Modal.prototype.hasJourneys = function () {
-  return this.model.journeys && this.model.journeys.length() > 0
-}

@@ -4,23 +4,17 @@
     "visionmedia/page.js": "*"
   },
   "locals": [
-    "alert",
-    "journey",
-    "log",
     "modal",
     "session",
-    "sign-up-form",
-    "view"
+    "sign-up-form"
   ],
   "scripts": [
-    "index.js",
-    "journey.js"
+    "index.js"
   ],
   "styles": [
     "style.css"
   ],
   "templates": [
-    "journey.html",
     "template.html"
   ]
 }

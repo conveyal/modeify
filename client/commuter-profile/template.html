@@ -5,7 +5,7 @@
   </h3>
 
   <div class="row">
-    <section class="col-sm-6" data-visible="anonymous">
+    <section class="col-sm-12" data-visible="anonymous">
       <h4>
         <strong>Sign Up</strong>
         <br><span class="subtitle">Stay in touch!</span>
@@ -13,22 +13,12 @@
       <div reactive="signUpForm"></div>
     </section>
 
-    <section class="col-sm-6" data-hidden="anonymous">
+    <section class="col-sm-12" data-hidden="anonymous">
       <h4>
         <strong>Account</strong>
         <br><span class="subtitle" data-text="email"></span>
       </h4>
       <p><a href="/logout" title="Sign out">Sign out</a></p>
-    </section>
-
-    <section class="col-sm-6">
-      <h4>
-        <strong>Saved Trips</strong>
-        <br><span class="subtitle">Review your saved journeys.</span>
-      </h4>
-      <div class="journey-alerts"></div>
-      <ul class="journeys" data-each="journeys"></ul>
-      <p style="text-align:center;" data-hidden="hasJourneys"><strong>No saved journeys!</strong></p>
     </section>
   </div>
 </div>
