@@ -24,7 +24,8 @@ page('/planner/:link', session.loginWithLink, redirectToPlanner)
 page('/profile', session.touch, require('planner-page'), function (ctx, next) {
   ctx.modal = new CommuterProfile({
     commuter: session.commuter(),
-    plan: session.plan()
+    plan: session.plan(),
+    user: session.user()
   })
   next()
 })

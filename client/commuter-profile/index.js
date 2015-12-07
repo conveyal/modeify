@@ -41,6 +41,13 @@ Modal.prototype.logout = function (e) {
 Modal.prototype.anonymous = function () {
   return this.model.commuter.anonymous()
 }
+
+Modal.prototype.fullName = function () {
+  if(!this.model.user) return 'unknown'
+  return this.model.user.fullName()
+}
+
 Modal.prototype.email = function () {
-  return this.model.commuter.email()
+  if(!this.model.user) return 'unknown'
+  return this.model.user.email()
 }
