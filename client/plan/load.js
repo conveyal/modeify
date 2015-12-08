@@ -22,11 +22,17 @@ module.exports = loadPlan
  * Load Plan
  */
 
-function loadPlan (Plan) {
+function loadPlan (Plan, userOpts) {
   log('loading plan')
 
   // check if we have a stored plan
   var opts = store('plan') || {}
+
+  // set any user-specified options
+  userOpts = userOpts || {}
+  for(var key in userOpts) {
+    opts[key] = userOpts[key]
+  }
 
   // remove stored patterns & routes
   delete opts.patterns

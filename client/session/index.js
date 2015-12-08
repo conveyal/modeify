@@ -133,7 +133,9 @@ session.load = function (ctx, next) {
       session.commuter(commuter)
 
       // load the plan
-      session.plan(Plan.load())
+      var userOpts = (session.user() && session.user().customData().modeify_opts) ?
+        session.user().customData().modeify_opts : {}
+      session.plan(Plan.load(userOpts))
 
       // set the session as loaded
       session.loaded(true)

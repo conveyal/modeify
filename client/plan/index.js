@@ -90,8 +90,8 @@ var Plan = module.exports = model('Plan')
  * Expose `load`
  */
 
-module.exports.load = function (ctx, next) {
-  return loadPlan(Plan)
+module.exports.load = function (userOpts) {
+  return loadPlan(Plan, userOpts)
 }
 
 /**
@@ -102,7 +102,6 @@ Plan.on('change', function (plan, name, val) {
   log('plan.%s changed to %s', name, val)
 
   if (name === 'bikeSpeed') {
-    console.log(val, convert.mphToMps(val))
     plan.scorer().rates.bikeSpeed = convert.mphToMps(val)
   } else if (name === 'walkSpeed') {
     plan.scorer().rates.walkSpeed = convert.mphToMps(val)

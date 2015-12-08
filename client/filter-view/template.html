@@ -33,14 +33,14 @@
     <div class="ExpandedSettings-bike">
       <i class="icon-bike ExpandedSettings-typeIcon"></i>
       <label>speed</label>
-      <select select-value="bikeSpeed" select-options="bikeSpeeds" select-parse-value="parseInt"></select>
+      <select select-value="bikeSpeed" select-options="bikeSpeeds" select-parse-value="parseInt" on-change="saveProfile"></select>
       <label class="label-text">max time</label>
       <input name="maxBikeTime" type="text" placeholder="min" data-value="maxBikeTime" on-change="save"></input>
     </div>
     <div class="ExpandedSettings-walk">
       <i class="icon-walk ExpandedSettings-typeIcon"></i>
       <label>speed</label>
-      <select select-value="walkSpeed" select-options="walkSpeeds" select-parse-value="parseInt"></select>
+      <select select-value="walkSpeed" select-options="walkSpeeds" select-parse-value="parseInt" on-change="saveProfile"></select>
       <label class="label-text">max time</label>
       <input name="maxWalkTime" type="text" placeholder="min" data-value="maxWalkTime" on-change="save"></input>
     </div>
@@ -53,4 +53,3 @@
     </div>
   </div>
 </div>
-

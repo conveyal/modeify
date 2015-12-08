@@ -2,6 +2,7 @@ var debounce = require('debounce')
 var reactiveSelect = require('reactive-select')
 var template = require('./template.html')
 var view = require('view')
+var session = require('session')
 
 var View = module.exports = view(template, function (view, plan) {
   view.reactive.use(reactiveSelect)
@@ -85,4 +86,24 @@ View.prototype.save = debounce(function (e) {
   scorer.rates.mileageRate = values.carCostPerMile
   this.model.set(values)
   this.model.updateRoutes()
+  this.saveProfile()
 }, 1000)
+
+View.prototype.saveProfile = function () {
+  var self = this
+
+  if(session.user()) {
+    setTimeout(function() {
+      var customData = session.user().customData()
+      if(!customData.modeify_opts) customData.modeify_opts = {}
+      customData.modeify_opts.bikeSpeed = self.model.bikeSpeed();
+      customData.modeify_opts.walkSpeed = self.model.walkSpeed();
+      customData.modeify_opts.maxBikeTime = self.model.maxBikeTime();
+      customData.modeify_opts.maxWalkTime = self.model.maxWalkTime();
+      customData.modeify_opts.carParkingCost = self.model.carParkingCost();
+      customData.modeify_opts.carCostPerMile = self.model.carCostPerMile();
+      session.user().customData(customData)
+      session.user().saveCustomData(function(err, res) {})
+    }, 1000)
+  }
+}
