@@ -64,6 +64,18 @@ User.prototype.revokeManagementPermission = function (org, callback) {
   })
 }
 
+User.prototype.saveCustomData = function (callback) {
+  request.post('/users/' + this.id() + '/save-custom-data', {
+    customData: this.customData()
+  }, function (err, res) {
+    if (err || !res.ok) {
+      callback(res.text, res)
+    } else {
+      callback(null, res)
+    }
+  })
+}
+
 User.loadManager = function (ctx, next) {
   request.get('/users/' + ctx.params.manager, function (err, res) {
     if (err || !res.ok) {
