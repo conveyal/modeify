@@ -2,6 +2,7 @@ var geocode = require('geocode')
 var hogan = require('hogan.js')
 var log = require('./client/log')('location-suggest')
 var each = require('each')
+var throttle = require('throttle')
 
 var LocationSuggest = module.exports = function () {}
 
@@ -15,7 +16,7 @@ var suggestionsTemplate = hogan.compile(require('./suggestions.html'))
  * Suggest
  */
 
-LocationSuggest.prototype.suggest = function (e) {
+LocationSuggest.prototype.suggest = throttle(function (e) {
   var input = e.target
   var text = input.value || ''
   var inputGroup = input.parentNode
@@ -56,7 +57,7 @@ LocationSuggest.prototype.suggest = function (e) {
       }
     }
   })
-}
+}, 500)
 
 /**
  * Address Changed

@@ -1,0 +1,14 @@
+{
+  "name": "throttle",
+  "description": "Throttle a function",
+  "version": "0.0.2",
+  "keywords": [],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "scripts": [
+    "index.js"
+  ],
+  "repository": "component/throttle",
+  "resolved": "19f9fd95782d372f2d0be6d5c60d60f8176d7ef8"
+}

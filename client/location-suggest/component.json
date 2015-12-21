@@ -3,6 +3,7 @@
   "dependencies": {
     "component/closest": "*",
     "component/each": "*",
+    "component/throttle": "*",
     "twitter/hogan.js": "*"
   },
   "locals": [
