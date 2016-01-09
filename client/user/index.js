@@ -76,6 +76,33 @@ User.prototype.saveCustomData = function (callback) {
   })
 }
 
+User.prototype.addFavoritePlace = function (address) {
+  var customData = this.customData()
+  if(!customData.modeify_places) customData.modeify_places = []
+  customData.modeify_places.push({
+    address : address
+  })
+  this.customData(customData)
+}
+
+User.prototype.deleteFavoritePlace = function (address) {
+  var customData = this.customData()
+  if(!customData.modeify_places) customData.modeify_places = []
+  customData.modeify_places = customData.modeify_places.filter(function(place) {
+    return place.address !== address
+  })
+  this.customData(customData)
+}
+
+User.prototype.isFavoritePlace = function (address) {
+  var customData = this.customData()
+  if(!customData.modeify_places) return false
+  for(var i=0; i < customData.modeify_places.length; i++) {
+    if(customData.modeify_places[i].address === address) return true
+  }
+  return false
+}
+
 User.loadManager = function (ctx, next) {
   request.get('/users/' + ctx.params.manager, function (err, res) {
     if (err || !res.ok) {

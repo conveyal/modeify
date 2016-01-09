@@ -4,19 +4,31 @@ var textModal = require('text-modal')
 var view = require('view')
 var LocationSuggest = require('location-suggest')
 var extend = require('extend')
+var session = require('session')
 
 /**
  * Expose `View`
  */
 
 var View = module.exports = view(require('./template.html'), function (view, plan) {
-  plan.on('change', function () {
+  plan.on('change', function (name) {
     view.resetIcons()
+
+    if(session.user()) {
+      if(name === 'from') checkFromAddressFavorite(view, plan)
+      if(name === 'to') checkToAddressFavorite(view, plan)
+    }
   })
 
   view.on('rendered', function () {
     // Reset the icons
     view.resetIcons()
+
+    // Set the initial state of the favorite icons
+    if(session.user()) {
+      checkFromAddressFavorite(view, plan)
+      checkToAddressFavorite(view, plan)
+    }
 
     // On form submission
     closest(view.el, 'form').onsubmit = function (e) {
@@ -141,4 +153,54 @@ View.prototype.clear = function (e) {
   input.focus()
 
   this.resetIcons()
+}
+
+View.prototype.toggleFavorite = function (e) {
+  if(!session.user()) {
+    // TODO: encourage user to register?
+    return
+  }
+  var address, ll
+  if(e.target.parentNode.classList.contains('from')) {
+    address = this.model.from()
+    ll = this.model.from_ll()
+  }
+  else {
+    address = this.model.to()
+    ll = this.model.to_ll()
+  }
+
+  if(e.target.classList.contains('fa-heart-o')) {
+    enableFavoriteIcon(e.target)
+    session.user().addFavoritePlace(address)
+    session.user().saveCustomData(function () {})
+  }
+}
+
+function checkFromAddressFavorite(view, plan) {
+  if (session.user().isFavoritePlace(plan.from())) {
+    enableFavoriteIcon(view.find('.from-favorite'))
+  }
+  else {
+    disableFavoriteIcon(view.find('.from-favorite'))
+  }
+}
+
+function checkToAddressFavorite(view, plan) {
+  if (session.user().isFavoritePlace(plan.to())) {
+    enableFavoriteIcon(view.find('.to-favorite'))
+  }
+  else {
+    disableFavoriteIcon(view.find('.to-favorite'))
+  }
+}
+
+function enableFavoriteIcon (el) {
+  el.classList.remove('fa-heart-o')
+  el.classList.add('fa-heart')
+}
+
+function disableFavoriteIcon (el) {
+  el.classList.remove('fa-heart')
+  el.classList.add('fa-heart-o')
 }

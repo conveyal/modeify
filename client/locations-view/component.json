@@ -11,6 +11,7 @@
     "location-suggest",
     "log",
     "mouse-position",
+    "session",
     "text-modal",
     "view"
   ],

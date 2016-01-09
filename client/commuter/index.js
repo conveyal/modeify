@@ -116,6 +116,18 @@ Commuter.prototype.updateProfile = function (name, val) {
 }
 
 /**
+ * Update options
+ */
+
+Commuter.prototype.updateOptions = function (opts) {
+  var options = this.opts()
+  for(opt in opts) {
+    options[opt] = opts[opt]
+  }
+  this.opts(options)
+}
+
+/**
  * Don't save for anonymous users
  */
 

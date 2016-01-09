@@ -1,12 +1,14 @@
 {
   "name": "commuter-profile",
   "dependencies": {
+    "component/debounce": "*",
     "visionmedia/page.js": "*"
   },
   "locals": [
     "modal",
     "session",
-    "sign-up-form"
+    "sign-up-form",
+    "view"
   ],
   "scripts": [
     "index.js"
@@ -15,6 +17,7 @@
     "style.css"
   ],
   "templates": [
-    "template.html"
+    "template.html",
+    "place.html"
   ]
 }

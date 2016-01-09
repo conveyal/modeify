@@ -35,3 +35,47 @@
   outline: none;
   display: inline-block;
 }
+
+.FavoritePlaces {
+  margin-top: 10px;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.FavoritePlaces .place-buttons {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  text-align: right;
+}
+
+.FavoritePlaces .place-name {
+  position: relative;
+  padding: 10px 15px;
+  height: 100%;
+  width: 100%;
+}
+
+.FavoritePlaces .address {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.FavoritePlaces .place-button {
+  line-height: 0px;
+  width: 24px;
+  text-align: center;
+  cursor: pointer;
+  color: var(--gray);
+  font-size: 24px;
+}
+
+.FavoritePlaces .icon-start {
+  color: var(--green);
+}
+
+.FavoritePlaces .icon-end {
+  color: var(--gold);
+}

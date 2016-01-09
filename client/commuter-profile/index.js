@@ -2,6 +2,8 @@ var modal = require('./client/modal')
 var page = require('page')
 var session = require('session')
 var SignUpForm = require('sign-up-form')
+var view = require('view')
+var debounce = require('debounce')
 
 /**
  * Expose `Modal`
@@ -51,3 +53,41 @@ Modal.prototype.email = function () {
   if(!this.model.user) return 'unknown'
   return this.model.user.email()
 }
+
+
+Modal.prototype.places = function () {
+  if(!this.model.user) return []
+  return this.model.user.customData().modeify_places
+}
+
+Modal.prototype['places-view'] = function () {
+  var self = this
+
+  var PlaceRow = view(require('./place.html'))
+
+  PlaceRow.prototype.setFrom = function () {
+    self.modal.hide()
+    placeChanged('from', this.model.address)
+  }
+
+  PlaceRow.prototype.setTo = function () {
+    self.modal.hide()
+    placeChanged('to', this.model.address)
+  }
+
+  PlaceRow.prototype.deletePlace = function () {
+    session.user().deleteFavoritePlace(this.model.address)
+    session.user().saveCustomData(function () {})
+    this.el.remove()
+  }
+
+  return PlaceRow
+}
+
+var placeChanged = debounce(function (name, address) {
+  var plan = session.plan()
+  plan.setAddress(name, address, function (err, res) {
+    if (err) console.error(err)
+    else plan.updateRoutes()
+  })
+}, 150, true)

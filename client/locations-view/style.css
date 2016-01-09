@@ -24,8 +24,12 @@
   position: absolute;
   height: 40px;
   line-height: 40px;
-  width: 32px;
+  width: 24px;
   text-align: center;
+}
+
+.Locations > .input-group > .favorite {
+  right: 24px;
 }
 
 .Locations .input-group.suggestions-open {
@@ -34,7 +38,7 @@
 }
 
 .Locations input {
-  padding: 13px 32px 11px 32px;
+  padding: 13px 48px 11px 32px;
   color: var(--black);
   box-shadow: none;
   border: none;
@@ -57,11 +61,13 @@
 .Locations > .input-group > i.add-on {
   cursor: pointer;
   color: var(--gray);
-  right: 0;
   top: 0;
   font-size: 16px;
 }
 
+.Locations > .input-group > i.right {
+  right: 0;
+}
 .Locations input:focus {
   box-shadow: none;
   outline: none;
