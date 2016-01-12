@@ -66,12 +66,10 @@ Modal.prototype['places-view'] = function () {
   var PlaceRow = view(require('./place.html'))
 
   PlaceRow.prototype.setFrom = function () {
-    self.modal.hide()
     placeChanged('from', this.model.address)
   }
 
   PlaceRow.prototype.setTo = function () {
-    self.modal.hide()
     placeChanged('to', this.model.address)
   }
 
