@@ -352,6 +352,7 @@ Plan.prototype.generateQuery = function () {
     },
     maxBikeTime: this.maxBikeTime(),
     maxWalkTime: this.maxWalkTime(),
+    maxCarTime: 45,
     startTime: startTime,
     to: {
       lat: to.lat,
