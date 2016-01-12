@@ -18,9 +18,8 @@ var View = module.exports = view(require('./template.html'), function (view, pla
     if(name === 'from') view.find('#from-location').value = plan.from()
     if(name === 'to') view.find('#to-location').value = plan.to()
 
-    if(session.user()) {
-      if(name === 'from') checkFromAddressFavorite(view, plan)
-      if(name === 'to') checkToAddressFavorite(view, plan)
+    if(session.user() && (name === 'from' || name === 'to')) {
+      view.checkAddressFavorite(name)
     }
   })
 
@@ -30,8 +29,8 @@ var View = module.exports = view(require('./template.html'), function (view, pla
 
     // Set the initial state of the favorite icons
     if(session.user()) {
-      checkFromAddressFavorite(view, plan)
-      checkToAddressFavorite(view, plan)
+      view.checkAddressFavorite('from')
+      view.checkAddressFavorite('to')
     }
 
     // On form submission
@@ -164,38 +163,26 @@ View.prototype.toggleFavorite = function (e) {
     // TODO: encourage user to register?
     return
   }
-  var address, ll
-  if(e.target.parentNode.classList.contains('from')) {
-    address = this.model.from()
-    ll = this.model.from_ll()
-  }
-  else {
-    address = this.model.to()
-    ll = this.model.to_ll()
-  }
+
+  var type = e.target.parentNode.classList.contains('from') ? 'from' : 'to'
+  var address = this.model.get(type)
 
   if(e.target.classList.contains('fa-heart-o')) {
-    enableFavoriteIcon(e.target)
     session.user().addFavoritePlace(address)
     session.user().saveCustomData(function () {})
+    this.checkAddressFavorite(type)
   }
 }
 
-function checkFromAddressFavorite(view, plan) {
-  if (session.user().isFavoritePlace(plan.from())) {
-    enableFavoriteIcon(view.find('.from-favorite'))
+View.prototype.checkAddressFavorite = function (type) {
+  var el = this.find('.' + type + '-favorite')
+  if (session.user().isFavoritePlace(this.model.get(type))) {
+    enableFavoriteIcon(el)
+    el.title = "Added to favorite places"
   }
   else {
-    disableFavoriteIcon(view.find('.from-favorite'))
-  }
-}
-
-function checkToAddressFavorite(view, plan) {
-  if (session.user().isFavoritePlace(plan.to())) {
-    enableFavoriteIcon(view.find('.to-favorite'))
-  }
-  else {
-    disableFavoriteIcon(view.find('.to-favorite'))
+    disableFavoriteIcon(el)
+    el.title = "Add to favorite places"
   }
 }
 
