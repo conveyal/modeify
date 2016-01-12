@@ -8,7 +8,8 @@
   },
   "locals": [
     "geocode",
-    "log"
+    "log",
+    "session"
   ],
   "scripts": [
     "index.js"

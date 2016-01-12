@@ -3,6 +3,7 @@ var hogan = require('hogan.js')
 var log = require('./client/log')('location-suggest')
 var each = require('each')
 var throttle = require('throttle')
+var session = require('session')
 
 var LocationSuggest = module.exports = function () {}
 
@@ -19,9 +20,20 @@ var suggestionsTemplate = hogan.compile(require('./suggestions.html'))
 LocationSuggest.prototype.suggest = throttle(function (e) {
   var input = e.target
   var text = input.value || ''
-  var inputGroup = input.parentNode
-  var suggestionList = inputGroup.getElementsByTagName('ul')[0]
   var view = this
+
+  // try favorite places for short searches
+  if(text.length < 6 && session.user()) {
+    var fpMatches = session.user().matchFavoritePlaces(text)
+    var fpSuggestions = fpMatches.map(function(fpMatch) {
+      return {
+        text: fpMatch.address,
+        isFavorite: true
+      }
+    })
+    view.renderSuggestions(input, fpSuggestions)
+    return
+  }
 
   // If the text is too short or does not contain a space yet, return
   if (text.length < 6) return
@@ -31,32 +43,40 @@ LocationSuggest.prototype.suggest = throttle(function (e) {
     if (err) {
       log.error('%e', err)
     } else {
-      if (suggestions && suggestions.length > 0) {
-        suggestions = suggestions.slice(0, 4)
-
-        suggestionList.innerHTML = suggestionsTemplate.render({
-          suggestions: suggestions
-        })
-
-        each(view.findAll('.suggestion'), function (li) {
-          li.onmouseover = function (e) {
-            li.classList.add('highlight')
-          }
-
-          li.onmouseout = function (e) {
-            li.classList.remove('highlight')
-          }
-        })
-
-        suggestionList.classList.remove('empty')
-        inputGroup.classList.add('suggestions-open')
-      } else {
-        suggestionList.classList.add('empty')
-        inputGroup.classList.remove('suggestions-open')
-      }
+      view.renderSuggestions(input, suggestions)
     }
   })
 }, 500)
+
+LocationSuggest.prototype.renderSuggestions = function (input, suggestions) {
+  var view = this
+  var inputGroup = input.parentNode
+  var suggestionList = inputGroup.getElementsByTagName('ul')[0]
+
+  if (suggestions && suggestions.length > 0) {
+    suggestions = suggestions.slice(0, 4)
+
+    suggestionList.innerHTML = suggestionsTemplate.render({
+      suggestions: suggestions
+    })
+
+    each(view.findAll('.suggestion'), function (li) {
+      li.onmouseover = function (e) {
+        li.classList.add('highlight')
+      }
+
+      li.onmouseout = function (e) {
+        li.classList.remove('highlight')
+      }
+    })
+
+    suggestionList.classList.remove('empty')
+    inputGroup.classList.add('suggestions-open')
+  } else {
+    suggestionList.classList.add('empty')
+    inputGroup.classList.remove('suggestions-open')
+  }
+}
 
 /**
  * Address Changed
@@ -71,7 +91,7 @@ LocationSuggest.prototype.blurInput = function (e) {
 
   var highlight = this.find('.suggestion.highlight')
   if (highlight) {
-    e.target.value = highlight.textContent || ''
+    e.target.value = cleanText(highlight.textContent || '')
   }
 
   suggestionList.classList.add('empty')
@@ -167,4 +187,9 @@ function setCursor (node, pos) {
   }
 
   return false
+}
+
+function cleanText (text) {
+  text = text.replace(/<\/?[^>]+(>|$)/g, "");
+  return text.trim()
 }

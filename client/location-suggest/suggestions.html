@@ -1,3 +1,8 @@
 {{#suggestions}}
-  <li class="suggestion" data-key="{{magicKey}}">{{text}}</li>
+  <li class="suggestion" data-key="{{magicKey}}">
+    {{#isFavorite}}
+      <i class="fa fa-heart"></i> 
+    {{/isFavorite}}
+    {{text}}
+  </li>
 {{/suggestions}}

@@ -103,6 +103,18 @@ User.prototype.isFavoritePlace = function (address) {
   return false
 }
 
+User.prototype.matchFavoritePlaces = function (text) {
+  var customData = this.customData()
+  if(!customData.modeify_places) return []
+  var matches = []
+  for(var i=0; i < customData.modeify_places.length; i++) {
+    if(customData.modeify_places[i].address.toLowerCase().lastIndexOf(text.toLowerCase()) === 0) {
+      matches.push(customData.modeify_places[i])
+    }
+  }
+  return matches
+}
+
 User.loadManager = function (ctx, next) {
   request.get('/users/' + ctx.params.manager, function (err, res) {
     if (err || !res.ok) {
