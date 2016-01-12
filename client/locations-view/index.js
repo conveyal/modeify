@@ -11,8 +11,12 @@ var session = require('session')
  */
 
 var View = module.exports = view(require('./template.html'), function (view, plan) {
+
   plan.on('change', function (name) {
     view.resetIcons()
+
+    if(name === 'from') view.find('#from-location').value = plan.from()
+    if(name === 'to') view.find('#to-location').value = plan.to()
 
     if(session.user()) {
       if(name === 'from') checkFromAddressFavorite(view, plan)
