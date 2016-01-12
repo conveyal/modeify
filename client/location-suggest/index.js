@@ -24,8 +24,7 @@ LocationSuggest.prototype.suggest = throttle(function (e) {
   var view = this
 
   // If the text is too short or does not contain a space yet, return
-  if (text.length < 4 || text.indexOf(' ') === -1 || text.lastIndexOf(' ') + 1 ===
-    text.length) return
+  if (text.length < 6) return
 
   // Get a suggestion!
   geocode.suggest(text, function (err, suggestions) {
