@@ -1,14 +1,18 @@
 <tr>
-  <td style="width: auto;">
+  <td class="place-names-column">
     <div class="alert alert-success place-name">
       <div class="address">{address}<div>
     </div>
   </td>
-  <td style="width: 90px;">
-    <div class="place-buttons">
-      <i class="place-button icon-start" on-tap="setFrom"></i>
-      <i class="place-button icon-end" on-tap="setTo"></i>
-      <i class="place-button fa fa-times" on-tap="deletePlace"></i>
-    </div>
+  <td class="place-buttons-column">
+    <button class="place-button btn btn-default" on-tap="setFrom" title="Use as starting point">
+      <i class="icon-start" style="color: white;"></i>
+    </button>
+    <button class="place-button btn" on-tap="setTo" title="Use as ending point">
+      <i class="icon-end" style="color: white;"></i>
+    </button>
+    <button class="place-button btn" on-tap="deletePlace" title="Use as ending point">
+      <i class="fa fa-times"></i>
+    </button>
   </td>
 </tr>
