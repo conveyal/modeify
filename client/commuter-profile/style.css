@@ -7,6 +7,11 @@
   margin: 0;
 }
 
+
+.CommuterProfile p {
+  color: var(--dark-gray);
+}
+
 .CommuterProfile .alert-warning {
   margin-top: 10px;
 }

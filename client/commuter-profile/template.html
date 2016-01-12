@@ -7,6 +7,7 @@
   <div class="row">
     <section class="col-sm-12" data-visible="anonymous">
       <h4>
+        <i class="fa fa-user"></i>
         <strong>Sign Up</strong>
         <br><span class="subtitle">Stay in touch!</span>
       </h4>
@@ -15,16 +16,23 @@
 
     <section class="col-sm-12" data-hidden="anonymous">
       <h4>
-        <strong>Account</strong>
-        <br><span class="subtitle">{fullName} ({email})</span>
+        <i class="fa fa-user"></i>
+        Your <strong>Account</strong>
       </h4>
-      <p><a href="/logout" title="Sign out">Sign out</a></p>
+        <p>
+          Logged in as <strong>{fullName}</strong> ({email})
+          <br><a href="/logout" title="Sign out">Sign out</a>
+        </p>
       <h4>
-        <strong>Favorite Places</strong>
+        <i class="fa fa-heart"></i>
+        Favorite <strong>Places</strong>
+      </h4>
+      <p>
+        <strong>Your account lets you save favorite places for future use.</strong> Click the <i class="fa fa-heart-o"></i> icon in the main locations entry to make that location a favorite. In the list below, use the <i class="icon-start"></i> button to make use that location your starting point, <i class="icon-end"></i> to use it as the end point, and <i class="fa fa-times"></i> to remove it from your favorites.
         <table class='FavoritePlaces'>
           <tbody data-each="places"></tbody>
         </table>
-      </h4>
+      </p>
     </section>
   </div>
 </div>
