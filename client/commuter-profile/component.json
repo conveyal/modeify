@@ -5,6 +5,7 @@
     "visionmedia/page.js": "*"
   },
   "locals": [
+    "config",
     "modal",
     "session",
     "sign-up-form",
