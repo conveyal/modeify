@@ -32,6 +32,8 @@ page('/profile', session.touch, require('planner-page'), function (ctx, next) {
 
 page('/style-guide', require('style-guide'))
 
+page('/create-link', require('create-link'))
+
 // Allow for an easy path for resetting the user credentials and handle all unknown addresses by tracking them and redirecting to the welcome screen.
 
 page('/welcome', trackAndRedirect)

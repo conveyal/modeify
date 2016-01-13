@@ -1,0 +1,42 @@
+<div class="Accounts" style="padding-left: 100px;">
+  <div class="row">
+    <div class="col-xs-6">
+      <h1><strong><span data-text="applicationName"></span> Link Creation Utility</strong></h1>
+      <p>This page is used to generate links to the <span data-text="applicationName"></span> application from one search endpoint, with the user to provide the other.</p>
+
+      <div class="form-group">
+        <div class="Locations">
+          <label for="contact">What is the location?</label>
+          <input type="text" class="form-control" name="address" placeholder="Enter address or landmark" on-input="suggest" on-keydown="keydownInput" autocomplete="off" autocorrect="off" autocapitalize="on" spellcheck="false" id="location">
+
+          <ul class="suggestions empty"></ul>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Which endpoint of the search is this?</label>
+        <div class="radio">
+          <label>
+            <input type="radio" name="endpointType" id="destination" value="planTo" checked>
+            Destination
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="endpointType" id="origin" value="planFrom">
+            Origin
+          </label>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label>
+          <button class="btn" on-tap="generate">Generate Link</button>
+        </label>
+        <input type="text" class="form-control" id="link" name="link">
+      </div>
+      </p>
+    </div>
+  </div>
+</div>
