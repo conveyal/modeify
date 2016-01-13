@@ -78,7 +78,7 @@ module.exports = function (ctx, next) {
     plan.clearStore()
 
     // If it's a shared URL or welcome is complete skip the welcome screen
-    if ((query.from && query.to) || session.commuter().profile().welcome_wizard_complete) {
+    if (query.planFrom || query.planTo || (query.from && query.to) || session.commuter().profile().welcome_wizard_complete) {
       showQuery(query)
     } else {
       showWelcomeWizard(session.commuter(), session.plan())
@@ -147,8 +147,20 @@ View.prototype.helpMeChoose = function (e) {
 function showQuery (query) {
   var plan = session.plan()
   // If no querystring, see if we have them in the plan already
-  var from = query.from || plan.from() || FROM
-  var to = query.to || plan.to() || TO
+
+  var from, to
+  if(query.planTo) {
+    to = query.planTo
+    plan.from(null)
+    plan.from_ll(null)
+  } else if (query.planFrom) {
+    from = query.planFrom
+    plan.to(null)
+    plan.to_ll(null)
+  } else {
+    from = query.from || plan.from() || FROM
+    to = query.to || plan.to() || TO
+  }
   var sameAddresses = from === plan.from() && to === plan.to()
 
   // Set plan from querystring

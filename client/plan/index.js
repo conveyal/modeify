@@ -428,19 +428,27 @@ Plan.prototype.nextDate = function () {
 Plan.prototype.generatePlaces = function () {
   var fll = this.from_ll()
   var tll = this.to_ll()
-  if (!fll || !tll) return []
+  var places = []
 
-  return [{
-    place_id: 'from',
-    place_lat: fll.lat,
-    place_lon: fll.lng,
-    place_name: 'From'
-  }, {
-    place_id: 'to',
-    place_lat: tll.lat,
-    place_lon: tll.lng,
-    place_name: 'To'
-  }]
+  if(fll) {
+    places.push({
+      place_id: 'from',
+      place_lat: fll.lat,
+      place_lon: fll.lng,
+      place_name: 'From'
+    })
+  }
+
+  if(tll) {
+    places.push({
+      place_id: 'to',
+      place_lat: tll.lat,
+      place_lon: tll.lng,
+      place_name: 'To'
+    })
+  }
+
+  return places
 }
 
 /**
