@@ -111,6 +111,7 @@ LocationSuggest.prototype.blurInput = function (e) {
 
 LocationSuggest.prototype.keydownInput = function (e) {
   var el = e.target
+  var inputGroup = e.target.parentNode
   var key = e.keyCode
 
   // Currently highlighted suggestion
@@ -131,6 +132,16 @@ LocationSuggest.prototype.keydownInput = function (e) {
 
       var newHighlight = this.find('.suggestion.highlight')
       if (newHighlight) el.value = newHighlight.textContent || ''
+      break
+    case 27:
+      var suggestionList = inputGroup.getElementsByTagName('ul')[0]
+      inputGroup.classList.remove('suggestions-open')
+      suggestionList.classList.add('empty')
+      setTimeout(function () {
+        suggestionList.innerHTML = ''
+      }, 250)
+      if(session && session.plan()) e.target.value = session.plan().get(e.target.name) || ''
+      else e.target.value = ''
       break
   }
 }
