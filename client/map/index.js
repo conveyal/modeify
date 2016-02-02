@@ -14,7 +14,7 @@ module.exports = function (el, opts) {
   opts = opts || {}
   opts.tileLayer = opts.tileLayer || {
       detectRetina: true
-    }
+  }
 
   // create a map in the el with given options
   return new Mapp(L.mapbox.map(el, config.mapbox_map_id(), opts))

@@ -118,14 +118,14 @@ var View = view(require('./template.html'), function (view, model) {
     var $distanceAvg = view.find('#distanceAverage')
 
     var costAvg = profiles.reduce(function (total, p) {
-      return total + parseFloat(p.cost)
-    }, 0) / profiles.length
+        return total + parseFloat(p.cost)
+      }, 0) / profiles.length
     var distAvg = profiles.reduce(function (total, p) {
-      return total + p.distance
-    }, 0) / profiles.length
+        return total + p.distance
+      }, 0) / profiles.length
     var timeAvg = profiles.reduce(function (total, p) {
-      return total + p.time
-    }, 0) / profiles.length
+        return total + p.time
+      }, 0) / profiles.length
 
     $costAvg.textContent = '$' + costAvg.toFixed(2)
     $costPYAvg.textContent = '$' + parseInt(costAvg * 470, 10)

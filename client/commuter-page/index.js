@@ -50,8 +50,8 @@ module.exports = function (ctx, next) {
         })
 
         m.addMarker(ctx.commuter.mapMarker())
-        // TODO: add organization location marker(s)
-        // m.fitLayer(m.featureLayer)
+      // TODO: add organization location marker(s)
+      // m.fitLayer(m.featureLayer)
       }
     })
 

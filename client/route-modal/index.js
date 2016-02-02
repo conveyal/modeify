@@ -111,4 +111,3 @@ RouteModal.prototype.internalMatches = function () {
   for (var id in matchesByOrg) orgArray.push(matchesByOrg[id])
   return intMatchesTemplate.render({ organizations: orgArray })
 }
-

@@ -30,7 +30,7 @@ function loadPlan (Plan, userOpts) {
 
   // set any user-specified options
   userOpts = userOpts || {}
-  for(var key in userOpts) {
+  for (var key in userOpts) {
     opts[key] = userOpts[key]
   }
 

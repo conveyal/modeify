@@ -50,24 +50,21 @@ Modal.prototype.anonymous = function () {
 }
 
 Modal.prototype.fullName = function () {
-  if(!this.model.user) return 'unknown'
+  if (!this.model.user) return 'unknown'
   return this.model.user.fullName()
 }
 
 Modal.prototype.email = function () {
-  if(!this.model.user) return 'unknown'
+  if (!this.model.user) return 'unknown'
   return this.model.user.email()
 }
 
-
 Modal.prototype.places = function () {
-  if(!this.model.user) return []
+  if (!this.model.user) return []
   return this.model.user.customData().modeify_places
 }
 
 Modal.prototype['places-view'] = function () {
-  var self = this
-
   var PlaceRow = view(require('./place.html'))
 
   PlaceRow.prototype.setFrom = function () {

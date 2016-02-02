@@ -23,9 +23,9 @@ LocationSuggest.prototype.suggest = throttle(function (e) {
   var view = this
 
   // try favorite places for short searches
-  if(text.length < 6 && session.user()) {
+  if (text.length < 6 && session.user()) {
     var fpMatches = session.user().matchFavoritePlaces(text)
-    var fpSuggestions = fpMatches.map(function(fpMatch) {
+    var fpSuggestions = fpMatches.map(function (fpMatch) {
       return {
         text: fpMatch.address,
         isFavorite: true
@@ -140,7 +140,7 @@ LocationSuggest.prototype.keydownInput = function (e) {
       setTimeout(function () {
         suggestionList.innerHTML = ''
       }, 250)
-      if(session && session.plan()) e.target.value = session.plan().get(e.target.name) || ''
+      if (session && session.plan()) e.target.value = session.plan().get(e.target.name) || ''
       else e.target.value = ''
       break
   }
@@ -201,6 +201,6 @@ function setCursor (node, pos) {
 }
 
 function cleanText (text) {
-  text = text.replace(/<\/?[^>]+(>|$)/g, "");
+  text = text.replace(/<\/?[^>]+(>|$)/g, '')
   return text.trim()
 }

@@ -430,7 +430,7 @@ Plan.prototype.generatePlaces = function () {
   var tll = this.to_ll()
   var places = []
 
-  if(fll) {
+  if (fll) {
     places.push({
       place_id: 'from',
       place_lat: fll.lat,
@@ -439,7 +439,7 @@ Plan.prototype.generatePlaces = function () {
     })
   }
 
-  if(tll) {
+  if (tll) {
     places.push({
       place_id: 'to',
       place_lat: tll.lat,

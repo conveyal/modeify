@@ -42,8 +42,7 @@ View.prototype.back = function () {
   return prefix + (this.model.isNew() ? '/show' : '/locations/' + this.model._id() + '/show')
 }
 
-View.prototype.locationSelected = function (target) {
-}
+View.prototype.locationSelected = function (target) {}
 
 /**
  * Save!

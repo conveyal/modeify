@@ -11,14 +11,13 @@ var session = require('session')
  */
 
 var View = module.exports = view(require('./template.html'), function (view, plan) {
-
   plan.on('change', function (name) {
     view.resetIcons()
 
-    if(name === 'from') view.find('#from-location').value = plan.from()
-    if(name === 'to') view.find('#to-location').value = plan.to()
+    if (name === 'from') view.find('#from-location').value = plan.from()
+    if (name === 'to') view.find('#to-location').value = plan.to()
 
-    if(session.user() && (name === 'from' || name === 'to')) {
+    if (session.user() && (name === 'from' || name === 'to')) {
       view.checkAddressFavorite(name)
     }
   })
@@ -28,7 +27,7 @@ var View = module.exports = view(require('./template.html'), function (view, pla
     view.resetIcons()
 
     // Set the initial state of the favorite icons
-    if(session.user()) {
+    if (session.user()) {
       view.checkAddressFavorite('from')
       view.checkAddressFavorite('to')
     }
@@ -100,9 +99,9 @@ View.prototype.currentLocation = function (e) {
       self.resetIcons()
       window.alert('Whoops! We were unable to find your current location.')
     }, {
-      enableHighAccuracy: true,  // use GPS if available
+      enableHighAccuracy: true, // use GPS if available
       maximumAge: 60000, // 60 seconds
-      timeout: 30000  // 30 seconds
+      timeout: 30000 // 30 seconds
     })
   } else {
     window.alert('Whoops! Looks like GPS location not available on this device.')
@@ -159,7 +158,7 @@ View.prototype.clear = function (e) {
 }
 
 View.prototype.toggleFavorite = function (e) {
-  if(!session.user()) {
+  if (!session.user()) {
     // TODO: encourage user to register?
     return
   }
@@ -167,7 +166,7 @@ View.prototype.toggleFavorite = function (e) {
   var type = e.target.parentNode.classList.contains('from') ? 'from' : 'to'
   var address = this.model.get(type)
 
-  if(e.target.classList.contains('fa-heart-o')) {
+  if (e.target.classList.contains('fa-heart-o')) {
     session.user().addFavoritePlace(address)
     session.user().saveCustomData(function () {})
     this.checkAddressFavorite(type)
@@ -178,11 +177,10 @@ View.prototype.checkAddressFavorite = function (type) {
   var el = this.find('.' + type + '-favorite')
   if (session.user().isFavoritePlace(this.model.get(type))) {
     enableFavoriteIcon(el)
-    el.title = "Added to favorite places"
-  }
-  else {
+    el.title = 'Added to favorite places'
+  } else {
     disableFavoriteIcon(el)
-    el.title = "Add to favorite places"
+    el.title = 'Add to favorite places'
   }
 }
 

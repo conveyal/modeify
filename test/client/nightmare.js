@@ -11,7 +11,7 @@ var server = http
     ready = true
   })
 
-  // Create a new Nightmare instance
+// Create a new Nightmare instance
 
 module.exports = function (opts) {
   opts = opts || {}

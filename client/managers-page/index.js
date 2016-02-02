@@ -75,7 +75,7 @@ View.prototype.create = function (e) {
  */
 
 ManagerView.prototype.resetPassword = function (e) {
-  if (window.confirm('Reset user\'s password?')) { // eslint-disable-line no-alert
+  if (window.confirm("Reset user's password?")) { // eslint-disable-line no-alert
     alerts.clear()
     request.post('/users/change-password-request', {
       email: this.model.email()

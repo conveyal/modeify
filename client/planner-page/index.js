@@ -149,7 +149,7 @@ function showQuery (query) {
   // If no querystring, see if we have them in the plan already
 
   var from, to
-  if(query.planTo) {
+  if (query.planTo) {
     to = query.planTo
     plan.from(null)
     plan.from_ll(null)
@@ -209,40 +209,40 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
     }
   })
 
-  /* plan.on('change matches', function (matches) {
-    if (matchedFeatures) {
-      map.removeLayer(matchedFeatures)
-      matchedFeatures = null
-    }
+/* plan.on('change matches', function (matches) {
+  if (matchedFeatures) {
+    map.removeLayer(matchedFeatures)
+    matchedFeatures = null
+  }
 
-    if (matchLocations && matchLocations.length > 0 && !isMobile) {
+  if (matchLocations && matchLocations.length > 0 && !isMobile) {
 
-      var features = []
-      matchLocations.forEach(function(matchLocation) {
-        features = features.concat(matchLocation.matches.map(function (match) {
-          return {
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [match._commuter.coordinate.lng, match._commuter.coordinate.lat]
-            },
-            properties: {
-              title: match.distance.toFixed(2) + ' miles away',
-              description: '<a href="#">Email ' + match._commuter.name + ' to set up your carpool!</a>',
-              'marker-size': 'small',
-              'marker-color': '#455a71',
-              'marker-symbol': 'car'
-            }
+    var features = []
+    matchLocations.forEach(function(matchLocation) {
+      features = features.concat(matchLocation.matches.map(function (match) {
+        return {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [match._commuter.coordinate.lng, match._commuter.coordinate.lat]
+          },
+          properties: {
+            title: match.distance.toFixed(2) + ' miles away',
+            description: '<a href="#">Email ' + match._commuter.name + ' to set up your carpool!</a>',
+            'marker-size': 'small',
+            'marker-color': '#455a71',
+            'marker-symbol': 'car'
           }
-        }))
-      })
+        }
+      }))
+    })
 
-      matchedFeatures = window.L.mapbox.featureLayer({
-        type: 'FeatureCollection',
-        features: features
-      })
+    matchedFeatures = window.L.mapbox.featureLayer({
+      type: 'FeatureCollection',
+      features: features
+    })
 
-      matchedFeatures.addTo(map)
-    }
-  }) */
+    matchedFeatures.addTo(map)
+  }
+}) */
 }

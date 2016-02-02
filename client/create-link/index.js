@@ -14,8 +14,7 @@ View.prototype.applicationName = function () {
 }
 
 View.prototype.generate = function () {
-
-  var radios = document.getElementsByName('endpointType');
+  var radios = document.getElementsByName('endpointType')
   var type
   for (var i = 0, length = radios.length; i < length; i++) {
     if (radios[i].checked) {
@@ -25,14 +24,13 @@ View.prototype.generate = function () {
   }
 
   var loc = this.find('#location').value
-
-  var url = location.protocol + '//' + location.hostname+(location.port ? ':' + location.port : '') + '/planner?' + type + '=' + encodeURIComponent(loc)
+  var location = window.location
+  var url = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/planner?' + type + '=' + encodeURIComponent(loc)
 
   this.find('#link').value = url
 }
 
-View.prototype.locationSelected = function () {
-}
+View.prototype.locationSelected = function () {}
 
 extend(View.prototype, LocationSuggest.prototype)
 

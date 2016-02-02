@@ -92,18 +92,18 @@ View.prototype.save = debounce(function (e) {
 View.prototype.saveProfile = function () {
   var self = this
 
-  if(session.user()) {
-    setTimeout(function() {
+  if (session.user()) {
+    setTimeout(function () {
       var customData = session.user().customData()
-      if(!customData.modeify_opts) customData.modeify_opts = {}
-      customData.modeify_opts.bikeSpeed = self.model.bikeSpeed();
-      customData.modeify_opts.walkSpeed = self.model.walkSpeed();
-      customData.modeify_opts.maxBikeTime = self.model.maxBikeTime();
-      customData.modeify_opts.maxWalkTime = self.model.maxWalkTime();
-      customData.modeify_opts.carParkingCost = self.model.carParkingCost();
-      customData.modeify_opts.carCostPerMile = self.model.carCostPerMile();
+      if (!customData.modeify_opts) customData.modeify_opts = {}
+      customData.modeify_opts.bikeSpeed = self.model.bikeSpeed()
+      customData.modeify_opts.walkSpeed = self.model.walkSpeed()
+      customData.modeify_opts.maxBikeTime = self.model.maxBikeTime()
+      customData.modeify_opts.maxWalkTime = self.model.maxWalkTime()
+      customData.modeify_opts.carParkingCost = self.model.carParkingCost()
+      customData.modeify_opts.carCostPerMile = self.model.carCostPerMile()
       session.user().customData(customData)
-      session.user().saveCustomData(function(err, res) {})
+      session.user().saveCustomData(function () {}) // TODO: handle error
     }, 1000)
   }
 }

@@ -78,17 +78,17 @@ User.prototype.saveCustomData = function (callback) {
 
 User.prototype.addFavoritePlace = function (address) {
   var customData = this.customData()
-  if(!customData.modeify_places) customData.modeify_places = []
+  if (!customData.modeify_places) customData.modeify_places = []
   customData.modeify_places.push({
-    address : address
+    address: address
   })
   this.customData(customData)
 }
 
 User.prototype.deleteFavoritePlace = function (address) {
   var customData = this.customData()
-  if(!customData.modeify_places) customData.modeify_places = []
-  customData.modeify_places = customData.modeify_places.filter(function(place) {
+  if (!customData.modeify_places) customData.modeify_places = []
+  customData.modeify_places = customData.modeify_places.filter(function (place) {
     return place.address !== address
   })
   this.customData(customData)
@@ -96,19 +96,19 @@ User.prototype.deleteFavoritePlace = function (address) {
 
 User.prototype.isFavoritePlace = function (address) {
   var customData = this.customData()
-  if(!customData.modeify_places) return false
-  for(var i=0; i < customData.modeify_places.length; i++) {
-    if(customData.modeify_places[i].address === address) return true
+  if (!customData.modeify_places) return false
+  for (var i = 0; i < customData.modeify_places.length; i++) {
+    if (customData.modeify_places[i].address === address) return true
   }
   return false
 }
 
 User.prototype.matchFavoritePlaces = function (text) {
   var customData = this.customData()
-  if(!customData.modeify_places) return []
+  if (!customData.modeify_places) return []
   var matches = []
-  for(var i=0; i < customData.modeify_places.length; i++) {
-    if(customData.modeify_places[i].address.toLowerCase().lastIndexOf(text.toLowerCase()) === 0) {
+  for (var i = 0; i < customData.modeify_places.length; i++) {
+    if (customData.modeify_places[i].address.toLowerCase().lastIndexOf(text.toLowerCase()) === 0) {
       matches.push(customData.modeify_places[i])
     }
   }
@@ -140,8 +140,8 @@ User.getManagers = function (callback) {
 
 User.getManagersForOrg = function (org, callback) {
   request.get('/users/managers-for-organization', {
-      organization: org
-    }, function (err, res) {
+    organization: org
+  }, function (err, res) {
     if (err) {
       callback(err)
     } else {

@@ -121,7 +121,7 @@ Commuter.prototype.updateProfile = function (name, val) {
 
 Commuter.prototype.updateOptions = function (opts) {
   var options = this.opts()
-  for(opt in opts) {
+  for (var opt in opts) {
     options[opt] = opts[opt]
   }
   this.opts(options)
