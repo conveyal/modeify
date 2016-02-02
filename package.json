@@ -2,7 +2,7 @@
   "private": true,
   "main": "server.js",
   "engines": {
-    "iojs": "3.x.x"
+    "node": "4.x.x"
   },
   "version": "1.5.0",
   "dependencies": {

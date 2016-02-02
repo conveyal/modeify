@@ -14,7 +14,7 @@ RB = $(shell find cookbooks -name '*.rb')
 
 BUCKET = $(shell bin/config-val $(NODE_ENV) s3_bucket)
 
-build-client: $(CSS) $(HTML) $(CLIENTJS) $(JSON)
+build-client: node_modules $(CSS) $(HTML) $(CLIENTJS) $(JSON)
 	@bin/build-client $(NODE_ENV)
 
 assets/cookbooks.tar.gz: $(RB)
