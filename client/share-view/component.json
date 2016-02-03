@@ -1,0 +1,20 @@
+{
+  "name": "share-view",
+  "dependencies": {
+  },
+  "local": [
+    "analytics",
+    "log",
+    "modal",
+    "session"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
+  ],
+  "templates": [
+    "template.html"
+  ]
+}

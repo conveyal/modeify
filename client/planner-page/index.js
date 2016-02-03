@@ -1,6 +1,7 @@
 var config = require('config')
 var FilterView = require('filter-view')
 var HelpMeChoose = require('help-me-choose-view')
+var Share = require('share-view')
 var LeafletTransitiveLayer = require('Leaflet.TransitiveLayer')
 var LocationsView = require('locations-view')
 var log = require('./client/log')('planner-page')
@@ -138,6 +139,14 @@ View.prototype.onsubmit = function (e) {
 
 View.prototype.helpMeChoose = function (e) {
   HelpMeChoose(session.plan().options()).show()
+}
+
+/**
+ * Share
+ */
+
+View.prototype.share = function (e) {
+  Share(session.plan().options()).show()
 }
 
 /**
