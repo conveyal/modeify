@@ -25,3 +25,11 @@
 
 label {display: inline-block;
 }
+
+.trip-link {
+	width: 100%;
+}
+
+.place-link {
+	width: 100%;
+}
