@@ -1,0 +1,27 @@
+.form-inline input {
+	margin-right: 15px;
+	margin-bottom: 15px;
+}
+
+.share-buttons {
+	display: inline-block;
+	margin-right: 15px;
+	margin-bottom: 15px;
+	width: 100%;
+}
+
+.link {
+	display: inline-block;
+	background-color: #cfe5f9;
+	padding: 6px;
+	margin: 5px;
+	border-radius: var(--border-radius);
+	width: 80%;
+}
+
+.btn {
+	display: inline-block;
+}
+
+label {display: inline-block;
+}
