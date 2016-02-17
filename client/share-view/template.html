@@ -12,10 +12,10 @@
   </form>
   <form>
   <div class="form-group">
-    <input class="form-control" value= "I just used CarFreeAtoZ to find great travel options!">
+   <lable>Subject:</label> <input class="form-control" value= "I just used CarFreeAtoZ to find great travel options!">
   </div>
   <div class="form-group">
-      <textarea class="form-control" rows="3" placeholder="Hi! I just found a great way to take transit to work! Check it out!"></textarea>
+      <textarea class="form-control" rows="3" placeholder="Hi!<br><br> I just found great new commute options at <strong>carfreeatoz.com</strong> for my trip below:<br><br> From: 641 S St NW, Washington, DC<br>To: 2111 Wilson Blvd, Arlington VA<br><br> Found 5 transit,  biking & driving options!<br><br> See them <a>here</a>"></textarea>
   </div>
   <div class="checkbox">
        <label>
@@ -34,7 +34,7 @@
   <p>Share a link to CarFreeAtoZ with only your current From or To location specified.</p>
 <div class="input-group">
   <div class="input-group-btn">
-    <select select-value="days" class="btn btn-default place-select" on-change="placeChanged">
+    <select select-value="days" class="btn btn-default place-select" on-change="placeChanged"><span class="caret"></span>
       <option value="from">From</option>
       <option value="to">To</option>
     </select>

@@ -28,8 +28,13 @@ label {display: inline-block;
 
 .trip-link {
 	width: 100%;
+	background-color: #cfe5f9;
+	border: none;
 }
 
 .place-link {
 	width: 100%;
+	background-color: #cfe5f9;
+	border: none;
 }
+
