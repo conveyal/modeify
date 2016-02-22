@@ -1,4 +1,5 @@
 var analytics = require('analytics')
+var store = require('browser-store')
 var CommuterProfile = require('commuter-profile')
 var page = require('page')
 var Modal = require('modal')
@@ -47,6 +48,7 @@ page('*', utils.render)
 function trackAndRedirect (ctx, next) {
   if (!ctx.view) {
     session.logoutMiddleware(ctx, function () {
+      store('registration-code', ctx.params.code)
       analytics.track('Tracking Code', {
         code: ctx.params.code
       })
