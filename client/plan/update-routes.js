@@ -76,7 +76,8 @@ function updateRoutes (plan, opts, callback) {
       // Track the commute
       analytics.track('Found Route', {
         plan: plan.generateQuery(),
-        results: profile.length
+        results: profile.length,
+        profile: summarizeProfile(profile)
       })
 
       // Get the car data
@@ -171,4 +172,26 @@ function generateErrorMessage (plan, response) {
   }
 
   return msg
+}
+
+function summarizeProfile (profile) {
+  var best = profile[0]
+  return {
+    allModes: profile.reduce(function (modes, option) {
+      if (modes) modes += ',' + option.modes.join(',')
+      else modes = option.modes.join(',')
+      return modes
+    }),
+    best: {
+      modes: best.modes.join(','),
+      time: best.time,
+      timeInTransit: best.timeInTransit,
+      calories: best.calories,
+      cost: best.cost,
+      bikeDistance: best.bikeDistance,
+      driveDistance: best.driveDistance,
+      emissions: best.emissions,
+      walkDistance: best.walkDistance
+    }
+  }
 }
