@@ -38,3 +38,7 @@ label {display: inline-block;
 	border: none;
 }
 
+.send-button {
+	margin-right: 15px;
+}
+

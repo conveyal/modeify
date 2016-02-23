@@ -12,20 +12,23 @@
   </form>
   <form>
   <div class="form-group">
-   <lable>Subject:</label> <input class="form-control" value= "I just used CarFreeAtoZ to find great travel options!">
+   <label>Subject:</label><input class="form-control" value= "I just used CarFreeAtoZ to find great travel options!">
   </div>
   <div class="form-group">
-      <textarea class="form-control" rows="3" placeholder="Hi!<br><br> I just found great new commute options at <strong>carfreeatoz.com</strong> for my trip below:<br><br> From: 641 S St NW, Washington, DC<br>To: 2111 Wilson Blvd, Arlington VA<br><br> Found 5 transit,  biking & driving options!<br><br> See them <a>here</a>"></textarea>
+    <label>Body:</label>
+      <textarea class="form-control" rows="3">Hi! I just found great new commute options at carfreeatoz.comfor my trip below, check out the link below:</textarea>
   </div>
   <div class="checkbox">
+        <button class="btn btn-default send-button">send</button>
        <label>
          <input type="checkbox"> I want to receive updates from CarFreeAtoZ
        </label>
   </div>
   </form>
 
+<h3>Share a link</h3>
+  <p>Share a link to your CarFreeAtoZ travel options.</p>
 <div class="share-buttons">
-  <button class="btn btn-default">send</button>
   <div class="link"><input type="text" id="trip-link" class="trip-link"></input></div>
   <button class="btn btn-dark" id="copy-trip-btn" data-clipboard-target="#trip-link">copy</button>
 </div>
@@ -34,9 +37,10 @@
   <p>Share a link to CarFreeAtoZ with only your current From or To location specified.</p>
 <div class="input-group">
   <div class="input-group-btn">
-    <select select-value="days" class="btn btn-default place-select" on-change="placeChanged"><span class="caret"></span>
+    <select select-value="days" class="btn btn-default place-select" on-change="placeChanged">
       <option value="from">From</option>
       <option value="to">To</option>
+      <span class="caret"></span>
     </select>
   </div><!-- /btn-group -->
   <div class="link"><input type="text" id="place-link" class="place-link"></input></div>
