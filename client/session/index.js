@@ -124,7 +124,7 @@ session.load = function (ctx, next) {
         store('registration-code', null)
       }
 
-      analytics.identify(user.href().split('/').shift(), userJson)
+      analytics.identify(user.href().split('/').pop(), userJson)
 
       user.on('change', function () {
         store('user', user.toJSON())
