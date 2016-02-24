@@ -1,28 +1,29 @@
 <div class="Share">
   <h3>Share your trip!</h3>
+  <div class="alerts"></div>
   <form class="form-inline">
   <div class="form-group">
     <label class="sr-only">From email address</label>
-    <input type="email" class="form-control" placeholder="From email address">
+    <input type="email" class="form-control from-email" placeholder="From email address">
   </div>
   <div class="form-group">
     <label class="sr-only">To email address</label>
-    <input type="email" class="form-control" placeholder="To email address">
+    <input type="email" class="form-control to-email" placeholder="To email address">
   </div>
   </form>
   <form>
   <div class="form-group">
-   <label>Subject:</label><input class="form-control" value= "I just used CarFreeAtoZ to find great travel options!">
+   <label>Subject:</label><input class="form-control email-subject" value= "I just used CarFreeAtoZ to find great travel options!">
   </div>
   <div class="form-group">
     <label>Body:</label>
-      <textarea class="form-control" rows="3">Hi! I just found great new commute options at carfreeatoz.comfor my trip below, check out the link below:</textarea>
+      <textarea class="form-control email-body" rows="3">Hi! I just found great new commute options at CarFreeAtoZ. To see my trip, check out the link below:</textarea>
   </div>
   <div class="checkbox">
-        <button class="btn btn-default send-button">send</button>
-       <label>
-         <input type="checkbox"> I want to receive updates from CarFreeAtoZ
-       </label>
+    <button class="btn btn-default send-button" on-tap='sendEmail'>send</button>
+    <!--<label>
+      <input type="checkbox"> I want to receive updates from CarFreeAtoZ
+    </label>-->
   </div>
   </form>
 

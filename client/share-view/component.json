@@ -3,9 +3,11 @@
   "dependencies": {
   },
   "local": [
+    "alert",
     "analytics",
     "log",
     "modal",
+    "request",
     "session"
   ],
   "scripts": [
