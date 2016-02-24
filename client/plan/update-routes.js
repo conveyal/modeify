@@ -178,10 +178,10 @@ function summarizeProfile (profile) {
   var best = profile[0]
   return {
     allModes: profile.reduce(function (modes, option) {
-      if (modes) modes += ',' + option.modes.join(',')
-      else modes = option.modes.join(',')
-      return modes
-    }),
+      var newModes = option.modes.filter(function (m) { return typeof m === 'string' }).join(',')
+      if (modes) return modes + ',' + newModes
+      else return newModes
+    }, ''),
     best: {
       modes: best.modes.join(','),
       time: best.time,
