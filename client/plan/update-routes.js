@@ -1,4 +1,5 @@
 var analytics = require('analytics')
+var haversine = require('haversine')
 var log = require('./client/log')('plan:update-routes')
 var message = require('./client/messages')('plan:update-routes')
 var otpProfileToTransitive = require('otp-profile-to-transitive')
@@ -75,6 +76,7 @@ function updateRoutes (plan, opts, callback) {
 
       // Track the commute
       analytics.track('Found Route', {
+        distance: haversine(query.from.lat, query.from.lon, query.to.lat, query.to.lon),
         plan: plan.generateQuery(),
         results: profile.length,
         profile: summarizeProfile(profile)

@@ -8,6 +8,7 @@
     "conveyal/otp-profile-score": "master",
     "conveyal/otp-profile-to-transitive": "master",
     "segmentio/model-defaults": "0.2.0",
+    "trevorgerhardt/haversine": "*",
     "mbostock/d3": "*",
     "visionmedia/batch": "*"
   },
