@@ -14,7 +14,7 @@
 }
 
 .Options .header {
-  background-color: var(--darkest);
+  background-color: var(--dark-blue);
   color: var(--light-blue);
   padding: 4px 8px;
   border-top-left-radius: var(--border-radius);

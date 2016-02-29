@@ -24,10 +24,9 @@
   --dark-blue: #384554;
   --darkest: #303d49;
 
-  --button-green: #4b6a20;
+  --button-green: #324E0F;
 
   --darkergreen: #5e8428;
-  --darkgreen: #719939;
   --green: #8ec449;
   --mgreen: #b4e37b;
   --lightgreen: #dcffb0;
@@ -102,7 +101,7 @@ a:hover {
 .introjs-button:hover,
 .introjs-button:visited {
   background: var(--gold);
-  color: #fff;
+  color: #633a04;
   outline: none;
   border: none;
   border-radius: var(--border-radius);
