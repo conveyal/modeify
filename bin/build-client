@@ -35,9 +35,13 @@ delete config.environments
 var aboutPage = markdown.render(fs.readFileSync(deploymentDir + '/about.md', 'utf8'))
 var termsPage = markdown.render(fs.readFileSync(deploymentDir + '/terms.md', 'utf8'))
 
+// Retreive the CSS config
+
+var cssConfig = fs.readFileSync(deploymentDir + '/style.css', 'utf8')
+
 // Generate message files
 
-generateMessageFiles(rootDir + '/messages', rootDir + '/assets/build/messages')
+generateMessageFiles(deploymentDir + '/messages', rootDir + '/assets/build/messages')
 
 // apps
 var apps = ['manager-app', 'planner-app']
@@ -129,7 +133,8 @@ function bundle (app) {
       .use('styles', build.plugins.css())
       .end(function (err, str) {
         if (err) throw err
-        var css = myth(str)
+
+        var css = myth(cssConfig + '\n\n' + str)
         css = css.replace(/\burl *\(([^)]+)\)/g, rewrite)
 
         writeFile(path.resolve(destDir, 'build.css'), css)

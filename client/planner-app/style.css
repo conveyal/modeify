@@ -1,56 +1,5 @@
 
 /**
- * Application variables
- */
-
-:root {
-  --black: #455a71;
-
-  --buildings-color: #7c61a0;
-  --land-color: #ecebeb;
-  --park-color: #61c165;
-  --street-color: #3fbfbf;
-  --water-color: #c4e7f2;
-  --metro-blue: #0076bf;
-
-  --gray: #84909d;
-  --lightgray: #b5c1ce;
-  --light-gray: #edeff0;
-  --dark-gray: #696969;
-
-  --lightest-blue: #f2f6f9;
-  --light-blue: #e9f5ff;
-  --medium-blue: #cfe5f9;
-  --dark-blue: #384554;
-  --darkest: #303d49;
-
-  --button-green: #324E0F;
-
-  --darkergreen: #5e8428;
-  --green: #8ec449;
-  --mgreen: #b4e37b;
-  --lightgreen: #dcffb0;
-  --lightergreen: #d6f1b4;
-  --lightestgreen: #f4fce8;
-
-  --red: #e21836;
-  --gold: #F5A81C;
-  --dark-gold: #4e3309;
-
-  --border-radius: 3px;
-
-  --transition-speed: 0.1s;
-
-  --h3: 20px;
-
-  --font-size: 14px;
-  --font-weight: 400;
-  --bold: 700;
-
-  --panel-width: 320px;
-}
-
-/**
  * Custom Media Queries
  */
 
