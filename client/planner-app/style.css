@@ -15,9 +15,9 @@ body {
   font-size: var(--font-size);
   font-weight: var(--font-weight);
 
-  color: var(--black);
+  color: var(--font-color);
 
-  background-color: var(--gold); /* for the tint */
+  background-color: var(--primary-color); /* for the tint */
   background-image: linear-gradient(to bottom, var(--land-color) 0%, var(--land-color) 100%); /* for the body */
 }
 
@@ -26,7 +26,7 @@ b, strong {
 }
 
 a {
-  color: var(--gold);
+  color: var(--primary-color);
   text-decoration: none;
   font-weight: var(--bold);
   cursor: pointer;
@@ -35,7 +35,7 @@ a {
 a:active,
 a:focus,
 a:hover {
-  color: color(var(--gold) shade(20%));
+  color: color(var(--primary-color) shade(20%));
   text-decoration: none;
 }
 
@@ -49,8 +49,8 @@ a:hover {
 .introjs-button:focus,
 .introjs-button:hover,
 .introjs-button:visited {
-  background: var(--gold);
-  color: #633a04;
+  background: var(--primary-button-background-color);
+  color: var(--primary-button-font-color);
   outline: none;
   border: none;
   border-radius: var(--border-radius);
@@ -58,13 +58,13 @@ a:hover {
 
 .btn:hover,
 .introjs-button:hover {
-  background-color: color(var(--gold) shade(10%));
+  background-color: color(var(--primary-button-background-color) shade(10%));
 }
 
 .btn:active,
 .btn.active,
 .introjs-button:active {
-  background-color: color(var(--gold) shade(20%));
+  background-color: color(var(--primary-button-background-color) shade(20%));
 }
 
 .btn-dark,
@@ -72,38 +72,19 @@ a:hover {
 .btn-dark:focus,
 .btn-dark:hover,
 .btn-dark:visited {
-  background: var(--dark-blue);
-  color: #fff;
+  background: var(--dark-button-background-color);
+  color: var(--dark-button-font-color);
   outline: none;
   border: none;
 }
 
 .btn-dark:hover {
-  background-color: color(var(--dark-blue) shade(20%));
+  background-color: color(var(--dark-button-background-color) shade(20%));
 }
 
 .btn-dark.active,
 .btn-dark:active {
-  background-color: color(var(--dark-blue) shade(40%));
-}
-
-.btn-demph,
-.btn-demph:active,
-.btn-demph:focus,
-.btn-demph:hover,
-.btn-demph:visited {
-  background: var(--gray);
-  color: #fff;
-  outline: none;
-  border: none;
-}
-
-.btn-demph:hover {
-  background-color: color(var(--gray) shade(10%));
-}
-
-.btn-demph:active {
-  background-color: color(var(--gray) shade(20%));
+  background-color: color(var(--dark-button-background-color) shade(40%));
 }
 
 #main {
@@ -150,15 +131,15 @@ a:hover {
 }
 
 .outline-text {
-  text-shadow: -1px -1px 0 var(--black),
-    1px -1px 0 var(--black),
-    -1px 1px 0 var(--black),
-     1px 1px 0 var(--black);
+  text-shadow: -1px -1px 0 var(--font-color),
+    1px -1px 0 var(--font-color),
+    -1px 1px 0 var(--font-color),
+     1px 1px 0 var(--font-color);
 }
 
 p, h1, h2, h3, h4, h5, h6 {
   font-weight: var(--font-weight);
-  color: var(--darkest);
+  color: var(--font-color);
 }
 
 h3 {
@@ -171,33 +152,6 @@ h4 {
 
 p {
   font-size: 14px;
-}
-
-select {
-  background: transparent;
-
-  appearance: none;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-
-  cursor: pointer;
-  color: var(--gold);
-  font-weight: var(--bold);
-  padding: 8px 0 0;
-  margin: 0 6px;
-
-  border: none;
-  border-radius: 0;
-  border-bottom: 1px solid var(--gold);
-}
-
-select::-ms-expand {
-  display: none;
-}
-
-select:focus {
-  box-shadow: none;
-  outline: none;
 }
 
 .fa-spin {

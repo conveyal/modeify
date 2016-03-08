@@ -24,7 +24,7 @@
 
 .Welcome h3 .headline {
   font-size: 18px;
-  color: var(--darkest);
+  color: var(--font-color);
 }
 
 .Welcome .answer {

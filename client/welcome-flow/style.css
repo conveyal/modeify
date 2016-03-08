@@ -12,7 +12,7 @@
 
 .WelcomeFlow {
   font-size: 16px;
-  color: var(--darkest);
+  color: var(--font-color);
 }
 
 .WelcomeFlow h3 {

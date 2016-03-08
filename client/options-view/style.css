@@ -5,7 +5,7 @@
 }
 
 .Options .separator {
-	color: var(--darkest);
+	color: var(--font-color);
 	font-size: 14px;
 	font-weight: bold;
 }

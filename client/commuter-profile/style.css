@@ -9,7 +9,7 @@
 
 
 .CommuterProfile p {
-  color: var(--dark-gray);
+  color: var(--font-color);
 }
 
 .CommuterProfile .alert-warning {
@@ -27,7 +27,7 @@
 
 .CommuterProfile h4 .subtitle {
   font-size: var(--font-size);
-  color: var(--gray);
+  color: var(--font-light-color);
 }
 
 .CommuterProfile form > button {
@@ -35,8 +35,8 @@
 }
 
 .CommuterProfile .form-control {
-  border: 1px solid var(--gray);
-  color: var(--black);
+  border: 1px solid var(--outline-color);
+  color: var(--font-color);
   outline: none;
   display: inline-block;
 }
@@ -85,9 +85,9 @@
 }
 
 .FavoritePlaces .icon-start {
-  color: var(--green);
+  color: var(--primary-color);
 }
 
 .FavoritePlaces .icon-end {
-  color: var(--gold);
+  color: var(--secondary-color);
 }

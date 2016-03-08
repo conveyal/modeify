@@ -1,7 +1,7 @@
 
 .RouteSegment > .mode {
   font-size: 25px;
-  color: var(--black);
+  color: var(--font-color);
   display: inline-block;
   vertical-align: top;
 }

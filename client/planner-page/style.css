@@ -7,7 +7,7 @@
 
 .SidePanel {
   position: absolute;
-  background-color: color(var(--black) alpha(80%));
+  background-color: var(--sidepanel-background-color);
   z-index: 150;
   top: 0;
   bottom: 0;
@@ -43,13 +43,13 @@
 
 .SidePanel .title {
   width: 100%;
-  color: var(--light-blue);
+  color: var(--sidepanel-font-color);
   font-size: 15px;
 }
 
 .SidePanel .title .fa {
   vertical-align: top;
-	color: var(--light-blue);
+	color: var(--primary-color);
   font-size: 20px;
   padding-right: 5px;
 }
@@ -60,7 +60,7 @@
 .SidePanel .footer .more-options:hover,
 .SidePanel .footer .more-options:active,
 .SidePanel .footer .more-options:focus {
-  color: color(var(--light-blue) shade(20%));
+  color: color(var(--primary-color) shade(20%));
   text-decoration: none;
 }
 
@@ -69,8 +69,8 @@
   display: block;
   bottom: 0;
   height: 44px;
-  background-color: var(--black);
-  box-shadow: 0 -2px 2px -1px var(--darkest);
+  background-color: var(--navbar-background-color);
+  box-shadow: 0 -2px 2px -1px rgba(0, 0, 0, 0.1);
   width: 100%;
   line-height: 32px;
 }
@@ -80,7 +80,7 @@
 }
 
 .SidePanel .footer .more-options {
-  color: var(--light-blue);
+  color: var(--primary-color);
   font-size: 18px;
   height: 44px;
   display: inline-block;
