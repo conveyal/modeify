@@ -38,8 +38,8 @@
   line-height: 1;
   text-align: right;
   margin-right: -2px;
-  margin-top: 2px;
-  padding: 6px 10px 5px 0;
+  margin-top: 4px;
+  padding: 4px 10px 3px 0;
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-color: var(--ribbon-background-color);
@@ -49,12 +49,12 @@
 
 .RouteCard .benefits-badge::before {
   content: ' ';
-  border: 12px solid var(--ribbon-background-color);
+  border: 10px solid #fff;
   border-left-color: transparent;
-  border-left-width: 12px;
+  border-left-width: 7px;
   position: absolute;
   top: 0;
-  left: -12px;
+  left: -8px;
 }
 
 .Options .simple {
