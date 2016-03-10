@@ -70,7 +70,7 @@
   bottom: 0;
   height: 44px;
   background-color: var(--navbar-background-color);
-  box-shadow: 0 -2px 2px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -2px 2px -1px rgba(0, 0, 0, 0.3);
   width: 100%;
   line-height: 32px;
 }

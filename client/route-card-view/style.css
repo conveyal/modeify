@@ -49,7 +49,7 @@
 
 .RouteCard .benefits-badge::before {
   content: ' ';
-  border: 10px solid #fff;
+  border: 10px solid var(--ribbon-background-color);
   border-left-color: transparent;
   border-left-width: 7px;
   position: absolute;

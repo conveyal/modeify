@@ -8,11 +8,11 @@
 }
 
 .Locations .icon-start {
-  color: var(--primary-color);
+  color: var(--star-color);
 }
 
 .Locations .icon-end {
-  color: var(--secondary-color);
+  color: var(--pin-color);
 }
 
 .Locations .input-group {
