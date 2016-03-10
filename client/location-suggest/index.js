@@ -5,7 +5,9 @@ var each = require('each')
 var throttle = require('throttle')
 var session = require('session')
 
-var LocationSuggest = module.exports = function () {}
+module.exports = LocationSuggest
+
+function LocationSuggest () {}
 
 /**
  * Suggestions Template
