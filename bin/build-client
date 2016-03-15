@@ -38,6 +38,10 @@ var termsPage = markdown.render(fs.readFileSync(deploymentDir + '/terms.md', 'ut
 
 var cssConfig = fs.readFileSync(deploymentDir + '/style.css', 'utf8')
 
+// Get bootstrap.css
+
+var bootstrap = fs.readFileSync(rootDir + '/node_modules/bootstrap/dist/css/bootstrap.css', 'utf8')
+
 // Generate message files
 
 generateMessageFiles(deploymentDir + '/messages', rootDir + '/assets/build/messages')
@@ -133,7 +137,7 @@ function bundle (app) {
       .end(function (err, str) {
         if (err) throw err
 
-        var css = myth(cssConfig + '\n\n' + str)
+        var css = myth(bootstrap + '\n\n' + cssConfig + '\n\n' + str)
         css = css.replace(/\burl *\(([^)]+)\)/g, rewrite)
 
         writeFile(path.resolve(destDir, 'build.css'), css)

@@ -44,6 +44,7 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
+    "bootstrap": "^3.3.6",
     "cli-table": "^0.3.1",
     "commander": "^2.9.0",
     "component": "^1.1.0",
