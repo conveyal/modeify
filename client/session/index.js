@@ -7,6 +7,7 @@ var model = require('model')
 var page = require('page')
 var Plan = require('plan')
 var request = require('./client/request')
+var superagent = require('superagent')
 var User = require('user')
 
 /**
@@ -51,10 +52,12 @@ Session.prototype.logout = function (next) {
   log('--> logging out')
 
   this.clear()
-  request.get('/auth/logout', function (err, res) {
-    log('<-- logged out %s', res.text)
-    if (next) next(err, res)
-  })
+  superagent
+    .post('/logout')
+    .end(function (err, res) {
+      log('<-- logged out %s', res.text)
+      if (next) next(err, res)
+    })
 }
 
 Session.prototype.clear = function () {
