@@ -1,7 +1,10 @@
 
-## Latest
+## 1.6.0
 
-* Remove "Saved Journeys" from profile.
+* Color configuration.
+* Updated dependencies.
+* Switched to Mapzen geocoder....
+* More!
 
 ## 1.5.0
 
