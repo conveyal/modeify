@@ -46,11 +46,6 @@ stop:
 sync: assets/cookbooks.tar.gz build-client
 	@echo Syncing $(NODE_ENV) to $(BUCKET)
 	@aws s3 sync assets $(BUCKET) \
-		--acl public-read \
-		--exclude "*.gz"
-	@aws s3 sync assets $(BUCKET) \
-		--acl public-read \
-		--content-encoding "gzip" \
-		--include "*.gz"
+		--acl public-read
 
 .PHONY: build-client install lint serve sync

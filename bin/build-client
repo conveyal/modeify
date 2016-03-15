@@ -12,7 +12,6 @@ var myth = require('myth')
 var path = require('path')
 var sqwish = require('sqwish')
 var uglify = require('uglify-js')
-var zlib = require('zlib')
 
 var env = process.argv[2] || process.env.NODE_ENV || 'development'
 var development = env === 'development'
@@ -124,7 +123,7 @@ function bundle (app) {
         writeFile(path.resolve(destDir, 'build.js'), js)
 
         if (!development) {
-          gzip(path.resolve(destDir, 'build.min.js.gz'), uglify.minify(js, { fromString: true }).code)
+          writeFile(path.resolve(destDir, 'build.min.js'), uglify.minify(js, { fromString: true }).code)
         }
       })
 
@@ -140,7 +139,7 @@ function bundle (app) {
         writeFile(path.resolve(destDir, 'build.css'), css)
 
         if (!development) {
-          gzip(path.resolve(destDir, 'build.min.css.gz'), sqwish.minify(css))
+          writeFile(path.resolve(destDir, 'build.min.css'), sqwish.minify(css))
         }
       })
   })
@@ -185,7 +184,7 @@ function generateMessageFiles (messagesPath, destinationPath) {
         writeFile(destinationPath + '/' + lang + '.js', data)
 
         if (!development) {
-          gzip(destinationPath + '/' + lang + '.min.js.gz', uglify.minify(data, { fromString: true }).code)
+          writeFile(destinationPath + '/' + lang + '.min.js', uglify.minify(data, { fromString: true }).code)
         }
       })
     })
@@ -209,12 +208,5 @@ function writeFile (path, data) {
     encoding: 'utf8'
   }, function (err) {
     if (err) throw err
-  })
-}
-
-function gzip (path, data) {
-  zlib.gzip(data, function (err, data) {
-    if (err) throw err
-    writeFile(path, data)
   })
 }
