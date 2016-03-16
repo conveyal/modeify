@@ -7,7 +7,7 @@ var northEast = [-121.192932128906, 38.182068998322];
 
 /**********tismart **********************/
 var dev_amigo_token = "R:3jqO9zmsFuFpdn0BosPJbXpjf82PISOJXqMbwN";
-console.log("imprimir key token actual 2");
+console.log("imprimir key token actual");
 console.log(config.realtime_access_token());
 
 /**
