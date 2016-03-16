@@ -107,6 +107,7 @@ function suggest(text, callback) {
             }
 
             console.log('======data enviada===============');
+            console.log(nominatimSuggestions.slice(0,2).concat(bingSuggestions.slice(0,3)));
             callback(
 		null,
 		nominatimSuggestions.slice(0,2).concat(bingSuggestions.slice(0,3))
@@ -116,12 +117,4 @@ function suggest(text, callback) {
   });
 
 }
-
-var request = require('request');
-request('https://www.amigocloud.com/api/v1/me/geocoder/autocomplete?text=palo&token=R:3jqO9zmsFuFpdn0BosPJbXpjf82PISOJXqMbwN', function (error, response, body) {
-  if (!error && response.statusCode == 200) {
-    console.log("body", body);
-    console.log("response",response);
-    console.log("error", error)
-  }
 });
