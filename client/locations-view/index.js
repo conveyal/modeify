@@ -260,6 +260,7 @@ View.prototype.suggest = function(e) {
   var suggestionList = inputGroup.getElementsByTagName('ul')[0];
   var view = this;
   var suggestionsData = [];
+
   var resultsCallbackAmigo = function(err, suggestions) {
     if (err) {
       log.error('%e', err);
@@ -366,7 +367,7 @@ View.prototype.suggest = function(e) {
     clearTimeout(suggestionTimeout);
   }
   suggestionTimeout = setTimeout(function () {
-    geocode.suggest(text, resultsCallback);
+    geocode.suggest(text, resultsCallbackAmigo);
   }, 400);
 };
 
