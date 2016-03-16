@@ -53,13 +53,21 @@ function reverse(ll, callback) {
 function suggest(text, callback) {
   var bingSuggestions, nominatimSuggestions, totalSuggestions;
   log('--> getting suggestion for %s', text);
-  get('/geocode/suggest/' + text, function(err, res) {
+
+
+  get('https://www.amigocloud.com/api/v1/me/geocoder/autocomplete?text=' + text, function(err, res) {
     if (err) {
       log('<-- suggestion error %s', err);
       callback(err, res);
     } else {
       log('<-- got %s suggestions', res.body.length);
 	bingSuggestions = res.body;
+
+    console.log("------------AMIGO CLOUD RES---------------");
+    console.log("res ->", res.body);
+    console.log("res.body ->", res);
+
+
 //      callback(null, res.body);
 	get('http://nominatim.openstreetmap.org/search' +
 	    '?format=json&addressdetails=1&' +
