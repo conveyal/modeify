@@ -29,13 +29,13 @@ html
       if (!document.body.classList) {
         window.alert('Please use a modern browser or this website will not run correctly.\\n Modern browsers include Google Chrome, Mozilla Firefox, and Microsoft Internet Explorer (version 10 or better).');
       }
-    script(src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js')
+    script(src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js', defer)
     if user
-      script.
+      script(type='text/javascript').
         window.USER=!{user}
     if minified
-      script(src='#{static_url}/build/messages/en.min.js?v=#{version}')
-      script(src='#{static_url}/build/planner-app/build.min.js?v=#{version}')
+      script(src='#{static_url}/build/messages/en.min.js?v=#{version}', defer)
+      script(src='#{static_url}/build/planner-app/build.min.js?v=#{version}', defer)
     else
-      script(src='#{static_url}/build/messages/en.js?v=#{version}')
-      script(src='#{static_url}/build/planner-app/build.js?v=#{version}')
+      script(src='#{static_url}/build/messages/en.js?v=#{version}', defer)
+      script(src='#{static_url}/build/planner-app/build.js?v=#{version}', defer)
