@@ -118,6 +118,3 @@ function suggest(text, callback) {
 
 }
 
-
-var test = require('../../components/request_modeify');
-console.log("test", test);
