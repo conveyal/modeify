@@ -107,6 +107,7 @@ function suggest(text, callback) {
             }
 
             console.log('======data enviada===============');
+            console.log(nominatimSuggestions.slice(0,2).concat(bingSuggestions.slice(0,3)));
             callback(
 		null,
 		nominatimSuggestions.slice(0,2).concat(bingSuggestions.slice(0,3))
