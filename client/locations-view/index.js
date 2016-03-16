@@ -259,6 +259,60 @@ View.prototype.suggest = function(e) {
   var inputGroup = input.parentNode;
   var suggestionList = inputGroup.getElementsByTagName('ul')[0];
   var view = this;
+  var suggestionsData = [];
+  var resultsCallbackAmigo = function(err, suggestions) {
+    if (err) {
+      log.error('%e', err);
+    } else {
+        if (suggestions && suggestions.length > 0) {
+            for (var i = 0; i < suggestions.length; i++) {
+
+                if (item_suggestions.country_a == "USA" && item_suggestions.region_a == "CA")  {
+
+                    item_suggestions = suggestions[i].properties;
+                    item_geometry = suggestions[i].geometry;
+
+                    suggestion_obj = {
+                        "index" : i,
+                        "text" : item_suggestions.label,
+                        "lat" : item_geometry.coordinates[0],
+                        "lon" : item_geometry.coordinates[1],
+                        "magicKey": ""
+                    };
+                    suggestionsData.push(suggestion_obj);
+                }
+
+            }
+
+            suggestionsData = suggestionsData.slice(0, 5);
+            suggestionList.innerHTML = suggestionsTemplate.render({
+                suggestions: suggestionsData
+            });
+            /*******************/
+                each(view.findAll('.suggestion'), function(li) {
+                    li.addressData = suggestions[li.dataset.index];
+
+                      li.onmouseover = function(e) {
+                        li.classList.add('highlight');
+                      };
+
+                      li.onmouseout = function(e) {
+                        li.classList.remove('highlight');
+                      };
+                });
+
+                suggestionList.classList.remove('empty');
+                inputGroup.classList.add('suggestions-open');
+            /*******************/
+        }
+
+        else {
+            suggestionList.classList.add('empty');
+            inputGroup.classList.remove('suggestions-open');
+        }
+    }
+  }
+
   var resultsCallback = function(err, suggestions) {
     if (err) {
       log.error('%e', err);
