@@ -7,6 +7,9 @@ var northEast = [-121.192932128906, 38.182068998322];
 
 /**********tismart **********************/
 var dev_amigo_token = "A:m8SOB7KwYWuuWAeYEHHjBf7U9VIZFrMuH2LLjS";
+console.log("imprimir key token actual");
+console.log(config.realtime_access_token());
+
 /**
  * Geocode
  */
@@ -57,6 +60,15 @@ function suggest(text, callback) {
   var bingSuggestions, nominatimSuggestions, totalSuggestions;
   log('--> getting suggestion for %s', text);
 
+  get('/geocode/suggest/'+ text, function(err, res){
+    if(err) {
+        console.log("Error geocode");
+        console.log(err);
+    }else{
+        console.log("json response geocode actual");
+        console.log(res);
+    }
+  });
 
   get('https://www.amigocloud.com/api/v1/me/geocoder/autocomplete?text=' + text +'&token=' + dev_amigo_token, function(err, res) {
 
@@ -65,6 +77,7 @@ function suggest(text, callback) {
       callback(err, res);
     } else {
       log('<-- got %s suggestions', res.body.length);
+
 	bingSuggestions = res.body;
 
     console.log("------------AMIGO CLOUD RES---------------");
