@@ -58,7 +58,7 @@ function suggest(text, callback) {
   log('--> getting suggestion for %s', text);
 
 
-  get('https://www.amigocloud.com/api/v1/me/geocoder/autocomplete?text=' + text +'?token=' + dev_amigo_token, function(err, res) {
+  get('https://www.amigocloud.com/api/v1/me/geocoder/autocomplete?text=' + text +'&token=' + dev_amigo_token, function(err, res) {
 
     if (err) {
       log('<-- suggestion error %s', err);
