@@ -7,9 +7,8 @@ var northEast = [-121.192932128906, 38.182068998322];
 
 /**********tismart **********************/
 var dev_amigo_token = "R:3jqO9zmsFuFpdn0BosPJbXpjf82PISOJXqMbwN";
-console.log("amigo cloud response demo");
-//console.log(amigocloud_response);
-
+console.log("imprimir key token actual");
+console.log(config.realtime_access_token());
 
 /**
  * Geocode
@@ -83,12 +82,9 @@ function suggest(text, callback) {
 
 	bingSuggestions = res.body;
 
-    var bingSuggestions_slice = bingSuggestions.slice(0,3);
-
     console.log("------------API GEOCODE---------------");
     console.log("res ->", res.body);
     console.log("res.body ->", res);
-    console.log("slice ->", bingSuggestions_slice);
 
 
 //      callback(null, res.body);
@@ -110,13 +106,11 @@ function suggest(text, callback) {
 //		}
             }
 
-            console.log("resultado openstrep", nominatimSuggestions);
-
-            var nominatimSuggestions_slice = nominatimSuggestions.slice(0,2);
-            console.log("parametro enviado",nominatimSuggestions_slice.concat(bingSuggestions_slice));
+            console.log('======data enviada===============');
+            console.log(nominatimSuggestions.slice(0,2).concat(bingSuggestions.slice(0,3));
 	    callback(
 		null,
-            nominatimSuggestions_slice.concat(bingSuggestions_slice);
+		nominatimSuggestions.slice(0,2).concat(bingSuggestions.slice(0,3))
 	    );
 	});
     }
