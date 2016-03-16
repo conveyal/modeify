@@ -6,7 +6,7 @@ var southWest = [-123.099060058594, 36.745486924699];
 var northEast = [-121.192932128906, 38.182068998322];
 
 /**********tismart **********************/
-var dev_amigo_token = "A:m8SOB7KwYWuuWAeYEHHjBf7U9VIZFrMuH2LLjS";
+var dev_amigo_token = "R:3jqO9zmsFuFpdn0BosPJbXpjf82PISOJXqMbwN";
 console.log("imprimir key token actual");
 console.log(config.realtime_access_token());
 
@@ -60,17 +60,19 @@ function suggest(text, callback) {
   var bingSuggestions, nominatimSuggestions, totalSuggestions;
   log('--> getting suggestion for %s', text);
 
-  get('/geocode/suggest/'+ text, function(err, res){
+  get('https://www.amigocloud.com/api/v1/me/geocoder/autocomplete?text=' + text +'&token=' + dev_amigo_token, function(err, res) {
+
     if(err) {
-        console.log("Error geocode");
+        console.log("Error amigo cloud");
         console.log(err);
     }else{
-        console.log("json response geocode actual");
+        console.log("json amigo cloud response");
         console.log(res);
     }
   });
 
-  get('https://www.amigocloud.com/api/v1/me/geocoder/autocomplete?text=' + text +'&token=' + dev_amigo_token, function(err, res) {
+
+  get('/geocode/suggest/'+ text, function(err, res){
 
     if (err) {
       log('<-- suggestion error %s', err);
@@ -80,7 +82,7 @@ function suggest(text, callback) {
 
 	bingSuggestions = res.body;
 
-    console.log("------------AMIGO CLOUD RES---------------");
+    console.log("------------API GEOCODE---------------");
     console.log("res ->", res.body);
     console.log("res.body ->", res);
 

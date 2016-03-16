@@ -67,6 +67,7 @@ module.exports = function(ctx, next) {
     }
 
     // Show the map
+
     var map = showMapView(ctx.view.find('.MapView'));
 
     // Create the transitive layer
