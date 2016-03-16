@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var build = require('component-builder')
-var exec = require('child_process').exec
+var exec = require('child_process').execSync
 var resolve = require('component-resolver')
 var fs = require('fs')
 var htmlMinifier = require('html-minifier').minify
@@ -48,18 +48,15 @@ generateMessageFiles(deploymentDir + '/messages', rootDir + '/assets/build/messa
 
 // apps
 var apps = ['manager-app', 'planner-app']
+var stdout = exec('git describe --always --tag')
 
-exec('git describe --always --tag', function (err, stdout) {
-  if (err) throw err
+// Set the version by commit tag and hash
 
-  // Set the version by commit tag and hash
+config.version = stdout.toString().split('\n').join('')
 
-  config.version = stdout.toString().split('\n').join('')
+// Build apps
 
-  // Build apps
-
-  apps.forEach(bundle)
-})
+apps.forEach(bundle)
 
 // HTML Minifier Options
 
