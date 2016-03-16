@@ -268,9 +268,11 @@ View.prototype.suggest = function(e) {
         if (suggestions && suggestions.length > 0) {
             for (var i = 0; i < suggestions.length; i++) {
 
+                item_suggestions = suggestions[i].properties;
+
                 if (item_suggestions.country_a == "USA" && item_suggestions.region_a == "CA")  {
 
-                    item_suggestions = suggestions[i].properties;
+
                     item_geometry = suggestions[i].geometry;
 
                     suggestion_obj = {
