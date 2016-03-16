@@ -264,6 +264,9 @@ View.prototype.suggest = function(e) {
       log.error('%e', err);
     } else {
       if (suggestions && suggestions.length > 0) {
+          console.log("-----autocompletado de datos---");
+          console.log(suggestions);
+
           for (var i = 0; i < suggestions.length; i++) {
               if (!suggestions[i].text) {
                  if(suggestions[i].address) {
