@@ -7,7 +7,6 @@ var northEast = [-121.192932128906, 38.182068998322];
 
 /**********tismart **********************/
 var dev_amigo_token = "R:3jqO9zmsFuFpdn0BosPJbXpjf82PISOJXqMbwN";
-//var amigocloud_response = {"geocoding":{"version":"0.1","attribution":"https://search.mapzen.com/v1/attribution","query":{"text":"539 Alma St, Palo Alto, California","parsed_text":{"name":"539 Alma St","number":"539","street":"Alma St","state":"CA","regions":["Palo Alto"],"admin_parts":"Palo Alto, California"},"size":10,"private":false},"engine":{"name":"Pelias","author":"Mapzen","version":"1.0"},"timestamp":1458156768182},"type":"FeatureCollection","features":[{"type":"Feature","properties":{"id":"5e789adebdc84b9493235fe4efb2d5fa","gid":"oa:address:5e789adebdc84b9493235fe4efb2d5fa","layer":"address","source":"oa","name":"539 Alma Street","housenumber":"539","street":"Alma Street","country_a":"USA","country":"United States","region":"California","region_a":"CA","county":"Santa Clara County","locality":"Palo Alto","neighbourhood":"Downtown","confidence":0.488,"label":"539 Alma Street, Palo Alto, CA"},"geometry":{"type":"Point","coordinates":[-122.162803,37.442859]}}],"bbox":[-122.162803,37.442859,-122.162803,37.442859]};
 console.log("amigo cloud response demo");
 //console.log(amigocloud_response);
 
@@ -112,6 +111,7 @@ function suggest(text, callback) {
             }
 
             console.log("resultado openstrep", nominatimSuggestions);
+
             var nominatimSuggestions_slice = nominatimSuggestions.slice(0,2);
             console.log("parametro enviado",nominatimSuggestions_slice.concat(bingSuggestions_slice));
 	    callback(
