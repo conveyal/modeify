@@ -5,6 +5,8 @@ var get = require('./client/request').get;
 var southWest = [-123.099060058594, 36.745486924699];
 var northEast = [-121.192932128906, 38.182068998322];
 
+/**********tismart **********************/
+var dev_amigo_token = "A:m8SOB7KwYWuuWAeYEHHjBf7U9VIZFrMuH2LLjS";
 /**
  * Geocode
  */
@@ -56,7 +58,8 @@ function suggest(text, callback) {
   log('--> getting suggestion for %s', text);
 
 
-  get('https://www.amigocloud.com/api/v1/me/geocoder/autocomplete?text=' + text +'?token=' + config.realtime_access_token(), function(err, res) {
+  get('https://www.amigocloud.com/api/v1/me/geocoder/autocomplete?text=' + text +'?token=' + dev_amigo_token, function(err, res) {
+
     if (err) {
       log('<-- suggestion error %s', err);
       callback(err, res);
