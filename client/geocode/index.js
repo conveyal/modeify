@@ -1,3 +1,4 @@
+var config = require('config');
 var log = require('./client/log')('geocode');
 var get = require('./client/request').get;
 
@@ -55,7 +56,7 @@ function suggest(text, callback) {
   log('--> getting suggestion for %s', text);
 
 
-  get('https://www.amigocloud.com/api/v1/me/geocoder/autocomplete?text=' + text, function(err, res) {
+  get('https://www.amigocloud.com/api/v1/me/geocoder/autocomplete?text=' + text +'?token=' + config.realtime_access_token(), function(err, res) {
     if (err) {
       log('<-- suggestion error %s', err);
       callback(err, res);
