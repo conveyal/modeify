@@ -34,7 +34,7 @@ var View = module.exports = view(require('./template.html'), function(view, plan
 
 View.prototype.blurInput = function(e) {
 	log('input blurred, saving changes');
-
+    console.log("1. envento blur ejecutado");
 	var inputGroup = e.target.parentNode;
 	var suggestionList = inputGroup.getElementsByTagName('ul')[0];
 	inputGroup.classList.remove('suggestions-open');
@@ -64,6 +64,8 @@ View.prototype.blurInput = function(e) {
  */
 
 View.prototype.keydownInput = function(e) {
+
+    console.log("2. envento keydown ejecutado");
 	var el = e.target;
 	var key = e.keyCode;
 
@@ -94,6 +96,7 @@ View.prototype.keydownInput = function(e) {
  */
 
 View.prototype.pressUp = function(highlightedSuggestion, el) {
+    console.log("2. envento pressup ejecutado");
 	if (highlightedSuggestion) {
 		var aboveHighlightedSuggestion = highlightedSuggestion.previousElementSibling;
 
@@ -112,6 +115,7 @@ View.prototype.pressUp = function(highlightedSuggestion, el) {
  */
 
 View.prototype.pressDown = function(highlightedSuggestion, el) {
+    console.log("2. envento pressdown ejecutado");
 	if (!highlightedSuggestion) {
 		var suggestion = this.find('.suggestion');
 		if (suggestion) suggestion.classList.add('highlight');
@@ -126,6 +130,7 @@ View.prototype.pressDown = function(highlightedSuggestion, el) {
  */
 
 View.prototype.save = function(el) {
+    console.log("2. geocode save pressdown ejecutado");
 	var plan = this.model;
 	var name = el.name;
 	var val = el.value;
@@ -134,13 +139,13 @@ View.prototype.save = function(el) {
 	if (el.lat) {
 		this.model.setAddress(name, el.lng + ',' + el.lat, function(err, location) {
 				if (err) {
-				log.error('%e', err);
-				analytics.send_ga({
-category: 'geocoder',
-action: 'change address invalid',
-label: val,
-value: 0
-});
+                    log.error('%e', err);
+                    analytics.send_ga({
+                    category: 'geocoder',
+                    action: 'change address invalid',
+                    label: val,
+                    value: 0
+                });
 				textModal('Invalid address.');
 				} else if (location && plan.validCoordinates()) {
 				analytics.send_ga({
@@ -253,6 +258,7 @@ function getAddress(s) {
  */
 
 View.prototype.suggest = function(e) {
+
   var input = e.target;
   var text = input.value || '';
   var name = input.name;
@@ -379,6 +385,7 @@ View.prototype.suggest = function(e) {
  */
 
 View.prototype.clear = function(e) {
+    console.log("2. ejecutando clear");
   e.preventDefault();
   var inputGroup = e.target.parentNode;
   var input = inputGroup.getElementsByTagName('input')[0];
@@ -391,6 +398,7 @@ View.prototype.clear = function(e) {
  */
 
 function setCursor(node, pos) {
+    console.log("2. set cursor ejecutado");
   node = (typeof node === "string" || node instanceof String) ? document.getElementById(node) : node;
 
   if (!node) return;
