@@ -382,6 +382,7 @@ Plan.prototype.clearStore = store.clear;
  */
 
 Plan.prototype.saveURL = function() {
+    console.log("Query planer change ciudad -> ", this.generateQueryString());
   window.history.replaceState(null, '', '/planner?' + this.generateQueryString());
 };
 
