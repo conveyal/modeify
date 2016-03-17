@@ -290,9 +290,8 @@ function getAddress(s) {
  * Suggest
  */
 
-//View.prototype.suggest = function(e) {
+View.prototype.suggest = function(e) {
 
-View.prototype.suggestAmigo = function(e) {
   var input = e.target;
   var text = input.value || '';
   var name = input.name;
