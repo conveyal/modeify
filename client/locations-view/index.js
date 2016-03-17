@@ -38,12 +38,16 @@ View.prototype.blurInput = function(e) {
 	log('input blurred, saving changes');
     console.log("2. envento blurInput ejecutado");
 	var inputGroup = e.target.parentNode;
+
+    console.log("INPUT", inputGroup);
 	var suggestionList = inputGroup.getElementsByTagName('ul')[0];
 	inputGroup.classList.remove('suggestions-open');
 
 	var highlight = this.find('.suggestion.highlight');
 	if (highlight) {
 		e.target.value = highlight.textContent || '';
+        console.log("e.target.value", e.target.value);
+        console.log("highlight.dataset.lat", highlight.dataset.lat);
 		if (highlight.dataset.lat) {
 			e.target.lat = highlight.dataset.lat;
 			e.target.lng = highlight.dataset.lng;

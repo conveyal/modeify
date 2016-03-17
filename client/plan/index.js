@@ -215,6 +215,7 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
       changes[name + '_id'] = res.body._id;
       changes[name + '_valid'] = true;
 
+      console.log("CHANGES PLAN SET", changes);
       plan.set(changes);
       callback(null, res.body);
     }
