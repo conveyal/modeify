@@ -58,7 +58,8 @@ View.prototype.blurInput = function(e) {
 
 	inputGroup.classList.remove('highlight');
 
-    console.log("e.target ->" e.target);
+    console.log("e.target ->", e.target);
+
 	this.save(e.target);
 };
 
