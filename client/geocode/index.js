@@ -18,6 +18,7 @@ console.log(response_autocomplete_amigo);
 module.exports = geocode;
 module.exports.reverse = reverse;
 module.exports.suggest = suggest;
+module.exports.suggestAmigo = suggestAmigo;
 
 /**
  * Geocode
