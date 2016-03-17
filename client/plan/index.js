@@ -200,12 +200,12 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
   console.log("location.address", location.address(address));
 
   location.save(function(err, res) {
-    console.log("res", res)
+    console.log("res", res);
     if (err) {
 	if (isCoordinate) {
         console.log("properties", extra.properties);
 	    var changes = {};
-	    changes[name] = extra.properties.label;
+	    changes[name] = extra.display_name;
 	    changes[name + '_ll'] = location.coordinate();
 	    changes[name + '_valid'] = true;
 
@@ -218,8 +218,7 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
       console.log("properties2", extra.properties);
       var changes = {};
       if (isCoordinate)
-        //changes[name] = extra.properties.label;
-        changes[name] = 'jonathan';
+        changes[name] = res.body.address + ', ' + res.body.city + ', ' + res.body.state;
       else
         changes[name] = address;
 
