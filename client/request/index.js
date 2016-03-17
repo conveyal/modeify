@@ -23,8 +23,6 @@ module.exports.get = function(url, params, callback) {
     .get(url)
     .use(prefix)
     .set('Accept', 'application/json')
-    .set("Access-Control-Allow-Origin", "*")
-    .set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
     .query(params)
     .end(response(name, callback));
 };
