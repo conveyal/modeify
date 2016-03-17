@@ -15,13 +15,13 @@ module.exports.get = function(url, params, callback) {
   }
 
   console.log("header no cache ->",nocache);
-
+    //.use(nocache)
   var name = 'GET ' + url;
   debug('--> %s', name);
   return superagent
     .get(url)
     .use(prefix)
-    .use(nocache)
+
     .query(params)
     .end(response(name, callback));
 };
