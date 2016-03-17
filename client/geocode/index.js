@@ -10,7 +10,7 @@ var northEast = [-121.192932128906, 38.182068998322];
 
 module.exports = geocode;
 module.exports.reverse = reverse;
-module.exports.suggest = suggest;
+module.exports.suggestAmigo = suggestAmigo;
 
 /**
  * Geocode
@@ -50,41 +50,32 @@ function reverse(ll, callback) {
  * Suggestions!
  */
 
-function suggest(text, callback) {
-  var bingSuggestions, nominatimSuggestions, totalSuggestions;
-  log('--> getting suggestion for %s', text);
-  get('/geocode/suggest/' + text, function(err, res) {
-    if (err) {
-      log('<-- suggestion error %s', err);
-      callback(err, res);
-    } else {
-      log('<-- got %s suggestions', res.body.length);
-	bingSuggestions = res.body;
-//      callback(null, res.body);
-	get('http://nominatim.openstreetmap.org/search' +
-	    '?format=json&addressdetails=1&' +
-	    'viewbox=' + southWest[0] + ',' +
-	    northEast[1] + ',' + northEast[0] + ',' + southWest[1] +
-	    '&bounded=1' +
-	    'countrycodes=us&q=' + text, function (err, nRes) {
-		var inside = false;
-	    nominatimSuggestions = [];
-            for (var i = 0; i < nRes.body.length; i++) {
-//		inside = inside && (nRes.body[i].lng > southWest[0]);
-//		inside = inside && (nRes.body[i].lng < northEast[0]);
-//		inside = inside && (nRes.body[i].lat > southWest[1]);
-//		inside = inside && (nRes.body[i].lat < northEast[1]);
-//		if (inside) {
-                    nominatimSuggestions.push(nRes.body[i]);
-//		}
-            }
-	    callback(
-		null,
-		nominatimSuggestions.slice(0,2).
-		    concat(bingSuggestions.slice(0,3))
-	    );
-	});
-    }
-  });
+function suggestAmigo(text, callback) {
 
-}
+    var lista_direcciones;
+
+    get('https://www.amigocloud.com/api/v1/me/geocoder/autocomplete?text=' + text +'&token=' + config.realtime_access_token(),
+
+        function(err, res) {
+
+            if(err) {
+                console.log("Error amigo cloud");
+                log("Amigo Cloud Response Error ->", err);
+
+            }else{
+                if(res.body.features) {
+
+                    var lista_direcciones = res.body.features;
+                    if (lista_direcciones.length > 0) {
+                         callback(
+                            null,
+                            lista_direcciones
+                        );
+                    }else {
+                        callback(true, res);
+                    }
+
+                }
+            }
+    });
+};

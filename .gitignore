@@ -15,6 +15,7 @@ lib-cov
 *.mk
 *.obj
 *.ai
+.idea
 
 .DS_Store
 .env

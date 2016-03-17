@@ -19,7 +19,7 @@ module.exports.get = function(url, params, callback) {
   return superagent
     .get(url)
     .use(prefix)
-    .use(nocache)
+    .set('Accept', 'application/json')
     .query(params)
     .end(response(name, callback));
 };

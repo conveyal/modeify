@@ -259,47 +259,64 @@ View.prototype.suggest = function(e) {
   var inputGroup = input.parentNode;
   var suggestionList = inputGroup.getElementsByTagName('ul')[0];
   var view = this;
-  var resultsCallback = function(err, suggestions) {
+
+  var resultsCallbackAmigo = function(err, suggestions) {
+
     if (err) {
       log.error('%e', err);
     } else {
-      if (suggestions && suggestions.length > 0) {
-          for (var i = 0; i < suggestions.length; i++) {
-              if (!suggestions[i].text) {
-                 if(suggestions[i].address) {
-	           suggestions[i].text = getAddress(suggestions[i].address);
-                 } else {
-                   suggestions[i].text = suggestions[i].display_name;
-                 }
-              }
-	      suggestions[i].index = i;
-	  }
-        suggestions = suggestions.slice(0, 5);
+        if (suggestions && suggestions.length > 0) {
+            for (var i = 0; i < suggestions.length; i++) {
 
-        suggestionList.innerHTML = suggestionsTemplate.render({
-          suggestions: suggestions
-        });
+                item_suggestions = suggestions[i].properties;
 
-        each(view.findAll('.suggestion'), function(li) {
-	    li.addressData = suggestions[li.dataset.index];
+                if (item_suggestions.country_a == "USA" && item_suggestions.region_a == "CA")  {
 
-          li.onmouseover = function(e) {
-            li.classList.add('highlight');
-          };
 
-          li.onmouseout = function(e) {
-            li.classList.remove('highlight');
-          };
-        });
+                    item_geometry = suggestions[i].geometry;
 
-        suggestionList.classList.remove('empty');
-        inputGroup.classList.add('suggestions-open');
-      } else {
-        suggestionList.classList.add('empty');
-        inputGroup.classList.remove('suggestions-open');
-      }
+                    suggestion_obj = {
+                        "index" : i,
+                        "text" : item_suggestions.label,
+                        "lat" : item_geometry.coordinates[1],
+                        "lon" : item_geometry.coordinates[0],
+                        "magicKey": ""
+                    };
+                    suggestionsData.push(suggestion_obj);
+                }
+
+            }
+
+            suggestionsData = suggestionsData.slice(0, 5);
+            suggestionList.innerHTML = suggestionsTemplate.render({
+                suggestions: suggestionsData
+            });
+
+                each(view.findAll('.suggestion'), function(li) {
+                    li.addressData = suggestions[li.dataset.index];
+
+                      li.onmouseover = function(e) {
+                        li.classList.add('highlight');
+                      };
+
+                      li.onmouseout = function(e) {
+                        li.classList.remove('highlight');
+                      };
+                });
+
+                suggestionList.classList.remove('empty');
+                inputGroup.classList.add('suggestions-open');
+
+        }
+
+        else {
+            suggestionList.classList.add('empty');
+            inputGroup.classList.remove('suggestions-open');
+        }
     }
   };
+
+
 
   // If the text is too short or does not contain a space yet, return
   if (text.length < 3) return;
@@ -309,7 +326,7 @@ View.prototype.suggest = function(e) {
     clearTimeout(suggestionTimeout);
   }
   suggestionTimeout = setTimeout(function () {
-    geocode.suggest(text, resultsCallback);
+    geocode.suggestAmigo(text, resultsCallbackAmigo);
   }, 400);
 };
 
