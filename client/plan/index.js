@@ -203,8 +203,9 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
   
     if (err) {
 	if (isCoordinate) {
+        console.log("properties", extra.properties);
 	    var changes = {};
-	    changes[name] = extra.label;
+	    changes[name] = extra.properties.label;
 	    changes[name + '_ll'] = location.coordinate();
 	    changes[name + '_valid'] = true;
 
