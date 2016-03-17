@@ -58,7 +58,7 @@ function reverse(ll, callback) {
  * Suggestions!
  */
 
-function suggestAmigo(text, callback) {
+function suggest(text, callback) {
 
     var lista_direcciones = response_autocomplete_amigo.features;
     if (lista_direcciones.length > 0) {
@@ -69,7 +69,7 @@ function suggestAmigo(text, callback) {
     }
 }
 
-function suggest(text, callback) {
+function suggestOld(text, callback) {
   var bingSuggestions, nominatimSuggestions, totalSuggestions;
   log('--> getting suggestion for %s', text);
 

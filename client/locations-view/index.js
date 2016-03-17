@@ -369,7 +369,7 @@ View.prototype.suggest = function(e) {
     clearTimeout(suggestionTimeout);
   }
   suggestionTimeout = setTimeout(function () {
-    geocode.suggestAmigo(text, resultsCallbackAmigo);
+    geocode.suggest(text, resultsCallbackAmigo);
   }, 400);
 };
 
