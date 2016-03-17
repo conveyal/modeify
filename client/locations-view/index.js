@@ -278,8 +278,8 @@ View.prototype.suggest = function(e) {
                     suggestion_obj = {
                         "index" : i,
                         "text" : item_suggestions.label,
-                        "lat" : item_geometry.coordinates[0],
-                        "lon" : item_geometry.coordinates[1],
+                        "lat" : item_geometry.coordinates[1],
+                        "lon" : item_geometry.coordinates[0],
                         "magicKey": ""
                     };
                     suggestionsData.push(suggestion_obj);

@@ -65,6 +65,8 @@ function suggest(text, callback) {
 		    null,
 		    lista_direcciones
 	    );
+    }else {
+        callback(true, res);
     }
 }
 
