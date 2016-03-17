@@ -196,6 +196,9 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
   } else {
     location.address(address);
   }
+  console.log("location.coordenadas",  location.coordinate({lat: parseFloat(c[1]),lng: parseFloat(c[0]) }));
+  console.log("location.address", location.address(address));
+
   location.save(function(err, res) {
   
     if (err) {
