@@ -131,7 +131,9 @@ View.prototype.pressDown = function(highlightedSuggestion, el) {
  */
 
 View.prototype.save = function(el) {
+
     console.log("6. metodo Geocode && Save ejecutado");
+
 	var plan = this.model;
 	var name = el.name;
 	var val = el.value;
@@ -142,44 +144,47 @@ View.prototype.save = function(el) {
 				if (err) {
                     log.error('%e', err);
                     analytics.send_ga({
+                        category: 'geocoder',
+                        action: 'change address invalid',
+                        label: val,
+                        value: 0
+                    });
+				    textModal('Invalid address.');
+				} else if (location && plan.validCoordinates()) {
+                    analytics.send_ga({
+                        category: 'geocoder',
+                        action: 'change address success',
+                        label: val,
+                        value: 0
+                    });
+
+				    plan.updateRoutes();
+				}
+		}, el.address);
+    } else {
+
+	    this.model.setAddress(name, val, function(err, location) {
+
+			if (err) {
+                log.error('%e', err);
+                analytics.send_ga({
                     category: 'geocoder',
                     action: 'change address invalid',
                     label: val,
                     value: 0
                 });
-				textModal('Invalid address.');
-				} else if (location && plan.validCoordinates()) {
-				analytics.send_ga({
-category: 'geocoder',
-action: 'change address success',
-label: val,
-value: 0
-});
-				plan.updateRoutes();
-				}
-				}, el.address);
-} else {
-	this.model.setAddress(name, val, function(err, location) {
-			if (err) {
-			log.error('%e', err);
-			analytics.send_ga({
-category: 'geocoder',
-action: 'change address invalid',
-label: val,
-value: 0
-});
-			textModal('Invalid address.');
+                textModal('Invalid address.');
 			} else if (location && plan.validCoordinates()) {
-			analytics.send_ga({
-category: 'geocoder',
-action: 'change address success',
-label: val,
-value: 0
-});
-			plan.updateRoutes();
+                analytics.send_ga({
+                    category: 'geocoder',
+                    action: 'change address success',
+                    label: val,
+                    value: 0
+                });
+                plan.updateRoutes();
 			}
-			});
-}
+		});
+    }
 };
 
 /**
