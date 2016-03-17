@@ -14,9 +14,7 @@ module.exports.get = function(url, params, callback) {
     params = null;
   }
 
-  console.log("header no cache ->",nocache);
-  console.log("header prefix ->", prefix);
-    //.use(nocache)
+    //.use(nocache) old implemented
   var name = 'GET ' + url;
   debug('--> %s', name);
   return superagent

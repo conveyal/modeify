@@ -13,6 +13,7 @@ var analytics = require('analytics');
  */
 
 var View = module.exports = view(require('./template.html'), function(view, plan) {
+        console.log("view call template");
 		view.on('rendered', function() {
 			closest(view.el, 'form').onsubmit = function(e) {
 			e.preventDefault();
@@ -34,7 +35,7 @@ var View = module.exports = view(require('./template.html'), function(view, plan
 
 View.prototype.blurInput = function(e) {
 	log('input blurred, saving changes');
-    console.log("1. envento blur ejecutado");
+    console.log("2. envento blurInput ejecutado");
 	var inputGroup = e.target.parentNode;
 	var suggestionList = inputGroup.getElementsByTagName('ul')[0];
 	inputGroup.classList.remove('suggestions-open');
@@ -65,7 +66,7 @@ View.prototype.blurInput = function(e) {
 
 View.prototype.keydownInput = function(e) {
 
-    console.log("2. envento keydown ejecutado");
+    console.log("3. envento keydownInput ejecutado");
 	var el = e.target;
 	var key = e.keyCode;
 
@@ -96,7 +97,7 @@ View.prototype.keydownInput = function(e) {
  */
 
 View.prototype.pressUp = function(highlightedSuggestion, el) {
-    console.log("2. envento pressup ejecutado");
+    console.log("4. envento pressUp ejecutado");
 	if (highlightedSuggestion) {
 		var aboveHighlightedSuggestion = highlightedSuggestion.previousElementSibling;
 
@@ -115,7 +116,7 @@ View.prototype.pressUp = function(highlightedSuggestion, el) {
  */
 
 View.prototype.pressDown = function(highlightedSuggestion, el) {
-    console.log("2. envento pressdown ejecutado");
+    console.log("5. envento pressDown ejecutado");
 	if (!highlightedSuggestion) {
 		var suggestion = this.find('.suggestion');
 		if (suggestion) suggestion.classList.add('highlight');
@@ -130,7 +131,7 @@ View.prototype.pressDown = function(highlightedSuggestion, el) {
  */
 
 View.prototype.save = function(el) {
-    console.log("2. geocode save pressdown ejecutado");
+    console.log("6. metodo Geocode && Save ejecutado");
 	var plan = this.model;
 	var name = el.name;
 	var val = el.value;
@@ -186,6 +187,7 @@ value: 0
  */
 
 View.prototype.focusInput = function(e) {
+    console.log("6. evento focusInput ejecutado");
 	e.target.parentNode.classList.add('highlight');
 };
 
@@ -323,6 +325,7 @@ View.prototype.suggest = function(e) {
   }
 
   var resultsCallback = function(err, suggestions) {
+    console.log("7. funcion resultsCallback ejecutado");
     if (err) {
       log.error('%e', err);
     } else {
@@ -385,7 +388,7 @@ View.prototype.suggest = function(e) {
  */
 
 View.prototype.clear = function(e) {
-    console.log("2. ejecutando clear");
+    console.log("7. funcion clear ejecutado");
   e.preventDefault();
   var inputGroup = e.target.parentNode;
   var input = inputGroup.getElementsByTagName('input')[0];
@@ -398,7 +401,7 @@ View.prototype.clear = function(e) {
  */
 
 function setCursor(node, pos) {
-    console.log("2. set cursor ejecutado");
+    console.log("7. funcion setCursor ejecutado");
   node = (typeof node === "string" || node instanceof String) ? document.getElementById(node) : node;
 
   if (!node) return;
