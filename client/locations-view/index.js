@@ -20,9 +20,9 @@ var View = module.exports = view(require('./template.html'), function(view, plan
 
 			plan.setAddresses(view.find('.from input').value, view.find('.to input').value, function(err) {
 				if (err) {
-				log.error('%e', err);
+				    log.error('%e', err);
 				} else {
-				plan.updateRoutes();
+				    plan.updateRoutes();
 				}
 				});
 			};
@@ -270,6 +270,9 @@ View.prototype.suggest = function(e) {
   var suggestionsData = [];
 
   var resultsCallbackAmigo = function(err, suggestions) {
+
+    console.log("7. funcion resultsCallbackAmigo");
+
     if (err) {
       log.error('%e', err);
     } else {
@@ -330,9 +333,6 @@ View.prototype.suggest = function(e) {
       log.error('%e', err);
     } else {
       if (suggestions && suggestions.length > 0) {
-          console.log("-----autocompletado de datos---");
-
-          console.log(JSON.stringify(suggestions));
 
           for (var i = 0; i < suggestions.length; i++) {
               if (!suggestions[i].text) {
@@ -379,7 +379,7 @@ View.prototype.suggest = function(e) {
     clearTimeout(suggestionTimeout);
   }
   suggestionTimeout = setTimeout(function () {
-    geocode.suggest(text, resultsCallback);
+    geocode.suggestAmigo(text, resultsCallbackAmigo);
   }, 400);
 };
 
