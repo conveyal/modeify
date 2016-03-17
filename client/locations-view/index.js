@@ -259,6 +259,7 @@ View.prototype.suggest = function(e) {
   var inputGroup = input.parentNode;
   var suggestionList = inputGroup.getElementsByTagName('ul')[0];
   var view = this;
+  var suggestionsData = [];
 
   var resultsCallbackAmigo = function(err, suggestions) {
 
