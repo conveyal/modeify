@@ -322,6 +322,7 @@ View.prototype.suggest = function(e) {
     } else {
       if (suggestions && suggestions.length > 0) {
           console.log("-----autocompletado de datos---");
+
           console.log(suggestions);
 
           for (var i = 0; i < suggestions.length; i++) {
@@ -369,7 +370,7 @@ View.prototype.suggest = function(e) {
     clearTimeout(suggestionTimeout);
   }
   suggestionTimeout = setTimeout(function () {
-    geocode.suggest(text, resultsCallbackAmigo);
+    geocode.suggest(text, resultsCallback);
   }, 400);
 };
 
