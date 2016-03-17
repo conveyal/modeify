@@ -14,6 +14,8 @@ module.exports.get = function(url, params, callback) {
     params = null;
   }
 
+  console.log("header no cache ->",nocache);
+
   var name = 'GET ' + url;
   debug('--> %s', name);
   return superagent
