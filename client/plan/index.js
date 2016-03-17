@@ -174,6 +174,12 @@ Plan.prototype.validCoordinates = function() {
  */
 
 Plan.prototype.setAddress = function(name, address, callback, extra) {
+
+  console.log("name", name);
+  console.log("address", address);
+  console.log("callback", callback);
+  console.log("extra", extra);
+
   callback = callback || function() {}; // noop callback
   var location = new Location();
   var plan = this;
