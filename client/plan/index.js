@@ -200,7 +200,8 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
   console.log("location.address", location.address(address));
 
   location.save(function(err, res) {
-    console.log("res", res);
+
+      console.log("res", res);
     if (err) {
 	if (isCoordinate) {
         console.log("properties", extra.properties);
@@ -436,6 +437,9 @@ Plan.prototype.generatePlaces = function() {
  */
 
 Plan.prototype.generateQueryString = function() {
+
+    console.log("set this to ->", to);
+
   return qs.stringify({
     from: this.from(),
     to: this.to(),
