@@ -16,13 +16,14 @@ var View = module.exports = view(require('./template.html'), function(view, plan
         console.log("view call template");
 		view.on('rendered', function() {
 			closest(view.el, 'form').onsubmit = function(e) {
+			console.log("siempre envia");
 			e.preventDefault();
 
 			plan.setAddresses(view.find('.from input').value, view.find('.to input').value, function(err) {
 				if (err) {
 				    log.error('%e', err);
 				} else {
-				    //plan.updateRoutes();
+				    plan.updateRoutes();
 				}
 				});
 			};
@@ -149,6 +150,7 @@ View.prototype.save = function(el) {
 
 	if (!val || plan[name]() === val) return;
 
+    /*
 	if (el.lat) {
 		this.model.setAddress(name, el.lng + ',' + el.lat, function(err, location) {
 				if (err) {
@@ -174,7 +176,7 @@ View.prototype.save = function(el) {
                         value: 0
                     });
 
-				    //plan.updateRoutes();
+				    plan.updateRoutes();
 
 				}else {
 				    console.log("no ejecuta nada");
@@ -202,10 +204,11 @@ View.prototype.save = function(el) {
                     label: val,
                     value: 0
                 });
-                //plan.updateRoutes();
+
+                plan.updateRoutes();
 			}
 		});
-    }
+    } */
 };
 
 /**
