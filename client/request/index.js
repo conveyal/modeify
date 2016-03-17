@@ -22,7 +22,7 @@ module.exports.get = function(url, params, callback) {
   return superagent
     .get(url)
     .use(prefix)
-    .user(nocache)
+    .use(nocache)
     .query(params)
     .end(response(name, callback));
 };
