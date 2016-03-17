@@ -57,6 +57,7 @@ View.prototype.blurInput = function(e) {
 			}, 250);
 
 	inputGroup.classList.remove('highlight');
+
 	this.save(e.target);
 };
 
@@ -133,6 +134,7 @@ View.prototype.pressDown = function(highlightedSuggestion, el) {
 View.prototype.save = function(el) {
 
     console.log("6. metodo Geocode && Save ejecutado");
+    console.log("this ->" , this);
 
 	var plan = this.model;
 	var name = el.name;
@@ -171,6 +173,7 @@ View.prototype.save = function(el) {
                     });
 
 				    plan.updateRoutes();
+
 				}else {
 				    console.log("no ejecuta nada");
 				}
