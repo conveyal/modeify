@@ -137,6 +137,12 @@ View.prototype.save = function(el) {
 	var plan = this.model;
 	var name = el.name;
 	var val = el.value;
+
+    console.log("save & geocode: el ->",el);
+	console.log("save & geocode: plan ->",plan);
+	console.log("save & geocode: name ->",name);
+	console.log("save & geocode: val ->",val);
+
 	if (!val || plan[name]() === val) return;
 
 	if (el.lat) {
