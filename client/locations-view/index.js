@@ -150,7 +150,7 @@ View.prototype.save = function(el) {
 
 	if (!val || plan[name]() === val) return;
 
-    /*
+
 	if (el.lat) {
 		this.model.setAddress(name, el.lng + ',' + el.lat, function(err, location) {
 				if (err) {
@@ -164,7 +164,9 @@ View.prototype.save = function(el) {
                         label: val,
                         value: 0
                     });
+
 				    textModal('Invalid address.');
+
 				} else if (location && plan.validCoordinates()) {
 
 				    console.log("Correcto validando cordenadas");
@@ -208,7 +210,7 @@ View.prototype.save = function(el) {
                 plan.updateRoutes();
 			}
 		});
-    } */
+    }
 };
 
 /**
