@@ -323,7 +323,7 @@ View.prototype.suggest = function(e) {
       if (suggestions && suggestions.length > 0) {
           console.log("-----autocompletado de datos---");
 
-          console.log(suggestions);
+          console.log(JSON.stringify(suggestions));
 
           for (var i = 0; i < suggestions.length; i++) {
               if (!suggestions[i].text) {
