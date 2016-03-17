@@ -1,5 +1,6 @@
 var log = require('./client/log')('geocode');
 var get = require('./client/request').get;
+var config = require('config');
 
 var southWest = [-123.099060058594, 36.745486924699];
 var northEast = [-121.192932128906, 38.182068998322];
