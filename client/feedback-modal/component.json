@@ -4,6 +4,7 @@
     "alert",
     "analytics",
     "log",
+    "messages",
     "modal",
     "request",
     "session"

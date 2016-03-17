@@ -1,6 +1,7 @@
 var Alert = require('alert')
 var analytics = require('analytics')
 var log = require('./client/log')('feedback-modal')
+var message = require('./client/messages')('feedback-modal')
 var modal = require('./client/modal')
 var request = require('./client/request')
 var session = require('session')
@@ -65,4 +66,12 @@ Modal.prototype.submit = function (e) {
       }
     })
   }
+}
+
+Modal.prototype.title = function () {
+  return message('title')
+}
+
+Modal.prototype.placeholder = function () {
+  return message('placeholder')
 }

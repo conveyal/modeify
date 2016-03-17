@@ -1,4 +1,5 @@
 var FeedbackModal = require('feedback-modal')
+var message = require('./client/messages')('options-view')
 var RouteCardView = require('route-card-view')
 var view = require('view')
 
@@ -52,4 +53,12 @@ View.prototype.optionsPlural = function () {
 View.prototype.feedback = function (e) {
   e.preventDefault()
   FeedbackModal().show()
+}
+
+View.prototype['feedback-text'] = function () {
+  return message('feedback-text')
+}
+
+View.prototype['feedback-link-text'] = function () {
+  return message('feedback-link-text')
 }

@@ -26,7 +26,7 @@ module.exports = function walkthrough () {
     showStepNumbers: false,
     skipLabel: 'Skip',
     steps: [{
-      intro: "Let's take a look at how to use " + config.application() + '!'
+      intro: "Let's take a look at how to use " + config.name() + '!'
     }, {
       element: document.querySelector('#locations-form'),
       intro: "Here you can change your start and end locations, the day and time you typically travel, and the travel modes you'd like to see.",

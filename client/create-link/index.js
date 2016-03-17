@@ -10,7 +10,7 @@ var View = require('view')({
 })
 
 View.prototype.applicationName = function () {
-  return config.application()
+  return config.name()
 }
 
 View.prototype.generate = function () {

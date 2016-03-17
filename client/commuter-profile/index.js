@@ -17,7 +17,7 @@ var Modal = module.exports = modal({
 })
 
 Modal.prototype.applicationName = function () {
-  return config.application()
+  return config.name()
 }
 
 /**

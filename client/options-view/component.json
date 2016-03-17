@@ -2,6 +2,7 @@
   "name": "options-view",
   "locals": [
     "feedback-modal",
+    "messages",
     "route-card-view",
     "view"
   ],

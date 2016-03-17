@@ -11,7 +11,7 @@ var Nav = module.exports = view(require('./template.html'), function (view, mode
 })
 
 Nav.prototype.application = function () {
-  return config.application()
+  return config.name()
 }
 
 Nav.prototype.logout = function () {

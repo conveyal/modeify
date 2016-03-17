@@ -5,7 +5,7 @@ var view = require('view')
 var View = module.exports = view(require('./template.html'))
 
 View.prototype.applicationName = function () {
-  return config.application()
+  return config.name()
 }
 
 View.prototype.anonymous = function () {
