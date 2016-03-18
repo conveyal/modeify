@@ -15,6 +15,9 @@ var data_boundary = {
     "max_lon" : -120.701293945312
 };
 
+console.log("Amigo cloud url ->", url_search_amigo);
+console.log("data boundy" -> data_boundary);
+
 /**
  * Geocode
  */

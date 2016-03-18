@@ -333,7 +333,7 @@ View.prototype.suggest = function(e) {
 
             }
 
-            suggestionsData = suggestionsData.slice(0, 5);
+            suggestionsData = suggestionsData.slice(0, 8);
             suggestionList.innerHTML = suggestionsTemplate.render({
                 suggestions: suggestionsData
             });
