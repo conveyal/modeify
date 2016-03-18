@@ -19,11 +19,6 @@ module.exports.track = function(name, data) {
 module.exports.send_ga = function (e) {
   var ignore = location.host.indexOf(config.ignore_events_from()) !== -1;
 
-  console.log("e.category", e.category);
-  console.log("e.action", e.action;
-  console.log("e.label", e.label);
-  console.log("e.value", e.value);
-
   if (!ignore && config.ga_key && config.ga_key()) {
     ga('send', 'event', e.category, e.action, e.label, e.value);
   }
@@ -52,7 +47,4 @@ module.exports.send_ac = function (e) {
       $.param({change: JSON.stringify(changeset)})
     );
   }
-  console.log("config.ac_event_table()", config.ac_event_table());
-  console.log("url->", url);
-  console.log("changeset->", changeset);
 };
