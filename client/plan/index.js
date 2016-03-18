@@ -188,14 +188,21 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
 
   if (!address || address.length < 1) return callback();
 
+    console.log("Location declarada ->", location);
+
   if (isCoordinate) {
+
+    console.log("Las cordenadas existen");
     location.coordinate({
       lat: parseFloat(c[1]),
       lng: parseFloat(c[0])
     });
   } else {
+
+    console.log("se agrega la misma direccion");
     location.address(address);
   }
+  console.log("Location luego de las asignaciones ->", location);
   console.log("location.coordenadas",  location.coordinate({lat: parseFloat(c[1]),lng: parseFloat(c[0]) }));
   console.log("location.address", location.address(address));
 
