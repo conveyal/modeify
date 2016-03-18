@@ -16,7 +16,7 @@ var data_boundary = {
 };
 
 console.log("Amigo cloud url ->", url_search_amigo);
-console.log("data boundy" -> data_boundary);
+console.log("data boundy->", data_boundary);
 
 /**
  * Geocode
