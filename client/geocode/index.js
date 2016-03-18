@@ -39,6 +39,9 @@ function geocode(address, callback) {
  */
 
 function reverse(ll, callback) {
+
+  console.log("reserve ll", ll);
+  console.log("reserve callback", callback);
   log('--> reverse geocoding %s', ll);
   get('/geocode/reverse/' + ll[0] + ',' + ll[1], function(err, res) {
     if (err) {
@@ -59,7 +62,8 @@ function suggestAmigo(text, callback) {
 
     var lista_direcciones;
 
-    get('https://www.amigocloud.com/api/v1/me/geocoder/autocomplete?text=' + text +'&token=' + dev_amigo_token,
+    //get('https://www.amigocloud.com/api/v1/me/geocoder/autocomplete?text=' + text +'&token=' + dev_amigo_token,
+    get('https://www.amigocloud.com/api/v1/me/geocoder/search?token=R:DNiePlGOMsw93cEgde88woWAQxm1xzWt7lvVXe&boundary.rect.min_lat=36.155617833819&boundary.rect.min_lon=-123.607177734375&boundary.rect.max_lat=38.826870521381&boundary.rect.max_lon=-120.701293945312&sources=osm,oa&text=' + text,
 
         function(err, res) {
 
