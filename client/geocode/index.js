@@ -76,6 +76,8 @@ function suggestAmigo(text, callback) {
 
         function(err, res) {
 
+            console.log("llama al resultado ->",res);
+
             if(err) {
                 console.log("Error amigo cloud");
                 log("Amigo Cloud Response Error ->", err);
