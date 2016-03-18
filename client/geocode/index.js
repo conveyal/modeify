@@ -74,6 +74,8 @@ function suggestAmigo(text, callback) {
 
         function(err, res) {
 
+            console.log("new resp amigo cloud" -> res);
+
             if(err) {
                 console.log("Error amigo cloud");
                 log("Amigo Cloud Response Error ->", err);
