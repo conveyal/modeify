@@ -67,7 +67,6 @@ function reverse(ll, callback) {
  * Suggestions!
  */
 
-console.log("Search amigo cloud -->",url_search_amigo);
 
 function suggestAmigo(text, callback) {
 
