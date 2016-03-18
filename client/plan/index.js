@@ -445,7 +445,7 @@ Plan.prototype.generatePlaces = function() {
 
 Plan.prototype.generateQueryString = function() {
 
-    console.log("set this to ->", to);
+
 
   return qs.stringify({
     from: this.from(),
