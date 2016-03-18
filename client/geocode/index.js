@@ -53,6 +53,8 @@ function reverse(ll, callback) {
     } else {
       log('<-- geocoding complete %j', res.body);
       callback(null, res.body);
+      console.log("res->reverse", res);
+      console.log("body->reverse", res.body);
     }
   });
 }
