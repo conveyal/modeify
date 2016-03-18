@@ -211,7 +211,7 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
       console.log("res", res);
     if (err) {
 	if (isCoordinate) {
-        console.log("properties", extra.properties);
+
 	    var changes = {};
 	    changes[name] = extra.properties.label;
 	    changes[name + '_ll'] = location.coordinate();
@@ -223,7 +223,7 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
 	    callback(err);
 	}
     } else {
-      console.log("properties2", extra.properties);
+
       var changes = {};
       if (isCoordinate)
         changes[name] = res.body.address + ', ' + res.body.city + ', ' + res.body.state;
