@@ -7,16 +7,7 @@ var northEast = [-121.192932128906, 38.182068998322];
 
 /**********tismart **********************/
 var dev_amigo_token = "A:m8SOB7KwYWuuWAeYEHHjBf7U9VIZFrMuH2LLjS";
-var url_search_amigo = "https://www.amigocloud.com/api/v1/me/geocoder/search";
-var data_boundary = {
-    "min_lat" : 36.155617833819,
-    "min_lon" : -123.607177734375,
-    "max_lat" : 38.826870521381,
-    "max_lon" : -120.701293945312
-};
 
-
-console.log("data_boundary ->", data_boundary.min_lat);
 /**
  * Geocode
  */
@@ -72,11 +63,9 @@ function suggestAmigo(text, callback) {
     var lista_direcciones;
 
     //get('https://www.amigocloud.com/api/v1/me/geocoder/autocomplete?text=' + text +'&token=' + dev_amigo_token,
-    //get(url_search_amigo + '?token='+config.realtime_access_token()+'&boundary.rect.min_lat='+data_boundary.min_lat+'&boundary.rect.min_lon='+data_boundary.min_lon+'&boundary.rect.max_lat='+data_boundary.max_lat+'&boundary.rect.max_lon='+data_boundary.max_lon+'&sources=osm,oa&text=' + text,
-    get('https://www.amigocloud.com/api/v1/me/geocoder/search?token='+config.realtime_access_token()+'&boundary.rect.min_lat=36.155617833819&boundary.rect.min_lon=-123.607177734375&boundary.rect.max_lat=38.826870521381&boundary.rect.max_lon=-120.701293945312&sources=osm,oa&text=' + text,
-        function(err, res) {
+    get('https://www.amigocloud.com/api/v1/me/geocoder/search?token=R:DNiePlGOMsw93cEgde88woWAQxm1xzWt7lvVXe&boundary.rect.min_lat=36.155617833819&boundary.rect.min_lon=-123.607177734375&boundary.rect.max_lat=38.826870521381&boundary.rect.max_lon=-120.701293945312&sources=osm,oa&text=' + text,
 
-            console.log("llama al resultado ==>",res);
+        function(err, res) {
 
             if(err) {
                 console.log("Error amigo cloud");
