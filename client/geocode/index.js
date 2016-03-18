@@ -63,7 +63,7 @@ function suggestAmigo(text, callback) {
     var lista_direcciones;
 
     //get('https://www.amigocloud.com/api/v1/me/geocoder/autocomplete?text=' + text +'&token=' + dev_amigo_token,
-    get('https://www.amigocloud.com/api/v1/me/geocoder/search?token=R:DNiePlGOMsw93cEgde88woWAQxm1xzWt7lvVXe&boundary.rect.min_lat=36.155617833819&boundary.rect.min_lon=-123.607177734375&boundary.rect.max_lat=38.826870521381&boundary.rect.max_lon=-120.701293945312&sources=osm,oa&text=' + text,
+    get('https://www.amigocloud.com/api/v1/me/geocoder/search?token=' + dev_amigo_token+'&boundary.rect.min_lat=36.155617833819&boundary.rect.min_lon=-123.607177734375&boundary.rect.max_lat=38.826870521381&boundary.rect.max_lon=-120.701293945312&sources=osm,oa&text=' + text,
 
         function(err, res) {
 
