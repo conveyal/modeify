@@ -46,15 +46,15 @@ function reverse(ll, callback) {
   //get('/geocode/reverse/' + ll[0] + ',' + ll[1], function(err, res) {
 
   get("https://www.amigocloud.com/api/v1/me/geocoder/reverse?point.lon="+ ll[0] + "&point.lat="+ll[0], function(err, res) {
-
+    console.log("res->reverse", res);
+    console.log("body->reverse", res.body);
     if (err) {
       log('<-- geocoding error %e', err);
       callback(err, res);
     } else {
       log('<-- geocoding complete %j', res.body);
       callback(null, res.body);
-      console.log("res->reverse", res);
-      console.log("body->reverse", res.body);
+
     }
   });
 }
