@@ -7,7 +7,16 @@ var northEast = [-121.192932128906, 38.182068998322];
 
 /**********tismart **********************/
 var dev_amigo_token = "A:m8SOB7KwYWuuWAeYEHHjBf7U9VIZFrMuH2LLjS";
+var url_search_amigo = "https://www.amigocloud.com/api/v1/me/geocoder/search";
+var data_boundary = {
+    "min_lat" : 36.155617833819,
+    "min_lon" : -123.607177734375,
+    "max_lat" : 38.826870521381,
+    "max_lon" : -120.701293945312
+};
 
+
+console.log("data_boundary ->", data_boundary);
 /**
  * Geocode
  */
