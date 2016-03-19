@@ -211,7 +211,7 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
 
                 } else {
 
-                     geocode_features = res.body.features;
+
 
                      if (err) {
 
@@ -233,19 +233,21 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
                             }
                     } else {
 
+                           geocode_features = res.body.features;
                           var changes = {};
                           if (isCoordinate)
-                            changes[name] = res.body.address + ', ' + res.body.city + ', ' + res.body.state;
+                            changes[name] = geocode_features;
                           else
                             changes[name] = address;
 
-                          changes[name + '_ll'] = res.body.coordinate;
-                          changes[name + '_id'] = res.body._id;
+                          changes[name + '_ll'] = {lat: parseFloat(geocode_features[0].geometry.coordinates[1]), lng: parseFloat(geocode_features[0].geometry.coordinates[0])};
+                          changes[name + '_id'] = geocode_features[0].properties.id;
                           changes[name + '_valid'] = true;
 
                           console.log("CHANGES PLAN SET", changes);
 
                           plan.set(changes);
+
                           callback(null, res.body);
                     }
                 }
