@@ -207,9 +207,10 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
   console.log("location.address", location.address(address));
   console.log("geocode.reverse(c)", geocode.reverse(c));
   console.log("isCoordinate", isCoordinate);
+
   location.save(function(err, res) {
 
-      console.log("res", res);
+      console.log("res location => ", res);
     if (err) {
 	if (isCoordinate) {
 

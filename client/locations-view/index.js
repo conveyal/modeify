@@ -157,7 +157,9 @@ View.prototype.save = function(el) {
 
 	if (el.lat) {
 		this.model.setAddress(name, el.lng + ',' + el.lat, function(err, location) {
+
                 console.log("LOCATION-VIEW 1->", location);
+
 				if (err) {
 				    console.log("Error al obtener direccion");
 				    console.log("error");
