@@ -214,7 +214,7 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
       console.log("res location => ", res);
     if (err) {
 	if (isCoordinate) {
-        console.log("call to reverse geocode -> ", reverseAmigo(c));
+        console.log("call to reverse geocode -> ", geocode.reverseAmigo(c));
 	    var changes = {};
 	    changes[name] = extra.properties.label;
 	    changes[name + '_ll'] = location.coordinate();
