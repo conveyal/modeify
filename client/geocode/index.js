@@ -50,10 +50,10 @@ function reverse(ll, callback) {
     console.log("body->reverse", res.body);
     if (err) {
       log('<-- geocoding error %e', err);
-      callback(err, res);
+
     } else {
       log('<-- geocoding complete %j', res.body);
-      callback(null, res.body);
+
 
     }
   });
