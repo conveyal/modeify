@@ -14,7 +14,6 @@ var dev_amigo_token = "A:m8SOB7KwYWuuWAeYEHHjBf7U9VIZFrMuH2LLjS";
 
 module.exports = geocode;
 module.exports.reverse = reverse;
-module.exports.reverseAmigo = reverseAmigo;
 module.exports.suggest = suggest;
 module.exports.suggestAmigo = suggestAmigo;
 
@@ -52,19 +51,7 @@ function reverse(ll, callback) {
   });
 }
 
-function reverseAmigo(coordenadas) {
 
-  get("https://www.amigocloud.com/api/v1/me/geocoder/reverse?token=R:DNiePlGOMsw93cEgde88woWAQxm1xzWt7lvVXe&point.lon="+ coordenadas[0] + "&point.lat="+coordenadas[1], function(err, res) {
-
-    if (err) {
-      log('<-- geocoding error %e', err);
-
-    } else {
-
-         console.log(res);
-    }
-  });
-}
 
 /**
  * Suggestions!

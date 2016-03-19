@@ -9,6 +9,7 @@ var model = require('model');
 var ProfileQuery = require('profile-query');
 var ProfileScorer = require('otp-profile-score');
 var qs = require('querystring');
+var get = require('./client/request').get;
 
 var loadPlan = require('./load');
 var store = require('./store');
@@ -214,7 +215,20 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
       console.log("res location => ", res);
     if (err) {
 	if (isCoordinate) {
-        console.log("call to reverse geocode -> ", geocode.reverseAmigo(c));
+
+        //console.log("call to reverse geocode -> ", geocode.reverseAmigo(c));
+
+        get("https://www.amigocloud.com/api/v1/me/geocoder/reverse?token=R:DNiePlGOMsw93cEgde88woWAQxm1xzWt7lvVXe&point.lon="+ coordenadas[0] + "&point.lat="+coordenadas[1], function(err, res) {
+
+            if (err) {
+              console.log('<-- geocoding error %e', err);
+
+            } else {
+
+                 console.log("geocoderReverse amigo",res);
+            }
+        });
+
 	    var changes = {};
 	    changes[name] = extra.properties.label;
 	    changes[name + '_ll'] = location.coordinate();
