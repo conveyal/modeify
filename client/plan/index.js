@@ -236,7 +236,7 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
                            geocode_features = res.body.features;
                           var changes = {};
                           if (isCoordinate)
-                            changes[name] = geocode_features;
+                            changes[name] = geocode_features[0].properties.label;
                           else
                             changes[name] = address;
 
