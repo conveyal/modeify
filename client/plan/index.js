@@ -193,71 +193,104 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
 
   if (isCoordinate) {
 
-    console.log("Las cordenadas existen");
     location.coordinate({
       lat: parseFloat(c[1]),
       lng: parseFloat(c[0])
     });
+
   } else {
 
-    console.log("se agrega la misma direccion");
     location.address(address);
   }
-  console.log("Location luego de las asignaciones ->", location);
-  console.log("location.coordenadas",  location.coordinate({lat: parseFloat(c[1]),lng: parseFloat(c[0]) }));
-  console.log("location.address", location.address(address));
-  //console.log("geocode.reverse(c)", geocode.reverse(c));
-  console.log("isCoordinate", isCoordinate);
 
+    if (isCoordinate) {
+      get("https://www.amigocloud.com/api/v1/me/geocoder/reverse?token=R:DNiePlGOMsw93cEgde88woWAQxm1xzWt7lvVXe&point.lon="+ c[0] + "&point.lat="+c[1], function(err, res) {
 
-  location.save(function(err, res) {
+                if (err) {
+                  console.log('<-- geocoding error %e', err);
 
-      console.log("res location => ", res);
-    if (err) {
-	if (isCoordinate) {
+                } else {
 
-        //console.log("call to reverse geocode -> ", geocode.reverseAmigo(c));
+                     geocode_features = res.body.features;
 
+                     if (err) {
 
+                            if (isCoordinate) {
 
-	    var changes = {};
-	    changes[name] = extra.properties.label;
-	    changes[name + '_ll'] = location.coordinate();
-	    changes[name + '_valid'] = true;
+                                var changes = {};
+                                changes[name] = extra.properties.label;
 
-	    plan.set(changes);
-	    callback(null, extra);
-	} else {
-	    callback(err);
-	}
-    } else {
+                                changes[name + '_ll'] = location.coordinate();
 
-        get("https://www.amigocloud.com/api/v1/me/geocoder/reverse?token=R:DNiePlGOMsw93cEgde88woWAQxm1xzWt7lvVXe&point.lon="+ c[0] + "&point.lat="+c[1], function(err, res) {
+                                changes[name + '_valid'] = true;
 
-            if (err) {
-              console.log('<-- geocoding error %e', err);
+                                plan.set(changes);
 
+                                callback(null, extra);
+
+                            } else {
+                                callback(err);
+                            }
+                    } else {
+
+                          var changes = {};
+                          if (isCoordinate)
+                            changes[name] = res.body.address + ', ' + res.body.city + ', ' + res.body.state;
+                          else
+                            changes[name] = address;
+
+                          changes[name + '_ll'] = res.body.coordinate;
+                          changes[name + '_id'] = res.body._id;
+                          changes[name + '_valid'] = true;
+
+                          console.log("CHANGES PLAN SET", changes);
+
+                          plan.set(changes);
+                          callback(null, res.body);
+                    }
+                }
+      });
+  }else {
+
+      location.save(function(err, res) {
+
+          console.log("res location => ", res);
+        if (err) {
+
+            if (isCoordinate) {
+
+                var changes = {};
+                changes[name] = extra.properties.label;
+
+                changes[name + '_ll'] = location.coordinate();
+
+                changes[name + '_valid'] = true;
+
+                plan.set(changes);
+                callback(null, extra);
             } else {
-
-                 console.log("geocoderReverse amigo",res);
+                callback(err);
             }
-        });
+        } else {
 
-      var changes = {};
-      if (isCoordinate)
-        changes[name] = res.body.address + ', ' + res.body.city + ', ' + res.body.state;
-      else
-        changes[name] = address;
+              var changes = {};
+              if (isCoordinate)
+                changes[name] = res.body.address + ', ' + res.body.city + ', ' + res.body.state;
+              else
+                changes[name] = address;
 
-      changes[name + '_ll'] = res.body.coordinate;
-      changes[name + '_id'] = res.body._id;
-      changes[name + '_valid'] = true;
+              changes[name + '_ll'] = res.body.coordinate;
+              changes[name + '_id'] = res.body._id;
+              changes[name + '_valid'] = true;
 
-      console.log("CHANGES PLAN SET", changes);
-      plan.set(changes);
-      callback(null, res.body);
-    }
-  });
+              console.log("CHANGES PLAN SET", changes);
+
+              plan.set(changes);
+              callback(null, res.body);
+        }
+      });
+
+  }
 };
 
 /**
