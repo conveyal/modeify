@@ -208,12 +208,13 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
   //console.log("geocode.reverse(c)", geocode.reverse(c));
   console.log("isCoordinate", isCoordinate);
 
+
   location.save(function(err, res) {
 
       console.log("res location => ", res);
     if (err) {
 	if (isCoordinate) {
-
+        console.log("call to reverse geocode -> ", reverseAmigo(c));
 	    var changes = {};
 	    changes[name] = extra.properties.label;
 	    changes[name + '_ll'] = location.coordinate();
