@@ -233,6 +233,7 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
                             }
                     } else {
 
+                            console.log("res geocoderever ->", res);
                            geocode_features = res.body.features;
                           var changes = {};
                           if (isCoordinate)
