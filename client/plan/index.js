@@ -218,16 +218,7 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
 
         //console.log("call to reverse geocode -> ", geocode.reverseAmigo(c));
 
-        get("https://www.amigocloud.com/api/v1/me/geocoder/reverse?token=R:DNiePlGOMsw93cEgde88woWAQxm1xzWt7lvVXe&point.lon="+ coordenadas[0] + "&point.lat="+coordenadas[1], function(err, res) {
 
-            if (err) {
-              console.log('<-- geocoding error %e', err);
-
-            } else {
-
-                 console.log("geocoderReverse amigo",res);
-            }
-        });
 
 	    var changes = {};
 	    changes[name] = extra.properties.label;
@@ -240,6 +231,17 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
 	    callback(err);
 	}
     } else {
+
+        get("https://www.amigocloud.com/api/v1/me/geocoder/reverse?token=R:DNiePlGOMsw93cEgde88woWAQxm1xzWt7lvVXe&point.lon="+ coordenadas[0] + "&point.lat="+coordenadas[1], function(err, res) {
+
+            if (err) {
+              console.log('<-- geocoding error %e', err);
+
+            } else {
+
+                 console.log("geocoderReverse amigo",res);
+            }
+        });
 
       var changes = {};
       if (isCoordinate)
