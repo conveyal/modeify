@@ -199,11 +199,14 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
         lat: parseFloat(c[1]),
         lng: parseFloat(c[0])
        });
+
     var callbackAmigo = function (err, reverse) {
         console.log("Ahora si llama", reverse);
-        if (reserve) {
+        if (reverse) {
+
             console.log("ejecuta reverse -> ", reverse);
-            var geocode_features = reserve.features;
+
+            var geocode_features = reverse.features;
             var changes = {};
             if (isCoordinate)
               changes[name] = geocode_features[0].properties.label;
@@ -240,11 +243,9 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
 
           }
     }
-     // get("https://www.amigocloud.com/api/v1/me/geocoder/reverse?token=R:DNiePlGOMsw93cEgde88woWAQxm1xzWt7lvVXe&point.lon="+ c[0] + "&point.lat="+c[1], function(err, res) {
 
-     //callbackAmigo();
 
-      var reserve = geocode.reverseAmigo(c, callbackAmigo);
+    geocode.reverseAmigo(c, callbackAmigo);
 
 
       //});
