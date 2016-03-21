@@ -267,28 +267,32 @@ View.prototype.suggest = function(e) {
       log.error('%e', err);
     } else {
         if (suggestions && suggestions.length > 0) {
+            var filter_label = {};
             for (var i = 0; i < suggestions.length; i++) {
 
-                item_suggestions = suggestions[i].properties;
+                var item_suggestions = suggestions[i].properties;
 
                 if (item_suggestions.country_a == "USA" && item_suggestions.region_a == "CA")  {
 
-
-                    item_geometry = suggestions[i].geometry;
-
-                    suggestion_obj = {
+                    var item_geometry = suggestions[i].geometry;
+                    var suggestion_obj = {
                         "index" : i,
                         "text" : item_suggestions.label,
                         "lat" : item_geometry.coordinates[1],
                         "lon" : item_geometry.coordinates[0],
                         "magicKey": ""
                     };
-                    suggestionsData.push(suggestion_obj);
+
+                    if (filter_label[item_suggestions.label] === undefined){
+                        filter_label[item_suggestions.label] = true;
+                        suggestionsData.push(suggestion_obj);
+                    }
+
                 }
 
             }
 
-            suggestionsData = suggestionsData.slice(0, 5);
+            suggestionsData = suggestionsData.slice(0, 8);
             suggestionList.innerHTML = suggestionsTemplate.render({
                 suggestions: suggestionsData
             });
