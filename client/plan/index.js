@@ -185,57 +185,41 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
 
     if (isCoordinate) {
 
-    var callbackAmigo = function (err, reverse) {
-        console.log("Ahora si llama", reverse);
-        if (reverse) {
+      var callbackAmigo = function (err, reverse) {
+        var reserve = geocode.reverseAmigo(c, callback);
+        var changes = {};
+            if (reserve) {
+              var geocode_features = reserve.features;
+              if (isCoordinate)
+                changes[name] = geocode_features[0].properties.label;
+              else
+                changes[name] = address;
 
-
-      var reserve = geocode.reverseAmigo(c, callback);
-          if (reserve) {
-            var geocode_features = reserve.features;
-            var changes = {};
-            if (isCoordinate)
-              changes[name] = geocode_features[0].properties.label;
-            else
-              changes[name] = address;
-
-            changes[name + '_ll'] = {lat: parseFloat(geocode_features[0].geometry.coordinates[1]), lng: parseFloat(geocode_features[0].geometry.coordinates[0])};
-            changes[name + '_id'] = geocode_features[0].properties.id;
-            changes[name + '_valid'] = true;
-
-            plan.set(changes);
-
-            callback(null, reverse);
-
-          } else {
-
-            if (isCoordinate) {
-
-              var changes = {};
-              changes[name] = extra.properties.label;
-
-              changes[name + '_ll'] = { lat: parseFloat(c[1]),lng: parseFloat(c[0])};
-
+              changes[name + '_ll'] = {lat: parseFloat(geocode_features[0].geometry.coordinates[1]), lng: parseFloat(geocode_features[0].geometry.coordinates[0])};
+              changes[name + '_id'] = geocode_features[0].properties.id;
               changes[name + '_valid'] = true;
 
               plan.set(changes);
 
-              callback(null, extra);
+              callback(null, reverse);
 
             } else {
-              callback(err);
+
+              if (isCoordinate) {
+                changes[name] = extra.properties.label;
+                changes[name + '_ll'] = { lat: parseFloat(c[1]),lng: parseFloat(c[0])};
+                changes[name + '_valid'] = true;
+                plan.set(changes);
+                callback(null, extra);
+              } else {
+                callback(err);
+              }
+
             }
-
-          }
-    }
-
-
-    geocode.reverseAmigo(c, callbackAmigo);
-
+      };
+      geocode.reverseAmigo(c, callbackAmigo);
     }else {
-
       plan.setAddress('', '', callback);
-
     }
 };
 
