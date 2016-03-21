@@ -1,16 +1,13 @@
+var config = require('config');
 var log = require('./client/log')('geocode');
 var get = require('./client/request').get;
-var config = require('config');
-
-var southWest = [-123.099060058594, 36.745486924699];
-var northEast = [-121.192932128906, 38.182068998322];
 
 /**
  * Geocode
  */
 
 module.exports = geocode;
-module.exports.reverse = reverse;
+module.exports.reverseAmigo = reverseAmigo;
 module.exports.suggestAmigo = suggestAmigo;
 
 /**
@@ -34,15 +31,21 @@ function geocode(address, callback) {
  * Reverse geocode
  */
 
-function reverse(ll, callback) {
-  log('--> reverse geocoding %s', ll);
-  get('/geocode/reverse/' + ll[0] + ',' + ll[1], function(err, res) {
+function reverseAmigo(ll, callback) {
+
+  var parameter = {
+      'token':config.realtime_access_token() ,
+      'point.lon':ll[0],
+      'point.lat':ll[1]
+  };
+
+  get('https://www.amigocloud.com/api/v1/me/geocoder/reverse', parameter, function(err, res) {
+
     if (err) {
       log('<-- geocoding error %e', err);
-      callback(err, res);
+
     } else {
-      log('<-- geocoding complete %j', res.body);
-      callback(null, res.body);
+      callback(false, res.body);
     }
   });
 }
@@ -53,24 +56,30 @@ function reverse(ll, callback) {
 
 function suggestAmigo(text, callback) {
 
-    var lista_direcciones;
+    var list_address;
+    var parameter = {
+        'token': config.realtime_access_token() ,
+        'boundary.rect.min_lat': '36.155617833819',
+        'boundary.rect.min_lon': '-123.607177734375',
+        'boundary.rect.max_lat': '38.826870521381',
+        'boundary.rect.max_lon': '-120.701293945312',
+        'sources':'osm,oa',
+        'text': text
+    };
 
-    get('https://www.amigocloud.com/api/v1/me/geocoder/autocomplete?text=' + text +'&token=' + config.realtime_access_token(),
-
-        function(err, res) {
+    get('https://www.amigocloud.com/api/v1/me/geocoder/search', parameter, function(err, res) {
 
             if(err) {
-                console.log("Error amigo cloud");
                 log("Amigo Cloud Response Error ->", err);
 
             }else{
                 if(res.body.features) {
 
-                    var lista_direcciones = res.body.features;
-                    if (lista_direcciones.length > 0) {
+                    list_address = res.body.features;
+                    if (list_address.length > 0) {
                          callback(
                             null,
-                            lista_direcciones
+                            list_address
                         );
                     }else {
                         callback(true, res);
@@ -79,4 +88,4 @@ function suggestAmigo(text, callback) {
                 }
             }
     });
-};
+}
