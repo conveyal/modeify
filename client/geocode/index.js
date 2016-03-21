@@ -55,7 +55,11 @@ function reverse(ll, callback) {
 function reverseAmigo(ll, callback) {
   log('--> reverse geocoding %s', ll);
 
-  var parameter = {'token':'R:DNiePlGOMsw93cEgde88woWAQxm1xzWt7lvVXe' , 'point.lon':ll[0], 'point.lat':ll[1] };
+  var parameter = {
+      'token':config.realtime_access_token() ,
+      'point.lon':ll[0],
+      'point.lat':ll[1]
+  };
   get('https://www.amigocloud.com/api/v1/me/geocoder/reverse', parameter, function(err, res) {
     console.log("res 2016", res);
     if (err) {
@@ -75,12 +79,18 @@ function reverseAmigo(ll, callback) {
 
 function suggestAmigo(text, callback) {
 
-    var lista_direcciones;
+    var list_address;
+    var parameter = {
+        'token': config.realtime_access_token() ,
+        'boundary.rect.min_lat': '36.155617833819',
+        'boundary.rect.min_lon': '-123.607177734375',
+        'boundary.rect.max_lat': '38.826870521381',
+        'boundary.rect.max_lon': '-120.701293945312',
+        'sources':'osm,oa',
+        'text': text
+    };
 
-    //get('https://www.amigocloud.com/api/v1/me/geocoder/autocomplete?text=' + text +'&token=' + dev_amigo_token,
-    get('https://www.amigocloud.com/api/v1/me/geocoder/search?token=R:DNiePlGOMsw93cEgde88woWAQxm1xzWt7lvVXe&boundary.rect.min_lat=36.155617833819&boundary.rect.min_lon=-123.607177734375&boundary.rect.max_lat=38.826870521381&boundary.rect.max_lon=-120.701293945312&sources=osm,oa&text=' + text,
-
-        function(err, res) {
+    get('https://www.amigocloud.com/api/v1/me/geocoder/search', parameter, function(err, res) {
 
             if(err) {
                 console.log("Error amigo cloud");
@@ -89,11 +99,11 @@ function suggestAmigo(text, callback) {
             }else{
                 if(res.body.features) {
 
-                    var lista_direcciones = res.body.features;
-                    if (lista_direcciones.length > 0) {
+                    list_address = res.body.features;
+                    if (list_address.length > 0) {
                          callback(
                             null,
-                            lista_direcciones
+                            list_address
                         );
                     }else {
                         callback(true, res);
