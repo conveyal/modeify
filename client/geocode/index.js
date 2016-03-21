@@ -16,6 +16,7 @@ module.exports = geocode;
 module.exports.reverse = reverse;
 module.exports.suggest = suggest;
 module.exports.suggestAmigo = suggestAmigo;
+module.exports.reverseAmigo = reverseAmigo;
 
 /**
  * Geocode
@@ -51,6 +52,21 @@ function reverse(ll, callback) {
   });
 }
 
+function reverseAmigo(ll, callback) {
+  log('--> reverse geocoding %s', ll);
+
+  var parameter = {'point.lon':ll[0], 'point.lat':ll[1] };
+  get('https://www.amigocloud.com/api/v1/me/geocoder/reverse', parameter, function(err, res) {
+    console.log("change reverse", res);
+    if (err) {
+      log('<-- geocoding error %e', err);
+      callback(err, res);
+    } else {
+      log('<-- geocoding complete %j', res.body.features);
+      callback(null, res.body.features);
+    }
+  });
+}
 
 
 /**
