@@ -192,19 +192,24 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
     console.log("Location declarada ->", location);
 
   console.log("HOLA BEBE", geocode.reverseAmigo(c, callback));
+/*
   if (isCoordinate) {
 
-    location.coordinate({
-      lat: parseFloat(c[1]),
-      lng: parseFloat(c[0])
-    });
+
 
   } else {
 
     location.address(address);
   }
+  */
 
     if (isCoordinate) {
+
+      location.coordinate({
+        lat: parseFloat(c[1]),
+        lng: parseFloat(c[0])
+       });
+
       get("https://www.amigocloud.com/api/v1/me/geocoder/reverse?token=R:DNiePlGOMsw93cEgde88woWAQxm1xzWt7lvVXe&point.lon="+ c[0] + "&point.lat="+c[1], function(err, res) {
 
                 if (err) {
@@ -256,6 +261,8 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
       });
   }else {
 
+    plan.setAddress('', '', callback);
+    /*
       location.save(function(err, res) {
 
           console.log("res location => ", res);
@@ -293,7 +300,7 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
               callback(null, res.body);
         }
       });
-
+      */
   }
 };
 
