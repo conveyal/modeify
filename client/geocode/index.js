@@ -60,7 +60,7 @@ function reverseAmigo(ll, callback) {
     console.log("res 2016", res);
     if (err) {
       log('<-- geocoding error %e', err);
-      return null;
+      return false;
     } else {
       log('<-- geocoding complete %j', res.body);
       return res.body;
