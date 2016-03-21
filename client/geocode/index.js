@@ -54,17 +54,16 @@ function reverse(ll, callback) {
 
 function reverseAmigo(ll, callback) {
   log('--> reverse geocoding %s', ll);
-  console.log("object ll", ll);
-  console.log("object ll type", typeof(ll));
+
   var parameter = {'token':'R:DNiePlGOMsw93cEgde88woWAQxm1xzWt7lvVXe' , 'point.lon':ll[0], 'point.lat':ll[1] };
   get('https://www.amigocloud.com/api/v1/me/geocoder/reverse', parameter, function(err, res) {
-    console.log("change reverse", res);
+
     if (err) {
       log('<-- geocoding error %e', err);
-      callback(err, res);
+      return null;
     } else {
-      log('<-- geocoding complete %j', res.body.features);
-      callback(null, res.body.features);
+      log('<-- geocoding complete %j', res.body);
+      return res.body;
     }
   });
 }
