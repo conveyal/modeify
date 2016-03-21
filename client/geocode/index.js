@@ -64,10 +64,11 @@ function reverseAmigo(ll, callback) {
     console.log("res 2016", res);
     if (err) {
       log('<-- geocoding error %e', err);
-      return false;
+      //return false;
     } else {
       log('<-- geocoding complete %j', res.body);
-      return res.body;
+      //return res.body;
+      callback(false, res.body);
     }
   });
 }
