@@ -296,8 +296,8 @@ View.prototype.suggest = function(e) {
                         "magicKey": ""
                     };
 
-                    if (filter_label['item_suggestions.label'] === undefined){
-                        filter_label['item_suggestions.label'] = true;
+                    if (filter_label[item_suggestions.label] === undefined){
+                        filter_label[item_suggestions.label] = true;
                         suggestionsData.push(suggestion_obj);
                     }
 
