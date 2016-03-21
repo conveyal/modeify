@@ -187,8 +187,8 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
 
       var callbackAmigo = function (err, reverse) {
         var changes = {};
-            if (reserve) {
-              var geocode_features = reserve.features;
+            if (reverse) {
+              var geocode_features = reverse.features;
               if (isCoordinate)
                 changes[name] = geocode_features[0].properties.label;
               else
