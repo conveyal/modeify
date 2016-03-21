@@ -131,49 +131,63 @@ View.prototype.save = function(el) {
 	var val = el.value;
 	if (!val || plan[name]() === val) return;
 
+
 	if (el.lat) {
 		this.model.setAddress(name, el.lng + ',' + el.lat, function(err, location) {
 				if (err) {
-				log.error('%e', err);
-				analytics.send_ga({
-category: 'geocoder',
-action: 'change address invalid',
-label: val,
-value: 0
-});
-				textModal('Invalid address.');
+
+                    log.error('%e', err);
+                    analytics.send_ga({
+                        category: 'geocoder',
+                        action: 'change address invalid',
+                        label: val,
+                        value: 0
+                    });
+
+				    textModal('Invalid address.');
+
 				} else if (location && plan.validCoordinates()) {
-				analytics.send_ga({
-category: 'geocoder',
-action: 'change address success',
-label: val,
-value: 0
-});
-				plan.updateRoutes();
+
+                    analytics.send_ga({
+                        category: 'geocoder',
+                        action: 'change address success',
+                        label: val,
+                        value: 0
+                    });
+
+				    plan.updateRoutes();
+
+				}else {
+				    console.log("no ejecuta nada");
 				}
-				}, el.address);
-} else {
-	this.model.setAddress(name, val, function(err, location) {
+		}, el.address);
+    } else {
+        console.log("caso si no existe el.lat");
+	    this.model.setAddress(name, val, function(err, location) {
+            console.log("LOCATION-VIEW 2->", location);
 			if (err) {
-			log.error('%e', err);
-			analytics.send_ga({
-category: 'geocoder',
-action: 'change address invalid',
-label: val,
-value: 0
-});
-			textModal('Invalid address.');
+			    console.log("error en latitud");
+                log.error('%e', err);
+                analytics.send_ga({
+                    category: 'geocoder',
+                    action: 'change address invalid',
+                    label: val,
+                    value: 0
+                });
+                textModal('Invalid address.');
 			} else if (location && plan.validCoordinates()) {
-			analytics.send_ga({
-category: 'geocoder',
-action: 'change address success',
-label: val,
-value: 0
-});
-			plan.updateRoutes();
+			    console.log("creando plan de ruta 2");
+                analytics.send_ga({
+                    category: 'geocoder',
+                    action: 'change address success',
+                    label: val,
+                    value: 0
+                });
+
+                plan.updateRoutes();
 			}
-			});
-}
+		});
+    }
 };
 
 /**
@@ -253,6 +267,7 @@ function getAddress(s) {
  */
 
 View.prototype.suggest = function(e) {
+
   var input = e.target;
   var text = input.value || '';
   var name = input.name;
@@ -262,6 +277,8 @@ View.prototype.suggest = function(e) {
   var suggestionsData = [];
 
   var resultsCallbackAmigo = function(err, suggestions) {
+
+    console.log("7. funcion resultsCallbackAmigo");
 
     if (err) {
       log.error('%e', err);
@@ -288,11 +305,11 @@ View.prototype.suggest = function(e) {
 
             }
 
-            suggestionsData = suggestionsData.slice(0, 5);
+            suggestionsData = suggestionsData.slice(0, 8);
             suggestionList.innerHTML = suggestionsTemplate.render({
                 suggestions: suggestionsData
             });
-
+            /*******************/
                 each(view.findAll('.suggestion'), function(li) {
                     li.addressData = suggestions[li.dataset.index];
 
@@ -307,7 +324,7 @@ View.prototype.suggest = function(e) {
 
                 suggestionList.classList.remove('empty');
                 inputGroup.classList.add('suggestions-open');
-
+            /*******************/
         }
 
         else {
@@ -315,9 +332,51 @@ View.prototype.suggest = function(e) {
             inputGroup.classList.remove('suggestions-open');
         }
     }
+  }
+
+  var resultsCallback = function(err, suggestions) {
+    console.log("7. funcion resultsCallback ejecutado");
+    if (err) {
+      log.error('%e', err);
+    } else {
+      if (suggestions && suggestions.length > 0) {
+
+          for (var i = 0; i < suggestions.length; i++) {
+              if (!suggestions[i].text) {
+                 if(suggestions[i].address) {
+	           suggestions[i].text = getAddress(suggestions[i].address);
+                 } else {
+                   suggestions[i].text = suggestions[i].display_name;
+                 }
+              }
+	      suggestions[i].index = i;
+	  }
+        suggestions = suggestions.slice(0, 5);
+
+        suggestionList.innerHTML = suggestionsTemplate.render({
+          suggestions: suggestions
+        });
+
+        each(view.findAll('.suggestion'), function(li) {
+	    li.addressData = suggestions[li.dataset.index];
+
+          li.onmouseover = function(e) {
+            li.classList.add('highlight');
+          };
+
+          li.onmouseout = function(e) {
+            li.classList.remove('highlight');
+          };
+        });
+
+        suggestionList.classList.remove('empty');
+        inputGroup.classList.add('suggestions-open');
+      } else {
+        suggestionList.classList.add('empty');
+        inputGroup.classList.remove('suggestions-open');
+      }
+    }
   };
-
-
 
   // If the text is too short or does not contain a space yet, return
   if (text.length < 3) return;

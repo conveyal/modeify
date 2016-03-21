@@ -182,43 +182,64 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
 
   if (!address || address.length < 1) return callback();
 
-  if (isCoordinate) {
-    location.coordinate({
-      lat: parseFloat(c[1]),
-      lng: parseFloat(c[0])
-    });
-  } else {
-    location.address(address);
-  }
-  location.save(function(err, res) {
-  
-    if (err) {
-	if (isCoordinate) {
-	    var changes = {};
-	    changes[name] = extra.properties.label;
-	    changes[name + '_ll'] = location.coordinate();
-	    changes[name + '_valid'] = true;
+    console.log("Location declarada ->", location);
 
-	    plan.set(changes);
-	    callback(null, extra);
-	} else {
-	    callback(err);
-	}
-    } else {
-      var changes = {};
-      if (isCoordinate)
-        changes[name] = res.body.address + ', ' + res.body.city + ', ' + res.body.state;
-      else
-        changes[name] = address;
+  console.log("HOLA BEBE", geocode.reverseAmigo(c, callback));
 
-      changes[name + '_ll'] = res.body.coordinate;
-      changes[name + '_id'] = res.body._id;
-      changes[name + '_valid'] = true;
+    if (isCoordinate) {
 
-      plan.set(changes);
-      callback(null, res.body);
+      location.coordinate({
+        lat: parseFloat(c[1]),
+        lng: parseFloat(c[0])
+       });
+
+     // get("https://www.amigocloud.com/api/v1/me/geocoder/reverse?token=R:DNiePlGOMsw93cEgde88woWAQxm1xzWt7lvVXe&point.lon="+ c[0] + "&point.lat="+c[1], function(err, res) {
+
+      var reserve = geocode.reverseAmigo(c, callback);
+          console.log("reserve 2016", reserve);
+          if (reserve) {
+            var geocode_features = reserve.features;
+            var changes = {};
+            if (isCoordinate)
+              changes[name] = geocode_features[0].properties.label;
+            else
+              changes[name] = address;
+
+            changes[name + '_ll'] = {lat: parseFloat(geocode_features[0].geometry.coordinates[1]), lng: parseFloat(geocode_features[0].geometry.coordinates[0])};
+            changes[name + '_id'] = geocode_features[0].properties.id;
+            changes[name + '_valid'] = true;
+
+            console.log("CHANGES PLAN SET", changes);
+
+            plan.set(changes);
+
+            callback(null, res.body);
+          } else {
+
+            if (isCoordinate) {
+
+              var changes = {};
+              changes[name] = extra.properties.label;
+
+              changes[name + '_ll'] = location.coordinate();
+
+              changes[name + '_valid'] = true;
+
+              plan.set(changes);
+
+              callback(null, extra);
+
+            } else {
+              callback(err);
+            }
+
+          }
+      //});
+    }else {
+
+      plan.setAddress('', '', callback);
+
     }
-  });
 };
 
 /**

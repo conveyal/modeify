@@ -14,6 +14,7 @@ module.exports.get = function(url, params, callback) {
     params = null;
   }
 
+    //.use(nocache) old implemented
   var name = 'GET ' + url;
   debug('--> %s', name);
   return superagent
