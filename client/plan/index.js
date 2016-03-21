@@ -221,7 +221,8 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
 
             plan.set(changes);
 
-            callback(null, res.body);
+            callback(null, reverse);
+
           } else {
 
             if (isCoordinate) {
