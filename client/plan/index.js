@@ -205,6 +205,7 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
       var reserve = geocode.reverseAmigo(c, callback);
           console.log("reserve 2016", reserve);
           if (reserve) {
+            console.log("ejecuta reverse -> ", reverse);
             var geocode_features = reserve.features;
             var changes = {};
             if (isCoordinate)
