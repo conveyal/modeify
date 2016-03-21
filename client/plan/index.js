@@ -191,7 +191,7 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
 
     console.log("Location declarada ->", location);
 
-  console.log("HOLA BEBE", geocode.reverseAmigo(c));
+  console.log("HOLA BEBE", geocode.reverseAmigo(c, callback));
   if (isCoordinate) {
 
     location.coordinate({
