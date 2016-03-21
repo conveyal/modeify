@@ -200,10 +200,10 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
         lng: parseFloat(c[0])
        });
 
-      get("https://www.amigocloud.com/api/v1/me/geocoder/reverse?token=R:DNiePlGOMsw93cEgde88woWAQxm1xzWt7lvVXe&point.lon="+ c[0] + "&point.lat="+c[1], function(err, res) {
+     // get("https://www.amigocloud.com/api/v1/me/geocoder/reverse?token=R:DNiePlGOMsw93cEgde88woWAQxm1xzWt7lvVXe&point.lon="+ c[0] + "&point.lat="+c[1], function(err, res) {
 
       var reserve = geocode.reverseAmigo(c, callback);
-
+          console.log("reserve 2016", reserve);
           if (reserve) {
             var geocode_features = reserve.features;
             var changes = {};
@@ -241,7 +241,7 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
             }
 
           }
-      });
+      //});
     }else {
 
       plan.setAddress('', '', callback);
