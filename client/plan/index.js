@@ -2,7 +2,7 @@ var Batch = require('batch');
 var debounce = require('debounce');
 var geocode = require('geocode');
 var Journey = require('journey');
-var Location = require('location');
+
 var log = require('./client/log')('plan');
 var defaults = require('model-defaults');
 var model = require('model');
@@ -149,6 +149,7 @@ Plan.prototype.saveJourney = function(callback) {
   }
 
   // Create new journey
+
   var journey = new Journey({
     locations: [{
       _id: this.from_id()
@@ -182,23 +183,18 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
   console.log("extra", extra);
 
   callback = callback || function() {}; // noop callback
-  var location = new Location();
+
   var plan = this;
   var c = address.split(',');
   var isCoordinate = c.length === 2 && !isNaN(parseFloat(c[0])) && !isNaN(parseFloat(c[1]));
 
   if (!address || address.length < 1) return callback();
 
-    console.log("Location declarada ->", location);
+
 
   console.log("HOLA BEBE", geocode.reverseAmigo(c, callback));
 
     if (isCoordinate) {
-
-      location.coordinate({
-        lat: parseFloat(c[1]),
-        lng: parseFloat(c[0])
-       });
 
     var callbackAmigo = function (err, reverse) {
         console.log("Ahora si llama", reverse);
@@ -230,7 +226,7 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
               var changes = {};
               changes[name] = extra.properties.label;
 
-              changes[name + '_ll'] = location.coordinate();
+              changes[name + '_ll'] = { lat: parseFloat(c[1]),lng: parseFloat(c[0])};
 
               changes[name + '_valid'] = true;
 
@@ -248,8 +244,6 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
 
     geocode.reverseAmigo(c, callbackAmigo);
 
-
-      //});
     }else {
 
       plan.setAddress('', '', callback);
