@@ -199,11 +199,15 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
         lat: parseFloat(c[1]),
         lng: parseFloat(c[0])
        });
-
+    var callbackAmigo = function () {
+        console.log("Esta es una demo ->" , c);
+    }
      // get("https://www.amigocloud.com/api/v1/me/geocoder/reverse?token=R:DNiePlGOMsw93cEgde88woWAQxm1xzWt7lvVXe&point.lon="+ c[0] + "&point.lat="+c[1], function(err, res) {
 
+     callbackAmigo();
+
       var reserve = geocode.reverseAmigo(c, callback);
-          console.log("reserve 2016", reserve);
+          console.log("reserve 2016-2", reserve);
           if (reserve) {
             console.log("ejecuta reverse -> ", reverse);
             var geocode_features = reserve.features;
