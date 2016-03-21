@@ -58,7 +58,7 @@ function reverseAmigo(ll, callback) {
       'point.lat':ll[1]
   };
   get('https://www.amigocloud.com/api/v1/me/geocoder/reverse', parameter, function(err, res) {
-    console.log("res 2016", res);
+
     if (err) {
       log('<-- geocoding error %e', err);
       return false;
@@ -90,7 +90,6 @@ function suggestAmigo(text, callback) {
     get('https://www.amigocloud.com/api/v1/me/geocoder/search', parameter, function(err, res) {
 
             if(err) {
-                console.log("Error amigo cloud");
                 log("Amigo Cloud Response Error ->", err);
 
             }else{
@@ -125,12 +124,6 @@ function suggest(text, callback) {
 
 	bingSuggestions = res.body;
 
-    console.log("------------API GEOCODE---------------");
-    console.log("res ->", res.body);
-    console.log("res.body ->", res);
-
-
-//      callback(null, res.body);
 	get('http://nominatim.openstreetmap.org/search' +
 	    '?format=json&addressdetails=1&' +
 	    'viewbox=' + southWest[0] + ',' +
@@ -140,17 +133,8 @@ function suggest(text, callback) {
 		var inside = false;
 	    nominatimSuggestions = [];
             for (var i = 0; i < nRes.body.length; i++) {
-//		inside = inside && (nRes.body[i].lng > southWest[0]);
-//		inside = inside && (nRes.body[i].lng < northEast[0]);
-//		inside = inside && (nRes.body[i].lat > southWest[1]);
-//		inside = inside && (nRes.body[i].lat < northEast[1]);
-//		if (inside) {
                     nominatimSuggestions.push(nRes.body[i]);
-//		}
             }
-
-            console.log('======data enviada===============');
-            console.log(nominatimSuggestions.slice(0,2).concat(bingSuggestions.slice(0,3)));
             callback(
 		null,
 		nominatimSuggestions.slice(0,2).concat(bingSuggestions.slice(0,3))

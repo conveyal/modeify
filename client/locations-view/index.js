@@ -162,11 +162,10 @@ View.prototype.save = function(el) {
 				}
 		}, el.address);
     } else {
-        console.log("caso si no existe el.lat");
+
 	    this.model.setAddress(name, val, function(err, location) {
-            console.log("LOCATION-VIEW 2->", location);
+
 			if (err) {
-			    console.log("error en latitud");
                 log.error('%e', err);
                 analytics.send_ga({
                     category: 'geocoder',
@@ -176,7 +175,6 @@ View.prototype.save = function(el) {
                 });
                 textModal('Invalid address.');
 			} else if (location && plan.validCoordinates()) {
-			    console.log("creando plan de ruta 2");
                 analytics.send_ga({
                     category: 'geocoder',
                     action: 'change address success',
@@ -278,8 +276,6 @@ View.prototype.suggest = function(e) {
 
   var resultsCallbackAmigo = function(err, suggestions) {
 
-    console.log("7. funcion resultsCallbackAmigo");
-
     if (err) {
       log.error('%e', err);
     } else {
@@ -332,10 +328,10 @@ View.prototype.suggest = function(e) {
             inputGroup.classList.remove('suggestions-open');
         }
     }
-  }
+  };
 
   var resultsCallback = function(err, suggestions) {
-    console.log("7. funcion resultsCallback ejecutado");
+
     if (err) {
       log.error('%e', err);
     } else {

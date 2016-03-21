@@ -182,10 +182,6 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
 
   if (!address || address.length < 1) return callback();
 
-    console.log("Location declarada ->", location);
-
-  console.log("HOLA BEBE", geocode.reverseAmigo(c, callback));
-
     if (isCoordinate) {
 
       location.coordinate({
@@ -196,7 +192,6 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
      // get("https://www.amigocloud.com/api/v1/me/geocoder/reverse?token=R:DNiePlGOMsw93cEgde88woWAQxm1xzWt7lvVXe&point.lon="+ c[0] + "&point.lat="+c[1], function(err, res) {
 
       var reserve = geocode.reverseAmigo(c, callback);
-          console.log("reserve 2016", reserve);
           if (reserve) {
             var geocode_features = reserve.features;
             var changes = {};
@@ -208,8 +203,6 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
             changes[name + '_ll'] = {lat: parseFloat(geocode_features[0].geometry.coordinates[1]), lng: parseFloat(geocode_features[0].geometry.coordinates[0])};
             changes[name + '_id'] = geocode_features[0].properties.id;
             changes[name + '_valid'] = true;
-
-            console.log("CHANGES PLAN SET", changes);
 
             plan.set(changes);
 

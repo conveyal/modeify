@@ -23,8 +23,6 @@ var geocode = require('geocode');
 var FROM = config.geocode().start_address;
 var TO = config.geocode().end_address;
 
-console.log("FROM", FROM);
-console.log("TO", TO);
 var isMobile = window.innerWidth <= 480;
 var center = config.geocode().center.split(',').map(parseFloat);
 
@@ -59,7 +57,6 @@ module.exports = function(ctx, next) {
     'options-view': new OptionsView(plan),
     'planner-nav': new PlannerNav(session)
   };
-  console.log("views", views);
 
   ctx.view = new View(views);
   ctx.view.on('rendered', function() {
@@ -71,13 +68,9 @@ module.exports = function(ctx, next) {
     }
 
     // Show the map
-
     var map = showMapView(ctx.view.find('.MapView'));
-
     // Create the transitive layer
-    console.log("transitive", transitive);
     var transitiveLayer = new LeafletTransitiveLayer(transitive);
-    console.log("transitiveLayer", transitiveLayer);
     // Set the transitive layer
     map.addLayer(transitiveLayer);
 
@@ -149,9 +142,7 @@ module.exports = function(ctx, next) {
 	);
         plan.updateRoutes();
       } else {
-	  console.log(from);
-	  console.log(to);
-	plan.loading(false);
+	    plan.loading(false);
       }
     }
   });
