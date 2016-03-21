@@ -57,7 +57,7 @@ function reverseAmigo(ll, callback) {
 
   var parameter = {'token':'R:DNiePlGOMsw93cEgde88woWAQxm1xzWt7lvVXe' , 'point.lon':ll[0], 'point.lat':ll[1] };
   get('https://www.amigocloud.com/api/v1/me/geocoder/reverse', parameter, function(err, res) {
-
+    console.log("res 2016", res);
     if (err) {
       log('<-- geocoding error %e', err);
       return null;
