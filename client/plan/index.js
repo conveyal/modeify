@@ -199,7 +199,7 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
         lat: parseFloat(c[1]),
         lng: parseFloat(c[0])
        });
-    var callbackAmigo = function (err, reserve) {
+    var callbackAmigo = function (err, reverse) {
         console.log("Ahora si llama", reverse);
         if (reserve) {
             console.log("ejecuta reverse -> ", reverse);
