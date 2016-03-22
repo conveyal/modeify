@@ -40,6 +40,7 @@
     "serve-static": "^1.10.2",
     "stormpath": "^0.17.5",
     "superagent": "^1.7.2",
+    "to-capital-case": "^1.0.0",
     "to-slug-case": "~1.0.0",
     "winston": "^2.2.0"
   },
