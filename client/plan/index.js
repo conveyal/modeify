@@ -189,9 +189,9 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
             if (reverse) {
               var geocode_features = reverse.features;
               if (isCoordinate)
-                changes[name] = geocode_features[0].properties.label;
+                changes[name] = extra.properties.label;
               else
-                changes[name] = address;
+                changes[name] = extra.properties.label;
 
               changes[name + '_ll'] = {lat: parseFloat(geocode_features[0].geometry.coordinates[1]), lng: parseFloat(geocode_features[0].geometry.coordinates[0])};
               changes[name + '_id'] = geocode_features[0].properties.id;
