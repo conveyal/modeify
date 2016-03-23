@@ -64,7 +64,7 @@ function suggestAmigo(text, callback) {
             console.log("data boundary ->" , res.body);
         }
 
-    )};
+    });
 
     var list_address;
     var parameter = {
