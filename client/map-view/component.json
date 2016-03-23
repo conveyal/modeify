@@ -5,7 +5,9 @@
   ],
   "scripts": [
     "index.js",
-    "leaflet_plugins.js"
+    "leaflet_plugins.js",
+    "leaflet_routeboxer.js",
+    "polyline_encoded.js"
   ],
   "styles": [
     "style.css"
