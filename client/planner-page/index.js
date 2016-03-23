@@ -330,11 +330,13 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
         log('updating data');
 
         var datajourney = journey;
-        console.log("is jurney", datajourney);
-        console.log("data" , datajourney.streetEdges);
 
         if (!(datajourney.streetEdges === undefined)) {
             console.log("data journey 2" , datajourney.streetEdges);
+            for (i = 0; i < datajourney.streetEdges.length; i++) {
+                console.log("data data 7 -> ", datajourney.streetEdges[i].geometry.points);
+            }
+            //geometry.points
         }
 
         //transitive.updateData(journey);
