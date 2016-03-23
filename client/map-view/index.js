@@ -1,8 +1,8 @@
 var config = require('config');
 var mapModule = require('map');
 var plugins = require('./leaflet_plugins');
-var polyUtil = require('polyline-encoded');
-var routeboxer = require('leaflet-routeboxer');
+var polyUtil = require('./polyline_encoded');
+var routeboxer = require('./leaflet_routeboxer');
 
 
 var center = config.geocode().center.split(',').map(parseFloat);
@@ -29,7 +29,7 @@ module.exports = function(el) {
     L.amigo.auth.setToken(config.support_data_token());
 
     blurLayer = L.tileLayer(
-      'https://www.amigocloud.com/api/v1/users/'+
+    'https://www.amigocloud.com/api/v1/users/'+
 	'23/projects/3019/datasets/23835/tiles/{z}/{x}/{y}.png?' +
 	'token=' + config.support_data_token(),
       {
