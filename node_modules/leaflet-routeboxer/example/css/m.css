@@ -1,0 +1,32 @@
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font: 16px "Source Sans", helvetica, arial, sans-serif;
+  font-weight: 400;
+}
+#map {
+  height:100%;
+  width: 100%;
+  position: absolute;
+}
+#controls {
+  display: block;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #fff;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+  border-radius: 4px;
+  width: 300px;
+}
+#controls .wrapper {
+  padding: 30px;
+}
+
+#result {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

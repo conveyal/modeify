@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+ <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="http://openlayers.org/dev/theme/default/style.css" type="text/css">
+    <link rel="stylesheet" href="http://openlayers.org/dev/examples/style.css" type="text/css">
+
+    <script src="http://openlayers.org/dev/OpenLayers.js"></script>
+
+	<script type="text/javascript">
+
+	function init(){
+		var lon = 12;
+		var lat = 52.85;
+		var zoom = 9;
+		var map, layer;
+
+
+		map = new OpenLayers.Map( 'map' );
+		layer = new OpenLayers.Layer.WMS("OpenLayers WMS",
+				"http://vmap0.tiles.osgeo.org/wms/vmap0",
+				{layers: 'basic'} );
+		map.addLayer(layer);
+		map.setCenter(new OpenLayers.LonLat(lon, lat), zoom);
+
+
+			var encoded = 'c{|xHbo|OSnFrSjW~M{EnFwVz@wy@vQsq@cBoUzJ{EzObBrIcLfE~C~H{Y~C~CfOgY{EjM{EgTcLzTsSwQcGf@IoKgJSkMsb@RkR' +
+				'vVkRDon@SooBvBsXbGgE{@{EfE{EwLsXgEo{AcVgw@kRc|A_q@seAcLg@bBvQkCnKcGjCwQsSkM?cL{YjHrS{J~HgOwBgOjf@{Jj' +
+				'u@cLjRcGz^oUjW{Tni@f@jRsIj\wBjf@sNbo@wG~iArDnlArIj\bGfr@bQf^~WrSnPvVfOjHnURzc@cQbQzc@nUrtAbBfYkC~M~H' +
+				'nZ~Mz^f^_N~MrDbBwQkWsXR{E';
+
+			var format = new OpenLayers.Format.EncodedPolyline({geometryType:"polygon"});
+			var vector = new OpenLayers.Layer.Vector();
+			map.addLayer(vector);
+			vector.addFeatures(format.read(encoded));
+			console.log(vector);
+
+		}
+	</script>
+</head>
+<body onload="init()">
+	<div id="map" class="smallmap"></div>
+</body>
+</html>

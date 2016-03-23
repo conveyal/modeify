@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Leaflet L.Polyline.fromEncoded()</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+	<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+
+	<style>
+	html, body, #map {
+		padding: 0;
+		margin: 0;
+		width: 100%;
+		height: 100%;
+	}
+	</style>
+</head>
+<body>
+	<div id="map"></div>
+	<div id="center"></div>
+	<script src="Polyline.encoded.js"></script>
+	<script>
+		var map = L.map('map');
+
+		map.on('click', function (e) {
+			L.DomUtil.get('center').innerHTML = 'center: ' + e.latlng.toString();
+		});
+
+		L.tileLayer(
+			'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+			{
+				attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+				maxZoom: 18
+			}
+		).addTo(map);
+
+		var failingLine = L.Polyline.fromEncoded('c{|xHbo|OSnFrSjW~M{EnFwVz@wy@vQsq@cBoUzJ{EzObBrIcLfE~C~H{Y~C~CfOgY{EjM{EgTcLzTsSwQcGf@IoKgJSkMsb@RkRvVkRDon@SooBvBsXbGgE{@{EfE{EwLsXgEo{AcVgw@kRc|A_q@seAcLg@bBvQkCnKcGjCwQsSkM?cL{YjHrS{J~HgOwBgOjf@{Jju@cLjRcGz^oUjW{Tni@f@jRsIj\\wBjf@sNbo@wG~iArDnlArIj\\bGfr@bQf^~WrSnPvVfOjHnURzc@cQbQzc@nUrtAbBfYkC~M~HnZ~Mz^f^_N~MrDbBwQkWsXR{E', {
+			color: 'red',
+			weight: 15,
+			opacity: 0.4
+		}).addTo(map);
+
+		map.fitBounds(failingLine.getBounds());
+
+		// It seems to behave well up to around the \w
+		L.Polyline.fromEncoded('c{|xHbo|OSnFrSjW~M{EnFwVz@wy@vQsq@cBoUzJ{EzObBrIcLfE~C~H{Y~C~CfOgY{EjM{EgTcLzTsSwQcGf@IoKgJSkMsb@RkRvVkRDon@SooBvBsXbGgE{@{EfE{EwLsXgEo{AcVgw@kRc|A_q@seAcLg@bBvQkCnKcGjCwQsSkM?cL{YjHrS{J~HgOwBgOjf@{Jju@cLjRcGz^oUjW{Tni@f@jR', {
+			color: 'black',
+			weight: 2
+		}).addTo(map);
+
+
+
+		// Green line, amended string.
+		L.Polyline.fromEncoded('c{|xHbo|OSnFrSjW~M{EnFwVz@wy@vQsq@cBoUzJ{EzObBrIcLfE~C~H{Y~C~CfOgY{EjM{EgTcLzTsSwQcGf@IoKgJSkMsb@RkRvVkRDon@SooBvBsXbGgE{@{EfE{EwLsXgEo{AcVgw@kRc|A_q@seAcLg@bBvQkCnKcGjCwQsSkM?cL{YjHrS{J~HgOwBgOjf@{Jju@cLjRcGz^oUjW{Tni@f@jRsIj'+
+
+		// escaping the backslashes
+		'\\wBjf@sNbo@wG~iArDnlArIj\\bGfr@bQf^~WrSnPvVfOjHnURzc@cQbQzc@nUrtAbBfYkC~M~HnZ~Mz^f^_N~MrDbBwQkWsXR{E', {
+			color: 'green',
+			weight: 8,
+			opacity: 0.7
+		}).addTo(map);
+
+	</script>
+</body>
+</html>

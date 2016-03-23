@@ -1,0 +1,26 @@
+{
+  "name": "leaflet-routeboxer",
+  "homepage": "https://github.com/StephanGeorg/leaflet-routeboxer",
+  "authors": [
+    "Stephan Georg"
+  ],
+  "description": "A Leaflet implementation of Google's RouteBoxer. RouteBoxer generates a set of L.LatLngBounds objects that are guaranteed to cover every point within a specified distance of a path.",
+  "main": "dist/leaflet-routeboxer.min.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "routeboxer",
+    "leaflet"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "leaflet": "~0.7.7"
+  }
+}
