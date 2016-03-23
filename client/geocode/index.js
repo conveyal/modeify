@@ -55,6 +55,16 @@ function reverseAmigo(ll, callback) {
  */
 
 function suggestAmigo(text, callback) {
+    var databoundary = [];
+    get('https://www.amigocloud.com/api/v1/users/1/projects/661/datasets/22492', {'token' : config.realtime_access_token()}, function(err, res) {
+
+        if (err) {
+            console.log("error");
+        }else {
+            console.log("data boundary ->" , res.body);
+        }
+
+    )};
 
     var list_address;
     var parameter = {
