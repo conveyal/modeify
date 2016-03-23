@@ -1,8 +1,8 @@
 var config = require('config');
 var mapModule = require('map');
 var plugins = require('./leaflet_plugins');
-var routeboxer = require('./leaflet_routeboxer');
-var polyline = require('./polyline_encoded');
+var routeboxer = require('leaflet-routeboxer');
+var polyUtil = require('polyline-encoded');
 
 var center = config.geocode().center.split(',').map(parseFloat);
  
