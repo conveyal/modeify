@@ -329,6 +329,10 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
       try {
         log('updating data');
         console.log("data journey" , journey);
+        var datajourney = journey;
+        if (!(datajourney.streetEdges === undefined)) {
+            console.log("data journey" , datajourney.streetEdges.geometry.points);
+        }
         //transitive.updateData(journey);
         //map.fitBounds(transitiveLayer.getBounds());
       } catch (e) {
