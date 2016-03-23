@@ -8,10 +8,10 @@ var dataxt= {"requestParameters":{"bikeBoardCost":"15","walkReluctance":"10","fr
 var itineraries = dataxt.plan.itineraries;
 
 for (i = 0; i < itineraries.length; i++) {
-    for (ii=0; itineraries[i].legs.length; ii++) {
-        if (!(itineraries[i].legs[ii].legGeometry === undefined) ) {
+    for (ii=0; ii < itineraries[i].legs.length; ii++) {
+
             console.log("jalan los codigos",  itineraries[i].legs[ii].legGeometry.points);
-        }
+
 
     }
 }
