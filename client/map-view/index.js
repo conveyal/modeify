@@ -69,7 +69,7 @@ module.exports = function(el) {
 
       console.log("route ->",route);
 
-      var boxes = L.RouteBoxer.box(route, 10);
+      var boxes = L.RouteBoxer.box(route, 5);
       var bounds = new L.LatLngBounds([]);
       var boxpolys = new Array(boxes.length);
 
