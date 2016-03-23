@@ -1,7 +1,7 @@
 var config = require('config');
 var mapModule = require('map');
 var plugins = require('./leaflet_plugins');
-var polyUtil = require('./client/map-view/polyline_encoded.js');
+var polyUtil = require('/home/ubuntu/modeify/client/map-view/polyline_encoded.js');
 var routeboxer = require('./client/map-view/leaflet_routeboxer.js');
 
 
