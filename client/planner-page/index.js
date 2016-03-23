@@ -332,11 +332,11 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
         var datajourney = journey;
         console.log("is jurney", datajourney);
         console.log("data" , datajourney.streetEdges);
-        /*
+
         if (!(datajourney.streetEdges === undefined)) {
-            console.log("data journey 2" , datajourney.streetEdges.geometry.points);
+            console.log("data journey 2" , datajourney.streetEdges);
         }
-        */
+
         //transitive.updateData(journey);
         //map.fitBounds(transitiveLayer.getBounds());
       } catch (e) {
