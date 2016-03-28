@@ -13,7 +13,6 @@ var session = require('session');
  */
 
 module.exports = updateRoutes;
-module.exports.dataplan = [];
 /**
  * Update routes
  */
@@ -78,9 +77,9 @@ function updateRoutes(plan, opts, callback) {
 
       itineraries = data.plan.itineraries;
 
-      this.dataplan = itineraries;
-      console.log("aqui imprime itinerario", this.dataplan);
-      console.log("que es this ->", this);
+
+      module.exports.dataplan = itineraries
+
       // Track the commute
       analytics.track('Found Route', {
         plan: '',
