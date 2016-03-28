@@ -156,10 +156,11 @@ module.exports.drawRoutePlan = function(dataplan) {
 module.exports.drawRouteAmigo = function(route) {
 
     //documentos
+    /*
     this.activeMap.eachLayer(function (layer) {
         this.activeMap.removeLayer(layer);
     });
-
+    */
     route = new L.Polyline(L.PolylineUtil.decode(route, 5));
 
       console.log("route ->",route);
