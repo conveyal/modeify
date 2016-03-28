@@ -79,6 +79,7 @@ function updateRoutes(plan, opts, callback) {
       itineraries = data.plan.itineraries;
 
       this.dataplan = itineraries;
+      console.log("aqui imprime itinerario", this.dataplan);
       // Track the commute
       analytics.track('Found Route', {
         plan: '',
