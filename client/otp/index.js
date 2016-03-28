@@ -63,7 +63,7 @@ module.exports.plan = function (query, callback) {
 		    } else {
 			log('<-- profiled %s options', res.body.length);
 			//Aqui llamamos a plan
-			showMapView.drawRoutePlan(res.body);
+			//showMapView.drawRoutePlan(res.body);
 			callback(null, {
 			    journey: journey,
 //			    options: data.options
