@@ -62,46 +62,8 @@ module.exports = function(el) {
 
     map.realtimeControl = L.control.toggleRealTime().addTo(map);
 
-/*
-    var drawRoute = function (route) {
-
-      route = new L.Polyline(L.PolylineUtil.decode(route, 5));
-
-      console.log("route ->",route);
-
-      var boxes = L.RouteBoxer.box(route, 5);
-      var bounds = new L.LatLngBounds([]);
-      var boxpolys = new Array(boxes.length);
-
-      for (var i = 0; i < boxes.length; i++) {
-        //L.rectangle(boxes[i], {color: "#ff7800", weight: 1}).addTo(this.map);
-        bounds.extend(boxes[i]);
-      }
-
-      route.addTo(map);
-      map.fitBounds(bounds);
-
-      return route;
-
-
-    };
-
-    */
-
-
-    /*
-    for (i = 0; i < itineraries.length; i++) {
-        for (ii=0; ii < itineraries[i].legs.length; ii++) {
-
-                console.log("jalan los codigos",  itineraries[i].legs[ii].legGeometry.points);
-                drawRoute(itineraries[i].legs[ii].legGeometry.points);
-        }
-    }
-    */
-
-
-
     realtime = mapModule.realtime();
+
 
   } else {
     map = L.mapbox.map(el, config.mapbox_map_id(), {
@@ -144,7 +106,6 @@ module.exports.drawRoutePlan = function(dataplan) {
     var itineraries = dataplan;
     for (i = 0; i < itineraries.length; i++) {
         for (ii=0; ii < itineraries[i].legs.length; ii++) {
-
                 console.log("jalan los codigos",  itineraries[i].legs[ii].legGeometry.points);
                 drawRoute(itineraries[i].legs[ii].legGeometry.points);
         }
