@@ -343,7 +343,7 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
 
         var datajourney = journey;
         if (!(plan.dataplan === undefined)) {
-
+            showMapView.cleanRoute();
             var itineraries = plan.dataplan;
             for (i = 0; i < itineraries.length; i++) {
                 for (ii=0; ii < itineraries[i].legs.length; ii++) {
