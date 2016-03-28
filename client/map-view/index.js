@@ -104,7 +104,7 @@ var drawRoute = function (route) {
 
 
 module.exports.cleanRoute = function() {
-    module.exports.activeRoute.clearLayers();
+    module.exports.activeRoute.removeLayer();
     module.exports.activeRoute = null;
 };
 
