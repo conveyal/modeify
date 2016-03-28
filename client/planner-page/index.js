@@ -333,11 +333,12 @@ function showQuery(query) {
 function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
   // Register plan update events
 
-  console.log("aqui la data del plan 7 ->", plan.dataplan);
-  /*plan.on('change journey', function(journey) {
+
+  plan.on('change journey', function(journey) {
 
     if (journey && !isMobile) {
       try {
+        console.log("aqui la data del plan 7 ->", plan.dataplan);
         log('updating data');
 
         var datajourney = journey;
@@ -358,5 +359,5 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
 	    map.setView([center[1], center[0]], config.geocode().zoom);
       }
     }
-  });*/
+  });
 }
