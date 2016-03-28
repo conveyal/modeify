@@ -353,7 +353,7 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
                 }
             }
         }
-
+        plan.updateRoutes();
 
 
         /*
