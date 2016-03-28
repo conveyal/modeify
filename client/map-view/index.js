@@ -115,8 +115,8 @@ module.exports.drawRouteAmigo = function(route) {
 
        console.log(L.PolylineUtil.decode(route, 5));
       route = new L.Polyline({
-            path: L.PolylineUtil.decode(route, 5),
-            strokeColor: '#FF0000'
+            path: L.PolylineUtil.decode(route, 5)
+            //strokeColor: '#FF0000'
         });
 
         console.log("cambio metodos route");
