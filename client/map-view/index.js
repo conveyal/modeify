@@ -111,13 +111,13 @@ module.exports.cleanRoute = function() {
 };
 
 module.exports.drawRouteAmigo = function(route) {
-      //route = new L.Polyline(L.PolylineUtil.decode(route, 5));
+      route = new L.Polyline(L.PolylineUtil.decode(route, 5));
 
        console.log(L.PolylineUtil.decode(route, 5));
-      route = new L.Polyline({
+        /* route = new L.Polyline({
             path: L.PolylineUtil.decode(route, 5)
             //strokeColor: '#FF0000'
-        });
+        });*/
 
         console.log("cambio metodos route");
       var boxes = L.RouteBoxer.box(route, 5);
