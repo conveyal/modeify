@@ -20,7 +20,7 @@ var showWelcomeWizard = require('welcome-flow');
 var showPlannerWalkthrough = require('planner-walkthrough');
 var geocode = require('geocode');
 
-var pl=session.plan().generateQuery();
+var pl=session.plan();
 console.log("PL->", pl);
 
 var FROM = config.geocode().start_address;
