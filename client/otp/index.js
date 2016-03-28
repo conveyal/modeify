@@ -5,6 +5,7 @@ var log = require('./client/log')('otp');
 var Profiler = require('otp-profiler');
 var qs = require('querystring');
 var superagent = require('superagent');
+var showMapView = require('map-view');
 
 /**
  * Create profiler
@@ -61,7 +62,8 @@ module.exports.plan = function (query, callback) {
 			callback(err, journey);
 		    } else {
 			log('<-- profiled %s options', res.body.length);
-			console.log("plan otp demo ->" , res.body);
+			//Aqui llamamos a plan
+			showMapView.drawRoutePlan(res.body);
 			callback(null, {
 			    journey: journey,
 //			    options: data.options
