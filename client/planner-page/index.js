@@ -76,7 +76,7 @@ module.exports = function(ctx, next) {
     map.addLayer(transitiveLayer);
 
     // Update map on plan change
-    updateMapOnPlanChange(plan, map, transitive, transitiveLayer);
+    //updateMapOnPlanChange(plan, map, transitive, transitiveLayer);
 
     /*
     map.on('click', function (e) {
