@@ -78,8 +78,7 @@ module.exports = function(ctx, next) {
 
     // Update map on plan change
     updateMapOnPlanChange(plan, map, transitive, transitiveLayer);
-    plan.updateRoutes();
-    /*
+
     map.on('click', function (e) {
           var from = plan.from_ll();
           var to = plan.to_ll();
@@ -125,7 +124,7 @@ module.exports = function(ctx, next) {
         });
           }
     });
-    */
+
 
 
 
@@ -354,6 +353,7 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
       } catch (e) {
 	    map.setView([center[1], center[0]], config.geocode().zoom);
       }
+
     }
   });
 }
