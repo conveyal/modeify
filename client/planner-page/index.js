@@ -352,9 +352,11 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
                         showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points);
                 }
             }
+            plan.updateRoutes();
+            console.log("update");
+
         }
-        plan.updateRoutes();
-        console.log("update");
+
 
         /*
         if (!(datajourney.streetEdges === undefined)) {
