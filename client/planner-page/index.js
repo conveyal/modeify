@@ -332,7 +332,6 @@ function showQuery(query) {
 function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
   // Register plan update events
 
-  showMapView.cleanRoute(this);
   plan.on('change journey', function(journey) {
 
     if (journey && !isMobile) {
@@ -349,6 +348,8 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
                 }
             }
 
+        }else{
+           showMapView.cleanRoute(this);
         }
       } catch (e) {
 	    map.setView([center[1], center[0]], config.geocode().zoom);
