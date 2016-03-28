@@ -63,9 +63,10 @@ module.exports = function(el) {
     map.realtimeControl = L.control.toggleRealTime().addTo(map);
 
     realtime = mapModule.realtime();
-
+    console.log("entre amigo")
 
   } else {
+    console.log("entre mapaboxs");
     map = L.mapbox.map(el, config.mapbox_map_id(), {
       attributionControl: false,
       inertia: false,
@@ -101,23 +102,8 @@ var drawRoute = function (route) {
 
     };
 
-module.exports.drawRoutePlan = function(dataplan) {
-    console.log("Create drawRoutePlan");
-    var itineraries = dataplan;
-    for (i = 0; i < itineraries.length; i++) {
-        for (ii=0; ii < itineraries[i].legs.length; ii++) {
-                console.log("jalan los codigos",  itineraries[i].legs[ii].legGeometry.points);
-                drawRoute(itineraries[i].legs[ii].legGeometry.points);
-        }
-    }
-};
-
 
 module.exports.cleanRoute = function() {
-    if (!module.exports.activeRoute) return;
-    module.exports.realtimeMap.removeLayer(
-	module.exports.activeRoute
-    );
     module.exports.activeRoute.clearLayers();
     module.exports.activeRoute = null;
 };
