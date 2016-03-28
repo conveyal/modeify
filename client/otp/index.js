@@ -61,6 +61,7 @@ module.exports.plan = function (query, callback) {
 			callback(err, journey);
 		    } else {
 			log('<-- profiled %s options', res.body.length);
+			console.log("plan otp demo ->" , res.body);
 			callback(null, {
 			    journey: journey,
 //			    options: data.options
