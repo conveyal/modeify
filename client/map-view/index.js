@@ -151,11 +151,6 @@ module.exports.drawRoutePlan = function(dataplan) {
     }
 };
 
-
-module.exports.cleanRoute = function() {
-   this.activeMap.setMap(null);
-}
-
 module.exports.drawRouteAmigo = function(route) {
 
     //documentos
