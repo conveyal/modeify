@@ -342,7 +342,11 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
         log('updating data');
 
         var datajourney = journey;
+        if (!(plan.dataplan === undefined)) {
+            showMapView.drawRoutePlan(plan.dataplan);
+        }
 
+        /*
         if (!(datajourney.streetEdges === undefined)) {
             console.log("data journey 2" , datajourney.streetEdges);
             for (i = 0; i < datajourney.streetEdges.length; i++) {
@@ -352,7 +356,7 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
             }
             //geometry.points
         }
-
+        */
         //transitive.updateData(journey);
         //map.fitBounds(transitiveLayer.getBounds());
       } catch (e) {
