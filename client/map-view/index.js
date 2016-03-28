@@ -83,8 +83,10 @@ module.exports.getMap = function () {
 
 var drawRoute = function (route) {
 
-      route = new L.Polyline(L.PolylineUtil.decode(route, 5));
-
+      //route = new L.Polyline(L.PolylineUtil.decode(route, 5));
+        route = new L.Polyline({
+            path: L.PolylineUtil.decode(route, 5)
+        });
       console.log("route ->",route);
 
       var boxes = L.RouteBoxer.box(route, 5);
@@ -93,7 +95,7 @@ var drawRoute = function (route) {
       route.setStyle({fillColor: '#455a71'});
       for (var i = 0; i < boxes.length; i++) {
         //L.rectangle(boxes[i], {color: "#ff7800", weight: 1}).addTo(this.map);
-        bounds.extend(boxes[i], {color: "#ff7800", weight: 1});
+        bounds.extend(boxes[i]);
       }
 
       route.addTo(this.activeMap);
