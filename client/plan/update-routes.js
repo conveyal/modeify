@@ -13,7 +13,7 @@ var session = require('session');
  */
 
 module.exports = updateRoutes;
-
+module.exports.dataplan = [];
 /**
  * Update routes
  */
@@ -63,6 +63,8 @@ function updateRoutes(plan, opts, callback) {
       var planData,
       itineraries;
 
+
+
     if (err || !data || !data.plan) {
       plan.set({
         options: [],
@@ -73,7 +75,10 @@ function updateRoutes(plan, opts, callback) {
       done(err, data);
     } else {
       var planData = {options: []},
+
       itineraries = data.plan.itineraries;
+
+      this.dataplan = itineraries;
       // Track the commute
       analytics.track('Found Route', {
         plan: '',

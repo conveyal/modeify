@@ -183,6 +183,8 @@ View.prototype.reverseCommute = function(e) {
   });
 
   plan.updateRoutes();
+
+  console.log("aqui la pada del plan ->", plan.dataplan);
 };
 
 /**

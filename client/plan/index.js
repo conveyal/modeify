@@ -14,6 +14,7 @@ var loadPlan = require('./load');
 var store = require('./store');
 var updateRoutes = require('./update-routes');
 
+module.exports.dataplan = [];
 /**
  * Debounce updates to once every 50ms
  */
@@ -107,6 +108,7 @@ Plan.on('change end_time', function(plan, val, prev) {
 
 Plan.prototype.updateRoutes = debounce(function(opts, callback) {
   updateRoutes(this, opts, callback);
+  this.dataplan = updateRoutes.dataplan;
 }, DEBOUNCE_UPDATES);
 
 /**
