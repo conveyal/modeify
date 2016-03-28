@@ -90,7 +90,7 @@ var drawRoute = function (route) {
       var boxes = L.RouteBoxer.box(route, 5);
       var bounds = new L.LatLngBounds([]);
       var boxpolys = new Array(boxes.length);
-
+      route.setStyle({fillColor: '#455a71'});
       for (var i = 0; i < boxes.length; i++) {
         //L.rectangle(boxes[i], {color: "#ff7800", weight: 1}).addTo(this.map);
         bounds.extend(boxes[i], {color: "#ff7800", weight: 1});
