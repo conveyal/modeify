@@ -354,7 +354,7 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
             }
         }
         plan.updateRoutes();
-
+        console.log("update");
 
         /*
         if (!(datajourney.streetEdges === undefined)) {
