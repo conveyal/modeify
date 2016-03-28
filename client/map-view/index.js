@@ -136,8 +136,6 @@ var drawRoute = function (route) {
       route.addTo(this.activeMap);
       this.activeMap.fitBounds(bounds);
 
-      //return route;
-
 
     };
 
