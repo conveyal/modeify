@@ -373,7 +373,5 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
 	    map.setView([center[1], center[0]], config.geocode().zoom);
       }
     }
-    plan.updateRoutes();
-    console.log("update");
   });
 }
