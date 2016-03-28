@@ -98,7 +98,7 @@ module.exports = function(el) {
 
 
 
-    realtime = mapModule.realtime();7
+    realtime = mapModule.realtime();
 
   } else {
     map = L.mapbox.map(el, config.mapbox_map_id(), {
@@ -124,7 +124,7 @@ module.exports.drawRoutePlan = function(dataplan) {
                 //drawRoute(itineraries[i].legs[ii].legGeometry.points);
         }
     }
-}
+};
 
 module.exports.drawRouteAmigo = function(route) {
     route = new L.Polyline(L.PolylineUtil.decode(route, 5));
@@ -144,5 +144,5 @@ module.exports.drawRouteAmigo = function(route) {
       this.activeMap.fitBounds(bounds);
 
       //return route;
-}
+};
 

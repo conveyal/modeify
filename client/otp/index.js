@@ -5,7 +5,7 @@ var log = require('./client/log')('otp');
 var Profiler = require('otp-profiler');
 var qs = require('querystring');
 var superagent = require('superagent');
-var showMapView = require('map-view');
+
 
 /**
  * Create profiler
@@ -56,24 +56,24 @@ module.exports.plan = function (query, callback) {
             if (err || res.body.error || !res.ok) {
                 callback(err || res.body.error || res.text, res);
             } else {
-		profiler.journeyWithPlan(res.body, function(err, journey) {
-		    if (err) {
-			log.error('<-- error profiling', err);
-			callback(err, journey);
-		    } else {
-			log('<-- profiled %s options', res.body.length);
-			//Aqui llamamos a plan
-			//showMapView.drawRoutePlan(res.body);
-			callback(null, {
-			    journey: journey,
-//			    options: data.options
-			    options: res.body,
-			    plan: res.body.plan
-			});
-//			callback(null, res.body);
-		    }
-		});
+		        profiler.journeyWithPlan(res.body, function(err, journey) {
+                    if (err) {
+                        log.error('<-- error profiling', err);
+                        callback(err, journey);
+                    } else {
+                        log('<-- profiled %s options', res.body.length);
+                        callback(null, {
+                            journey: journey,
+            //			    options: data.options
+                            options: res.body,
+                            plan: res.body.plan
+                        });
+
+                    }
+		        });
             }
+            console.log("query->", query);
+            console.log("callback qs ->", callback);
         });
 };
 
