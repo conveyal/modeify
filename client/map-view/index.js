@@ -102,7 +102,7 @@ var drawRoute = function (route) {
     };
 
 module.exports.drawRoutePlan = function(dataplan) {
-
+    console.log("Create drawRoutePlan");
     var itineraries = dataplan;
     for (i = 0; i < itineraries.length; i++) {
         for (ii=0; ii < itineraries[i].legs.length; ii++) {
@@ -114,11 +114,15 @@ module.exports.drawRoutePlan = function(dataplan) {
 
 
 module.exports.cleanRoute = function() {
-   this.activeMap.setMap(null);
-}
+    if (!module.exports.activeRoute) return;
+    module.exports.realtimeMap.removeLayer(
+	module.exports.activeRoute
+    );
+    module.exports.activeRoute.clearLayers();
+    module.exports.activeRoute = null;
+};
 
 module.exports.drawRouteAmigo = function(route) {
-
       route = new L.Polyline(L.PolylineUtil.decode(route, 5));
       var boxes = L.RouteBoxer.box(route, 5);
       var bounds = new L.LatLngBounds([]);
