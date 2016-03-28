@@ -74,7 +74,7 @@ module.exports = function(ctx, next) {
     var transitiveLayer = new LeafletTransitiveLayer(transitive);
 
     // Set the transitive layer
-    map.addLayer(transitiveLayer);
+    //map.addLayer(transitiveLayer);
 
     // Update map on plan change
     updateMapOnPlanChange(plan, map, transitive, transitiveLayer);
