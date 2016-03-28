@@ -157,9 +157,7 @@ module.exports.drawRouteAmigo = function(route) {
 
     //documentos
 
-    this.activeMap.eachLayer(function (layer) {
-        this.activeMap.removeLayer(layer);
-    });
+    this.activeMap.setMap(null);
 
     route = new L.Polyline(L.PolylineUtil.decode(route, 5));
 
