@@ -77,7 +77,7 @@ module.exports = function(ctx, next) {
     map.addLayer(transitiveLayer);
 
     // Update map on plan change
-    //updateMapOnPlanChange(plan, map, transitive, transitiveLayer);
+    updateMapOnPlanChange(plan, map, transitive, transitiveLayer);
 
     /*
     map.on('click', function (e) {
@@ -332,7 +332,9 @@ function showQuery(query) {
 
 function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
   // Register plan update events
-  plan.on('change journey', function(journey) {
+
+  console.log("aqui la data del plan 7 ->", plan.dataplan);
+  /*plan.on('change journey', function(journey) {
 
     if (journey && !isMobile) {
       try {
@@ -356,5 +358,5 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
 	    map.setView([center[1], center[0]], config.geocode().zoom);
       }
     }
-  });
+  });*/
 }
