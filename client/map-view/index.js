@@ -93,7 +93,7 @@ var drawRoute = function (route) {
 
       for (var i = 0; i < boxes.length; i++) {
         //L.rectangle(boxes[i], {color: "#ff7800", weight: 1}).addTo(this.map);
-        bounds.extend(boxes[i]);
+        bounds.extend(boxes[i], {color: "#ff7800", weight: 1});
       }
 
       route.addTo(this.activeMap);
