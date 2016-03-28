@@ -346,28 +346,11 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
             var itineraries = plan.dataplan;
             for (i = 0; i < itineraries.length; i++) {
                 for (ii=0; ii < itineraries[i].legs.length; ii++) {
-
-                        console.log("jalan los codigos",  itineraries[i].legs[ii].legGeometry.points);
-                        showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points);
+                  showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points);
                 }
             }
 
         }
-
-
-        /*
-        if (!(datajourney.streetEdges === undefined)) {
-            console.log("data journey 2" , datajourney.streetEdges);
-            for (i = 0; i < datajourney.streetEdges.length; i++) {
-                console.log("data data 7 -> ", datajourney.streetEdges[i].geometry.points);
-
-                showMapView.drawRouteAmigo(datajourney.streetEdges[i].geometry.points);
-            }
-            //geometry.points
-        }
-        */
-        //transitive.updateData(journey);
-        //map.fitBounds(transitiveLayer.getBounds());
       } catch (e) {
 	    map.setView([center[1], center[0]], config.geocode().zoom);
       }

@@ -119,14 +119,7 @@ module.exports.cleanRoute = function() {
 
 module.exports.drawRouteAmigo = function(route) {
 
-    //documentos
-
-    //this.activeMap.setMap(null);
-
-    route = new L.Polyline(L.PolylineUtil.decode(route, 5));
-
-      console.log("route ->",route);
-
+      route = new L.Polyline(L.PolylineUtil.decode(route, 5));
       var boxes = L.RouteBoxer.box(route, 5);
       var bounds = new L.LatLngBounds([]);
       var boxpolys = new Array(boxes.length);
@@ -135,10 +128,7 @@ module.exports.drawRouteAmigo = function(route) {
         //L.rectangle(boxes[i], {color: "#ff7800", weight: 1}).addTo(this.map);
         bounds.extend(boxes[i]);
       }
-
       route.addTo(this.activeMap);
       this.activeMap.fitBounds(bounds);
-
-      //return route;
 };
 
