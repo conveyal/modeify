@@ -133,10 +133,10 @@ var drawRoute = function (route) {
         bounds.extend(boxes[i]);
       }
 
-      route.addTo(map);
-      map.fitBounds(bounds);
+      route.addTo(this.activeMap);
+      this.activeMap.fitBounds(bounds);
 
-      return route;
+      //return route;
 
 
     };
