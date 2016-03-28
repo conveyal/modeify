@@ -80,6 +80,7 @@ function updateRoutes(plan, opts, callback) {
 
       this.dataplan = itineraries;
       console.log("aqui imprime itinerario", this.dataplan);
+      console.log("que es this ->", this);
       // Track the commute
       analytics.track('Found Route', {
         plan: '',
