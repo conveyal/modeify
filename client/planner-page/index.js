@@ -144,9 +144,11 @@ module.exports = function(ctx, next) {
 	  to.lng + ',' + to.lat, // to
 	  function (err, res) {
 	    plan.updateRoutes();
+	    console.log("aqui la data del plan 4 ->", plan.dataplan);
 	  }
 	);
         plan.updateRoutes();
+        console.log("aqui la data del plan 3 ->", plan.dataplan);
       } else {
 	  console.log(from);
 	  console.log(to);
@@ -184,7 +186,7 @@ View.prototype.reverseCommute = function(e) {
 
   plan.updateRoutes();
 
-  console.log("aqui la pada del plan ->", plan.dataplan);
+  console.log("aqui la data del plan 5 ->", plan.dataplan);
 };
 
 /**
@@ -300,6 +302,8 @@ function showQuery(query) {
       places: plan.generatePlaces()
     });
     plan.updateRoutes();
+
+    console.log("aqui la data del plan 1 ->", plan.dataplan);
   } else {
       if (!plan.validCoordinates()) {
 	  plan.loading(false);
@@ -314,6 +318,8 @@ function showQuery(query) {
           places: plan.generatePlaces()
         });
         plan.updateRoutes();
+
+        console.log("aqui la data del plan 2 ->", plan.dataplan);
       }
     });
 }
