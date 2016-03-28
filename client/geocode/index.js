@@ -61,22 +61,17 @@ function suggestAmigo(text, callback) {
         if (err) {
             console.log("error");
         }else {
-            console.log("data boundary ->" , res.body);
-
             var list_address;
-
             var bounding = res.body.boundingbox;
             var bounding_split = bounding.split(",");
             var boinding_first = bounding_split[0].split(" ");
             var boinding_second = bounding_split[1].split(" ");
-            console.log(boinding_first);
-            console.log(boinding_second);
             var parameter = {
                 'token': config.realtime_access_token() ,
-                'boundary.rect.min_lat': '36.155617833819',
-                'boundary.rect.min_lon': '-123.607177734375',
-                'boundary.rect.max_lat': '38.826870521381',
-                'boundary.rect.max_lon': '-120.701293945312',
+                'boundary.rect.min_lat': boinding_first[1],
+                'boundary.rect.min_lon': boinding_first[0],
+                'boundary.rect.max_lat': boinding_second[1],
+                'boundary.rect.max_lon': boinding_second[0],
                 'sources':'osm,oa',
                 'text': text
             };
