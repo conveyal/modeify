@@ -352,8 +352,6 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
                         showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points);
                 }
             }
-            plan.updateRoutes();
-            console.log("update");
 
         }
 
@@ -375,5 +373,7 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
 	    map.setView([center[1], center[0]], config.geocode().zoom);
       }
     }
+    plan.updateRoutes();
+    console.log("update");
   });
 }
