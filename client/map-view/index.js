@@ -153,9 +153,7 @@ module.exports.drawRoutePlan = function(dataplan) {
 
 
 module.exports.cleanRoute = function() {
-    this.activeMap.eachLayer(function (layer) {
-        this.activeMap.removeLayer(layer);
-    });
+   this.activeMap.setMap(null);
 }
 
 module.exports.drawRouteAmigo = function(route) {
