@@ -217,8 +217,8 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
               }
 
             }
-      };
-      geocode.reverseAmigo(c, callbackAmigo);
+        };
+        geocode.reverseAmigo(c, callbackAmigo);
     }else {
       plan.setAddress('', '', callback);
     }

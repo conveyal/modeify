@@ -78,7 +78,7 @@ module.exports = function(ctx, next) {
 
     // Update map on plan change
     updateMapOnPlanChange(plan, map, transitive, transitiveLayer);
-
+    plan.updateRoutes();
     /*
     map.on('click', function (e) {
           var from = plan.from_ll();

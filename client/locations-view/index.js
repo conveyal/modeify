@@ -133,47 +133,47 @@ View.prototype.save = function(el) {
 
 	if (el.lat) {
 		this.model.setAddress(name, el.lng + ',' + el.lat, function(err, location) {
-				if (err) {
-				log.error('%e', err);
-				analytics.send_ga({
-category: 'geocoder',
-action: 'change address invalid',
-label: val,
-value: 0
-});
-				textModal('Invalid address.');
-				} else if (location && plan.validCoordinates()) {
-				analytics.send_ga({
-category: 'geocoder',
-action: 'change address success',
-label: val,
-value: 0
-});
-				plan.updateRoutes();
-				}
-				}, el.address);
-} else {
-	this.model.setAddress(name, val, function(err, location) {
+            if (err) {
+                log.error('%e', err);
+                analytics.send_ga({
+                    category: 'geocoder',
+                    action: 'change address invalid',
+                    label: val,
+                    value: 0
+                    });
+                textModal('Invalid address.');
+            } else if (location && plan.validCoordinates()) {
+                analytics.send_ga({
+                    category: 'geocoder',
+                    action: 'change address success',
+                    label: val,
+                    value: 0
+                });
+                plan.updateRoutes();
+            }
+        }, el.address);
+    } else {
+	    this.model.setAddress(name, val, function(err, location) {
 			if (err) {
-			log.error('%e', err);
-			analytics.send_ga({
-category: 'geocoder',
-action: 'change address invalid',
-label: val,
-value: 0
-});
+                log.error('%e', err);
+                analytics.send_ga({
+                    category: 'geocoder',
+                    action: 'change address invalid',
+                    label: val,
+                    value: 0
+                });
 			textModal('Invalid address.');
 			} else if (location && plan.validCoordinates()) {
-			analytics.send_ga({
-category: 'geocoder',
-action: 'change address success',
-label: val,
-value: 0
-});
-			plan.updateRoutes();
+			    analytics.send_ga({
+                category: 'geocoder',
+                action: 'change address success',
+                label: val,
+                value: 0
+                });
+			    plan.updateRoutes();
 			}
 			});
-}
+    }
 };
 
 /**
