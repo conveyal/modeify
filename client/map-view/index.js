@@ -111,17 +111,17 @@ module.exports.cleanRoute = function() {
 };
 
 module.exports.drawRouteAmigo = function(route) {
-      route = new L.Polyline(L.PolylineUtil.decode(route, 5));
-      /*
+      //route = new L.Polyline(L.PolylineUtil.decode(route, 5));
+
       route = new L.Polyline({
             path: L.PolylineUtil.decode(route, 5),
             geodesic: true,
             strokeColor: '#FF0000',
             strokeOpacity: 1.0,
             strokeWeight: 2
-        });*/
+        });
 
-        conole.log("cambio metodos route");
+        console.log("cambio metodos route");
       var boxes = L.RouteBoxer.box(route, 5);
       var bounds = new L.LatLngBounds([]);
       var boxpolys = new Array(boxes.length);
