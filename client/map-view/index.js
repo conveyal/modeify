@@ -87,7 +87,7 @@ var drawRoute = function (route) {
         route = new L.Polyline({
             path: L.PolylineUtil.decode(route, 5)
         });
-      console.log("route ->",route);
+      console.log("route demo");
 
       var boxes = L.RouteBoxer.box(route, 5);
       var bounds = new L.LatLngBounds([]);
