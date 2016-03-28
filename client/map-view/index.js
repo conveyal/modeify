@@ -111,7 +111,12 @@ module.exports.cleanRoute = function() {
 };
 
 module.exports.drawRouteAmigo = function(route) {
-      route = new L.Polyline(L.PolylineUtil.decode(route, 5));
+      //route = new L.Polyline(L.PolylineUtil.decode(route, 5));
+      route = new L.Polyline({
+            path: L.PolylineUtil.decode(route, 5)
+        });
+
+        conole.log("cambio metodos route");
       var boxes = L.RouteBoxer.box(route, 5);
       var bounds = new L.LatLngBounds([]);
       var boxpolys = new Array(boxes.length);
