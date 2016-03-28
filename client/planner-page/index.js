@@ -347,11 +347,13 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
                   showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points);
                 }
             }
-
+          console.log("entre if ")
         }else{
+          console.log("entre else");
            showMapView.cleanRoute(this);
         }
       } catch (e) {
+        console.log("entre cath")
 	    map.setView([center[1], center[0]], config.geocode().zoom);
       }
 
