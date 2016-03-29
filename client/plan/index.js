@@ -108,14 +108,8 @@ Plan.on('change end_time', function(plan, val, prev) {
  */
 
 Plan.prototype.updateRoutes = debounce(function(opts, callback) {
-  console.log("opts->", opts);
-  console.log("opts callback->", callback);
   updateRoutes(this, opts, callback);
-  console.log("updateRoutes ->", updateRoutes);
-  console.log("data plan desde router", updateRoutes.dataplan);
   this.dataplan = updateRoutes.dataplan;
-  console.log("Plan.dataplan", Plan.dataplan);
-
 }, DEBOUNCE_UPDATES);
 
 /**
