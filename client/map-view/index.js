@@ -88,10 +88,10 @@ module.exports.cleanRoute = function() {
 };
 
 module.exports.drawRouteAmigo = function(route,mode) {
-      var color = '#000';
+      var color = '#9E9E9E';
       var weight = 5;
       var dasharray= '';
-
+        /*
         if (mode=="CAR") {
             color = '#FF0000';
             dasharray= '6';
@@ -106,6 +106,7 @@ module.exports.drawRouteAmigo = function(route,mode) {
             color = '#9E9E9E';
 
         }
+        */
 
        var color_options = {
             color: color,
