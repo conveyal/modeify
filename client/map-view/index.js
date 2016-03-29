@@ -84,10 +84,17 @@ module.exports.getMap = function () {
 var drawRoute = function (route) {
 
       //route = new L.Polyline(L.PolylineUtil.decode(route, 5));
-        route = new L.Polyline({
-            path: L.PolylineUtil.decode(route, 5)
-        });
-      console.log("route demo");
+
+        var color_options = {
+            color: '#000',
+            opacity: 1,
+            weight: 3,
+            fillColor: '#000',
+            fillOpacity: 0.6
+        };
+
+       route = new L.Polyline(L.PolylineUtil.decode(route, 6), color_options);
+
 
       var boxes = L.RouteBoxer.box(route, 5);
       var bounds = new L.LatLngBounds([]);
