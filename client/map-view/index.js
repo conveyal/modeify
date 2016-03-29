@@ -91,7 +91,7 @@ module.exports.drawRouteAmigo = function(route,mode) {
       var color = '#000';
       var weight = 5;
       var dasharray= '';
-
+        console.log("imprime mode ->", mode);
         if (mode=="CAR") {
             color = '#FF0000';
             dasharray= '6';
@@ -104,7 +104,7 @@ module.exports.drawRouteAmigo = function(route,mode) {
 
         }else if(mode=="SUBWAY" || mode=="RAIL") {
             color = '#FF0000';
-             weight = 16;
+             weight = 8;
 
         }
 
