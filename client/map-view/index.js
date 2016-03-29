@@ -109,6 +109,7 @@ module.exports.drawRouteAmigo = function(route,mode) {
         }
         else if(mode == "WALK") {
             color = '#0BC8F4';
+            dasharray= '6';
              weight = 5;
         }
 
