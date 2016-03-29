@@ -73,7 +73,7 @@ function updateRoutes(plan, opts, callback) {
         planData = {options: []};
 
         itineraries = data.plan.itineraries;
-        module.exports.dataplan = itineraries
+        module.exports.dataplan = data.plan;
 
           // Track the commute
           analytics.track('Found Route', {

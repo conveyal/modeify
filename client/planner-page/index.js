@@ -347,7 +347,8 @@ function updateMapOnPlanChange(plan, map) {
 
         var datajourney = journey;
         if (!(plan.dataplan === undefined)) {
-            var itineraries = plan.dataplan;
+            var itineraries = plan.dataplan.itineraries;
+            showMapView.marker_map([plan.dataplan.from.lat,plan.dataplan.from.lon],[plan.dataplan.from.to,plan.dataplan.to.lon], map);
             for (i = 0; i < itineraries.length; i++) {
                 for (ii=0; ii < itineraries[i].legs.length; ii++) {
                   showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points, itineraries[i].legs[ii].mode);
