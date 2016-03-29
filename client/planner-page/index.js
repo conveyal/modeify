@@ -389,6 +389,7 @@ function updateMapOnPlanChange(plan, map) {
             showMapView.marker_map([plan.dataplan.from.lat,plan.dataplan.from.lon],[plan.dataplan.to.lat,plan.dataplan.to.lon], map);
             for (i = 0; i < itineraries.length; i++) {
                 for (ii=0; ii < itineraries[i].legs.length; ii++) {
+                  console.log("itineraries[i].legs[ii]", itineraries[i].legs[ii]);
                   showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points, itineraries[i].legs[ii].mode);
                 }
             }
