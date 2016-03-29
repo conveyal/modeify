@@ -353,6 +353,7 @@ function updateMapOnPlanChange(plan, map) {
 
   var polyline_creadas = showMapView.getpolyline_creadas();
     console.log("poliline credas ->", polyline_creadas);
+    console.log("llamamos sin evento ->", showMapView.polyline_creadas);
   for (i in polyline_creadas) {
         try {
                 map.removeLayer(polyline_creadas[i]);
