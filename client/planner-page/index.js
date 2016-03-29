@@ -350,7 +350,7 @@ function updateMapOnPlanChange(plan, map) {
             var itineraries = plan.dataplan;
             for (i = 0; i < itineraries.length; i++) {
                 for (ii=0; ii < itineraries[i].legs.length; ii++) {
-                  showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points);
+                  showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points, itineraries[i].legs[ii].mode);
                 }
             }
           console.log("entre if ")
