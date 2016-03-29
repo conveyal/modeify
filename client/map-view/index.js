@@ -56,6 +56,22 @@ module.exports = function(el) {
     map.layersControl.addOverlay(blurLayer);
     blurLayer.addTo(map);
 
+    var IconStart = L.icon({
+        iconUrl: 'assets/images/graphics/start.svg',
+        iconSize: [40, 55],
+        iconAnchor: [20, 50],
+        popupAnchor:  [0, -50]
+    });
+    var IconEnd = L.icon({
+        iconUrl: 'assets/images/graphics/end.svg',
+        iconSize: [40, 55],
+        iconAnchor: [20, 50],
+        popupAnchor:  [0, -50]
+    });
+
+    L.marker([37.35337508231001,-121.93626880645752], {icon: IconStart}).bindPopup('From').addTo(map);
+    L.marker([37.44377324953697,-122.16601610183714], {icon: IconEnd}).bindPopup('to').addTo(map);
+
 
 
     module.exports.activeMap = map;
@@ -121,7 +137,7 @@ module.exports.drawRouteAmigo = function(route,mode) {
             dashArray: dasharray
         };
 
-       route = new L.Polyline(L.PolylineUtil.decode(route, 5), color_options);
+      route = new L.Polyline(L.PolylineUtil.decode(route, 5), color_options);
       var boxes = L.RouteBoxer.box(route, 5);
       var bounds = new L.LatLngBounds([]);
       var boxpolys = new Array(boxes.length);
