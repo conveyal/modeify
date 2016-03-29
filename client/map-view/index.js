@@ -103,8 +103,7 @@ module.exports.drawRouteAmigo = function(route,mode) {
             weight = 3;
 
         }else if(mode=="SUBWAY" || mode=="RAIL") {
-            weight = 10;
-            color = '#FF0000';
+            color = '#9E9E9E';
 
         }
 
