@@ -94,7 +94,7 @@ module.exports.drawRouteAmigo = function(route) {
             weight: 3,
             fillColor: '#000',
             fillOpacity: 0.6,
-            lineJoin: 'round'
+            dashArray: '3'
         };
 
        route = new L.Polyline(L.PolylineUtil.decode(route, 5), color_options);
