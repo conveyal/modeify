@@ -99,7 +99,7 @@ module.exports.drawRouteAmigo = function(route,mode) {
 
         }else if(mode=="BICYCLE") {
             color = '#9E9E9E';
-            //dasharray= '6';
+            dasharray= '6';
             weight = 3;
 
         }else if(mode=="SUBWAY" || mode=="RAIL") {
