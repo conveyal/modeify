@@ -393,11 +393,11 @@ function updateMapOnPlanChange(plan, map) {
                   var circle = [itineraries[i].legs[ii].to.lat, itineraries[i].legs[ii].to.lon, itineraries[i].legs[ii].to.name];
                   console.log("circle", circle);
                   showMapView.marker_map_point(circle, map);
-
-                  for (i = 0; i < itineraries[i].legs[ii].steps.length; i++) {
-                       var circle2 = [itineraries[i].legs[ii].steps[i].lat, itineraries[i].legs[ii].steps[i].lon, ''];
-                       showMapView.marker_map_point(circle2, map);
-                  }
+                  //
+                  //for (i = 0; i < itineraries[i].legs[ii].steps.length; i++) {
+                  //     var circle2 = [itineraries[i].legs[ii].steps[i].lat, itineraries[i].legs[ii].steps[i].lon, ''];
+                  //     showMapView.marker_map_point(circle2, map);
+                  //}
                   showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points, itineraries[i].legs[ii].mode);
                 }
             }

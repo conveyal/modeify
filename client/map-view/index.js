@@ -122,20 +122,12 @@ module.exports.marker_map_point = function(to, map){
 
     console.log("mapa point to ->", to);
     var name = to[2];
-    if (name != ""){
+
         var circle = L.circle([to[0], to[1]], 50, {
         color: 'blue',
         fillColor: '#000bcb',
         fillOpacity: 0.5
     }).bindPopup(name).addTo(map);
-    }else{
-        var circle = L.circle([to[0], to[1]], 50, {
-        color: 'blue',
-        fillColor: '#000bcb',
-        fillOpacity: 0.5
-    }).addTo(map);
-
-    }
 
 
 };
