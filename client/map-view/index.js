@@ -152,7 +152,7 @@ module.exports.drawRouteAmigo = function(route,mode) {
 
       route = new L.Polyline(L.PolylineUtil.decode(route, 5), color_options);
       this.polyline_creadas.push(route);
-
+        console.log("pintamos datos ->", this.polyline_creadas);
       var boxes = L.RouteBoxer.box(route, 5);
       var bounds = new L.LatLngBounds([]);
       var boxpolys = new Array(boxes.length);
