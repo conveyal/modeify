@@ -86,6 +86,11 @@ module.exports.cleanRoute = function() {
     module.exports.activeRoute = null;
 };
 
+module.exports.polyline_creadas = [];
+
+module.exports.getpolyline_creadas = function () {
+  return this.polyline_creadas;
+};
 
 module.exports.marker_map = function(from, to, map){
     console.log("mapa from ->", from);
@@ -112,11 +117,7 @@ module.exports.marker_map = function(from, to, map){
 
 };
 
-module.exports.polyline_creadas = [];
 
-module.exports.getpolyline_creadas = function () {
-  return this.polyline_creadas;
-};
 
 module.exports.drawRouteAmigo = function(route,mode) {
       var color = '#000';
