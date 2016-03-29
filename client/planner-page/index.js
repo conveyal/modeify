@@ -338,6 +338,10 @@ function showQuery(query) {
 function updateMapOnPlanChange(plan, map) {
   // Register plan update events
 
+    map.eachLayer(function (layer) {
+        map.removeLayer(layer);
+    });
+
   plan.on('change journey', function(journey) {
 
     if (journey && !isMobile) {
@@ -368,9 +372,6 @@ function updateMapOnPlanChange(plan, map) {
                     }
                 }
             }
-
-          console.log("entre else");
-           showMapView.cleanRoute();
 
         }
       } catch (e) {
