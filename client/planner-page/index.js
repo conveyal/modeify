@@ -337,7 +337,7 @@ function showQuery(query) {
 
 function updateMapOnPlanChange(plan, map) {
   // Register plan update events
-
+    /*
     for (i in map._layers) {
         if (map._layers[i].options.format == undefined) {
             try {
@@ -347,6 +347,20 @@ function updateMapOnPlanChange(plan, map) {
             }
         }
     }
+    */
+
+    //map.removeLayer(polyline);
+
+  var polyline_creadas = showMapView.getpolyline_creadas();
+
+  for (i in polyline_creadas) {
+        try {
+                map.removeLayer(polyline_creadas[i]);
+            } catch (e) {
+                console.log("problem with " + e + map._layers[i]);
+            }
+
+  }
 
   plan.on('change journey', function(journey) {
 

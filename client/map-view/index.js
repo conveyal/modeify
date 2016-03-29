@@ -10,6 +10,7 @@ if (config.map_provider && config.map_provider() !== 'AmigoCloud') {
   L.mapbox.accessToken = config.mapbox_access_token();
 }
 
+
 module.exports = function(el) {
   var map, realtime, southWest, northEast, blurLayer;
 
@@ -109,6 +110,12 @@ module.exports.marker_map = function(from, to, map){
 
 };
 
+module.exports.polyline_creadas = [];
+
+module.exports.getpolyline_creadas = function () {
+  return this.polyline_creadas;
+};
+
 module.exports.drawRouteAmigo = function(route,mode) {
       var color = '#000';
       var weight = 5;
@@ -144,6 +151,8 @@ module.exports.drawRouteAmigo = function(route,mode) {
         };
 
       route = new L.Polyline(L.PolylineUtil.decode(route, 5), color_options);
+      this.polyline_creadas.push(route);
+
       var boxes = L.RouteBoxer.box(route, 5);
       var bounds = new L.LatLngBounds([]);
       var boxpolys = new Array(boxes.length);
