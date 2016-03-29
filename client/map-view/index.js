@@ -103,6 +103,8 @@ module.exports.marker_map = function(from, to, map){
         popupAnchor:  [0, -50]
     });
 
+    this.polyline_creadas.push(IconStart);
+    this.polyline_creadas.push(IconEnd);
     //L.marker([37.35337508231001,-121.93626880645752], {icon: IconStart}).bindPopup('From').addTo(map);
     //L.marker([37.44377324953697,-122.16601610183714], {icon: IconEnd}).bindPopup('to').addTo(map);
     L.marker([from[0],from[1]], {icon: IconStart}).bindPopup('From').addTo(map);
