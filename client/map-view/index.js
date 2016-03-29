@@ -129,7 +129,7 @@ module.exports.marker_map_point = function(to, map){
         fillOpacity: 0.5
     }).bindPopup(name).addTo(map);
 
-
+    this.polyline_creadas.push(circle);
 };
 
 
