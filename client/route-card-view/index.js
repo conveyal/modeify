@@ -9,7 +9,7 @@ var RouteModal = require('route-modal');
 var routeSummarySegments = require('route-summary-segments');
 var routeResource = require('route-resource');
 var session = require('session');
-var transitive = require('transitive');
+//var transitive = require('transitive');
 var view = require('view');
 
 /**
@@ -29,12 +29,12 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 //    var id = model.id() + '';
     var id = model.index + '_' + (isTransit ? 'transit' : legs[0].mode.toLowerCase());
     if (id.indexOf('transit') === -1) id = id + '_' + model.access()[0].mode.toLowerCase();
-    transitive.focusJourney(id);
+    //transitive.focusJourney(id);
   });
 
   mouseleave(view.el, function() {
     if (!view.el.classList.contains('expanded')) {
-      transitive.focusJourney();
+      //transitive.focusJourney();
     }
   });
 });

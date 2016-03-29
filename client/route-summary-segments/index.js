@@ -1,6 +1,6 @@
 var convert = require('convert');
 var hogan = require('hogan.js');
-var transitive = require('transitive');
+//var transitive = require('transitive');
 
 var template = hogan.compile(require('./template.html'));
 
@@ -56,7 +56,7 @@ module.exports = function(route, opts) {
 
   segments.push({
     mode: accessModeIcon,
-    style: getModeStyles(accessMode),
+    //style: getModeStyles(accessMode),
     inline: !!opts.inline,
     small: !!opts.small,
     svg: true
@@ -136,7 +136,7 @@ module.exports = function(route, opts) {
     if (egressMode !== 'walk') {
       segments.push({
         mode: convert.modeToIcon(egressMode),
-        style: getModeStyles(egressMode),
+        //style: getModeStyles(egressMode),
         inline: !!opts.inline,
         small: !!opts.small,
         svg: true
@@ -172,11 +172,11 @@ function patternFilter(by) {
   };
 }
 
-function getModeStyles(mode) {
-  var styles = transitive.getModeStyles(mode.toUpperCase());
-  var s = '';
-  for (var i in styles) {
-    s += i + ':' + styles[i] + ';';
-  }
-  return s;
-}
+//function getModeStyles(mode) {
+//  var styles = transitive.getModeStyles(mode.toUpperCase());
+//  var s = '';
+//  for (var i in styles) {
+//    s += i + ':' + styles[i] + ';';
+//  }
+//  return s;
+//}

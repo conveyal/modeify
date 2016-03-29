@@ -13,7 +13,7 @@ var scrollbarSize = require('scrollbar-size');
 var scrolling = require('scrolling');
 var session = require('session');
 var textModal = require('text-modal');
-var transitive = require('transitive');
+//var transitive = require('transitive');
 var ua = require('user-agent');
 var view = require('view');
 var showWelcomeWizard = require('welcome-flow');
@@ -73,13 +73,13 @@ module.exports = function(ctx, next) {
     console.log("map ->", map);
 
     // Create the transitive layer
-    var transitiveLayer = new LeafletTransitiveLayer(transitive);
+    //var transitiveLayer = new LeafletTransitiveLayer(transitive);
 
     // Set the transitive layer
     //map.addLayer(transitiveLayer);
 
     // Update map on plan change
-    updateMapOnPlanChange(plan, map, transitive, transitiveLayer);
+    updateMapOnPlanChange(plan, map);
 
     //map.on('click', function (e) {
     //      var from = plan.from_ll();
@@ -280,7 +280,7 @@ View.prototype.showSidePanel = function (e) {
 
     plan = session.plan();
     plan.updateRoutes();
-    transitive.updateData(plan.journey());
+    //transitive.updateData(plan.journey());
   }, 2100)
 };
 
@@ -335,7 +335,7 @@ function showQuery(query) {
  * Update Map on plan change
  */
 
-function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
+function updateMapOnPlanChange(plan, map) {
   // Register plan update events
 
   plan.on('change journey', function(journey) {
