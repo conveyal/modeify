@@ -118,7 +118,15 @@ module.exports.cleanRoute = function() {
 };
 
 module.exports.drawRouteAmigo = function(route) {
-      route = new L.Polyline(L.PolylineUtil.decode(route, 5));
+       var color_options = {
+            color: '#000',
+            opacity: 1,
+            weight: 3,
+            fillColor: '#000',
+            fillOpacity: 0.6
+        };
+
+       route = new L.Polyline(L.PolylineUtil.decode(route, 6), color_options);
 
        console.log(L.PolylineUtil.decode(route, 5));
         /* route = new L.Polyline({
