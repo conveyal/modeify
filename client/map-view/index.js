@@ -86,7 +86,7 @@ module.exports.cleanRoute = function() {
 };
 
 
-module.exports.marker_map = function(lon, lat, map){
+module.exports.marker_map = function(from, to, map){
      var IconStart = L.icon({
         iconUrl: 'assets/images/graphics/start.svg',
         iconSize: [40, 55],
@@ -102,8 +102,8 @@ module.exports.marker_map = function(lon, lat, map){
 
     //L.marker([37.35337508231001,-121.93626880645752], {icon: IconStart}).bindPopup('From').addTo(map);
     //L.marker([37.44377324953697,-122.16601610183714], {icon: IconEnd}).bindPopup('to').addTo(map);
-    L.marker([lon[0],lon[1]], {icon: IconStart}).bindPopup('From').addTo(map);
-    L.marker([lat[0],lat[1]], {icon: IconEnd}).bindPopup('to').addTo(map);
+    L.marker([from[0],from[1]], {icon: IconStart}).bindPopup('From').addTo(map);
+    L.marker([to[0],to[1]], {icon: IconEnd}).bindPopup('to').addTo(map);
 
 };
 
