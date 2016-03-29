@@ -38,6 +38,7 @@ var Plan = module.exports = model('Plan')
     from_valid: false,
     loading: true,
     options: [],
+    dataplan: [],
     query: new ProfileQuery(),
     scorer: new ProfileScorer(),
     start_time: (new Date()).getHours() - 1,
@@ -112,7 +113,9 @@ Plan.prototype.updateRoutes = debounce(function(opts, callback) {
   updateRoutes(this, opts, callback);
   console.log("updateRoutes ->", updateRoutes);
   console.log("data plan desde router", updateRoutes.dataplan);
-  this.dataplan = updateRoutes.dataplan;
+  Plan.dataplan = updateRoutes.dataplan;
+  console.log("Plan.dataplan", Plan.dataplan);
+
 }, DEBOUNCE_UPDATES);
 
 /**
