@@ -92,21 +92,22 @@ module.exports.marker_map = function(from, to, map){
 
     var LeafIcon = L.Icon.extend({
 			options: {
-				//shadowUrl:
-				//    'http://leafletjs.com/docs/images/leaf-shadow.png',
 				iconSize:     [38, 95],
 				shadowSize:   [50, 64],
 				iconAnchor:   [22, 94],
 				shadowAnchor: [4, 62],
-				popupAnchor:  [-3, -76],
-                html:"jonathan"
+				popupAnchor:  [-3, -76]
 			}
 		});
 
-    var greenIcon = new LeafIcon({
-        html:'jonathan'
-        //iconUrl: 'http://leafletjs.com/docs/images/leaf-green.png'
-        });
+     var greenIcon =  new LeafIcon({
+            options: {
+                html: "jonathan"
+            }
+		});
+
+
+
 
      var IconStart = L.icon({
         iconUrl: 'assets/images/graphics/start.svg',
