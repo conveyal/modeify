@@ -338,15 +338,15 @@ function showQuery(query) {
 function updateMapOnPlanChange(plan, map) {
   // Register plan update events
 
-    for (i in map._layers) {
-        if (map._layers[i].options.format == undefined) {
-            try {
-                map.removeLayer(map._layers[i]);
-            } catch (e) {
-                console.log("problem with " + e + map._layers[i]);
-            }
-        }
-    }
+    //for (i in map._layers) {
+    //    if (map._layers[i].options.format == undefined) {
+    //        try {
+    //            map.removeLayer(map._layers[i]);
+    //        } catch (e) {
+    //            console.log("problem with " + e + map._layers[i]);
+    //        }
+    //    }
+    //}
 
   plan.on('change journey', function(journey) {
 
