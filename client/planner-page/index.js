@@ -344,6 +344,7 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
       try {
         console.log("aqui la data del plan 7 ->", plan);
         console.log("map 7 ->", map);
+        map.removeLayer(this);
         log('updating data');
 
         var datajourney = journey;
