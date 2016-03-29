@@ -356,6 +356,16 @@ function updateMapOnPlanChange(plan, map) {
             }
           console.log("entre if ")
         }else{
+            var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
+            if(!(sesion_plan === null)) {
+                var itineraries = sesion_plan.itineraries;
+                for (i = 0; i < itineraries.length; i++) {
+                    for (ii=0; ii < itineraries[i].legs.length; ii++) {
+                      showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points, itineraries[i].legs[ii].mode);
+                    }
+                }
+            }
+
           console.log("entre else");
            showMapView.cleanRoute();
 
