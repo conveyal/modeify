@@ -104,8 +104,8 @@ module.exports.marker_map = function(from, to, map){
 
     //L.marker([37.35337508231001,-121.93626880645752], {icon: IconStart}).bindPopup('From').addTo(map);
     //L.marker([37.44377324953697,-122.16601610183714], {icon: IconEnd}).bindPopup('to').addTo(map);
-    L.marker([from[0],from[1]], {icon: IconStart}).bindPopup('From').addTo(map);
-    L.marker([to[0],to[1]], {icon: IconEnd}).bindPopup('to').addTo(map);
+    L.marker([from[0],from[1]], {icon: IconStart}).addTo(map).bindPopup('From');
+    L.marker([to[0],to[1]], {icon: IconEnd}).addTo(map).bindPopup('to');
 
 };
 
