@@ -350,19 +350,21 @@ function updateMapOnPlanChange(plan, map) {
             var itineraries = plan.dataplan.itineraries;
             showMapView.marker_map([plan.dataplan.from.lat,plan.dataplan.from.lon],[plan.dataplan.to.lat,plan.dataplan.to.lon], map);
 
+            console.log(itineraries);
             for (i = 0; i < itineraries.length; i++) {
                 for (ii=0; ii < itineraries[i].legs.length; ii++) {
-                  console.log("itineraries[i].legs[ii].legGeometry.points", itineraries[i].legs[ii].legGeometry.points)
-                  console.log("itineraries[i].legs[ii].mode", itineraries[i].legs[ii].mode);
+
+                  //console.log("itineraries[i].legs[ii].legGeometry.points", itineraries[i].legs[ii].legGeometry.points)
+                  //console.log("itineraries[i].legs[ii].mode", itineraries[i].legs[ii].mode);
                   data_route.push(itineraries[i].legs[ii].legGeometry.points);
                   data_mode.push(itineraries[i].legs[ii].mode);
 
                 }
             }
-            showMapView.drawRouteAmigo(data_route, data_mode);
+
             console.log("data_route->", data_route);
             console.log("data_mode->", data_mode);
-
+            showMapView.drawRouteAmigo(data_route, data_mode);
 
 
           console.log("entre if ")
