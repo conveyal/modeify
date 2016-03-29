@@ -90,33 +90,25 @@ module.exports.marker_map = function(from, to, map){
     console.log("mapa from ->", from);
     console.log("mapa to ->", to);
 
-    var icons = L.NumberedDivIcon.extend({
-          options: {
-          iconUrl: '',
-          number: '',
-          className: 'leaflet-div-icon',
-          divClass: 'number',
-          html:"jjonathan"
-          }
-        });
-    // var IconStart = L.icon({
-    //    iconUrl: 'assets/images/graphics/start.svg',
-    //    iconSize: [40, 55],
-    //    iconAnchor: [20, 50],
-    //    popupAnchor:  [0, -50]
-    //});
-    //var IconEnd = L.icon({
-    //    iconUrl: 'assets/images/graphics/end.svg',
-    //    iconSize: [40, 55],
-    //    iconAnchor: [20, 50],
-    //    popupAnchor:  [0, -50],
-    //    html:"jonathan"
-    //});
+
+     var IconStart = L.icon({
+        iconUrl: 'assets/images/graphics/start.svg',
+        iconSize: [40, 55],
+        iconAnchor: [20, 50],
+        popupAnchor:  [0, -50]
+    });
+    var IconEnd = L.icon({
+        iconUrl: 'assets/images/graphics/end.svg',
+        iconSize: [40, 55],
+        iconAnchor: [20, 50],
+        popupAnchor:  [0, -50],
+        html:"jonathan"
+    });
 
     //L.marker([37.35337508231001,-121.93626880645752], {icon: IconStart}).bindPopup('From').addTo(map);
     //L.marker([37.44377324953697,-122.16601610183714], {icon: IconEnd}).bindPopup('to').addTo(map);
-    L.marker([from[0],from[1]], {icon: icons}).addTo(map);
-    L.marker([to[0],to[1]], {icon: icons}).addTo(map);
+    L.marker([from[0],from[1]], {icon: IconStart }).addTo(map);
+    L.marker([to[0],to[1]], {icon: IconEnd }).addTo(map);
 
 };
 
