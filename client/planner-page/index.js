@@ -357,6 +357,7 @@ function updateMapOnPlanChange(plan, map) {
         }else{
           console.log("entre else");
            showMapView.cleanRoute();
+
         }
       } catch (e) {
         console.log("entre cath")
