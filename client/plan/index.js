@@ -113,7 +113,7 @@ Plan.prototype.updateRoutes = debounce(function(opts, callback) {
   updateRoutes(this, opts, callback);
   console.log("updateRoutes ->", updateRoutes);
   console.log("data plan desde router", updateRoutes.dataplan);
-  Plan.dataplan = updateRoutes.dataplan;
+  this.dataplan = updateRoutes.dataplan;
   console.log("Plan.dataplan", Plan.dataplan);
 
 }, DEBOUNCE_UPDATES);
