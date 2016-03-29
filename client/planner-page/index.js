@@ -338,6 +338,16 @@ function showQuery(query) {
 function updateMapOnPlanChange(plan, map) {
   // Register plan update events
 
+    for (i in map._layers) {
+        if (map._layers[i].options.format == undefined) {
+            try {
+                map.removeLayer(map._layers[i]);
+            } catch (e) {
+                console.log("problem with " + e + map._layers[i]);
+            }
+        }
+    }
+
   plan.on('change journey', function(journey) {
 
     if (journey && !isMobile) {
@@ -369,8 +379,18 @@ function updateMapOnPlanChange(plan, map) {
 
           console.log("entre if ")
         }else{
-          console.log("entre else");
-           showMapView.cleanRoute();
+            var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
+            if(!(sesion_plan === null)) {
+                var itineraries = sesion_plan.itineraries;
+
+                showMapView.marker_map([sesion_plan.from.lat,sesion_plan.from.lon],[sesion_plan.to.lat,sesion_plan.to.lon], map);
+
+                for (i = 0; i < itineraries.length; i++) {
+                    for (ii=0; ii < itineraries[i].legs.length; ii++) {
+                      showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points, itineraries[i].legs[ii].mode);
+                    }
+                }
+            }
 
         }
       } catch (e) {
