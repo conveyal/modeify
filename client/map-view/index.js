@@ -10,6 +10,7 @@ if (config.map_provider && config.map_provider() !== 'AmigoCloud') {
   L.mapbox.accessToken = config.mapbox_access_token();
 }
 
+
 module.exports = function(el) {
   var map, realtime, southWest, northEast, blurLayer;
 
@@ -85,30 +86,15 @@ module.exports.cleanRoute = function() {
     module.exports.activeRoute = null;
 };
 
+module.exports.polyline_creadas = [];
+
+module.exports.getpolyline_creadas = function () {
+  return this.polyline_creadas;
+};
 
 module.exports.marker_map = function(from, to, map){
     console.log("mapa from ->", from);
     console.log("mapa to ->", to);
-
-    var LeafIcon = L.Icon.extend({
-			options: {
-				iconSize:     [38, 95],
-				shadowSize:   [50, 64],
-				iconAnchor:   [22, 94],
-				shadowAnchor: [4, 62],
-				popupAnchor:  [-3, -76]
-			}
-		});
-
-     var greenIcon =  new LeafIcon({
-            options: {
-                html: "jonathan"
-            }
-		});
-
-
-
-
      var IconStart = L.icon({
         iconUrl: 'assets/images/graphics/start.svg',
         iconSize: [40, 55],
@@ -119,18 +105,20 @@ module.exports.marker_map = function(from, to, map){
         iconUrl: 'assets/images/graphics/end.svg',
         iconSize: [40, 55],
         iconAnchor: [20, 50],
-        popupAnchor:  [0, -50],
-        html:"jonathan"
+        popupAnchor:  [0, -50]
     });
 
-    var myIcon = L.divIcon({className: 'my-div-icon'});
 
     //L.marker([37.35337508231001,-121.93626880645752], {icon: IconStart}).bindPopup('From').addTo(map);
     //L.marker([37.44377324953697,-122.16601610183714], {icon: IconEnd}).bindPopup('to').addTo(map);
-    L.marker([from[0],from[1]], {icon: greenIcon }).addTo(map);
-    L.marker([to[0],to[1]], {icon: IconEnd }).addTo(map);
+    var markerform = new L.marker([from[0],from[1]], {icon: IconStart}).bindPopup('From').addTo(map);
+    var markerto = new L.marker([to[0],to[1]], {icon: IconEnd}).bindPopup('to').addTo(map);
 
+    this.polyline_creadas.push(markerform);
+    this.polyline_creadas.push(markerto);
 };
+
+
 
 module.exports.drawRouteAmigo = function(route,mode) {
       var color = '#000';
@@ -167,6 +155,9 @@ module.exports.drawRouteAmigo = function(route,mode) {
         };
 
       route = new L.Polyline(L.PolylineUtil.decode(route, 5), color_options);
+      this.polyline_creadas.push(route);
+        console.log("pintamos datos ->", this.polyline_creadas);
+        //module.exports.polyline_creadas.push(route);
       var boxes = L.RouteBoxer.box(route, 5);
       var bounds = new L.LatLngBounds([]);
       var boxpolys = new Array(boxes.length);

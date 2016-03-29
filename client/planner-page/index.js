@@ -337,46 +337,61 @@ function showQuery(query) {
 
 function updateMapOnPlanChange(plan, map) {
   // Register plan update events
+    /*
+    for (i in map._layers) {
+        if (map._layers[i].options.format == undefined) {
+            try {
+                map.removeLayer(map._layers[i]);
+            } catch (e) {
+                console.log("problem with " + e + map._layers[i]);
+            }
+        }
+    }
+    */
 
-    //for (i in map._layers) {
-    //    if (map._layers[i].options.format == undefined) {
-    //        try {
-    //            map.removeLayer(map._layers[i]);
-    //        } catch (e) {
-    //            console.log("problem with " + e + map._layers[i]);
-    //        }
-    //    }
-    //}
+    //map.removeLayer(polyline);
+/*
+
+  for (i in polyline_creadas) {
+        try {
+                map.removeLayer(polyline_creadas[i]);
+            } catch (e) {
+                console.log("problem with " + e + map._layers[i]);
+            }
+
+  }
+  */
 
   plan.on('change journey', function(journey) {
 
+  var polyline_creadas = showMapView.getpolyline_creadas();
+    //console.log("poliline credas ->", polyline_creadas);
+    //console.log("llamamos sin evento ->", showMapView.polyline_creadas);
+
+    for (i in polyline_creadas) {
+        try {
+                map.removeLayer(polyline_creadas[i]);
+            } catch (e) {
+                console.log("problem with " + e + map._layers[i]);
+            }
+
+  }
+
+    showMapView.polyline_creadas = [];
     if (journey && !isMobile) {
       try {
 
         log('updating data');
-        var data_mode = [];
-        var data_route = [];
+
+        var datajourney = journey;
         if (!(plan.dataplan === undefined)) {
             var itineraries = plan.dataplan.itineraries;
             showMapView.marker_map([plan.dataplan.from.lat,plan.dataplan.from.lon],[plan.dataplan.to.lat,plan.dataplan.to.lon], map);
-
-            console.log(itineraries);
             for (i = 0; i < itineraries.length; i++) {
                 for (ii=0; ii < itineraries[i].legs.length; ii++) {
-
-                  //console.log("itineraries[i].legs[ii].legGeometry.points", itineraries[i].legs[ii].legGeometry.points)
-                  //console.log("itineraries[i].legs[ii].mode", itineraries[i].legs[ii].mode);
-                  data_route.push(itineraries[i].legs[ii].legGeometry.points);
-                  data_mode.push(itineraries[i].legs[ii].mode);
-
+                  showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points, itineraries[i].legs[ii].mode);
                 }
             }
-
-            console.log("data_route->", data_route);
-            console.log("data_mode->", data_mode);
-            showMapView.drawRouteAmigo(data_route, data_mode);
-
-
           console.log("entre if ")
         }else{
             var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
