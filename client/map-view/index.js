@@ -56,24 +56,6 @@ module.exports = function(el) {
     map.layersControl.addOverlay(blurLayer);
     blurLayer.addTo(map);
 
-    var IconStart = L.icon({
-        iconUrl: 'assets/images/graphics/start.svg',
-        iconSize: [40, 55],
-        iconAnchor: [20, 50],
-        popupAnchor:  [0, -50]
-    });
-    var IconEnd = L.icon({
-        iconUrl: 'assets/images/graphics/end.svg',
-        iconSize: [40, 55],
-        iconAnchor: [20, 50],
-        popupAnchor:  [0, -50]
-    });
-
-    L.marker([37.35337508231001,-121.93626880645752], {icon: IconStart}).bindPopup('From').addTo(map);
-    L.marker([37.44377324953697,-122.16601610183714], {icon: IconEnd}).bindPopup('to').addTo(map);
-
-
-
     module.exports.activeMap = map;
 
     map.realtimeControl = L.control.toggleRealTime().addTo(map);
@@ -101,6 +83,28 @@ module.exports.getMap = function () {
 module.exports.cleanRoute = function() {
     module.exports.activeRoute.removeLayer();
     module.exports.activeRoute = null;
+};
+
+
+module.exports.marker_map = function(lon, lat, map){
+     var IconStart = L.icon({
+        iconUrl: 'assets/images/graphics/start.svg',
+        iconSize: [40, 55],
+        iconAnchor: [20, 50],
+        popupAnchor:  [0, -50]
+    });
+    var IconEnd = L.icon({
+        iconUrl: 'assets/images/graphics/end.svg',
+        iconSize: [40, 55],
+        iconAnchor: [20, 50],
+        popupAnchor:  [0, -50]
+    });
+
+    //L.marker([37.35337508231001,-121.93626880645752], {icon: IconStart}).bindPopup('From').addTo(map);
+    //L.marker([37.44377324953697,-122.16601610183714], {icon: IconEnd}).bindPopup('to').addTo(map);
+    L.marker([lon[0],lon[1]], {icon: IconStart}).bindPopup('From').addTo(map);
+    L.marker([lat[0],lat[1]], {icon: IconEnd}).bindPopup('to').addTo(map);
+
 };
 
 module.exports.drawRouteAmigo = function(route,mode) {
