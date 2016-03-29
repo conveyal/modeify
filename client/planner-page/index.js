@@ -342,7 +342,8 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
 
     if (journey && !isMobile) {
       try {
-        console.log("aqui la data del plan 7 ->", plan.dataplan);
+        console.log("aqui la data del plan 7 ->", plan);
+        console.log("map 7 ->", map);
         log('updating data');
 
         var datajourney = journey;
@@ -356,7 +357,7 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
           console.log("entre if ")
         }else{
           console.log("entre else");
-           showMapView.cleanRoute(this);
+           showMapView.cleanRoute();
         }
       } catch (e) {
         console.log("entre cath")
