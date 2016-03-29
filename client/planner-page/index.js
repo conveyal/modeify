@@ -365,9 +365,19 @@ function updateMapOnPlanChange(plan, map) {
   plan.on('change journey', function(journey) {
 
   var polyline_creadas = showMapView.getpolyline_creadas();
-    console.log("poliline credas ->", polyline_creadas);
-    console.log("llamamos sin evento ->", showMapView.polyline_creadas);
+    //console.log("poliline credas ->", polyline_creadas);
+    //console.log("llamamos sin evento ->", showMapView.polyline_creadas);
 
+    for (i in polyline_creadas) {
+        try {
+                map.removeLayer(polyline_creadas[i]);
+            } catch (e) {
+                console.log("problem with " + e + map._layers[i]);
+            }
+
+  }
+
+    showMapView.polyline_creadas = [];
     if (journey && !isMobile) {
       try {
 
