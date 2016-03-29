@@ -360,7 +360,7 @@ function updateMapOnPlanChange(plan, map) {
             if(!(sesion_plan === null)) {
                 var itineraries = sesion_plan.itineraries;
 
-                showMapView.marker_map([plan.dataplan.from.lat,plan.dataplan.from.lon],[plan.dataplan.to.lat,plan.dataplan.to.lon], map);
+                showMapView.marker_map([sesion_plan.from.lat,sesion_plan.from.lon],[sesion_plan.to.lat,sesion_plan.to.lon], map);
 
                 for (i = 0; i < itineraries.length; i++) {
                     for (ii=0; ii < itineraries[i].legs.length; ii++) {
