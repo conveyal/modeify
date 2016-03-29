@@ -87,6 +87,8 @@ module.exports.cleanRoute = function() {
 
 
 module.exports.marker_map = function(from, to, map){
+    console.log("mapa from ->", from);
+    console.log("mapa to ->", to);
      var IconStart = L.icon({
         iconUrl: 'assets/images/graphics/start.svg',
         iconSize: [40, 55],
