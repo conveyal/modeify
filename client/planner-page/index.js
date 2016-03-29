@@ -140,21 +140,24 @@ module.exports = function(ctx, next) {
     if ((query.from && query.to)) {
       showQuery(query);
     } else {
+      console.log("plan.coordinateIsValid(from)", plan.coordinateIsValid(from));
+      console.log("plan.coordinateIsValid(to)", plan.coordinateIsValid(to));
+
       if (plan.coordinateIsValid(from) && plan.coordinateIsValid(to)) {
-	plan.setAddresses(
-	  from.lng + ',' + from.lat, // from
-	  to.lng + ',' + to.lat, // to
-	  function (err, res) {
-	    plan.updateRoutes();
-	    console.log("aqui la data del plan 4 ->", plan.dataplan);
-	  }
-	);
-        plan.updateRoutes();
-        console.log("aqui la data del plan 3 ->", plan.dataplan);
+          plan.setAddresses(
+            from.lng + ',' + from.lat, // from
+            to.lng + ',' + to.lat, // to
+            function (err, res) {
+              plan.updateRoutes();
+              console.log("aqui la data del plan 4 ->", plan.dataplan);
+            }
+          );
+          plan.updateRoutes();
+          console.log("aqui la data del plan 3 ->", plan.dataplan);
       } else {
-	  console.log(from);
-	  console.log(to);
-	plan.loading(false);
+          console.log(from);
+          console.log(to);
+          plan.loading(false);
       }
     }
   });
@@ -276,7 +279,7 @@ View.prototype.showSidePanel = function (e) {
     map.invalidateSize();
 
     plan = session.plan();
-//    plan.updateRoutes();
+    plan.updateRoutes();
     transitive.updateData(plan.journey());
   }, 2100)
 };

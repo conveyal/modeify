@@ -140,6 +140,7 @@ View.prototype.save = function(el) {
 	if (el.lat) {
 		this.model.setAddress(name, el.lng + ',' + el.lat, function(err, location) {
             console.log("location2", location);
+
             if (err) {
                 log.error('%e', err);
                 analytics.send_ga({
