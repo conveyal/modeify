@@ -133,9 +133,10 @@ module.exports = function(ctx, next) {
     // Clear plan & cookies for now, plan will re-save automatically on save
       var from = plan.from_ll();
       var to = plan.to_ll();
-      plan.clearStore();
+      //plan.clearStore();
 
     // If it's a shared URL or welcome is complete skip the welcome screen
+    console.log("query ->", query);
     if ((query.from && query.to)) {
       showQuery(query);
     } else {
