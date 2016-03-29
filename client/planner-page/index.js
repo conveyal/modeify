@@ -342,9 +342,7 @@ function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
 
     if (journey && !isMobile) {
       try {
-        console.log("aqui la data del plan 7 ->", plan);
-        console.log("map 7 ->", map);
-        map.clean(this);
+
         log('updating data');
 
         var datajourney = journey;
