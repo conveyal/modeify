@@ -99,7 +99,8 @@ module.exports.marker_map = function(from, to, map){
         iconUrl: 'assets/images/graphics/end.svg',
         iconSize: [40, 55],
         iconAnchor: [20, 50],
-        popupAnchor:  [0, -50]
+        popupAnchor:  [0, -50],
+        html:"jonathan"
     });
 
     //L.marker([37.35337508231001,-121.93626880645752], {icon: IconStart}).bindPopup('From').addTo(map);
