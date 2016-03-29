@@ -126,7 +126,7 @@ module.exports.drawRouteAmigo = function(route) {
             fillOpacity: 0.6
         };
 
-       route = new L.Polyline(L.PolylineUtil.decode(route, 6), color_options);
+       route = new L.Polyline(L.PolylineUtil.decode(route, 5), color_options);
 
        console.log(L.PolylineUtil.decode(route, 5));
         /* route = new L.Polyline({
