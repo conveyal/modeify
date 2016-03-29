@@ -344,15 +344,25 @@ function updateMapOnPlanChange(plan, map) {
       try {
 
         log('updating data');
-
-        var datajourney = journey;
+        var data_mode = [];
+        var data_route = [];
         if (!(plan.dataplan === undefined)) {
             var itineraries = plan.dataplan;
             for (i = 0; i < itineraries.length; i++) {
                 for (ii=0; ii < itineraries[i].legs.length; ii++) {
+                  console.log("itineraries[i].legs[ii].legGeometry.points", itineraries[i].legs[ii].legGeometry.points)
+                  console.log("itineraries[i].legs[ii].mode", itineraries[i].legs[ii].mode);
+                  data_route.push(itineraries[i].legs[ii].legGeometry.points);
+                  data_mode.push(itineraries[i].legs[ii].mode);
                   showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points, itineraries[i].legs[ii].mode);
                 }
             }
+
+            console.log("data_route->", data_route);
+            console.log("data_mode->", data_mode);
+
+
+
           console.log("entre if ")
         }else{
           console.log("entre else");
