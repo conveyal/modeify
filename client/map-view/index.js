@@ -88,13 +88,15 @@ module.exports.cleanRoute = function() {
 };
 
 module.exports.drawRouteAmigo = function(route) {
+      var color = '#000';
+      var weight = 5;
+      var dasharray= '';
+
        var color_options = {
-            color: '#000',
+            color: color,
             opacity: 1,
-            weight: 3,
-            fillColor: '#000',
-            fillOpacity: 0.6,
-            dashArray: '3'
+            weight: weight,
+            dashArray: dasharray
         };
 
        route = new L.Polyline(L.PolylineUtil.decode(route, 5), color_options);
