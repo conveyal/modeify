@@ -90,6 +90,21 @@ module.exports.marker_map = function(from, to, map){
     console.log("mapa from ->", from);
     console.log("mapa to ->", to);
 
+    var LeafIcon = L.Icon.extend({
+			options: {
+				shadowUrl:
+				    'http://leafletjs.com/docs/images/leaf-shadow.png',
+				iconSize:     [38, 95],
+				shadowSize:   [50, 64],
+				iconAnchor:   [22, 94],
+				shadowAnchor: [4, 62],
+				popupAnchor:  [-3, -76]
+			}
+		});
+
+    var greenIcon = new LeafIcon({
+        iconUrl: 'http://leafletjs.com/docs/images/leaf-green.png'
+        });
 
      var IconStart = L.icon({
         iconUrl: 'assets/images/graphics/start.svg',
@@ -105,9 +120,11 @@ module.exports.marker_map = function(from, to, map){
         html:"jonathan"
     });
 
+    var myIcon = L.divIcon({className: 'my-div-icon'});
+
     //L.marker([37.35337508231001,-121.93626880645752], {icon: IconStart}).bindPopup('From').addTo(map);
     //L.marker([37.44377324953697,-122.16601610183714], {icon: IconEnd}).bindPopup('to').addTo(map);
-    L.marker([from[0],from[1]], {icon: IconStart }).addTo(map);
+    L.marker([from[0],from[1]], {icon: greenIcon }).addTo(map);
     L.marker([to[0],to[1]], {icon: IconEnd }).addTo(map);
 
 };
