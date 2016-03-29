@@ -118,6 +118,18 @@ module.exports.marker_map = function(from, to, map){
     this.polyline_creadas.push(markerto);
 };
 
+module.exports.marker_map_point = function(to, map){
+
+    console.log("mapa point to ->", to);
+    var name = to[2];
+    var circle = L.circle([to[0], to[1]], 500, {
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.5
+    }).bindPopup(name).addTo(map);
+
+};
+
 
 
 module.exports.drawRouteAmigo = function(route,mode) {
