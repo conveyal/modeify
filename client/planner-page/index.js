@@ -403,6 +403,7 @@ function updateMapOnPlanChange(plan, map) {
             }
           console.log("entre if ")
         }else{
+            console.log("ejecuta storage");
             var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
             if(!(sesion_plan === null)) {
                 var itineraries = sesion_plan.itineraries;

@@ -171,6 +171,8 @@ View.prototype.save = function(el) {
                     label: val,
                     value: 0
                 });
+
+                console.log("ocurre un error");
 			textModal('Invalid address.');
 			} else if (location && plan.validCoordinates()) {
 			    analytics.send_ga({
@@ -180,6 +182,8 @@ View.prototype.save = function(el) {
                 value: 0
                 });
 			    plan.updateRoutes();
+
+			    console.log("ejecuta update");
 			}
 			});
     }
