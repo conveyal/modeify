@@ -174,9 +174,10 @@ function updateRoutes(plan, opts, callback) {
           return o.journey_name.indexOf('CAR') === -1;
         });
       }
-        console.log("populateSegments");
+        console.log("populateSegments", populateSegments(data.options, data.journey));
       // Populate segments
       populateSegments(data.options, data.journey);
+
 
       // Create a new Route object for each option
       for (var i = 0; i < data.options.length; i++) {
