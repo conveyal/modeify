@@ -157,8 +157,6 @@ function updateRoutes(plan, opts, callback) {
           to_address: plan.to()
         });
 
-	return;
-
       // Get the car data
       var driveOption = new Route(data.options.filter(function(o) {
         return o.access[0].mode === 'CAR' && (!o.transit || o.transit.length < 1);
