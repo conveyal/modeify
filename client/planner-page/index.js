@@ -281,6 +281,9 @@ View.prototype.showSidePanel = function (e) {
     plan = session.plan();
     plan.updateRoutes();
     //transitive.updateData(plan.journey());
+
+    plan.journey();
+
   }, 2100)
 };
 
