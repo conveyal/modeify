@@ -140,12 +140,12 @@ module.exports.drawRouteAmigo = function(route,mode) {
       var dasharray= '';
         console.log("imprime mode ->", mode);
         if (mode=="CAR") {
-            color = '#FF0000';
+            color = '#9E9E9E';
             dasharray= '6';
             weight = 3;
 
         }else if(mode=="BICYCLE") {
-            color = '#9E9E9E';
+            color = '#FF0000';
             dasharray= '6';
             weight = 3;
 
