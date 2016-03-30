@@ -181,23 +181,15 @@ module.exports.marker_map_point = function(to, map){
         fillOpacity: 1
     }).bindPopup(name).addTo(map);
 
-    var myZoom = {
-      start:  map.getZoom(),
-      end: map.getZoom()
-    };
+    //var myZoom = {
+    //  start:  map.getZoom(),
+    //  end: map.getZoom()
+    //};
 
-    map.on('zoomstart', function(e) {
-       myZoom.start = map.getZoom();
-    });
 
-    map.on('zoomend', function(e) {
-        myZoom.end = map.getZoom();
-        var diff = myZoom.start - myZoom.end;
-        if (diff > 0) {
-            circle.setRadius(circle.getRadius() * 2);
-        } else if (diff < 0) {
-            circle.setRadius(circle.getRadius() / 2);
-        }
+    map.on('zoomend', function() {
+      var currentZoom = map.getZoom();
+      circle.setRadius(currentZoom);
     });
 
 
