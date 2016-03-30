@@ -178,8 +178,10 @@ module.exports.marker_map_point = function(to, map){
     var circle = L.circle([to[0], to[1]], 400, {
         color: '#000',
         fillColor: '#ffffff',
-        fillOpacity: 1
+        fillOpacity: 1,
+        className: 'leaflet-circlej'
     }).bindPopup(name).addTo(map);
+
 
     var myZoom = {
       start:  map.getZoom(),
