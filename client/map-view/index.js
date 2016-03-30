@@ -123,21 +123,21 @@ module.exports.marker_map_point = function(to, map){
     console.log("mapa point to ->", to);
     var name = to[2];
 
-        var circle =
-            L.circle([to[0], to[1]], {
-            radius: 5,
-            fillColor: "#ff7800",
-            color: "#000",
-            weight: 1,
-            opacity: 1,
-            fillOpacity: 0.8
-        }).addTo(map);
+        //var circle =
+        //    L.circle([to[0], to[1]], {
+        //    radius: 5,
+        //    fillColor: "#ff7800",
+        //    color: "#000",
+        //    weight: 1,
+        //    opacity: 1,
+        //    fillOpacity: 0.8
+        //}).addTo(map);
 
-    //L.animatedMarker([to[0], to[1]], 20, {
-    //    color: '#000',
-    //    fillColor: '#ffffff',
-    //    fillOpacity: 1
-    //}).addTo(map);
+    L.circle([to[0], to[1]], 20, {
+        color: '#000',
+        fillColor: '#ff7800',
+        fillOpacity: 1
+    }).bindPopup(name).addTo(map);
 
     this.polyline_creadas.push(circle);
 };
