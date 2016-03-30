@@ -114,13 +114,16 @@ module.exports.marker_map = function(from, to, map){
     markerform = new L.marker([from[0],from[1]], {icon: IconStart, draggable: true}).bindPopup('From').addTo(map);
     markerto = new L.marker([to[0],to[1]], {icon: IconEnd, draggable: true}).bindPopup('to').addTo(map);
 
+
+
     this.polyline_creadas.push(markerform);
     this.polyline_creadas.push(markerto);
 };
 
-markerform.('drag', function(e){
-    console.log("drag event funciona");
-});
+markerform.on('drag', function(e){
+        console.log("drag event funciona");
+    });
+
 module.exports.marker_map_point = function(to, map){
 
     console.log("mapa point to ->", to);
