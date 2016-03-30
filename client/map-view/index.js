@@ -115,13 +115,13 @@ module.exports.marker_map = function(from, to, map){
     var markerto = new L.marker([to[0],to[1]], {icon: IconEnd, draggable: true}).bindPopup('to').addTo(map);
 
     markerform.on('dragend', function(e){
-       var marker = event.target;
+       var marker = e.target;
        var result = marker.getLatLng();
        console.log("cordenadas drag from ->",result);
     });
 
     markerto.on('dragend', function(e){
-        var marker = event.target;
+        var marker = e.target;
         var result = marker.getLatLng();
         console.log("cordenadas drag to ->",result);
     });
