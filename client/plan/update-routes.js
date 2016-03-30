@@ -195,21 +195,29 @@ function populateSegments(options, journey) {
   for (var i = 0; i < options.length; i++) {
     var option = options[i];
     if (!option.transit || option.transit.length < 1) continue;
-
+    console.log("option->", option);
     for (var j = 0; j < option.transit.length; j++) {
       var segment = option.transit[j];
 
+       console.log("segment->", segment);
       for (var k = 0; k < segment.segmentPatterns.length; k++) {
         var pattern = segment.segmentPatterns[k];
         var patternId = pattern.patternId;
+            console.log("pattern->", pattern);
+          console.log("patternId ->",  patternId );
         var routeId = getRouteId(patternId, journey.patterns);
 
         routeId = routeId.split(':');
         var agency = routeId[0].toLowerCase();
         var line = routeId[1].toLowerCase();
 
+         console.log("routeId ->", routeId);
+
         routeId = routeId[0] + ':' + routeId[1];
+          console.log("journey.routes", journey.routes)
         var route = getRoute(routeId, journey.routes);
+
+        console.log("routexxx", route);
 
         pattern.longName = route.route_long_name;
         pattern.shortName = route.route_short_name;
@@ -217,6 +225,11 @@ function populateSegments(options, journey) {
         pattern.color = convert.routeToColor(route.route_type, agency, line,
           route.route_color);
         pattern.shield = getRouteShield(agency, route);
+
+          console.log("pattern.longName", pattern.longName);
+          console.log("pattern.shortName", pattern.shortName);
+          console.log("pattern.color", pattern.color);
+          console.log("pattern.shield", pattern.shield);
       }
     }
   }
