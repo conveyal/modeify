@@ -174,7 +174,7 @@ function updateRoutes(plan, opts, callback) {
           return o.journey_name.indexOf('CAR') === -1;
         });
       }
-        console.log("populateSegments", populateSegments(data.options, data.journey));
+        console.log("populateSegments", data.options, data.journey);
       // Populate segments
       populateSegments(data.options, data.journey);
 
