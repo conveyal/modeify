@@ -92,6 +92,21 @@ module.exports.getpolyline_creadas = function () {
   return this.polyline_creadas;
 };
 
+
+module.exports.cleanPolyline = function() {
+    var polyline_creadas = this.getpolyline_creadas();
+    var map = this.activeMap;
+    for (i in polyline_creadas) {
+        try {
+                map.removeLayer(polyline_creadas[i]);
+                console.log("elimina el mapa?");
+            } catch (e) {
+                console.log("problem with " + e + map._layers[i]);
+            }
+
+  }
+};
+
 module.exports.marker_map = function(from, to, map){
     console.log("mapa from ->", from);
     console.log("mapa to ->", to);
@@ -118,12 +133,14 @@ module.exports.marker_map = function(from, to, map){
        var marker = e.target;
        var result = marker.getLatLng();
        console.log("cordenadas drag from ->",result);
+       this.cleanPolyline();
     });
 
     markerto.on('dragend', function(e){
         var marker = e.target;
         var result = marker.getLatLng();
         console.log("cordenadas drag to ->",result);
+        this.cleanPolyline();
     });
 
     this.polyline_creadas.push(markerform);
