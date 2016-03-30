@@ -1,0 +1,42 @@
+<html>
+<head>
+	<title>Test</title>
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=false"></script>
+	<style type="text/css">
+		#map {width:670px; height:600px;}
+	</style>
+	<script type='text/javascript'>
+	var path;
+	function initialize() {
+		var center = new google.maps.LatLng(51.42162000000001, -2.69789999999999);
+		var myOptions = {
+			zoom: 12,
+			center: center,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		}
+		var map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+		var decodedPath = google.maps.geometry.encoding.decodePath(
+			'c{|xHbo|OSnFrSjW~M{EnFwVz@wy@vQsq@cBoUzJ{EzObBrIcLfE~C~H{Y~C~CfOgY{EjM{EgTcLzTsSwQcGf@IoKgJSkMsb@RkRvVkRDon@SooBvBsXbGgE{@{EfE{EwLsXgEo{AcVgw@kRc|A_q@seAcLg@bBvQkCnKcGjCwQsSkM?cL{YjHrS{J~HgOwBgOjf@{Jju@cLjRcGz^oUjW{Tni@f@jRsIj\\wBjf@sNbo@wG~iArDnlArIj\\bGfr@bQf^~WrSnPvVfOjHnURzc@cQbQzc@nUrtAbBfYkC~M~HnZ~Mz^f^_N~MrDbBwQkWsXR{E');
+
+		path = new google.maps.Polyline({
+			path: decodedPath,
+			strokeColor: "#FF0000",
+			strokeOpacity: 1.0,
+			strokeWeight: 2,
+			map: map
+		});
+
+		var out = '[\n'
+		path.getPath().forEach(function (ll) {
+			out += '\t[' + ll.lat() + ', ' + ll.lng() + '],\n';
+		});
+		out += ']';
+		console.log(out);
+	}
+	</script>
+</head>
+<body onload="initialize()">
+	<div id="map"></div>
+</body>
+</html>

@@ -2,18 +2,13 @@ var config = require('config');
 var log = require('./client/log')('geocode');
 var get = require('./client/request').get;
 
-var southWest = [-123.099060058594, 36.745486924699];
-var northEast = [-121.192932128906, 38.182068998322];
-
 /**
  * Geocode
  */
 
 module.exports = geocode;
-module.exports.reverse = reverse;
-module.exports.suggest = suggest;
-module.exports.suggestAmigo = suggestAmigo;
 module.exports.reverseAmigo = reverseAmigo;
+module.exports.suggestAmigo = suggestAmigo;
 
 /**
  * Geocode
@@ -36,15 +31,21 @@ function geocode(address, callback) {
  * Reverse geocode
  */
 
-function reverse(ll, callback) {
-  log('--> reverse geocoding %s', ll);
-  get('/geocode/reverse/' + ll[0] + ',' + ll[1], function(err, res) {
+function reverseAmigo(ll, callback) {
+
+  var parameter = {
+      'token':config.realtime_access_token() ,
+      'point.lon':ll[0],
+      'point.lat':ll[1]
+  };
+
+  get('https://www.amigocloud.com/api/v1/me/geocoder/reverse', parameter, function(err, res) {
+
     if (err) {
       log('<-- geocoding error %e', err);
-      callback(err, res);
+
     } else {
-      log('<-- geocoding complete %j', res.body);
-      callback(null, res.body);
+      callback(false, res.body);
     }
   });
 }
@@ -77,39 +78,54 @@ function reverseAmigo(ll, callback) {
 
 function suggestAmigo(text, callback) {
 
-    var list_address;
-    var parameter = {
-        'token': config.realtime_access_token() ,
-        'boundary.rect.min_lat': '36.155617833819',
-        'boundary.rect.min_lon': '-123.607177734375',
-        'boundary.rect.max_lat': '38.826870521381',
-        'boundary.rect.max_lon': '-120.701293945312',
-        'sources':'osm,oa',
-        'text': text
-    };
-
-    get('https://www.amigocloud.com/api/v1/me/geocoder/search', parameter, function(err, res) {
+    var databoundary = [];
+    get('https://www.amigocloud.com/api/v1/users/1/projects/661/datasets/22492', {'token' : config.realtime_access_token()}, function(err, res) {
 
             if(err) {
                 log("Amigo Cloud Response Error ->", err);
+        if (err) {
+            console.log("error");
+        }else {
+            var list_address;
+            var bounding = res.body.boundingbox;
+            var bounding_split = bounding.split(",");
+            var boinding_first = bounding_split[0].split(" ");
+            var boinding_second = bounding_split[1].split(" ");
+            var parameter = {
+                'token': config.realtime_access_token() ,
+                'boundary.rect.min_lat': boinding_first[1],
+                'boundary.rect.min_lon': boinding_first[0],
+                'boundary.rect.max_lat': boinding_second[1],
+                'boundary.rect.max_lon': boinding_second[0],
+                'sources':'osm,oa',
+                'text': text
+            };
 
-            }else{
-                if(res.body.features) {
+            get('https://www.amigocloud.com/api/v1/me/geocoder/search', parameter, function(err, res) {
 
-                    list_address = res.body.features;
-                    if (list_address.length > 0) {
-                         callback(
-                            null,
-                            list_address
-                        );
-                    }else {
-                        callback(true, res);
+                    if(err) {
+                        log("Amigo Cloud Response Error ->", err);
+
+                    }else{
+                        if(res.body.features) {
+
+                            list_address = res.body.features;
+                            if (list_address.length > 0) {
+                                 callback(
+                                    null,
+                                    list_address
+                                );
+                            }else {
+                                callback(true, res);
+                            }
+
+                        }
                     }
+            });
+        }
 
-                }
-            }
     });
-}
+};
 
 function suggest(text, callback) {
   var bingSuggestions, nominatimSuggestions, totalSuggestions;

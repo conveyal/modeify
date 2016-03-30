@@ -126,6 +126,7 @@ View.prototype.pressDown = function(highlightedSuggestion, el) {
  */
 
 View.prototype.save = function(el) {
+
 	var plan = this.model;
 	var name = el.name;
 	var val = el.value;

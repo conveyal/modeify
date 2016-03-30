@@ -13,7 +13,6 @@ var session = require('session');
  */
 
 module.exports = updateRoutes;
-
 /**
  * Update routes
  */
@@ -60,32 +59,46 @@ function updateRoutes(plan, opts, callback) {
   var scorer = plan.scorer();
 
   otp.plan(query, function(err, data) {
-      var planData,
-      itineraries;
+      var planData, itineraries;
 
-    if (err || !data || !data.plan) {
-      plan.set({
-        options: [],
-        journey: {
-          places: plan.generatePlaces()
+     if (err || !data || !data.plan) {
+          plan.set({
+            options: [],
+            journey: {
+              places: plan.generatePlaces()
+            }
+          });
+          done(err, data);
+     } else {
+        planData = {options: []};
+
+        itineraries = data.plan.itineraries;
+        module.exports.dataplan = data.plan;
+
+        var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
+        if (!(sesion_plan === null)) {
+            localStorage.removeItem('dataplan');
         }
-      });
-      done(err, data);
-    } else {
-      var planData = {options: []},
-      itineraries = data.plan.itineraries;
-      // Track the commute
-      analytics.track('Found Route', {
-        plan: '',
-        results: data.plan.itineraries.length
-      });
 
-      analytics.send_ga({
-	category: 'route',
-	action: 'calculate route',
-//	label: plan.generateQueryString(),
-	value: 1
-      });
+        localStorage.setItem('dataplan', JSON.stringify(data.plan));
+
+            sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
+            console.log("si guarda en storage ->", sesion_plan);
+
+
+
+
+          // Track the commute
+          analytics.track('Found Route', {
+            plan: '',
+            results: data.plan.itineraries.length
+        });
+
+        analytics.send_ga({
+            category: 'route',
+            action: 'calculate route',
+            value: 1
+        });
 
 	var legs;
 	var fare;
