@@ -390,6 +390,7 @@ function updateMapOnPlanChange(plan, map) {
         var datajourney = journey;
         if (!(plan.dataplan === undefined)) {
             var itineraries = plan.dataplan.itineraries;
+            var patterns = plan.dataplan.patterns;
             console.log("numero de iteraciones ->", itineraries.length);
             console.log("grafica from ->",plan.dataplan.from);
             console.log("grafica to ->",plan.dataplan.to);
@@ -436,4 +437,26 @@ function updateMapOnPlanChange(plan, map) {
 
     }
   });
+}
+
+
+/////////////function test circle maps  ////
+
+function getRouteId(patternId, patterns) {
+  for (var i = 0; i < patterns.length; i++) {
+    var pattern = patterns[i];
+    if (pattern.pattern_id === patternId) return pattern.route_id;
+  }
+}
+
+function getRoute(routeId, routes) {
+  for (var i = 0; i < routes.length; i++) {
+    var route = routes[i];
+    if (route.route_id === routeId) return route;
+  }
+}
+
+function getRouteShield(agency, route) {
+  if (agency === 'dc' && route.route_type === 1) return 'M';
+  return route.route_short_name || route.route_long_name.toUpperCase();
 }
