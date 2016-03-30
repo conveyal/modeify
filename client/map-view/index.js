@@ -186,9 +186,9 @@ module.exports.marker_map_point = function(to, map){
         //    fillOpacity: 0.8
         //}).addTo(map);
 
-    L.circle([to[0], to[1]], 20, {
+    var circle = L.circle([to[0], to[1]], 20, {
         color: '#000',
-        fillColor: '#ff7800',
+        fillColor: '#ffffff',
         fillOpacity: 1
     }).bindPopup(name).addTo(map);
 
