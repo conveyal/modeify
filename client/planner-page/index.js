@@ -81,51 +81,51 @@ module.exports = function(ctx, next) {
     // Update map on plan change
     updateMapOnPlanChange(plan, map);
 
-    //map.on('click', function (e) {
-    //      var from = plan.from_ll();
-    //      var to = plan.to_ll();
-    //      if (!plan.coordinateIsValid(from)) {
-    //        plan.journey({
-    //      places: [
-    //        {
-    //          place_id: 'from',
-    //          place_lat: e.latlng.lat,
-    //          place_lon: e.latlng.lng,
-    //          place_name: 'From'
-    //        },
-    //        {
-    //          place_id: 'to',
-    //          place_lat: (plan.to_ll() ? plan.to_ll().lat : 0),
-    //          place_lon: (plan.to_ll() ? plan.to_ll().lng : 0),
-    //          place_name: 'To'
-    //        }
-    //      ]
-    //    });
-    //    plan.setAddress('from', e.latlng.lng + ',' + e.latlng.lat, function (err, res) {
-    //        plan.updateRoutes();
-    //    });
-    //      } else if (!plan.coordinateIsValid(to)) {
-    //    plan.journey({
-    //      places: [
-    //        {
-    //          place_id: 'from',
-    //          place_lat: plan.from_ll().lat,
-    //          place_lon: plan.from_ll().lng,
-    //          place_name: 'From'
-    //        },
-    //        {
-    //          place_id: 'to',
-    //          place_lat: e.latlng.lat,
-    //          place_lon: e.latlng.lng,
-    //          place_name: 'To'
-    //        }
-    //      ]
-    //    });
-    //    plan.setAddress('to', e.latlng.lng + ',' + e.latlng.lat, function (err, res) {
-    //        plan.updateRoutes();
-    //    });
-    //      }
-    //});
+    map.on('click', function (e) {
+          var from = plan.from_ll();
+          var to = plan.to_ll();
+          if (!plan.coordinateIsValid(from)) {
+            plan.journey({
+          places: [
+            {
+              place_id: 'from',
+             place_lat: e.latlng.lat,
+              place_lon: e.latlng.lng,
+              place_name: 'From'
+           },
+            {
+              place_id: 'to',
+             place_lat: (plan.to_ll() ? plan.to_ll().lat : 0),
+              place_lon: (plan.to_ll() ? plan.to_ll().lng : 0),
+              place_name: 'To'
+            }
+          ]
+        });
+        plan.setAddress('from', e.latlng.lng + ',' + e.latlng.lat, function (err, res) {
+            plan.updateRoutes();
+        });
+          } else if (!plan.coordinateIsValid(to)) {
+        plan.journey({
+          places: [
+            {
+              place_id: 'from',
+              place_lat: plan.from_ll().lat,
+             place_lon: plan.from_ll().lng,
+              place_name: 'From'
+            },
+           {
+              place_id: 'to',
+              place_lat: e.latlng.lat,
+              place_lon: e.latlng.lng,
+              place_name: 'To'
+            }
+          ]
+        });
+        plan.setAddress('to', e.latlng.lng + ',' + e.latlng.lat, function (err, res) {
+            plan.updateRoutes();
+        });
+          }
+    });
 
 
 
