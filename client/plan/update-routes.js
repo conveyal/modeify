@@ -59,6 +59,7 @@ function updateRoutes(plan, opts, callback) {
   var scorer = plan.scorer();
 
   otp.plan(query, function(err, data) {
+      console.log("ENTROOOOOOOOO")
       var planData, itineraries;
 
      if (err || !data || !data.plan) {
