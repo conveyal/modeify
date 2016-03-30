@@ -81,8 +81,6 @@ function suggestAmigo(text, callback) {
     var databoundary = [];
     get('https://www.amigocloud.com/api/v1/users/1/projects/661/datasets/22492', {'token' : config.realtime_access_token()}, function(err, res) {
 
-            if(err) {
-                log("Amigo Cloud Response Error ->", err);
         if (err) {
             console.log("error");
         }else {
@@ -125,7 +123,7 @@ function suggestAmigo(text, callback) {
         }
 
     });
-};
+}
 
 function suggest(text, callback) {
   var bingSuggestions, nominatimSuggestions, totalSuggestions;

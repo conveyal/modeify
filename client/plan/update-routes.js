@@ -83,9 +83,6 @@ function updateRoutes(plan, opts, callback) {
         localStorage.setItem('dataplan', JSON.stringify(data.plan));
 
             sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
-            console.log("si guarda en storage ->", sesion_plan);
-
-
 
 
           // Track the commute

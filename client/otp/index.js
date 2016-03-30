@@ -72,8 +72,7 @@ module.exports.plan = function (query, callback) {
                     }
 		        });
             }
-            console.log("otp res.body->", res.body);
-            console.log("otp res.body.plan->", res.body.plan);
+
 
         });
 };

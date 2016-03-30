@@ -62,10 +62,9 @@ module.exports = function(el) {
     map.realtimeControl = L.control.toggleRealTime().addTo(map);
 
     realtime = mapModule.realtime();
-    console.log("entre amigo", map)
+
 
   } else {
-    console.log("entre mapaboxs");
     map = L.mapbox.map(el, config.mapbox_map_id(), {
       attributionControl: false,
       inertia: false,
@@ -93,8 +92,6 @@ module.exports.getpolyline_creadas = function () {
 };
 
 module.exports.marker_map = function(from, to, map){
-    console.log("mapa from ->", from);
-    console.log("mapa to ->", to);
      var IconStart = L.icon({
         iconUrl: 'assets/images/graphics/start.svg',
         iconSize: [40, 55],
@@ -119,8 +116,6 @@ module.exports.marker_map = function(from, to, map){
 };
 
 module.exports.marker_map_point = function(to, map){
-
-    console.log("mapa point to ->", to);
     var name = to[2];
 
         var circle = L.circle([to[0], to[1]], 20, {
@@ -138,7 +133,6 @@ module.exports.drawRouteAmigo = function(route,mode) {
       var color = '#000';
       var weight = 5;
       var dasharray= '';
-        console.log("imprime mode ->", mode);
         if (mode=="CAR") {
             color = '#FF0000';
             dasharray= '6';
@@ -170,7 +164,6 @@ module.exports.drawRouteAmigo = function(route,mode) {
 
       route = new L.Polyline(L.PolylineUtil.decode(route, 5), color_options);
       this.polyline_creadas.push(route);
-        console.log("pintamos datos ->", this.polyline_creadas);
         //module.exports.polyline_creadas.push(route);
       var boxes = L.RouteBoxer.box(route, 5);
       var bounds = new L.LatLngBounds([]);
