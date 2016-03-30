@@ -87,11 +87,15 @@ module.exports.cleanRoute = function() {
 };
 
 module.exports.polyline_creadas = [];
+module.exports.marker_creadas = [];
 
 module.exports.getpolyline_creadas = function () {
   return this.polyline_creadas;
 };
 
+module.exports.getMarker_creadas = function () {
+  return this.marker_creadas;
+};
 
 module.exports.cleanPolyline = function() {
     var polyline_creadas = this.getpolyline_creadas();
@@ -101,12 +105,27 @@ module.exports.cleanPolyline = function() {
                 map.removeLayer(polyline_creadas[i]);
                 console.log("elimina el mapa?");
             } catch (e) {
-                console.log("problem with " + e + map._layers[i]);
+                console.log("problema al eliminar " + e);
             }
 
   }
-
   this.polyline_creadas = [];
+
+};
+
+
+module.exports.cleanMarker = function() {
+    var map = this.activeMap;
+    for (i in this.marker_creadas) {
+        try {
+                map.removeLayer(this.marker_creadas[i]);
+                console.log("elimina el mapa?");
+            } catch (e) {
+                console.log("problema al eliminar " + e);
+            }
+    }
+
+  this.marker_creadas = [];
 
 };
 
@@ -146,8 +165,8 @@ module.exports.marker_map = function(from, to, map){
         _this.cleanPolyline();
     });
 
-    this.polyline_creadas.push(markerform);
-    this.polyline_creadas.push(markerto);
+    this.marker_creadas.push(markerform);
+    this.marker_creadas.push(markerto);
 };
 
 
