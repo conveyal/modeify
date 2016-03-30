@@ -133,13 +133,13 @@ module.exports.marker_map = function(from, to, map){
     console.log("mapa from ->", from);
     console.log("mapa to ->", to);
      var IconStart = L.icon({
-        iconUrl: 'assets/images/graphics/title-check.svg',
+        iconUrl: 'assets/images/graphics/start.svg',
         iconSize: [40, 55],
         iconAnchor: [20, 50],
         popupAnchor:  [0, -50]
     });
     var IconEnd = L.icon({
-        iconUrl: 'assets/images/graphics/plus.svg',
+        iconUrl: 'assets/images/graphics/end.svg',
         iconSize: [40, 55],
         iconAnchor: [20, 50],
         popupAnchor:  [0, -50]
@@ -175,11 +175,20 @@ module.exports.marker_map_point = function(to, map){
 
     console.log("mapa point to ->", to);
     var name = to[2];
-    var circle = L.circle([to[0], to[1]], 400, {
-        color: '#000',
-        fillColor: '#ffffff',
-        fillOpacity: 1
-    }).bindPopup(name).addTo(map);
+
+    var myTextLabel = L.marker([to[0], to[1]], {
+        icon: L.divIcon({
+            className: 'leaflet-circlej',   // Set class for CSS styling
+            html: 'A Text Label'
+        }),
+        draggable: true,       // Allow label dragging...?
+        zIndexOffset: 1000     // Make appear above other map features
+    });
+    //var circle = L.circle([to[0], to[1]], 400, {
+    //    color: '#000',
+    //    fillColor: '#ffffff',
+    //    fillOpacity: 1
+    //}).bindPopup(name).addTo(map);
 
 
     var myZoom = {
@@ -189,7 +198,7 @@ module.exports.marker_map_point = function(to, map){
     console.log(myZoom);
     map.on('zoomstart', function(e) {
        myZoom.start = map.getZoom();
-        console.log("start zoom 100 ", myZoom.start);
+        console.log("start zoom 400 ", myZoom.start);
     });
 
     map.on('zoomend', function(e) {
