@@ -389,6 +389,9 @@ function updateMapOnPlanChange(plan, map) {
         var datajourney = journey;
         if (!(plan.dataplan === undefined)) {
             var itineraries = plan.dataplan.itineraries;
+            console.log("numero de iteraciones ->", itineraries.length);
+            console.log("grafica from ->",plan.dataplan.from);
+            console.log("grafica to ->",plan.dataplan.to);
             showMapView.marker_map([plan.dataplan.from.lat,plan.dataplan.from.lon],[plan.dataplan.to.lat,plan.dataplan.to.lon], map);
             for (i = 0; i < itineraries.length; i++) {
                 for (ii=0; ii < itineraries[i].legs.length; ii++) {
