@@ -87,9 +87,46 @@ module.exports.cleanRoute = function() {
 };
 
 module.exports.polyline_creadas = [];
+module.exports.marker_creadas = [];
 
 module.exports.getpolyline_creadas = function () {
   return this.polyline_creadas;
+};
+
+module.exports.getMarker_creadas = function () {
+  return this.marker_creadas;
+};
+
+module.exports.cleanPolyline = function() {
+    var polyline_creadas = this.getpolyline_creadas();
+    var map = this.activeMap;
+    for (i in polyline_creadas) {
+        try {
+                map.removeLayer(polyline_creadas[i]);
+                console.log("elimina el mapa?");
+            } catch (e) {
+                console.log("problema al eliminar " + e);
+            }
+
+  }
+  this.polyline_creadas = [];
+
+};
+
+
+module.exports.cleanMarker = function() {
+    var map = this.activeMap;
+    for (i in this.marker_creadas) {
+        try {
+                map.removeLayer(this.marker_creadas[i]);
+                console.log("elimina el mapa?");
+            } catch (e) {
+                console.log("problema al eliminar " + e);
+            }
+    }
+
+  this.marker_creadas = [];
+
 };
 
 module.exports.marker_map = function(from, to, map){
@@ -111,12 +148,28 @@ module.exports.marker_map = function(from, to, map){
 
     //L.marker([37.35337508231001,-121.93626880645752], {icon: IconStart}).bindPopup('From').addTo(map);
     //L.marker([37.44377324953697,-122.16601610183714], {icon: IconEnd}).bindPopup('to').addTo(map);
-    var markerform = new L.marker([from[0],from[1]], {icon: IconStart}).bindPopup('From').addTo(map);
-    var markerto = new L.marker([to[0],to[1]], {icon: IconEnd}).bindPopup('to').addTo(map);
+    var markerform = new L.marker([from[0],from[1]], {icon: IconStart, draggable: true}).bindPopup('From').addTo(map);
+    var markerto = new L.marker([to[0],to[1]], {icon: IconEnd, draggable: true}).bindPopup('to').addTo(map);
+    var _this = this;
+    markerform.on('dragend', function(e){
+       var marker = e.target;
+       var result = marker.getLatLng();
+       console.log("cordenadas drag from ->",result);
+       _this.cleanPolyline();
+    });
 
-    this.polyline_creadas.push(markerform);
-    this.polyline_creadas.push(markerto);
+    markerto.on('dragend', function(e){
+        var marker = e.target;
+        var result = marker.getLatLng();
+        console.log("cordenadas drag to ->",result);
+        _this.cleanPolyline();
+    });
+
+    this.marker_creadas.push(markerform);
+    this.marker_creadas.push(markerto);
 };
+
+
 
 module.exports.marker_map_point = function(to, map){
 
