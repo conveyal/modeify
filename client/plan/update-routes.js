@@ -166,9 +166,9 @@ function updateRoutes(plan, opts, callback) {
 
       // Remove the car option if car is turned off
       if (!plan.car()) {
-        data.options = data.options.filter(function(o) {
-          return o.access[0].mode !== 'CAR';
-        });
+        //data.options = data.options.filter(function(o) {
+        //  return o.access[0].mode !== 'CAR';
+        //});
 
         data.journey.journeys = data.journey.journeys.filter(function(o) {
           return o.journey_name.indexOf('CAR') === -1;
