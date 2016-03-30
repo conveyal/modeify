@@ -188,7 +188,7 @@ module.exports.marker_map_point = function(to, map){
     var IconStart = L.icon({
         iconUrl: 'assets/images/graphics/icono.svg',
         iconSize: [40, 55],
-        iconAnchor: [20, 50],
+        iconAnchor: [20, 20],
         popupAnchor:  [0, -50]
     });
 
