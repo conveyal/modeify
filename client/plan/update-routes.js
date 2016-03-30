@@ -156,7 +156,7 @@ function updateRoutes(plan, opts, callback) {
           from_address: plan.from(),
           to_address: plan.to()
         });
-
+    console.log("populateSegments0");
 	//return;
 
       // Get the car data
@@ -174,7 +174,7 @@ function updateRoutes(plan, opts, callback) {
           return o.journey_name.indexOf('CAR') === -1;
         });
       }
-
+        console.log("populateSegments");
       // Populate segments
       populateSegments(data.options, data.journey);
 
