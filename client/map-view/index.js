@@ -133,13 +133,13 @@ module.exports.marker_map = function(from, to, map){
     console.log("mapa from ->", from);
     console.log("mapa to ->", to);
      var IconStart = L.icon({
-        iconUrl: 'assets/images/graphics/cabi.svg',
+        iconUrl: 'assets/images/graphics/title-check.svg',
         iconSize: [40, 55],
         iconAnchor: [20, 50],
         popupAnchor:  [0, -50]
     });
     var IconEnd = L.icon({
-        iconUrl: 'assets/images/graphics/check.svg',
+        iconUrl: 'assets/images/graphics/plus.svg',
         iconSize: [40, 55],
         iconAnchor: [20, 50],
         popupAnchor:  [0, -50]
