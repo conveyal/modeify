@@ -177,7 +177,7 @@ module.exports.marker_map_point = function(to, map){
     var name = to[2];
 
     var myTextLabel = L.marker([to[0], to[1]], {
-        icon: L.divIcon({
+        icon: L.icon({
             className: 'leaflet-circlej',   // Set class for CSS styling
             html: 'A Text Label'
         }),
