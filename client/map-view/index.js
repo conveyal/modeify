@@ -131,19 +131,19 @@ module.exports.marker_map = function(from, to, map){
     //L.marker([37.44377324953697,-122.16601610183714], {icon: IconEnd}).bindPopup('to').addTo(map);
     var markerform = new L.marker([from[0],from[1]], {icon: IconStart, draggable: true}).bindPopup('From').addTo(map);
     var markerto = new L.marker([to[0],to[1]], {icon: IconEnd, draggable: true}).bindPopup('to').addTo(map);
-
+    var _this = this;
     markerform.on('dragend', function(e){
        var marker = e.target;
        var result = marker.getLatLng();
        console.log("cordenadas drag from ->",result);
-       this.cleanPolyline();
+       _this.cleanPolyline();
     });
 
     markerto.on('dragend', function(e){
         var marker = e.target;
         var result = marker.getLatLng();
         console.log("cordenadas drag to ->",result);
-        this.cleanPolyline();
+        _this.cleanPolyline();
     });
 
     this.polyline_creadas.push(markerform);
