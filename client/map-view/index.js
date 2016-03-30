@@ -139,7 +139,7 @@ module.exports.marker_map = function(from, to, map){
         popupAnchor:  [0, -50]
     });
     var IconEnd = L.icon({
-        iconUrl: 'assets/images/graphics/glow.svg',
+        iconUrl: 'assets/images/graphics/check.svg',
         iconSize: [40, 55],
         iconAnchor: [20, 50],
         popupAnchor:  [0, -50]
