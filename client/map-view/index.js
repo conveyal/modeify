@@ -124,9 +124,9 @@ module.exports.marker_map_point = function(to, map){
     var name = to[2];
 
         var circle = L.circle([to[0], to[1]], 10, {
-        color: 'white',
-        fillColor: '#000000',
-        fillOpacity: 0.5
+        color: '#000',
+        fillColor: '#ffffff',
+        fillOpacity: 1
     }).bindPopup(name).addTo(map);
 
     this.polyline_creadas.push(circle);
