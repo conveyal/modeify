@@ -159,6 +159,10 @@ module.exports.drawRouteAmigo = function(route,mode) {
             dasharray= '6';
              weight = 3;
         }
+        else if(mode=="BUS") {
+            color = '#FEF0B5';
+             weight = 8;
+        }
 
 
        var color_options = {
