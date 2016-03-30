@@ -374,6 +374,7 @@ function updateMapOnPlanChange(plan, map) {
     for (i in polyline_creadas) {
         try {
                 map.removeLayer(polyline_creadas[i]);
+                console.log("elimina el mapa?");
             } catch (e) {
                 console.log("problem with " + e + map._layers[i]);
             }
