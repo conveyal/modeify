@@ -123,9 +123,9 @@ module.exports.marker_map_point = function(to, map){
     console.log("mapa point to ->", to);
     var name = to[2];
 
-        var circle = L.circle([to[0], to[1]], 50, {
-        color: 'blue',
-        fillColor: '#000bcb',
+        var circle = L.circle([to[0], to[1]], 10, {
+        color: 'white',
+        fillColor: '#000000',
         fillOpacity: 0.5
     }).bindPopup(name).addTo(map);
 
