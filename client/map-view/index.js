@@ -124,7 +124,7 @@ module.exports.marker_map_point = function(to, map){
     var name = to[2];
 
         var circle =
-            L.CircleMarker([to[0], to[1]], {
+            L.circle([to[0], to[1]], {
             radius: 5,
             fillColor: "#ff7800",
             color: "#000",

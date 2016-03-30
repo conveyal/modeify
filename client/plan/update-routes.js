@@ -157,7 +157,7 @@ function updateRoutes(plan, opts, callback) {
           to_address: plan.to()
         });
     console.log("populateSegments0");
-	//return;
+	return;
 
       // Get the car data
       //var driveOption = new Route(data.options.filter(function(o) {
