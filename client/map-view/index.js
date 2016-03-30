@@ -105,6 +105,9 @@ module.exports.cleanPolyline = function() {
             }
 
   }
+
+  this.polyline_creadas = [];
+
 };
 
 module.exports.marker_map = function(from, to, map){
