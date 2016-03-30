@@ -175,7 +175,7 @@ module.exports.marker_map_point = function(to, map){
 
     console.log("mapa point to ->", to);
     var name = to[2];
-    var circle = L.circle([to[0], to[1]], 500, {
+    var circle = L.circle([to[0], to[1]], 400, {
         color: '#000',
         fillColor: '#ffffff',
         fillOpacity: 1
@@ -188,7 +188,7 @@ module.exports.marker_map_point = function(to, map){
     console.log(myZoom);
     map.on('zoomstart', function(e) {
        myZoom.start = map.getZoom();
-        console.log("start zoom 1000 ", myZoom.start);
+        console.log("start zoom 400 ", myZoom.start);
     });
 
     map.on('zoomend', function(e) {
