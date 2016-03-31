@@ -210,7 +210,7 @@ module.exports.marker_map_point = function(to, map){
     fillOpacity: 0.8
 };
 
-    var circle = L.circleMarker([to[0], to[1]], geojsonMarkerOptions).bindLabel(name, {
+    var circle = L.circle([to[0], to[1]], geojsonMarkerOptions).bindLabel(name, {
         noHide: true,
         direction: 'auto'
     }).addTo(map);
