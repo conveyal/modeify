@@ -176,30 +176,17 @@ module.exports.marker_map_point = function(to, map){
     console.log("mapa point to ->", to);
     var name = to[2];
 
-    // var circle = L.circle([to[0], to[1]], {
-    //    radius: 6,
-    //      color: 'black',
-    //      weight: 2,
-    //      opacity: 1,
-    //      fillColor: 'white',
-    //      fillOpacity: 1.0
+    var myIcon = L.divIcon({className: 'leaflet-div-icon'});
+// you can set .my-div-icon styles in CSS
+
+    L.marker([to[0], to[1]], {icon: myIcon}).addTo(map);
+
+    //var circle = L.circle([to[0], to[1]], 400, {
+    //    color: '#000',
+    //    weight: 2,
+    //    fillColor: '#ffffff',
+    //    fillOpacity: 1
     //}).bindPopup(name).addTo(map);
-
-    //var IconStart = L.icon({
-    //    iconUrl: 'assets/images/graphics/icono.svg',
-    //    iconSize: [40, 55],
-    //    iconAnchor: [20, 20],
-    //    popupAnchor:  [0, -50]
-    //});
-
-    //L.marker([to[0], to[1]], {icon: IconStart}).addTo(map);
-
-    var circle = L.circle([to[0], to[1]], 400, {
-        color: '#000',
-        weight: 2,
-        fillColor: '#ffffff',
-        fillOpacity: 1
-    }).bindPopup(name).addTo(map);
 
 
     var myZoom = {
