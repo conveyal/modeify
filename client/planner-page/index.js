@@ -417,7 +417,7 @@ function updateMapOnPlanChange(plan, map) {
             for (var n = 0; n < routes.length; n++) {
 
                  for (var m=0; m < routes[n].length; m++) {
-                     console.log("routes[m].shortName", routes[n][m].shortName);
+                     console.log("routes[m].shortName", routes[n])
                   var route_short_name = routes[m].shortName;
                   var route_long_name = routes[m].longName.toUpperCase();
                   console.log("route_short_name ->", route_short_name);
