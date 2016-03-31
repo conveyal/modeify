@@ -173,7 +173,7 @@ module.exports.marker_map = function(from, to, map){
 
 module.exports.marker_map_point = function(to, map){
 
-    console.log("mapa point to ->", to);
+    //console.log("mapa point to ->", to);
     var name = to[2];
 
 //    var myIcon = L.divIcon({className: 'leaflet-div-icon'});
@@ -196,12 +196,12 @@ module.exports.marker_map_point = function(to, map){
     console.log(myZoom);
     map.on('zoomstart', function(e) {
        myZoom.start = map.getZoom();
-        console.log("start zoom 400 ", myZoom.start);
+        //console.log("start zoom 400 ", myZoom.start);
     });
 
     map.on('zoomend', function(e) {
         myZoom.end = map.getZoom();
-         console.log("End zoom ", myZoom.end);
+         //console.log("End zoom ", myZoom.end);
         var diff = myZoom.start - myZoom.end;
         if (diff > 0) {
             circle.setRadius(circle.getRadius() * 2);
