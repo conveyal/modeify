@@ -196,12 +196,25 @@ module.exports.marker_map_point = function(to, map){
 //
 //    L.marker([to[0], to[1]], {icon: myIcon}).addTo(map);
 
-    var circle = L.circle([to[0], to[1]], 700, {
-        color: '#000',
-        weight: 3,
-        fillColor: '#ffffff',
-        fillOpacity: 1
-    }).bindPopup(name).addTo(map);
+    var myIcon = L.icon({
+        iconUrl: 'assets/images/graphics/icono.svg',
+        iconSize: [20, 20],
+        iconAnchor: [10, 10],
+        labelAnchor: [6, 0] // as I want the label to appear 2px past the icon (10 + 2 - 6)
+    });
+    L.marker([to[0], to[1]], {
+        icon: myIcon
+    }).bindLabel(name, {
+        noHide: true,
+        direction: 'auto'
+    }).addTo(map);
+
+    //var circle = L.circle([to[0], to[1]], 700, {
+    //    color: '#000',
+    //    weight: 3,
+    //    fillColor: '#ffffff',
+    //    fillOpacity: 1
+    //}).bindLabel(name).addTo(map);
 
 
     var myZoom = {
