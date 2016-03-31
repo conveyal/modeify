@@ -3,7 +3,7 @@ var mapModule = require('map');
 var plugins = require('./leaflet_plugins');
 var polyUtil = require('./polyline_encoded.js');
 var routeboxer = require('./leaflet_routeboxer.js');
-require('./leaflet_label/leaflet.label-src.js');
+var leaflet_label = require('./leaflet_label/leaflet.label-src.js');
 
 
 var center = config.geocode().center.split(',').map(parseFloat)
@@ -149,7 +149,10 @@ module.exports.marker_map = function(from, to, map){
 
     //L.marker([37.35337508231001,-121.93626880645752], {icon: IconStart}).bindPopup('From').addTo(map);
     //L.marker([37.44377324953697,-122.16601610183714], {icon: IconEnd}).bindPopup('to').addTo(map);
-    var markerform = new L.marker([from[0],from[1]], {icon: IconStart, draggable: true}).bindLabel('From').addTo(map);
+    var leaflet_label = new L.marker([from[0],from[1]], {icon: IconStart, draggable: true});
+    leaflet_label.bindLabel('From');
+    leaflet_label.addTo(map);
+    //var markerform = new L.marker([from[0],from[1]], {icon: IconStart, draggable: true}).bindPopup('From').addTo(map);
     var markerto = new L.marker([to[0],to[1]], {icon: IconEnd, draggable: true}).bindPopup('to').addTo(map);
     var _this = this;
     markerform.on('dragend', function(e){
