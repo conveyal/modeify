@@ -144,12 +144,6 @@ module.exports.marker_map = function(from, to, map){
         popupAnchor:  [0, -50]
     });
 
-
-    //L.marker([37.35337508231001,-121.93626880645752], {icon: IconStart}).bindPopup('From').addTo(map);
-    //L.marker([37.44377324953697,-122.16601610183714], {icon: IconEnd}).bindPopup('to').addTo(map);
-    //var leaflet_label = new L.marker([from[0],from[1]], {icon: IconStart, draggable: true});
-    //leaflet_label.bindLabel('From');
-    //leaflet_label.addTo(map);
     var markerform = new L.marker([from[0],from[1]], {icon: IconStart, draggable: true})
         .addTo(map);
     var markerto = new L.marker([to[0],to[1]], {icon: IconEnd, draggable: true})
@@ -176,7 +170,6 @@ module.exports.marker_map = function(from, to, map){
 
 module.exports.marker_map_point = function(to, map){
 
-    //console.log("mapa point to ->", to);
     var name = to[2];
 
     var IconEnd = L.icon({
@@ -198,7 +191,10 @@ module.exports.marker_map_point = function(to, map){
 
 
 
-module.exports.drawRouteAmigo = function(route,mode) {
+module.exports.drawRouteAmigo = function(legs,mode) {
+     var route = legs.legGeometry.points;
+    var circle_from = [legs.from.lat, legs.from.lon, legs.from.name];
+    var circle_to = [legs.to.lat, legs.to.lon, legs.to.name];
       var color = '#000';
       var weight = 5;
       var dasharray= '';
@@ -216,6 +212,8 @@ module.exports.drawRouteAmigo = function(route,mode) {
         }else if(mode=="SUBWAY" || mode=="RAIL") {
             color = '#FF0000';
              weight = 8;
+             this.marker_map_point(circle_from, this.activeMap);
+             this.marker_map_point(circle_to, this.activeMap);
 
         }
         else if(mode == "WALK") {
@@ -226,6 +224,8 @@ module.exports.drawRouteAmigo = function(route,mode) {
         else if(mode=="BUS") {
             color = '#FEF0B5';
              weight = 8;
+             this.marker_map_point(circle_from, this.activeMap);
+             this.marker_map_point(circle_to, this.activeMap);
         }
 
 
