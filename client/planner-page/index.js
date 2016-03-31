@@ -390,20 +390,21 @@ function updateMapOnPlanChange(plan, map) {
             for (i = 0; i < itineraries.length; i++) {
                 for (ii=0; ii < itineraries[i].legs.length; ii++) {
                   console.log("legs[ii]", itineraries[i].legs[ii]);
+
                   var circle = [itineraries[i].legs[ii].to.lat, itineraries[i].legs[ii].to.lon, itineraries[i].legs[ii].to.name];
                   //console.log("circle", circle);
 
 
-                  showMapView.marker_map_point(circle, map);
+                  //showMapView.marker_map_point(circle, map);
                   //
-                  if (itineraries[i].legs[ii].steps.length > 0){
-                     console.log("itineraries[i].legs[ii].steps.length", itineraries[i].legs[ii].steps.length);
-                     var step_count = itineraries[i].legs[ii].steps.length;
-                     var step_div = parseFloat(step_count / 2);
-                     var current_step = Math.ceil(step_div);
-                      console.log("step_count ->", step_count, "step_div ->", step_div, "current_step ->", current_step);
-                      console.log("---------------------");
-                  }
+                  //if (itineraries[i].legs[ii].steps.length > 0){
+                  //   console.log("itineraries[i].legs[ii].steps.length", itineraries[i].legs[ii].steps.length);
+                  //   var step_count = itineraries[i].legs[ii].steps.length;
+                  //   var step_div = parseFloat(step_count / 2);
+                  //   var current_step = Math.ceil(step_div);
+                  //    console.log("step_count ->", step_count, "step_div ->", step_div, "current_step ->", current_step);
+                  //    console.log("---------------------");
+                  //}
 
                   //for (i = 0; i < itineraries[i].legs[ii].steps.length; i++) {
                   //     var circle2 = [itineraries[i].legs[ii].steps[i].lat, itineraries[i].legs[ii].steps[i].lon, ''];
@@ -412,6 +413,10 @@ function updateMapOnPlanChange(plan, map) {
                   //}
                   showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points, itineraries[i].legs[ii].mode);
                 }
+                  console.log("circle", circle);
+                  console.log("---------------------");
+                  showMapView.marker_map_point(circle, map);
+
             }
 
             //for (var k = 0; k < patterns.length; k++) {
