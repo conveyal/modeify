@@ -389,7 +389,7 @@ function updateMapOnPlanChange(plan, map) {
             showMapView.marker_map([new_plan.from.lat,new_plan.from.lon],[new_plan.to.lat,new_plan.to.lon], map);
             for (i = 0; i < itineraries.length; i++) {
                 for (ii=0; ii < itineraries[i].legs.length; ii++) {
-                  //console.log("itineraries[i].legs[ii]", itineraries[i].legs[ii]);
+                  console.log("legs[ii]", itineraries[i].legs[ii]);
                   var circle = [itineraries[i].legs[ii].to.lat, itineraries[i].legs[ii].to.lon, itineraries[i].legs[ii].to.name];
                   //console.log("circle", circle);
 
