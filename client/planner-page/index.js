@@ -379,6 +379,9 @@ function updateMapOnPlanChange(plan, map) {
         if (!(plan.dataplan === undefined)) {
             var itineraries = plan.dataplan.itineraries;
             var patterns = plan.dataplan.patterns;
+            var routes = plan.dataplan.routes;
+            console.log("patterns", patterns);
+            console.log("routes", routes);
             console.log("numero de iteraciones ->", itineraries.length);
             console.log("grafica from ->",plan.dataplan.from);
             console.log("grafica to ->",plan.dataplan.to);
@@ -386,9 +389,9 @@ function updateMapOnPlanChange(plan, map) {
             showMapView.marker_map([plan.dataplan.from.lat,plan.dataplan.from.lon],[plan.dataplan.to.lat,plan.dataplan.to.lon], map);
             for (i = 0; i < itineraries.length; i++) {
                 for (ii=0; ii < itineraries[i].legs.length; ii++) {
-                  console.log("itineraries[i].legs[ii]", itineraries[i].legs[ii]);
+                  //console.log("itineraries[i].legs[ii]", itineraries[i].legs[ii]);
                   var circle = [itineraries[i].legs[ii].to.lat, itineraries[i].legs[ii].to.lon, itineraries[i].legs[ii].to.name];
-                  console.log("circle", circle);
+                  //console.log("circle", circle);
                   showMapView.marker_map_point(circle, map);
                   //
                   //for (i = 0; i < itineraries[i].legs[ii].steps.length; i++) {
