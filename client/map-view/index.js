@@ -221,7 +221,7 @@ module.exports.drawRouteAmigo = function(route,mode) {
       var color = '#000';
       var weight = 5;
       var dasharray= '';
-        console.log("imprime mode ->", mode);
+
         if (mode=="CAR") {
             color = '#9E9E9E';
             dasharray= '6';
@@ -257,7 +257,6 @@ module.exports.drawRouteAmigo = function(route,mode) {
 
       route = new L.Polyline(L.PolylineUtil.decode(route, 5), color_options);
       this.polyline_creadas.push(route);
-        console.log("pintamos datos ->", this.polyline_creadas);
         //module.exports.polyline_creadas.push(route);
       var boxes = L.RouteBoxer.box(route, 5);
       var bounds = new L.LatLngBounds([]);
