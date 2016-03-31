@@ -383,37 +383,19 @@ function updateMapOnPlanChange(plan, map) {
             console.log("plan actual", plan);
             var patterns = plan.dataplan.patterns;
             var routes = plan.dataplan.routes;
-            console.log("patterns", patterns);
-            console.log("routes", routes);
-            console.log("itineraries", itineraries);
             showMapView.marker_map([new_plan.from.lat,new_plan.from.lon],[new_plan.to.lat,new_plan.to.lon], map);
+
+            // draw and point circle in the map
             for (i = 0; i < itineraries.length; i++) {
                 for (ii=0; ii < itineraries[i].legs.length; ii++) {
-                  console.log("legs[ii]", itineraries[i].legs[ii]);
-
-                  var circle = [itineraries[i].legs[ii].from.lat, itineraries[i].legs[ii].from.lon, itineraries[i].legs[ii].from.name];
                   showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
                 }
 
             }
 
-            for (var k = 0; k < patterns.length; k++) {
-              var route_id = patterns[k].routeId;
-              var route_id_split = route_id.split(":");
-              var agency = route_id_split[0].toLowerCase();
-              var line = route_id_split[1].toLowerCase();
-              var routeId = route_id_split[0] + ':' + route_id_split[1];
-              console.log("agency ->", agency, "line ->", line, "routeId ->", routeId);
+            //do hover
+            console.log("get_data_route(new_plan)", get_data_route(plan.dataplan));
 
-            }
-
-            for (var n = 0; n < routes.length; n++) {
-              var route_short_name = routes[n].shortName;
-              var route_long_name = routes[n].longName.toUpperCase();
-              console.log("route_short_name ->", route_short_name, "route_long_name ->", route_long_name);
-
-            }
-          console.log("entre if ")
         }else{
             console.log("ejecuta storage");
             var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
@@ -425,7 +407,6 @@ function updateMapOnPlanChange(plan, map) {
                 for (i = 0; i < itineraries.length; i++) {
                     for (ii=0; ii < itineraries[i].legs.length; ii++) {
                       var circle = [itineraries[i].legs[ii].to.lat, itineraries[i].legs[ii].to.lon, itineraries[i].legs[ii].to.name];
-                      //console.log("circle", circle);
                       showMapView.marker_map_point(circle, map);
                       showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points, itineraries[i].legs[ii].mode);
                     }
@@ -434,7 +415,6 @@ function updateMapOnPlanChange(plan, map) {
 
         }
       } catch (e) {
-        console.log("entre cath")
 	    map.setView([center[1], center[0]], config.geocode().zoom);
       }
 
@@ -443,23 +423,47 @@ function updateMapOnPlanChange(plan, map) {
 }
 
 
-/////////////function test circle maps  ////
+function get_data_route(new_plan){
+    var itineraries = new_plan.plan.itineraries;
+    var timeInTransit = 0;
+    var bikeTime = 0;
+    var bikeDistance = 0;
+    var walkTime = 0;
+    var walkDistance = 0;
+    for (var i = 0; i < itineraries.length; i++) {
+        for (var j = 0; j < itineraries[j].legs.length; j++) {
+            var fare = (itineraries[i].fare ? itineraries[i].fare.fare.regular.cents : 0);
+            if (itineraries[i].legs[j].transitLeg) {
+                timeInTransit += itineraries[i].legs[j].duration;
+            } else {
+                  if (itineraries[i].legs[j].mode === 'BICYCLE') {
+                    bikeTime += itineraries[i].legs[j].duration;
+                    bikeDistance += itineraries[i].legs[j].distance;
+                  } else if (itineraries[i].legs[j].mode === 'WALK') {
+                    walkTime += itineraries[i].legs[j].duration;
+                    walkDistance += itineraries[i].legs[j].distance;
+                  }
+            }
 
-function getRouteId(patternId, patterns) {
-  for (var i = 0; i < patterns.length; i++) {
-    var pattern = patterns[i];
-    if (pattern.pattern_id === patternId) return pattern.route_id;
-  }
+            data = {
+                from: new_plan.plan.from.name,
+                to: new_plan.plan.to.name,
+                time: timeInTransit + bikeTime + walkTime,
+                timeInTransit: timeInTransit / 60,
+                cost: fare / 100,
+                transitCost: fare / 100,
+                bikeTime: bikeTime,
+                bikeDistance: bikeDistance,
+                walkDistance: walkDistance,
+                walkTime: walkTime,
+                plan: itineraries[i]
+            }
+
+
+        }
+
+    }
+    return data
 }
 
-function getRoute(routeId, routes) {
-  for (var i = 0; i < routes.length; i++) {
-    var route = routes[i];
-    if (route.route_id === routeId) return route;
-  }
-}
 
-function getRouteShield(agency, route) {
-  if (agency === 'dc' && route.route_type === 1) return 'M';
-  return route.route_short_name || route.route_long_name.toUpperCase();
-}
