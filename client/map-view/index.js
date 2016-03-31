@@ -146,12 +146,6 @@ module.exports.marker_map = function(from, to, map){
         popupAnchor:  [0, -50]
     });
 
-
-    //L.marker([37.35337508231001,-121.93626880645752], {icon: IconStart}).bindPopup('From').addTo(map);
-    //L.marker([37.44377324953697,-122.16601610183714], {icon: IconEnd}).bindPopup('to').addTo(map);
-    //var leaflet_label = new L.marker([from[0],from[1]], {icon: IconStart, draggable: true});
-    //leaflet_label.bindLabel('From');
-    //leaflet_label.addTo(map);
     var markerform = new L.marker([from[0],from[1]], {icon: IconStart, draggable: true})
         .addTo(map);
     var markerto = new L.marker([to[0],to[1]], {icon: IconEnd, draggable: true})
@@ -180,37 +174,7 @@ module.exports.marker_map = function(from, to, map){
 
 module.exports.marker_map_point = function(to, map){
 
-    //console.log("mapa point to ->", to);
     var name = to[2];
-
-//    var myIcon = L.divIcon({className: 'leaflet-div-icon'});
-//// you can set .my-div-icon styles in CSS
-//
-//    L.marker([to[0], to[1]], {icon: myIcon}).addTo(map);
-
-    //var myIcon = L.CircleMarker({
-    //    iconUrl: 'assets/images/graphics/icono.svg',
-    //    iconSize: [20, 20],
-    //    iconAnchor: [10, 10],
-    //    labelAnchor: [6, 0] // as I want the label to appear 2px past the icon (10 + 2 - 6)
-    //});
-    //L.marker([to[0], to[1]], {
-    //    icon: myIcon
-    //}).bindLabel(name, {
-    //    noHide: true,
-    //    direction: 'auto'
-    //}).addTo(map);
-
-    //var circle = L.circle([to[0], to[1]], 700, {
-    //    color: '#000',
-    //    weight: 3,
-    //    fillColor: '#ffffff',
-    //    fillOpacity: 1
-    //}).bindLabel(name, {
-    //    noHide: true,
-    //    direction: 'auto'
-    //}).addTo(map);
-
 
     var IconEnd = L.icon({
         iconUrl: 'assets/images/graphics/icono.png',
@@ -223,35 +187,6 @@ module.exports.marker_map_point = function(to, map){
     ];
     var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
 
-
-    //for( i in layer._layers)
-    //  layer._layers[i].showLabel();
-
-
-    //var myZoom = {
-    //  start:  map.getZoom(),
-    //  end: map.getZoom()
-    //};
-    ////console.log(myZoom);
-    //map.on('zoomstart', function(e) {
-    //   myZoom.start = map.getZoom();
-    //    //console.log("start zoom 400 ", myZoom.start);
-    //});
-    //
-    //map.on('zoomend', function(e) {
-    //    myZoom.end = map.getZoom();
-    //     //console.log("End zoom ", myZoom.end);
-    //    var diff = myZoom.start - myZoom.end;
-    //    if (diff > 0) {
-    //        circle.setRadius(circle.getRadius() * 2);
-    //    } else if (diff < 0) {
-    //        circle.setRadius(circle.getRadius() / 2);
-    //    }
-    //});
-
-
-
-    //this.polyline_creadas.push(circle);
 };
 
 
