@@ -31,7 +31,6 @@ module.exports.createMarker = function(opts) {
   var marker;
 
   if (config.map_provider && config.map_provider() === 'AmigoCloud') {
-    console.log("OPTS->", opts);
     marker = L.marker(new L.LatLng(opts.coordinate[1], opts.coordinate[0]), {
       icon: L.amigo.marker.icon({
         'marker-size': opts.size || 'medium',

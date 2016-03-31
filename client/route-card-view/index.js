@@ -20,7 +20,6 @@ var View = module.exports = view(require('./template.html'), function(view, mode
   mouseenter(view.el, function() {
     var isTransit = false;
     var legs = model.plan().legs;
-    console.log("legs->", legs);
     for (var i = 0; i < legs.length; i++) {
       if (legs[i].transitLeg) {
         isTransit = true;
@@ -29,7 +28,6 @@ var View = module.exports = view(require('./template.html'), function(view, mode
     }
 //    var id = model.id() + '';
     var id = model.index + '_' + (isTransit ? 'transit' : legs[0].mode.toLowerCase());
-    console.log("ID ->", id);
     if (id.indexOf('transit') === -1) id = id + '_' + model.access()[0].mode.toLowerCase();
     transitive.focusJourney(id);
   });

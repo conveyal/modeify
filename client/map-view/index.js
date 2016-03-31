@@ -63,10 +63,10 @@ module.exports = function(el) {
     map.realtimeControl = L.control.toggleRealTime().addTo(map);
 
     realtime = mapModule.realtime();
-    console.log("entre amigo", map)
+
 
   } else {
-    console.log("entre mapaboxs");
+
     map = L.mapbox.map(el, config.mapbox_map_id(), {
       attributionControl: false,
       inertia: false,
@@ -104,7 +104,7 @@ module.exports.cleanPolyline = function() {
     for (i in polyline_creadas) {
         try {
                 map.removeLayer(polyline_creadas[i]);
-                console.log("elimina el mapa?");
+
             } catch (e) {
                 console.log("problema al eliminar " + e);
             }
@@ -120,7 +120,7 @@ module.exports.cleanMarker = function() {
     for (i in this.marker_creadas) {
         try {
                 map.removeLayer(this.marker_creadas[i]);
-                console.log("elimina el mapa?");
+
             } catch (e) {
                 console.log("problema al eliminar " + e);
             }
@@ -131,8 +131,6 @@ module.exports.cleanMarker = function() {
 };
 
 module.exports.marker_map = function(from, to, map){
-    console.log("mapa from ->", from);
-    console.log("mapa to ->", to);
      var IconStart = L.icon({
         iconUrl: 'assets/images/graphics/start.svg',
         iconSize: [40, 55],
@@ -161,14 +159,12 @@ module.exports.marker_map = function(from, to, map){
     markerform.on('dragend', function(e){
        var marker = e.target;
        var result = marker.getLatLng();
-       console.log("cordenadas drag from ->",result);
        _this.cleanPolyline();
     });
 
     markerto.on('dragend', function(e){
         var marker = e.target;
         var result = marker.getLatLng();
-        console.log("cordenadas drag to ->",result);
         _this.cleanPolyline();
     });
 
