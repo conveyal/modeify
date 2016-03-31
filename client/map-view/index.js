@@ -153,16 +153,8 @@ module.exports.marker_map = function(from, to, map){
     //leaflet_label.bindLabel('From');
     //leaflet_label.addTo(map);
     var markerform = new L.marker([from[0],from[1]], {icon: IconStart, draggable: true})
-        .bindLabel('from', {
-            noHide: true,
-            direction: 'auto'
-        })
         .addTo(map);
     var markerto = new L.marker([to[0],to[1]], {icon: IconEnd, draggable: true})
-        .bindLabel('to', {
-            noHide: true,
-            direction: 'auto'
-        })
         .addTo(map);
 
     var _this = this;
@@ -209,7 +201,7 @@ module.exports.marker_map_point = function(to, map){
     //    direction: 'auto'
     //}).addTo(map);
 
-    var circle = L.circle([to[0], to[1]], 700, {
+    var circle = L.circleMarker([to[0], to[1]], {
         color: '#000',
         weight: 3,
         fillColor: '#ffffff',
