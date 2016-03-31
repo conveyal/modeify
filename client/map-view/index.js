@@ -189,30 +189,30 @@ module.exports.marker_map_point = function(to, map){
     //}).bindPopup(name).addTo(map);
 
 
-    var myZoom = {
-      start:  map.getZoom(),
-      end: map.getZoom()
-    };
-    console.log(myZoom);
-    map.on('zoomstart', function(e) {
-       myZoom.start = map.getZoom();
-        console.log("start zoom 400 ", myZoom.start);
-    });
+    //var myZoom = {
+    //  start:  map.getZoom(),
+    //  end: map.getZoom()
+    //};
+    //console.log(myZoom);
+    //map.on('zoomstart', function(e) {
+    //   myZoom.start = map.getZoom();
+    //    console.log("start zoom 400 ", myZoom.start);
+    //});
+    //
+    //map.on('zoomend', function(e) {
+    //    myZoom.end = map.getZoom();
+    //     console.log("End zoom ", myZoom.end);
+    //    var diff = myZoom.start - myZoom.end;
+    //    if (diff > 0) {
+    //        circle.setRadius(circle.getRadius() * 2);
+    //    } else if (diff < 0) {
+    //        circle.setRadius(circle.getRadius() / 2);
+    //    }
+    //});
 
-    map.on('zoomend', function(e) {
-        myZoom.end = map.getZoom();
-         console.log("End zoom ", myZoom.end);
-        var diff = myZoom.start - myZoom.end;
-        if (diff > 0) {
-            circle.setRadius(circle.getRadius() * 2);
-        } else if (diff < 0) {
-            circle.setRadius(circle.getRadius() / 2);
-        }
-    });
 
 
-
-    this.polyline_creadas.push(circle);
+    //this.polyline_creadas.push(circle);
 };
 
 
