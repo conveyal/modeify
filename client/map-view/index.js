@@ -209,7 +209,7 @@ module.exports.marker_map_point = function(to, map){
     //    direction: 'auto'
     //}).addTo(map);
 
-    var circle = L.CircleMarker([to[0], to[1]], 700, {
+    var circle = L.circle([to[0], to[1]], 700, {
         color: '#000',
         weight: 3,
         fillColor: '#ffffff',
