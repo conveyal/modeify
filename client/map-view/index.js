@@ -181,9 +181,9 @@ module.exports.marker_map_point = function(to, map){
 //
 //    L.marker([to[0], to[1]], {icon: myIcon}).addTo(map);
 
-    var circle = L.circle([to[0], to[1]], 400, {
+    var circle = L.circle([to[0], to[1]], 700, {
         color: '#000',
-        weight: 2,
+        weight: 3,
         fillColor: '#ffffff',
         fillOpacity: 1
     }).bindPopup(name).addTo(map);
