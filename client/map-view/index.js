@@ -201,19 +201,24 @@ module.exports.marker_map_point = function(to, map){
     //    direction: 'auto'
     //}).addTo(map);
 
-    var geojsonMarkerOptions = {
-    radius: 8,
-    fillColor: "#ff7800",
-    color: "#000",
-    weight: 1,
-    opacity: 1,
-    fillOpacity: 0.8
-};
+    //var circle = L.circle([to[0], to[1]], 700, {
+    //    color: '#000',
+    //    weight: 3,
+    //    fillColor: '#ffffff',
+    //    fillOpacity: 1
+    //}).bindLabel(name, {
+    //    noHide: true,
+    //    direction: 'auto'
+    //}).addTo(map);
 
-    var circle = L.circle([to[0], to[1]], geojsonMarkerOptions).bindLabel(name, {
-        noHide: true,
-        direction: 'auto'
-    }).addTo(map);
+    var markers = [
+      L.marker([to[0], to[1]])
+    ];
+    var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
+
+
+    //for( i in layer._layers)
+    //  layer._layers[i].showLabel();
 
 
     var myZoom = {
