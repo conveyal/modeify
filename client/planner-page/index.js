@@ -378,8 +378,8 @@ function updateMapOnPlanChange(plan, map) {
         var datajourney = journey;
         if (!(plan.dataplan === undefined)) {
             var itineraries = plan.dataplan.itineraries;
-            var patterns = plan.dataplan.patterns;
-            var routes = plan.dataplan.routes;
+            var patterns = plan.patterns;
+            var routes = plan.routes;
             console.log("patterns", patterns);
             console.log("routes", routes);
             console.log("numero de iteraciones ->", itineraries.length);
@@ -432,7 +432,7 @@ function updateMapOnPlanChange(plan, map) {
                 for (i = 0; i < itineraries.length; i++) {
                     for (ii=0; ii < itineraries[i].legs.length; ii++) {
                       var circle = [itineraries[i].legs[ii].to.lat, itineraries[i].legs[ii].to.lon, itineraries[i].legs[ii].to.name];
-                      console.log("circle", circle);
+                      //console.log("circle", circle);
                       showMapView.marker_map_point(circle, map);
                       showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points, itineraries[i].legs[ii].mode);
                     }
