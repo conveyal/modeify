@@ -408,9 +408,7 @@ function updateMapOnPlanChange(plan, map) {
                   var agency = route_id_split[0].toLowerCase();
                   var line = route_id_split[1].toLowerCase();
                   var routeId = route_id_split[0] + ':' + route_id_split[1];
-                  console.log("agency ->", agency);
-                  console.log("line ->", line);
-                  console.log("routeId ->", routeId);
+                  console.log("agency ->", agency, "line ->", line, "routeId ->", routeId);
 
             }
 
