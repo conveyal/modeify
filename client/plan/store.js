@@ -29,7 +29,7 @@ function storePlan(plan) {
   if (commuter) {
     json._commuter = commuter._id();
     commuter.opts(json);
-    commuter.save();
+    //commuter.save();
   }
 
   // save in local storage
