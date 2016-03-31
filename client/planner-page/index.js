@@ -414,22 +414,22 @@ function updateMapOnPlanChange(plan, map) {
                 }
             }
 
-            for (var k = 0; k < patterns.length; k++) {
-              var route_id = patterns[k].routeId;
-              var route_id_split = route_id.split(":");
-              var agency = route_id_split[0].toLowerCase();
-              var line = route_id_split[1].toLowerCase();
-              var routeId = route_id_split[0] + ':' + route_id_split[1];
-              console.log("agency ->", agency, "line ->", line, "routeId ->", routeId);
-
-            }
-
-            for (var n = 0; n < routes.length; n++) {
-              var route_short_name = routes[n].shortName;
-              var route_long_name = routes[n].longName.toUpperCase();
-              console.log("route_short_name ->", route_short_name, "route_long_name ->", route_long_name);
-
-            }
+            //for (var k = 0; k < patterns.length; k++) {
+            //  var route_id = patterns[k].routeId;
+            //  var route_id_split = route_id.split(":");
+            //  var agency = route_id_split[0].toLowerCase();
+            //  var line = route_id_split[1].toLowerCase();
+            //  var routeId = route_id_split[0] + ':' + route_id_split[1];
+            //  console.log("agency ->", agency, "line ->", line, "routeId ->", routeId);
+            //
+            //}
+            //
+            //for (var n = 0; n < routes.length; n++) {
+            //  var route_short_name = routes[n].shortName;
+            //  var route_long_name = routes[n].longName.toUpperCase();
+            //  console.log("route_short_name ->", route_short_name, "route_long_name ->", route_long_name);
+            //
+            //}
           console.log("entre if ")
         }else{
             console.log("ejecuta storage");
