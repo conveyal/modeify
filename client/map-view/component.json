@@ -9,7 +9,7 @@
     "leaflet_routeboxer.js",
     "polyline_encoded.js",
     "leaflet_label/leaflet.label.js",
-    "leaflet_label/leaflet.label-src.js",
+    "leaflet_label/leaflet.label-src.js"
   ],
   "styles": [
     "style.css",
