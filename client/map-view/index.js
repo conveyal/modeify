@@ -152,8 +152,19 @@ module.exports.marker_map = function(from, to, map){
     //var leaflet_label = new L.marker([from[0],from[1]], {icon: IconStart, draggable: true});
     //leaflet_label.bindLabel('From');
     //leaflet_label.addTo(map);
-    var markerform = new L.marker([from[0],from[1]], {icon: IconStart, draggable: true}).bindLabel('From').addTo(map);
-    var markerto = new L.marker([to[0],to[1]], {icon: IconEnd, draggable: true}).bindPopup('to').addTo(map);
+    var markerform = new L.marker([from[0],from[1]], {icon: IconStart, draggable: true})
+        .bindLabel('from', {
+            noHide: true,
+            direction: 'auto'
+        })
+        .addTo(map);
+    var markerto = new L.marker([to[0],to[1]], {icon: IconEnd, draggable: true})
+        .bindLabel('to', {
+            noHide: true,
+            direction: 'auto'
+        })
+        .addTo(map);
+
     var _this = this;
     markerform.on('dragend', function(e){
        var marker = e.target;
