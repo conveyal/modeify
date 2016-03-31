@@ -211,8 +211,15 @@ module.exports.marker_map_point = function(to, map){
     //    direction: 'auto'
     //}).addTo(map);
 
+
+    var IconEnd = L.icon({
+        iconUrl: 'assets/images/graphics/icono.svg',
+        iconSize: [20, 20],
+        iconAnchor: [0, 0],
+        popupAnchor:  [-3, -76]
+    });
     var markers = [
-      L.marker([to[0], to[1]])
+      L.marker([to[0], to[1]], {icon: IconEnd})
     ];
     var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
 
