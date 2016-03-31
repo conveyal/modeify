@@ -392,49 +392,27 @@ function updateMapOnPlanChange(plan, map) {
                   console.log("legs[ii]", itineraries[i].legs[ii]);
 
                   var circle = [itineraries[i].legs[ii].from.lat, itineraries[i].legs[ii].from.lon, itineraries[i].legs[ii].from.name];
-                  //console.log("circle", circle);
-
-
-                  //showMapView.marker_map_point(circle, map);
-                  //
-                  //if (itineraries[i].legs[ii].steps.length > 0){
-                  //   console.log("itineraries[i].legs[ii].steps.length", itineraries[i].legs[ii].steps.length);
-                  //   var step_count = itineraries[i].legs[ii].steps.length;
-                  //   var step_div = parseFloat(step_count / 2);
-                  //   var current_step = Math.ceil(step_div);
-                  //    console.log("step_count ->", step_count, "step_div ->", step_div, "current_step ->", current_step);
-                  //    console.log("---------------------");
-                  //}
-
-                  //for (i = 0; i < itineraries[i].legs[ii].steps.length; i++) {
-                  //     var circle2 = [itineraries[i].legs[ii].steps[i].lat, itineraries[i].legs[ii].steps[i].lon, ''];
-                  //
-                  //     //showMapView.marker_map_point(circle2, map);
-                  //}
                   showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
                 }
-                  //console.log("circle", circle);
-                  //console.log("---------------------");
-                  //showMapView.marker_map_point(circle, map);
 
             }
 
-            //for (var k = 0; k < patterns.length; k++) {
-            //  var route_id = patterns[k].routeId;
-            //  var route_id_split = route_id.split(":");
-            //  var agency = route_id_split[0].toLowerCase();
-            //  var line = route_id_split[1].toLowerCase();
-            //  var routeId = route_id_split[0] + ':' + route_id_split[1];
-            //  console.log("agency ->", agency, "line ->", line, "routeId ->", routeId);
-            //
-            //}
-            //
-            //for (var n = 0; n < routes.length; n++) {
-            //  var route_short_name = routes[n].shortName;
-            //  var route_long_name = routes[n].longName.toUpperCase();
-            //  console.log("route_short_name ->", route_short_name, "route_long_name ->", route_long_name);
-            //
-            //}
+            for (var k = 0; k < patterns.length; k++) {
+              var route_id = patterns[k].routeId;
+              var route_id_split = route_id.split(":");
+              var agency = route_id_split[0].toLowerCase();
+              var line = route_id_split[1].toLowerCase();
+              var routeId = route_id_split[0] + ':' + route_id_split[1];
+              console.log("agency ->", agency, "line ->", line, "routeId ->", routeId);
+
+            }
+
+            for (var n = 0; n < routes.length; n++) {
+              var route_short_name = routes[n].shortName;
+              var route_long_name = routes[n].longName.toUpperCase();
+              console.log("route_short_name ->", route_short_name, "route_long_name ->", route_long_name);
+
+            }
           console.log("entre if ")
         }else{
             console.log("ejecuta storage");
