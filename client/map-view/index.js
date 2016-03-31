@@ -191,7 +191,9 @@ module.exports.marker_map_point = function(to, map){
 
 
 
-module.exports.drawRouteAmigo = function(route,mode) {
+module.exports.drawRouteAmigo = function(legs,mode) {
+     var route = legs.legGeometry.points;
+    var circle = [legs.from.lat, legs.from.lon, legs.from.name];
       var color = '#000';
       var weight = 5;
       var dasharray= '';
@@ -209,6 +211,7 @@ module.exports.drawRouteAmigo = function(route,mode) {
         }else if(mode=="SUBWAY" || mode=="RAIL") {
             color = '#FF0000';
              weight = 8;
+             this.marker_map_point(circle, this.activeMap);
 
         }
         else if(mode == "WALK") {

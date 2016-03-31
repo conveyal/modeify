@@ -411,11 +411,11 @@ function updateMapOnPlanChange(plan, map) {
                   //
                   //     //showMapView.marker_map_point(circle2, map);
                   //}
-                  showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points, itineraries[i].legs[ii].mode);
+                  showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
                 }
-                  console.log("circle", circle);
-                  console.log("---------------------");
-                  showMapView.marker_map_point(circle, map);
+                  //console.log("circle", circle);
+                  //console.log("---------------------");
+                  //showMapView.marker_map_point(circle, map);
 
             }
 
