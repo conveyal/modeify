@@ -186,7 +186,7 @@ module.exports.marker_map_point = function(to, map){
         weight: 2,
         fillColor: '#ffffff',
         fillOpacity: 1
-    }).bindPopup(name).addTo(map);
+    }).setPopupContent(name).addTo(map);
 
 
     var myZoom = {
