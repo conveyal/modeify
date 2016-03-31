@@ -3,6 +3,7 @@ var mapModule = require('map');
 var plugins = require('./leaflet_plugins');
 var polyUtil = require('./polyline_encoded.js');
 var routeboxer = require('./leaflet_routeboxer.js');
+require('leaflet-label');
 
 
 var center = config.geocode().center.split(',').map(parseFloat)
