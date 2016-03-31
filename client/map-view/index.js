@@ -193,7 +193,7 @@ module.exports.marker_map_point = function(to, map){
 
 
 
-    this.polyline_creadas.push(circle);
+    //this.polyline_creadas.push(circle);
 };
 
 
