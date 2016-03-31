@@ -185,20 +185,21 @@ module.exports.marker_map_point = function(to, map){
     //      fillOpacity: 1.0
     //}).bindPopup(name).addTo(map);
 
-    var IconStart = L.icon({
-        iconUrl: 'assets/images/graphics/icono.svg',
-        iconSize: [40, 55],
-        iconAnchor: [20, 20],
-        popupAnchor:  [0, -50]
-    });
+    //var IconStart = L.icon({
+    //    iconUrl: 'assets/images/graphics/icono.svg',
+    //    iconSize: [40, 55],
+    //    iconAnchor: [20, 20],
+    //    popupAnchor:  [0, -50]
+    //});
 
-    L.marker([to[0], to[1]], {icon: IconStart}).addTo(map);
-    //var circle = L.circle([to[0], to[1]], 400, {
-    //    color: '#000',
-    //    weight: 2,
-    //    fillColor: '#ffffff',
-    //    fillOpacity: 1
-    //}).bindPopup(name).addTo(map);
+    //L.marker([to[0], to[1]], {icon: IconStart}).addTo(map);
+
+    var circle = L.circle([to[0], to[1]], 400, {
+        color: '#000',
+        weight: 2,
+        fillColor: '#ffffff',
+        fillOpacity: 1
+    }).bindPopup(name).addTo(map);
 
 
     var myZoom = {
