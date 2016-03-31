@@ -381,8 +381,8 @@ function updateMapOnPlanChange(plan, map) {
             var new_plan = plan.dataplan.plan;
             var itineraries = new_plan.itineraries;
             console.log("plan actual", plan);
-            var patterns = plan.patterns;
-            var routes = plan.routes;
+            var patterns = plan.dataplan.patterns;
+            var routes = plan.dataplan.routes;
             console.log("patterns", patterns);
             console.log("routes", routes);
             console.log("itineraries", itineraries);
