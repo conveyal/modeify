@@ -183,4 +183,11 @@
   border-bottom-left-radius: 3px;
 }
 
+.leaflet-circlej{
+ fill: rgb(255, 255, 255);
+ stroke: rgb(224, 224, 224);
+ stroke-width: 2;
+ visibility: hidden;
+}
+
 

@@ -3,6 +3,7 @@ var mapModule = require('map');
 var plugins = require('./leaflet_plugins');
 var polyUtil = require('./polyline_encoded.js');
 var routeboxer = require('./leaflet_routeboxer.js');
+var leaflet_label = require('./leaflet_label/leaflet.label-src.js');
 
 
 var center = config.geocode().center.split(',').map(parseFloat)
@@ -87,9 +88,46 @@ module.exports.cleanRoute = function() {
 };
 
 module.exports.polyline_creadas = [];
+module.exports.marker_creadas = [];
 
 module.exports.getpolyline_creadas = function () {
   return this.polyline_creadas;
+};
+
+module.exports.getMarker_creadas = function () {
+  return this.marker_creadas;
+};
+
+module.exports.cleanPolyline = function() {
+    var polyline_creadas = this.getpolyline_creadas();
+    var map = this.activeMap;
+    for (i in polyline_creadas) {
+        try {
+                map.removeLayer(polyline_creadas[i]);
+                console.log("elimina el mapa?");
+            } catch (e) {
+                console.log("problema al eliminar " + e);
+            }
+
+  }
+  this.polyline_creadas = [];
+
+};
+
+
+module.exports.cleanMarker = function() {
+    var map = this.activeMap;
+    for (i in this.marker_creadas) {
+        try {
+                map.removeLayer(this.marker_creadas[i]);
+                console.log("elimina el mapa?");
+            } catch (e) {
+                console.log("problema al eliminar " + e);
+            }
+    }
+
+  this.marker_creadas = [];
+
 };
 
 module.exports.marker_map = function(from, to, map){
@@ -111,22 +149,52 @@ module.exports.marker_map = function(from, to, map){
 
     //L.marker([37.35337508231001,-121.93626880645752], {icon: IconStart}).bindPopup('From').addTo(map);
     //L.marker([37.44377324953697,-122.16601610183714], {icon: IconEnd}).bindPopup('to').addTo(map);
-    var markerform = new L.marker([from[0],from[1]], {icon: IconStart}).bindPopup('From').addTo(map);
-    var markerto = new L.marker([to[0],to[1]], {icon: IconEnd}).bindPopup('to').addTo(map);
+    //var leaflet_label = new L.marker([from[0],from[1]], {icon: IconStart, draggable: true});
+    //leaflet_label.bindLabel('From');
+    //leaflet_label.addTo(map);
+    var markerform = new L.marker([from[0],from[1]], {icon: IconStart, draggable: true})
+        .addTo(map);
+    var markerto = new L.marker([to[0],to[1]], {icon: IconEnd, draggable: true})
+        .addTo(map);
 
-    this.polyline_creadas.push(markerform);
-    this.polyline_creadas.push(markerto);
+    var _this = this;
+    markerform.on('dragend', function(e){
+       var marker = e.target;
+       var result = marker.getLatLng();
+       console.log("cordenadas drag from ->",result);
+       _this.cleanPolyline();
+    });
+
+    markerto.on('dragend', function(e){
+        var marker = e.target;
+        var result = marker.getLatLng();
+        console.log("cordenadas drag to ->",result);
+        _this.cleanPolyline();
+    });
+
+    this.marker_creadas.push(markerform);
+    this.marker_creadas.push(markerto);
 };
+
+
 
 module.exports.marker_map_point = function(to, map){
 
-    console.log("mapa point to ->", to);
+    //console.log("mapa point to ->", to);
     var name = to[2];
-        var circle = L.circle([to[0], to[1]], 20, {
-        color: '#000',
-        fillColor: '#ffffff',
-        fillOpacity: 1
-    }).bindPopup(name).addTo(map);
+
+    var IconEnd = L.icon({
+        iconUrl: 'assets/images/graphics/icono.png',
+        iconSize: [20, 20],
+        iconAnchor: [0, 0],
+        popupAnchor:  [-3, -76]
+    });
+    var markers = [
+      L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name)
+    ];
+    var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
+
+
 
 
     this.polyline_creadas.push(circle);
@@ -138,7 +206,7 @@ module.exports.drawRouteAmigo = function(route,mode) {
       var color = '#000';
       var weight = 5;
       var dasharray= '';
-        console.log("imprime mode ->", mode);
+
         if (mode=="CAR") {
             color = '#9E9E9E';
             dasharray= '6';
@@ -174,7 +242,6 @@ module.exports.drawRouteAmigo = function(route,mode) {
 
       route = new L.Polyline(L.PolylineUtil.decode(route, 5), color_options);
       this.polyline_creadas.push(route);
-        console.log("pintamos datos ->", this.polyline_creadas);
         //module.exports.polyline_creadas.push(route);
       var boxes = L.RouteBoxer.box(route, 5);
       var bounds = new L.LatLngBounds([]);

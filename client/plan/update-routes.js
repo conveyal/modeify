@@ -59,6 +59,7 @@ function updateRoutes(plan, opts, callback) {
   var scorer = plan.scorer();
 
   otp.plan(query, function(err, data) {
+      console.log("ENTROOOOOOOOO")
       var planData, itineraries;
 
      if (err || !data || !data.plan) {
@@ -73,14 +74,14 @@ function updateRoutes(plan, opts, callback) {
         planData = {options: []};
 
         itineraries = data.plan.itineraries;
-        module.exports.dataplan = data.plan;
+        module.exports.dataplan = data.options;
 
         var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
         if (!(sesion_plan === null)) {
             localStorage.removeItem('dataplan');
         }
 
-        localStorage.setItem('dataplan', JSON.stringify(data.plan));
+        localStorage.setItem('dataplan', JSON.stringify(data.options));
 
             sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
             console.log("si guarda en storage ->", sesion_plan);
@@ -155,10 +156,10 @@ function updateRoutes(plan, opts, callback) {
           from_address: plan.from(),
           to_address: plan.to()
         });
-
+    console.log("populateSegments0");
 	return;
 
-      // Get the car data
+       //Get the car data
       var driveOption = new Route(data.options.filter(function(o) {
         return o.access[0].mode === 'CAR' && (!o.transit || o.transit.length < 1);
       })[0]);
@@ -173,9 +174,10 @@ function updateRoutes(plan, opts, callback) {
           return o.journey_name.indexOf('CAR') === -1;
         });
       }
-
+        console.log("populateSegments", data.options, data.journey);
       // Populate segments
       populateSegments(data.options, data.journey);
+
 
       // Create a new Route object for each option
       for (var i = 0; i < data.options.length; i++) {
@@ -208,21 +210,29 @@ function populateSegments(options, journey) {
   for (var i = 0; i < options.length; i++) {
     var option = options[i];
     if (!option.transit || option.transit.length < 1) continue;
-
+    console.log("option->", option);
     for (var j = 0; j < option.transit.length; j++) {
       var segment = option.transit[j];
 
+       console.log("segment->", segment);
       for (var k = 0; k < segment.segmentPatterns.length; k++) {
         var pattern = segment.segmentPatterns[k];
         var patternId = pattern.patternId;
+            console.log("pattern->", pattern);
+          console.log("patternId ->",  patternId );
         var routeId = getRouteId(patternId, journey.patterns);
 
         routeId = routeId.split(':');
         var agency = routeId[0].toLowerCase();
         var line = routeId[1].toLowerCase();
 
+         console.log("routeId ->", routeId);
+
         routeId = routeId[0] + ':' + routeId[1];
+          console.log("journey.routes", journey.routes)
         var route = getRoute(routeId, journey.routes);
+
+        console.log("routexxx", route);
 
         pattern.longName = route.route_long_name;
         pattern.shortName = route.route_short_name;
@@ -230,6 +240,11 @@ function populateSegments(options, journey) {
         pattern.color = convert.routeToColor(route.route_type, agency, line,
           route.route_color);
         pattern.shield = getRouteShield(agency, route);
+
+          console.log("pattern.longName", pattern.longName);
+          console.log("pattern.shortName", pattern.shortName);
+          console.log("pattern.color", pattern.color);
+          console.log("pattern.shield", pattern.shield);
       }
     }
   }
