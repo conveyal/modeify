@@ -213,7 +213,7 @@ module.exports.marker_map_point = function(to, map){
 
 
     var IconEnd = L.icon({
-        iconUrl: 'assets/images/graphics/icono.svg',
+        iconUrl: 'assets/images/graphics/icono.png',
         iconSize: [20, 20],
         iconAnchor: [0, 0],
         popupAnchor:  [-3, -76]
