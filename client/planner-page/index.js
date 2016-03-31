@@ -392,11 +392,15 @@ function updateMapOnPlanChange(plan, map) {
                   //console.log("itineraries[i].legs[ii]", itineraries[i].legs[ii]);
                   var circle = [itineraries[i].legs[ii].to.lat, itineraries[i].legs[ii].to.lon, itineraries[i].legs[ii].to.name];
                   //console.log("circle", circle);
+
+
                   showMapView.marker_map_point(circle, map);
                   //
+                  console.log("itineraries[i].legs[ii].steps.length", itineraries[i].legs[ii].steps.length);
                   //for (i = 0; i < itineraries[i].legs[ii].steps.length; i++) {
                   //     var circle2 = [itineraries[i].legs[ii].steps[i].lat, itineraries[i].legs[ii].steps[i].lon, ''];
-                  //     showMapView.marker_map_point(circle2, map);
+                  //
+                  //     //showMapView.marker_map_point(circle2, map);
                   //}
                   showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points, itineraries[i].legs[ii].mode);
                 }
