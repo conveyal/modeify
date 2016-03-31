@@ -201,12 +201,16 @@ module.exports.marker_map_point = function(to, map){
     //    direction: 'auto'
     //}).addTo(map);
 
-    var circle = L.circleMarker([to[0], to[1]], {
-        color: '#000',
-        weight: 3,
-        fillColor: '#ffffff',
-        fillOpacity: 1
-    }).bindLabel(name, {
+    var geojsonMarkerOptions = {
+    radius: 8,
+    fillColor: "#ff7800",
+    color: "#000",
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.8
+};
+
+    var circle = L.circleMarker([to[0], to[1]], geojsonMarkerOptions).bindLabel(name, {
         noHide: true,
         direction: 'auto'
     }).addTo(map);

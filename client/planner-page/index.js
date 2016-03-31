@@ -400,7 +400,7 @@ function updateMapOnPlanChange(plan, map) {
                      console.log("itineraries[i].legs[ii].steps.length", itineraries[i].legs[ii].steps.length);
                      var step_count = itineraries[i].legs[ii].steps.length;
                      var step_div = parseFloat(step_count / 2);
-                     var current_step = Math.ceil(step_div)
+                     var current_step = Math.ceil(step_div);
                       console.log("step_count ->", step_count, "step_div ->", step_div, "current_step ->", current_step);
                       console.log("---------------------");
                   }
