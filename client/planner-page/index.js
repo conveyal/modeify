@@ -403,7 +403,8 @@ function updateMapOnPlanChange(plan, map) {
             }
 
             for (var k = 0; k < patterns.length; k++) {
-                console.log("patterns[k]", patterns[k].length);
+                console.log("patterns[k]", patterns.length);
+                console.log("patterns[k] route id", patterns[k].routeId);
                 for (var l=0; l < patterns[k].length; l++) {
                     console.log("patterns[l] ->", patterns[l]);
                   var route_id = patterns[l].routeId;
