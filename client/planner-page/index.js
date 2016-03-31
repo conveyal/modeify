@@ -398,6 +398,25 @@ function updateMapOnPlanChange(plan, map) {
                   showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points, itineraries[i].legs[ii].mode);
                 }
             }
+
+            for (var k = 0; k < patterns.length; k++) {
+                  var route_id = patterns[k].routeId;
+                  var route_id_split = route_id.split(":");
+                  var agency = route_id_split[0].toLowerCase();
+                  var line = route_id_split[1].toLowerCase();
+                  var routeId = routeId[0] + ':' + routeId[1];
+                  console.log("agency ->", agency);
+                  console.log("line ->", line);
+                  console.log("routeId ->", routeId);
+            }
+
+            for (var n = 0; n < routes.length; n++) {
+                  var route_short_name = routes[k].shortName;
+                  var route_long_name = routes[k].longName.toUpperCase();
+                  console.log("route_short_name ->", route_short_name);
+                  console.log("route_long_name ->", route_long_name);
+            }
+
           console.log("entre if ")
         }else{
             console.log("ejecuta storage");
