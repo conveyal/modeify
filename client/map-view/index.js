@@ -193,7 +193,7 @@ module.exports.marker_map_point = function(to, map){
       start:  map.getZoom(),
       end: map.getZoom()
     };
-    console.log(myZoom);
+    //console.log(myZoom);
     map.on('zoomstart', function(e) {
        myZoom.start = map.getZoom();
         //console.log("start zoom 400 ", myZoom.start);
