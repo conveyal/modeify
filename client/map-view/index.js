@@ -214,7 +214,10 @@ module.exports.marker_map_point = function(to, map){
         weight: 3,
         fillColor: '#ffffff',
         fillOpacity: 1
-    }).bindLabel(name).addTo(map);
+    }).bindLabel(name, {
+        noHide: true,
+        direction: 'auto'
+    }).addTo(map);
 
 
     var myZoom = {
