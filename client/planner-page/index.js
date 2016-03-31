@@ -396,8 +396,15 @@ function updateMapOnPlanChange(plan, map) {
 
                   showMapView.marker_map_point(circle, map);
                   //
-                  console.log("itineraries[i].legs[ii].steps.length", itineraries[i].legs[ii].steps.length);
-                  console.log("---------------------");
+                  if (itineraries[i].legs[ii].steps.length > 0){
+                     console.log("itineraries[i].legs[ii].steps.length", itineraries[i].legs[ii].steps.length);
+                     var step_count = itineraries[i].legs[ii].steps.length;
+                     var step_div = parseFloat(step_count / 2);
+                     var current_step = Math.ceil(step_div)
+                      console.log("step_count ->", step_count, "step_div ->", step_div, "current_step ->", current_step);
+                      console.log("---------------------");
+                  }
+
                   //for (i = 0; i < itineraries[i].legs[ii].steps.length; i++) {
                   //     var circle2 = [itineraries[i].legs[ii].steps[i].lat, itineraries[i].legs[ii].steps[i].lon, ''];
                   //
