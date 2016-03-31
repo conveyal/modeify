@@ -403,23 +403,21 @@ function updateMapOnPlanChange(plan, map) {
             }
 
             for (var k = 0; k < patterns.length; k++) {
-                console.log("patterns[k]", patterns.length);
-                console.log("patterns[k] route id", patterns[k].routeId);
-                for (var l=0; l < patterns[k].length; l++) {
-                    console.log("patterns[l] ->", patterns[l]);
-                  var route_id = patterns[l].routeId;
+                  var route_id = patterns[k].routeId;
                   var route_id_split = route_id.split(":");
                   var agency = route_id_split[0].toLowerCase();
                   var line = route_id_split[1].toLowerCase();
-                  var routeId = routeId[0] + ':' + routeId[1];
+                  var routeId = route_id_split[0] + ':' + route_id_split[1];
                   console.log("agency ->", agency);
                   console.log("line ->", line);
                   console.log("routeId ->", routeId);
-                }
+
             }
 
             for (var n = 0; n < routes.length; n++) {
+
                  for (var m=0; m < routes[n].length; m++) {
+                     console.log("routes[m].shortName", routes[n][m].shortName);
                   var route_short_name = routes[m].shortName;
                   var route_long_name = routes[m].longName.toUpperCase();
                   console.log("route_short_name ->", route_short_name);
