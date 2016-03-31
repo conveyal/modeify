@@ -397,6 +397,7 @@ function updateMapOnPlanChange(plan, map) {
                   showMapView.marker_map_point(circle, map);
                   //
                   console.log("itineraries[i].legs[ii].steps.length", itineraries[i].legs[ii].steps.length);
+                  console.log("---------------------");
                   //for (i = 0; i < itineraries[i].legs[ii].steps.length; i++) {
                   //     var circle2 = [itineraries[i].legs[ii].steps[i].lat, itineraries[i].legs[ii].steps[i].lon, ''];
                   //
