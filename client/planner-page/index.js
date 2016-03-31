@@ -352,6 +352,7 @@ function updateMapOnPlanChange(plan, map) {
     }
     */
 
+
     //map.removeLayer(polyline);
 /*
 
