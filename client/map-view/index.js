@@ -4,7 +4,7 @@ var plugins = require('./leaflet_plugins');
 var polyUtil = require('./polyline_encoded.js');
 var routeboxer = require('./leaflet_routeboxer.js');
 var leaflet_label = require('./leaflet_label/leaflet.label-src.js');
-
+var session = require('session');
 
 var center = config.geocode().center.split(',').map(parseFloat)
 if (config.map_provider && config.map_provider() !== 'AmigoCloud') {
@@ -145,21 +145,32 @@ module.exports.marker_map = function(from, to, map){
     });
 
     var markerform = new L.marker([from[0],from[1]], {icon: IconStart, draggable: true})
-        .addTo(map);
+        .addTo(this.activeMap);
     var markerto = new L.marker([to[0],to[1]], {icon: IconEnd, draggable: true})
-        .addTo(map);
-
+        .addTo(this.activeMap);
     var _this = this;
+
     markerform.on('dragend', function(e){
        var marker = e.target;
        var result = marker.getLatLng();
        _this.cleanPolyline();
+       var plan = session.plan();
+
+            plan.setAddress('from', result.lng + ',' + result.lat, function(err, rees) {
+                plan.updateRoutes();
+          });
+
     });
 
     markerto.on('dragend', function(e){
-        var marker = e.target;
-        var result = marker.getLatLng();
-        _this.cleanPolyline();
+       var marker = e.target;
+       var result = marker.getLatLng();
+       _this.cleanPolyline();
+       var plan = session.plan();
+            plan.setAddress('to', result.lng + ',' + result.lat, function(err, rees) {
+                plan.updateRoutes();
+          });
+
     });
 
     this.marker_creadas.push(markerform);
@@ -192,12 +203,12 @@ module.exports.marker_map_point = function(to, map){
 
 
 module.exports.drawRouteAmigo = function(legs,mode) {
-     var route = legs.legGeometry.points;
+    var route = legs.legGeometry.points;
     var circle_from = [legs.from.lat, legs.from.lon, legs.from.name];
     var circle_to = [legs.to.lat, legs.to.lon, legs.to.name];
-      var color = '#000';
-      var weight = 5;
-      var dasharray= '';
+    var color = '#000';
+    var weight = 5;
+    var dasharray= '';
 
         if (mode=="CAR") {
             color = '#9E9E9E';
@@ -238,7 +249,6 @@ module.exports.drawRouteAmigo = function(legs,mode) {
 
       route = new L.Polyline(L.PolylineUtil.decode(route, 5), color_options);
       this.polyline_creadas.push(route);
-        //module.exports.polyline_creadas.push(route);
       var boxes = L.RouteBoxer.box(route, 5);
       var bounds = new L.LatLngBounds([]);
       var boxpolys = new Array(boxes.length);
