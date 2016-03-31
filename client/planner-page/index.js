@@ -378,7 +378,7 @@ function updateMapOnPlanChange(plan, map) {
         var datajourney = journey;
         if (!(plan.dataplan === undefined)) {
             var itineraries = plan.dataplan.itineraries;
-            console.log(plan);
+            console.log("plan actual", plan);
             var patterns = plan.patterns;
             var routes = plan.routes;
             console.log("patterns", patterns);
