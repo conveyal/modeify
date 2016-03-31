@@ -391,7 +391,7 @@ function updateMapOnPlanChange(plan, map) {
                 for (ii=0; ii < itineraries[i].legs.length; ii++) {
                   console.log("legs[ii]", itineraries[i].legs[ii]);
 
-                  var circle = [itineraries[i].legs[ii].to.lat, itineraries[i].legs[ii].to.lon, itineraries[i].legs[ii].to.name];
+                  var circle = [itineraries[i].legs[ii].from.lat, itineraries[i].legs[ii].from.lon, itineraries[i].legs[ii].from.name];
                   //console.log("circle", circle);
 
 
