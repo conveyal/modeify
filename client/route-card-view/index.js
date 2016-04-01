@@ -19,14 +19,18 @@ var showMapView = require('map-view');
 var View = module.exports = view(require('./template.html'), function(view, model) {
   mouseenter(view.el, function() {
     var itineraries = model.plan();
-    console.log("legs->", itineraries);
+    console.log("itineraries ->", itineraries);
+    console.log("view ->", view);
+    console.log("model ->", model);
     showMapView.cleanPolyline();
+
     for (var i = 0; i < itineraries.length; i++) {
         for (var ii=0; ii < itineraries[i].legs.length; ii++) {
           showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
         }
 
     }
+
   });
 
   mouseleave(view.el, function() {
