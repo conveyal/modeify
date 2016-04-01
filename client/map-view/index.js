@@ -170,25 +170,23 @@ module.exports.marker_map = function(from, to){
        var marker = e.target;
        var result = marker.getLatLng();
        _this.cleanPolyline();
+       _this.cleanMarkerpoint();
        var plan = session.plan();
 
             plan.setAddress('from', result.lng + ',' + result.lat, function(err, rees) {
                 plan.updateRoutes();
           });
-
-       _this.cleanMarkerpoint();
     });
 
     markerto.on('dragend', function(e){
        var marker = e.target;
        var result = marker.getLatLng();
        _this.cleanPolyline();
+       _this.cleanMarkerpoint();
        var plan = session.plan();
             plan.setAddress('to', result.lng + ',' + result.lat, function(err, rees) {
                 plan.updateRoutes();
           });
-
-        _this.cleanMarkerpoint();
     });
 
     this.marker_creadas.push(markerform);
