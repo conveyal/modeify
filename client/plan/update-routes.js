@@ -82,10 +82,6 @@ function updateRoutes(plan, opts, callback) {
 
         localStorage.setItem('dataplan', JSON.stringify(data.options));
 
-            sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
-
-
-
           // Track the commute
           analytics.track('Found Route', {
             plan: '',
