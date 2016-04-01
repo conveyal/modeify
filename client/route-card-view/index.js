@@ -11,7 +11,7 @@ var routeResource = require('route-resource');
 var session = require('session');
 var transitive = require('transitive');
 var view = require('view');
-
+var showMapView = require('map-view');
 /**
  * Expose `View`
  */
@@ -21,9 +21,10 @@ var View = module.exports = view(require('./template.html'), function(view, mode
     var isTransit = false;
     var itineraries = model.plan();
     console.log("legs->", itineraries);
+    showMapView.cleanPolyline();
     for (var i = 0; i < itineraries.length; i++) {
         for (var ii=0; ii < itineraries[i].legs.length; ii++) {
-          this.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
+          showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
         }
 
     }
