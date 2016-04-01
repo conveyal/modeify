@@ -27,7 +27,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 
     for (var i = 0; i < itineraries.legs.length; i++) {
 
-              console.log("se envia", itineraries.legs[ii], itineraries.legs[ii].mode);
+              console.log("se envia", itineraries.legs[i], itineraries.legs[i].mode);
               //showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
 
 
@@ -41,7 +41,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       console.log("mouseleave");
         for (var i = 0; i < itineraries.legs.length; i++) {
 
-              console.log("se envia", itineraries.legs[ii], itineraries.legs[ii].mode);
+              console.log("se envia", itineraries.legs[i], itineraries.legs[i].mode);
               //showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
 
 
