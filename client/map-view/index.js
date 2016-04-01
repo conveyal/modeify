@@ -209,26 +209,28 @@ module.exports.marker_map_point = function(to, map){
       L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name, { direction: 'auto', noHide: true })
     ];
 
-    var layer = L.layerGroup(markers).addTo(map);
+    //var layer = L.layerGroup(markers).addTo(map);
+    //
+    // var myZoom = {
+    //  start:  map.getZoom(),
+    //  end: map.getZoom()
+    //};
 
-     var myZoom = {
-      start:  map.getZoom(),
-      end: map.getZoom()
-    };
+    var conditionalLayer = L.conditionalMarkers(markers, {maxMarkers: 2}).addTo(map);
 
-    map.on('zoomend', function(e) {
-        myZoom.end = map.getZoom();
-        if (myZoom.end <= 10){
-            layer.eachLayer(function (marker) {
-                marker.hideLabel();
-            });
-        }
-        if (myZoom.end > 10){
-            layer.eachLayer(function (marker) {
-                marker.showLabel();
-            });
-        }
-    });
+    //map.on('zoomend', function(e) {
+    //    myZoom.end = map.getZoom();
+    //    if (myZoom.end <= 10){
+    //        layer.eachLayer(function (marker) {
+    //            marker.hideLabel();
+    //        });
+    //    }
+    //    if (myZoom.end > 10){
+    //        layer.eachLayer(function (marker) {
+    //            marker.showLabel();
+    //        });
+    //    }
+    //});
 
 
     this.makerpoint_creadas.push(layer);
