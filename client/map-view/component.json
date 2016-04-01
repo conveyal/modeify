@@ -1,7 +1,8 @@
 {
   "name": "map-view",
   "local": [
-    "config"
+    "config",
+    "session"
   ],
   "scripts": [
     "index.js",

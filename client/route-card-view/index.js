@@ -9,7 +9,7 @@ var RouteModal = require('route-modal');
 var routeSummarySegments = require('route-summary-segments');
 var routeResource = require('route-resource');
 var session = require('session');
-var transitive = require('transitive');
+//var transitive = require('transitive');
 var view = require('view');
 var showMapView = require('map-view');
 /**

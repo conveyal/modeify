@@ -131,15 +131,10 @@ View.prototype.save = function(el) {
 	var name = el.name;
 	var val = el.value;
 
-    console.log("name", name);
-    console.log("val", val);
-    console.log("plan.validCoordinates()", plan.validCoordinates());
-    console.log("location", location);
 	if (!val || plan[name]() === val) return;
 
 	if (el.lat) {
 		this.model.setAddress(name, el.lng + ',' + el.lat, function(err, location) {
-            console.log("location2", location);
 
             if (err) {
                 log.error('%e', err);
@@ -162,7 +157,6 @@ View.prototype.save = function(el) {
         }, el.address);
     } else {
 	    this.model.setAddress(name, val, function(err, location) {
-            console.log("location3", location);
 			if (err) {
                 log.error('%e', err);
                 analytics.send_ga({
@@ -172,7 +166,6 @@ View.prototype.save = function(el) {
                     value: 0
                 });
 
-                console.log("ocurre un error");
 			textModal('Invalid address.');
 			} else if (location && plan.validCoordinates()) {
 			    analytics.send_ga({
@@ -183,7 +176,6 @@ View.prototype.save = function(el) {
                 });
 			    plan.updateRoutes();
 
-			    console.log("ejecuta update");
 			}
 			});
     }

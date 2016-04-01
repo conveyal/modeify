@@ -178,7 +178,6 @@ Plan.prototype.validCoordinates = function() {
 
 Plan.prototype.setAddress = function(name, address, callback, extra) {
   callback = callback || function() {}; // noop callback
-
   var plan = this;
   var c = address.split(',');
   var isCoordinate = c.length === 2 && !isNaN(parseFloat(c[0])) && !isNaN(parseFloat(c[1]));
@@ -191,17 +190,29 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
         var changes = {};
             if (reverse) {
               var geocode_features = reverse.features;
-              if (isCoordinate)
-                changes[name] = extra.properties.label;
-              else
-                changes[name] = extra.properties.label;
+              changes[name] = name;
+              if (isCoordinate) {
+                if (!(extra === undefined)) {
+                    changes[name] = extra.properties.label;
+                }else {
+                    changes[name] = geocode_features[0].properties.label;
+                }
+
+              }else {
+                if (!(extra === undefined)) {
+                    changes[name] = extra.properties.label;
+                }else {
+                    changes[name] = geocode_features[0].properties.label;
+                }
+
+              }
+
 
               changes[name + '_ll'] = {lat: parseFloat(geocode_features[0].geometry.coordinates[1]), lng: parseFloat(geocode_features[0].geometry.coordinates[0])};
               changes[name + '_id'] = geocode_features[0].properties.id;
               changes[name + '_valid'] = true;
 
               plan.set(changes);
-
               callback(null, reverse);
 
             } else {
@@ -218,6 +229,7 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
 
             }
         };
+
         geocode.reverseAmigo(c, callbackAmigo);
     }else {
       plan.setAddress('', '', callback);

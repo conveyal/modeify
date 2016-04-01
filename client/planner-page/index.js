@@ -70,14 +70,6 @@ module.exports = function(ctx, next) {
     // Show the map
     var map = showMapView(ctx.view.find('.MapView'));
 
-    console.log("map ->", map);
-
-    // Create the transitive layer
-    //var transitiveLayer = new LeafletTransitiveLayer(transitive);
-
-    // Set the transitive layer
-    //map.addLayer(transitiveLayer);
-
     // Update map on plan change
     updateMapOnPlanChange(plan, map);
 
@@ -136,12 +128,10 @@ module.exports = function(ctx, next) {
       //plan.clearStore();
 
     // If it's a shared URL or welcome is complete skip the welcome screen
-    console.log("query ->", query);
     if ((query.from && query.to)) {
       showQuery(query);
     } else {
-      console.log("plan.coordinateIsValid(from)", plan.coordinateIsValid(from));
-      console.log("plan.coordinateIsValid(to)", plan.coordinateIsValid(to));
+
 
       if (plan.coordinateIsValid(from) && plan.coordinateIsValid(to)) {
           plan.setAddresses(
@@ -149,11 +139,10 @@ module.exports = function(ctx, next) {
             to.lng + ',' + to.lat, // to
             function (err, res) {
               plan.updateRoutes();
-              console.log("aqui la data del plan 4 ->", plan.dataplan);
+
             }
           );
           plan.updateRoutes();
-          console.log("aqui la data del plan 3 ->", plan.dataplan);
       } else {
           console.log(from);
           console.log(to);
@@ -191,7 +180,7 @@ View.prototype.reverseCommute = function(e) {
 
   plan.updateRoutes();
 
-  console.log("aqui la data del plan 5 ->", plan.dataplan);
+
 };
 
 /**
@@ -311,7 +300,6 @@ function showQuery(query) {
     });
     plan.updateRoutes();
 
-    console.log("aqui la data del plan 1 ->", plan.dataplan);
   } else {
       if (!plan.validCoordinates()) {
 	  plan.loading(false);
@@ -327,7 +315,6 @@ function showQuery(query) {
         });
         plan.updateRoutes();
 
-        console.log("aqui la data del plan 2 ->", plan.dataplan);
       }
     });
 }
@@ -339,81 +326,37 @@ function showQuery(query) {
  */
 
 function updateMapOnPlanChange(plan, map) {
-  // Register plan update events
-    /*
-    for (i in map._layers) {
-        if (map._layers[i].options.format == undefined) {
-            try {
-                map.removeLayer(map._layers[i]);
-            } catch (e) {
-                console.log("problem with " + e + map._layers[i]);
-            }
-        }
-    }
-    */
-
-
-    //map.removeLayer(polyline);
-/*
-
-  for (i in polyline_creadas) {
-        try {
-                map.removeLayer(polyline_creadas[i]);
-            } catch (e) {
-                console.log("problem with " + e + map._layers[i]);
-            }
-
-  }
-  */
 
   plan.on('change journey', function(journey) {
 
   showMapView.cleanPolyline();
   showMapView.cleanMarker();
+  showMapView.cleanMarkerpoint();
+
+  var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
 
     if (journey && !isMobile) {
       try {
 
-        log('updating data');
+        if(!(sesion_plan === null)) {
 
-        var datajourney = journey;
-        if (!(plan.dataplan.plan === undefined)) {
-            var new_plan = plan.dataplan.plan;
-            var itineraries = new_plan.itineraries;
-            console.log("plan actual", plan);
-            var patterns = plan.dataplan.patterns;
-            var routes = plan.dataplan.routes;
-            showMapView.marker_map([new_plan.from.lat,new_plan.from.lon],[new_plan.to.lat,new_plan.to.lon], map);
+                sesion_plan = sesion_plan.plan;
 
-            // draw and point circle in the map
-            for (i = 0; i < itineraries.length; i++) {
-                for (ii=0; ii < itineraries[i].legs.length; ii++) {
-                  showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
-                }
-
-            }
-
-            //do hover
-            console.log("get_data_route(new_plan)", get_data_route(plan.dataplan));
-
-        }else{
-            console.log("ejecuta storage");
-            var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
-            if(!(sesion_plan === null)) {
                 var itineraries = sesion_plan.itineraries;
 
-                showMapView.marker_map([sesion_plan.from.lat,sesion_plan.from.lon],[sesion_plan.to.lat,sesion_plan.to.lon], map);
+                showMapView.marker_map(
+                        [sesion_plan.from.lat,sesion_plan.from.lon],
+                        [sesion_plan.to.lat,sesion_plan.to.lon]
+                );
 
                 for (i = 0; i < itineraries.length; i++) {
                     for (ii=0; ii < itineraries[i].legs.length; ii++) {
-                      var circle = [itineraries[i].legs[ii].to.lat, itineraries[i].legs[ii].to.lon, itineraries[i].legs[ii].to.name];
-                      showMapView.marker_map_point(circle, map);
-                      showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points, itineraries[i].legs[ii].mode);
+
+                      showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
                     }
                 }
             }
 
-        }
       } catch (e) {
 	    map.setView([center[1], center[0]], config.geocode().zoom);
       }
@@ -467,5 +410,3 @@ function get_data_route(new_plan){
     }
     return data
 }
-
-

@@ -64,7 +64,6 @@ module.exports.plan = function (query, callback) {
                         log('<-- profiled %s options', res.body.length);
                         callback(null, {
                             journey: journey,
-            //			    options: data.options
                             options: res.body,
                             plan: res.body.plan
                         });
@@ -72,8 +71,6 @@ module.exports.plan = function (query, callback) {
                     }
 		        });
             }
-            console.log("otp res.body->", res.body);
-            console.log("otp res.body.plan->", res.body.plan);
 
         });
 };
