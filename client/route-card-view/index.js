@@ -19,24 +19,22 @@ var view = require('view');
 var View = module.exports = view(require('./template.html'), function(view, model) {
   mouseenter(view.el, function() {
     var isTransit = false;
-    var legs = model.plan().legs;
-    console.log("legs->", legs);
-    for (var i = 0; i < legs.length; i++) {
-      if (legs[i].transitLeg) {
-        isTransit = true;
-        break;
-      }
-    }
-//    var id = model.id() + '';
-    var id = model.index + '_' + (isTransit ? 'transit' : legs[0].mode.toLowerCase());
-    console.log("ID ->", id);
-    if (id.indexOf('transit') === -1) id = id + '_' + model.access()[0].mode.toLowerCase();
-    transitive.focusJourney(id);
+    var itineraries = model.plan();
+    console.log("legs->", itineraries);
+    //for (var i = 0; i < itineraries.length; i++) {
+    //
+    //  showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
+    //}
+////    var id = model.id() + '';
+//    var id = model.index + '_' + (isTransit ? 'transit' : legs[0].mode.toLowerCase());
+//    console.log("ID ->", id);
+//    if (id.indexOf('transit') === -1) id = id + '_' + model.access()[0].mode.toLowerCase();
+//    transitive.focusJourney(id);
   });
 
   mouseleave(view.el, function() {
     if (!view.el.classList.contains('expanded')) {
-      transitive.focusJourney();
+      //transitive.focusJourney();
     }
   });
 });
