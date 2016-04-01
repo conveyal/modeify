@@ -264,16 +264,16 @@ module.exports.drawRouteAmigo = function(legs,mode) {
       route = new L.Polyline(L.PolylineUtil.decode(route, 5), color_options);
       this.polyline_creadas.push(route);
       var boxes = L.RouteBoxer.box(route, 5);
-      var bounds = new L.LatLngBounds([]);
-      var bounds = [];
+      //var bounds = new L.LatLngBounds([]);
+      //var bounds = [];
       var boxpolys = new Array(boxes.length);
-
+      /*
       for (var i = 0; i < boxes.length; i++) {
         //bounds.extend(boxes[i]);
         bounds.push(boxes[i]);
-      }
+      }*/
 
       route.addTo(this.activeMap);
-      this.activeMap.fitBounds(bounds);
+      //this.activeMap.fitBounds(bounds);
 };
 
