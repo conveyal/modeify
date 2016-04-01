@@ -362,10 +362,55 @@ function updateMapOnPlanChange(plan, map) {
             }
 
       } catch (e) {
-        console.log("entre cath")
 	    map.setView([center[1], center[0]], config.geocode().zoom);
       }
 
     }
   });
+}
+
+
+function get_data_route(new_plan){
+    var itineraries = new_plan.plan.itineraries;
+    var timeInTransit = 0;
+    var bikeTime = 0;
+    var bikeDistance = 0;
+    var walkTime = 0;
+    var walkDistance = 0;
+    console.log("new_plan.plan.itineraries", new_plan.plan.itineraries);
+    for (var i = 0; i < itineraries.length; i++) {
+        for (var j = 0; j < itineraries[i].legs.length; j++) {
+            console.log("itineraries[j].legs", itineraries[i].legs[j]);
+            var fare = (itineraries[i].fare ? itineraries[i].fare.fare.regular.cents : 0);
+            if (itineraries[i].legs[j].transitLeg) {
+                timeInTransit += itineraries[i].legs[j].duration;
+            } else {
+                  if (itineraries[i].legs[j].mode === 'BICYCLE') {
+                    bikeTime += itineraries[i].legs[j].duration;
+                    bikeDistance += itineraries[i].legs[j].distance;
+                  } else if (itineraries[i].legs[j].mode === 'WALK') {
+                    walkTime += itineraries[i].legs[j].duration;
+                    walkDistance += itineraries[i].legs[j].distance;
+                  }
+            }
+
+            data = {
+                from: new_plan.plan.from.name,
+                to: new_plan.plan.to.name,
+                time: timeInTransit + bikeTime + walkTime,
+                timeInTransit: timeInTransit / 60,
+                cost: fare / 100,
+                transitCost: fare / 100,
+                bikeTime: bikeTime,
+                bikeDistance: bikeDistance,
+                walkDistance: walkDistance,
+                walkTime: walkTime,
+                plan: itineraries[i]
+            }
+
+
+        }
+
+    }
+    return data
 }
