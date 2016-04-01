@@ -209,7 +209,7 @@ module.exports.marker_map_point = function(to, map){
       L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name, { direction: 'auto' })
     ];
 
-    var layer = L.layerGroup(markers).addTo(map);
+    var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
 
      var myZoom = {
       start:  map.getZoom(),
@@ -219,12 +219,7 @@ module.exports.marker_map_point = function(to, map){
     map.on('zoomend', function(e) {
         myZoom.end = map.getZoom();
         console.log("en zoom", myZoom.end );
-        var diff = myZoom.start - myZoom.end;
-        if (diff > 0) {
-            circle.setRadius(circle.getRadius() * 2);
-        } else if (diff < 0) {
-            circle.setRadius(circle.getRadius() / 2);
-        }
+
     });
 
 
