@@ -18,7 +18,6 @@ var showMapView = require('map-view');
 
 var View = module.exports = view(require('./template.html'), function(view, model) {
   mouseenter(view.el, function() {
-    var isTransit = false;
     var itineraries = model.plan();
     console.log("legs->", itineraries);
     showMapView.cleanPolyline();
@@ -28,16 +27,17 @@ var View = module.exports = view(require('./template.html'), function(view, mode
         }
 
     }
-////    var id = model.id() + '';
-//    var id = model.index + '_' + (isTransit ? 'transit' : legs[0].mode.toLowerCase());
-//    console.log("ID ->", id);
-//    if (id.indexOf('transit') === -1) id = id + '_' + model.access()[0].mode.toLowerCase();
-//    transitive.focusJourney(id);
   });
 
   mouseleave(view.el, function() {
     if (!view.el.classList.contains('expanded')) {
-      //transitive.focusJourney();
+      var itineraries = model.plan();
+      for (var i = 0; i < itineraries.length; i++) {
+          for (var ii=0; ii < itineraries[i].legs.length; ii++) {
+            showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
+          }
+
+      }
     }
   });
 });
