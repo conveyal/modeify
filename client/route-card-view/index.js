@@ -23,7 +23,6 @@ var View = module.exports = view(require('./template.html'), function(view, mode
     console.log("view ->", view);
     console.log("model ->", model);
     showMapView.cleanPolyline();
-    showMapView.cleanMarker();
     showMapView.cleanMarkerpoint();
 
 
