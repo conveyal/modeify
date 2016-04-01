@@ -12,13 +12,13 @@
     /*font: 12px/20px "Helvetica Neue", Arial, Helvetica, sans-serif;*/
     /*font-weight: bold;*/
     /*padding: 1px 6px;*/
-    /*position: absolute;*/
+    position: absolute;
     /*-webkit-user-select: none;*/
     /*-moz-user-select: none;*/
     /*-ms-user-select: none;*/
     /*user-select: none;*/
     /*pointer-events: none;*/
-    /*white-space: nowrap;*/
+    white-space: nowrap;
     /*z-index: 6;*/
 
     text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff;
