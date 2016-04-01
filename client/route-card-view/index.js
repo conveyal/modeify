@@ -19,10 +19,6 @@ var showMapView = require('map-view');
 var View = module.exports = view(require('./template.html'), function(view, model) {
   mouseenter(view.el, function() {
     var itineraries = model.plan();
-    console.log("itineraries ->", itineraries);
-    console.log("view ->", view);
-    console.log("model ->", model);
-
     showMapView.cleanPolyline();
     showMapView.cleanMarkerpoint();
      for (var i = 0; i < itineraries.legs.length; i++) {
