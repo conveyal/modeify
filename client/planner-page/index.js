@@ -70,14 +70,6 @@ module.exports = function(ctx, next) {
     // Show the map
     var map = showMapView(ctx.view.find('.MapView'));
 
-
-
-    // Create the transitive layer
-    //var transitiveLayer = new LeafletTransitiveLayer(transitive);
-
-    // Set the transitive layer
-    //map.addLayer(transitiveLayer);
-
     // Update map on plan change
     updateMapOnPlanChange(plan, map);
 
@@ -334,62 +326,27 @@ function showQuery(query) {
  */
 
 function updateMapOnPlanChange(plan, map) {
-  // Register plan update events
-    /*
-    for (i in map._layers) {
-        if (map._layers[i].options.format == undefined) {
-            try {
-                map.removeLayer(map._layers[i]);
-            } catch (e) {
-                console.log("problem with " + e + map._layers[i]);
-            }
-        }
-    }
-    */
-
-
-    //map.removeLayer(polyline);
-/*
-
-  for (i in polyline_creadas) {
-        try {
-                map.removeLayer(polyline_creadas[i]);
-            } catch (e) {
-                console.log("problem with " + e + map._layers[i]);
-            }
-
-  }
-  */
 
   plan.on('change journey', function(journey) {
 
   showMapView.cleanPolyline();
   showMapView.cleanMarker();
 
+  var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
+
     if (journey && !isMobile) {
       try {
 
-        log('updating data');
+        if(!(sesion_plan === null)) {
 
-        var datajourney = journey;
-        if (!(plan.dataplan.plan === undefined)) {
-            var new_plan = plan.dataplan.plan;
-            var itineraries = new_plan.itineraries;
-            var patterns = plan.dataplan.patterns;
-            var routes = plan.dataplan.routes;
-            showMapView.marker_map([new_plan.from.lat,new_plan.from.lon],[new_plan.to.lat,new_plan.to.lon], map);
-            for (i = 0; i < itineraries.length; i++) {
-                for (ii=0; ii < itineraries[i].legs.length; ii++) {
-                  showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
-                }
-            }
+                sesion_plan = sesion_plan.plan;
 
-        }else{
-            var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
-            if(!(sesion_plan === null)) {
                 var itineraries = sesion_plan.itineraries;
 
-                showMapView.marker_map([sesion_plan.from.lat,sesion_plan.from.lon],[sesion_plan.to.lat,sesion_plan.to.lon], map);
+                showMapView.marker_map(
+                        [sesion_plan.from.lat,sesion_plan.from.lon],
+                        [sesion_plan.to.lat,sesion_plan.to.lon]
+                );
 
                 for (i = 0; i < itineraries.length; i++) {
                     for (ii=0; ii < itineraries[i].legs.length; ii++) {
@@ -399,33 +356,11 @@ function updateMapOnPlanChange(plan, map) {
                 }
             }
 
-        }
       } catch (e) {
+        console.log("entre cath")
 	    map.setView([center[1], center[0]], config.geocode().zoom);
       }
 
     }
   });
-}
-
-
-/////////////function test circle maps  ////
-
-function getRouteId(patternId, patterns) {
-  for (var i = 0; i < patterns.length; i++) {
-    var pattern = patterns[i];
-    if (pattern.pattern_id === patternId) return pattern.route_id;
-  }
-}
-
-function getRoute(routeId, routes) {
-  for (var i = 0; i < routes.length; i++) {
-    var route = routes[i];
-    if (route.route_id === routeId) return route;
-  }
-}
-
-function getRouteShield(agency, route) {
-  if (agency === 'dc' && route.route_type === 1) return 'M';
-  return route.route_short_name || route.route_long_name.toUpperCase();
 }

@@ -130,7 +130,7 @@ module.exports.cleanMarker = function() {
 
 };
 
-module.exports.marker_map = function(from, to, map){
+module.exports.marker_map = function(from, to){
      var IconStart = L.icon({
         iconUrl: 'assets/images/graphics/start.svg',
         iconSize: [40, 55],
