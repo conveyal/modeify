@@ -206,7 +206,7 @@ module.exports.marker_map_point = function(to, map){
         popupAnchor:  [-3, -76]
     });
     var markers = [
-      L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name)
+      L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name, {'direction': auto})
     ];
 
     var layer = L.layerGroup(markers).addTo(map) ;
