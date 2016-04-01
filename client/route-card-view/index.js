@@ -21,10 +21,12 @@ var View = module.exports = view(require('./template.html'), function(view, mode
     var isTransit = false;
     var itineraries = model.plan();
     console.log("legs->", itineraries);
-    //for (var i = 0; i < itineraries.length; i++) {
-    //
-    //  showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
-    //}
+    for (var i = 0; i < itineraries.length; i++) {
+        for (var ii=0; ii < itineraries[i].legs.length; ii++) {
+          this.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
+        }
+
+    }
 ////    var id = model.id() + '';
 //    var id = model.index + '_' + (isTransit ? 'transit' : legs[0].mode.toLowerCase());
 //    console.log("ID ->", id);
