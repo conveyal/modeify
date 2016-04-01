@@ -20,7 +20,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
   mouseenter(view.el, function() {
     var itineraries = model.plan();
 
-    var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
+
     console.log("sesion_plan", sesion_plan);
     console.log("itineraries ->", itineraries);
     console.log("view ->", view);
@@ -38,12 +38,21 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 
   mouseleave(view.el, function() {
     if (!view.el.classList.contains('expanded')) {
-      var itineraries = model.plan();
+      //var itineraries = model.plan();
       console.log("mouseleave");
-    for (var i = 0; i < itineraries.legs.length; i++) {
-      showMapView.drawRouteAmigo(itineraries.legs[i], itineraries.legs[i].mode);
+      //for (var i = 0; i < itineraries.legs.length; i++) {
+      //  showMapView.drawRouteAmigo(itineraries.legs[i], itineraries.legs[i].mode);
+      //
+      //}
 
-    }
+      var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
+      sesion_plan = sesion_plan.plan;
+      var itineraries = sesion_plan.itineraries;
+      for (i = 0; i < itineraries.length; i++) {
+          for (ii=0; ii < itineraries[i].legs.length; ii++) {
+            showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
+          }
+      }
 
     }
   });
