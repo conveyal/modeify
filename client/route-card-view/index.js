@@ -24,8 +24,10 @@ var View = module.exports = view(require('./template.html'), function(view, mode
     console.log("model ->", model);
     showMapView.cleanPolyline();
 
+
     for (var i = 0; i < itineraries.length; i++) {
         for (var ii=0; ii < itineraries[i].legs.length; ii++) {
+          console.log("se envia", itineraries[i].legs[ii], itineraries[i].legs[ii].mode)
           showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
         }
 
@@ -36,6 +38,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
   mouseleave(view.el, function() {
     if (!view.el.classList.contains('expanded')) {
       var itineraries = model.plan();
+      console.log("mouseleave");
       for (var i = 0; i < itineraries.length; i++) {
           for (var ii=0; ii < itineraries[i].legs.length; ii++) {
             showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
