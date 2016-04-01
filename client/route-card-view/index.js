@@ -27,24 +27,20 @@ var View = module.exports = view(require('./template.html'), function(view, mode
     showMapView.cleanMarkerpoint();
 
 
-    //for (var i = 0; i < itineraries.legs.length; i++) {
-    //
-    //          //console.log("se envia", itineraries.legs[i], itineraries.legs[i].mode);
-    //          showMapView.drawRouteAmigo(itineraries.legs[ii], itineraries.legs[ii].mode);
-    //
-    //
-    //    }
+     for (var i = 0; i < itineraries.legs.length; i++) {
+          showMapView.drawRouteAmigo(itineraries.legs[ii], itineraries.legs[ii].mode);
+     }
 
   });
 
   mouseleave(view.el, function() {
     if (!view.el.classList.contains('expanded')) {
-      var itineraries = model.plan();
+    //  var itineraries = model.plan();
       console.log("mouseleave");
-    for (var i = 0; i < itineraries.legs.length; i++) {
-      showMapView.drawRouteAmigo(itineraries.legs[i], itineraries.legs[i].mode);
-
-    }
+    //for (var i = 0; i < itineraries.legs.length; i++) {
+    //  showMapView.drawRouteAmigo(itineraries.legs[i], itineraries.legs[i].mode);
+    //
+    //}
 
     }
   });
