@@ -170,23 +170,23 @@ module.exports.marker_map = function(from, to){
        var marker = e.target;
        var result = marker.getLatLng();
        _this.cleanPolyline();
+       _this.cleanMarkerpoint();
        var plan = session.plan();
 
             plan.setAddress('from', result.lng + ',' + result.lat, function(err, rees) {
                 plan.updateRoutes();
           });
-
     });
 
     markerto.on('dragend', function(e){
        var marker = e.target;
        var result = marker.getLatLng();
        _this.cleanPolyline();
+       _this.cleanMarkerpoint();
        var plan = session.plan();
             plan.setAddress('to', result.lng + ',' + result.lat, function(err, rees) {
                 plan.updateRoutes();
           });
-
     });
 
     this.marker_creadas.push(markerform);
@@ -264,13 +264,16 @@ module.exports.drawRouteAmigo = function(legs,mode) {
       route = new L.Polyline(L.PolylineUtil.decode(route, 5), color_options);
       this.polyline_creadas.push(route);
       var boxes = L.RouteBoxer.box(route, 5);
-      var bounds = new L.LatLngBounds([]);
+      //var bounds = new L.LatLngBounds([]);
+      //var bounds = [];
       var boxpolys = new Array(boxes.length);
-
+      /*
       for (var i = 0; i < boxes.length; i++) {
-        bounds.extend(boxes[i]);
-      }
+        //bounds.extend(boxes[i]);
+        bounds.push(boxes[i]);
+      }*/
+
       route.addTo(this.activeMap);
-      this.activeMap.fitBounds(bounds);
+      //this.activeMap.fitBounds(bounds);
 };
 
