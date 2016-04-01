@@ -208,7 +208,7 @@ module.exports.marker_map_point = function(to, map){
     var markers = [
       L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name)
     ];
-    var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
+    var layer = L.layerGroup(markers).addTo(map);
 
     this.makerpoint_creadas.push(layer);
     //this.polyline_creadas.push(circle);
