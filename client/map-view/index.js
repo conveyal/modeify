@@ -215,13 +215,10 @@ module.exports.marker_map_point = function(to, map){
       start:  map.getZoom(),
       end: map.getZoom()
     };
-    map.on('zoomstart', function(e) {
-       myZoom.start = map.getZoom();
-        console.log("start zoom 400 ", myZoom.start);
-    });
+    map.on('zoomstart', function(e) {myZoom.start = map.getZoom();});
     map.on('zoomend', function(e) {
         myZoom.end = map.getZoom();
-         //console.log("End zoom ", myZoom.end);
+        console.log("en zoom", myZoom.end );
         var diff = myZoom.start - myZoom.end;
         if (diff > 0) {
             circle.setRadius(circle.getRadius() * 2);
