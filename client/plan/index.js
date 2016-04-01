@@ -187,7 +187,6 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
     if (isCoordinate) {
 
       var callbackAmigo = function (err, reverse) {
-        console.log("my reverse value", reverse);
         var changes = {};
             if (reverse) {
               var geocode_features = reverse.features;

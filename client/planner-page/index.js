@@ -331,6 +331,7 @@ function updateMapOnPlanChange(plan, map) {
 
   showMapView.cleanPolyline();
   showMapView.cleanMarker();
+  showMapView.cleanMarkerpoint();
 
   var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
 

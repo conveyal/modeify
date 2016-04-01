@@ -89,6 +89,7 @@ module.exports.cleanRoute = function() {
 
 module.exports.polyline_creadas = [];
 module.exports.marker_creadas = [];
+module.exports.makerpoint_creadas = [];
 
 module.exports.getpolyline_creadas = function () {
   return this.polyline_creadas;
@@ -127,6 +128,21 @@ module.exports.cleanMarker = function() {
     }
 
   this.marker_creadas = [];
+
+};
+
+module.exports.cleanMarkerpoint = function() {
+    var map = this.activeMap;
+    for (i in this.makerpoint_creadas) {
+        try {
+                map.removeLayer(this.makerpoint_creadas[i]);
+
+            } catch (e) {
+                console.log("problema al eliminar " + e);
+            }
+    }
+
+  this.makerpoint_creadas = [];
 
 };
 
@@ -194,9 +210,7 @@ module.exports.marker_map_point = function(to, map){
     ];
     var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
 
-
-
-
+    this.makerpoint_creadas.push(layer);
     //this.polyline_creadas.push(circle);
 };
 
