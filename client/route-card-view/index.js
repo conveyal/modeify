@@ -23,15 +23,17 @@ var View = module.exports = view(require('./template.html'), function(view, mode
     console.log("view ->", view);
     console.log("model ->", model);
     showMapView.cleanPolyline();
+    showMapView.cleanMarker();
+    showMapView.cleanMarkerpoint();
 
 
-    for (var i = 0; i < itineraries.legs.length; i++) {
-
-              console.log("se envia", itineraries.legs[i], itineraries.legs[i].mode);
-              //showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
-
-
-        }
+    //for (var i = 0; i < itineraries.legs.length; i++) {
+    //
+    //          //console.log("se envia", itineraries.legs[i], itineraries.legs[i].mode);
+    //          showMapView.drawRouteAmigo(itineraries.legs[ii], itineraries.legs[ii].mode);
+    //
+    //
+    //    }
 
   });
 
@@ -39,14 +41,10 @@ var View = module.exports = view(require('./template.html'), function(view, mode
     if (!view.el.classList.contains('expanded')) {
       var itineraries = model.plan();
       console.log("mouseleave");
-        for (var i = 0; i < itineraries.legs.length; i++) {
+    for (var i = 0; i < itineraries.legs.length; i++) {
+      showMapView.drawRouteAmigo(itineraries.legs[i], itineraries.legs[i].mode);
 
-              console.log("se envia", itineraries.legs[i], itineraries.legs[i].mode);
-              //showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
-
-
-        }
-
+    }
 
     }
   });
