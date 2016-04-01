@@ -246,9 +246,10 @@ module.exports.drawRouteAmigo = function(legs,mode) {
             dasharray= '6';
              weight = 3;
         }
+
         else if(mode=="BUS") {
-            color = '#FEF0B5';
-             weight = 8;
+            //color = '#FEF0B5';
+             weight = 4;
              this.marker_map_point(circle_from, this.activeMap);
              this.marker_map_point(circle_to, this.activeMap);
         }
