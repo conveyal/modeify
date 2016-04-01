@@ -267,12 +267,13 @@ module.exports.drawRouteAmigo = function(legs,mode) {
       //var bounds = new L.LatLngBounds([]);
       var bounds = [];
       var boxpolys = new Array(boxes.length);
-
+        /*
       for (var i = 0; i < boxes.length; i++) {
         //bounds.extend(boxes[i]);
         bounds.push(boxes[i]);
       }
+      */
       route.addTo(this.activeMap);
-      this.activeMap.fitBounds(bounds);
+      //this.activeMap.fitBounds(bounds);
 };
 
