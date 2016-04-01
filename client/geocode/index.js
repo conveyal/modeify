@@ -55,37 +55,50 @@ function reverseAmigo(ll, callback) {
  */
 
 function suggestAmigo(text, callback) {
+    var databoundary = [];
+    get('https://www.amigocloud.com/api/v1/users/1/projects/661/datasets/22492', {'token' : config.realtime_access_token()}, function(err, res) {
 
-    var list_address;
-    var parameter = {
-        'token': config.realtime_access_token() ,
-        'boundary.rect.min_lat': '36.155617833819',
-        'boundary.rect.min_lon': '-123.607177734375',
-        'boundary.rect.max_lat': '38.826870521381',
-        'boundary.rect.max_lon': '-120.701293945312',
-        'sources':'osm,oa',
-        'text': text
-    };
+        if (err) {
+            console.log("error");
+        }else {
+            var list_address;
+            var bounding = res.body.boundingbox;
+            var bounding_split = bounding.split(",");
+            var boinding_first = bounding_split[0].split(" ");
+            var boinding_second = bounding_split[1].split(" ");
+            var parameter = {
+                'token': config.realtime_access_token() ,
+                'boundary.rect.min_lat': boinding_first[1],
+                'boundary.rect.min_lon': boinding_first[0],
+                'boundary.rect.max_lat': boinding_second[1],
+                'boundary.rect.max_lon': boinding_second[0],
+                'sources':'osm,oa',
+                'text': text
+            };
 
-    get('https://www.amigocloud.com/api/v1/me/geocoder/search', parameter, function(err, res) {
+            get('https://www.amigocloud.com/api/v1/me/geocoder/search', parameter, function(err, res) {
 
-            if(err) {
-                log("Amigo Cloud Response Error ->", err);
+                    if(err) {
+                        log("Amigo Cloud Response Error ->", err);
 
-            }else{
-                if(res.body.features) {
+                    }else{
+                        if(res.body.features) {
 
-                    list_address = res.body.features;
-                    if (list_address.length > 0) {
-                         callback(
-                            null,
-                            list_address
-                        );
-                    }else {
-                        callback(true, res);
+                            list_address = res.body.features;
+                            if (list_address.length > 0) {
+                                 callback(
+                                    null,
+                                    list_address
+                                );
+                            }else {
+                                callback(true, res);
+                            }
+
+                        }
                     }
+            });
+        }
 
-                }
-            }
     });
+
 }

@@ -14,6 +14,7 @@ var loadPlan = require('./load');
 var store = require('./store');
 var updateRoutes = require('./update-routes');
 
+module.exports.dataplan = [];
 /**
  * Debounce updates to once every 50ms
  */
@@ -37,6 +38,7 @@ var Plan = module.exports = model('Plan')
     from_valid: false,
     loading: true,
     options: [],
+    dataplan: [],
     query: new ProfileQuery(),
     scorer: new ProfileScorer(),
     start_time: (new Date()).getHours() - 1,
@@ -107,6 +109,7 @@ Plan.on('change end_time', function(plan, val, prev) {
 
 Plan.prototype.updateRoutes = debounce(function(opts, callback) {
   updateRoutes(this, opts, callback);
+  this.dataplan = updateRoutes.dataplan;
 }, DEBOUNCE_UPDATES);
 
 /**
@@ -136,30 +139,30 @@ Plan.prototype.geocode = function(dest, callback) {
 /**
  * Save Journey
  */
-
-Plan.prototype.saveJourney = function(callback) {
-  var opts = {};
-  var skipKeys = ['options', 'journey', 'scorer'];
-  for (var key in this.attrs) {
-    if (skipKeys.indexOf(key) !== -1 || key.indexOf('to') === 0 || key.indexOf('from') === 0) {
-      continue;
-    }
-    opts[key] = this.attrs[key];
-  }
-
-  // Create new journey
-  var journey = new Journey({
-    locations: [{
-      _id: this.from_id()
-    }, {
-      _id: this.to_id()
-    }],
-    opts: opts
-  });
-
-  // Save
-  journey.save(callback);
-};
+//
+//Plan.prototype.saveJourney = function(callback) {
+//  var opts = {};
+//  var skipKeys = ['options', 'journey', 'scorer'];
+//  for (var key in this.attrs) {
+//    if (skipKeys.indexOf(key) !== -1 || key.indexOf('to') === 0 || key.indexOf('from') === 0) {
+//      continue;
+//    }
+//    opts[key] = this.attrs[key];
+//  }
+//
+//  // Create new journey
+//  var journey = new Journey({
+//    locations: [{
+//      _id: this.from_id()
+//    }, {
+//      _id: this.to_id()
+//    }],
+//    opts: opts
+//  });
+//
+//  // Save
+//  journey.save(callback);
+//};
 
 /**
  * Valid coordinates
@@ -175,7 +178,6 @@ Plan.prototype.validCoordinates = function() {
 
 Plan.prototype.setAddress = function(name, address, callback, extra) {
   callback = callback || function() {}; // noop callback
-
   var plan = this;
   var c = address.split(',');
   var isCoordinate = c.length === 2 && !isNaN(parseFloat(c[0])) && !isNaN(parseFloat(c[1]));
@@ -188,17 +190,29 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
         var changes = {};
             if (reverse) {
               var geocode_features = reverse.features;
-              if (isCoordinate)
-                changes[name] = extra.properties.label;
-              else
-                changes[name] = extra.properties.label;
+              changes[name] = name;
+              if (isCoordinate) {
+                if (!(extra === undefined)) {
+                    changes[name] = extra.properties.label;
+                }else {
+                    changes[name] = geocode_features[0].properties.label;
+                }
+
+              }else {
+                if (!(extra === undefined)) {
+                    changes[name] = extra.properties.label;
+                }else {
+                    changes[name] = geocode_features[0].properties.label;
+                }
+
+              }
+
 
               changes[name + '_ll'] = {lat: parseFloat(geocode_features[0].geometry.coordinates[1]), lng: parseFloat(geocode_features[0].geometry.coordinates[0])};
               changes[name + '_id'] = geocode_features[0].properties.id;
               changes[name + '_valid'] = true;
 
               plan.set(changes);
-
               callback(null, reverse);
 
             } else {
@@ -214,8 +228,9 @@ Plan.prototype.setAddress = function(name, address, callback, extra) {
               }
 
             }
-      };
-      geocode.reverseAmigo(c, callbackAmigo);
+        };
+
+        geocode.reverseAmigo(c, callbackAmigo);
     }else {
       plan.setAddress('', '', callback);
     }

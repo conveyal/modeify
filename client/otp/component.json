@@ -8,7 +8,8 @@
   },
   "locals": [
     "config",
-    "log"
+    "log",
+    "map-view"
   ],
   "scripts": [
     "index.js"

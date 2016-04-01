@@ -9,32 +9,39 @@ var RouteModal = require('route-modal');
 var routeSummarySegments = require('route-summary-segments');
 var routeResource = require('route-resource');
 var session = require('session');
-var transitive = require('transitive');
+//var transitive = require('transitive');
 var view = require('view');
-
+var showMapView = require('map-view');
 /**
  * Expose `View`
  */
 
 var View = module.exports = view(require('./template.html'), function(view, model) {
   mouseenter(view.el, function() {
-    var isTransit = false;
-    var legs = model.plan().legs;
-    for (var i = 0; i < legs.length; i++) {
-      if (legs[i].transitLeg) {
-        isTransit = true;
-        break;
-      }
-    }
-//    var id = model.id() + '';
-    var id = model.index + '_' + (isTransit ? 'transit' : legs[0].mode.toLowerCase());
-    if (id.indexOf('transit') === -1) id = id + '_' + model.access()[0].mode.toLowerCase();
-    transitive.focusJourney(id);
+    var itineraries = model.plan();
+    var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
+    sesion_plan = sesion_plan.plan;
+
+    showMapView.cleanPolyline();
+    showMapView.cleanMarkerpoint();
+     for (var i = 0; i < itineraries.legs.length; i++) {
+          showMapView.drawRouteAmigo(itineraries.legs[i], itineraries.legs[i].mode);
+     }
+
   });
 
   mouseleave(view.el, function() {
     if (!view.el.classList.contains('expanded')) {
-      transitive.focusJourney();
+
+      var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
+      sesion_plan = sesion_plan.plan;
+      var itineraries = sesion_plan.itineraries;
+      for (i = 0; i < itineraries.length; i++) {
+          for (ii=0; ii < itineraries[i].legs.length; ii++) {
+            showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
+          }
+      }
+
     }
   });
 });
