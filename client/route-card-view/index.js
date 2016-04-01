@@ -18,6 +18,7 @@ var showMapView = require('map-view');
 
 var View = module.exports = view(require('./template.html'), function(view, model) {
   mouseenter(view.el, function() {
+    console.log("Master jonathan quiza");
     var itineraries = model.plan();
     var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
     sesion_plan = sesion_plan.plan;
