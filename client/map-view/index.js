@@ -209,33 +209,7 @@ module.exports.marker_map_point = function(to, map){
       L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name)
     ];
 
-    //var layer = L.layerGroup(markers).addTo(map);
-    //
-    // var myZoom = {
-    //  start:  map.getZoom(),
-    //  end: map.getZoom()
-    //};
-    console.log("entr");
-    //var layerx = L.conditionalMarkers(markers, {maxMarkers: 2}).addTo(map);
-    var layer = L.layerGroup(markers).addTo(map);
-
-    layer.eachLayer(function (marker) {
-        marker.showLabel();
-    });
-    //map.on('zoomend', function(e) {
-    //    myZoom.end = map.getZoom();
-    //    if (myZoom.end <= 10){
-    //        layer.eachLayer(function (marker) {
-    //            marker.hideLabel();
-    //        });
-    //    }
-    //    if (myZoom.end > 10){
-    //        layer.eachLayer(function (marker) {
-    //            marker.showLabel();
-    //        });
-    //    }
-    //});
-
+    var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
 
     this.makerpoint_creadas.push(layer);
     //this.polyline_creadas.push(circle);
