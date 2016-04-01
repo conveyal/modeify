@@ -216,8 +216,8 @@ module.exports.marker_map_point = function(to, map){
     //  end: map.getZoom()
     //};
 
-    var layer = L.conditionalMarkers(markers, {maxMarkers: 2}).addTo(map);
-
+    var layerx = L.conditionalMarkers(markers, {maxMarkers: 2}).addTo(map);
+    var layer = L.layerGroup(layerx).addTo(map);
     //map.on('zoomend', function(e) {
     //    myZoom.end = map.getZoom();
     //    if (myZoom.end <= 10){
