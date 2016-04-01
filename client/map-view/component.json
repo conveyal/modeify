@@ -10,7 +10,6 @@
     "leaflet_routeboxer.js",
     "polyline_encoded.js",
     "leaflet_label/leaflet.label-src.js",
-    "leaflet.conditionalLayer.js"
   ],
   "styles": [
     "style.css",
