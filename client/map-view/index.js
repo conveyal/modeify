@@ -176,6 +176,7 @@ module.exports.marker_map = function(from, to){
                 plan.updateRoutes();
           });
 
+       _this.cleanMarkerpoint();
     });
 
     markerto.on('dragend', function(e){
@@ -187,6 +188,7 @@ module.exports.marker_map = function(from, to){
                 plan.updateRoutes();
           });
 
+        _this.cleanMarkerpoint();
     });
 
     this.marker_creadas.push(markerform);
