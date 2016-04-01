@@ -430,9 +430,10 @@ function get_data_route(new_plan){
     var bikeDistance = 0;
     var walkTime = 0;
     var walkDistance = 0;
-    console.log(new_plan.plan.itineraries);
+    console.log("new_plan.plan.itineraries", new_plan.plan.itineraries);
     for (var i = 0; i < itineraries.length; i++) {
-        for (var j = 0; j < itineraries[j].legs.length; j++) {
+        for (var j = 0; j < itineraries[i].legs.length; j++) {
+            console.log("itineraries[j].legs", itineraries[i].legs[j]);
             var fare = (itineraries[i].fare ? itineraries[i].fare.fare.regular.cents : 0);
             if (itineraries[i].legs[j].transitLeg) {
                 timeInTransit += itineraries[i].legs[j].duration;
