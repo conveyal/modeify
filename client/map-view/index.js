@@ -206,7 +206,7 @@ module.exports.marker_map_point = function(to, map){
         popupAnchor:  [-3, -76]
     });
     var markers = [
-      L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name, { direction: 'auto', noHide: true })
+      L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name)
     ];
 
     //var layer = L.layerGroup(markers).addTo(map);
@@ -216,7 +216,7 @@ module.exports.marker_map_point = function(to, map){
     //  end: map.getZoom()
     //};
 
-    var conditionalLayer = L.conditionalMarkers(markers, {maxMarkers: 2}).addTo(map);
+    var layer = L.conditionalMarkers(markers, {maxMarkers: 2}).addTo(map);
 
     //map.on('zoomend', function(e) {
     //    myZoom.end = map.getZoom();
