@@ -206,10 +206,10 @@ module.exports.marker_map_point = function(to, map){
         popupAnchor:  [-3, -76]
     });
     var markers = [
-      L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name, {'direction': auto})
+      L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name, { direction: 'auto' })
     ];
 
-    var layer = L.layerGroup(markers).addTo(map) ;
+    var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
 
     this.makerpoint_creadas.push(layer);
     //this.polyline_creadas.push(circle);
