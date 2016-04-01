@@ -26,12 +26,12 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 
 
     for (var i = 0; i < itineraries.legs.length; i++) {
-        for (var ii=0; ii < itineraries[i].legs.length; ii++) {
-          console.log("se envia", itineraries[i].legs[ii], itineraries[i].legs[ii].mode)
-          showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
-        }
 
-    }
+              console.log("se envia", itineraries.legs[ii], itineraries.legs[ii].mode);
+              //showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
+
+
+        }
 
   });
 
@@ -40,10 +40,10 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       var itineraries = model.plan();
       console.log("mouseleave");
         for (var i = 0; i < itineraries.legs.length; i++) {
-            for (var ii=0; ii < itineraries[i].legs.length; ii++) {
-              console.log("se envia", itineraries[i].legs[ii], itineraries[i].legs[ii].mode)
-              showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
-            }
+
+              console.log("se envia", itineraries.legs[ii], itineraries.legs[ii].mode);
+              //showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
+
 
         }
 
