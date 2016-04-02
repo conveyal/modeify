@@ -233,6 +233,9 @@ module.exports.drawRouteAmigo = function(legs,mode) {
 
         }else if(mode=="BICYCLE") {
             color = '#FF0000';
+            if(!(legs.routeColor === undefined)) {
+                color = "#"+legs.routeColor;
+             }
             dasharray= '6';
             weight = 3;
 
@@ -253,6 +256,9 @@ module.exports.drawRouteAmigo = function(legs,mode) {
 
         else if(mode=="BUS") {
             //color = '#FEF0B5';
+            if(!(legs.routeColor === undefined)) {
+                color = "#"+legs.routeColor;
+             }
              weight = 5;
              this.marker_map_point(circle_from, this.activeMap);
              this.marker_map_point(circle_to, this.activeMap);
