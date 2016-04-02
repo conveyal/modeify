@@ -238,7 +238,7 @@ module.exports.drawRouteAmigo = function(legs,mode) {
 
         }else if(mode=="SUBWAY" || mode=="RAIL") {
              if(!(legs.routeColor === undefined)) {
-                color = legs.routeColor;
+                color = "#"+legs.routeColor;
              }
              weight = 8;
              this.marker_map_point(circle_from, this.activeMap);
