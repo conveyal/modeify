@@ -218,7 +218,7 @@ module.exports.marker_map_point = function(to, map){
 
 
 module.exports.drawRouteAmigo = function(legs,mode) {
-    console.log("routeColor ->",legs.routeColor);
+    console.log("Modo de transporte ->", mode);
     var route = legs.legGeometry.points;
     var circle_from = [legs.from.lat, legs.from.lon, legs.from.name];
     var circle_to = [legs.to.lat, legs.to.lon, legs.to.name];
@@ -237,7 +237,9 @@ module.exports.drawRouteAmigo = function(legs,mode) {
             weight = 3;
 
         }else if(mode=="SUBWAY" || mode=="RAIL") {
-            color = '#FF0000';
+             if(!(legs.routeColor === undefined)) {
+                color = legs.routeColor;
+             }
              weight = 8;
              this.marker_map_point(circle_from, this.activeMap);
              this.marker_map_point(circle_to, this.activeMap);
