@@ -4,7 +4,7 @@ var plugins = require('./leaflet_plugins');
 var polyUtil = require('./polyline_encoded.js');
 var routeboxer = require('./leaflet_routeboxer.js');
 var leaflet_label = require('./leaflet_label/leaflet.label-src.js');
-var rbush = require('./rbush.js');
+//var rbush = require('./rbush.js');
 var collision = require('./leaflet_layergroup_collision.js');
 var session = require('session');
 
