@@ -637,14 +637,11 @@ function extensions(parentClass) { return {
 
 		for (var i=0; i< layer.length;i++) {
             this._staticLayers.push(layer[i]);
-            this._originalLayers.push(layer[i]);
             parentClass.prototype.addLayer.call(this, layer[i]);
 		}
 
-        return;
-
-        this._staticLayers.push(layer);
-		parentClass.prototype.addLayer.call(this, layer);
+        //this._staticLayers.push(layer);
+		//parentClass.prototype.addLayer.call(this, layer);
 		return;
 
 		this._originalLayers.push(layer);
@@ -698,7 +695,7 @@ function extensions(parentClass) { return {
 	},
 
 	_maybeAddLayerToRBush: function(layer) {
-
+        console.log("zoom" , );
 		var z    = this._map.getZoom();
 		var bush = this._rbush;
 
@@ -718,6 +715,7 @@ function extensions(parentClass) { return {
 
 		boxes = this._positionBoxes(this._map.latLngToLayerPoint(layer.getLatLng()),boxes);
 
+        console.log("boxes ->" , boxes);
 		var collision = false;
 		for (var i=0; i<boxes.length && !collision; i++) {
 			collision = bush.search(boxes[i]).length > 0;
