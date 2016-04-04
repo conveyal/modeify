@@ -90,7 +90,7 @@ module.exports.cleanRoute = function() {
 
 module.exports.polyline_creadas = [];
 module.exports.marker_creadas = [];
-module.exports.makerpoint_creadas = [];
+module.exports.makerpoint_creadas;
 
 module.exports.getpolyline_creadas = function () {
   return this.polyline_creadas;
@@ -210,15 +210,18 @@ module.exports.marker_map_point = function(to, map){
       L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name)
     ];
 
-    var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
+    //var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
 
-    this.makerpoint_creadas.push(layer);
+    //this.makerpoint_creadas.push(layer);
+    this.makerpoint_creadas.addLayer(markers);
     //this.polyline_creadas.push(circle);
 };
 
 
 
 module.exports.drawRouteAmigo = function(legs,mode) {
+
+    this.makerpoint_creadas = L.LayerGroup.collision({margin:5});
     console.log("Modo de transporte ->", mode);
     var route = legs.legGeometry.points;
     var circle_from = [legs.from.lat, legs.from.lon, legs.from.name];
@@ -286,6 +289,7 @@ module.exports.drawRouteAmigo = function(legs,mode) {
       }*/
 
       route.addTo(this.activeMap);
+      this.makerpoint_creadas.addTo(map);
       //this.activeMap.fitBounds(bounds);
 };
 
