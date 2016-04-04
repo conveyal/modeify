@@ -13,7 +13,7 @@ L.mapbox.accessToken = config.mapbox_access_token()
 module.exports = function (el, opts) {
   opts = opts || {}
   opts.tileLayer = opts.tileLayer || {
-      detectRetina: true
+    detectRetina: true
   }
 
   // create a map in the el with given options

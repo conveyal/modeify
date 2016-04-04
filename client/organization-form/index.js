@@ -42,8 +42,9 @@ View.prototype.action = function () {
  */
 
 View.prototype.back = function () {
-  return this.model.isNew() ? '/manager/organizations' :
-    '/manager/organizations/' + this.model._id() + '/show'
+  return this.model.isNew()
+    ? '/manager/organizations'
+    : '/manager/organizations/' + this.model._id() + '/show'
 }
 
 /**
@@ -68,8 +69,9 @@ View.prototype.save = function (e) {
 
   this.model.set(data)
 
-  var text = this.model.isNew() ? 'Created new organization.' :
-    'Saved changes to organization.'
+  var text = this.model.isNew()
+    ? 'Created new organization.'
+    : 'Saved changes to organization.'
 
   var self = this
   this.model.save(function (err) {
