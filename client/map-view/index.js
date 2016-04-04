@@ -232,7 +232,7 @@ module.exports.marker_map_point = function(to, map){
     collision_group.addLayer(marker);
       //collision_group.onAdd(this.activeMap);
     this.collision_group = collision_group;
-    //this.marker_collision_group.push(marker);
+    this.marker_collision_group.push(marker);
 };
 
 
@@ -298,9 +298,7 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
         };
 
        if (option.stroke){
-         color_options.stroke = false;
-         color_options.opacity = '0';
-         color_options.fillOpacity ='0.10';
+         delete color_options.opacity;
        }
        if (option.class_name){
             color_options.className = 'message_';
