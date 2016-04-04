@@ -214,8 +214,11 @@ module.exports.marker_map_point = function(to, map){
     ];
     */
 
+    var marker = L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name);
+
     //var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
 
+    this.collision_group.addLayer(marker);
     //this.makerpoint_creadas.push(layer);
 };
 
