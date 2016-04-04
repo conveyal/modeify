@@ -208,26 +208,27 @@ module.exports.marker_map_point = function(to, map){
         popupAnchor:  [-3, -76]
     });
 
-    /*
+
     var markers = [
       L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name)
     ];
-    */
 
-    var marker = L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name);
 
-    //var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
-    console.log("antes del marker ->", this.collision_group);
+    //var marker = L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name);
+
+    var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
+    //console.log("antes del marker ->", this.collision_group);
     //this.collision_group.addLayer(marker);
-    console.log("inserto marker->", marker);
+    //console.log("inserto marker->", marker);
     //console.log("despues del marker ->", this.collision_group);
-    //this.makerpoint_creadas.push(layer);
+    console.log("group ->", L.layerGroup(markers));
+    this.makerpoint_creadas.push(layer);
 };
 
 
 
 module.exports.drawRouteAmigo = function(legs,mode) {
-    this.collision_group = L.layerGroup.collision({margin:5});
+
     var route = legs.legGeometry.points;
     var circle_from = [legs.from.lat, legs.from.lon, legs.from.name];
     var circle_to = [legs.to.lat, legs.to.lon, legs.to.name];
@@ -295,7 +296,8 @@ module.exports.drawRouteAmigo = function(legs,mode) {
 
       route.addTo(this.activeMap);
       //this.collision_group.addTo(this.activeMap);
-      console.log("collision group -> ", this.collision_group);
+      //console.log("collision group -> ", this.collision_group);
+      //this.collision_group = L.layerGroup.collision({layers: ,margin:5});
       //this.activeMap.fitBounds(bounds);
 };
 
