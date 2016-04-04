@@ -244,7 +244,7 @@ module.exports.drawRouteAmigo = function(legs,mode) {
     var route = legs.legGeometry.points;
     var circle_from = [legs.from.lat, legs.from.lon, legs.from.name];
     var circle_to = [legs.to.lat, legs.to.lon, legs.to.name];
-    var color = '#000';
+    var color = '#000000';
     var weight = 5;
     var dasharray= '';
 
@@ -289,8 +289,6 @@ module.exports.drawRouteAmigo = function(legs,mode) {
                 }
              }
              weight = 5;
-             console.log("circle from ->", circle_from);
-             console.log("circle to ->", circle_to);
              this.marker_map_point(circle_from, this.activeMap);
              this.marker_map_point(circle_to, this.activeMap);
         }
@@ -299,12 +297,12 @@ module.exports.drawRouteAmigo = function(legs,mode) {
        var color_options = {
             color: color,
             weight: weight,
-            dashArray: dasharray
+            dashArray: dasharray,
+            stroke: false
         };
 
       var argpolyline = L.PolylineUtil.decode(route, 5);
       argpolyline.unshift(circle_from);
-      console.log("color ruta ->" , color);
       route = new L.Polyline(argpolyline, color_options);
       this.polyline_creadas.push(route);
       var boxes = L.RouteBoxer.box(route, 5);
