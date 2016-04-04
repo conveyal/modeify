@@ -96,7 +96,7 @@ module.exports.marker_collision_group = [];
 
 module.exports.drawMakerCollision = function () {
   console.log("draw marker" , this.collision_group);
-  this.collision_group.addTo(this.activeMap);
+  this.collision_group.onAdd(this.activeMap);
 };
 module.exports.getpolyline_creadas = function () {
   return this.polyline_creadas;
@@ -295,7 +295,7 @@ module.exports.drawRouteAmigo = function(legs,mode) {
       route.addTo(this.activeMap);
       var collision_group = L.layerGroup.collision({margin:5});
       collision_group.addLayer(this.marker_collision_group);
-      collision_group.addTo(this.activeMap);
+      //collision_group.addTo(this.activeMap);
       this.collision_group = collision_group;
       //this.activeMap.fitBounds(bounds);
 };
