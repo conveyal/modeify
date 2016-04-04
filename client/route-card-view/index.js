@@ -32,10 +32,10 @@ var View = module.exports = view(require('./template.html'), function(view, mode
      var stroke;
      var itineraries = sesion_plan.itineraries;
       for (var i= 0; i < itineraries.length; i++) {
-          if (i == index_){stroke =  {'stroke':false}}else{stroke = {'stroke':true}}
+          if (i == index_){stroke =  {'stroke':true}}else{stroke = {'stroke':false}}
           for (var j=0; j < itineraries[i].legs.length; j++) {
              console.log(itineraries[i]);
-             showMapView.drawRouteAmigo(itineraries[i].legs[j], itineraries[i].legs[j].mode);
+             showMapView.drawRouteAmigo(itineraries[i].legs[j], itineraries[i].legs[j].mode, stroke);
           }
       }
 
@@ -49,7 +49,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       var itineraries = sesion_plan.itineraries;
       for (i = 0; i < itineraries.length; i++) {
           for (ii=0; ii < itineraries[i].legs.length; ii++) {
-            showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
+            showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode, {'stroke':false});
           }
       }
 
