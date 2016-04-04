@@ -20,3 +20,37 @@
 .leaflet-control-layers-overlays {
   display: none;
 }
+
+
+
+
+@-webkit-keyframes fade_jona {
+    0% {
+        opacity: 1;
+    }
+
+    30% {
+        opacity: 0.90;
+    }
+
+    50% {
+        opacity: 0.70;
+    }
+
+    70% {
+        opacity: 0.50;
+    }
+
+    90% {
+        opacity: 0.30;
+    }
+
+    100% {
+        opacity: 0.10;
+    }
+}
+
+.message_ {
+    -webkit-animation: fade_jona;
+    -webkit-animation-fill-mode: both;
+}
