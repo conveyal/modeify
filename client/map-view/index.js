@@ -294,6 +294,7 @@ module.exports.drawRouteAmigo = function(legs,mode) {
             dashArray: dasharray
         };
 
+      console.log("color ruta ->" , color);
       route = new L.Polyline(L.PolylineUtil.decode(route, 5), color_options);
       this.polyline_creadas.push(route);
       var boxes = L.RouteBoxer.box(route, 5);
