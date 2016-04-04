@@ -357,7 +357,7 @@ function updateMapOnPlanChange(plan, map) {
 
                 var lat_center_polyline = (sesion_plan.from.lat + sesion_plan.to.lat) / 2;
                 var lon_center_polyline = (sesion_plan.from.lon + sesion_plan.to.lon) / 2;
-                map.setView([lat_center_polyline, lon_center_polyline], 11);
+                //map.setView([lat_center_polyline, lon_center_polyline], 11);
 
                 showMapView.drawMakerCollision();
             }

@@ -719,9 +719,7 @@ function extensions(parentClass) { return {
         console.log("boxes ->" , boxes);
 		var collision = false;
 		for (var i=0; i<boxes.length && !collision; i++) {
-		    console.log("si ejecuta");
 			collision = bush.search(boxes[i]).length > 0;
-			console.log("no ejecuta");
 		}
 
         console.log("collision",collision);
