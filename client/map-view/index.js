@@ -299,6 +299,7 @@ module.exports.drawRouteAmigo = function(legs,mode) {
       //this.collision_group.addTo(this.activeMap);
       //console.log("collision group -> ", this.collision_group);
       var collision_group = L.layerGroup.collision({layers:this.collision_group ,margin:5});
+      console.log("maker" , this.collision_group);
       console.log("collision_group ->", collision_group);
       //this.activeMap.fitBounds(bounds);
 };
