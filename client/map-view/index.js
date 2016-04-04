@@ -230,7 +230,7 @@ module.exports.marker_map_point = function(to, map){
     this.makerpoint_creadas.push(layer);
 
     var collision_group = L.layerGroup.collision({margin:5});
-    collision_group.addLayer();
+    collision_group.addLayer(marker);
       //collision_group.onAdd(this.activeMap);
     this.collision_group = collision_group;
     console.log("collision_group -> ",collision_group);
