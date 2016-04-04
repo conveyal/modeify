@@ -98,7 +98,7 @@ module.exports.drawMakerCollision = function () {
     var collision_group = L.layerGroup.collision({margin:5});
     collision_group.addLayer(this.marker_collision_group);
     console.log("final -> collision_group", collision_group);
-    collision_group.addTo(this.activeMap);
+    //collision_group.addTo(this.activeMap);
 };
 
 module.exports.getpolyline_creadas = function () {
