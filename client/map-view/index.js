@@ -257,7 +257,10 @@ module.exports.drawRouteAmigo = function(legs,mode) {
 
         }else if(mode=="SUBWAY" || mode=="RAIL") {
              if(!(legs.routeColor === undefined)) {
-                color = "#"+legs.routeColor;
+                if (legs.routeColor != "" || legs.routeColor.length == 6) {
+                    color = "#"+legs.routeColor;
+                }
+
              }
              weight = 8;
              this.marker_map_point(circle_from, this.activeMap);
@@ -273,7 +276,9 @@ module.exports.drawRouteAmigo = function(legs,mode) {
         else if(mode=="BUS") {
             //color = '#FEF0B5';
             if(!(legs.routeColor === undefined)) {
-                color = "#"+legs.routeColor;
+                if (legs.routeColor != "" || legs.routeColor.length == 6) {
+                    color = "#"+legs.routeColor;
+                }
              }
              weight = 5;
              this.marker_map_point(circle_from, this.activeMap);
