@@ -32,11 +32,12 @@ var View = module.exports = view(require('./template.html'), function(view, mode
      var stroke;
      var itineraries = sesion_plan.itineraries;
       for (var i= 0; i < itineraries.length; i++) {
-          if (i == index_){
-            stroke = {'stroke':true, 'class_name':false}
+          if (i != index_){
+            stroke = {'stroke':true, 'class_name':true}
           }else{
             stroke = {'stroke':false, 'class_name':false}
           }
+          console.log("stroke->", stroke);
           for (var j=0; j < itineraries[i].legs.length; j++) {
              showMapView.drawRouteAmigo(itineraries[i].legs[j], itineraries[i].legs[j].mode, stroke);
           }
