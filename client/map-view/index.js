@@ -95,7 +95,6 @@ module.exports.collision_group = {};
 module.exports.marker_collision_group = [];
 
 module.exports.drawMakerCollision = function () {
-  console.log("draw marker" , this.collision_group);
   this.collision_group.onAdd(this.activeMap);
 };
 module.exports.getpolyline_creadas = function () {
@@ -233,13 +232,12 @@ module.exports.marker_map_point = function(to, map){
     collision_group.addLayer(marker);
       //collision_group.onAdd(this.activeMap);
     this.collision_group = collision_group;
-    console.log("collision_group -> ",collision_group);
     //this.marker_collision_group.push(marker);
 };
 
 
 
-module.exports.drawRouteAmigo = function(legs,mode) {
+module.exports.drawRouteAmigo = function(legs,mode, option) {
 
     var route = legs.legGeometry.points;
     var circle_from = [legs.from.lat, legs.from.lon, legs.from.name];
@@ -300,6 +298,10 @@ module.exports.drawRouteAmigo = function(legs,mode) {
             opacity:1,
             dashArray: dasharray
         };
+
+       if (option.stroke){
+         color_options.stroke = false;
+       }
        //stroke: false;
 
       var argpolyline = L.PolylineUtil.decode(route, 5);

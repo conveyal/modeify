@@ -24,9 +24,20 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 
     showMapView.cleanPolyline();
     showMapView.cleanMarkerpoint();
-     for (var i = 0; i < itineraries.legs.length; i++) {
-          showMapView.drawRouteAmigo(itineraries.legs[i], itineraries.legs[i].mode);
-     }
+     //for (var i = 0; i < itineraries.legs.length; i++) {
+     //     showMapView.drawRouteAmigo(itineraries.legs[i], itineraries.legs[i].mode);
+     //}
+     var index_ = model.index;
+     console.log("index", index_)
+     var stroke;
+     var itineraries = sesion_plan.itineraries;
+      for (var i= 0; i < itineraries.length; i++) {
+          if (i == index_){stroke =  {'stroke':false}}else{stroke = {'stroke':true}}
+          for (var j=0; j < itineraries[i].legs.length; j++) {
+             console.log(itineraries[i]);
+             showMapView.drawRouteAmigo(itineraries[i].legs[j], itineraries[i].legs[j].mode);
+          }
+      }
 
   });
 
