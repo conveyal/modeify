@@ -91,7 +91,7 @@ module.exports.cleanRoute = function() {
 module.exports.polyline_creadas = [];
 module.exports.marker_creadas = [];
 module.exports.makerpoint_creadas = [];
-module.exports.collision_group;
+module.exports.collision_group = [];
 
 module.exports.getpolyline_creadas = function () {
   return this.polyline_creadas;
@@ -214,7 +214,7 @@ module.exports.marker_map_point = function(to, map){
     ];
 
 
-    //var marker = L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name);
+    var marker = L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name);
 
     var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
     //console.log("antes del marker ->", this.collision_group);
@@ -223,6 +223,7 @@ module.exports.marker_map_point = function(to, map){
     //console.log("despues del marker ->", this.collision_group);
     console.log("group ->", L.layerGroup(markers));
     this.makerpoint_creadas.push(layer);
+    this.collision_group.push(marker);
 };
 
 
@@ -297,7 +298,8 @@ module.exports.drawRouteAmigo = function(legs,mode) {
       route.addTo(this.activeMap);
       //this.collision_group.addTo(this.activeMap);
       //console.log("collision group -> ", this.collision_group);
-      //this.collision_group = L.layerGroup.collision({layers: ,margin:5});
+      var collision_group = L.layerGroup.collision({layers:this.collision_group ,margin:5});
+      console.log("collision_group" -> collision_group);
       //this.activeMap.fitBounds(bounds);
 };
 
