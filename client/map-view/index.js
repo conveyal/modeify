@@ -264,6 +264,8 @@ module.exports.drawRouteAmigo = function(legs,mode) {
 
              }
              weight = 8;
+             console.log("circle from ->", circle_from);
+             console.log("circle to ->", circle_to);
              this.marker_map_point(circle_from, this.activeMap);
              this.marker_map_point(circle_to, this.activeMap);
 
@@ -282,6 +284,8 @@ module.exports.drawRouteAmigo = function(legs,mode) {
                 }
              }
              weight = 5;
+             console.log("circle from ->", circle_from);
+             console.log("circle to ->", circle_to);
              this.marker_map_point(circle_from, this.activeMap);
              this.marker_map_point(circle_to, this.activeMap);
         }
