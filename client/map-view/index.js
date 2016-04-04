@@ -218,7 +218,7 @@ module.exports.marker_map_point = function(to, map){
 
     //var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
 
-    this.collision_group.addLayer(marker);
+    this.collision_group.add(marker);
     //this.makerpoint_creadas.push(layer);
 };
 
