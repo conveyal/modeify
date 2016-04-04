@@ -222,8 +222,18 @@ module.exports.marker_map_point = function(to, map){
     ];
 
 
-    var marker = L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name);
-
+    //var marker = L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name);
+    console.log("lat - lng ->" , {"lat":to[0], "lng": to[1]});
+    var marker = L.marker({"lat":to[0], "lng": to[1]}, {
+				icon: L.divIcon({
+					html:
+						"<span>" +
+						name +
+						"</span>"
+				})
+				,interactive: false
+				,clickable:   false
+				});
     //var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
 
     //console.log("antes del marker ->", this.collision_group);
