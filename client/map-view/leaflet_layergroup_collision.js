@@ -637,6 +637,7 @@ function extensions(parentClass) { return {
 
 		for (var i=0; i< layer.length;i++) {
             this._staticLayers.push(layer[i]);
+            this._originalLayers.push(layer[i]);
             parentClass.prototype.addLayer.call(this, layer[i]);
 		}
 
