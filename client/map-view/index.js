@@ -234,7 +234,8 @@ module.exports.marker_map_point = function(to, map){
 
 
 module.exports.drawRouteAmigo = function(legs,mode) {
-
+    console.log("mode ->", mode);
+    console.log("color ->",legs.routeColor);
     var route = legs.legGeometry.points;
     var circle_from = [legs.from.lat, legs.from.lon, legs.from.name];
     var circle_to = [legs.to.lat, legs.to.lon, legs.to.name];
