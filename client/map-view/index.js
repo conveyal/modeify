@@ -293,13 +293,14 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
 
 
        var color_options = {
-            color: color,
+            fillcolor: color,
             weight: weight,
-            opacity:1,
+            //opacity:1,
             dashArray: dasharray
         };
 
        if (option.stroke){
+         color_options.stroke = false;
          color_options.stroke = false;
        }
        //stroke: false;

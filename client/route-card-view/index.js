@@ -28,13 +28,12 @@ var View = module.exports = view(require('./template.html'), function(view, mode
      //     showMapView.drawRouteAmigo(itineraries.legs[i], itineraries.legs[i].mode);
      //}
      var index_ = model.index;
-     console.log("index", index_)
+     console.log("index", index_);
      var stroke;
      var itineraries = sesion_plan.itineraries;
       for (var i= 0; i < itineraries.length; i++) {
           if (i == index_){stroke =  {'stroke':true}}else{stroke = {'stroke':false}}
           for (var j=0; j < itineraries[i].legs.length; j++) {
-             console.log(itineraries[i]);
              showMapView.drawRouteAmigo(itineraries[i].legs[j], itineraries[i].legs[j].mode, stroke);
           }
       }
