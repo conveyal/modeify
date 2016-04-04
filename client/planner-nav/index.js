@@ -1,3 +1,4 @@
+var config = require('./client/config')
 var evnt = require('event')
 var MarkdownModal = require('./client/markdown-modal')
 var showWalkThrough = require('planner-walkthrough')
@@ -57,6 +58,10 @@ View.prototype.showTermsAndConditions = function (e) {
   MarkdownModal({
     content: getTemplate('terms')
   }).show()
+}
+
+View.prototype.organizationUrl = function () {
+  return config.organization().url
 }
 
 /**

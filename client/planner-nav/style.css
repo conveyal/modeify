@@ -1,17 +1,22 @@
 
 nav {
   background-color: var(--navbar-background-color);
-  background-image: url(/images/application/nav-logo.png);
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  background-position: 8px 10px;
   height: 44px;
-  cursor: pointer;
   width: 320px;
   position: absolute;
   top: 0;
   box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.2);
   z-index: 10;
+}
+
+nav .logo {
+  background-image: url("/assets/images/application/nav-logo.png");
+  background-position: 8px 10px;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 44px;
+  display: inline-block;
+  width: 40%;
 }
 
 .--navbar-background-color {
