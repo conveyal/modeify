@@ -318,7 +318,6 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
          delete color_options.opacity;
        }
        if (option.class_name){
-            color_options.color = '#E0E0E0';
             color_options.className = 'message_';
        }
         console.log("color_options", color_options);
