@@ -201,12 +201,19 @@ module.exports.marker_map = function(from, to){
 
 
 
-module.exports.marker_map_point = function(to, map){
+module.exports.marker_map_point = function(to, map, set_hover){
 
     var name = to[2];
+    var icon_url = '';
+    var layer;
+    if (set_hover){
+        icon_url = 'assets/images/graphics/icono.png'
+    }else{
+        icon_url = 'assets/images/graphics/icono1.png'
+    }
 
     var IconEnd = L.icon({
-        iconUrl: 'assets/images/graphics/icono.png',
+        iconUrl: icon_url,
         iconSize: [20, 20],
         iconAnchor: [0, 0],
         popupAnchor:  [-3, -76]
@@ -220,7 +227,12 @@ module.exports.marker_map_point = function(to, map){
 
     var marker = L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name);
 
-    var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
+     if (set_hover){
+         layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.hideLabel()});
+    }else{
+         layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
+    }
+
     //console.log("antes del marker ->", this.collision_group);
     //this.collision_group.addLayer(marker);
     //console.log("inserto marker->", marker);
@@ -244,6 +256,11 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
     var circle_to = [legs.to.lat, legs.to.lon, legs.to.name];
     var color = '#000000';
     var weight = 5;
+    var set_hover = false;
+    if (option.stroke){
+        set_hover = true;
+    }
+
     var dasharray= '';
 
         if (mode=="CAR") {
@@ -267,8 +284,8 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
 
              }
              weight = 8;
-             this.marker_map_point(circle_from, this.activeMap);
-             this.marker_map_point(circle_to, this.activeMap);
+             this.marker_map_point(circle_from, this.activeMap, set_hover);
+             this.marker_map_point(circle_to, this.activeMap, set_hover);
 
         }
         else if(mode == "WALK") {
@@ -285,8 +302,8 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
                 }
              }
              weight = 5;
-             this.marker_map_point(circle_from, this.activeMap);
-             this.marker_map_point(circle_to, this.activeMap);
+             this.marker_map_point(circle_from, this.activeMap, set_hover);
+             this.marker_map_point(circle_to, this.activeMap, set_hover);
         }
 
 
@@ -301,6 +318,7 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
          delete color_options.opacity;
        }
        if (option.class_name){
+            color_options.color = '#E0E0E0';
             color_options.className = 'message_';
        }
         console.log("color_options", color_options);
