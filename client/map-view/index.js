@@ -206,6 +206,7 @@ module.exports.marker_map_point = function(to, map, set_hover){
     var name = to[2];
     var icon_url = '';
     var layer;
+    var markers ;
     if (!set_hover){
         icon_url = 'assets/images/graphics/icono.png'
     }else{
@@ -219,30 +220,18 @@ module.exports.marker_map_point = function(to, map, set_hover){
         popupAnchor:  [-3, -76]
     });
 
-
-    var markers = [
-      L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name)
-    ];
-
-
-    var marker = L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name);
-
-     if (!set_hover){
-         layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.hideLabel()});
+    if (!set_hover){
+        markers = [L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name)];
     }else{
-         layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
+        markers = [L.marker([to[0], to[1]], {icon: IconEnd})];
     }
 
-    //console.log("antes del marker ->", this.collision_group);
-    //this.collision_group.addLayer(marker);
-    //console.log("inserto marker->", marker);
-    //console.log("despues del marker ->", this.collision_group);
-    //console.log("group ->", L.layerGroup(markers));
+    var marker = L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name);
+    layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
     this.makerpoint_creadas.push(layer);
 
     var collision_group = L.layerGroup.collision({margin:5});
     collision_group.addLayer(marker);
-      //collision_group.onAdd(this.activeMap);
     this.collision_group = collision_group;
     this.marker_collision_group.push(marker);
 };
