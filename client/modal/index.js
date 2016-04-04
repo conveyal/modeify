@@ -1,3 +1,4 @@
+var config = require('./client/config')
 var log = require('./client/log')('modal')
 var createModal = require('modal')
 var raf = require('raf')
@@ -25,7 +26,7 @@ module.exports = function (opts, fn) {
   if (!opts.noPadding) opts.template = '<div class="content">' + opts.template + '</div>'
 
   // Wrap with a logo nav
-  if (opts.logo) opts.template = '<div>' + require('./logo.html') + opts.template + '</div>'
+  if (opts.logo) opts.template = '<div><a class="logo" href="' + config.organization().url + '"></a>' + opts.template + '</div>'
 
   var Modal = view(opts, fn)
 

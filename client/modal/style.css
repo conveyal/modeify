@@ -49,6 +49,7 @@
   background-color: var(--modal-header-background-color);
   border: 7px solid transparent;
   box-shadow: 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  display: block;
 }
 
 .Modal .content {

@@ -57,7 +57,6 @@ module.exports = function (commuter, plan) {
           highlightResults()
         })
       })
-
     })
 
     locations.on('skip', function () {
