@@ -298,8 +298,8 @@ module.exports.drawRouteAmigo = function(legs,mode) {
             color: color,
             weight: weight,
             dashArray: dasharray,
-            stroke: false
         };
+       //stroke: false;
 
       var argpolyline = L.PolylineUtil.decode(route, 5);
       argpolyline.unshift(circle_from);
