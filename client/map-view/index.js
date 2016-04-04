@@ -4,6 +4,7 @@ var plugins = require('./leaflet_plugins');
 var polyUtil = require('./polyline_encoded.js');
 var routeboxer = require('./leaflet_routeboxer.js');
 var leaflet_label = require('./leaflet_label/leaflet.label-src.js');
+var rbush = require('./rbush.js');
 var collision = require('./leaflet_layergroup_collision.js');
 var session = require('session');
 
@@ -143,7 +144,7 @@ module.exports.cleanMarkerpoint = function() {
             }
     }
 
-  this.makerpoint_creadas = [];
+  //this.makerpoint_creadas = [];
 
 };
 
@@ -206,14 +207,17 @@ module.exports.marker_map_point = function(to, map){
         iconAnchor: [0, 0],
         popupAnchor:  [-3, -76]
     });
+    /*
     var markers = [
       L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name)
-    ];
+    ];*/
+
+    var marker = L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name);
 
     //var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
 
     //this.makerpoint_creadas.push(layer);
-    this.makerpoint_creadas.addLayer(markers);
+    this.makerpoint_creadas.addLayer(marker);
     //this.polyline_creadas.push(circle);
 };
 
@@ -289,6 +293,7 @@ module.exports.drawRouteAmigo = function(legs,mode) {
       }*/
 
       route.addTo(this.activeMap);
+      console.log("aqui grupo");
       this.makerpoint_creadas.addTo(this.activeMap);
       //this.activeMap.fitBounds(bounds);
 };
