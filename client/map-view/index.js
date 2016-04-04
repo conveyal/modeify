@@ -267,8 +267,6 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
 
              }
              weight = 8;
-             console.log("circle from ->", circle_from);
-             console.log("circle to ->", circle_to);
              this.marker_map_point(circle_from, this.activeMap);
              this.marker_map_point(circle_to, this.activeMap);
 
@@ -294,14 +292,15 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
 
        var color_options = {
             fillcolor: color,
+            color:color,
             weight: weight,
-            //opacity:1,
+            opacity:1,
             dashArray: dasharray
         };
 
        if (option.stroke){
          color_options.stroke = false;
-         color_options.stroke = false;
+         color_options.opacity = 0;
        }
        //stroke: false;
 
