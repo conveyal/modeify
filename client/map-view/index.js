@@ -95,6 +95,7 @@ module.exports.collision_group = {};
 module.exports.marker_collision_group = [];
 
 module.exports.drawMakerCollision = function () {
+  console.log("draw marker" , this.collision_group);
   this.collision_group.addTo(this.activeMap);
 };
 module.exports.getpolyline_creadas = function () {
