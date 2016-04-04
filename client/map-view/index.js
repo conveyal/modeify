@@ -217,8 +217,10 @@ module.exports.marker_map_point = function(to, map){
     var marker = L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name);
 
     //var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
-
+    console.log("antes del marker ->", this.collision_group);
     this.collision_group.add(marker);
+    console.log("inserto marker->", this.collision_group);
+    console.log("despues del marker ->", this.collision_group);
     //this.makerpoint_creadas.push(layer);
 };
 
