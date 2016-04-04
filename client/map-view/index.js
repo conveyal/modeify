@@ -293,7 +293,7 @@ module.exports.drawRouteAmigo = function(legs,mode) {
       }*/
 
       route.addTo(this.activeMap);
-      console.log("aqui grupo");
+      console.log("aqui grupo ->", this.makerpoint_creadas);
       this.makerpoint_creadas.addTo(this.activeMap);
       //this.activeMap.fitBounds(bounds);
 };
