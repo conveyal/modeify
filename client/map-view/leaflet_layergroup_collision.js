@@ -719,16 +719,22 @@ function extensions(parentClass) { return {
         console.log("boxes ->" , boxes);
 		var collision = false;
 		for (var i=0; i<boxes.length && !collision; i++) {
+		    console.log("si ejecuta");
 			collision = bush.search(boxes[i]).length > 0;
+			console.log("no ejecuta");
 		}
 
+        console.log("collision",collision);
+
 		if (!collision) {
+		    console.log("no collision");
 			if (!visible) {
 				parentClass.prototype.addLayer.call(this, layer);
 			}
 			this._visibleLayers.push(layer);
 			bush.load(boxes);
 		} else {
+		    console.log("si hay collision");
 			parentClass.prototype.removeLayer.call(this, layer);
 		}
 	},
