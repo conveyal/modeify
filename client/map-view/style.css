@@ -53,4 +53,6 @@
 .message_ {
     -webkit-animation: fade_jona;
     -webkit-animation-fill-mode: both;
+    stroke: rgb(224, 224, 224);
+    stroke-width: 4px;
 }
