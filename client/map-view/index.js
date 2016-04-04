@@ -206,7 +206,7 @@ module.exports.marker_map_point = function(to, map, set_hover){
     var name = to[2];
     var icon_url = '';
     var layer;
-    if (set_hover){
+    if (!set_hover){
         icon_url = 'assets/images/graphics/icono.png'
     }else{
         icon_url = 'assets/images/graphics/icono1.png'
@@ -227,7 +227,7 @@ module.exports.marker_map_point = function(to, map, set_hover){
 
     var marker = L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name);
 
-     if (set_hover){
+     if (!set_hover){
          layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.hideLabel()});
     }else{
          layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
