@@ -95,9 +95,11 @@ module.exports.collision_group = {};
 module.exports.marker_collision_group = [];
 
 module.exports.drawMakerCollision = function () {
-  console.log("draw marker" , this.collision_group);
-  this.collision_group.onAdd(this.activeMap);
+    var collision_group = L.layerGroup.collision({margin:5});
+    collision_group.addLayer(this.marker_collision_group);
+    console.log("final -> collision_group", collision_group);
 };
+
 module.exports.getpolyline_creadas = function () {
   return this.polyline_creadas;
 };
@@ -229,12 +231,14 @@ module.exports.marker_map_point = function(to, map){
     //console.log("group ->", L.layerGroup(markers));
     this.makerpoint_creadas.push(layer);
 
-    var collision_group = L.layerGroup.collision({margin:5});
-    collision_group.addLayer(marker);
-      //collision_group.onAdd(this.activeMap);
-    this.collision_group = collision_group;
-    console.log("collision_group -> ",collision_group);
+    //var collision_group = L.layerGroup.collision({margin:5});
+    //collision_group.addLayer(marker);
+    //collision_group.onAdd(this.activeMap);
+    //this.collision_group = collision_group;
+    //console.log("collision_group -> ",collision_group);
     //this.marker_collision_group.push(marker);
+
+    this.marker_collision_group.push(marker);
 };
 
 

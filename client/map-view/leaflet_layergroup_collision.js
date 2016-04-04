@@ -627,12 +627,20 @@ function extensions(parentClass) { return {
 	},
 
 	addLayer: function(layer) {
-	    /*
+        /*
 		if ( !('options' in layer) || !('icon' in layer.options)) {
 			this._staticLayers.push(layer);
 			parentClass.prototype.addLayer.call(this, layer);
 			return;
-		}*/
+		}
+		*/
+
+		for (var i=0; i< layer.length;i++) {
+            this._staticLayers.push(layer[i]);
+            parentClass.prototype.addLayer.call(this, layer[i]);
+		}
+
+        return;
 
         this._staticLayers.push(layer);
 		parentClass.prototype.addLayer.call(this, layer);
