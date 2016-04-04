@@ -299,7 +299,7 @@ module.exports.drawRouteAmigo = function(legs,mode) {
         };
 
       var argpolyline = L.PolylineUtil.decode(route, 5);
-      console.log("polyline decode ->", argpolyline.unshift(circle_from));
+      //console.log("polyline decode ->", argpolyline.unshift(circle_from));
       console.log("color ruta ->" , color);
       route = new L.Polyline(argpolyline, color_options);
       this.polyline_creadas.push(route);
