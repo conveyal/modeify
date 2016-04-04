@@ -695,7 +695,7 @@ function extensions(parentClass) { return {
 	},
 
 	_maybeAddLayerToRBush: function(layer) {
-        console.log("zoom" , );
+        console.log("zoom" , layer);
 		var z    = this._map.getZoom();
 		var bush = this._rbush;
 
