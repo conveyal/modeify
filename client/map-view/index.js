@@ -303,12 +303,11 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
             dashArray: dasharray
         };
 
-       if (option.stroke){
-         delete color_options.opacity;
-       }
+       //if (option.stroke){
+       //  delete color_options.opacity;
+       //}
        if (option.class_name){
             //color_options.className = 'message_';
-            color_options.fillColor = '#7FFFD4';
             color_options.color = '#7FFFD4';
        }
         console.log("color_options", color_options);
