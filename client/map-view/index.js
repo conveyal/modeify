@@ -316,6 +316,7 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
          delete color_options.opacity;
        }else{
           color_options.color = color;
+          color_options.stroke = false;
        }
        if (option.class_name){
             //color_options.className = 'message_';
@@ -323,6 +324,10 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
        }
 
        color_options.className = 'message_';
+       color_options.fillColor = '#F2F2F2';
+       color_options.fillOpacity = '0.25';
+
+
        console.log("color");
       var argpolyline = L.PolylineUtil.decode(route, 5);
       argpolyline.unshift(circle_from);
