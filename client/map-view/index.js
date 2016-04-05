@@ -254,8 +254,10 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
     if (option.stroke){
         set_hover = true;
     }
+    if(mode=="BUS") {
+      console.log("legs ->", legs);
+    }
 
-    console.log("legs ->", legs);
 
     var dasharray= '';
 
