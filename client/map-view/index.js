@@ -228,7 +228,6 @@ module.exports.marker_map_point = function(to, map, set_hover){
     console.log("class_name ->", class_name);
     var marker = L.marker({"lat":to[0], "lng": to[1]}, {
 				icon: L.divIcon({
-					html:html,
                     className: class_name,
                     iconSize: [15, 15],
                     iconAnchor: [0, 0]
