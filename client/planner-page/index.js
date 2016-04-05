@@ -58,6 +58,8 @@ module.exports = function(ctx, next) {
     'planner-nav': new PlannerNav(session)
   };
 
+  console.log("views->", views);
+
   ctx.view = new View(views);
   ctx.view.on('rendered', function() {
     // Set plan to loading
@@ -71,6 +73,7 @@ module.exports = function(ctx, next) {
     var map = showMapView(ctx.view.find('.MapView'));
 
     // Update map on plan change
+
     updateMapOnPlanChange(plan, map);
 
     map.on('click', function (e) {
@@ -332,6 +335,8 @@ function updateMapOnPlanChange(plan, map) {
   showMapView.cleanMarkerpoint();
 
   var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
+
+      console.log("session ->", sesion_plan);
 
     if (journey && !isMobile) {
       try {

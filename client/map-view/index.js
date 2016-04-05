@@ -209,7 +209,6 @@ module.exports.marker_map_point = function(to, map, set_hover){
 
     var name = to[2];
     var icon_url = '';
-    var layer;
     var markers ;
     if (!set_hover){
         icon_url = 'assets/images/graphics/icono.png'
@@ -230,8 +229,6 @@ module.exports.marker_map_point = function(to, map, set_hover){
         markers = [L.marker([to[0], to[1]], {icon: IconEnd})];
     }
 
-    //var marker = L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name);
-    console.log("lat - lng ->" , {"lat":to[0], "lng": to[1]});
     var marker = L.marker({"lat":to[0], "lng": to[1]}, {
 				icon: L.divIcon({
 					html:
@@ -242,22 +239,6 @@ module.exports.marker_map_point = function(to, map, set_hover){
 				,interactive: false
 				,clickable:   false
 				});
-    //var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
-
-    //console.log("antes del marker ->", this.collision_group);
-    //this.collision_group.addLayer(marker);
-    //console.log("inserto marker->", marker);
-    //console.log("despues del marker ->", this.collision_group);
-    //console.log("group ->", L.layerGroup(markers));
-
-    //this.makerpoint_creadas.push(layer);
-
-    //var collision_group = L.layerGroup.collision({margin:5});
-    //collision_group.addLayer(marker);
-    //collision_group.onAdd(this.activeMap);
-    //this.collision_group = collision_group;
-    //console.log("collision_group -> ",collision_group);
-    //this.marker_collision_group.push(marker);
 
     this.marker_collision_group.push(marker);
 };
@@ -336,8 +317,7 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
             color_options.className = 'message_';
             color_options.color = '#000';
        }
-        console.log("color_options", color_options);
-       //stroke: false;
+
 
       var argpolyline = L.PolylineUtil.decode(route, 5);
       argpolyline.unshift(circle_from);
