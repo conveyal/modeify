@@ -71,8 +71,8 @@
 }
 
 .leaflet-div-icon2 {
-  background: rgba(255, 255, 255, 0.5);
-  border:2px solid rgba(255, 255, 255, 0.5);
+  background: #ddd;
+  border: 2px solid #eee;
   text-align:center;
   border-radius:50%;
 }
