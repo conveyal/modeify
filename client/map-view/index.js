@@ -95,8 +95,12 @@ module.exports.collision_group = {};
 module.exports.marker_collision_group = [];
 
 module.exports.drawMakerCollision = function () {
-  this.collision_group.onAdd(this.activeMap);
+    var collision_group = L.layerGroup.collision();
+    collision_group.addLayer(this.marker_collision_group);
+    console.log("final -> collision_group", collision_group);
+    collision_group.onAdd(this.activeMap);
 };
+
 module.exports.getpolyline_creadas = function () {
   return this.polyline_creadas;
 };
@@ -226,13 +230,35 @@ module.exports.marker_map_point = function(to, map, set_hover){
         markers = [L.marker([to[0], to[1]], {icon: IconEnd})];
     }
 
-    var marker = L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name);
-    layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
-    this.makerpoint_creadas.push(layer);
+    //var marker = L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name);
+    console.log("lat - lng ->" , {"lat":to[0], "lng": to[1]});
+    var marker = L.marker({"lat":to[0], "lng": to[1]}, {
+				icon: L.divIcon({
+					html:
+						"<span class='leaflet-label'>" +
+						name +
+						"</span>"
+				})
+				,interactive: false
+				,clickable:   false
+				});
+    //var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
 
-    var collision_group = L.layerGroup.collision({margin:5});
-    collision_group.addLayer(marker);
-    this.collision_group = collision_group;
+    //console.log("antes del marker ->", this.collision_group);
+    //this.collision_group.addLayer(marker);
+    //console.log("inserto marker->", marker);
+    //console.log("despues del marker ->", this.collision_group);
+    //console.log("group ->", L.layerGroup(markers));
+
+    //this.makerpoint_creadas.push(layer);
+
+    //var collision_group = L.layerGroup.collision({margin:5});
+    //collision_group.addLayer(marker);
+    //collision_group.onAdd(this.activeMap);
+    //this.collision_group = collision_group;
+    //console.log("collision_group -> ",collision_group);
+    //this.marker_collision_group.push(marker);
+
     this.marker_collision_group.push(marker);
 };
 
