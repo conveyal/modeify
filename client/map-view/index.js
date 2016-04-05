@@ -254,6 +254,7 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
     if (option.stroke){
         set_hover = true;
     }
+    console.log("option.stroke ->", option.stroke);
 
     var dasharray= '';
 
@@ -313,7 +314,7 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
        }
        if (option.class_name){
             color_options.className = 'message_';
-            color_options.color = '#000';
+            color_options.color = '#ccc';
        }
 
 
