@@ -16,6 +16,7 @@
     "hogan.js": "^3.0.1",
     "js-yaml": "^3.2.7",
     "juice": "~1.0.0",
+    "leaflet-label": "^0.2.1-0",
     "mandrill-api": "^1.0.37",
     "mongoose": "^4.0.0",
     "monquery": "^0.2.0",

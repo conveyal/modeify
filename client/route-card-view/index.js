@@ -11,30 +11,56 @@ var routeResource = require('route-resource');
 var session = require('session');
 //var transitive = require('transitive');
 var view = require('view');
-
+var showMapView = require('map-view');
 /**
  * Expose `View`
  */
 
 var View = module.exports = view(require('./template.html'), function(view, model) {
   mouseenter(view.el, function() {
-    var isTransit = false;
-    var legs = model.plan().legs;
-    for (var i = 0; i < legs.length; i++) {
-      if (legs[i].transitLeg) {
-        isTransit = true;
-        break;
+    showMapView.cleanPolyline();
+    showMapView.cleanMarkerpoint();
+    showMapView.cleanMarkerCollision();
+    showMapView.marker_collision_group = [];
+
+    var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
+    sesion_plan = sesion_plan.plan;
+
+     var index_ = model.index;
+     var stroke;
+     var itineraries = sesion_plan.itineraries;
+      for (var i= 0; i < itineraries.length; i++) {
+          if (i != index_){
+            stroke = {'stroke':true, 'class_name':true}
+          }else{
+            stroke = {'stroke':false, 'class_name':false}
+          }
+          for (var j=0; j < itineraries[i].legs.length; j++) {
+             showMapView.drawRouteAmigo(itineraries[i].legs[j], itineraries[i].legs[j].mode, stroke);
+          }
       }
-    }
-//    var id = model.id() + '';
-    var id = model.index + '_' + (isTransit ? 'transit' : legs[0].mode.toLowerCase());
-    if (id.indexOf('transit') === -1) id = id + '_' + model.access()[0].mode.toLowerCase();
-    //transitive.focusJourney(id);
+      showMapView.drawMakerCollision();
+
   });
 
   mouseleave(view.el, function() {
     if (!view.el.classList.contains('expanded')) {
-      //transitive.focusJourney();
+      showMapView.cleanPolyline();
+      showMapView.cleanMarkerpoint();
+      showMapView.cleanMarkerCollision();
+      showMapView.marker_collision_group = [];
+
+      var option_draw = {'stroke':false, 'class_name':false};
+      var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
+      sesion_plan = sesion_plan.plan;
+      var itineraries = sesion_plan.itineraries;
+      for (i = 0; i < itineraries.length; i++) {
+          for (ii=0; ii < itineraries[i].legs.length; ii++) {
+            showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode, option_draw);
+          }
+      }
+      showMapView.drawMakerCollision();
+
     }
   });
 });
