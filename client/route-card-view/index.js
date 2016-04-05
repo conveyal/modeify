@@ -23,6 +23,8 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 
     showMapView.cleanPolyline();
     showMapView.cleanMarkerpoint();
+    showMapView.cleanMarkerCollision();
+    showMapView.marker_collision_group = [];
 
      //for (var i = 0; i < itineraries.legs.length; i++) {
      //     showMapView.drawRouteAmigo(itineraries.legs[i], itineraries.legs[i].mode);
@@ -45,8 +47,10 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 
   mouseleave(view.el, function() {
     if (!view.el.classList.contains('expanded')) {
-      showMapView.cleanPolyline();
-      showMapView.cleanMarkerpoint();
+          //showMapView.cleanPolyline();
+          //showMapView.cleanMarkerpoint();
+          //showMapView.cleanMarkerCollision();
+          //showMapView.marker_collision_group = [];
 
       var option_draw = {'stroke':false, 'class_name':false};
       var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
