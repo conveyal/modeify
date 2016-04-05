@@ -58,9 +58,9 @@
 
 .leaflet-div-icon2
 {
-  background:red;
-  border:5px solid rgba(255,255,255,0.5);
-  color:blue;
+  background:white;
+  border:5px solid rgba(0, 0, 0, 0.5);
+  color: #180a20;
   font-weight:bold;
   text-align:center;
   border-radius:50%;
