@@ -127,15 +127,10 @@ module.exports.cleanPolyline = function() {
 };
 
 module.exports.cleanMarkerCollision = function() {
-    var map = this.activeMap;
-    /*
-    this.collision_group.eachLayer(function(layer){
-        //map.removeLayer(layer);
-        console.log("esto es layer ->", layer);
-    });
-    */
-    console.log("remove layer ->",this.collision_group );
-    map.removeLayer(this.collision_group);
+    for (i in this.marker_collision_group) {
+        this.collision_group.removeLayer(this.marker_collision_group[i]);
+    }
+
 }
 module.exports.cleanMarker = function() {
     var map = this.activeMap;
