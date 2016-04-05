@@ -35,11 +35,14 @@ module.exports = function (commuter, plan) {
     }
   })
 
+  var nextClicked = false
   welcome.on('hide', skip)
   welcome.on('next', function () {
+    nextClicked = true
     locations.show()
     locations.on('hide', skip)
     locations.on('next', function () {
+      nextClicked = true
       var route = plan.options()[0]
 
       routeResource.findByTags(route.tags(plan), function (err, resources) {
@@ -52,14 +55,15 @@ module.exports = function (commuter, plan) {
         })
         routeModal.show()
 
-        routeModal.on('next', function () {
+        routeModal.on('hide', function () {
           analytics.track('Completed Welcome Wizard')
 
           commuter.updateProfile('welcome_wizard_complete', true)
           commuter.save()
-
-          routeModal.hide()
           highlightResults()
+        })
+        routeModal.on('next', function () {
+          routeModal.hide()
         })
       })
     })
@@ -70,6 +74,10 @@ module.exports = function (commuter, plan) {
   })
 
   function skip () {
+    if (nextClicked) {
+      nextClicked = false
+      return
+    }
     analytics.track('Exited Welcome Wizard')
     commuter.updateProfile('welcome_wizard_complete', true)
     commuter.save()
