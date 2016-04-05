@@ -56,10 +56,6 @@
 }
 
 
-.leaflet-marker-icon{
-
-}
-
 .leaflet-div-icon1 {
   background: rgba(255, 255, 255, 0.5);
   border:2px solid black;
@@ -71,8 +67,8 @@
 }
 
 .leaflet-div-icon2 {
-  background: #ddd;
-  border: 2px solid #eee;
+  background: white;
+  border: 2px solid #ccc;
   text-align:center;
   border-radius:50%;
   -webkit-animation: fade_jona;
