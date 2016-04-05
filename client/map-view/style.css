@@ -51,7 +51,7 @@
 }
 
 .message_ {
-    -webkit-animation: fade_jona;
+    -webkit-animation: fade_jona 3s;
     -webkit-animation-fill-mode: both;
 }
 
