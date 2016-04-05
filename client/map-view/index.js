@@ -97,7 +97,8 @@ module.exports.marker_collision_group = [];
 module.exports.drawMakerCollision = function () {
     var collision_group = L.layerGroup.collision();
     collision_group.addLayer(this.marker_collision_group);
-    collision_group.onAdd(this.activeMap);
+    this.collision_group = collision_group.onAdd(this.activeMap);
+    console.log("este es el collision group ->", this.collision_group);
 };
 
 module.exports.getpolyline_creadas = function () {
@@ -124,7 +125,9 @@ module.exports.cleanPolyline = function() {
 
 };
 
+module.exports.cleanMarkerCollision = function() {
 
+}
 module.exports.cleanMarker = function() {
     var map = this.activeMap;
     for (i in this.marker_creadas) {
@@ -220,9 +223,6 @@ module.exports.marker_map_point = function(to, map){
       L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name)
     ];
 
-
-    //var marker = L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name);
-    console.log("esta lista debe aparecer ->", name);
     var marker = L.marker({"lat":to[0], "lng": to[1]}, {
 				icon: L.divIcon({
 					html:
