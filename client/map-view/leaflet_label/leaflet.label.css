@@ -1,6 +1,6 @@
 .leaflet-label {
     color: #111;
-    font: 14px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font: 11px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
     position: absolute;
     white-space: nowrap;
     text-shadow: -2px -2px 0 rgba(255, 255, 255, 0.5), 2px -2px 0 rgba(255, 255, 255, 0.5), -2px 2px 0 rgba(255, 255, 255, 0.5), 2px 2px 0 rgba(255, 255, 255, 0.5);

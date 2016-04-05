@@ -165,14 +165,14 @@ module.exports.cleanMarkerpoint = function() {
 module.exports.marker_map = function(from, to){
      var IconStart = L.icon({
         iconUrl: 'assets/images/graphics/start.svg',
-        iconSize: [40, 55],
-        iconAnchor: [20, 50],
+        iconSize: [15, 15],
+        iconAnchor: [0, 0],
         popupAnchor:  [0, -50]
     });
     var IconEnd = L.icon({
         iconUrl: 'assets/images/graphics/end.svg',
-        iconSize: [40, 55],
-        iconAnchor: [20, 50],
+        iconSize: [15, 15],
+        iconAnchor: [0, 0],
         popupAnchor:  [0, -50]
     });
 
