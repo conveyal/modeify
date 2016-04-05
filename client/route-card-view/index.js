@@ -22,7 +22,6 @@ var View = module.exports = view(require('./template.html'), function(view, mode
     sesion_plan = sesion_plan.plan;
 
     showMapView.cleanPolyline();
-    showMapView.cleanMarkerCollision();
     showMapView.cleanMarkerpoint();
 
      //for (var i = 0; i < itineraries.legs.length; i++) {
@@ -47,7 +46,6 @@ var View = module.exports = view(require('./template.html'), function(view, mode
   mouseleave(view.el, function() {
     if (!view.el.classList.contains('expanded')) {
       showMapView.cleanPolyline();
-      showMapView.cleanMarkerCollision();
       showMapView.cleanMarkerpoint();
 
       var option_draw = {'stroke':false, 'class_name':false};
