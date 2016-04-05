@@ -197,10 +197,7 @@
  border: 3px solid #fff;
  -moz-border-radius:75px;
  -webkit-border-radius: 75px;
-fill: rgb(255, 255, 255);
- stroke: rgb(224, 224, 224);
- stroke-width: 2;
- visibility: hidden;
+
 }
 
 
