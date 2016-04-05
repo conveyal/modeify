@@ -78,6 +78,8 @@
  */
 .leaflet-marker-icon {
   text-align: center;
+  height: 25px;
+  width: 25px;
 }
 
 .leaflet-marker-icon .number,
@@ -191,12 +193,14 @@
 }
 
 .leaflet-divicon{
- background-color: rgba(204, 0, 102, 0);
- border: 5px solid #333;
- height: 150px;
- width: 150px;
+ background-color: white;
+ border: 3px solid #fff;
  -moz-border-radius:75px;
  -webkit-border-radius: 75px;
+fill: rgb(255, 255, 255);
+ stroke: rgb(224, 224, 224);
+ stroke-width: 2;
+ visibility: hidden;
 }
 
 
