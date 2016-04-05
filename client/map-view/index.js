@@ -232,7 +232,7 @@ module.exports.marker_map_point = function(to, map, set_hover){
     var marker = L.marker({"lat":to[0], "lng": to[1]}, {
 				icon: L.divIcon({
 					html:html,
-                    className: 'leaflet-divicon'
+                    className: 'number'
 				})
 				,interactive: false
 				,clickable:   false
