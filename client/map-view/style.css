@@ -69,7 +69,6 @@
        -moz-box-shadow: 2px 2px 16px #fff;
     -webkit-box-shadow: 2px 2px 16px #fff ;
      box-shadow:2px 2px 16px #fff;
-    z-index: -100;
 }
 
 /* .fade-out.one {-webkit-animation-delay: .5s;}
