@@ -165,7 +165,7 @@ module.exports.cleanMarkerpoint = function() {
 module.exports.marker_map = function(from, to){
      var IconStart = L.icon({
         iconUrl: 'assets/images/graphics/start.svg',
-        iconSize: [15, 15],
+        iconSize: [25, 25],
         iconAnchor: [0, 0],
         popupAnchor:  [0, -50]
     });
