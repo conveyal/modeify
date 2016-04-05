@@ -825,6 +825,8 @@ function extensions(parentClass) { return {
 
 		this._rbush = rbush();
 
+		console.log("rbush -> " , this._rbush);
+
 		for (var i=0; i < this._originalLayers.length; i++) {
 			this._maybeAddLayerToRBush(this._originalLayers[i]);
 		}
