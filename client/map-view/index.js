@@ -229,7 +229,7 @@ module.exports.marker_map_point = function(to, map, set_hover){
 				icon: L.divIcon({
 					html:html,
                     className: 'leaflet-div-icon2',
-                    iconSize: [20, 20],
+                    iconSize: [25, 25],
                     iconAnchor: [0, 0]
 				})
 				,interactive: false
