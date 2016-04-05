@@ -314,6 +314,7 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
 
        if (option.stroke){
          delete color_options.opacity;
+         delete color_options.color;
        }
 
 
