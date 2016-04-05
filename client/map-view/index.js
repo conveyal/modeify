@@ -225,7 +225,7 @@ module.exports.marker_map_point = function(to, map, set_hover){
         class_name = 'leaflet-div-icon2';
         html = "";
     }
-    console.log("class_name ->", class_name);
+    console.log("class_name ->", class_name, "html ->", html);
     var marker = L.marker({"lat":to[0], "lng": to[1]}, {
 				icon: L.divIcon({
                     className: class_name,
@@ -254,7 +254,6 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
     if (option.stroke){
         set_hover = true;
     }
-    console.log("option.stroke ->", option.stroke);
 
     var dasharray= '';
 
