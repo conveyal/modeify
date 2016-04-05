@@ -227,13 +227,10 @@ module.exports.marker_map_point = function(to, map, set_hover){
     }else{
         markers = [L.marker([to[0], to[1]], {icon: IconEnd})];
     }
-
+    var html = '<div class="leaflet-divicon leaflet-label">' + name + '</div>';
     var marker = L.marker({"lat":to[0], "lng": to[1]}, {
 				icon: L.divIcon({
-					html:
-						"<span class='leaflet-label'>" +
-						name +
-						"</span>"
+					html:html
 				})
 				,interactive: false
 				,clickable:   false

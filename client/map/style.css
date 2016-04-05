@@ -190,4 +190,17 @@
  visibility: hidden;
 }
 
+.leaflet-divicon{
+  background:#ffffff;
+  border:5px solid #000000000 ;
+  color:#ffffff;
+  font-weight:bold;
+  text-align:center;
+  border-radius:50%;
+  line-height:30px;
+  line-width:30px;
+  height:30px;
+  width:30px;
+}
+
 
