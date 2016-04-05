@@ -95,7 +95,6 @@ module.exports.collision_group = {};
 module.exports.marker_collision_group = [];
 
 module.exports.drawMakerCollision = function () {
-    this.cleanMarkerCollision();
     var collision_group = L.layerGroup.collision();
     collision_group.addLayer(this.marker_collision_group);
     collision_group.onAdd(this.activeMap);
@@ -193,6 +192,7 @@ module.exports.marker_map = function(from, to){
        var result = marker.getLatLng();
        _this.cleanPolyline();
        _this.cleanMarkerpoint();
+       _this.cleanMarkerCollision();
        var plan = session.plan();
 
             plan.setAddress('from', result.lng + ',' + result.lat, function(err, rees) {
@@ -205,6 +205,7 @@ module.exports.marker_map = function(from, to){
        var result = marker.getLatLng();
        _this.cleanPolyline();
        _this.cleanMarkerpoint();
+       _this.cleanMarkerCollision();
        var plan = session.plan();
             plan.setAddress('to', result.lng + ',' + result.lat, function(err, rees) {
                 plan.updateRoutes();
