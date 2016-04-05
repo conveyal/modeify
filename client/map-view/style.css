@@ -68,11 +68,13 @@
   text-align:center;
   border-radius:50%;
   line-height:30px;
+  stroke-linecap: round;
+  filter: dropshadow(0 0 0 5px rgba(255, 255, 255, 0.5));
 }
 
 .leaflet-div-icon2 {
   background:#efeeee;
-  border:2px solid rbg(#d4d4d4);
+  border:2px solid rgba(255, 255, 255, 0.5);
   color: #ccc;
   text-align:center;
   border-radius:50%;
