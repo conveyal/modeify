@@ -95,7 +95,7 @@ module.exports.collision_group = {};
 module.exports.marker_collision_group = [];
 
 module.exports.drawMakerCollision = function () {
-    var collision_group = L.layerGroup.collision({margin:1});
+    var collision_group = L.layerGroup.collision();
     collision_group.addLayer(this.marker_collision_group);
     console.log("final -> collision_group", collision_group);
     collision_group.onAdd(this.activeMap);
