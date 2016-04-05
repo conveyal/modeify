@@ -330,6 +330,7 @@ function updateMapOnPlanChange(plan, map) {
   showMapView.cleanPolyline();
   showMapView.cleanMarker();
   showMapView.cleanMarkerpoint();
+  showMapView.marker_collision_group = [];
 
   var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
 
