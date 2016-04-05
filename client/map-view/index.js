@@ -15,7 +15,7 @@ if (config.map_provider && config.map_provider() !== 'AmigoCloud') {
 
 module.exports = function(el) {
   var map, realtime, southWest, northEast, blurLayer;
-
+  localStorage.removeItem('dataplan');
   if (config.map_provider && config.map_provider() === 'AmigoCloud') {
     southWest = L.latLng(35.946877085397,-123.480610897013);
     northEast = L.latLng(40.763279543715,-118.789317362500);
