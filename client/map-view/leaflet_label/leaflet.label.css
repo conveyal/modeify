@@ -20,8 +20,7 @@
     /*pointer-events: none;*/
     white-space: nowrap;
     /*z-index: 6;*/
-
-    text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff;
+    text-shadow: -2px -2px 0 rgba(255, 255, 255, 0.5), 2px -2px 0 rgba(255, 255, 255, 0.5), -2px 2px 0 rgba(255, 255, 255, 0.5), 2px 2px 0 rgba(255, 255, 255, 0.5);
 }
 
 .leaflet-label.leaflet-clickable {
