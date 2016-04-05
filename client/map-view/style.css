@@ -53,7 +53,4 @@
 .message_ {
     -webkit-animation: fade_jona;
     -webkit-animation-fill-mode: both;
-    stroke-linecap: round;
-    fill: none;
-    filter: dropshadow(0 0 0 5px rgba(255, 255, 255, 0.5));
 }
