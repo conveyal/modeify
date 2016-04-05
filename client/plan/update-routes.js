@@ -203,7 +203,6 @@ function populateSegments(options, journey) {
   for (var i = 0; i < options.length; i++) {
     var option = options[i];
     if (!option.transit || option.transit.length < 1) continue;
-    console.log("option->", option);
     for (var j = 0; j < option.transit.length; j++) {
       var segment = option.transit[j];
 
@@ -211,8 +210,6 @@ function populateSegments(options, journey) {
       for (var k = 0; k < segment.segmentPatterns.length; k++) {
         var pattern = segment.segmentPatterns[k];
         var patternId = pattern.patternId;
-            console.log("pattern->", pattern);
-          console.log("patternId ->",  patternId );
         var routeId = getRouteId(patternId, journey.patterns);
 
         routeId = routeId.split(':');
@@ -222,7 +219,6 @@ function populateSegments(options, journey) {
          console.log("routeId ->", routeId);
 
         routeId = routeId[0] + ':' + routeId[1];
-          console.log("journey.routes", journey.routes)
         var route = getRoute(routeId, journey.routes);
 
         console.log("routexxx", route);

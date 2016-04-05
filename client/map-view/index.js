@@ -99,7 +99,7 @@ module.exports.drawMakerCollision = function () {
     collision_group.addLayer(this.marker_collision_group);
     collision_group.onAdd(this.activeMap);
     this.collision_group =  collision_group;
-    console.log("este es el collision group ->", this.collision_group);
+
 };
 
 module.exports.getpolyline_creadas = function () {
@@ -226,7 +226,6 @@ module.exports.marker_map_point = function(to, map, set_hover){
         class_name = 'leaflet-div-icon2';
         html = "";
     }
-    console.log("class_name ->", class_name, "html ->", html);
     var marker = L.marker({"lat":to[0], "lng": to[1]}, {
 				icon: L.divIcon({
                     className: class_name,
