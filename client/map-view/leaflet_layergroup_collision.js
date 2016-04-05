@@ -634,13 +634,14 @@ function extensions(parentClass) { return {
 			return;
 		}
 		*/
-
+        this._originalLayers = [];
 		for (var i=0; i< layer.length;i++) {
             //this._staticLayers.push(layer[i]);
             //parentClass.prototype.addLayer.call(this, layer[i]);
             this._originalLayers.push(layer[i]);
 		}
 
+        console.log("originalLayers ->" , this._originalLayers);
         //this._staticLayers.push(layer);
 		//parentClass.prototype.addLayer.call(this, layer);
 		return;
@@ -696,6 +697,7 @@ function extensions(parentClass) { return {
 	},
 
 	_maybeAddLayerToRBush: function(layer) {
+
 		var z    = this._map.getZoom();
 		var bush = this._rbush;
 
@@ -715,7 +717,6 @@ function extensions(parentClass) { return {
 
 		boxes = this._positionBoxes(this._map.latLngToLayerPoint(layer.getLatLng()),boxes);
 
-
 		var collision = false;
 		for (var i=0; i<boxes.length && !collision; i++) {
 			collision = bush.search(boxes[i]).length > 0;
@@ -728,7 +729,6 @@ function extensions(parentClass) { return {
 			this._visibleLayers.push(layer);
 			bush.load(boxes);
 		} else {
-
 			parentClass.prototype.removeLayer.call(this, layer);
 		}
 	},

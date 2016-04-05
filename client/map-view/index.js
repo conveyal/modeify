@@ -98,6 +98,8 @@ module.exports.drawMakerCollision = function () {
     var collision_group = L.layerGroup.collision();
     collision_group.addLayer(this.marker_collision_group);
     collision_group.onAdd(this.activeMap);
+    this.collision_group =  collision_group;
+    console.log("este es el collision group ->", this.collision_group);
 };
 
 module.exports.getpolyline_creadas = function () {
@@ -124,7 +126,12 @@ module.exports.cleanPolyline = function() {
 
 };
 
+module.exports.cleanMarkerCollision = function() {
+    for (i in this.marker_collision_group) {
+        this.collision_group.removeLayer(this.marker_collision_group[i]);
+    }
 
+}
 module.exports.cleanMarker = function() {
     var map = this.activeMap;
     for (i in this.marker_creadas) {
@@ -180,6 +187,7 @@ module.exports.marker_map = function(from, to){
        var result = marker.getLatLng();
        _this.cleanPolyline();
        _this.cleanMarkerpoint();
+       _this.cleanMarkerCollision();
        var plan = session.plan();
 
             plan.setAddress('from', result.lng + ',' + result.lat, function(err, rees) {
@@ -192,6 +200,7 @@ module.exports.marker_map = function(from, to){
        var result = marker.getLatLng();
        _this.cleanPolyline();
        _this.cleanMarkerpoint();
+       _this.cleanMarkerCollision();
        var plan = session.plan();
             plan.setAddress('to', result.lng + ',' + result.lat, function(err, rees) {
                 plan.updateRoutes();
@@ -207,27 +216,14 @@ module.exports.marker_map = function(from, to){
 module.exports.marker_map_point = function(to, map, set_hover){
 
     var name = to[2];
-    var icon_url = '';
-    var markers ;
-    if (!set_hover){
-        icon_url = 'assets/images/graphics/icono.png'
-    }else{
-        icon_url = 'assets/images/graphics/icono1.png'
-    }
-
+    /*
     var IconEnd = L.icon({
         iconUrl: icon_url,
         iconSize: [20, 20],
         iconAnchor: [0, 0],
         popupAnchor:  [-3, -76]
     });
-
-    if (!set_hover){
-        markers = [L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name)];
-    }else{
-        markers = [L.marker([to[0], to[1]], {icon: IconEnd})];
-    }
-    var html = '<div class="leaflet-label">' + name + '</div>';
+    */
 
     var marker = L.marker({"lat":to[0], "lng": to[1]}, {
 				icon: L.divIcon({
@@ -278,8 +274,8 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
 
              }
              weight = 8;
-             this.marker_map_point(circle_from, this.activeMap, set_hover);
-             this.marker_map_point(circle_to, this.activeMap, set_hover);
+             this.marker_map_point(circle_from, this.activeMap);
+             this.marker_map_point(circle_to, this.activeMap);
 
         }
         else if(mode == "WALK") {
@@ -296,8 +292,8 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
                 }
              }
              weight = 5;
-             this.marker_map_point(circle_from, this.activeMap, set_hover);
-             this.marker_map_point(circle_to, this.activeMap, set_hover);
+             this.marker_map_point(circle_from, this.activeMap);
+             this.marker_map_point(circle_to, this.activeMap);
         }
 
 
