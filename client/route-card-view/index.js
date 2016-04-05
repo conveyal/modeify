@@ -18,13 +18,13 @@ var showMapView = require('map-view');
 
 var View = module.exports = view(require('./template.html'), function(view, model) {
   mouseenter(view.el, function() {
-    var itineraries = model.plan();
     var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
     sesion_plan = sesion_plan.plan;
 
     showMapView.cleanPolyline();
-    showMapView.cleanMarkerpoint();
     showMapView.cleanMarkerCollision();
+    showMapView.cleanMarkerpoint();
+
      //for (var i = 0; i < itineraries.legs.length; i++) {
      //     showMapView.drawRouteAmigo(itineraries.legs[i], itineraries.legs[i].mode);
      //}
@@ -46,6 +46,10 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 
   mouseleave(view.el, function() {
     if (!view.el.classList.contains('expanded')) {
+      showMapView.cleanPolyline();
+      showMapView.cleanMarkerCollision();
+      showMapView.cleanMarkerpoint();
+
       var option_draw = {'stroke':false, 'class_name':false};
       var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
       sesion_plan = sesion_plan.plan;
