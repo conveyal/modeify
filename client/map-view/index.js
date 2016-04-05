@@ -255,6 +255,8 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
         set_hover = true;
     }
 
+    console.log("legs ->", legs);
+
     var dasharray= '';
 
         if (mode=="CAR") {
