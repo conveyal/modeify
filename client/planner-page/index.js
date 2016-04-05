@@ -326,7 +326,7 @@ function showQuery(query) {
 function updateMapOnPlanChange(plan, map) {
 
   plan.on('change journey', function(journey) {
-
+  console.log("change journey");
   showMapView.cleanPolyline();
   showMapView.cleanMarker();
   showMapView.cleanMarkerpoint();
