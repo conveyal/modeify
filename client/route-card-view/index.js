@@ -23,7 +23,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
     sesion_plan = sesion_plan.plan;
 
     showMapView.cleanPolyline();
-    showMapView.cleanMarkerpoint();
+    showMapView.cleanMarkerCollision();
      //for (var i = 0; i < itineraries.legs.length; i++) {
      //     showMapView.drawRouteAmigo(itineraries.legs[i], itineraries.legs[i].mode);
      //}
@@ -36,7 +36,6 @@ var View = module.exports = view(require('./template.html'), function(view, mode
           }else{
             stroke = {'stroke':false, 'class_name':false}
           }
-          console.log("stroke->", stroke);
           for (var j=0; j < itineraries[i].legs.length; j++) {
              showMapView.drawRouteAmigo(itineraries[i].legs[j], itineraries[i].legs[j].mode, stroke);
           }
