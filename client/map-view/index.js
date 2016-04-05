@@ -323,9 +323,8 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
            color_options.className = 'fade-out four';
        }
 
-       //color_options.className = 'message_';
-       color_options.fillColor = '#000';
-       color_options.fillOpacity = '1';
+       color_options.className = 'message_';
+
 
 
        console.log("color");
