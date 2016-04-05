@@ -216,15 +216,16 @@ module.exports.marker_map = function(from, to){
 module.exports.marker_map_point = function(to, map, set_hover){
 
     var name = to[2];
-    var class_name;
+    var class_name = '';
     var html;
     if (!set_hover){
-        class_name = 'leaflet-div-icon2';
+        class_name = 'leaflet-div-icon1';
         html = "<div><span class='leaflet-label'>" + name + "</span></div>";
     }else{
-        class_name = 'leaflet-div-icon1';
+        class_name = 'leaflet-div-icon2';
         html = "";
     }
+    console.log("class_name ->", class_name);
     var marker = L.marker({"lat":to[0], "lng": to[1]}, {
 				icon: L.divIcon({
 					html:html,
