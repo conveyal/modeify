@@ -222,7 +222,7 @@ module.exports.marker_map_point = function(to, map){
 
 
     //var marker = L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name);
-
+    console.log("esta lista debe aparecer ->" name);
     var marker = L.marker({"lat":to[0], "lng": to[1]}, {
 				icon: L.divIcon({
 					html:
