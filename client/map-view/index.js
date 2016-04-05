@@ -95,6 +95,7 @@ module.exports.collision_group = {};
 module.exports.marker_collision_group = [];
 
 module.exports.drawMakerCollision = function () {
+    this.cleanMarkerCollision();
     var collision_group = L.layerGroup.collision();
     collision_group.addLayer(this.marker_collision_group);
     collision_group.onAdd(this.activeMap);
@@ -127,7 +128,10 @@ module.exports.cleanPolyline = function() {
 };
 
 module.exports.cleanMarkerCollision = function() {
-
+    var map = this.activeMap;
+    this.collision_group.eachLayer(function(layer){
+        map.removeLayer(layer);
+    });
 }
 module.exports.cleanMarker = function() {
     var map = this.activeMap;
