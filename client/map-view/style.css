@@ -27,6 +27,7 @@
 @-webkit-keyframes fade_jona {
     0% {
         opacity: 0.99;
+        color:#2B2922;
     }
 
     30% {
@@ -47,6 +48,7 @@
 
     100% {
         opacity: 0.30;
+        color:#2B2922;
     }
 }
 
