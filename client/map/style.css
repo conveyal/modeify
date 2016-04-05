@@ -191,11 +191,12 @@
 }
 
 .leaflet-divicon{
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  margin-top: 8px;
-
+ background-color: rgba(204, 0, 102, 0);
+ border: 5px solid #333;
+ height: 150px;
+ width: 150px;
+ -moz-border-radius:75px;
+ -webkit-border-radius: 75px;
 }
 
 
