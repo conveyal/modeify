@@ -813,7 +813,7 @@ function extensions(parentClass) { return {
 	},
 
 	_onZoomEnd: function() {
-
+        console.log("ejecutado onZoomEnd");
 		for (var i=0; i<this._visibleLayers.length; i++) {
 			parentClass.prototype.removeLayer.call(this, this._visibleLayers[i]);
 		}
