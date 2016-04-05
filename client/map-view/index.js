@@ -97,7 +97,6 @@ module.exports.marker_collision_group = [];
 module.exports.drawMakerCollision = function () {
     var collision_group = L.layerGroup.collision();
     collision_group.addLayer(this.marker_collision_group);
-    console.log("final -> collision_group", collision_group);
     collision_group.onAdd(this.activeMap);
 };
 
@@ -223,7 +222,7 @@ module.exports.marker_map_point = function(to, map){
 
 
     //var marker = L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name);
-    console.log("lat - lng ->" , {"lat":to[0], "lng": to[1]});
+
     var marker = L.marker({"lat":to[0], "lng": to[1]}, {
 				icon: L.divIcon({
 					html:
@@ -286,8 +285,6 @@ module.exports.drawRouteAmigo = function(legs,mode) {
 
              }
              weight = 8;
-             console.log("circle from ->", circle_from);
-             console.log("circle to ->", circle_to);
              this.marker_map_point(circle_from, this.activeMap);
              this.marker_map_point(circle_to, this.activeMap);
 
@@ -306,8 +303,6 @@ module.exports.drawRouteAmigo = function(legs,mode) {
                 }
              }
              weight = 5;
-             console.log("circle from ->", circle_from);
-             console.log("circle to ->", circle_to);
              this.marker_map_point(circle_from, this.activeMap);
              this.marker_map_point(circle_to, this.activeMap);
         }
@@ -322,7 +317,6 @@ module.exports.drawRouteAmigo = function(legs,mode) {
 
       var argpolyline = L.PolylineUtil.decode(route, 5);
       argpolyline.unshift(circle_from);
-      console.log("color ruta ->" , color);
       route = new L.Polyline(argpolyline, color_options);
       this.polyline_creadas.push(route);
       var boxes = L.RouteBoxer.box(route, 5);
