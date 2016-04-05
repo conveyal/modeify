@@ -3,6 +3,7 @@ var message = require('./client/messages')('welcome-flow:locations')
 var modal = require('./client/modal')
 
 var Locations = module.exports = modal({
+  closable: true,
   logo: true,
   message: message,
   template: require('./template.html')

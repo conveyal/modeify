@@ -5,6 +5,7 @@ var modal = require('./client/modal')
 var template = require('./template.html')
 
 var Welcome = module.exports = modal({
+  closable: true,
   logo: true,
   message: message,
   template: template

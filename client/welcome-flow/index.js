@@ -19,20 +19,26 @@ var TO = config.geocode().end_address
  */
 
 module.exports = function (commuter, plan) {
-  var main = document.querySelector('#main')
-
-  main.classList.add('Welcome')
-
   var welcome = new Welcome(commuter)
+  var locations = new Locations({
+    'locations-view': new LocationsView(plan),
+    plan: plan,
+    commuter: commuter
+  })
 
+  plan.setAddresses(FROM, TO, function (err) {
+    if (err) {
+      log.error('%e', err)
+    } else {
+      plan.journey({ places: plan.generatePlaces() })
+      plan.updateRoutes()
+    }
+  })
+
+  welcome.on('hide', skip)
   welcome.on('next', function () {
-    var locations = new Locations({
-      'locations-view': new LocationsView(plan),
-      plan: plan,
-      commuter: commuter
-    })
     locations.show()
-
+    locations.on('hide', skip)
     locations.on('next', function () {
       var route = plan.options()[0]
 
@@ -45,7 +51,6 @@ module.exports = function (commuter, plan) {
           plan: plan
         })
         routeModal.show()
-        main.classList.remove('Welcome')
 
         routeModal.on('next', function () {
           analytics.track('Completed Welcome Wizard')
@@ -60,25 +65,16 @@ module.exports = function (commuter, plan) {
     })
 
     locations.on('skip', function () {
-      commuter.updateProfile('welcome_wizard_complete', true)
-      commuter.save()
-
-      main.classList.remove('Welcome')
       locations.hide()
-      showPlannerWalkthrough()
-
-      plan.setAddresses(FROM, TO, function (err) {
-        if (err) {
-          log.error('%e', err)
-        } else {
-          plan.journey({
-            places: plan.generatePlaces()
-          })
-          plan.updateRoutes()
-        }
-      })
     })
   })
+
+  function skip () {
+    analytics.track('Exited Welcome Wizard')
+    commuter.updateProfile('welcome_wizard_complete', true)
+    commuter.save()
+    showPlannerWalkthrough()
+  }
 
   // Start!
   welcome.show()

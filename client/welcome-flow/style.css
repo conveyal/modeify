@@ -1,24 +1,16 @@
 
-#main.Welcome {
-  background-image: url(/images/application/welcome-background.jpg);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-#main.Welcome > .fullscreen {
-  opacity: 0;
-}
-
 .WelcomeFlow {
   font-size: 16px;
   color: var(--font-color);
 }
 
 .WelcomeFlow h3 {
-  margin: 10px 0;
   text-align: center;
   line-height: 20px;
+}
+
+.WelcomeFlow h3:first-of-type {
+  margin-top: 0;
 }
 
 .WelcomeFlow p {

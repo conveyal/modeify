@@ -22,7 +22,7 @@ var events = ['showing', 'show', 'hiding', 'hide']
  */
 
 module.exports = function (opts, fn) {
-  if (opts.closable) opts.template = require('./closable.html') + opts.template
+  if (opts.closable && !opts.logo) opts.template = require('./closable.html') + opts.template
   if (!opts.noPadding) opts.template = '<div class="content">' + opts.template + '</div>'
 
   // Wrap with a logo nav
