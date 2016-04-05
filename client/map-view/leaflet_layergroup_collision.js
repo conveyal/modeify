@@ -696,7 +696,6 @@ function extensions(parentClass) { return {
 	},
 
 	_maybeAddLayerToRBush: function(layer) {
-        console.log("zoom" , layer);
 		var z    = this._map.getZoom();
 		var bush = this._rbush;
 
@@ -815,14 +814,11 @@ function extensions(parentClass) { return {
 	},
 
 	_onZoomEnd: function() {
-        console.log("ejecuta zoon");
 		for (var i=0; i<this._visibleLayers.length; i++) {
 			parentClass.prototype.removeLayer.call(this, this._visibleLayers[i]);
 		}
 
 		this._rbush = rbush();
-
-		console.log("rbush -> " , this._rbush);
 
 		for (var i=0; i < this._originalLayers.length; i++) {
 			this._maybeAddLayerToRBush(this._originalLayers[i]);
