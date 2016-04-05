@@ -319,8 +319,7 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
        }
        if (option.class_name){
             //color_options.className = 'message_';
-           color_options.className = 'fadeInx';
-            color_options.color = '#EFF1F2';
+           color_options.className = 'fade-out four';
        }
 
 

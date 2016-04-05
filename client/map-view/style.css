@@ -50,28 +50,36 @@
     }
 }
 
+
+@-webkit-keyframes fade-out {
+0% { opacity: 0.80;}
+50% { opacity: 0.60;}
+100% {opacity:0.40;}
+}
+
+.fade-out {
+    -webkit-animation: fade-out .3s ease-out;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: 1;
+    background-color: #EFF1F2;
+    width: 100px;
+    height: 100px;
+    opacity: 0.40;
+    -webkit-box-shadow: 0px 0px 10px rgba(255,255,255,255.5);
+   -moz-box-shadow: 0px 0px 10px rgba(255,255,255,255.5);
+   box-shadow: 0px 0px 10px rgba(255,255,255,255.5);
+}
+
+/* .fade-out.one {-webkit-animation-delay: .5s;}
+.fade-out.two {-webkit-animation-delay: 1.5s;}
+.fade-out.three {-webkit-animation-delay: 2.5s;} */
+.fade-out.four {-webkit-animation-delay: 0.3s;}
+
 .message_ {
     -webkit-animation: fade_jona 1s;
     -webkit-animation-fill-mode: both;
 }
 
-@-webkit-keyframes fadeInx {
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeInx {
-  to {
-    opacity: 0.3;
-  }
-}
-
-.fadeInx {
-	-webkit-animation: fadeInx .5s ease-in 1 forwards;
-  animation: fadeInx .5s ease-in 1 forwards;
-  opacity: 0;
-}
 
 .leaflet-div-icon1 {
   background: rgba(255, 255, 255, 0.5);
