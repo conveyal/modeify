@@ -218,12 +218,13 @@ module.exports.marker_map_point = function(to, map, set_hover){
     var name = to[2];
     var class_name = '';
     var html;
+      html = "<div><span class='leaflet-label'>" + name + "</span></div>";
     if (!set_hover){
         class_name = 'leaflet-div-icon1';
-        html = "<div><span class='leaflet-label'>" + name + "</span></div>";
+        //html = "<div><span class='leaflet-label'>" + name + "</span></div>";
     }else{
         class_name = 'leaflet-div-icon2';
-        html = "";
+        //html = "";
     }
     console.log("class_name ->", class_name, "html ->", html);
     var marker = L.marker({"lat":to[0], "lng": to[1]}, {
