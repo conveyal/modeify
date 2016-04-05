@@ -10,8 +10,7 @@
     "leaflet_routeboxer.js",
     "polyline_encoded.js",
     "leaflet_label/leaflet.label-src.js",
-    "leaflet_layergroup_collision.js",
-    "rbush.js"
+    "leaflet_layergroup_collision.js"
   ],
   "styles": [
     "style.css",
