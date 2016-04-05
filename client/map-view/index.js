@@ -228,15 +228,17 @@ module.exports.marker_map_point = function(to, map, set_hover){
         markers = [L.marker([to[0], to[1]], {icon: IconEnd})];
     }
     var html = '<div class="leaflet-divicon leaflet-label">' + name + '</div>';
-    var marker = L.marker({"lat":to[0], "lng": to[1]}, {
-				icon: L.divIcon({
-					html:html
-				})
-				,interactive: false
-				,clickable:   false
-				});
 
-    this.marker_collision_group.push(marker);
+    var circle = L.circleMarker([to[0], to[1]], { fillColor: "#fff", opacity:"1", color:"#000", radius: 8 } ).bindLabel(name);
+    //var marker = L.marker({"lat":to[0], "lng": to[1]}, {
+		//		icon: L.divIcon({
+		//			html:html
+		//		})
+		//		,interactive: false
+		//		,clickable:   false
+		//		});
+
+    this.marker_collision_group.push(circle);
 };
 
 
