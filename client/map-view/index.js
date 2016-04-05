@@ -322,7 +322,7 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
            color_options.className = 'fade-out four';
        }
 
-       color_options.className = 'fade-out four';
+       color_options.className = 'message_';
        console.log("color");
       var argpolyline = L.PolylineUtil.decode(route, 5);
       argpolyline.unshift(circle_from);
