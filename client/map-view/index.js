@@ -314,16 +314,15 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
 
        if (option.stroke){
          delete color_options.opacity;
-       }else{
-          color_options.color = color;
-          color_options.stroke = false;
-       }
-       if (option.class_name){
-            //color_options.className = 'message_';
-           color_options.className = 'fade-out four';
        }
 
-       color_options.className = 'message_';
+
+       if (option.class_name){
+           color_options.className = 'message_';
+
+       }
+
+
 
 
 
