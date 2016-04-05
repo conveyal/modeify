@@ -32,7 +32,8 @@
 
     100% {
         opacity: 0.30;
-        color:#000000;
+        color:#ccc;
+        border: 2px solid white;
           -moz-box-shadow: 2px 2px 16px #fff;
     -webkit-box-shadow: 2px 2px 16px #fff ;
      box-shadow:2px 2px 16px #fff;
