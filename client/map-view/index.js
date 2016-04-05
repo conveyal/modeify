@@ -224,11 +224,11 @@ module.exports.marker_map_point = function(to, map, set_hover){
         popupAnchor:  [-3, -76]
     });
     */
-    var html ='<div class="marker-cluster"><span>' + name + '</span></div>';
+    var html = "<span class='leaflet-div-icon2'>" + name + "</span>";
     var marker = L.marker({"lat":to[0], "lng": to[1]}, {
 				icon: L.divIcon({
 					html:html,
-                    className: 'marker-cluster',
+                    className: 'leaflet-div-icon2',
                     iconSize: new L.Point(40, 40)
 				})
 				,interactive: false
