@@ -230,7 +230,8 @@ module.exports.marker_map_point = function(to, map, set_hover){
 				icon: L.divIcon({
                     className: class_name,
                     iconSize: [15, 15],
-                    iconAnchor: [0, 0]
+                    iconAnchor: [0, 0],
+                    html:html
 				})
 				,interactive: false
 				,clickable:   false
