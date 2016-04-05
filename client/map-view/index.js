@@ -238,7 +238,6 @@ module.exports.marker_map_point = function(to, map, set_hover){
 
 
     this.marker_collision_group.push(marker);
-    marker.bindLabel(name);
 };
 
 
