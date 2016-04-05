@@ -222,6 +222,7 @@ module.exports.marker_map_point = function(to, map, set_hover){
     }else{
         class_name = 'leaflet-div-icon2'
     }
+    console.log(class_name)
     var html = "<div><span class='leaflet-label'>" + name + "</span></div>";
     var marker = L.marker({"lat":to[0], "lng": to[1]}, {
 				icon: L.divIcon({
