@@ -216,18 +216,14 @@ module.exports.marker_map = function(from, to){
 module.exports.marker_map_point = function(to, map){
 
     var name = to[2];
-
+    /*
     var IconEnd = L.icon({
         iconUrl: 'assets/images/graphics/icono.png',
         iconSize: [20, 20],
         iconAnchor: [0, 0],
         popupAnchor:  [-3, -76]
     });
-
-
-    var markers = [
-      L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name)
-    ];
+    */
 
     var marker = L.marker({"lat":to[0], "lng": to[1]}, {
 				icon: L.divIcon({
@@ -239,22 +235,6 @@ module.exports.marker_map_point = function(to, map){
 				,interactive: false
 				,clickable:   false
 				});
-    //var layer = L.layerGroup(markers).addTo(map).eachLayer(function(layer){layer.showLabel()});
-
-    //console.log("antes del marker ->", this.collision_group);
-    //this.collision_group.addLayer(marker);
-    //console.log("inserto marker->", marker);
-    //console.log("despues del marker ->", this.collision_group);
-    //console.log("group ->", L.layerGroup(markers));
-
-    //this.makerpoint_creadas.push(layer);
-
-    //var collision_group = L.layerGroup.collision({margin:5});
-    //collision_group.addLayer(marker);
-    //collision_group.onAdd(this.activeMap);
-    //this.collision_group = collision_group;
-    //console.log("collision_group -> ",collision_group);
-    //this.marker_collision_group.push(marker);
 
     this.marker_collision_group.push(marker);
 };
