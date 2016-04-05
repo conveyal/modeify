@@ -20,7 +20,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
   mouseenter(view.el, function() {
     showMapView.cleanPolyline();
     showMapView.cleanMarkerpoint();
-    //showMapView.cleanMarkerCollision();
+    showMapView.cleanMarkerCollision();
     showMapView.marker_collision_group = [];
 
     var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
@@ -39,15 +39,16 @@ var View = module.exports = view(require('./template.html'), function(view, mode
              showMapView.drawRouteAmigo(itineraries[i].legs[j], itineraries[i].legs[j].mode, stroke);
           }
       }
+      showMapView.drawMakerCollision();
 
   });
 
   mouseleave(view.el, function() {
     if (!view.el.classList.contains('expanded')) {
-          //showMapView.cleanPolyline();
-          //showMapView.cleanMarkerpoint();
-          //showMapView.cleanMarkerCollision();
-          //showMapView.marker_collision_group = [];
+      showMapView.cleanPolyline();
+      showMapView.cleanMarkerpoint();
+      showMapView.cleanMarkerCollision();
+      showMapView.marker_collision_group = [];
 
       var option_draw = {'stroke':false, 'class_name':false};
       var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
@@ -58,6 +59,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
             showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode, option_draw);
           }
       }
+      showMapView.drawMakerCollision();
 
     }
   });
