@@ -72,7 +72,7 @@
 /* .fade-out.one {-webkit-animation-delay: .5s;}
 .fade-out.two {-webkit-animation-delay: 1.5s;}
 .fade-out.three {-webkit-animation-delay: 2.5s;} */
-.fade-out .four {-webkit-animation-delay: 0.3s;}
+.fade-out .four {-webkit-animation-delay: 0.1s;}
 
 .message_ {
     -webkit-animation: fade_jona 1s;
