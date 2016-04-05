@@ -274,8 +274,8 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
 
              }
              weight = 8;
-             this.marker_map_point(circle_from, this.activeMap);
-             this.marker_map_point(circle_to, this.activeMap);
+             this.marker_map_point(circle_from, this.activeMap, set_hover);
+             this.marker_map_point(circle_to, this.activeMap, set_hover);
 
         }
         else if(mode == "WALK") {
@@ -292,8 +292,8 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
                 }
              }
              weight = 5;
-             this.marker_map_point(circle_from, this.activeMap);
-             this.marker_map_point(circle_to, this.activeMap);
+             this.marker_map_point(circle_from, this.activeMap, set_hover);
+             this.marker_map_point(circle_to, this.activeMap, set_hover);
         }
 
 
