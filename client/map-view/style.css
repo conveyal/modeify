@@ -26,7 +26,7 @@
 
 @-webkit-keyframes fade_jona {
     0% {
-        opacity: 1;
+        opacity: 0.99;
     }
 
     30% {
@@ -63,7 +63,7 @@
     -webkit-animation-iteration-count: 1;
     width: 100px;
     height: 100px;
-    opacity: 0.40;
+    opacity: 0.99;
        -moz-box-shadow: 2px 2px 16px #fff;
     -webkit-box-shadow: 2px 2px 16px #fff ;
      box-shadow:2px 2px 16px #fff;
