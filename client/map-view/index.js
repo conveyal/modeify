@@ -130,7 +130,8 @@ module.exports.cleanPolyline = function() {
 module.exports.cleanMarkerCollision = function() {
     var map = this.activeMap;
     this.collision_group.eachLayer(function(layer){
-        map.removeLayer(layer);
+        //map.removeLayer(layer);
+        console.log("esto es layer ->", layer);
     });
 }
 module.exports.cleanMarker = function() {
