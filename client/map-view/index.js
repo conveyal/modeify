@@ -235,7 +235,7 @@ module.exports.marker_map_point = function(to, map, set_hover){
 				,interactive: false
 				,clickable:   false
 				});
-    marker.bindPopup(name);
+    marker.bindLabel(name);
 
     this.marker_collision_group.push(marker);
 };
