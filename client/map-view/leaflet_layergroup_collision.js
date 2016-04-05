@@ -716,23 +716,20 @@ function extensions(parentClass) { return {
 
 		boxes = this._positionBoxes(this._map.latLngToLayerPoint(layer.getLatLng()),boxes);
 
-        console.log("boxes ->" , boxes);
+
 		var collision = false;
 		for (var i=0; i<boxes.length && !collision; i++) {
 			collision = bush.search(boxes[i]).length > 0;
 		}
 
-        console.log("collision",collision);
-
 		if (!collision) {
-		    console.log("no collision");
 			if (!visible) {
 				parentClass.prototype.addLayer.call(this, layer);
 			}
 			this._visibleLayers.push(layer);
 			bush.load(boxes);
 		} else {
-		    console.log("si hay collision");
+
 			parentClass.prototype.removeLayer.call(this, layer);
 		}
 	},
