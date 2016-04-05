@@ -23,7 +23,6 @@ var View = module.exports = view(require('./template.html'), function(view, mode
     sesion_plan = sesion_plan.plan;
 
     showMapView.cleanPolyline();
-    showMapView.cleanMarkerCollision();
      //for (var i = 0; i < itineraries.legs.length; i++) {
      //     showMapView.drawRouteAmigo(itineraries.legs[i], itineraries.legs[i].mode);
      //}
