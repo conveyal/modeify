@@ -43,7 +43,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       }
 
       d3.selectAll(".iteration-200").sort(function(a,b){
-            console.log("esto es d", b);
+            console.log("esto es d", a);
              console.log("esto es this", this);
       });
 
