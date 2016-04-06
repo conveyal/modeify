@@ -26,6 +26,9 @@ var View = module.exports = view(require('./template.html'), function(view, mode
            if (i!=model.index){
                 r3.transition().duration(600).style("stroke", "#E0E0E0");
                 r3.attr("data-show","0");
+
+               var rec2 = d3.selectAll(".circle-fade-"+i);
+ -             rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon2 circle-fade-'+i+ ' leaflet-zoom-hide');
            }else {
                 r3.attr("data-show","1");
            }
