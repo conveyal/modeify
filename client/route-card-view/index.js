@@ -26,8 +26,6 @@ var View = module.exports = view(require('./template.html'), function(view, mode
            if (i!=model.index){
                 r3.transition().duration(500).style("stroke", "#E0E0E0");
                 r3.attr("data-show","0");
-
-                console.log("r3",r3);
            }else {
                 r3.attr("data-show","1");
            }
@@ -35,13 +33,12 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 
       d3.selectAll(".iteration-200").each(function(e){
             var element = d3.select(this);
-            var parent = element.node().parentNode;
+            var parent = d3.select(element.node().parentNode);
+            parent.attr("class", "g-element");
             if (Boolean(parseInt(element.attr("data-show")))) {
-                d3.select(parent).attr("class", "g-element");
-                d3.select(parent).attr("data-show", "1");
+                parent.attr("data-show", "1");
             }else {
-                d3.select(parent).attr("class", "g-element");
-                d3.select(parent).attr("data-show", "0");
+                parent.attr("data-show", "0");
             }
 
       });
