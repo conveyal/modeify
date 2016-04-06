@@ -20,6 +20,7 @@
 .leaflet-label.leaflet-clickable {
     cursor: pointer;
     pointer-events: auto;
+    outline: none;
 }
 
 .leaflet-label:before,
