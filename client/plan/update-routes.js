@@ -78,8 +78,10 @@ function updateRoutes(plan, opts, callback) {
         var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
         if (!(sesion_plan === null)) {
             localStorage.removeItem('dataplan');
+            localStorage.removeItem('itineration');
         }
 
+        localStorage.setItem('itineration', {"length":itineraries.length});
         localStorage.setItem('dataplan', JSON.stringify(data.options));
 
           // Track the commute
