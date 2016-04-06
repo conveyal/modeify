@@ -9,7 +9,7 @@
     outline: none;
 }
 
-.leaflet-label:focus {
+.leaflet-label:focus, :active, :hover {
    border: none !important;
    outline: none;
 }

@@ -218,12 +218,12 @@ function populateSegments(options, journey) {
         var agency = routeId[0].toLowerCase();
         var line = routeId[1].toLowerCase();
 
-         console.log("routeId ->", routeId);
+
 
         routeId = routeId[0] + ':' + routeId[1];
         var route = getRoute(routeId, journey.routes);
 
-        console.log("routexxx", route);
+
 
         pattern.longName = route.route_long_name;
         pattern.shortName = route.route_short_name;

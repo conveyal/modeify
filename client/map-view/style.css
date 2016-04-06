@@ -72,6 +72,7 @@
   font-weight:bold;
   text-align:center;
   border-radius:50%;
+  outline: none;
 }
 
 .leaflet-div-icon2 {
@@ -81,11 +82,13 @@
     border-radius: 50%;
     filter: alpha(opacity=50);
     opacity: 0.5;
+    outline: none;
 }
 
 .leaflet-div-icon2 .leaflet-label{
     visibility: hidden;
     opacity: 0;
+    outline: none;
 }
 
 

@@ -61,11 +61,9 @@ var View = module.exports = view(require('./template.html'), function(view, mode
   mouseleave(view.el, function() {
 
     var itineration = JSON.parse(localStorage.getItem('itineration'));
-    console.log("obj itineration 2->", itineration.length);
     for (var i=0; i<itineration.length;i++) {
 
         if (i!=model.index){
-
             d3.selectAll(".iteration-"+i)
             .transition().duration(500).style("stroke", function(b){
                     console.log("este es stroke ->", this);
