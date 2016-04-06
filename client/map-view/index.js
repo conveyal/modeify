@@ -216,7 +216,7 @@ module.exports.marker_map = function(from, to){
 module.exports.marker_map_point = function(to, map, itineration){
 
     var name = to[2];
-    var class_name = 'leaflet-div-icon1 .circle-fade-'+itineration;
+    var class_name = 'leaflet-div-icon1 circle-fade-'+itineration;
     var html = "<span class='leaflet-label'>" + name + "</span>";
 
     var marker = L.marker({"lat":to[0], "lng": to[1]}, {
