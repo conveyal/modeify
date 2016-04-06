@@ -25,10 +25,14 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       console.log("obj itineration 1 ->", itineration.length);
       var element = [];
       for (var i=0; i<itineration.length;i++) {
+           var r3 = d3.selectAll(".iteration-"+i);
            if (i!=model.index){
-                d3.selectAll(".iteration-"+i)
-                .style("opacity", 1)
+
+                r3.style("opacity", 1)
                 .transition().duration(500).style("opacity", 0);
+                r3.attr("color","#ffffff");
+           }else {
+                r3.attr("color","#000000");
            }
       }
 
