@@ -36,7 +36,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       }
 
        var rec2 = d3.selectAll(".leaflet-div-icon1");
-       rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon1 leaflet-zoom-hide legend-fadeout');
+       rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon2 leaflet-zoom-hide legend-fadeout');
 
 
   /*
@@ -80,7 +80,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
         }
    }
 
-   var rec2 = d3.selectAll(".leaflet-div-icon1");
+   var rec2 = d3.selectAll(".leaflet-div-icon2");
    rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon1 leaflet-zoom-hide');
 
 
