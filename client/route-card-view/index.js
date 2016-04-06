@@ -21,7 +21,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
   mouseenter(view.el, function() {
 
       var itineration = JSON.parse(localStorage.getItem('itineration'));
-      var groupData = {"micolor"};
+
       console.log("obj itineration 1 ->", itineration.length);
       for (var i=0; i<itineration.length;i++) {
            if (i!=model.index){
@@ -80,7 +80,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
         .transition().duration(500)
         .style('stroke', function(d){
                 console.log(this);
-                return this.color;
+                return this.id;
             });
 
         /*
