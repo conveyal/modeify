@@ -27,10 +27,10 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       for (var i=0; i<itineration.length;i++) {
            var r3 = d3.selectAll(".iteration-"+i);
            if (i!=model.index){
-
-                r3.style("opacity", 1)
-                .transition().duration(500).style("opacity", 0);
+                .transition().duration(500).style("stroke", "#E0E0E0");
                 r3.attr("color","#ffffff");
+
+                //r3.style("opacity", 1)
            }else {
                 r3.attr("color","#000000");
            }
@@ -91,8 +91,12 @@ var View = module.exports = view(require('./template.html'), function(view, mode
         if (i!=model.index){
 
             d3.selectAll(".iteration-"+i)
-                .style("opacity", 0)
-                .transition().duration(500).style("opacity", 1);
+            .transition().duration(500).style("stroke", function(){
+                    console.log("este es strole ->", d3.select(this).attr("stroke"));
+                   return d3.select(this).attr("stroke");
+            });
+                //.style("opacity", 0)
+                //.transition().duration(500).style("opacity", 1);
         }
    }
   });
