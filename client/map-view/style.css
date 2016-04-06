@@ -87,3 +87,15 @@
 -moz-box-shadow: 0px -1px 4px 2px rgba(153,153,153,0.29);
 box-shadow: 0px -1px 4px 2px rgba(153,153,153,0.29);
 }
+
+
+
+.legend-fadeout{
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  color: #E0E0E0;
+  stroke: #E0E0E0;
+  opacity: 1;
+  transition: opacity 2s linear;
+
+}
