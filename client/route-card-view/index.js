@@ -28,11 +28,6 @@ var View = module.exports = view(require('./template.html'), function(view, mode
            if (i!=model.index){
                 var r3 = d3.selectAll(".iteration-"+i);
                 r3.transition().duration(500).style("stroke", "#E0E0E0");
-
-                r3.sort(function(a,b){
-                    return -1;
-
-                });
                 //.transition().duration(400).classed("hide-route", true);
                 /*
                 rec.setAttribute('data-color', function(d){
@@ -47,9 +42,9 @@ var View = module.exports = view(require('./template.html'), function(view, mode
            }
       }
 
-      d3.selectAll(".iteration-"+model.index).sort(function(a,b){
-
-            return 1;
+      d3.selectAll(".iteration-200").sort(function(a,b){
+            console.log("esto es d", b);
+             console.log("esto es this", this);
       });
 
 
