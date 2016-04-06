@@ -20,9 +20,9 @@ var showWelcomeWizard = require('welcome-flow');
 var showPlannerWalkthrough = require('planner-walkthrough');
 var geocode = require('geocode');
 
-
 var FROM = config.geocode().start_address;
 var TO = config.geocode().end_address;
+
 var isMobile = window.innerWidth <= 480;
 var center = config.geocode().center.split(',').map(parseFloat);
 
@@ -71,6 +71,7 @@ module.exports = function(ctx, next) {
     var map = showMapView(ctx.view.find('.MapView'));
 
     // Update map on plan change
+
     updateMapOnPlanChange(plan, map);
 
     map.on('click', function (e) {
@@ -326,18 +327,17 @@ function showQuery(query) {
 function updateMapOnPlanChange(plan, map) {
 
   plan.on('change journey', function(journey) {
-
   showMapView.cleanPolyline();
   showMapView.cleanMarker();
   showMapView.cleanMarkerpoint();
+  showMapView.cleanMarkerCollision();
+  showMapView.marker_collision_group = [];
 
   var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
-
     if (journey && !isMobile) {
       try {
 
         if(!(sesion_plan === null)) {
-
                 sesion_plan = sesion_plan.plan;
 
                 var itineraries = sesion_plan.itineraries;
@@ -347,16 +347,20 @@ function updateMapOnPlanChange(plan, map) {
                         [sesion_plan.to.lat,sesion_plan.to.lon]
                 );
 
+
+
                 for (i = 0; i < itineraries.length; i++) {
                     for (ii=0; ii < itineraries[i].legs.length; ii++) {
-
-                      showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
+                      showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode, i);
                     }
                 }
+
 
                 var lat_center_polyline = (sesion_plan.from.lat + sesion_plan.to.lat) / 2;
                 var lon_center_polyline = (sesion_plan.from.lon + sesion_plan.to.lon) / 2;
                 map.setView([lat_center_polyline, lon_center_polyline], 11);
+
+                showMapView.drawMakerCollision();
             }
 
       } catch (e) {

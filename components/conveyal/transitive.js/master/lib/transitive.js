@@ -199,8 +199,6 @@ Transitive.prototype.refresh = function(panning) {
  */
 
 Transitive.prototype.focusJourney = function(journeyId) {
-  console.log(" journeyId ->",  journeyId);
-  console.log("this.network.journeys[journeyId].path ->", this.network.journeys[journeyId]);
   var path = journeyId ? this.network.journeys[journeyId].path : null;
   this.renderer.focusPath(path);
 };

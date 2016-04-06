@@ -131,7 +131,6 @@ L.RouteBoxer = L.extend({
     // Find the center of the bounding box of the path
     var routeBoundsCenter = routeBounds.getCenter();
 
-    //console.log(routeBoundsCenter.lat);
 
 
     // Starting from the center define grid lines outwards vertically until they

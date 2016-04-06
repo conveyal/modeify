@@ -162,3 +162,7 @@
   margin: 10px;
   text-align: right;
 }
+
+.hide-route {
+    stroke: #E0E0E0;
+}

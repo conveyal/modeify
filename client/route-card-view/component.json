@@ -1,6 +1,7 @@
 {
   "name": "route-card-view",
   "dependencies": {
+    "mbostock/d3": "*",
     "component/mouseenter": "*",
     "component/mouseleave": "*"
   },

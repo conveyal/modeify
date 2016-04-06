@@ -50,11 +50,34 @@ function reverseAmigo(ll, callback) {
   });
 }
 
+function reverseAmigo(ll, callback) {
+  log('--> reverse geocoding %s', ll);
+
+  var parameter = {
+      'token':config.realtime_access_token() ,
+      'point.lon':ll[0],
+      'point.lat':ll[1]
+  };
+  get('https://www.amigocloud.com/api/v1/me/geocoder/reverse', parameter, function(err, res) {
+
+    if (err) {
+      log('<-- geocoding error %e', err);
+      //return false;
+    } else {
+      log('<-- geocoding complete %j', res.body);
+      //return res.body;
+      callback(false, res.body);
+    }
+  });
+}
+
+
 /**
  * Suggestions!
  */
 
 function suggestAmigo(text, callback) {
+
     var databoundary = [];
     get('https://www.amigocloud.com/api/v1/users/1/projects/661/datasets/22492', {'token' : config.realtime_access_token()}, function(err, res) {
 
@@ -100,5 +123,39 @@ function suggestAmigo(text, callback) {
         }
 
     });
+}
+
+function suggest(text, callback) {
+  var bingSuggestions, nominatimSuggestions, totalSuggestions;
+  log('--> getting suggestion for %s', text);
+
+  get('/geocode/suggest/'+ text, function(err, res){
+
+    if (err) {
+      log('<-- suggestion error %s', err);
+      callback(err, res);
+    } else {
+      log('<-- got %s suggestions', res.body.length);
+
+	bingSuggestions = res.body;
+
+	get('http://nominatim.openstreetmap.org/search' +
+	    '?format=json&addressdetails=1&' +
+	    'viewbox=' + southWest[0] + ',' +
+	    northEast[1] + ',' + northEast[0] + ',' + southWest[1] +
+	    '&bounded=1' +
+	    'countrycodes=us&q=' + text, function (err, nRes) {
+		var inside = false;
+	    nominatimSuggestions = [];
+            for (var i = 0; i < nRes.body.length; i++) {
+                    nominatimSuggestions.push(nRes.body[i]);
+            }
+            callback(
+		null,
+		nominatimSuggestions.slice(0,2).concat(bingSuggestions.slice(0,3))
+	    );
+	});
+    }
+  });
 
 }

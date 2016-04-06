@@ -139,30 +139,31 @@ Plan.prototype.geocode = function(dest, callback) {
 /**
  * Save Journey
  */
-//
-//Plan.prototype.saveJourney = function(callback) {
-//  var opts = {};
-//  var skipKeys = ['options', 'journey', 'scorer'];
-//  for (var key in this.attrs) {
-//    if (skipKeys.indexOf(key) !== -1 || key.indexOf('to') === 0 || key.indexOf('from') === 0) {
-//      continue;
-//    }
-//    opts[key] = this.attrs[key];
-//  }
-//
-//  // Create new journey
-//  var journey = new Journey({
-//    locations: [{
-//      _id: this.from_id()
-//    }, {
-//      _id: this.to_id()
-//    }],
-//    opts: opts
-//  });
-//
-//  // Save
-//  journey.save(callback);
-//};
+
+Plan.prototype.saveJourney = function(callback) {
+  var opts = {};
+  var skipKeys = ['options', 'journey', 'scorer'];
+  for (var key in this.attrs) {
+    if (skipKeys.indexOf(key) !== -1 || key.indexOf('to') === 0 || key.indexOf('from') === 0) {
+      continue;
+    }
+    opts[key] = this.attrs[key];
+  }
+
+  // Create new journey
+
+  var journey = new Journey({
+    locations: [{
+      _id: this.from_id()
+    }, {
+      _id: this.to_id()
+    }],
+    opts: opts
+  });
+
+  // Save
+  journey.save(callback);
+};
 
 /**
  * Valid coordinates

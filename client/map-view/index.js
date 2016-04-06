@@ -4,6 +4,7 @@ var plugins = require('./leaflet_plugins');
 var polyUtil = require('./polyline_encoded.js');
 var routeboxer = require('./leaflet_routeboxer.js');
 var leaflet_label = require('./leaflet_label/leaflet.label-src.js');
+var collision = require('./leaflet_layergroup_collision.js');
 var session = require('session');
 
 var center = config.geocode().center.split(',').map(parseFloat)
@@ -14,7 +15,7 @@ if (config.map_provider && config.map_provider() !== 'AmigoCloud') {
 
 module.exports = function(el) {
   var map, realtime, southWest, northEast, blurLayer;
-
+  localStorage.removeItem('dataplan');
   if (config.map_provider && config.map_provider() === 'AmigoCloud') {
     southWest = L.latLng(35.946877085397,-123.480610897013);
     northEast = L.latLng(40.763279543715,-118.789317362500);
@@ -90,6 +91,16 @@ module.exports.cleanRoute = function() {
 module.exports.polyline_creadas = [];
 module.exports.marker_creadas = [];
 module.exports.makerpoint_creadas = [];
+module.exports.collision_group = {};
+module.exports.marker_collision_group = [];
+
+module.exports.drawMakerCollision = function () {
+    var collision_group = L.layerGroup.collision();
+    collision_group.addLayer(this.marker_collision_group);
+    collision_group.onAdd(this.activeMap);
+    this.collision_group =  collision_group;
+
+};
 
 module.exports.getpolyline_creadas = function () {
   return this.polyline_creadas;
@@ -115,7 +126,12 @@ module.exports.cleanPolyline = function() {
 
 };
 
+module.exports.cleanMarkerCollision = function() {
+    for (i in this.marker_collision_group) {
+        this.collision_group.removeLayer(this.marker_collision_group[i]);
+    }
 
+}
 module.exports.cleanMarker = function() {
     var map = this.activeMap;
     for (i in this.marker_creadas) {
@@ -149,14 +165,14 @@ module.exports.cleanMarkerpoint = function() {
 module.exports.marker_map = function(from, to){
      var IconStart = L.icon({
         iconUrl: 'assets/images/graphics/start.svg',
-        iconSize: [40, 55],
-        iconAnchor: [20, 50],
+        iconSize: [28, 28],
+        iconAnchor: [0, 0],
         popupAnchor:  [0, -50]
     });
     var IconEnd = L.icon({
         iconUrl: 'assets/images/graphics/end.svg',
-        iconSize: [40, 55],
-        iconAnchor: [20, 50],
+        iconSize: [28, 28],
+        iconAnchor: [0, 0],
         popupAnchor:  [0, -50]
     });
 
@@ -171,6 +187,7 @@ module.exports.marker_map = function(from, to){
        var result = marker.getLatLng();
        _this.cleanPolyline();
        _this.cleanMarkerpoint();
+       _this.cleanMarkerCollision();
        var plan = session.plan();
 
             plan.setAddress('from', result.lng + ',' + result.lat, function(err, rees) {
@@ -183,6 +200,7 @@ module.exports.marker_map = function(from, to){
        var result = marker.getLatLng();
        _this.cleanPolyline();
        _this.cleanMarkerpoint();
+       _this.cleanMarkerCollision();
        var plan = session.plan();
             plan.setAddress('to', result.lng + ',' + result.lat, function(err, rees) {
                 plan.updateRoutes();
@@ -195,33 +213,39 @@ module.exports.marker_map = function(from, to){
 
 
 
-module.exports.marker_map_point = function(to, map){
+module.exports.marker_map_point = function(to, map, itineration){
 
     var name = to[2];
+    var class_name = 'leaflet-div-icon1 circle-fade-'+itineration;
+    var html = "<span class='leaflet-label'>" + name + "</span>";
 
-    var IconEnd = L.icon({
-        iconUrl: 'assets/images/graphics/icono.png',
-        iconSize: [20, 20],
-        iconAnchor: [0, 0],
-        popupAnchor:  [-3, -76]
-    });
-    var markers = [
-      L.marker([to[0], to[1]], {icon: IconEnd}).bindLabel(name)
-    ];
-    var layer = L.layerGroup(markers).addTo(map);
+    var marker = L.marker({"lat":to[0], "lng": to[1]}, {
+				icon: L.divIcon({
+                    className: class_name,
+                    iconSize: [15, 15],
+                    iconAnchor: [0, 0],
+                    html:html
+				})
+				,interactive: false
+				,clickable:   false
+				});
 
-    this.makerpoint_creadas.push(layer);
-    //this.polyline_creadas.push(circle);
+
+    this.marker_collision_group.push(marker);
 };
 
 
 
-module.exports.drawRouteAmigo = function(legs,mode) {
+module.exports.drawRouteAmigo = function(legs,mode, itineration) {
+
     var route = legs.legGeometry.points;
     var circle_from = [legs.from.lat, legs.from.lon, legs.from.name];
     var circle_to = [legs.to.lat, legs.to.lon, legs.to.name];
-    var color = '#000';
+    var color = '#000000';
     var weight = 5;
+    var classname = "iteration-"+itineration + " iteration-200";
+
+
     var dasharray= '';
 
         if (mode=="CAR") {
@@ -231,14 +255,22 @@ module.exports.drawRouteAmigo = function(legs,mode) {
 
         }else if(mode=="BICYCLE") {
             color = '#FF0000';
+            if(!(legs.routeColor === undefined)) {
+                color = "#"+legs.routeColor;
+             }
             dasharray= '6';
             weight = 3;
 
         }else if(mode=="SUBWAY" || mode=="RAIL") {
-            color = '#FF0000';
+             if(!(legs.routeColor === undefined)) {
+                if (legs.routeColor != "" || legs.routeColor.length == 6) {
+                    color = "#"+legs.routeColor;
+                }
+
+             }
              weight = 8;
-             this.marker_map_point(circle_from, this.activeMap);
-             this.marker_map_point(circle_to, this.activeMap);
+             this.marker_map_point(circle_from, this.activeMap, itineration);
+             this.marker_map_point(circle_to, this.activeMap, itineration);
 
         }
         else if(mode == "WALK") {
@@ -246,34 +278,37 @@ module.exports.drawRouteAmigo = function(legs,mode) {
             dasharray= '6';
              weight = 3;
         }
+
         else if(mode=="BUS") {
-            color = '#FEF0B5';
-             weight = 8;
-             this.marker_map_point(circle_from, this.activeMap);
-             this.marker_map_point(circle_to, this.activeMap);
+            //color = '#FEF0B5';
+            if(!(legs.routeColor === undefined)) {
+                if (legs.routeColor != "" || legs.routeColor.length == 6) {
+                    color = "#"+legs.routeColor;
+                }
+             }
+             weight = 5;
+             this.marker_map_point(circle_from, this.activeMap, itineration);
+             this.marker_map_point(circle_to, this.activeMap, itineration);
         }
 
 
-       var color_options = {
+        var color_options;
+        color_options = {
             color: color,
-            opacity: 1,
             weight: weight,
-            dashArray: dasharray
+            opacity:1,
+            dashArray: dasharray,
+            className: classname
         };
 
-      route = new L.Polyline(L.PolylineUtil.decode(route, 5), color_options);
+
+
+      var argpolyline = L.PolylineUtil.decode(route, 5);
+      argpolyline.unshift(circle_from);
+      route = new L.Polyline(argpolyline, color_options);
       this.polyline_creadas.push(route);
       var boxes = L.RouteBoxer.box(route, 5);
-      //var bounds = new L.LatLngBounds([]);
-      //var bounds = [];
       var boxpolys = new Array(boxes.length);
-      /*
-      for (var i = 0; i < boxes.length; i++) {
-        //bounds.extend(boxes[i]);
-        bounds.push(boxes[i]);
-      }*/
-
       route.addTo(this.activeMap);
-      //this.activeMap.fitBounds(bounds);
 };
 

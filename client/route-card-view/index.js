@@ -1,4 +1,5 @@
 var analytics = require('analytics');
+var d3 = require('d3');
 var convert = require('convert');
 var Feedback = require('feedback-modal');
 var mouseenter = require('mouseenter');
@@ -18,32 +19,60 @@ var showMapView = require('map-view');
 
 var View = module.exports = view(require('./template.html'), function(view, model) {
   mouseenter(view.el, function() {
-    console.log("Master jonathan quiza");
-    var itineraries = model.plan();
-    var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
-    sesion_plan = sesion_plan.plan;
 
-    showMapView.cleanPolyline();
-    showMapView.cleanMarkerpoint();
-     for (var i = 0; i < itineraries.legs.length; i++) {
-          showMapView.drawRouteAmigo(itineraries.legs[i], itineraries.legs[i].mode);
-     }
+      var itineration = JSON.parse(localStorage.getItem('itineration'));
+      for (var i=0; i<itineration.length;i++) {
+           var r3 = d3.selectAll(".iteration-"+i);
+           if (i!=model.index){
+                r3.transition().duration(600).style("stroke", "#E0E0E0");
+                r3.attr("data-show","0");
 
+               var rec2 = d3.selectAll(".circle-fade-"+i);
+ -             rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon2 circle-fade-'+i+ ' leaflet-zoom-hide');
+           }else {
+                r3.attr("data-show","1");
+           }
+      }
+
+      d3.selectAll(".iteration-200").each(function(e){
+            var element = d3.select(this);
+            var parent = d3.select(element.node().parentNode);
+            parent.attr("class", "g-element");
+            if (Boolean(parseInt(element.attr("data-show")))) {
+                parent.attr("data-show", "1");
+            }else {
+                parent.attr("data-show", "0");
+            }
+
+      });
+
+      d3.selectAll(".g-element")[0].sort(function(a,b){
+            if (Boolean(parseInt(d3.select(a).attr("data-show")))) {
+                d3.select(a).node().parentNode.appendChild(a);
+            }
+
+      });
   });
 
   mouseleave(view.el, function() {
-    if (!view.el.classList.contains('expanded')) {
 
-      var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
-      sesion_plan = sesion_plan.plan;
-      var itineraries = sesion_plan.itineraries;
-      for (i = 0; i < itineraries.length; i++) {
-          for (ii=0; ii < itineraries[i].legs.length; ii++) {
-            showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode);
+   showMapView.cleanPolyline();
+    showMapView.cleanMarkerpoint();
+    showMapView.cleanMarkerCollision();
+    showMapView.marker_collision_group = [];
+
+    var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
+    sesion_plan = sesion_plan.plan;
+
+     var itineraries = sesion_plan.itineraries;
+      for (var i= 0; i < itineraries.length; i++) {
+
+          for (var j=0; j < itineraries[i].legs.length; j++) {
+             showMapView.drawRouteAmigo(itineraries[i].legs[j], itineraries[i].legs[j].mode, i);
           }
       }
+      showMapView.drawMakerCollision();
 
-    }
   });
 });
 

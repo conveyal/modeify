@@ -78,8 +78,10 @@ function updateRoutes(plan, opts, callback) {
         var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
         if (!(sesion_plan === null)) {
             localStorage.removeItem('dataplan');
+            localStorage.removeItem('itineration');
         }
 
+        localStorage.setItem('itineration', JSON.stringify({"length":itineraries.length}));
         localStorage.setItem('dataplan', JSON.stringify(data.options));
 
           // Track the commute
@@ -203,28 +205,25 @@ function populateSegments(options, journey) {
   for (var i = 0; i < options.length; i++) {
     var option = options[i];
     if (!option.transit || option.transit.length < 1) continue;
-    console.log("option->", option);
     for (var j = 0; j < option.transit.length; j++) {
       var segment = option.transit[j];
+
 
       for (var k = 0; k < segment.segmentPatterns.length; k++) {
         var pattern = segment.segmentPatterns[k];
         var patternId = pattern.patternId;
-            console.log("pattern->", pattern);
-          console.log("patternId ->",  patternId );
         var routeId = getRouteId(patternId, journey.patterns);
 
         routeId = routeId.split(':');
         var agency = routeId[0].toLowerCase();
         var line = routeId[1].toLowerCase();
 
-         console.log("routeId ->", routeId);
+
 
         routeId = routeId[0] + ':' + routeId[1];
-          console.log("journey.routes", journey.routes)
         var route = getRoute(routeId, journey.routes);
 
-        console.log("routexxx", route);
+
 
         pattern.longName = route.route_long_name;
         pattern.shortName = route.route_short_name;

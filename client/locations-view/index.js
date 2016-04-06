@@ -133,6 +133,7 @@ View.prototype.save = function(el) {
 
 	if (!val || plan[name]() === val) return;
 
+
 	if (el.lat) {
 		this.model.setAddress(name, el.lng + ',' + el.lat, function(err, location) {
 
@@ -144,18 +145,26 @@ View.prototype.save = function(el) {
                     label: val,
                     value: 0
                     });
-                textModal('Invalid address.');
-            } else if (location && plan.validCoordinates()) {
-                analytics.send_ga({
-                    category: 'geocoder',
-                    action: 'change address success',
-                    label: val,
-                    value: 0
-                });
-                plan.updateRoutes();
-            }
-        }, el.address);
+
+				    textModal('Invalid address.');
+
+				} else if (location && plan.validCoordinates()) {
+
+                    analytics.send_ga({
+                        category: 'geocoder',
+                        action: 'change address success',
+                        label: val,
+                        value: 0
+                    });
+
+				    plan.updateRoutes();
+
+				}else {
+				    console.log("no ejecuta nada");
+				}
+		}, el.address);
     } else {
+
 	    this.model.setAddress(name, val, function(err, location) {
 			if (err) {
                 log.error('%e', err);
@@ -168,16 +177,16 @@ View.prototype.save = function(el) {
 
 			textModal('Invalid address.');
 			} else if (location && plan.validCoordinates()) {
-			    analytics.send_ga({
-                category: 'geocoder',
-                action: 'change address success',
-                label: val,
-                value: 0
+                analytics.send_ga({
+                    category: 'geocoder',
+                    action: 'change address success',
+                    label: val,
+                    value: 0
                 });
 			    plan.updateRoutes();
 
 			}
-			});
+		});
     }
 };
 
@@ -258,6 +267,7 @@ function getAddress(s) {
  */
 
 View.prototype.suggest = function(e) {
+
   var input = e.target;
   var text = input.value || '';
   var name = input.name;
@@ -301,7 +311,7 @@ View.prototype.suggest = function(e) {
             suggestionList.innerHTML = suggestionsTemplate.render({
                 suggestions: suggestionsData
             });
-
+            /*******************/
                 each(view.findAll('.suggestion'), function(li) {
                     li.addressData = suggestions[li.dataset.index];
 
@@ -316,7 +326,7 @@ View.prototype.suggest = function(e) {
 
                 suggestionList.classList.remove('empty');
                 inputGroup.classList.add('suggestions-open');
-
+            /*******************/
         }
 
         else {
@@ -326,7 +336,49 @@ View.prototype.suggest = function(e) {
     }
   };
 
+  var resultsCallback = function(err, suggestions) {
 
+    if (err) {
+      log.error('%e', err);
+    } else {
+      if (suggestions && suggestions.length > 0) {
+
+          for (var i = 0; i < suggestions.length; i++) {
+              if (!suggestions[i].text) {
+                 if(suggestions[i].address) {
+	           suggestions[i].text = getAddress(suggestions[i].address);
+                 } else {
+                   suggestions[i].text = suggestions[i].display_name;
+                 }
+              }
+	      suggestions[i].index = i;
+	  }
+        suggestions = suggestions.slice(0, 5);
+
+        suggestionList.innerHTML = suggestionsTemplate.render({
+          suggestions: suggestions
+        });
+
+        each(view.findAll('.suggestion'), function(li) {
+	    li.addressData = suggestions[li.dataset.index];
+
+          li.onmouseover = function(e) {
+            li.classList.add('highlight');
+          };
+
+          li.onmouseout = function(e) {
+            li.classList.remove('highlight');
+          };
+        });
+
+        suggestionList.classList.remove('empty');
+        inputGroup.classList.add('suggestions-open');
+      } else {
+        suggestionList.classList.add('empty');
+        inputGroup.classList.remove('suggestions-open');
+      }
+    }
+  };
 
   // If the text is too short or does not contain a space yet, return
   if (text.length < 3) return;
