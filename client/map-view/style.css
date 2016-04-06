@@ -81,8 +81,6 @@
     border-radius: 50%;
     filter: alpha(opacity=50);
     opacity: 0.5;
-    -webkit-transition: opacity .5s ease-in-out;
-    transition: opacity .5s ease-in-out;
 }
 
 .leaflet-div-icon2 .leaflet-label{
