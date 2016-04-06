@@ -19,17 +19,18 @@ var showMapView = require('map-view');
 
 var View = module.exports = view(require('./template.html'), function(view, model) {
   mouseenter(view.el, function() {
-      var d3_sort = {'class_':'', 'position':''} ;
+      var d3_sort = {} ;
       var d3_sort_list = [];
       var number = 1;
       var itineration = JSON.parse(localStorage.getItem('itineration'));
       for (var i=0; i<itineration.length;i++) {
-          number += 2;
-          console.log("number ->", number)
+          number += 1;
+          console.log("number ->", number);
+          console.log("var I ->", i);
           d3_sort.class_ = ".iteration-"+i;
           d3_sort.position = 1;
            if (i!=model.index){
-                d3_sort.position = number;
+                d3_sort.position = 1;
                 var rec = d3.selectAll(".iteration-"+i)
                 .style("z-index", "10");
                 rec.attr('class', 'iteration-'+i+' legend-fadeout');
