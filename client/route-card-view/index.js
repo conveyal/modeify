@@ -27,8 +27,8 @@ var View = module.exports = view(require('./template.html'), function(view, mode
                 var rec = d3.selectAll(".iteration-"+i);
                 rec.attr('class', 'iteration-'+i+' legend-fadeout');
 
-               var rec2 = d3.selectAll(".leaflet-div-icon1 .iteration-"+i);
-               rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon2 leaflet-zoom-hide');
+               var rec2 = d3.selectAll(".leaflet-div-icon1 .circle-fade-"+i);
+               rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon2 iteration-'+i+' leaflet-zoom-hide');
            }
       }
 
@@ -43,8 +43,8 @@ var View = module.exports = view(require('./template.html'), function(view, mode
              var rec = d3.selectAll(".iteration-"+i);
              rec.attr('class', 'iteration-'+i);
 
-             var rec2 = d3.selectAll(".leaflet-div-icon2 .iteration-"+i);
-             rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon1 leaflet-zoom-hide');
+             var rec2 = d3.selectAll(".leaflet-div-icon2 .circle-fade-"+i);
+             rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon1 iteration-'+i+' leaflet-zoom-hide');
         }
    }
 
