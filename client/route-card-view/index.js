@@ -26,7 +26,6 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       for (var i=0; i<itineration.length;i++) {
            if (i!=model.index){
                 d3.selectAll(".iteration-"+i)
-                .attr("color", "#000000")
                 .transition().duration(500).style("stroke", "#E0E0E0");
 
                 //.transition().duration(400).classed("hide-route", true);
@@ -79,8 +78,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
         d3.selectAll(".iteration-"+i)
         .transition().duration(500)
         .style('stroke', function(d){
-                console.log(this);
-                return this.color;
+                return this.stroke;
             });
 
         /*
