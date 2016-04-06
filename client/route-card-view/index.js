@@ -42,7 +42,11 @@ var View = module.exports = view(require('./template.html'), function(view, mode
            }
       }
 
-      console.log("todos ->", d3.selectAll(".iteration-200"));
+      var todos = d3.selectAll(".iteration-200");
+      todos[0].sort(function(a,b){
+            console.log("esto es a", a);
+            console.log("esto es a", b);
+      });
 
 
 
