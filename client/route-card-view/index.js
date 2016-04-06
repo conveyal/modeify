@@ -26,6 +26,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
            if (i!=model.index){
                 r3.transition().duration(500).style("stroke", "#E0E0E0");
                 r3.attr("color","#ffffff");
+                r3.attr("data-color","#aaaaaa");
 
                 //r3.style("opacity", 1)
            }else {
