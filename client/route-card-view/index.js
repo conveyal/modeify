@@ -91,7 +91,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
         if (i!=model.index){
 
             d3.selectAll(".iteration-"+i)
-            .transition().duration(500).style("stroke", function(){
+            .transition().duration(500).style("stroke", function(b){
                     console.log("este es stroke ->", this);
                    return "#000000";
             });
