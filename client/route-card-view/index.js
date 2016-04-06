@@ -24,10 +24,10 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 
       console.log("obj itineration 1 ->", itineration.length);
       for (var i=0; i<itineration.length;i++) {
+           d3.selectAll(".iteration-"+i).attr("class", "iteration-all");
            if (i!=model.index){
                 var r3 = d3.selectAll(".iteration-"+i);
                 r3.transition().duration(500).style("stroke", "#E0E0E0");
-                r3.style("z-index",1);
                 //.transition().duration(400).classed("hide-route", true);
                 /*
                 rec.setAttribute('data-color', function(d){
@@ -42,7 +42,9 @@ var View = module.exports = view(require('./template.html'), function(view, mode
            }
       }
 
-      d3.selectAll(".iteration-"+model.index).style("z-index",10);
+      d3.selectAll(".iteration-all").sort(function (a, b) {
+        console.log("este es b ->", b);
+      });
 
   /*
     showMapView.cleanPolyline();
@@ -75,26 +77,28 @@ var View = module.exports = view(require('./template.html'), function(view, mode
   var itineration = JSON.parse(localStorage.getItem('itineration'));
    console.log("obj itineration 2->", itineration.length);
    for (var i=0; i<itineration.length;i++) {
+
+
         if (i!=model.index){
 
-        var element = d3.selectAll(".iteration-"+i)
-        .transition().duration(500)
-        .style('stroke', function(d){
-                return this.stroke;
-            });
+            var element = d3.selectAll(".iteration-"+i)
+            .transition().duration(500)
+            .style('stroke', function(d){
+                    return this.stroke;
+                });
 
-        console.log(element);
-        /*
-            d3.selectAll(".iteration-"+i).transition()
-            .attr('stroke', function(d){
-                console.log(this);
-                return this["data-color"];
-            });
-            */
-            //.transition().duration(500).style("opacity", 1);
-            //.style("opacity", 0)
-           //.transition().duration(400).style("stroke", "#E0E0E0");
-           //.style("opacity", 0)
+            console.log(element);
+            /*
+                d3.selectAll(".iteration-"+i).transition()
+                .attr('stroke', function(d){
+                    console.log(this);
+                    return this["data-color"];
+                });
+                */
+                //.transition().duration(500).style("opacity", 1);
+                //.style("opacity", 0)
+               //.transition().duration(400).style("stroke", "#E0E0E0");
+               //.style("opacity", 0)
         }
    }
   /*
