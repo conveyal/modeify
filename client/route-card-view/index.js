@@ -44,7 +44,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 
       var todos = d3.selectAll(".iteration-200");
       todos[0].sort(function(a,b){
-            console.log("tiene", a ,d3.select(".iteration-"+model.index));
+            console.log("tiene", a ,a.select(".iteration-"+model.index));
       });
 
 
