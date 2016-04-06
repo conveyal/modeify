@@ -8,6 +8,10 @@
     margin-top: -10px;
 }
 
+.leaflet-label:focus {
+   border: none !important;
+}
+
 .leaflet-label.leaflet-clickable {
     cursor: pointer;
     pointer-events: auto;
