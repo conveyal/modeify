@@ -34,7 +34,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       d3.selectAll(".iteration-200").each(function(e){
             var element = d3.select(this);
             var parent = element.node().parentNode;
-            if (Boolean(element.attr("data-show"))) {
+            if (Boolean(parseInt(element.attr("data-show")))) {
                 d3.select(parent).attr("class", "g-element");
                 d3.select(parent).attr("data-show", "1");
             }else {
@@ -45,7 +45,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       });
 
       d3.selectAll(".g-element")[0].sort(function(a,b){
-            if (Boolean(d3.select(a).attr("data-show"))) {
+            if (Boolean(parseInt(d3.select(a).attr("data-show")))) {
                 d3.select(a).node().parentNode.appendChild(a);
             }
 
