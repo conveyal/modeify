@@ -19,6 +19,34 @@ var showMapView = require('map-view');
 
 var View = module.exports = view(require('./template.html'), function(view, model) {
 
+    mouseenter(view.el, function() {
+
+      var itineration = JSON.parse(localStorage.getItem('itineration'));
+      for (var i=0; i<itineration.length;i++) {
+           if (i!=model.index){
+                var rec = d3.selectAll(".iteration-"+i);
+                rec.attr('class', 'iteration-'+i+' legend-fadeout');
+           }
+      }
+       var rec2 = d3.selectAll(".leaflet-div-icon1");
+       rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon2 leaflet-zoom-hide legend-fadeout');
+
+  });
+
+  mouseleave(view.el, function() {
+
+  var itineration = JSON.parse(localStorage.getItem('itineration'));
+   for (var i=0; i<itineration.length;i++) {
+        if (i!=model.index){
+             var rec = d3.selectAll(".iteration-"+i);
+             rec.attr('class', 'iteration-'+i);
+        }
+   }
+   var rec2 = d3.selectAll(".leaflet-div-icon2");
+   rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon1 leaflet-zoom-hide');
+
+  });
+
   //mouseenter(view.el, function() {
   //    var d3_sort_list = [];
   //    var number = 1;
