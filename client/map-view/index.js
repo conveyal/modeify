@@ -165,14 +165,14 @@ module.exports.cleanMarkerpoint = function() {
 module.exports.marker_map = function(from, to){
      var IconStart = L.icon({
         iconUrl: 'assets/images/graphics/start.svg',
-        iconSize: [40, 55],
-        iconAnchor: [20, 50],
+        iconSize: [28, 28],
+        iconAnchor: [0, 0],
         popupAnchor:  [0, -50]
     });
     var IconEnd = L.icon({
         iconUrl: 'assets/images/graphics/end.svg',
-        iconSize: [40, 55],
-        iconAnchor: [20, 50],
+        iconSize: [28, 28],
+        iconAnchor: [0, 0],
         popupAnchor:  [0, -50]
     });
 
@@ -306,8 +306,9 @@ module.exports.drawRouteAmigo = function(legs,mode, option,itineration) {
         }
 
 
-       var color_options = {
-            color:color,
+        var color_options;
+        color_options = {
+            color: color,
             weight: weight,
             opacity:1,
             dashArray: dasharray,
@@ -322,12 +323,16 @@ module.exports.drawRouteAmigo = function(legs,mode, option,itineration) {
        }
 
        if (option.class_name){
-            color_options.className = 'message_';
-            color_options.color = '#5E3232';
+           color_options.className = 'message_';
+
        }
        */
 
 
+
+
+
+       console.log("color");
       var argpolyline = L.PolylineUtil.decode(route, 5);
       argpolyline.unshift(circle_from);
       route = new L.Polyline(argpolyline, color_options);
