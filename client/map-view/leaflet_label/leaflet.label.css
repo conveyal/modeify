@@ -10,6 +10,7 @@
 
 .leaflet-label:focus {
    border: none !important;
+   outline: none;
 }
 
 .leaflet-label.leaflet-clickable {

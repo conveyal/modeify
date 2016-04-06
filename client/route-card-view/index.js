@@ -24,7 +24,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       for (var i=0; i<itineration.length;i++) {
            if (i!=model.index){
                 var rec = d3.selectAll(".iteration-"+i)
-                .style("z-index", "100");
+                .style("z-index", "10");
                 rec.attr('class', 'iteration-'+i+' legend-fadeout');
            }
       }
@@ -39,7 +39,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
    for (var i=0; i<itineration.length;i++) {
         if (i!=model.index){
              var rec = d3.selectAll(".iteration-"+i)
-             .style("z-index", "150");
+             .style("z-index", "50");
              rec.attr('class', 'iteration-'+i);
         }
    }
