@@ -29,7 +29,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
           console.log("var I ->", i);
           d3_sort.class_ = ".iteration-"+i;
           d3_sort.position = number;
-           if (i!=model.index){
+           if (i==model.index){
                 d3_sort.position = 1;
                 //var rec = d3.selectAll(".iteration-"+i)
                 //.style("z-index", "10");
