@@ -251,7 +251,7 @@ module.exports.drawRouteAmigo = function(legs,mode, option,itineration) {
     var color = '#000000';
     var weight = 5;
     var set_hover = false;
-    var classname = "iteration-"+itineration;
+    var classname = "iteration-"+itineration + " iteration-200";
     if (option.stroke){
         set_hover = true;
     }

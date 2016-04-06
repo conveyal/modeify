@@ -48,6 +48,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       }
 
       d3.selectAll(".iteration-"+model.index).sort(function(a,b){
+
             return 1;
       });
 
