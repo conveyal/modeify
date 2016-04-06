@@ -213,10 +213,10 @@ module.exports.marker_map = function(from, to){
 
 
 
-module.exports.marker_map_point = function(to, map, classname){
+module.exports.marker_map_point = function(to, map, itineration){
 
     var name = to[2];
-    var class_name = 'leaflet-div-icon1 '+classname;
+    var class_name = 'leaflet-div-icon1 .circle-fade-'+itineration;
     var html = "<span class='leaflet-label'>" + name + "</span>";
 
     var marker = L.marker({"lat":to[0], "lng": to[1]}, {
@@ -272,8 +272,8 @@ module.exports.drawRouteAmigo = function(legs,mode, option, itineration) {
 
              }
              weight = 8;
-             this.marker_map_point(circle_from, this.activeMap, classname);
-             this.marker_map_point(circle_to, this.activeMap, classname);
+             this.marker_map_point(circle_from, this.activeMap, itineration);
+             this.marker_map_point(circle_to, this.activeMap, itineration);
 
         }
         else if(mode == "WALK") {
@@ -290,8 +290,8 @@ module.exports.drawRouteAmigo = function(legs,mode, option, itineration) {
                 }
              }
              weight = 5;
-             this.marker_map_point(circle_from, this.activeMap, classname);
-             this.marker_map_point(circle_to, this.activeMap, classname);
+             this.marker_map_point(circle_from, this.activeMap, itineration);
+             this.marker_map_point(circle_to, this.activeMap, itineration);
         }
 
 
