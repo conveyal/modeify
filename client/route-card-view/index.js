@@ -26,6 +26,9 @@ var View = module.exports = view(require('./template.html'), function(view, mode
            if (i!=model.index){
                 r3.transition().duration(500).style("stroke", "#E0E0E0");
                 r3.attr("data-show","0");
+                r3.each(function(a,b){
+                    console.log("esto es a ->", a);
+                });
            }else {
                 r3.attr("data-show","1");
            }
