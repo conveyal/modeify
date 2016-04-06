@@ -42,7 +42,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
            }
       }
 
-      d3.selectAll(".iteration-"+model.index).parentNode.appendChild(this);
+      d3.selectAll(".iteration-"+model.index).parentNode.append(this);
 
 
 
