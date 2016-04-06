@@ -21,12 +21,15 @@ var View = module.exports = view(require('./template.html'), function(view, mode
   mouseenter(view.el, function() {
 
       var itineration = JSON.parse(localStorage.getItem('itineration'));
-
+      var groupData = {"micolor"};
       console.log("obj itineration 1 ->", itineration.length);
       for (var i=0; i<itineration.length;i++) {
            if (i!=model.index){
                 d3.selectAll(".iteration-"+i)
-                .transition().duration(400).classed("hide-route", true);
+                .attr("color", "#0000")
+                .transition().duration(400).style("stroke", "#E0E0E0")
+
+                //.transition().duration(400).classed("hide-route", true);
                 /*
                 rec.setAttribute('data-color', function(d){
                     return this.stroke;
@@ -74,7 +77,11 @@ var View = module.exports = view(require('./template.html'), function(view, mode
         if (i!=model.index){
 
         d3.selectAll(".iteration-"+i)
-        .transition().duration(400).classed("hide-route", false);
+        .attr('stroke', function(d){
+                console.log(this);
+                return this.color;
+            });
+
         /*
             d3.selectAll(".iteration-"+i).transition()
             .attr('stroke', function(d){
