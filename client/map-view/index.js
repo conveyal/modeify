@@ -221,7 +221,7 @@ module.exports.marker_map_point = function(to, map, set_hover){
       //html = "<div><span class='leaflet-label'>" + name + "</span></div>";
     if (!set_hover){
         class_name = 'leaflet-div-icon1';
-        html = "<div><span class='leaflet-label'>" + name + "</span></div>";
+        html = "<span class='leaflet-label'>" + name + "</span>";
     }else{
         class_name = 'leaflet-div-icon2';
         html = "";
