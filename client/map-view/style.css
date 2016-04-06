@@ -25,14 +25,14 @@
 
 
 @-webkit-keyframes fade_jona {
+    0% {
+        opacity: 0.99;
+        color:#2B2922;
+    }
 
     100% {
-        opacity: 1;
-        color:#ccc;
-        border: 2px solid white;
-          -moz-box-shadow: 2px 2px 16px #fff;
-    -webkit-box-shadow: 2px 2px 16px #fff ;
-     box-shadow:2px 2px 16px #fff;
+        opacity: 0.30;
+        color:#000000;
     }
 }
 
@@ -61,13 +61,7 @@
 .fade-out .four {-webkit-animation-delay: 0.1s;}
 
 .message_ {
-    color: #DFDFDF;
-    text-shadow:
-    -1px -1px 0 #fff,
-    1px -1px 0 #fff,
-    -1px 1px 0 #fff,
-    1px 1px 0 #fff;
-    -webkit-animation: fade_jona 0.5s;
+    -webkit-animation: fade_jona 1s;
     -webkit-animation-fill-mode: both;
 }
 
