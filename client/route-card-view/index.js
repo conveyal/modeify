@@ -21,13 +21,10 @@ var View = module.exports = view(require('./template.html'), function(view, mode
   mouseenter(view.el, function() {
 
       var itineration = JSON.parse(localStorage.getItem('itineration'));
-
-      console.log("obj itineration 1 ->", itineration.length);
-      var element = [];
       for (var i=0; i<itineration.length;i++) {
            var r3 = d3.selectAll(".iteration-"+i);
            if (i!=model.index){
-                .transition().duration(500).style("stroke", "#E0E0E0");
+                r3.transition().duration(500).style("stroke", "#E0E0E0");
                 r3.attr("color","#ffffff");
 
                 //r3.style("opacity", 1)
