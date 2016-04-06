@@ -27,6 +27,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
            if (i!=model.index){
                 var rec = d3.selectAll(".iteration-"+i);
                 rec.attr('class', 'iteration-'+i+' legend-fadeout');
+
                 //rec.transition().duration(400).style("stroke", "#E0E0E0");
                 //.style("opacity", 1)
                 //.transition().duration(500).style("opacity", 0);
