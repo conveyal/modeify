@@ -25,7 +25,6 @@ var View = module.exports = view(require('./template.html'), function(view, mode
            if (i!=model.index){
                 var rec = d3.selectAll(".iteration-"+i);
                 rec.attr('class', 'iteration-'+i+' legend-fadeout');
-                rec.parentNode.appendChild(this);
            }
       }
        var rec2 = d3.selectAll(".leaflet-div-icon1");
