@@ -27,7 +27,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
            if (i!=model.index){
                 var rec = d3.selectAll(".iteration-"+i);
                 rec.attr('data-color', function(d){
-                    console.log("stroke ->" , d);
+                    console.log("stroke ->" , this);
                     return "";
                 }).transition().duration(400).style("stroke", "#E0E0E0");
                 //.style("opacity", 1)
