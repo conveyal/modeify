@@ -28,12 +28,12 @@ var View = module.exports = view(require('./template.html'), function(view, mode
           console.log("number ->", number);
           console.log("var I ->", i);
           d3_sort.class_ = ".iteration-"+i;
-          d3_sort.position = 1;
+          d3_sort.position = number;
            if (i!=model.index){
                 d3_sort.position = 1;
-                var rec = d3.selectAll(".iteration-"+i)
-                .style("z-index", "10");
-                rec.attr('class', 'iteration-'+i+' legend-fadeout');
+                //var rec = d3.selectAll(".iteration-"+i)
+                //.style("z-index", "10");
+                //rec.attr('class', 'iteration-'+i+' legend-fadeout');
            }
           d3_sort_list.push(d3_sort);
       }
