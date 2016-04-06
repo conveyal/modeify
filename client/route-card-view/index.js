@@ -48,6 +48,10 @@ var View = module.exports = view(require('./template.html'), function(view, mode
             }
 
       });
+
+      d3.selectAll(".estaes").sort(function(a,b){
+           console.log("itera ->", a);
+      });
   /*
     showMapView.cleanPolyline();
     showMapView.cleanMarkerpoint();
