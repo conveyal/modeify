@@ -78,6 +78,8 @@
  */
 .leaflet-marker-icon {
   text-align: center;
+  height: 25px;
+  width: 25px;
 }
 
 .leaflet-marker-icon .number,
@@ -181,6 +183,21 @@
 
 .leaflet-popup-content .popup-body .popup-row:last-child td.label {
   border-bottom-left-radius: 3px;
+}
+
+.leaflet-circlej{
+ fill: rgb(255, 255, 255);
+ stroke: rgb(224, 224, 224);
+ stroke-width: 2;
+ visibility: hidden;
+}
+
+.leaflet-divicon{
+ background-color: white;
+ border: 3px solid #fff;
+ -moz-border-radius:75px;
+ -webkit-border-radius: 75px;
+
 }
 
 

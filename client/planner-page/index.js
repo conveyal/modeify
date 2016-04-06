@@ -70,60 +70,55 @@ module.exports = function(ctx, next) {
     // Show the map
     var map = showMapView(ctx.view.find('.MapView'));
 
-    // Create the transitive layer
-    //var transitiveLayer = new LeafletTransitiveLayer(transitive);
-
-    // Set the transitive layer
-    //map.addLayer(transitiveLayer);
-
     // Update map on plan change
+
     updateMapOnPlanChange(plan, map);
 
-    //map.on('click', function (e) {
-    //      var from = plan.from_ll();
-    //      var to = plan.to_ll();
-    //      if (!plan.coordinateIsValid(from)) {
-    //        plan.journey({
-    //      places: [
-    //        {
-    //          place_id: 'from',
-    //          place_lat: e.latlng.lat,
-    //          place_lon: e.latlng.lng,
-    //          place_name: 'From'
-    //        },
-    //        {
-    //          place_id: 'to',
-    //          place_lat: (plan.to_ll() ? plan.to_ll().lat : 0),
-    //          place_lon: (plan.to_ll() ? plan.to_ll().lng : 0),
-    //          place_name: 'To'
-    //        }
-    //      ]
-    //    });
-    //    plan.setAddress('from', e.latlng.lng + ',' + e.latlng.lat, function (err, res) {
-    //        plan.updateRoutes();
-    //    });
-    //      } else if (!plan.coordinateIsValid(to)) {
-    //    plan.journey({
-    //      places: [
-    //        {
-    //          place_id: 'from',
-    //          place_lat: plan.from_ll().lat,
-    //          place_lon: plan.from_ll().lng,
-    //          place_name: 'From'
-    //        },
-    //        {
-    //          place_id: 'to',
-    //          place_lat: e.latlng.lat,
-    //          place_lon: e.latlng.lng,
-    //          place_name: 'To'
-    //        }
-    //      ]
-    //    });
-    //    plan.setAddress('to', e.latlng.lng + ',' + e.latlng.lat, function (err, res) {
-    //        plan.updateRoutes();
-    //    });
-    //      }
-    //});
+    map.on('click', function (e) {
+          var from = plan.from_ll();
+          var to = plan.to_ll();
+          if (!plan.coordinateIsValid(from)) {
+            plan.journey({
+          places: [
+            {
+              place_id: 'from',
+             place_lat: e.latlng.lat,
+              place_lon: e.latlng.lng,
+              place_name: 'From'
+           },
+            {
+              place_id: 'to',
+             place_lat: (plan.to_ll() ? plan.to_ll().lat : 0),
+              place_lon: (plan.to_ll() ? plan.to_ll().lng : 0),
+              place_name: 'To'
+            }
+          ]
+        });
+        plan.setAddress('from', e.latlng.lng + ',' + e.latlng.lat, function (err, res) {
+            plan.updateRoutes();
+        });
+          } else if (!plan.coordinateIsValid(to)) {
+        plan.journey({
+          places: [
+            {
+              place_id: 'from',
+              place_lat: plan.from_ll().lat,
+             place_lon: plan.from_ll().lng,
+              place_name: 'From'
+            },
+           {
+              place_id: 'to',
+              place_lat: e.latlng.lat,
+              place_lon: e.latlng.lng,
+              place_name: 'To'
+            }
+          ]
+        });
+        plan.setAddress('to', e.latlng.lng + ',' + e.latlng.lat, function (err, res) {
+            plan.updateRoutes();
+        });
+          }
+    });
 
 
 
@@ -134,10 +129,10 @@ module.exports = function(ctx, next) {
       //plan.clearStore();
 
     // If it's a shared URL or welcome is complete skip the welcome screen
-
     if ((query.from && query.to)) {
       showQuery(query);
     } else {
+
 
       if (plan.coordinateIsValid(from) && plan.coordinateIsValid(to)) {
           plan.setAddresses(
@@ -145,12 +140,12 @@ module.exports = function(ctx, next) {
             to.lng + ',' + to.lat, // to
             function (err, res) {
               plan.updateRoutes();
+
             }
           );
           plan.updateRoutes();
-
       } else {
-	    plan.loading(false);
+          plan.loading(false);
       }
     }
   });
@@ -183,6 +178,7 @@ View.prototype.reverseCommute = function(e) {
   });
 
   plan.updateRoutes();
+
 
 };
 
@@ -329,60 +325,94 @@ function showQuery(query) {
  */
 
 function updateMapOnPlanChange(plan, map) {
-  // Register plan update events
 
   plan.on('change journey', function(journey) {
+  showMapView.cleanPolyline();
+  showMapView.cleanMarker();
+  showMapView.cleanMarkerpoint();
+  showMapView.cleanMarkerCollision();
+  showMapView.marker_collision_group = [];
 
-  var polyline_creadas = showMapView.getpolyline_creadas();
-
-    for (i in polyline_creadas) {
-        try {
-                map.removeLayer(polyline_creadas[i]);
-            } catch (e) {
-                console.log("problem with " + e + map._layers[i]);
-            }
-
-  }
-
-    showMapView.polyline_creadas = [];
+  var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
     if (journey && !isMobile) {
       try {
 
-        log('updating data');
+        if(!(sesion_plan === null)) {
+                console.log("session ->", sesion_plan);
+                sesion_plan = sesion_plan.plan;
 
-        var datajourney = journey;
-        if (!(plan.dataplan === undefined)) {
-            var itineraries = plan.dataplan.itineraries;
-            showMapView.marker_map([plan.dataplan.from.lat,plan.dataplan.from.lon],[plan.dataplan.to.lat,plan.dataplan.to.lon], map);
-            for (i = 0; i < itineraries.length; i++) {
-                for (ii=0; ii < itineraries[i].legs.length; ii++) {
-                  var circle = [itineraries[i].legs[ii].to.lat, itineraries[i].legs[ii].to.lon, itineraries[i].legs[ii].to.name];
-                  showMapView.marker_map_point(circle, map);
-                  showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points, itineraries[i].legs[ii].mode);
-                }
-            }
-        }else{
-
-            var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
-            if(!(sesion_plan === null)) {
                 var itineraries = sesion_plan.itineraries;
 
-                showMapView.marker_map([sesion_plan.from.lat,sesion_plan.from.lon],[sesion_plan.to.lat,sesion_plan.to.lon], map);
+                showMapView.marker_map(
+                        [sesion_plan.from.lat,sesion_plan.from.lon],
+                        [sesion_plan.to.lat,sesion_plan.to.lon]
+                );
+
+                var options_draw = {'stroke':false, 'class_name':false};
 
                 for (i = 0; i < itineraries.length; i++) {
                     for (ii=0; ii < itineraries[i].legs.length; ii++) {
-                      var circle = [itineraries[i].legs[ii].to.lat, itineraries[i].legs[ii].to.lon, itineraries[i].legs[ii].to.name];
-                      showMapView.marker_map_point(circle, map);
-                      showMapView.drawRouteAmigo(itineraries[i].legs[ii].legGeometry.points, itineraries[i].legs[ii].mode);
+                      showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode, options_draw, i);
                     }
                 }
+
+
+                var lat_center_polyline = (sesion_plan.from.lat + sesion_plan.to.lat) / 2;
+                var lon_center_polyline = (sesion_plan.from.lon + sesion_plan.to.lon) / 2;
+                map.setView([lat_center_polyline, lon_center_polyline], 11);
+
+                showMapView.drawMakerCollision();
             }
 
-        }
       } catch (e) {
 	    map.setView([center[1], center[0]], config.geocode().zoom);
       }
 
     }
   });
+}
+
+
+function get_data_route(new_plan){
+    var itineraries = new_plan.plan.itineraries;
+    var timeInTransit = 0;
+    var bikeTime = 0;
+    var bikeDistance = 0;
+    var walkTime = 0;
+    var walkDistance = 0;
+
+    for (var i = 0; i < itineraries.length; i++) {
+        for (var j = 0; j < itineraries[i].legs.length; j++) {
+            var fare = (itineraries[i].fare ? itineraries[i].fare.fare.regular.cents : 0);
+            if (itineraries[i].legs[j].transitLeg) {
+                timeInTransit += itineraries[i].legs[j].duration;
+            } else {
+                  if (itineraries[i].legs[j].mode === 'BICYCLE') {
+                    bikeTime += itineraries[i].legs[j].duration;
+                    bikeDistance += itineraries[i].legs[j].distance;
+                  } else if (itineraries[i].legs[j].mode === 'WALK') {
+                    walkTime += itineraries[i].legs[j].duration;
+                    walkDistance += itineraries[i].legs[j].distance;
+                  }
+            }
+
+            data = {
+                from: new_plan.plan.from.name,
+                to: new_plan.plan.to.name,
+                time: timeInTransit + bikeTime + walkTime,
+                timeInTransit: timeInTransit / 60,
+                cost: fare / 100,
+                transitCost: fare / 100,
+                bikeTime: bikeTime,
+                bikeDistance: bikeDistance,
+                walkDistance: walkDistance,
+                walkTime: walkTime,
+                plan: itineraries[i]
+            }
+
+
+        }
+
+    }
+    return data
 }

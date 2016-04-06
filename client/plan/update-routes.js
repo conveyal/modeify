@@ -73,17 +73,16 @@ function updateRoutes(plan, opts, callback) {
         planData = {options: []};
 
         itineraries = data.plan.itineraries;
-        module.exports.dataplan = data.plan;
+        module.exports.dataplan = data.options;
 
         var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
         if (!(sesion_plan === null)) {
             localStorage.removeItem('dataplan');
+            localStorage.removeItem('itineration');
         }
 
-        localStorage.setItem('dataplan', JSON.stringify(data.plan));
-
-            sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
-
+        localStorage.setItem('itineration', JSON.stringify({"length":itineraries.length}));
+        localStorage.setItem('dataplan', JSON.stringify(data.options));
 
           // Track the commute
           analytics.track('Found Route', {
@@ -155,7 +154,7 @@ function updateRoutes(plan, opts, callback) {
 
 	return;
 
-      // Get the car data
+       //Get the car data
       var driveOption = new Route(data.options.filter(function(o) {
         return o.access[0].mode === 'CAR' && (!o.transit || o.transit.length < 1);
       })[0]);
@@ -173,6 +172,7 @@ function updateRoutes(plan, opts, callback) {
 
       // Populate segments
       populateSegments(data.options, data.journey);
+
 
       // Create a new Route object for each option
       for (var i = 0; i < data.options.length; i++) {
@@ -205,16 +205,13 @@ function populateSegments(options, journey) {
   for (var i = 0; i < options.length; i++) {
     var option = options[i];
     if (!option.transit || option.transit.length < 1) continue;
-    console.log("option->", option);
     for (var j = 0; j < option.transit.length; j++) {
       var segment = option.transit[j];
 
-       console.log("segment->", segment);
+
       for (var k = 0; k < segment.segmentPatterns.length; k++) {
         var pattern = segment.segmentPatterns[k];
         var patternId = pattern.patternId;
-            console.log("pattern->", pattern);
-          console.log("patternId ->",  patternId );
         var routeId = getRouteId(patternId, journey.patterns);
 
         routeId = routeId.split(':');
@@ -224,7 +221,6 @@ function populateSegments(options, journey) {
          console.log("routeId ->", routeId);
 
         routeId = routeId[0] + ':' + routeId[1];
-          console.log("journey.routes", journey.routes)
         var route = getRoute(routeId, journey.routes);
 
         console.log("routexxx", route);
@@ -236,10 +232,6 @@ function populateSegments(options, journey) {
           route.route_color);
         pattern.shield = getRouteShield(agency, route);
 
-          console.log("pattern.longName", pattern.longName);
-          console.log("pattern.shortName", pattern.shortName);
-          console.log("pattern.color", pattern.color);
-          console.log("pattern.shield", pattern.shield);
       }
     }
   }

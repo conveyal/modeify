@@ -1,15 +1,19 @@
 {
   "name": "map-view",
   "local": [
-    "config"
+    "config",
+    "session"
   ],
   "scripts": [
     "index.js",
     "leaflet_plugins.js",
     "leaflet_routeboxer.js",
-    "polyline_encoded.js"
+    "polyline_encoded.js",
+    "leaflet_label/leaflet.label-src.js",
+    "leaflet_layergroup_collision.js"
   ],
   "styles": [
-    "style.css"
+    "style.css",
+    "leaflet_label/leaflet.label.css"
   ]
 }
