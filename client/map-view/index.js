@@ -243,7 +243,7 @@ module.exports.marker_map_point = function(to, map, set_hover){
 
 
 
-module.exports.drawRouteAmigo = function(legs,mode, option,itineration) {
+module.exports.drawRouteAmigo = function(legs,mode, option, itineration) {
 
     var route = legs.legGeometry.points;
     var circle_from = [legs.from.lat, legs.from.lon, legs.from.name];

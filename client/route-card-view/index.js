@@ -64,40 +64,41 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 
   mouseleave(view.el, function() {
 
-  //var itineration = JSON.parse(localStorage.getItem('itineration'));
-  // console.log("obj itineration 2->", itineration.length);
-  // for (var i=0; i<itineration.length;i++) {
-  //      if (i!=model.index){
-  //          d3.selectAll(".iteration-"+i)
-  //          .style("opacity", 0)
-  //          .transition().duration(500).style("opacity", 1);
-  //         //.transition().duration(400).style("stroke", "#E0E0E0");
-  //         //.style("opacity", 0)
-  //      }
-  // }
-    showMapView.cleanPolyline();
-    showMapView.cleanMarkerpoint();
-    showMapView.cleanMarkerCollision();
-    showMapView.marker_collision_group = [];
-
-    if (!view.el.classList.contains('expanded')) {
-      showMapView.cleanPolyline();
-      showMapView.cleanMarkerpoint();
-      showMapView.cleanMarkerCollision();
-      showMapView.marker_collision_group = [];
-
-      var option_draw = {'stroke':false, 'class_name':false};
-      var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
-      sesion_plan = sesion_plan.plan;
-      var itineraries = sesion_plan.itineraries;
-      for (i = 0; i < itineraries.length; i++) {
-          for (ii=0; ii < itineraries[i].legs.length; ii++) {
-            showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode, option_draw);
-          }
-      }
-      showMapView.drawMakerCollision();
-
-    }
+  var itineration = JSON.parse(localStorage.getItem('itineration'));
+   console.log("obj itineration 2->", itineration.length);
+   for (var i=0; i<itineration.length;i++) {
+        if (i!=model.index){
+            d3.selectAll(".iteration-"+i)
+             .attr('class', 'fade');
+            //.style("opacity", 0)
+            //.transition().duration(500).style("opacity", 1);
+           //.transition().duration(400).style("stroke", "#E0E0E0");
+           //.style("opacity", 0)
+        }
+   }
+  //  showMapView.cleanPolyline();
+  //  showMapView.cleanMarkerpoint();
+  //  showMapView.cleanMarkerCollision();
+  //  showMapView.marker_collision_group = [];
+  //
+  //  if (!view.el.classList.contains('expanded')) {
+  //    showMapView.cleanPolyline();
+  //    showMapView.cleanMarkerpoint();
+  //    showMapView.cleanMarkerCollision();
+  //    showMapView.marker_collision_group = [];
+  //
+  //    var option_draw = {'stroke':false, 'class_name':false};
+  //    var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
+  //    sesion_plan = sesion_plan.plan;
+  //    var itineraries = sesion_plan.itineraries;
+  //    for (i = 0; i < itineraries.length; i++) {
+  //        for (ii=0; ii < itineraries[i].legs.length; ii++) {
+  //          showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode, option_draw);
+  //        }
+  //    }
+  //    showMapView.drawMakerCollision();
+  //
+  //  }
 
   });
 });
