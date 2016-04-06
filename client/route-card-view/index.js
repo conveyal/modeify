@@ -49,7 +49,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 
       });
 
-      d3.selectAll(".estaes").sort(function(a,b){
+      d3.selectAll(".estaes")[0].sort(function(a,b){
            console.log("itera ->", a);
       });
   /*
