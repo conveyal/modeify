@@ -38,6 +38,11 @@ var View = module.exports = view(require('./template.html'), function(view, mode
           d3_sort_list.push({'class_':class_, 'position':position});
       }
       console.log("d3_sort_list ->", d3_sort_list);
+      console.log("--")
+      d3_sort_list.sort(function(a, b){return b-a});
+      console.log("d3_sort_list ->", d3_sort_list);
+
+      console.log("--------------------");
        var rec2 = d3.selectAll(".leaflet-div-icon1");
        rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon2 leaflet-zoom-hide legend-fadeout');
 
