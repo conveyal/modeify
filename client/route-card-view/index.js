@@ -50,7 +50,11 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       });
 
       d3.selectAll(".estaes")[0].sort(function(a,b){
-           console.log("itera ->", a);
+           if(d3.select(a).attr("color") == "#000000") {
+                return 1;
+           }else {
+                return -1;
+           }
       });
   /*
     showMapView.cleanPolyline();
