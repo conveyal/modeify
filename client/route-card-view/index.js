@@ -24,33 +24,34 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       var itineration = JSON.parse(localStorage.getItem('itineration'));
       for (var i=0; i<itineration.length;i++) {
           number += 1;
-          //console.log("number ->", number);
-          //console.log("var I ->", i);
           var class_ = ".iteration-"+i;
 
           var rec = d3.selectAll(".iteration-"+i);
-          console.log(rec.style("stroke"));
-          console.log(rec.style("stroke-width"));
-          console.log(rec.style("stroke-opacity"));
+          var rec_stroke = rec.style("stroke");
+          var rec_stroke_width = rec.style("stroke-width");
+          var rec_stroke_opacity= rec.style("stroke-opacity");
 
 
           var position = number;
            if (i==model.index){
                position = 1;
-                //var rec = d3.selectAll(".iteration-"+i)
-                //.style("z-index", "10");
-                //rec.attr('class', 'iteration-'+i+' legend-fadeout');
            }
-          console.log("dict->", {'class_':class_, 'position':position});
-          d3_sort_list.push({'class_':class_, 'position':position});
+          var new_dict = {'class_':class_, 'position':position,
+                          'rec_stroke':rec_stroke, 'rec_stroke_width':rec_stroke_width,
+                          'rec_stroke_opacity':rec_stroke_opacity };
+          d3_sort_list.push(new_dict);
       }
       d3_sort_list.sort(function(a, b){return b.position-a.position});
 
       for (var i=0; i<d3_sort_list.length;i++) {
-
+          var r3 = d3.selectAll(".iteration-"+d3_sort_list[i].position);
           if (i != 1){
-              var r3 = d3.selectAll(".iteration-"+d3_sort_list[i].position);
               r3.transition().duration(500).style("stroke", "#E0E0E0");
+              r3.attr("color", "#ffffff");
+          }else{
+              r3.style("stroke", d3_sort_list[i].rec_stroke);
+              r3.style("stroke-width", d3_sort_list[i].rec_stroke_width);
+              r3.style("stroke-opacity", d3_sort_list[i].rec_stroke_opacity);
           }
 
       }
