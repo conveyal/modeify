@@ -25,30 +25,27 @@ var View = module.exports = view(require('./template.html'), function(view, mode
            var r3 = d3.selectAll(".iteration-"+i);
            if (i!=model.index){
                 r3.transition().duration(500).style("stroke", "#E0E0E0");
-                r3.attr("color","#ffffff");
-                r3.attr("data-color","#aaaaaa");
-
-                //r3.style("opacity", 1)
+                r3.attr("data-show","0");
            }else {
-                r3.attr("color","#000000");
+                r3.attr("data-show","1");
            }
       }
 
       d3.selectAll(".iteration-200").each(function(e){
             var element = d3.select(this);
             var parent = element.node().parentNode;
-            if (element.attr("color") == "#000000") {
-                d3.select(parent).attr("class", "estaes");
-                d3.select(parent).attr("color", "#000000");
+            if (Boolean(element.attr("data-show"))) {
+                d3.select(parent).attr("class", "g-element");
+                d3.select(parent).attr("data-show", "1");
             }else {
-                d3.select(parent).attr("class", "estaes");
-                d3.select(parent).attr("color", "#ffffff");
+                d3.select(parent).attr("class", "g-element");
+                d3.select(parent).attr("data-show", "0");
             }
 
       });
 
-      d3.selectAll(".estaes")[0].sort(function(a,b){
-            if (d3.select(a).attr("color") == "#000000") {
+      d3.selectAll(".g-element")[0].sort(function(a,b){
+            if (Boolean(d3.select(a).attr("data-show"))) {
                 d3.select(a).node().parentNode.appendChild(a);
             }
 
