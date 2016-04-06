@@ -77,22 +77,23 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 
   mouseleave(view.el, function() {
 
-  var itineration = JSON.parse(localStorage.getItem('itineration'));
-   console.log("obj itineration 2->", itineration.length);
-   for (var i=0; i<itineration.length;i++) {
+   showMapView.cleanPolyline();
+    showMapView.cleanMarkerpoint();
+    showMapView.cleanMarkerCollision();
+    showMapView.marker_collision_group = [];
 
+    var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
+    sesion_plan = sesion_plan.plan;
 
-        if (i!=model.index){
+     var itineraries = sesion_plan.itineraries;
+      for (var i= 0; i < itineraries.length; i++) {
 
-            d3.selectAll(".iteration-"+i)
-            .transition().duration(500).style("stroke", function(b){
+          for (var j=0; j < itineraries[i].legs.length; j++) {
+             showMapView.drawRouteAmigo(itineraries[i].legs[j], itineraries[i].legs[j].mode, i);
+          }
+      }
+      showMapView.drawMakerCollision();
 
-                   return d3.select(this).attr("stroke");
-            });
-                //.style("opacity", 0)
-                //.transition().duration(500).style("opacity", 1);
-        }
-   }
   });
 });
 
