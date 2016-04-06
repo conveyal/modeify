@@ -28,7 +28,8 @@ var View = module.exports = view(require('./template.html'), function(view, mode
                 r3.attr("color","#ffffff");
                 r3.attr("data-color","#aaaaaa");
 
-                //r3.style("opacity", 1)
+                var rec2 = d3.selectAll(".circle-fade-"+i);
+                rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon2 circle-fade-'+i+ ' leaflet-zoom-hide');
            }else {
                 r3.attr("color","#000000");
            }
@@ -53,21 +54,15 @@ var View = module.exports = view(require('./template.html'), function(view, mode
             }
 
       });
-  /*
-    showMapView.cleanPolyline();
-    showMapView.cleanMarkerpoint();
-    showMapView.cleanMarkerCollision();
-    showMapView.marker_collision_group = [];
-      console.log(Math.random())
+
 
   });
 
   mouseleave(view.el, function() {
 
-  var itineration = JSON.parse(localStorage.getItem('itineration'));
-   console.log("obj itineration 2->", itineration.length);
-   for (var i=0; i<itineration.length;i++) {
-
+    var itineration = JSON.parse(localStorage.getItem('itineration'));
+    console.log("obj itineration 2->", itineration.length);
+    for (var i=0; i<itineration.length;i++) {
 
         if (i!=model.index){
 
@@ -76,10 +71,11 @@ var View = module.exports = view(require('./template.html'), function(view, mode
                     console.log("este es stroke ->", this);
                    return d3.select(this).attr("stroke");
             });
-                //.style("opacity", 0)
-                //.transition().duration(500).style("opacity", 1);
+
+             var rec2 = d3.selectAll(".circle-fade-"+i);
+             rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon1 circle-fade-'+i+ ' leaflet-zoom-hide');
         }
-   }
+    }
   });
 });
 
