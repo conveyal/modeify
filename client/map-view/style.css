@@ -65,6 +65,12 @@
 .fade-out .four {-webkit-animation-delay: 0.1s;}
 
 .message_ {
+    color: #DFDFDF;
+    text-shadow:
+    -1px -1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+    1px 1px 0 #fff;
     -webkit-animation: fade_jona 1s;
     -webkit-animation-fill-mode: both;
 }
