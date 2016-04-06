@@ -44,8 +44,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 
       var todos = d3.selectAll(".iteration-200");
       todos[0].sort(function(a,b){
-            console.log("esto es a", a);
-            console.log("esto es b", b);
+            console.log("data valor" , a.classed("iteration-"+model.index));
       });
 
 
