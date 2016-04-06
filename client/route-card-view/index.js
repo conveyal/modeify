@@ -50,11 +50,8 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       });
 
       d3.selectAll(".estaes")[0].sort(function(a,b){
-            if (d3.select(a).attr("color") == "#000000") {
-                d3.select(a).node().parentNode.insertBefore(a, d3.select(".estaes"));
-                console.log("si agrega");
-            }else{
-                console.log("esta es a ->", a);
+            if (d3.select(a).attr("color") == "#ffffff") {
+                d3.select(a).node().parentNode.appendChild(a);
             }
 
       });
