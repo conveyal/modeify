@@ -243,7 +243,7 @@ module.exports.marker_map_point = function(to, map, set_hover){
 
 
 
-module.exports.drawRouteAmigo = function(legs,mode, option) {
+module.exports.drawRouteAmigo = function(legs,mode, option,itineration) {
 
     var route = legs.legGeometry.points;
     var circle_from = [legs.from.lat, legs.from.lon, legs.from.name];
@@ -251,6 +251,7 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
     var color = '#000000';
     var weight = 5;
     var set_hover = false;
+    var classname = "iteration-"+itineration;
     if (option.stroke){
         set_hover = true;
     }
@@ -309,7 +310,8 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
             color:color,
             weight: weight,
             opacity:1,
-            dashArray: dasharray
+            dashArray: dasharray,
+            className: classname
         };
 
        if (option.stroke){

@@ -352,7 +352,7 @@ function updateMapOnPlanChange(plan, map) {
 
                 for (i = 0; i < itineraries.length; i++) {
                     for (ii=0; ii < itineraries[i].legs.length; ii++) {
-                      showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode, options_draw);
+                      showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode, options_draw, i);
                     }
                 }
 
