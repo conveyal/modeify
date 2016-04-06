@@ -24,13 +24,15 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       var itineration = JSON.parse(localStorage.getItem('itineration'));
       for (var i=0; i<itineration.length;i++) {
           number += 1;
-           d3_sort_list.push({'class_':".iteration-"+i, 'position':number});
+          console.log(number);
+
            if (i!=model.index){
-                d3_sort_list.push({'class_':".iteration-"+i, 'position':1});
+                number = 1;
                 var rec = d3.selectAll(".iteration-"+i)
                 .style("z-index", "10");
                 rec.attr('class', 'iteration-'+i+' legend-fadeout');
            }
+            d3_sort_list.push({'class_':".iteration-"+i, 'position':number});
       }
       console.log("d3_sort_list ->", d3_sort_list);
        var rec2 = d3.selectAll(".leaflet-div-icon1");
