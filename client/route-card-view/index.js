@@ -24,79 +24,52 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       for (var i=0; i<itineration.length;i++) {
            var r3 = d3.selectAll(".iteration-"+i);
            if (i!=model.index){
-                r3.transition().duration(500).style("stroke", "#E0E0E0");
-                r3.attr("color","#ffffff");
-                r3.attr("data-color","#aaaaaa");
-
-                var rec2 = d3.selectAll(".circle-fade-"+i);
-                rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon2 circle-fade-'+i+ ' leaflet-zoom-hide');
+                r3.transition().duration(600).style("stroke", "#E0E0E0");
+                r3.attr("data-show","0");
            }else {
-                r3.attr("color","#000000");
+                r3.attr("data-show","1");
            }
       }
 
       d3.selectAll(".iteration-200").each(function(e){
             var element = d3.select(this);
-            var parent = element.node().parentNode;
-            if (element.attr("color") == "#000000") {
-                d3.select(parent).attr("class", "estaes");
-                d3.select(parent).attr("color", "#000000");
+            var parent = d3.select(element.node().parentNode);
+            parent.attr("class", "g-element");
+            if (Boolean(parseInt(element.attr("data-show")))) {
+                parent.attr("data-show", "1");
             }else {
-                d3.select(parent).attr("class", "estaes");
-                d3.select(parent).attr("color", "#ffffff");
+                parent.attr("data-show", "0");
             }
 
       });
 
-      d3.selectAll(".estaes")[0].sort(function(a,b){
-            if (d3.select(a).attr("color") == "#000000") {
+      d3.selectAll(".g-element")[0].sort(function(a,b){
+            if (Boolean(parseInt(d3.select(a).attr("data-show")))) {
                 d3.select(a).node().parentNode.appendChild(a);
             }
 
       });
-
-
   });
 
   mouseleave(view.el, function() {
 
-    //var itineration = JSON.parse(localStorage.getItem('itineration'));
-    //for (var i=0; i<itineration.length;i++) {
-    //
-    //    if (i!=model.index){
-    //        d3.selectAll(".iteration-"+i)
-    //        .transition().duration(500).style("stroke", function(b){
-    //                console.log("este es stroke ->", this);
-    //               return d3.select(this).attr("stroke");
-    //        });
-    //
-    //         var rec2 = d3.selectAll(".circle-fade-"+i);
-    //         rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon1 circle-fade-'+i+ ' leaflet-zoom-hide');
-    //    }
-    //}
+   showMapView.cleanPolyline();
+    showMapView.cleanMarkerpoint();
+    showMapView.cleanMarkerCollision();
+    showMapView.marker_collision_group = [];
 
-    //showMapView.cleanPolyline();
-    //showMapView.cleanMarkerpoint();
-    //showMapView.cleanMarkerCollision();
-    //showMapView.marker_collision_group = [];
-    //
-    if (!view.el.classList.contains('expanded')) {
-      showMapView.cleanPolyline();
-      showMapView.cleanMarkerpoint();
-      showMapView.cleanMarkerCollision();
-      showMapView.marker_collision_group = [];
+    var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
+    sesion_plan = sesion_plan.plan;
 
-      var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
-      sesion_plan = sesion_plan.plan;
-      var itineraries = sesion_plan.itineraries;
-      for (i = 0; i < itineraries.length; i++) {
-          for (ii=0; ii < itineraries[i].legs.length; ii++) {
-            showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode, i);
+     var itineraries = sesion_plan.itineraries;
+      for (var i= 0; i < itineraries.length; i++) {
+
+          for (var j=0; j < itineraries[i].legs.length; j++) {
+             showMapView.drawRouteAmigo(itineraries[i].legs[j], itineraries[i].legs[j].mode, i);
           }
       }
       showMapView.drawMakerCollision();
 
-    }
   });
 });
 
