@@ -60,19 +60,42 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 
   mouseleave(view.el, function() {
 
-    var itineration = JSON.parse(localStorage.getItem('itineration'));
-    for (var i=0; i<itineration.length;i++) {
+    //var itineration = JSON.parse(localStorage.getItem('itineration'));
+    //for (var i=0; i<itineration.length;i++) {
+    //
+    //    if (i!=model.index){
+    //        d3.selectAll(".iteration-"+i)
+    //        .transition().duration(500).style("stroke", function(b){
+    //                console.log("este es stroke ->", this);
+    //               return d3.select(this).attr("stroke");
+    //        });
+    //
+    //         var rec2 = d3.selectAll(".circle-fade-"+i);
+    //         rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon1 circle-fade-'+i+ ' leaflet-zoom-hide');
+    //    }
+    //}
 
-        if (i!=model.index){
-            d3.selectAll(".iteration-"+i)
-            .transition().duration(500).style("stroke", function(b){
-                    console.log("este es stroke ->", this);
-                   return d3.select(this).attr("stroke");
-            });
+    //showMapView.cleanPolyline();
+    //showMapView.cleanMarkerpoint();
+    //showMapView.cleanMarkerCollision();
+    //showMapView.marker_collision_group = [];
+    //
+    if (!view.el.classList.contains('expanded')) {
+      showMapView.cleanPolyline();
+      showMapView.cleanMarkerpoint();
+      showMapView.cleanMarkerCollision();
+      showMapView.marker_collision_group = [];
 
-             var rec2 = d3.selectAll(".circle-fade-"+i);
-             rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon1 circle-fade-'+i+ ' leaflet-zoom-hide');
-        }
+      var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
+      sesion_plan = sesion_plan.plan;
+      var itineraries = sesion_plan.itineraries;
+      for (i = 0; i < itineraries.length; i++) {
+          for (ii=0; ii < itineraries[i].legs.length; ii++) {
+            showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode, i);
+          }
+      }
+      showMapView.drawMakerCollision();
+
     }
   });
 });

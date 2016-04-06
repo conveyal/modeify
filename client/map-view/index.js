@@ -236,18 +236,15 @@ module.exports.marker_map_point = function(to, map, itineration){
 
 
 
-module.exports.drawRouteAmigo = function(legs,mode, option, itineration) {
+module.exports.drawRouteAmigo = function(legs,mode, itineration) {
 
     var route = legs.legGeometry.points;
     var circle_from = [legs.from.lat, legs.from.lon, legs.from.name];
     var circle_to = [legs.to.lat, legs.to.lon, legs.to.name];
     var color = '#000000';
     var weight = 5;
-    var set_hover = false;
     var classname = "iteration-"+itineration + " iteration-200";
-    if (option.stroke){
-        set_hover = true;
-    }
+
 
     var dasharray= '';
 
@@ -304,18 +301,7 @@ module.exports.drawRouteAmigo = function(legs,mode, option, itineration) {
             className: classname
         };
 
-        /*
-       if (option.stroke){
-         delete color_options.opacity;
-       }else{
-          color_options.color = color;
-       }
 
-       if (option.class_name){
-           color_options.className = 'message_';
-
-       }
-       */
 
       var argpolyline = L.PolylineUtil.decode(route, 5);
       argpolyline.unshift(circle_from);
