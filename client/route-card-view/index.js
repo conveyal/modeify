@@ -75,12 +75,13 @@ var View = module.exports = view(require('./template.html'), function(view, mode
    for (var i=0; i<itineration.length;i++) {
         if (i!=model.index){
 
-        d3.selectAll(".iteration-"+i)
+        var element = d3.selectAll(".iteration-"+i)
         .transition().duration(500)
         .style('stroke', function(d){
                 return this.stroke;
             });
 
+        console.log("element");
         /*
             d3.selectAll(".iteration-"+i).transition()
             .attr('stroke', function(d){
