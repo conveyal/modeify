@@ -49,7 +49,8 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       var todos = d3.selectAll(".iteration-200");
       todos[0].sort(function(a,b){
             if (d3.select(a).attr("color") == "#000000") {
-                return d3.select(a).parentNode.append(this);
+                //return d3.select(a).parentNode.append(a);
+                console.log(d3.select(a).parentNode);
             }
       });
 
