@@ -25,35 +25,12 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       console.log("obj itineration 1 ->", itineration.length);
       var element = [];
       for (var i=0; i<itineration.length;i++) {
-           var r3 = d3.selectAll(".iteration-"+i);
            if (i!=model.index){
-
-                r3.transition().duration(500).style("stroke", "#E0E0E0");
-                r3.attr("color", "#ffffff");
-                //.transition().duration(400).classed("hide-route", true);
-                /*
-                rec.setAttribute('data-color', function(d){
-                    return this.stroke;
-                })
-                */
-                //.transition().duration(400).style("stroke", "#E0E0E0");
-                //.style("opacity", 1)
-                //.transition().duration(500).style("opacity", 0);
-               //.transition().duration(400).style("stroke", "#E0E0E0");
-               //.style("opacity", 1)
-           }else {
-                r3.attr("color", "#000000");
+                d3.selectAll(".iteration-"+i)
+                .style("opacity", 1)
+                .transition().duration(500).style("opacity", 0);
            }
       }
-
-      var todos = d3.selectAll(".iteration-200");
-      todos[0].sort(function(a,b){
-            if (d3.select(a).attr("color") == "#000000") {
-                //return d3.select(a).parentNode.append(a);
-                todos[0].parentNode.append(a);
-            }
-      });
-
 
 
   /*
@@ -91,46 +68,11 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 
         if (i!=model.index){
 
-            var element = d3.selectAll(".iteration-"+i)
-            .transition().duration(500)
-            .style('stroke', function(d){
-                    return this.stroke;
-                });
-
-            console.log(element);
-            /*
-                d3.selectAll(".iteration-"+i).transition()
-                .attr('stroke', function(d){
-                    console.log(this);
-                    return this["data-color"];
-                });
-                */
-                //.transition().duration(500).style("opacity", 1);
-                //.style("opacity", 0)
-               //.transition().duration(400).style("stroke", "#E0E0E0");
-               //.style("opacity", 0)
+            d3.selectAll(".iteration-"+i)
+                .style("opacity", 0)
+                .transition().duration(500).style("opacity", 1);
         }
    }
-  /*
-    if (!view.el.classList.contains('expanded')) {
-      showMapView.cleanPolyline();
-      showMapView.cleanMarkerpoint();
-      showMapView.cleanMarkerCollision();
-      showMapView.marker_collision_group = [];
-
-      var option_draw = {'stroke':false, 'class_name':false};
-      var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
-      sesion_plan = sesion_plan.plan;
-      var itineraries = sesion_plan.itineraries;
-      for (i = 0; i < itineraries.length; i++) {
-          for (ii=0; ii < itineraries[i].legs.length; ii++) {
-            showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode, option_draw);
-          }
-      }
-      showMapView.drawMakerCollision();
-
-    }
-    */
   });
 });
 
