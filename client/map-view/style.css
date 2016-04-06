@@ -25,13 +25,9 @@
 
 
 @-webkit-keyframes fade_jona {
-    0% {
-        opacity: 0.99;
-        color:#2B2922;
-    }
 
     100% {
-        opacity: 0.30;
+        opacity: 1;
         color:#ccc;
         border: 2px solid white;
           -moz-box-shadow: 2px 2px 16px #fff;
@@ -71,7 +67,7 @@
     1px -1px 0 #fff,
     -1px 1px 0 #fff,
     1px 1px 0 #fff;
-    -webkit-animation: fade_jona 1s;
+    -webkit-animation: fade_jona 0.5s;
     -webkit-animation-fill-mode: both;
 }
 
