@@ -33,9 +33,16 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       }
 
       d3.selectAll(".iteration-200").each(function(e){
-            console.log("elemento ->" , this);
-            console.log("parent node ->", d3.select(this).node().parentNode);
-            d3.select(d3.select(this).node().parentNode).attr("class", "estaes");
+            var element = d3.select(this);
+            var parent = element.node().parentNode;
+            if (element.attr("color") == "#000000") {
+                d3.select(parent).attr("class", "estaes");
+                d3.select(parent).attr("color", "#000000");
+            }else {
+                d3.select(parent).attr("class", "estaes");
+                d3.select(parent).attr("color", "#ffffff");
+            }
+
       });
   /*
     showMapView.cleanPolyline();
