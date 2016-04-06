@@ -31,7 +31,6 @@ var View = module.exports = view(require('./template.html'), function(view, mode
           var rec_stroke_width = rec.style("stroke-width");
           var rec_stroke_opacity= rec.style("stroke-opacity");
 
-
           var position = number;
            if (i==model.index){
                position = 1;
@@ -47,17 +46,16 @@ var View = module.exports = view(require('./template.html'), function(view, mode
           var r3 = d3.selectAll(".iteration-"+d3_sort_list[i].position);
           if (i != 1){
               r3.transition().duration(500).style("stroke", "#E0E0E0");
-              r3.attr("color", "#ffffff");
           }else{
               r3.style("stroke", d3_sort_list[i].rec_stroke);
-              r3.style("stroke-width", d3_sort_list[i].rec_stroke_width);
-              r3.style("stroke-opacity", d3_sort_list[i].rec_stroke_opacity);
+              //r3.style("stroke-width", d3_sort_list[i].rec_stroke_width);
+              //r3.style("stroke-opacity", d3_sort_list[i].rec_stroke_opacity);
           }
 
       }
 
-       //var rec2 = d3.selectAll(".leaflet-div-icon1");
-       //rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon2 leaflet-zoom-hide legend-fadeout');
+       var rec2 = d3.selectAll(".leaflet-div-icon1");
+       rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon2 leaflet-zoom-hide');
 
   });
 
@@ -67,7 +65,6 @@ var View = module.exports = view(require('./template.html'), function(view, mode
    for (var i=0; i<itineration.length;i++) {
         if (i!=model.index){
              var rec = d3.selectAll(".iteration-"+i)
-             .style("z-index", "50");
              rec.attr('class', 'iteration-'+i);
         }
    }
