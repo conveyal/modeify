@@ -305,22 +305,23 @@ module.exports.drawRouteAmigo = function(legs,mode, option) {
         }
 
 
-       var color_options = {
-            color:color,
+        var color_options;
+        color_options = {
+            color: color,
             weight: weight,
-            opacity:1,
+            opacity: 1,
             dashArray: dasharray
         };
 
-       if (option.stroke){
-         delete color_options.opacity;
-         delete color_options.color;
-         color_options.color = '#000000';
-       }
+        if (option.stroke){
+           delete color_options.opacity;
+           delete color_options.color;
+           color_options.color = '#DFDFDF';
+        }
 
 
        if (option.class_name){
-           color_options.className = 'message_';
+           //color_options.className = 'message_';
 
        }
 
