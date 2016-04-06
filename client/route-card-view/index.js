@@ -25,9 +25,11 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       console.log("obj itineration 1 ->", itineration.length);
       var element = [];
       for (var i=0; i<itineration.length;i++) {
+           var r3 = d3.selectAll(".iteration-"+i);
            if (i!=model.index){
-                var r3 = d3.selectAll(".iteration-"+i);
+
                 r3.transition().duration(500).style("stroke", "#E0E0E0");
+                r3.attr("color", "#ffffff");
                 //.transition().duration(400).classed("hide-route", true);
                 /*
                 rec.setAttribute('data-color', function(d){
@@ -39,12 +41,14 @@ var View = module.exports = view(require('./template.html'), function(view, mode
                 //.transition().duration(500).style("opacity", 0);
                //.transition().duration(400).style("stroke", "#E0E0E0");
                //.style("opacity", 1)
+           }else {
+                r3.attr("color", "#000000");
            }
       }
 
       var todos = d3.selectAll(".iteration-200");
       todos[0].sort(function(a,b){
-            console.log("tiene", a ,a.select(".iteration-"+model.index));
+            console.log("tiene", a ,a.color);
       });
 
 
