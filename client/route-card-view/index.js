@@ -27,6 +27,13 @@ var View = module.exports = view(require('./template.html'), function(view, mode
           console.log("number ->", number);
           console.log("var I ->", i);
           var class_ = ".iteration-"+i;
+
+          var rec = d3.selectAll(".iteration-"+i);
+          console.log(rec.style("stroke"));
+          console.log(rec.style("stroke-width"));
+          console.log(rec.style("stroke-opacity"));
+
+
           var position = number;
            if (i==model.index){
                position = 1;
@@ -37,12 +44,17 @@ var View = module.exports = view(require('./template.html'), function(view, mode
           console.log("dict->", {'class_':class_, 'position':position});
           d3_sort_list.push({'class_':class_, 'position':position});
       }
-      console.log("d3_sort_list ->", d3_sort_list);
-      console.log("--")
       d3_sort_list.sort(function(a, b){return b.position-a.position});
-      console.log("d3_sort_list ->", d3_sort_list);
 
-      console.log("--------------------");
+      for (var i=0; i<d3_sort_list.length;i++) {
+
+          if (i != 1){
+              var r3 = d3.selectAll(".iteration-"+d3_sort_list[i].position);
+              r3.transition().duration(500).style("stroke", "#E0E0E0");
+          }
+
+      }
+
        var rec2 = d3.selectAll(".leaflet-div-icon1");
        rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon2 leaflet-zoom-hide legend-fadeout');
 
