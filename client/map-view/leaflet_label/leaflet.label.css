@@ -10,6 +10,9 @@
 }
 
 .leaflet-label:focus, :active, :hover {
+   position: absolute;
+   margin-left: 10px;
+   margin-top: -10px;
    border: none !important;
    outline: none;
 }
