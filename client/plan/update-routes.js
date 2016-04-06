@@ -81,7 +81,7 @@ function updateRoutes(plan, opts, callback) {
             localStorage.removeItem('itineration');
         }
 
-        localStorage.setItem('itineration', {"length":itineraries.length});
+        localStorage.setItem('itineration', JSON.stringify({"length":itineraries.length}));
         localStorage.setItem('dataplan', JSON.stringify(data.options));
 
           // Track the commute

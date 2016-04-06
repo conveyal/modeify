@@ -21,6 +21,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
   mouseenter(view.el, function() {
 
       var itineration = JSON.parse(localStorage.getItem('itineration'));
+
       console.log("obj itineration 1 ->", itineration.length);
       for (var i=0; i<itineration.length;i++) {
            if (i!=model.index){
