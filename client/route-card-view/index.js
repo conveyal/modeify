@@ -39,7 +39,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       }
       console.log("d3_sort_list ->", d3_sort_list);
       console.log("--")
-      d3_sort_list.sort(function(a, b){return b-a});
+      d3_sort_list.sort(function(a, b){return b.position-a.position});
       console.log("d3_sort_list ->", d3_sort_list);
 
       console.log("--------------------");
