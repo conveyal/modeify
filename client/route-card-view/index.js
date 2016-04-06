@@ -32,7 +32,9 @@ var View = module.exports = view(require('./template.html'), function(view, mode
            }
       }
 
-
+      d3.selectAll(".iteration-200").each(function(e){
+            console.log("elemento ->" , this);
+      });
   /*
     showMapView.cleanPolyline();
     showMapView.cleanMarkerpoint();
