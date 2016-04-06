@@ -19,15 +19,20 @@ var showMapView = require('map-view');
 
 var View = module.exports = view(require('./template.html'), function(view, model) {
   mouseenter(view.el, function() {
-
+      var d3_sort_list = [];
+      var number = 1;
       var itineration = JSON.parse(localStorage.getItem('itineration'));
       for (var i=0; i<itineration.length;i++) {
+          number += 1;
+           d3_sort_list.push({'class_':".iteration-"+i, 'position':number});
            if (i!=model.index){
+                d3_sort_list.push({'class_':".iteration-"+i, 'position':1});
                 var rec = d3.selectAll(".iteration-"+i)
                 .style("z-index", "10");
                 rec.attr('class', 'iteration-'+i+' legend-fadeout');
            }
       }
+      console.log("d3_sort_list ->", d3_sort_list);
        var rec2 = d3.selectAll(".leaflet-div-icon1");
        rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon2 leaflet-zoom-hide legend-fadeout');
 
