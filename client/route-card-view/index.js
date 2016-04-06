@@ -18,66 +18,72 @@ var showMapView = require('map-view');
  */
 
 var View = module.exports = view(require('./template.html'), function(view, model) {
-  mouseenter(view.el, function() {
-      var d3_sort_list = [];
-      var number = 1;
-      var itineration = JSON.parse(localStorage.getItem('itineration'));
-      for (var i=0; i<itineration.length;i++) {
-          number += 1;
-          var class_ = ".iteration-"+i;
 
-          var rec = d3.selectAll(".iteration-"+i);
-          var rec_stroke = rec.style("stroke");
-          var rec_stroke_width = rec.style("stroke-width");
-          var rec_stroke_opacity= rec.style("stroke-opacity");
+  //mouseenter(view.el, function() {
+  //    var d3_sort_list = [];
+  //    var number = 1;
+  //    var itineration = JSON.parse(localStorage.getItem('itineration'));
+  //    for (var i=0; i<itineration.length;i++) {
+  //        number += 1;
+  //        var class_ = ".iteration-"+i;
+  //
+  //        var rec = d3.selectAll(".iteration-"+i);
+  //        var rec_stroke = rec.style("stroke");
+  //        var rec_stroke_width = rec.style("stroke-width");
+  //        var rec_stroke_opacity= rec.style("stroke-opacity");
+  //
+  //        var position = number;
+  //         if (i==model.index){
+  //             position = 1;
+  //         }
+  //        var new_dict = {'class_':class_, 'position':position,
+  //                        'rec_stroke':rec_stroke, 'rec_stroke_width':rec_stroke_width,
+  //                        'rec_stroke_opacity':rec_stroke_opacity };
+  //        d3_sort_list.push(new_dict);
+  //    }
+  //    d3_sort_list.sort(function(a, b){return b.position-a.position});
+  //
+  //    localStorage.setItem('d3_sort_list', JSON.stringify(d3_sort_list));
+  //
+  //    for (var i=0; i<d3_sort_list.length;i++) {
+  //        var r3 = d3.selectAll(".iteration-"+d3_sort_list[i].position);
+  //        if (i != 1){
+  //            r3.transition().duration(500).style("stroke", "#E0E0E0");
+  //        }else{
+  //            r3.style("stroke", d3_sort_list[i].rec_stroke);
+  //            //r3.style("stroke-width", d3_sort_list[i].rec_stroke_width);
+  //            //r3.style("stroke-opacity", d3_sort_list[i].rec_stroke_opacity);
+  //        }
+  //
+  //    }
+  //
+  //     var rec2 = d3.selectAll(".leaflet-div-icon1");
+  //     rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon2 leaflet-zoom-hide');
+  //
+  //     console.log()
+  //
+  //});
+  //
+  //mouseleave(view.el, function() {
+  //
+  //var d3_sort_list = JSON.parse(localStorage.getItem('d3_sort_list'));
+  //console.log("MOUSE ->", d3_sort_list) ;
+  //
+  // for (var i=0; i<d3_sort_list.length;i++) {
+  //
+  //     var rec = d3.selectAll(".iteration-"+i);
+  //     rec.attr('class', 'iteration-'+i);
+  //     rec.style("stroke", d3_sort_list[i].rec_stroke);
+  //     rec.style("stroke-width", d3_sort_list[i].rec_stroke_width);
+  //     rec.style("stroke-opacity", d3_sort_list[i].rec_stroke_opacity);
+  //
+  // }
+  // var rec2 = d3.selectAll(".leaflet-div-icon2");
+  // rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon1 leaflet-zoom-hide');
+  //
+  //});
 
-          var position = number;
-           if (i==model.index){
-               position = 1;
-           }
-          var new_dict = {'class_':class_, 'position':position,
-                          'rec_stroke':rec_stroke, 'rec_stroke_width':rec_stroke_width,
-                          'rec_stroke_opacity':rec_stroke_opacity };
-          d3_sort_list.push(new_dict);
-      }
-      d3_sort_list.sort(function(a, b){return b.position-a.position});
 
-      localStorage.setItem('d3_sort_list', JSON.stringify(d3_sort_list));
-
-      for (var i=0; i<d3_sort_list.length;i++) {
-          var r3 = d3.selectAll(".iteration-"+d3_sort_list[i].position);
-          if (i != 1){
-              r3.transition().duration(500).style("stroke", "#E0E0E0");
-          }else{
-              r3.style("stroke", d3_sort_list[i].rec_stroke);
-              //r3.style("stroke-width", d3_sort_list[i].rec_stroke_width);
-              //r3.style("stroke-opacity", d3_sort_list[i].rec_stroke_opacity);
-          }
-
-      }
-
-       var rec2 = d3.selectAll(".leaflet-div-icon1");
-       rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon2 leaflet-zoom-hide');
-
-  });
-
-  mouseleave(view.el, function() {
-
-  var d3_sort_list = JSON.parse(localStorage.getItem('d3_sort_list'));
-
-   for (var i=0; i<d3_sort_list.length;i++) {
-
-       var rec = d3.selectAll(".iteration-"+i);
-       rec.attr('class', 'iteration-'+i);
-       rec.style("stroke", d3_sort_list[i].rec_stroke);
-       rec.style("stroke-width", d3_sort_list[i].rec_stroke_width);
-       rec.style("stroke-opacity", d3_sort_list[i].rec_stroke_opacity);
-
-   }
-   var rec2 = d3.selectAll(".leaflet-div-icon2");
-   rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon1 leaflet-zoom-hide');
-
-  });
 });
 
 View.prototype.calculator = function() {
