@@ -90,7 +90,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
             d3.selectAll(".iteration-"+i)
             .transition().duration(500).style("stroke", function(b){
                     console.log("este es stroke ->", this);
-                   return "#000000";
+                   return d3.select(this).attr("stroke");
             });
                 //.style("opacity", 0)
                 //.transition().duration(500).style("opacity", 1);
