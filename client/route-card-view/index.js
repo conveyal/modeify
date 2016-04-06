@@ -42,7 +42,9 @@ var View = module.exports = view(require('./template.html'), function(view, mode
            }
       }
 
-      d3.selectAll(".iteration-"+model.index).parentNode.append(this);
+      d3.selectAll(".iteration-200").order(function() {
+            console.log("para b ->", this);
+      });
 
 
 
