@@ -35,7 +35,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
                 //.style("z-index", "10");
                 //rec.attr('class', 'iteration-'+i+' legend-fadeout');
            }
-          d3_sort_list.push(d3_sort);
+          d3_sort_list.append(d3_sort);
       }
       console.log("d3_sort_list ->", d3_sort_list);
        var rec2 = d3.selectAll(".leaflet-div-icon1");
