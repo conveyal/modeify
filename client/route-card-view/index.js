@@ -43,7 +43,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       }
 
       d3.selectAll(".iteration-all").sort(function (a, b) {
-        console.log("este es b ->", b);
+        console.log("este es b ->", this);
       });
 
   /*
