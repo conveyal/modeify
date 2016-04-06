@@ -50,7 +50,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       todos[0].sort(function(a,b){
             if (d3.select(a).attr("color") == "#000000") {
                 //return d3.select(a).parentNode.append(a);
-                console.log(d3.select(a).parentNode);
+                console.log(d3.select(a)[0].parentNode);
             }
       });
 
