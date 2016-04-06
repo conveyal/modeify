@@ -26,9 +26,8 @@ var View = module.exports = view(require('./template.html'), function(view, mode
            if (i!=model.index){
                 r3.transition().duration(500).style("stroke", "#E0E0E0");
                 r3.attr("data-show","0");
-                r3.each(function(a){
-                    console.log("each", a);
-                });
+
+                console.log("r3",r3);
            }else {
                 r3.attr("data-show","1");
            }
@@ -90,7 +89,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 
             d3.selectAll(".iteration-"+i)
             .transition().duration(500).style("stroke", function(b){
-                    console.log("este es stroke ->", this);
+
                    return d3.select(this).attr("stroke");
             });
                 //.style("opacity", 0)
