@@ -36,7 +36,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       }
 
        var rec2 = d3.selectAll(".leaflet-div-icon1");
-       rec2.attr('class', 'leaflet-div-icon1 legend-fadeout');
+       rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon1 leaflet-zoom-hide legend-fadeout');
 
 
   /*
@@ -79,6 +79,10 @@ var View = module.exports = view(require('./template.html'), function(view, mode
            //.style("opacity", 0)
         }
    }
+
+   var rec2 = d3.selectAll(".leaflet-div-icon1");
+   rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon1 leaflet-zoom-hide');
+
 
 
   //  showMapView.cleanPolyline();
