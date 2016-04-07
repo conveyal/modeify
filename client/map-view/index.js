@@ -113,25 +113,44 @@ module.exports.drawMakerCollision = function () {
 module.exports.drawItinerationMakerCollision = function (i) {
     var collision_group = L.layerGroup.collision();
     var marker_collision_group = [];
+    var selection_marker_collision_group = [];
+
+    for (j in this.last_marker_collision_group[i]){
+        marker_collision_group.push(this.last_marker_collision_group[i][j]);
+        var objmarker = this.last_marker_collision_group[i][j];
+        selection_marker_collision_group.push(objmarker);
+    }
 
     for(j in this.last_marker_collision_group) {
         if (j!=i) {
+
             for (k in this.last_marker_collision_group[j]){
-                marker_collision_group.push(this.last_marker_collision_group[j][k]);
+                var collision = false;
+                var objmarker = this.last_marker_collision_group[j][k].getLatLng();
+                for(m in  selection_marker_collision_group) {
+                    var iobjmarker = selection_marker_collision_group[m].getLatLng();
+                    if (objmarker.lat == iobjmarker.lat && objmarker.lng == iobjmarker.lng){
+                        collision = true;
+                        break;
+                    }else {
+                        collision = false;
+                    }
+                }
+
+                if(!collision) {
+                    marker_collision_group.push(this.last_marker_collision_group[j][k]);
+                }
+
             }
         }
 
     }
-
-    for (j in this.last_marker_collision_group[i]){
-        marker_collision_group.push(this.last_marker_collision_group[i][j]);
-    }
-
     collision_group.addLayer(marker_collision_group);
     collision_group.onAdd(this.activeMap);
     this.collision_group =  collision_group;
 
 };
+
 
 module.exports.getpolyline_creadas = function () {
   return this.polyline_creadas;
