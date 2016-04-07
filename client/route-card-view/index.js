@@ -46,20 +46,21 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 
       });
 
+      showMapView.cleanMarkerCollision();
       d3.selectAll(".g-element").each(function(a,b){
             if (Boolean(parseInt(d3.select(this).attr("data-show")))) {
                 d3.select(this).node().parentNode.appendChild(this);
             }
 
       });
+      showMapView.drawItinerationMakerCollision(model.index);
   });
 
   mouseleave(view.el, function() {
 
    showMapView.cleanPolyline();
-    showMapView.cleanMarkerpoint();
-    showMapView.cleanMarkerCollision();
-    showMapView.marker_collision_group = [];
+   showMapView.cleanMarkerpoint();
+   showMapView.cleanMarkerCollision();
 
     var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
     sesion_plan = sesion_plan.plan;

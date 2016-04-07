@@ -93,10 +93,41 @@ module.exports.marker_creadas = [];
 module.exports.makerpoint_creadas = [];
 module.exports.collision_group = {};
 module.exports.marker_collision_group = [];
+module.exports.last_marker_collision_group = [];
 
 module.exports.drawMakerCollision = function () {
     var collision_group = L.layerGroup.collision();
-    collision_group.addLayer(this.marker_collision_group);
+    var marker_collision_group = [];
+    for(i in this.marker_collision_group) {
+        for (j in this.marker_collision_group[i]){
+            marker_collision_group.push(this.marker_collision_group[i][j]);
+        }
+    }
+    collision_group.addLayer(marker_collision_group);
+    collision_group.onAdd(this.activeMap);
+    this.collision_group =  collision_group;
+
+};
+
+
+module.exports.drawItinerationMakerCollision = function (i) {
+    var collision_group = L.layerGroup.collision();
+    var marker_collision_group = [];
+
+    for(j in this.last_marker_collision_group) {
+        if (j!=i) {
+            for (k in this.last_marker_collision_group[j]){
+                marker_collision_group.push(this.last_marker_collision_group[j][k]);
+            }
+        }
+
+    }
+
+    for (j in this.last_marker_collision_group[i]){
+        marker_collision_group.push(this.last_marker_collision_group[i][j]);
+    }
+
+    collision_group.addLayer(marker_collision_group);
     collision_group.onAdd(this.activeMap);
     this.collision_group =  collision_group;
 
@@ -127,11 +158,24 @@ module.exports.cleanPolyline = function() {
 };
 
 module.exports.cleanMarkerCollision = function() {
+
     for (i in this.marker_collision_group) {
-        this.collision_group.removeLayer(this.marker_collision_group[i]);
+        for(j in this.marker_collision_group[i]) {
+            this.collision_group.removeLayer(this.marker_collision_group[i][j]);
+        }
     }
 
-}
+    for (i in this.last_marker_collision_group) {
+        for(j in this.last_marker_collision_group[i]) {
+            this.collision_group.removeLayer(this.last_marker_collision_group[i][j]);
+        }
+    }
+
+    this.last_marker_collision_group = this.marker_collision_group;
+
+    this.marker_collision_group = [];
+};
+
 module.exports.cleanMarker = function() {
     var map = this.activeMap;
     for (i in this.marker_creadas) {
@@ -231,7 +275,12 @@ module.exports.marker_map_point = function(to, map, itineration){
 				});
 
 
-    this.marker_collision_group.push(marker);
+    if (this.marker_collision_group[itineration] === undefined){
+        this.marker_collision_group[itineration] = [];
+        this.marker_collision_group[itineration].push(marker);
+    }else {
+        this.marker_collision_group[itineration].push(marker);
+    }
 };
 
 
