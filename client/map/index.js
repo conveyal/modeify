@@ -233,7 +233,7 @@ L.NumberedDivIcon = L.Icon.extend({
     var text = document.createElement('span');
     var img = this._createImg(this.options['iconUrl']);
     var numdiv = document.createElement('div');
-    numdiv.setAttribute ( "class", this.options['divClass'] + "HOLAAAA"  );
+    numdiv.setAttribute ( "class", this.options['divClass']);
     text.innerHTML = this.options['number'] || '';
     numdiv.appendChild(text);
     img.setAttribute('style', 'max-width:' + this.options.iconSize[0] + 'px !important;' +
@@ -307,10 +307,10 @@ module.exports.addPoint = function (map, point) {
         [
             [parseFloat(point.latitude), parseFloat(point.longitude)],
             [parseFloat(point.latitude), parseFloat(point.longitude)],
-        ],
-        {
-            className: "realtimemarker"
-        }
+        ]
+        //{
+        //    className: "realtimemarker"
+        //}
     );
 
     newPoint = {
@@ -324,7 +324,7 @@ module.exports.addPoint = function (map, point) {
             iconSize: [40, 55],
             iconAnchor: [20, 50],
             popupAnchor:  [0, -50],
-            className: 'tint',
+            className: 'realtimemarker',
 	    number: routeId,
 	    divClass: 'number-inactive'
         }));
