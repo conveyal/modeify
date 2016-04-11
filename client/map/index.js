@@ -336,7 +336,7 @@ module.exports.addPoint = function (map, point) {
             iconSize: [40, 55],
             iconAnchor: [20, 50],
             popupAnchor:  [0, -50],
-            className: 'tint',
+            className: 'realtimemarker',
 	    number: routeId
         }));
     }
