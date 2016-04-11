@@ -350,7 +350,7 @@ module.exports.addPoint = function (map, point) {
 	// Workaround counterpart
 	var zoomHideEl = document.querySelectorAll('svg.leaflet-zoom-hide')[0];
 	if (zoomHideEl) zoomHideEl.style.display = 'none';
-	module.exports.deleteRoute(this);
+	//module.exports.deleteRoute(this);
     });
 
     map.realtime.points.push(newPoint);
