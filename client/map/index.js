@@ -233,7 +233,7 @@ L.NumberedDivIcon = L.Icon.extend({
     var text = document.createElement('span');
     var img = this._createImg(this.options['iconUrl']);
     var numdiv = document.createElement('div');
-    numdiv.setAttribute ( "class", this.options['divClass'] );
+    numdiv.setAttribute ( "class", this.options['divClass'] + "HOLAAAA"  );
     text.innerHTML = this.options['number'] || '';
     numdiv.appendChild(text);
     img.setAttribute('style', 'max-width:' + this.options.iconSize[0] + 'px !important;' +
