@@ -357,11 +357,12 @@ module.exports.addPoint = function (map, point) {
 	console.log("zoomHideEl", zoomHideEl);
 	for (path in zoomHideEl) {
 	    var parent = path.parentNode;
-	    parent.style.display = 'none';
+	    console.log("parent ->", parent);
+	    //parent.style.display = 'none';
 	}
 	//var zoomHideEl = document.querySelectorAll('svg.leaflet-zoom-hide')[0];
 	//if (zoomHideEl) zoomHideEl.style.display = 'none';
-	//module.exports.deleteRoute(this);
+	module.exports.deleteRoute(this);
     });
 
     map.realtime.points.push(newPoint);
