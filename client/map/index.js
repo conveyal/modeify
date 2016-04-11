@@ -355,6 +355,10 @@ module.exports.addPoint = function (map, point) {
 	// Workaround counterpart
 	var zoomHideEl = document.querySelectorAll('path.realtimemarker');
 	console.log("zoomHideEl", zoomHideEl);
+	for (path in zoomHideEl) {
+	    var parent = getParents(path);
+	    parent.style.display = 'none';
+	}
 	//var zoomHideEl = document.querySelectorAll('svg.leaflet-zoom-hide')[0];
 	//if (zoomHideEl) zoomHideEl.style.display = 'none';
 	//module.exports.deleteRoute(this);
