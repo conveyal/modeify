@@ -348,8 +348,8 @@ module.exports.addPoint = function (map, point) {
     });
     newPoint.marker.on('popupclose', function () {
 	// Workaround counterpart
-	var zoomHideEl = document.querySelectorAll('svg.leaflet-zoom-hide')[0];
-	if (zoomHideEl) zoomHideEl.style.display = 'none';
+	//var zoomHideEl = document.querySelectorAll('svg.leaflet-zoom-hide')[0];
+	//if (zoomHideEl) zoomHideEl.style.display = 'none';
 	//module.exports.deleteRoute(this);
     });
 
