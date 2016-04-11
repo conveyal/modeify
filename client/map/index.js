@@ -173,7 +173,8 @@ module.exports.drawRoute = function (marker) {
       routeStyle = {
 	  color: '#8ec449',
 	  opacity: 1,
-	  weight: 4
+	  weight: 4,
+      className:'realtimemarker'
       },
       routeId,
       queryUrl,
