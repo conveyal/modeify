@@ -307,7 +307,10 @@ module.exports.addPoint = function (map, point) {
         [
             [parseFloat(point.latitude), parseFloat(point.longitude)],
             [parseFloat(point.latitude), parseFloat(point.longitude)],
-        ]
+        ],
+        {
+            className: "realtimemarker"
+        }
     );
 
     newPoint = {
