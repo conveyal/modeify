@@ -233,7 +233,7 @@ L.NumberedDivIcon = L.Icon.extend({
     var text = document.createElement('span');
     var img = this._createImg(this.options['iconUrl']);
     var numdiv = document.createElement('div');
-    numdiv.setAttribute ( "class", this.options['divClass']);
+    numdiv.setAttribute ( "class", this.options['divClass'] );
     text.innerHTML = this.options['number'] || '';
     numdiv.appendChild(text);
     img.setAttribute('style', 'max-width:' + this.options.iconSize[0] + 'px !important;' +
@@ -308,17 +308,17 @@ module.exports.addPoint = function (map, point) {
             [parseFloat(point.latitude), parseFloat(point.longitude)],
             [parseFloat(point.latitude), parseFloat(point.longitude)],
         ]
-        //{
-        //    className: "realtimemarker"
-        //}
-    );
 
+    );
+    console.log(Math.random())
     newPoint = {
         id: point.object_id,
-        marker: L.animatedMarker(line.getLatLngs()).addTo(map)
+        marker: L.animatedMarker(line.getLatLngs(),
+            {
+            className: "realtimemarker"
+            }
+        ).addTo(map)
     };
-
-    console.log(Math.random());
 
     if (parseFloat(point.speed) < 0.5) {
         newPoint.marker.setIcon(new L.NumberedDivIcon({
@@ -326,7 +326,7 @@ module.exports.addPoint = function (map, point) {
             iconSize: [40, 55],
             iconAnchor: [20, 50],
             popupAnchor:  [0, -50],
-            className: 'realtimemarker',
+            className: 'tint',
 	    number: routeId,
 	    divClass: 'number-inactive'
         }));
@@ -336,7 +336,7 @@ module.exports.addPoint = function (map, point) {
             iconSize: [40, 55],
             iconAnchor: [20, 50],
             popupAnchor:  [0, -50],
-            className: 'realtimemarker',
+            className: 'tint',
 	    number: routeId
         }));
     }
