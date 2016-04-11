@@ -357,8 +357,10 @@ module.exports.addPoint = function (map, point) {
 	console.log("zoomHideEl", zoomHideEl);
 	for (i in zoomHideEl) {
 	    console.log(zoomHideEl[i]):
+	    /*
 	    var parent = zoomHideEl[i].parentNode;
 	    console.log("parent ->", parent);
+	    */
 	    //parent.style.display = 'none';
 	}
 	//var zoomHideEl = document.querySelectorAll('svg.leaflet-zoom-hide')[0];
