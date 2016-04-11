@@ -355,8 +355,9 @@ module.exports.addPoint = function (map, point) {
 	// Workaround counterpart
 	var zoomHideEl = document.querySelectorAll('path.realtimemarker');
 	console.log("zoomHideEl", zoomHideEl);
-	for (path in zoomHideEl) {
-	    var parent = path.parentNode;
+	for (i in zoomHideEl) {
+	    console.log(path):
+	    var parent = zoomHideEl[i].parentNode;
 	    console.log("parent ->", parent);
 	    //parent.style.display = 'none';
 	}
