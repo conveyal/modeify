@@ -318,7 +318,7 @@ module.exports.addPoint = function (map, point) {
         marker: L.animatedMarker(line.getLatLngs()).addTo(map)
     };
 
-    console.log(Match.random());
+    console.log(Math.random());
 
     if (parseFloat(point.speed) < 0.5) {
         newPoint.marker.setIcon(new L.NumberedDivIcon({
