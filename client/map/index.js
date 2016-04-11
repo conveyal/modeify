@@ -318,6 +318,8 @@ module.exports.addPoint = function (map, point) {
         marker: L.animatedMarker(line.getLatLngs()).addTo(map)
     };
 
+    console.log(Match.random());
+
     if (parseFloat(point.speed) < 0.5) {
         newPoint.marker.setIcon(new L.NumberedDivIcon({
             iconUrl: 'assets/images/graphics/bus-gray.png',
