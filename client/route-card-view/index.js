@@ -58,6 +58,9 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 
   mouseleave(view.el, function() {
 
+        console.log("model.index -->", model.index);
+
+    /*
    showMapView.cleanPolyline();
    showMapView.cleanMarkerpoint();
    showMapView.cleanMarkerCollision();
@@ -73,7 +76,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
           }
       }
       showMapView.drawMakerCollision();
-
+        */
   });
 });
 
