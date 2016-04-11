@@ -307,17 +307,16 @@ module.exports.addPoint = function (map, point) {
         [
             [parseFloat(point.latitude), parseFloat(point.longitude)],
             [parseFloat(point.latitude), parseFloat(point.longitude)],
-        ]
+        ],
+        {
+            className: "realtimemarker"
+        }
 
     );
     console.log(Math.random())
     newPoint = {
         id: point.object_id,
-        marker: L.animatedMarker(line.getLatLngs(),
-            {
-            className: "realtimemarker"
-            }
-        ).addTo(map)
+        marker: L.animatedMarker(line.getLatLngs()).addTo(map)
     };
 
     if (parseFloat(point.speed) < 0.5) {
@@ -382,7 +381,10 @@ module.exports.movePoint = function (map, point) {
              currentPoint.marker.getLatLng().lng],
             [parseFloat(point.latitude),
              parseFloat(point.longitude)]
-        ]
+        ],
+        {
+            className: "realtimemarker"
+        }
     );
 
     if (parseFloat(point.speed) < 0.5) {
