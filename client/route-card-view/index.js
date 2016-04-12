@@ -60,7 +60,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
   });
 
   mouseleave(view.el, function() {
-
+       var itineration = JSON.parse(localStorage.getItem('itineration'));
        for (var i=0; i<itineration.length;i++) {
            if (i!=model.index){
               var rec2 = d3.selectAll(".leaflet-div-icon2");
