@@ -68,7 +68,12 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 
         });
 
-        console.log("layer_ordenados ->", layer_ordenados);
+        for (i in layer_ordenados) {
+            var element = d3.select(layer_ordenados[i]);
+            var child = element.select("path");
+            console.log("child ->" , child);
+            element.node().parentNode.appendChild(layer_ordenados[i]);
+        }
     /*
    showMapView.cleanPolyline();
    showMapView.cleanMarkerpoint();
