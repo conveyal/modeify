@@ -1,12 +1,12 @@
 
 .fullscreen {
-  position: absolute;
+  position: relative;
   height: 100%;
   padding-right: var(--panel-width);
 }
 
 .SidePanel {
-  position: relative;
+  position: absolute;
   background-color: color(var(--vta-light-blue) alpha(80%));
   z-index: 150;
   top: 0;
