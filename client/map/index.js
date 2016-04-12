@@ -314,7 +314,7 @@ module.exports.addPoint = function (map, point) {
         }
 
     );
-    console.log(Math.random())
+
     newPoint = {
         id: point.object_id,
         marker: L.animatedMarker(line.getLatLngs()).addTo(map)
