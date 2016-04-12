@@ -35,16 +35,19 @@ var View = module.exports = view(require('./template.html'), function(view, mode
            }
       }
 
+      var orden = 1;
       d3.selectAll(".iteration-200").each(function(e){
             var element = d3.select(this);
             var parent = d3.select(element.node().parentNode);
             parent.attr("class", "g-element");
+            parent.attr("data-orden", orden.toString());
             if (Boolean(parseInt(element.attr("data-show")))) {
                 parent.attr("data-show", "1");
             }else {
                 parent.attr("data-show", "0");
             }
 
+            orden++;
       });
 
 
