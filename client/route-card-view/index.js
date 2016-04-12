@@ -35,7 +35,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
            }
       }
 
-      var orden = 1;
+      var orden = 0;
       d3.selectAll(".iteration-200").each(function(e){
             var element = d3.select(this);
             var parent = d3.select(element.node().parentNode);
@@ -62,6 +62,12 @@ var View = module.exports = view(require('./template.html'), function(view, mode
   mouseleave(view.el, function() {
 
         console.log("model.index -->", model.index);
+
+        d3.selectAll(".g-element").each(function(a,b){
+            var orden = parseInt(d3.select(this).attr("data-orden"));
+            console.log("orden ->", orden);
+
+        });
 
     /*
    showMapView.cleanPolyline();
