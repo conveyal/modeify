@@ -25,7 +25,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
       for (var i=0; i<itineration.length;i++) {
            var r3 = d3.selectAll(".iteration-"+i);
            if (i!=model.index){
-                r3.transition().duration(600).style("stroke", "#E0E0E0");
+                r3.transition().duration(500).style("stroke", "#E0E0E0");
                 r3.attr("data-show","0");
 
               var rec2 = d3.selectAll(".circle-fade-"+i);
@@ -81,13 +81,13 @@ var View = module.exports = view(require('./template.html'), function(view, mode
             var child = element.select("path");
             element.attr("data-show", "0");
 
-            child.transition().duration(100).style("stroke",function(i,v){
+            child.transition().duration(500).style("stroke",function(i,v){
                     return d3.select(this).attr("stroke");
 
             });
             child.attr("data-show", "0");
+            setTimeout(function(){ element.node().parentNode.appendChild(layer_ordenados[i]); }, 500);
 
-            element.node().parentNode.appendChild(layer_ordenados[i]);
 
         }
     /*
