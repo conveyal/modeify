@@ -19,8 +19,8 @@ var showMapView = require('map-view');
 
 var View = module.exports = view(require('./template.html'), function(view, model) {
   mouseenter(view.el, function() {
-      showMapView.cleanMarkerCollision();
-      showMapView.drawItinerationMakerCollision(model.index);
+      //showMapView.cleanMarkerCollision();
+      //showMapView.drawItinerationMakerCollision(model.index);
       var itineration = JSON.parse(localStorage.getItem('itineration'));
       for (var i=0; i<itineration.length;i++) {
            var r3 = d3.selectAll(".iteration-"+i);
