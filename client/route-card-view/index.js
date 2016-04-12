@@ -19,6 +19,7 @@ var showMapView = require('map-view');
 
 var View = module.exports = view(require('./template.html'), function(view, model) {
   mouseenter(view.el, function() {
+       clearTimeout();
       //showMapView.cleanMarkerCollision();
       //showMapView.drawItinerationMakerCollision(model.index);
       var itineration = JSON.parse(localStorage.getItem('itineration'));
