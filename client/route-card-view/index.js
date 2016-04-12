@@ -61,6 +61,8 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 
   mouseleave(view.el, function() {
 
+      console.log("model.index->", model.index);
+
         var layer_ordenados = [];
         d3.selectAll(".g-element").each(function(a,b){
             var orden = parseInt(d3.select(this).attr("data-orden"));
