@@ -71,7 +71,11 @@ var View = module.exports = view(require('./template.html'), function(view, mode
         for (i in layer_ordenados) {
             var element = d3.select(layer_ordenados[i]);
             var child = element.select("path");
-            console.log("child ->" , child);
+            child.transition().duration(600).style("stroke",function(i,v){
+                    console.log("stroke color", element.select(this).attr("stroke"));
+                    return "#000000";
+
+            });
             element.node().parentNode.appendChild(layer_ordenados[i]);
         }
     /*
