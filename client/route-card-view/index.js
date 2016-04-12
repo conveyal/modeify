@@ -74,7 +74,6 @@ var View = module.exports = view(require('./template.html'), function(view, mode
             element.attr("data-show", "0");
 
             child.transition().duration(600).style("stroke",function(i,v){
-                    console.log("d3 select ->" , d3.select(this).node().parentNode);
                     return d3.select(this).attr("stroke");
 
             });
