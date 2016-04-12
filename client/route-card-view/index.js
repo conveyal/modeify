@@ -81,7 +81,7 @@ var View = module.exports = view(require('./template.html'), function(view, mode
             });
             child.attr("data-show", "0");
 
-            //element.node().parentNode.appendChild(layer_ordenados[i]);
+            element.node().parentNode.appendChild(layer_ordenados[i]);
 
         }
     /*
