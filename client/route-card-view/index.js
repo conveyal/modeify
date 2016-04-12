@@ -87,26 +87,8 @@ var View = module.exports = view(require('./template.html'), function(view, mode
             });
             child.attr("data-show", "0");
             setTimeout(function(){ element.node().parentNode.appendChild(layer_ordenados[i]); }, 500);
-
-
         }
-    /*
-   showMapView.cleanPolyline();
-   showMapView.cleanMarkerpoint();
-   showMapView.cleanMarkerCollision();
 
-    var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
-    sesion_plan = sesion_plan.plan;
-
-     var itineraries = sesion_plan.itineraries;
-      for (var i= 0; i < itineraries.length; i++) {
-
-          for (var j=0; j < itineraries[i].legs.length; j++) {
-             showMapView.drawRouteAmigo(itineraries[i].legs[j], itineraries[i].legs[j].mode, i);
-          }
-      }
-      showMapView.drawMakerCollision();
-        */
   });
 });
 
