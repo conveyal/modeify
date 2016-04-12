@@ -71,10 +71,12 @@ var View = module.exports = view(require('./template.html'), function(view, mode
         for (i in layer_ordenados) {
             var element = d3.select(layer_ordenados[i]);
             var child = element.select("path");
+            element.attr("data-show", "0");
             child.transition().duration(600).style("stroke",function(i,v){
                     return d3.select(this).attr("stroke");
 
             });
+            child.attr("data-show", "0");
             element.node().parentNode.appendChild(layer_ordenados[i]);
         }
     /*
