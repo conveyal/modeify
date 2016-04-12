@@ -61,7 +61,13 @@ var View = module.exports = view(require('./template.html'), function(view, mode
 
   mouseleave(view.el, function() {
 
-      console.log("model.index->", model.index);
+       for (var i=0; i<itineration.length;i++) {
+           if (i!=model.index){
+              var rec2 = d3.selectAll(".leaflet-div-icon2");
+              rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon1 circle-fade-'+i+ ' leaflet-zoom-hide');
+           }
+       }
+
 
         var layer_ordenados = [];
         d3.selectAll(".g-element").each(function(a,b){
