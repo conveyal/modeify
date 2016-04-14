@@ -348,7 +348,7 @@ Plan.prototype.generateQuery = function () {
     from: {
       lat: from.lat,
       lon: from.lng,
-      name: 'From'
+      name: this.from()
     },
     maxBikeTime: this.maxBikeTime(),
     maxWalkTime: this.maxWalkTime(),
@@ -357,7 +357,7 @@ Plan.prototype.generateQuery = function () {
     to: {
       lat: to.lat,
       lon: to.lng,
-      name: 'To'
+      name: this.to()
     },
     limit: LIMIT,
     transitModes: transitModes.join(','),
