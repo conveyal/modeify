@@ -11,8 +11,6 @@ module.exports = function profileFilter(options, scorer) {
     ? window.localStorage.getItem('filterResults') !== 'false'
     : true;
 
-  console.log('filter results?', FILTER_RESULTS);
-
   options.forEach(function(o, i) {
     o = profileFormatter.option(o);
 

@@ -14,12 +14,13 @@ module.exports.get = function(url, params, callback) {
     params = null;
   }
 
+    //.use(nocache) old implemented
   var name = 'GET ' + url;
   debug('--> %s', name);
   return superagent
     .get(url)
     .use(prefix)
-    .use(nocache)
+    .set('Accept', 'application/json')
     .query(params)
     .end(response(name, callback));
 };

@@ -126,54 +126,68 @@ View.prototype.pressDown = function(highlightedSuggestion, el) {
  */
 
 View.prototype.save = function(el) {
+
 	var plan = this.model;
 	var name = el.name;
 	var val = el.value;
+
 	if (!val || plan[name]() === val) return;
+
 
 	if (el.lat) {
 		this.model.setAddress(name, el.lng + ',' + el.lat, function(err, location) {
-				if (err) {
-				log.error('%e', err);
-				analytics.send_ga({
-category: 'geocoder',
-action: 'change address invalid',
-label: val,
-value: 0
-});
-				textModal('Invalid address.');
+
+            if (err) {
+                log.error('%e', err);
+                analytics.send_ga({
+                    category: 'geocoder',
+                    action: 'change address invalid',
+                    label: val,
+                    value: 0
+                    });
+
+				    textModal('Invalid address.');
+
 				} else if (location && plan.validCoordinates()) {
-				analytics.send_ga({
-category: 'geocoder',
-action: 'change address success',
-label: val,
-value: 0
-});
-				plan.updateRoutes();
+
+                    analytics.send_ga({
+                        category: 'geocoder',
+                        action: 'change address success',
+                        label: val,
+                        value: 0
+                    });
+
+				    plan.updateRoutes();
+
+				}else {
+				    console.log("no ejecuta nada");
 				}
-				}, el.address);
-} else {
-	this.model.setAddress(name, val, function(err, location) {
+		}, el.address);
+    } else {
+
+	    this.model.setAddress(name, val, function(err, location) {
 			if (err) {
-			log.error('%e', err);
-			analytics.send_ga({
-category: 'geocoder',
-action: 'change address invalid',
-label: val,
-value: 0
-});
+                log.error('%e', err);
+                analytics.send_ga({
+                    category: 'geocoder',
+                    action: 'change address invalid',
+                    label: val,
+                    value: 0
+                });
+
 			textModal('Invalid address.');
 			} else if (location && plan.validCoordinates()) {
-			analytics.send_ga({
-category: 'geocoder',
-action: 'change address success',
-label: val,
-value: 0
-});
-			plan.updateRoutes();
+                analytics.send_ga({
+                    category: 'geocoder',
+                    action: 'change address success',
+                    label: val,
+                    value: 0
+                });
+			    plan.updateRoutes();
+
 			}
-			});
-}
+		});
+    }
 };
 
 /**
@@ -253,17 +267,82 @@ function getAddress(s) {
  */
 
 View.prototype.suggest = function(e) {
+
   var input = e.target;
   var text = input.value || '';
   var name = input.name;
   var inputGroup = input.parentNode;
   var suggestionList = inputGroup.getElementsByTagName('ul')[0];
   var view = this;
+  var suggestionsData = [];
+
+  var resultsCallbackAmigo = function(err, suggestions) {
+
+    if (err) {
+      log.error('%e', err);
+    } else {
+        if (suggestions && suggestions.length > 0) {
+            var filter_label = {};
+            for (var i = 0; i < suggestions.length; i++) {
+
+                var item_suggestions = suggestions[i].properties;
+
+                if (item_suggestions.country_a == "USA" && item_suggestions.region_a == "CA")  {
+
+                    var item_geometry = suggestions[i].geometry;
+                    var suggestion_obj = {
+                        "index" : i,
+                        "text" : item_suggestions.label,
+                        "lat" : item_geometry.coordinates[1],
+                        "lon" : item_geometry.coordinates[0],
+                        "magicKey": ""
+                    };
+
+                    if (filter_label[item_suggestions.label] === undefined){
+                        filter_label[item_suggestions.label] = true;
+                        suggestionsData.push(suggestion_obj);
+                    }
+
+                }
+
+            }
+
+            suggestionsData = suggestionsData.slice(0, 8);
+            suggestionList.innerHTML = suggestionsTemplate.render({
+                suggestions: suggestionsData
+            });
+            /*******************/
+                each(view.findAll('.suggestion'), function(li) {
+                    li.addressData = suggestions[li.dataset.index];
+
+                      li.onmouseover = function(e) {
+                        li.classList.add('highlight');
+                      };
+
+                      li.onmouseout = function(e) {
+                        li.classList.remove('highlight');
+                      };
+                });
+
+                suggestionList.classList.remove('empty');
+                inputGroup.classList.add('suggestions-open');
+            /*******************/
+        }
+
+        else {
+            suggestionList.classList.add('empty');
+            inputGroup.classList.remove('suggestions-open');
+        }
+    }
+  };
+
   var resultsCallback = function(err, suggestions) {
+
     if (err) {
       log.error('%e', err);
     } else {
       if (suggestions && suggestions.length > 0) {
+
           for (var i = 0; i < suggestions.length; i++) {
               if (!suggestions[i].text) {
                  if(suggestions[i].address) {
@@ -309,7 +388,7 @@ View.prototype.suggest = function(e) {
     clearTimeout(suggestionTimeout);
   }
   suggestionTimeout = setTimeout(function () {
-    geocode.suggest(text, resultsCallback);
+    geocode.suggestAmigo(text, resultsCallbackAmigo);
   }, 400);
 };
 

@@ -173,7 +173,8 @@ module.exports.drawRoute = function (marker) {
       routeStyle = {
 	  color: '#8ec449',
 	  opacity: 1,
-	  weight: 4
+	  weight: 4,
+      className:'realtimemarker'
       },
       routeId,
       queryUrl,
@@ -307,7 +308,11 @@ module.exports.addPoint = function (map, point) {
         [
             [parseFloat(point.latitude), parseFloat(point.longitude)],
             [parseFloat(point.latitude), parseFloat(point.longitude)],
-        ]
+        ],
+        {
+            className: "realtimemarker"
+        }
+
     );
 
     newPoint = {
@@ -348,8 +353,11 @@ module.exports.addPoint = function (map, point) {
     });
     newPoint.marker.on('popupclose', function () {
 	// Workaround counterpart
-	var zoomHideEl = document.querySelectorAll('svg.leaflet-zoom-hide')[0];
-	if (zoomHideEl) zoomHideEl.style.display = 'none';
+	var zoomHideEl = document.querySelectorAll('path.realtimemarker');
+	console.log("zoomHideEl", zoomHideEl);
+	for (i in zoomHideEl) {
+	    var parent = zoomHideEl[i].parentNode;
+	}
 	module.exports.deleteRoute(this);
     });
 
@@ -377,7 +385,10 @@ module.exports.movePoint = function (map, point) {
              currentPoint.marker.getLatLng().lng],
             [parseFloat(point.latitude),
              parseFloat(point.longitude)]
-        ]
+        ],
+        {
+            className: "realtimemarker"
+        }
     );
 
     if (parseFloat(point.speed) < 0.5) {

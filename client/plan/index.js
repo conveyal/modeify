@@ -2,7 +2,7 @@ var Batch = require('batch');
 var debounce = require('debounce');
 var geocode = require('geocode');
 var Journey = require('journey');
-var Location = require('location');
+
 var log = require('./client/log')('plan');
 var defaults = require('model-defaults');
 var model = require('model');
@@ -14,6 +14,7 @@ var loadPlan = require('./load');
 var store = require('./store');
 var updateRoutes = require('./update-routes');
 
+module.exports.dataplan = [];
 /**
  * Debounce updates to once every 50ms
  */
@@ -37,6 +38,7 @@ var Plan = module.exports = model('Plan')
     from_valid: false,
     loading: true,
     options: [],
+    dataplan: [],
     query: new ProfileQuery(),
     scorer: new ProfileScorer(),
     start_time: (new Date()).getHours() - 1,
@@ -107,6 +109,7 @@ Plan.on('change end_time', function(plan, val, prev) {
 
 Plan.prototype.updateRoutes = debounce(function(opts, callback) {
   updateRoutes(this, opts, callback);
+  this.dataplan = updateRoutes.dataplan;
 }, DEBOUNCE_UPDATES);
 
 /**
@@ -148,6 +151,7 @@ Plan.prototype.saveJourney = function(callback) {
   }
 
   // Create new journey
+
   var journey = new Journey({
     locations: [{
       _id: this.from_id()
@@ -175,50 +179,62 @@ Plan.prototype.validCoordinates = function() {
 
 Plan.prototype.setAddress = function(name, address, callback, extra) {
   callback = callback || function() {}; // noop callback
-  var location = new Location();
   var plan = this;
   var c = address.split(',');
   var isCoordinate = c.length === 2 && !isNaN(parseFloat(c[0])) && !isNaN(parseFloat(c[1]));
 
   if (!address || address.length < 1) return callback();
 
-  if (isCoordinate) {
-    location.coordinate({
-      lat: parseFloat(c[1]),
-      lng: parseFloat(c[0])
-    });
-  } else {
-    location.address(address);
-  }
-  location.save(function(err, res) {
-  
-    if (err) {
-	if (isCoordinate) {
-	    var changes = {};
-	    changes[name] = extra.display_name;
-	    changes[name + '_ll'] = location.coordinate();
-	    changes[name + '_valid'] = true;
+    if (isCoordinate) {
 
-	    plan.set(changes);
-	    callback(null, extra);
-	} else {
-	    callback(err);
-	}
-    } else {
-      var changes = {};
-      if (isCoordinate)
-        changes[name] = res.body.address + ', ' + res.body.city + ', ' + res.body.state;
-      else
-        changes[name] = address;
+      var callbackAmigo = function (err, reverse) {
+        var changes = {};
+            if (reverse) {
+              var geocode_features = reverse.features;
+              changes[name] = name;
+              if (isCoordinate) {
+                if (!(extra === undefined)) {
+                    changes[name] = extra.properties.label;
+                }else {
+                    changes[name] = geocode_features[0].properties.label;
+                }
 
-      changes[name + '_ll'] = res.body.coordinate;
-      changes[name + '_id'] = res.body._id;
-      changes[name + '_valid'] = true;
+              }else {
+                if (!(extra === undefined)) {
+                    changes[name] = extra.properties.label;
+                }else {
+                    changes[name] = geocode_features[0].properties.label;
+                }
 
-      plan.set(changes);
-      callback(null, res.body);
+              }
+
+
+              changes[name + '_ll'] = {lat: parseFloat(geocode_features[0].geometry.coordinates[1]), lng: parseFloat(geocode_features[0].geometry.coordinates[0])};
+              changes[name + '_id'] = geocode_features[0].properties.id;
+              changes[name + '_valid'] = true;
+
+              plan.set(changes);
+              callback(null, reverse);
+
+            } else {
+
+              if (isCoordinate) {
+                changes[name] = extra.properties.label;
+                changes[name + '_ll'] = { lat: parseFloat(c[1]),lng: parseFloat(c[0])};
+                changes[name + '_valid'] = true;
+                plan.set(changes);
+                callback(null, extra);
+              } else {
+                callback(err);
+              }
+
+            }
+        };
+
+        geocode.reverseAmigo(c, callbackAmigo);
+    }else {
+      plan.setAddress('', '', callback);
     }
-  });
 };
 
 /**

@@ -1,4 +1,5 @@
 var analytics = require('analytics');
+var d3 = require('d3');
 var convert = require('convert');
 var Feedback = require('feedback-modal');
 var mouseenter = require('mouseenter');
@@ -9,33 +10,84 @@ var RouteModal = require('route-modal');
 var routeSummarySegments = require('route-summary-segments');
 var routeResource = require('route-resource');
 var session = require('session');
-var transitive = require('transitive');
+//var transitive = require('transitive');
 var view = require('view');
-
+var showMapView = require('map-view');
 /**
  * Expose `View`
  */
 
 var View = module.exports = view(require('./template.html'), function(view, model) {
   mouseenter(view.el, function() {
-    var isTransit = false;
-    var legs = model.plan().legs;
-    for (var i = 0; i < legs.length; i++) {
-      if (legs[i].transitLeg) {
-        isTransit = true;
-        break;
+       clearTimeout();
+      var itineration = JSON.parse(localStorage.getItem('itineration'));
+      for (var i=0; i<itineration.length;i++) {
+           var r3 = d3.selectAll(".iteration-"+i);
+           if (i!=model.index){
+                r3.transition().duration(500).style("stroke", "#E0E0E0");
+                r3.attr("data-show","0");
+
+              var rec2 = d3.selectAll(".circle-fade-"+i);
+              rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon2 circle-fade-'+i+ ' leaflet-zoom-hide');
+           }else {
+                r3.attr("data-show","1");
+           }
       }
-    }
-//    var id = model.id() + '';
-    var id = model.index + '_' + (isTransit ? 'transit' : legs[0].mode.toLowerCase());
-    if (id.indexOf('transit') === -1) id = id + '_' + model.access()[0].mode.toLowerCase();
-    transitive.focusJourney(id);
+
+      var orden = 0;
+      d3.selectAll(".iteration-200").each(function(e){
+            var element = d3.select(this);
+            var parent = d3.select(element.node().parentNode);
+            parent.attr("class", "g-element");
+            parent.attr("data-orden", orden.toString());
+            if (Boolean(parseInt(element.attr("data-show")))) {
+                parent.attr("data-show", "1");
+            }else {
+                parent.attr("data-show", "0");
+            }
+
+            orden++;
+      });
+
+
+      d3.selectAll(".g-element").each(function(a,b){
+            if (Boolean(parseInt(d3.select(this).attr("data-show")))) {
+                d3.select(this).node().parentNode.appendChild(this);
+            }
+
+      });
   });
 
   mouseleave(view.el, function() {
-    if (!view.el.classList.contains('expanded')) {
-      transitive.focusJourney();
-    }
+       var itineration = JSON.parse(localStorage.getItem('itineration'));
+       for (var i=0; i<itineration.length;i++) {
+           if (i!=model.index){
+              var rec2 = d3.selectAll(".circle-fade-"+i);
+              rec2.attr('class', 'leaflet-marker-icon leaflet-div-icon1 circle-fade-'+i+ ' leaflet-zoom-hide');
+           }
+       }
+
+
+        var layer_ordenados = [];
+        d3.selectAll(".g-element").each(function(a,b){
+            var orden = parseInt(d3.select(this).attr("data-orden"));
+            layer_ordenados[orden] = this;
+
+        });
+
+        for (i in layer_ordenados) {
+            var element = d3.select(layer_ordenados[i]);
+            var child = element.select("path");
+            element.attr("data-show", "0");
+
+            child.transition().duration(500).style("stroke",function(i,v){
+                    return d3.select(this).attr("stroke");
+
+            });
+            child.attr("data-show", "0");
+            setTimeout(function(){ element.node().parentNode.appendChild(layer_ordenados[i]); }, 500);
+        }
+
   });
 });
 

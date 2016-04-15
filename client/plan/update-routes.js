@@ -13,7 +13,6 @@ var session = require('session');
  */
 
 module.exports = updateRoutes;
-
 /**
  * Update routes
  */
@@ -60,32 +59,42 @@ function updateRoutes(plan, opts, callback) {
   var scorer = plan.scorer();
 
   otp.plan(query, function(err, data) {
-      var planData,
-      itineraries;
+      var planData, itineraries;
 
-    if (err || !data || !data.plan) {
-      plan.set({
-        options: [],
-        journey: {
-          places: plan.generatePlaces()
+     if (err || !data || !data.plan) {
+          plan.set({
+            options: [],
+            journey: {
+              places: plan.generatePlaces()
+            }
+          });
+          done(err, data);
+     } else {
+        planData = {options: []};
+
+        itineraries = data.plan.itineraries;
+        module.exports.dataplan = data.options;
+
+        var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
+        if (!(sesion_plan === null)) {
+            localStorage.removeItem('dataplan');
+            localStorage.removeItem('itineration');
         }
-      });
-      done(err, data);
-    } else {
-      var planData = {options: []},
-      itineraries = data.plan.itineraries;
-      // Track the commute
-      analytics.track('Found Route', {
-        plan: '',
-        results: data.plan.itineraries.length
-      });
 
-      analytics.send_ga({
-	category: 'route',
-	action: 'calculate route',
-//	label: plan.generateQueryString(),
-	value: 1
-      });
+        localStorage.setItem('itineration', JSON.stringify({"length":itineraries.length}));
+        localStorage.setItem('dataplan', JSON.stringify(data.options));
+
+          // Track the commute
+          analytics.track('Found Route', {
+            plan: '',
+            results: data.plan.itineraries.length
+        });
+
+        analytics.send_ga({
+            category: 'route',
+            action: 'calculate route',
+            value: 1
+        });
 
 	var legs;
 	var fare;
@@ -145,7 +154,7 @@ function updateRoutes(plan, opts, callback) {
 
 	return;
 
-      // Get the car data
+       //Get the car data
       var driveOption = new Route(data.options.filter(function(o) {
         return o.access[0].mode === 'CAR' && (!o.transit || o.transit.length < 1);
       })[0]);
@@ -163,6 +172,7 @@ function updateRoutes(plan, opts, callback) {
 
       // Populate segments
       populateSegments(data.options, data.journey);
+
 
       // Create a new Route object for each option
       for (var i = 0; i < data.options.length; i++) {
@@ -195,9 +205,9 @@ function populateSegments(options, journey) {
   for (var i = 0; i < options.length; i++) {
     var option = options[i];
     if (!option.transit || option.transit.length < 1) continue;
-
     for (var j = 0; j < option.transit.length; j++) {
       var segment = option.transit[j];
+
 
       for (var k = 0; k < segment.segmentPatterns.length; k++) {
         var pattern = segment.segmentPatterns[k];
@@ -208,8 +218,12 @@ function populateSegments(options, journey) {
         var agency = routeId[0].toLowerCase();
         var line = routeId[1].toLowerCase();
 
+
+
         routeId = routeId[0] + ':' + routeId[1];
         var route = getRoute(routeId, journey.routes);
+
+
 
         pattern.longName = route.route_long_name;
         pattern.shortName = route.route_short_name;
@@ -217,6 +231,7 @@ function populateSegments(options, journey) {
         pattern.color = convert.routeToColor(route.route_type, agency, line,
           route.route_color);
         pattern.shield = getRouteShield(agency, route);
+
       }
     }
   }

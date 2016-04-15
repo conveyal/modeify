@@ -13,7 +13,7 @@ var scrollbarSize = require('scrollbar-size');
 var scrolling = require('scrolling');
 var session = require('session');
 var textModal = require('text-modal');
-var transitive = require('transitive');
+//var transitive = require('transitive');
 var ua = require('user-agent');
 var view = require('view');
 var showWelcomeWizard = require('welcome-flow');
@@ -22,6 +22,7 @@ var geocode = require('geocode');
 
 var FROM = config.geocode().start_address;
 var TO = config.geocode().end_address;
+
 var isMobile = window.innerWidth <= 480;
 var center = config.geocode().center.split(',').map(parseFloat);
 
@@ -69,83 +70,82 @@ module.exports = function(ctx, next) {
     // Show the map
     var map = showMapView(ctx.view.find('.MapView'));
 
-    // Create the transitive layer
-    var transitiveLayer = new LeafletTransitiveLayer(transitive);
-
-    // Set the transitive layer
-    map.addLayer(transitiveLayer);
-
     // Update map on plan change
-    updateMapOnPlanChange(plan, map, transitive, transitiveLayer);
+
+    updateMapOnPlanChange(plan, map);
 
     map.on('click', function (e) {
-      var from = plan.from_ll();
-      var to = plan.to_ll();
-      if (!plan.coordinateIsValid(from)) {
+          var from = plan.from_ll();
+          var to = plan.to_ll();
+          if (!plan.coordinateIsValid(from)) {
+            plan.journey({
+          places: [
+            {
+              place_id: 'from',
+             place_lat: e.latlng.lat,
+              place_lon: e.latlng.lng,
+              place_name: 'From'
+           },
+            {
+              place_id: 'to',
+             place_lat: (plan.to_ll() ? plan.to_ll().lat : 0),
+              place_lon: (plan.to_ll() ? plan.to_ll().lng : 0),
+              place_name: 'To'
+            }
+          ]
+        });
+        plan.setAddress('from', e.latlng.lng + ',' + e.latlng.lat, function (err, res) {
+            plan.updateRoutes();
+        });
+          } else if (!plan.coordinateIsValid(to)) {
         plan.journey({
-	  places: [
-	    {
-	      place_id: 'from',
-	      place_lat: e.latlng.lat,
-	      place_lon: e.latlng.lng,
-	      place_name: 'From'
-	    },
-	    {
-	      place_id: 'to',
-	      place_lat: (plan.to_ll() ? plan.to_ll().lat : 0),
-	      place_lon: (plan.to_ll() ? plan.to_ll().lng : 0),
-	      place_name: 'To'
-	    }
-	  ]
-	});
-	plan.setAddress('from', e.latlng.lng + ',' + e.latlng.lat, function (err, res) {
-	    plan.updateRoutes();
-	});
-      } else if (!plan.coordinateIsValid(to)) {
-	plan.journey({
-	  places: [
-	    {
-	      place_id: 'from',
-	      place_lat: plan.from_ll().lat,
-	      place_lon: plan.from_ll().lng,
-	      place_name: 'From'
-	    },
-	    {
-	      place_id: 'to',
-	      place_lat: e.latlng.lat,
-	      place_lon: e.latlng.lng,
-	      place_name: 'To'
-	    }
-	  ]
-	});
-	plan.setAddress('to', e.latlng.lng + ',' + e.latlng.lat, function (err, res) {
-	    plan.updateRoutes();
-	});
-      }
+          places: [
+            {
+              place_id: 'from',
+              place_lat: plan.from_ll().lat,
+             place_lon: plan.from_ll().lng,
+              place_name: 'From'
+            },
+           {
+              place_id: 'to',
+              place_lat: e.latlng.lat,
+              place_lon: e.latlng.lng,
+              place_name: 'To'
+            }
+          ]
+        });
+        plan.setAddress('to', e.latlng.lng + ',' + e.latlng.lat, function (err, res) {
+            plan.updateRoutes();
+        });
+          }
     });
+
+
+
 
     // Clear plan & cookies for now, plan will re-save automatically on save
       var from = plan.from_ll();
       var to = plan.to_ll();
-    plan.clearStore();
+      //plan.clearStore();
 
     // If it's a shared URL or welcome is complete skip the welcome screen
     if ((query.from && query.to)) {
       showQuery(query);
     } else {
+
+
       if (plan.coordinateIsValid(from) && plan.coordinateIsValid(to)) {
-	plan.setAddresses(
-	  from.lng + ',' + from.lat, // from
-	  to.lng + ',' + to.lat, // to
-	  function (err, res) {
-	    plan.updateRoutes();
-	  }
-	);
-        plan.updateRoutes();
+          plan.setAddresses(
+            from.lng + ',' + from.lat, // from
+            to.lng + ',' + to.lat, // to
+            function (err, res) {
+              plan.updateRoutes();
+
+            }
+          );
+          plan.updateRoutes();
       } else {
-	  console.log(from);
-	  console.log(to);
-	plan.loading(false);
+          plan.loading(false);
       }
     }
   });
@@ -178,6 +178,8 @@ View.prototype.reverseCommute = function(e) {
   });
 
   plan.updateRoutes();
+
+
 };
 
 /**
@@ -265,8 +267,11 @@ View.prototype.showSidePanel = function (e) {
     map.invalidateSize();
 
     plan = session.plan();
-//    plan.updateRoutes();
-    transitive.updateData(plan.journey());
+    plan.updateRoutes();
+    //transitive.updateData(plan.journey());
+
+    plan.journey();
+
   }, 2100)
 };
 
@@ -293,6 +298,7 @@ function showQuery(query) {
       places: plan.generatePlaces()
     });
     plan.updateRoutes();
+
   } else {
       if (!plan.validCoordinates()) {
 	  plan.loading(false);
@@ -307,6 +313,7 @@ function showQuery(query) {
           places: plan.generatePlaces()
         });
         plan.updateRoutes();
+
       }
     });
 }
@@ -317,17 +324,94 @@ function showQuery(query) {
  * Update Map on plan change
  */
 
-function updateMapOnPlanChange(plan, map, transitive, transitiveLayer) {
-  // Register plan update events
+function updateMapOnPlanChange(plan, map) {
+
   plan.on('change journey', function(journey) {
+  showMapView.cleanPolyline();
+  showMapView.cleanMarker();
+  showMapView.cleanMarkerpoint();
+  showMapView.cleanMarkerCollision();
+  showMapView.marker_collision_group = [];
+
+  var sesion_plan = JSON.parse(localStorage.getItem('dataplan'));
     if (journey && !isMobile) {
       try {
-        log('updating data');
-        transitive.updateData(journey);
-        map.fitBounds(transitiveLayer.getBounds());
+
+        if(!(sesion_plan === null)) {
+                sesion_plan = sesion_plan.plan;
+
+                var itineraries = sesion_plan.itineraries;
+
+                showMapView.marker_map(
+                        [sesion_plan.from.lat,sesion_plan.from.lon],
+                        [sesion_plan.to.lat,sesion_plan.to.lon]
+                );
+
+
+
+                for (i = 0; i < itineraries.length; i++) {
+                    for (ii=0; ii < itineraries[i].legs.length; ii++) {
+                      showMapView.drawRouteAmigo(itineraries[i].legs[ii], itineraries[i].legs[ii].mode, i);
+                    }
+                }
+
+
+                var lat_center_polyline = (sesion_plan.from.lat + sesion_plan.to.lat) / 2;
+                var lon_center_polyline = (sesion_plan.from.lon + sesion_plan.to.lon) / 2;
+                map.setView([lat_center_polyline, lon_center_polyline], 11);
+
+                showMapView.drawMakerCollision();
+            }
+
       } catch (e) {
-	map.setView([center[1], center[0]], config.geocode().zoom);
+	    map.setView([center[1], center[0]], config.geocode().zoom);
       }
+
     }
   });
+}
+
+
+function get_data_route(new_plan){
+    var itineraries = new_plan.plan.itineraries;
+    var timeInTransit = 0;
+    var bikeTime = 0;
+    var bikeDistance = 0;
+    var walkTime = 0;
+    var walkDistance = 0;
+
+    for (var i = 0; i < itineraries.length; i++) {
+        for (var j = 0; j < itineraries[i].legs.length; j++) {
+            var fare = (itineraries[i].fare ? itineraries[i].fare.fare.regular.cents : 0);
+            if (itineraries[i].legs[j].transitLeg) {
+                timeInTransit += itineraries[i].legs[j].duration;
+            } else {
+                  if (itineraries[i].legs[j].mode === 'BICYCLE') {
+                    bikeTime += itineraries[i].legs[j].duration;
+                    bikeDistance += itineraries[i].legs[j].distance;
+                  } else if (itineraries[i].legs[j].mode === 'WALK') {
+                    walkTime += itineraries[i].legs[j].duration;
+                    walkDistance += itineraries[i].legs[j].distance;
+                  }
+            }
+
+            data = {
+                from: new_plan.plan.from.name,
+                to: new_plan.plan.to.name,
+                time: timeInTransit + bikeTime + walkTime,
+                timeInTransit: timeInTransit / 60,
+                cost: fare / 100,
+                transitCost: fare / 100,
+                bikeTime: bikeTime,
+                bikeDistance: bikeDistance,
+                walkDistance: walkDistance,
+                walkTime: walkTime,
+                plan: itineraries[i]
+            }
+
+
+        }
+
+    }
+    return data
 }
