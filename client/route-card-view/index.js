@@ -111,6 +111,10 @@ View.prototype.timeSavingsAndNoCostSavings = function() {
   return this.model.timeSavings() && !this.model.costSavings();
 };
 
+View.prototype.selectTrip = function() {
+  console.log('selected!');
+};
+
 /**
  * Show/hide
  */
