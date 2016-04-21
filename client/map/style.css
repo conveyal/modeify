@@ -17,6 +17,7 @@
   height: 600px;
 }
 
+
 /**
  * Override the default colors to be Bootstrap style
  */
@@ -24,6 +25,7 @@
 .marker-cluster-small {
   background-color: rgba(181, 226, 140, 0.6);
 }
+
 .marker-cluster-small div {
   background-color: rgba(110, 204, 57, 0.6);
 }
@@ -31,6 +33,7 @@
 .marker-cluster-medium {
   background-color: rgba(241, 211, 87, 0.6);
 }
+
 .marker-cluster-medium div {
   background-color: rgba(240, 194, 12, 0.6);
 }
@@ -38,83 +41,88 @@
 .marker-cluster-large {
   background-color: rgba(253, 156, 115, 0.6);
 }
+
 .marker-cluster-large div {
   background-color: rgba(241, 128, 23, 0.6);
 }
 
+
 /**
  * Realtime Control
  */
+
 .leaflet-control-realtime {
-    box-shadow: 0 1px 5px rgba(0,0,0,.4);
-    background: #fff;
-    border-radius: 5px;
-    padding: 11px 9px 7px;
-    cursor: pointer;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, .4);
+  background: #fff;
+  border-radius: 5px;
+  padding: 11px 9px 7px;
+  cursor: pointer;
 }
 
 .leaflet-control-realtime.active {
-    background-color: #ccc;
+  background-color: #ccc;
 }
 
 .leaflet-control-realtime .leaflet-control-realtime-interior {
-    position: relative;
-    color: #666;
+  position: relative;
+  color: #666;
 }
 
 .leaflet-control-realtime-interior i.fa-bus {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 .leaflet-control-realtime-interior i.fa-rss {
-    position: absolute;
-    left: 9px;
-    bottom: 11px;
-    font-size: 10px;
+  position: absolute;
+  left: 9px;
+  bottom: 11px;
+  font-size: 10px;
 }
+
 
 /**
  * Custom Icon style
  */
+
 .leaflet-marker-icon {
   text-align: center;
   height: 25px;
   width: 25px;
-    outline: none;
-    border: none;
+  outline: none;
+  border: none;
 }
-
 
 
 /**
  * Custom popup style
  */
+
 .leaflet-popup-content-wrapper {
-    background-color: rgb(200, 228, 236);
+  background-color: rgb(200, 228, 236);
 }
 
 .leaflet-popup-content {
-    margin: 15px;
+  margin: 15px;
 }
 
 .leaflet-popup-tip-container .leaflet-popup-tip {
-    background-color: rgb(200, 228, 236);
+  background-color: rgb(200, 228, 236);
 }
 
 .leaflet-popup-content .popup-header {
-    background-color: #00587b;
-    padding: 5px 10px;
-    text-align: center;
-    border-radius: 3px;
+  background-color: #00587b;
+  padding: 5px 10px;
+  text-align: center;
+  border-radius: 3px;
 }
 
-.leaflet-popup-content .popup-header > h5{
-    margin: 0;
-    font-weight: 600;
-    color: #fff;
+.leaflet-popup-content .popup-header > h5 {
+  margin: 0;
+  font-weight: 600;
+  color: #fff;
 }
 
-.leaflet-popup-content .popup-header > h5 a{
+.leaflet-popup-content .popup-header > h5 a {
   color: #fff;
   font-weight: 400;
   font-size: 16px;
@@ -159,4 +167,32 @@
 
 .leaflet-popup-content .popup-body .popup-row:last-child td.label {
   border-bottom-left-radius: 3px;
+}
+
+.leaflet-marker-icon .number,
+.leaflet-marker-icon .number-inactive {
+  top: -25px;
+  position: relative;
+  font-weight: 700;
+  padding: 0 8px;
+}
+
+.leaflet-marker-icon .number > span {
+  background-color: #8EC449;
+  border: 1px solid #4B6A20;
+  color: #4B6A20;
+  font-size: 8px;
+  padding: 0;
+  display: block;
+  border-radius: 3px;
+}
+
+.leaflet-marker-icon .number-inactive > span {
+  background-color: #EDEFF0;
+  border: 1px solid #303D49;
+  color: #303D49;
+  font-size: 8px;
+  padding: 0;
+  display: block;
+  border-radius: 3px;
 }

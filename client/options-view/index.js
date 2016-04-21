@@ -8,6 +8,7 @@ var view = require('view');
 
 var View = module.exports = view(require('./template.html'), function(view, model) {
   view.lastResponse = {};
+  view.lastCardSelected = null;
   model.on('updating options complete', function(data) {
     view.errorMessage = data.err;
     model.emit('change optionsSummary');
