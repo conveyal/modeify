@@ -28,6 +28,7 @@
     "juice": "^1.10.0",
     "mandrill-api": "^1.0.45",
     "mapbox": "^1.0.0-beta",
+    "moment": "^2.12.0",
     "mongoose": "^4.4.6",
     "monquery": "^0.2.0",
     "morgan": "^1.7.0",

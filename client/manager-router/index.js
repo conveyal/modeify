@@ -72,6 +72,10 @@ p('/organizations/:organization/locations/:location/commuters/:commuter/edit', c
 
 p('/feedback', session.touch, require('feedback-table-page'))
 
+// User Signups
+
+p('/user-activity', session.touch, require('user-activity-page'))
+
 // Render all
 
 p('*', utils.render)
