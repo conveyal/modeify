@@ -26,7 +26,8 @@
     "organizations-page",
     "router-utils",
     "session",
-    "user"
+    "user",
+    "user-activity-page"
   ],
   "scripts": [
     "index.js"
