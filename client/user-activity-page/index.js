@@ -34,6 +34,11 @@ var View = view(require('./template.html'), function(view, model) {
     }
   });
 
+  var codeSelect = view.find('.signup-code-select');
+  codeSelect.onchange = function() {
+    view.updateTable();
+  }
+
   view.updateRange();
 })
 
@@ -54,41 +59,81 @@ View.prototype.updateRange = function() {
       window.alert(err)
     } else {
       //console.log('signups', JSON.parse(signups.text));
-      view.updateTable(JSON.parse(signups.text))
+      var users = JSON.parse(signups.text)
+
+      // scanned returned users for all codes
+      var codes = []
+      users.forEach(user => {
+        if(user.customData && user.customData.registrationCode) {
+          if(codes.indexOf(user.customData.registrationCode) === -1) {
+            codes.push(user.customData.registrationCode);
+          }
+        }
+      })
+
+      // update the code selector
+      var codeSelect = view.find('.signup-code-select');
+      while (codeSelect.firstChild) codeSelect.remove(codeSelect.firstChild)
+      codes.forEach(code => {
+        var option = document.createElement('option')
+        option.value = code
+        option.innerHTML = code
+        codeSelect.appendChild(option)
+      })
+
+      view.users = users
+      view.updateTable()
     }
   })
 }
 
-View.prototype.updateTable = function(users) {
+View.prototype.updateTable = function() {
+  users = this.users || []
+
   var fromDate = moment(this.fromDatePicker.getDate())
   var toDate = moment(this.toDatePicker.getDate())
 
-  var usersByDate = {}
+  var codeSelect = this.find('.signup-code-select');
+  var selectedCode = null
+  if(codeSelect.selectedIndex >= 0) {
+    selectedCode = codeSelect.options[codeSelect.selectedIndex].value
+  }
+
+  var usersByDate = {}, usersByDateAndCode = {}
 
   var tbody = this.find('.signup-table-body')
   while (tbody.firstChild) {
       tbody.removeChild(tbody.firstChild);
   }
 
+  var totalUsersByCode = 0
   for(var i=0; i<users.length; i++) {
     var user = users[i]
     var createdAt = moment(user.createdAt).add(-5, 'hours').format('MM-DD-YYYY')
+
     if(!(createdAt in usersByDate)) usersByDate[createdAt] = []
     usersByDate[createdAt].push(user)
+
+    if(selectedCode && user.customData.registrationCode && user.customData.registrationCode === selectedCode) {
+      if(!(createdAt in usersByDateAndCode)) usersByDateAndCode[createdAt] = []
+      usersByDateAndCode[createdAt].push(user)
+      totalUsersByCode++
+    }
   }
 
   while(fromDate.isSameOrBefore(toDate)) {
     var usersForDate = usersByDate[fromDate.format('MM-DD-YYYY')]
+    var usersForDateAndCode = usersByDateAndCode[fromDate.format('MM-DD-YYYY')]
+
     var tr = document.createElement('tr')
-    tr.innerHTML = '<td>' + fromDate.format(displayFormat) + '</td><td>' + (usersForDate ? usersForDate.length : 0) + '</td><td>0</td>'
+    tr.innerHTML = '<td>' + fromDate.format(displayFormat) + '</td><td>' + (usersForDate ? usersForDate.length : 0) + '</td><td>' + (usersForDateAndCode ? usersForDateAndCode.length : 0) + '</td>'
     tbody.appendChild(tr)
     fromDate.add(1, 'days')
   }
 
   var tr = document.createElement('tr')
-  tr.innerHTML = '<td><b>Total<b></td><td><b>' + (users ? users.length : 0) + '</b></td><td>0</td>'
+  tr.innerHTML = '<td><b>Total<b></td><td><b>' + (users ? users.length : 0) + '</b></td><td><b>' + totalUsersByCode + '</b></td>'
   tbody.appendChild(tr)
-
 }
 
 module.exports = function (ctx, next) {
