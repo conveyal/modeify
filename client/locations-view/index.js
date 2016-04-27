@@ -1,3 +1,4 @@
+var analytics = require('analytics')
 var closest = require('closest')
 var log = require('./client/log')('locations-view')
 var textModal = require('text-modal')
@@ -122,6 +123,10 @@ View.prototype.save = function (el) {
   var val = el.value
 
   if (val && plan[name]() !== val) {
+    analytics.track('Location Found', {
+      address: val,
+      type: name
+    })
     this.model.setAddress(name, val, function (err, location) {
       if (err) {
         log.error('%e', err)
