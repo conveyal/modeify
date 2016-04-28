@@ -1,0 +1,30 @@
+.pika-prev,
+.is-rtl .pika-next {
+  background-image: url(/images/graphics/arrow-left.svg);
+}
+
+.pika-next,
+.is-rtl .pika-prev {
+  background-image: url(/images/graphics/arrow-right.svg);
+}
+
+.serviceAlertPreviewContainer {
+  margin-bottom: 16px;
+}
+
+.serviceAlertPreview {
+  background-color: #ddd;
+  padding: 7px;
+  margin-right: 45px;
+}
+
+.serviceAlertDelete {
+  text-align: right;
+  float: right;
+  width: 40px;
+}
+
+.serviceAlertFooter {
+  margin-top: 5px;
+  font-style: italic;
+}

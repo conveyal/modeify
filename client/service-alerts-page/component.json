@@ -1,0 +1,28 @@
+{
+  "name": "service-alerts-page",
+  "dependencies": {
+    "dbushell/pikaday": "1.4.0",
+    "moment/moment": "2.12.0",
+    "trevorgerhardt/serialize": "*",
+    "visionmedia/page.js": "*"
+  },
+  "locals": [
+    "alerts",
+    "config",
+    "request",
+    "service-alert",
+    "text-modal",
+    "view"
+  ],
+  "scripts": [
+    "index.js",
+    "row.js"
+  ],
+  "templates": [
+    "row.html",
+    "template.html"
+  ],
+  "styles": [
+    "style.css"
+  ]
+}

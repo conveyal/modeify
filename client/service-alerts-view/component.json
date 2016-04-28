@@ -1,0 +1,18 @@
+{
+  "name": "service-alerts-view",
+  "locals": [
+    "session",
+    "view"
+  ],
+  "scripts": [
+    "index.js",
+    "row.js"
+  ],
+  "styles": [
+    "style.css"
+  ],
+  "templates": [
+    "row.html",
+    "template.html"
+  ]
+}

@@ -14,6 +14,7 @@ var transitive = require('transitive')
 var ua = require('user-agent')
 var view = require('view')
 var showWelcomeWizard = require('welcome-flow')
+var ServiceAlertsView = require('service-alerts-view')
 
 var FROM = config.geocode().start_address
 var TO = config.geocode().end_address
@@ -47,6 +48,7 @@ module.exports = function (ctx, next) {
 
   // Set up the views
   var views = {
+    'service-alerts-view': new ServiceAlertsView(),
     'filter-view': new FilterView(plan),
     'locations-view': new LocationsView(plan),
     'options-view': new OptionsView(plan),

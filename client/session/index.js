@@ -35,6 +35,7 @@ var Session = model('Session')
   .attr('settings')
   .attr('user')
   .attr('isLoggedIn')
+  .attr('serviceAlerts')
 
 /**
  * Save settings on changes
@@ -161,7 +162,13 @@ session.load = function (ctx, next) {
         }
       })
 
-      next(null, session)
+      // check for alerts
+      loadServiceAlerts(function (err, alerts) {
+        console.log('>> got alerts ', alerts);
+        session.serviceAlerts(alerts)
+        next(null, session)
+      })
+
     })
   })
 }
@@ -216,6 +223,16 @@ function loadCommuter (next) {
       anonymous: true
     }))
   }
+}
+
+function loadServiceAlerts (next) {
+  request.get('/service-alerts', function (err, res) {
+    if (err || !res.body || res.body.length === 0) {
+      next(null, [])
+    } else {
+      next(null, res.body)
+    }
+  })
 }
 
 /**

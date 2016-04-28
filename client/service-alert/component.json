@@ -1,0 +1,14 @@
+{
+  "name": "service-alert",
+  "dependencies": {
+    "component/model": "*"
+  },
+  "locals": [
+    "config",
+    "log",
+    "request"
+  ],
+  "scripts": [
+    "index.js"
+  ]
+}

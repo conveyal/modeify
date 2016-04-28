@@ -25,6 +25,8 @@
     "organization-page",
     "organizations-page",
     "router-utils",
+    "service-alert",
+    "service-alerts-page",
     "session",
     "user",
     "user-activity-page"

@@ -6,6 +6,7 @@ var LocationForm = require('location-form')
 var Ridepool = require('ridepool')
 var RidepoolForm = require('ridepool-form')
 var Organization = require('organization')
+var ServiceAlert = require('service-alert')
 var organizationForm = require('organization-form')
 var p = require('page')
 var session = require('session')
@@ -71,6 +72,10 @@ p('/organizations/:organization/locations/:location/commuters/:commuter/edit', c
 // Feedback
 
 p('/feedback', session.touch, require('feedback-table-page'))
+
+// Alerts
+
+p('/alerts', session.touch, ServiceAlert.loadAll, require('service-alerts-page'))
 
 // User Signups
 
