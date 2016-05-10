@@ -4,7 +4,8 @@
     "component/querystring": "*",
     "conveyal/Leaflet.TransitiveLayer": "master",
     "pazguille/scrolling": "*",
-    "trevorgerhardt/scrollbar-size": "*"
+    "trevorgerhardt/scrollbar-size": "*",
+    "visionmedia/superagent": "*"
   },
   "locals": [
     "config",

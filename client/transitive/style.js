@@ -181,7 +181,7 @@ exports.places_icon = {
   cursor: 'pointer',
   stroke: 0,
   visibility: function (d, data) {
-    if (data.owner.focused) {
+    if (data.owner.focused && !isBikeshareStation(data.owner)) {
       return 'visible'
     } else {
       return 'hidden'

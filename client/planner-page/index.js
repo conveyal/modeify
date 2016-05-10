@@ -10,6 +10,7 @@ var PlannerNav = require('planner-nav')
 var querystring = require('querystring')
 var scrollbarSize = require('scrollbar-size')
 var session = require('session')
+var superagent = require('superagent')
 var transitive = require('transitive')
 var ua = require('user-agent')
 var view = require('view')
@@ -42,6 +43,8 @@ var View = view(require('./template.html'), function (view, model) {
 module.exports = function (ctx, next) {
   log('render')
 
+  var bikeshareLayer, transitiveLayer
+
   var plan = ctx.session.plan()
   var query = querystring.parse(window.location.search)
 
@@ -65,14 +68,19 @@ module.exports = function (ctx, next) {
     // Show the map
     var map = showMapView(ctx.view.find('.MapView'))
 
+    if (config.bikeshare) {
+      // Create the bikeshare layer
+      bikeshareLayer = createBikeShareLayer(config.bikeshare().stations, map)
+    }
+
     // Create the transitive layer
-    var transitiveLayer = new LeafletTransitiveLayer(transitive)
+    transitiveLayer = new LeafletTransitiveLayer(transitive)
 
     // Set the transitive layer
     map.addLayer(transitiveLayer)
 
     // Update map on plan change
-    updateMapOnPlanChange(plan, map, transitive, transitiveLayer)
+    updateMapOnPlanChange(plan, map, transitive, transitiveLayer, bikeshareLayer)
 
     // Clear plan & cookies for now, plan will re-save automatically on save
     plan.clearStore()
@@ -87,6 +95,8 @@ module.exports = function (ctx, next) {
 
   plan.on('updating options', function () {
     ctx.view.panelFooter.classList.add('hidden')
+
+    if (bikeshareLayer) bikeshareLayer.bringToBack()
   })
 
   plan.on('updating options complete', function (res) {
@@ -194,7 +204,7 @@ function showQuery (query) {
  * Update Map on plan change
  */
 
-function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
+function updateMapOnPlanChange (plan, map, transitive, transitiveLayer, bikeshareLayer) {
   // Register plan update events
   plan.on('change journey', function (journey) {
     if (journey && !isMobile) {
@@ -205,6 +215,21 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
       } catch (e) {
         console.error(e)
         console.error(e.stack)
+      }
+    }
+  })
+
+  plan.on('change bikeShare', function (bikeshare) {
+    console.log('changed bikeshare', bikeshare)
+    if (config.bikeshare()) {
+      if (bikeshare) {
+        bikeshareLayer.setStyle(function (feature) {
+          return {opacity: 0.5}
+        })
+      } else {
+        bikeshareLayer.setStyle(function (feature) {
+          return { opacity: 0 }
+        })
       }
     }
   })
@@ -245,4 +270,38 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
     matchedFeatures.addTo(map)
   }
 }) */
+}
+
+var cabiIcon = window.L.icon({
+  className: 'BikeShareStation-Icon',
+  iconUrl: config.static_url() + '/images/graphics/cabi.png',
+  iconSize: [17.25, 15]
+})
+
+function createBikeShareLayer (url, map) {
+  var layer = window.L.geoJson(undefined, {
+    pointToLayer: function (feature, latlng) {
+      return window.L.marker(latlng, {
+        icon: cabiIcon,
+        title: feature.properties.name,
+        zIndexOffset: -1000
+      })
+    },
+    onEachFeature: function (feature, layer) {
+      layer.bindPopup(feature.properties.name)
+    }
+  })
+    .addTo(map)
+    .bringToBack()
+
+  superagent.get(url, function (err, res) {
+    if (err) {
+      console.error(err.stack)
+      return
+    }
+
+    layer.addData(JSON.parse(res.text))
+  })
+
+  return layer
 }
