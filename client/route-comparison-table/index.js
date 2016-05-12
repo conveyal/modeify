@@ -1,7 +1,10 @@
-var convert = require('convert')
-var view = require('view')
+var fs = require('fs')
+var convert = require('../convert')
+var view = require('../view')
 
-var View = module.exports = view(require('./template.html'))
+require('./style.css')
+
+var View = module.exports = view(fs.readFileSync(__dirname + '/template.html'))
 
 View.prototype.costSavings = function () {
   return convert.roundNumberToString(this.model.costSavings())

@@ -1,12 +1,13 @@
-var Alert = require('alert')
-var message = require('./client/messages')('welcome-flow:locations')
-var modal = require('./client/modal')
+var fs = require('fs')
+var Alert = require('../../alert')
+var message = require('../../messages')('welcome-flow:locations')
+var modal = require('../../modal')
 
 var Locations = module.exports = modal({
   closable: true,
   logo: true,
   message: message,
-  template: require('./template.html')
+  template: fs.readFileSync(__dirname + '/template.html')
 }, function (view, model) {
   var plan = model.plan
 

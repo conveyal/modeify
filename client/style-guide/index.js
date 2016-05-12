@@ -1,6 +1,10 @@
-var View = require('view')({
+var fs = require('fs')
+
+require('./style.css')
+
+var View = require('../view')({
   category: 'style-guide',
-  template: require('./template.html'),
+  template: fs.readFileSync(__dirname + '/template.html'),
   title: 'Style Guide'
 })
 

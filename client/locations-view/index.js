@@ -1,17 +1,20 @@
-var analytics = require('analytics')
-var closest = require('closest')
-var log = require('./client/log')('locations-view')
-var textModal = require('text-modal')
-var view = require('view')
-var LocationSuggest = require('location-suggest')
-var extend = require('extend')
-var session = require('session')
+var fs = require('fs')
+var analytics = require('../analytics')
+var closest = require('component-closest')
+var log = require('../log')('locations-view')
+var textModal = require('../text-modal')
+var view = require('../view')
+var LocationSuggest = require('../location-suggest')
+var extend = require('../../components/segmentio/extend/1.0.0')
+var session = require('../session')
+
+require('./style.css')
 
 /**
  * Expose `View`
  */
 
-var View = module.exports = view(require('./template.html'), function (view, plan) {
+var View = module.exports = view(fs.readFileSync(__dirname + '/template.html'), function (view, plan) {
   plan.on('change', function (name) {
     view.resetIcons()
 

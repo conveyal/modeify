@@ -1,21 +1,25 @@
-var analytics = require('./client/analytics')
-var config = require('./client/config')
-var modal = require('./client/modal')
-var RideshareSignUp = require('./client/rideshare-sign-up')
-var RouteComparisonTable = require('route-comparison-table')
-var RouteResourcesView = require('route-resources-view')
-var routeSummarySegments = require('route-summary-segments')
-var session = require('session')
-var SignUpForm = require('sign-up-form')
+var fs = require('fs')
+var analytics = require('../analytics')
+var config = require('../config')
+var modal = require('../modal')
+var RideshareSignUp = require('../rideshare-sign-up')
+var RouteComparisonTable = require('../route-comparison-table')
+var RouteResourcesView = require('../route-resources-view')
+var routeSummarySegments = require('../route-summary-segments')
+var session = require('../session')
+var SignUpForm = require('../sign-up-form')
 var hogan = require('hogan.js')
-var each = require('each')
+var each = require('component-each')
+
+require('./style.css')
+
 /**
  * Create `Modal`
  */
 
 var RouteModal = module.exports = modal({
   closable: true,
-  template: require('./template.html'),
+  template: fs.readFileSync(__dirname + '/template.html'),
   title: 'Selected Option Modal'
 }, function (view, route) {
   var context = view.options.context
@@ -86,7 +90,7 @@ RouteModal.prototype.nextButtonText = function () {
   }
 }
 
-var intMatchesTemplate = hogan.compile(require('./internal-matches.html'))
+var intMatchesTemplate = hogan.compile(fs.readFileSync(__dirname + '/internal-matches.html'))
 
 RouteModal.prototype.internalMatches = function () {
   if (this.model.get('internalCarpoolMatches')) {

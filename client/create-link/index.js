@@ -1,11 +1,14 @@
-var extend = require('extend')
-var config = require('config')
+var fs = require('fs')
+var extend = require('../../components/segmentio/extend/1.0.0')
+var config = require('../config')
 
-var LocationSuggest = require('location-suggest')
+require('./style.css')
 
-var View = require('view')({
+var LocationSuggest = require('../location-suggest')
+
+var View = require('../view')({
   category: 'create-link',
-  template: require('./template.html'),
+  template: fs.readFileSync(__dirname + '/template.html'),
   title: 'Create Link'
 })
 

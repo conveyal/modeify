@@ -1,14 +1,17 @@
-var Alert = require('./client/alert')
-var CommuterProfile = require('commuter-profile')
-var LocationsView = require('locations-view')
-var log = require('./client/log')('rideshare-sign-up')
-var modal = require('modal')
-var request = require('./client/request')
-var session = require('session')
+var fs = require('fs')
+var Alert = require('../alert')
+var CommuterProfile = require('../commuter-profile')
+var LocationsView = require('../locations-view')
+var log = require('../log')('rideshare-sign-up')
+var modal = require('../modal')
+var request = require('../request')
+var session = require('../session')
+
+require('./style.css')
 
 var ThanksModal = modal({
   closable: true,
-  template: require('./thanks.html'),
+  template: fs.readFileSync(__dirname + '/thanks.html'),
   title: 'Thanks Modal'
 })
 
@@ -22,7 +25,7 @@ ThanksModal.prototype.profile = function (e) {
 
 var SignUpModal = module.exports = modal({
   closable: true,
-  template: require('./template.html'),
+  template: fs.readFileSync(__dirname + '/template.html'),
   title: 'Sign Up Modal'
 })
 

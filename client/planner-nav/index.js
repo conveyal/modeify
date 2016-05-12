@@ -1,16 +1,19 @@
-var config = require('./client/config')
-var evnt = require('event')
-var MarkdownModal = require('./client/markdown-modal')
-var showWalkThrough = require('planner-walkthrough')
-var getTemplate = require('./client/template')
+var fs = require('fs')
+var config = require('../config')
+var evnt = require('component-event')
+var MarkdownModal = require('../markdown-modal')
+var showWalkThrough = require('../planner-walkthrough')
+var getTemplate = require('../template')
 var page = require('page')
-var view = require('view')
+var view = require('../view')
+
+require('./style.css')
 
 /**
  * Expose `View`
  */
 
-var View = module.exports = view(require('./template.html'))
+var View = module.exports = view(fs.readFileSync(__dirname + '/template.html'))
 
 /**
  * Scroll to top

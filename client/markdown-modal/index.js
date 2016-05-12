@@ -1,7 +1,10 @@
-var modal = require('./client/modal')
+var fs = require('fs')
+var modal = require('../modal')
+
+require('./style.css')
 
 module.exports = modal({
   closable: true,
   width: '640px',
-  template: require('./template.html')
+  template: fs.readFileSync(__dirname + '/template.html')
 })

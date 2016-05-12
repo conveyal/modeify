@@ -1,11 +1,14 @@
-var analytics = require('analytics')
-var each = require('each')
+var fs = require('fs')
+var analytics = require('../analytics')
+var each = require('component-each')
 var hogan = require('hogan.js')
-var view = require('view')
+var view = require('../view')
 
-var resourceTemplate = hogan.compile(require('./resource.html'))
+require('./style.css')
 
-var View = module.exports = view(require('./template.html'))
+var resourceTemplate = hogan.compile(fs.readFileSync(__dirname + '/resource.html'))
+
+var View = module.exports = view(fs.readFileSync(__dirname + '/template.html'))
 
 View.prototype.resources = function () {
   var resourceHtml = ''

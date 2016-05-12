@@ -1,25 +1,28 @@
-var config = require('config')
-var FilterView = require('filter-view')
-var HelpMeChoose = require('help-me-choose-view')
-var LeafletTransitiveLayer = require('Leaflet.TransitiveLayer')
-var LocationsView = require('locations-view')
-var log = require('./client/log')('planner-page')
-var showMapView = require('map-view')
-var OptionsView = require('options-view')
-var PlannerNav = require('planner-nav')
-var querystring = require('querystring')
-var scrollbarSize = require('scrollbar-size')
-var session = require('session')
-var transitive = require('transitive')
-var ua = require('user-agent')
-var view = require('view')
-var showWelcomeWizard = require('welcome-flow')
+var fs = require('fs')
+var config = require('../config')
+var FilterView = require('../filter-view')
+var HelpMeChoose = require('../help-me-choose-view')
+var LeafletTransitiveLayer = require('leaflet-transitivelayer')
+var LocationsView = require('../locations-view')
+var log = require('../log')('planner-page')
+var showMapView = require('../map-view')
+var OptionsView = require('../options-view')
+var PlannerNav = require('../planner-nav')
+var querystring = require('component-querystring')
+var scrollbarSize = require('../scrollbar-size')
+var session = require('../session')
+var transitive = require('../transitive')
+var ua = require('../user-agent')
+var view = require('../view')
+var showWelcomeWizard = require('../welcome-flow')
+
+require('./style.css')
 
 var FROM = config.geocode().start_address
 var TO = config.geocode().end_address
 var isMobile = window.innerWidth <= 480
 
-var View = view(require('./template.html'), function (view, model) {
+var View = view(fs.readFileSync(__dirname + '/template.html'), function (view, model) {
   view.scrollable = view.find('.scrollable')
   view.panelFooter = view.find('.footer')
 

@@ -1,10 +1,11 @@
-var create = require('view')
+var fs = require('fs')
+var create = require('../view')
 
 /**
  * Expose `Alert`
  */
 
-var Alert = module.exports = create(require('./template.html'))
+var Alert = module.exports = create(fs.readFileSync(__dirname + '/template.html'))
 
 /**
  * Dispose

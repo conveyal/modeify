@@ -1,10 +1,13 @@
-var Alert = require('alert')
-var analytics = require('analytics')
-var log = require('./client/log')('feedback-modal')
-var message = require('./client/messages')('feedback-modal')
-var modal = require('./client/modal')
-var request = require('./client/request')
-var session = require('session')
+var fs = require('fs')
+var Alert = require('../alert')
+var analytics = require('../analytics')
+var log = require('../log')('feedback-modal')
+var message = require('../messages')('feedback-modal')
+var modal = require('../modal')
+var request = require('../request')
+var session = require('./session')
+
+require('./style.css')
 
 /**
  * Expose `Modal`
@@ -12,7 +15,7 @@ var session = require('session')
 
 var Modal = module.exports = modal({
   closable: true,
-  template: require('./template.html')
+  template: fs.readFileSync(__dirname + '/template.html')
 })
 
 /**

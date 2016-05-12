@@ -1,22 +1,25 @@
-var analytics = require('analytics')
-var convert = require('convert')
-var Feedback = require('feedback-modal')
-var log = require('./client/log')('route-card-view')
+var fs = require('fs')
+var analytics = require('../analytics')
+var convert = require('../convert')
+var Feedback = require('../feedback-modal')
+var log = require('../log')('route-card-view')
 var mouseenter = require('mouseenter')
 var mouseleave = require('mouseleave')
-var RouteDirections = require('route-directions-table')
-var RouteModal = require('route-modal')
-var routeSummarySegments = require('route-summary-segments')
-var routeResource = require('route-resource')
-var session = require('session')
-var transitive = require('transitive')
-var view = require('view')
+var RouteDirections = require('../route-directions-table')
+var RouteModal = require('../route-modal')
+var routeSummarySegments = require('../route-summary-segments')
+var routeResource = require('../route-resource')
+var session = require('../session')
+var transitive = require('../transitive')
+var view = require('../view')
+
+require('./style.css')
 
 /**
  * Expose `View`
  */
 
-var View = module.exports = view(require('./template.html'), function (view, model) {
+var View = module.exports = view(fs.readFileSync(__dirname + '/template.html'), function (view, model) {
   mouseenter(view.el, function () {
     var id = model.id() + ''
     if (id.indexOf('transit') === -1) id = id + '_' + model.access()[0].mode.toLowerCase()

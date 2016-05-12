@@ -1,4 +1,7 @@
-var modal = require('./client/modal')
+var fs = require('fs')
+var modal = require('../modal')
+
+require('./style.css')
 
 /**
  * Default Modal
@@ -6,7 +9,7 @@ var modal = require('./client/modal')
 
 var Modal = modal({
   closable: true,
-  template: require('./template.html')
+  template: fs.readFileSync(__dirname + '/template.html')
 })
 
 /**

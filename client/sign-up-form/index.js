@@ -1,8 +1,12 @@
-var config = require('config')
-var session = require('session')
-var view = require('view')
+var fs = require('fs')
 
-var View = module.exports = view(require('./template.html'))
+var config = require('../config')
+var session = require('../session')
+var view = require('../view')
+
+require('./style.css')
+
+var View = module.exports = view(fs.readFileSync(__dirname + '/template.html'))
 
 View.prototype.applicationName = function () {
   return config.name()

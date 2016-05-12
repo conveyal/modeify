@@ -1,6 +1,8 @@
 var debounce = require('debounce')
-var session = require('session')
-var Transitive = require('conveyal~transitive.js')
+var session = require('../session')
+var Transitive = require('transitive-js')
+
+require('./style.css')
 
 var transitive = module.exports = new Transitive({
   displayMargins: {

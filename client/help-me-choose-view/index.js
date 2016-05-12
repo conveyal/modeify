@@ -1,16 +1,19 @@
-var analytics = require('analytics')
+var fs = require('fs')
+var analytics = require('../analytics')
 var d3 = require('d3')
 var hogan = require('hogan.js')
-var log = require('./client/log')('help-me-choose')
-var modal = require('./client/modal')
-var RouteModal = require('route-modal')
-var routeResource = require('route-resource')
-var routeSummarySegments = require('route-summary-segments')
-var session = require('session')
+var log = require('../log')('help-me-choose')
+var modal = require('../modal')
+var RouteModal = require('../route-modal')
+var routeResource = require('../route-resource')
+var routeSummarySegments = require('../route-summary-segments')
+var session = require('../session')
 var toCapitalCase = require('to-capital-case')
 
-var optionTemplate = hogan.compile(require('./option.html'))
-var routeTemplate = hogan.compile(require('./route.html'))
+require('./style.css')
+
+var optionTemplate = hogan.compile(fs.readFileSync(__dirname + '/option.html'))
+var routeTemplate = hogan.compile(fs.readFileSync(__dirname + '/route.html'))
 
 var primaryFilter = 'totalCost'
 var secondaryFilter = 'productiveTime'
@@ -43,7 +46,7 @@ var filters = {
 var Modal = module.exports = modal({
   closable: true,
   width: '768px',
-  template: require('./template.html')
+  template: fs.readFileSync(__dirname + '/template.html')
 }, function (view, routes) {
   view.primaryFilter = view.find('#primary-filter')
   view.secondaryFilter = view.find('#secondary-filter')
