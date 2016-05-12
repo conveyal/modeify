@@ -1,4 +1,4 @@
-var tap = require('tap')
+var tap = require('component-tap')
 
 module.exports = function (reactive) {
   reactive.bind('on-tap', function (el, method) {

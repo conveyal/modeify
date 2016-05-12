@@ -1,15 +1,15 @@
-var config = require('config')
-var log = require('./client/log')('location')
-var map = require('map')
-var model = require('model')
-var request = require('request')
+var config = require('../config')
+var log = require('../log')('location')
+var map = require('../map')
+var model = require('component-model')
+var request = require('../request')
 
 /**
  * Expose `Location`
  */
 
 var Location = module.exports = model('Location')
-  .use(require('model-geo'))
+  .use(require('../model-geo'))
   .route(config.api_url() + '/locations')
   .attr('_id')
   .attr('category')

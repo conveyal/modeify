@@ -1,10 +1,10 @@
-var analytics = require('analytics')
-var store = require('browser-store')
-var CommuterProfile = require('commuter-profile')
+var analytics = require('../analytics')
+var store = require('../browser-store')
+var CommuterProfile = require('../commuter-profile')
 var page = require('page')
-var Modal = require('modal')
-var utils = require('router-utils')
-var session = require('session')
+var Modal = require('../modal')
+var utils = require('../router-utils')
+var session = require('../session')
 
 var redirectToPlanner = utils.redirect('/planner')
 
@@ -19,10 +19,10 @@ page('/logout', session.logoutMiddleware, function () {
   window.location.href = '/'
 })
 
-page('/planner', session.touch, require('planner-page'), require('announcements'))
+page('/planner', session.touch, require('../planner-page'), require('../announcements'))
 page('/planner/:link', session.loginWithLink, redirectToPlanner)
 
-page('/profile', session.touch, require('planner-page'), function (ctx, next) {
+page('/profile', session.touch, require('../planner-page'), function (ctx, next) {
   ctx.modal = new CommuterProfile({
     commuter: session.commuter(),
     plan: session.plan(),
@@ -31,9 +31,9 @@ page('/profile', session.touch, require('planner-page'), function (ctx, next) {
   next()
 })
 
-page('/style-guide', require('style-guide'))
+page('/style-guide', require('../style-guide'))
 
-page('/create-link', require('create-link'))
+page('/create-link', require('../create-link'))
 
 // Allow for an easy path for resetting the user credentials and handle all unknown addresses by tracking them and redirecting to the welcome screen.
 

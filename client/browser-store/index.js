@@ -1,6 +1,6 @@
-var cookie = require('cookie')
-var localStorageSupported = require('localstorage-supported')()
-var store = require('store')
+var cookie = require('component-cookie')
+var localStorageSupported = require('../localstorage-supported')()
+var store = require('yields-store')
 
 var THIRTY_DAYS = 1000 * 60 * 60 * 24 * 30
 

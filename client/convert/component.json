@@ -1,7 +1,0 @@
-{
-  "name": "convert",
-  "scripts": [
-    "index.js"
-  ],
-  "dependencies": {}
-}

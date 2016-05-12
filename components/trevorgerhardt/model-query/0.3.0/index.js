@@ -1,5 +1,5 @@
-var Collection = require('collection');
-var once = require('once');
+var Collection = require('component-collection');
+var once = require('once-component');
 
 /**
  *  Plugin.

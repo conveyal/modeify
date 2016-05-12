@@ -1,5 +1,5 @@
-var reactive = require('reactive')
-var view = require('view')
+var reactive = require('../../components/ianstormtaylor/reactive/0.13.2/lib')
+var view = require('../../components/trevorgerhardt/view/0.4.1/lib')
 
 /**
  * Set up reactive plugins
@@ -8,8 +8,8 @@ var view = require('view')
 reactive.use(require('./active'))
 reactive.use(require('./dropdown'))
 reactive.use(require('./each'))
-reactive.use(require('reactive-child'))
-reactive.use(require('reactive-disabled'))
+reactive.use(require('../../components/segmentio/reactive-child/0.0.1'))
+reactive.use(require('../../components/segmentio/reactive-disabled/0.0.1'))
 reactive.use(require('./messages'))
 reactive.use(require('./tap'))
 

@@ -1,4 +1,4 @@
-var each = require('each')
+var each = require('component-each')
 
 /**
  * Expose `getters` for config vars

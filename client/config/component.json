@@ -1,9 +1,0 @@
-{
-  "name": "config",
-  "dependencies": {
-    "component/each": "*"
-  },
-  "scripts": [
-    "index.js"
-  ]
-}

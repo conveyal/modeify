@@ -1,4 +1,4 @@
-var fmt = require('fmt')
+var fmt = require('../../components/yields/fmt/0.1.0')
 
 var DEFAULT_MESSAGES = window.MESSAGES || {}
 
