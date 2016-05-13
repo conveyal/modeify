@@ -4,7 +4,7 @@ var emitter = require('component-emitter');
 var fs = require('fs')
 var showable = require('../../../showable/0.1.2');
 
-var template = fs.readFileSync(__dirname + '/index.html');
+var template = fs.readFileSync(__dirname + '/index.html', 'utf8');
 
 /**
  * Export `Overlay`

@@ -6,7 +6,7 @@ var onEscape = require('../../../on-escape/0.0.3');
 var Showable = require('../../../showable/0.1.2');
 var Classes = require('../../../../ianstormtaylor/classes/0.1.0');
 
-var template = fs.readFileSync(__dirname + '/index.html');
+var template = fs.readFileSync(__dirname + '/index.html', 'utf8');
 
 /**
  * Expose `Modal`.

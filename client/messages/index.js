@@ -43,6 +43,7 @@ function messages (ns, msgs) {
     }
 
     value = markdown.render(value)
+    value = value.slice(3, -5) // remove opening and closing <p>'s
 
     if (arguments.length > 1) {
       value = fmt.apply(null, [value].concat([].slice.call(arguments)))
