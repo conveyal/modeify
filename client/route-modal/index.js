@@ -11,15 +11,13 @@ var SignUpForm = require('../sign-up-form')
 var hogan = require('hogan.js')
 var each = require('component-each')
 
-
-
 /**
  * Create `Modal`
  */
 
 var RouteModal = module.exports = modal({
   closable: true,
-  template: fs.readFileSync(__dirname + '/template.html'),
+  template: fs.readFileSync(__dirname + '/template.html', 'utf8'),
   title: 'Selected Option Modal'
 }, function (view, route) {
   var context = view.options.context
@@ -90,7 +88,7 @@ RouteModal.prototype.nextButtonText = function () {
   }
 }
 
-var intMatchesTemplate = hogan.compile(fs.readFileSync(__dirname + '/internal-matches.html'))
+var intMatchesTemplate = hogan.compile(fs.readFileSync(__dirname + '/internal-matches.html', 'utf8'))
 
 RouteModal.prototype.internalMatches = function () {
   if (this.model.get('internalCarpoolMatches')) {

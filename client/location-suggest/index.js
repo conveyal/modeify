@@ -6,8 +6,6 @@ var each = require('component-each')
 var throttle = require('throttleit')
 var session = require('../session')
 
-
-
 module.exports = LocationSuggest
 
 function LocationSuggest () {}
@@ -16,7 +14,7 @@ function LocationSuggest () {}
  * Suggestions Template
  */
 
-var suggestionsTemplate = hogan.compile(fs.readFileSync(__dirname + '/suggestions.html'))
+var suggestionsTemplate = hogan.compile(fs.readFileSync(__dirname + '/suggestions.html', 'utf8'))
 
 /**
  * Suggest

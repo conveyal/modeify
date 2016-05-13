@@ -4,7 +4,7 @@ var log = require('../log')('announcements')
 var modal = require('../modal')
 var raf = require('component-raf')
 var session = require('../session')
-var template = fs.readFileSync(__dirname + '/template.html')
+var template = fs.readFileSync(__dirname + '/template.html', 'utf8')
 
 var Modal = modal({
   height: '500px',

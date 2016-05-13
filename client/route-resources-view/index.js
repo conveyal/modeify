@@ -4,11 +4,9 @@ var each = require('component-each')
 var hogan = require('hogan.js')
 var view = require('../view')
 
+var resourceTemplate = hogan.compile(fs.readFileSync(__dirname + '/resource.html', 'utf8'))
 
-
-var resourceTemplate = hogan.compile(fs.readFileSync(__dirname + '/resource.html'))
-
-var View = module.exports = view(fs.readFileSync(__dirname + '/template.html'))
+var View = module.exports = view(fs.readFileSync(__dirname + '/template.html', 'utf8'))
 
 View.prototype.resources = function () {
   var resourceHtml = ''

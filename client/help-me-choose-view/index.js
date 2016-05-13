@@ -10,10 +10,8 @@ var routeSummarySegments = require('../route-summary-segments')
 var session = require('../session')
 var toCapitalCase = require('to-capital-case')
 
-
-
-var optionTemplate = hogan.compile(fs.readFileSync(__dirname + '/option.html'))
-var routeTemplate = hogan.compile(fs.readFileSync(__dirname + '/route.html'))
+var optionTemplate = hogan.compile(fs.readFileSync(__dirname + '/option.html', 'utf8'))
+var routeTemplate = hogan.compile(fs.readFileSync(__dirname + '/route.html', 'utf8'))
 
 var primaryFilter = 'totalCost'
 var secondaryFilter = 'productiveTime'
@@ -46,7 +44,7 @@ var filters = {
 var Modal = module.exports = modal({
   closable: true,
   width: '768px',
-  template: fs.readFileSync(__dirname + '/template.html')
+  template: fs.readFileSync(__dirname + '/template.html', 'utf8')
 }, function (view, routes) {
   view.primaryFilter = view.find('#primary-filter')
   view.secondaryFilter = view.find('#secondary-filter')

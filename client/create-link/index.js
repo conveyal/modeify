@@ -8,7 +8,7 @@ var LocationSuggest = require('../location-suggest')
 
 var View = require('../view')({
   category: 'create-link',
-  template: fs.readFileSync(__dirname + '/template.html'),
+  template: fs.readFileSync(__dirname + '/template.html', 'utf8'),
   title: 'Create Link'
 })
 

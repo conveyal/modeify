@@ -7,7 +7,7 @@ var Locations = module.exports = modal({
   closable: true,
   logo: true,
   message: message,
-  template: fs.readFileSync(__dirname + '/template.html')
+  template: fs.readFileSync(__dirname + '/template.html', 'utf8')
 }, function (view, model) {
   var plan = model.plan
 

@@ -33,9 +33,4 @@ html
     if user
       script(type='text/javascript').
         window.USER=!{user}
-    if minified
-      script(src='#{static_url}/build/messages/en.min.js?v=#{version}', defer)
-      script(src='#{static_url}/build/planner-app/build.min.js?v=#{version}', defer)
-    else
-      script(src='#{static_url}/build/messages/en.js?v=#{version}', defer)
-      script(src='#{static_url}/build/planner-app/build.js?v=#{version}', defer)
+    script(src='#{static_url}/build/planner-app/build.js?v=#{version}', defer)

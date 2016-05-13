@@ -3,9 +3,7 @@ var analytics = require('../../analytics')
 var log = require('../../log')('welcome-flow:welcome')
 var message = require('../../messages')('welcome-flow:welcome')
 var modal = require('../../modal')
-var template = fs.readFileSync(__dirname + '/template.html')
-
-
+var template = fs.readFileSync(__dirname + '/template.html', 'utf8')
 
 var Welcome = module.exports = modal({
   closable: true,

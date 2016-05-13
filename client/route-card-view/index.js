@@ -13,13 +13,11 @@ var session = require('../session')
 var transitive = require('../transitive')
 var view = require('../view')
 
-
-
 /**
  * Expose `View`
  */
 
-var View = module.exports = view(fs.readFileSync(__dirname + '/template.html'), function (view, model) {
+var View = module.exports = view(fs.readFileSync(__dirname + '/template.html', 'utf8'), function (view, model) {
   mouseenter(view.el, function () {
     var id = model.id() + ''
     if (id.indexOf('transit') === -1) id = id + '_' + model.access()[0].mode.toLowerCase()

@@ -16,13 +16,11 @@ var ua = require('../user-agent')
 var view = require('../view')
 var showWelcomeWizard = require('../welcome-flow')
 
-
-
 var FROM = config.geocode().start_address
 var TO = config.geocode().end_address
 var isMobile = window.innerWidth <= 480
 
-var View = view(fs.readFileSync(__dirname + '/template.html'), function (view, model) {
+var View = view(fs.readFileSync(__dirname + '/template.html', 'utf8'), function (view, model) {
   view.scrollable = view.find('.scrollable')
   view.panelFooter = view.find('.footer')
 

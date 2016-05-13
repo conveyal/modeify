@@ -7,11 +7,9 @@ var modal = require('../modal')
 var request = require('../request')
 var session = require('../session')
 
-
-
 var ThanksModal = modal({
   closable: true,
-  template: fs.readFileSync(__dirname + '/thanks.html'),
+  template: fs.readFileSync(__dirname + '/thanks.html', 'utf8'),
   title: 'Thanks Modal'
 })
 
@@ -25,7 +23,7 @@ ThanksModal.prototype.profile = function (e) {
 
 var SignUpModal = module.exports = modal({
   closable: true,
-  template: fs.readFileSync(__dirname + '/template.html'),
+  template: fs.readFileSync(__dirname + '/template.html', 'utf8'),
   title: 'Sign Up Modal'
 })
 

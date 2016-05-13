@@ -13,7 +13,7 @@ var session = require('../session')
 
 var Modal = module.exports = modal({
   closable: true,
-  template: fs.readFileSync(__dirname + '/template.html')
+  template: fs.readFileSync(__dirname + '/template.html', 'utf8')
 })
 
 /**

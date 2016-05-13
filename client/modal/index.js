@@ -8,7 +8,7 @@ var raf = require('component-raf')
 var scrollbarSize = require('scrollbar-size')
 var view = require('../view')
 
-var closableHtml = fs.readFileSync(__dirname + '/closable.html')
+var closableHtml = fs.readFileSync(__dirname + '/closable.html', 'utf8')
 
 /**
  * Store the active modal

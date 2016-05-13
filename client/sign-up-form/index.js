@@ -4,9 +4,7 @@ var config = require('../config')
 var session = require('../session')
 var view = require('../view')
 
-
-
-var View = module.exports = view(fs.readFileSync(__dirname + '/template.html'))
+var View = module.exports = view(fs.readFileSync(__dirname + '/template.html', 'utf8'))
 
 View.prototype.applicationName = function () {
   return config.name()

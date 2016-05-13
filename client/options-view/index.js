@@ -10,7 +10,7 @@ var view = require('../view')
  * Expose `View`
  */
 
-var View = module.exports = view(fs.readFileSync(__dirname + '/template.html'), function (view, model) {
+var View = module.exports = view(fs.readFileSync(__dirname + '/template.html', 'utf8'), function (view, model) {
   view.lastResponse = {}
   model.on('updating options complete', function (data) {
     view.errorMessage = data.err

@@ -102,7 +102,6 @@
     "should": "^8.2.2",
     "sqwish": "~0.2.2",
     "standard": "^6.0.7",
-    "superagent-no-cache": "^0.1.0",
     "superagent-prefix": "0.0.2",
     "supertest": "^1.2.0",
     "throttleit": "^1.0.0",

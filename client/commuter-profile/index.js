@@ -7,8 +7,6 @@ var view = require('../view')
 var debounce = require('debounce')
 var config = require('../config')
 
-
-
 /**
  * Expose `Modal`
  */
@@ -16,7 +14,7 @@ var config = require('../config')
 var Modal = module.exports = modal({
   closable: true,
   width: '640px',
-  template: fs.readFileSync(__dirname + '/template.html')
+  template: fs.readFileSync(__dirname + '/template.html', 'utf8')
 })
 
 Modal.prototype.applicationName = function () {
@@ -68,7 +66,7 @@ Modal.prototype.places = function () {
 }
 
 Modal.prototype['places-view'] = function () {
-  var PlaceRow = view(fs.readFileSync(__dirname + '/place.html'))
+  var PlaceRow = view(fs.readFileSync(__dirname + '/place.html', 'utf8'))
 
   PlaceRow.prototype.setFrom = function () {
     placeChanged('from', this.model.address)

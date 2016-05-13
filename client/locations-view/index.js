@@ -8,13 +8,11 @@ var LocationSuggest = require('../location-suggest')
 var extend = require('../../components/segmentio/extend/1.0.0')
 var session = require('../session')
 
-
-
 /**
  * Expose `View`
  */
 
-var View = module.exports = view(fs.readFileSync(__dirname + '/template.html'), function (view, plan) {
+var View = module.exports = view(fs.readFileSync(__dirname + '/template.html', 'utf8'), function (view, plan) {
   plan.on('change', function (name) {
     view.resetIcons()
 

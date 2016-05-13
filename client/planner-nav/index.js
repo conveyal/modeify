@@ -3,17 +3,17 @@ var config = require('../config')
 var evnt = require('component-event')
 var MarkdownModal = require('../markdown-modal')
 var showWalkThrough = require('../planner-walkthrough')
-var getTemplate = require('../template')
 var page = require('page')
 var view = require('../view')
 
-
+var aboutContent = require('../../deployment/about.md')
+var termsContent = require('../../deployment/terms.md')
 
 /**
  * Expose `View`
  */
 
-var View = module.exports = view(fs.readFileSync(__dirname + '/template.html'))
+var View = module.exports = view(fs.readFileSync(__dirname + '/template.html', 'utf8'))
 
 /**
  * Scroll to top
@@ -51,7 +51,7 @@ View.prototype.showAbout = function (e) {
   if (e) e.preventDefault()
   this.hideMenu()
   MarkdownModal({
-    content: getTemplate('about')
+    content: aboutContent
   }).show()
 }
 
@@ -59,7 +59,7 @@ View.prototype.showTermsAndConditions = function (e) {
   if (e) e.preventDefault()
   this.hideMenu()
   MarkdownModal({
-    content: getTemplate('terms')
+    content: termsContent
   }).show()
 }
 
