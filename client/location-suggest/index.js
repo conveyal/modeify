@@ -6,7 +6,7 @@ var each = require('component-each')
 var throttle = require('throttleit')
 var session = require('../session')
 
-require('./style.css')
+
 
 module.exports = LocationSuggest
 

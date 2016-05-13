@@ -10,7 +10,7 @@ var routeSummarySegments = require('../route-summary-segments')
 var session = require('../session')
 var toCapitalCase = require('to-capital-case')
 
-require('./style.css')
+
 
 var optionTemplate = hogan.compile(fs.readFileSync(__dirname + '/option.html'))
 var routeTemplate = hogan.compile(fs.readFileSync(__dirname + '/route.html'))

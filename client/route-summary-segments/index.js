@@ -3,7 +3,7 @@ var convert = require('../convert')
 var hogan = require('hogan.js')
 var transitive = require('../transitive')
 
-require('./style.css')
+
 
 var template = hogan.compile(fs.readFileSync(__dirname + '/template.html'))
 

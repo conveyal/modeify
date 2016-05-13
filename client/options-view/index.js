@@ -4,7 +4,7 @@ var message = require('../messages')('options-view')
 var RouteCardView = require('../route-card-view')
 var view = require('../view')
 
-require('./style.css')
+
 
 /**
  * Expose `View`

@@ -1,6 +1,6 @@
 var convert = require('../convert')
 var model = require('component-model')
-var defaults = require('../../components/egmentio/model-defaults/0.2.0')
+var defaults = require('../../components/segmentio/model-defaults/0.2.0')
 var each = require('component-each')
 
 /**

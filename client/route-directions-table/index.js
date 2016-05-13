@@ -5,7 +5,7 @@ var toSentenceCase = require('to-sentence-case')
 var view = require('../view')
 var each = require('component-each')
 
-require('./style.css')
+
 
 var rowTemplate = fs.readFileSync(__dirname + '/row.html')
 var template = fs.readFileSync(__dirname + '/template.html')

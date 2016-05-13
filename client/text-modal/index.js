@@ -1,7 +1,7 @@
 var fs = require('fs')
 var modal = require('../modal')
 
-require('./style.css')
+
 
 /**
  * Default Modal

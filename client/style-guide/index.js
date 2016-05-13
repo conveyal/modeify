@@ -1,6 +1,6 @@
 var fs = require('fs')
 
-require('./style.css')
+
 
 var View = require('../view')({
   category: 'style-guide',

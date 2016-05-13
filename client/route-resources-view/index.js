@@ -4,7 +4,7 @@ var each = require('component-each')
 var hogan = require('hogan.js')
 var view = require('../view')
 
-require('./style.css')
+
 
 var resourceTemplate = hogan.compile(fs.readFileSync(__dirname + '/resource.html'))
 

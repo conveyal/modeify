@@ -7,7 +7,7 @@ var getTemplate = require('../template')
 var page = require('page')
 var view = require('../view')
 
-require('./style.css')
+
 
 /**
  * Expose `View`

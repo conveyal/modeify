@@ -6,8 +6,6 @@ var raf = require('component-raf')
 var session = require('../session')
 var template = fs.readFileSync(__dirname + '/template.html')
 
-require('./style.css')
-
 var Modal = modal({
   height: '500px',
   noPadding: true,

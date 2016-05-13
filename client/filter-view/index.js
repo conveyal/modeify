@@ -4,7 +4,7 @@ var reactiveSelect = require('../reactive-select')
 var view = require('../view')
 var session = require('../session')
 
-require('./style.css')
+
 
 var View = module.exports = view(fs.readFileSync(__dirname + '/template.html'), function (view, plan) {
   view.reactive.use(reactiveSelect)

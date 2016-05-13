@@ -1,5 +1,3 @@
-require('./index.css')
-
 var domify = require('domify');
 var Emitter = require('component-emitter');
 var fs = require('fs')

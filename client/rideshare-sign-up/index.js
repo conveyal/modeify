@@ -7,7 +7,7 @@ var modal = require('../modal')
 var request = require('../request')
 var session = require('../session')
 
-require('./style.css')
+
 
 var ThanksModal = modal({
   closable: true,

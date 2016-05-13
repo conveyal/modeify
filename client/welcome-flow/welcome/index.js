@@ -5,7 +5,7 @@ var message = require('../../messages')('welcome-flow:welcome')
 var modal = require('../../modal')
 var template = fs.readFileSync(__dirname + '/template.html')
 
-require('./style.css')
+
 
 var Welcome = module.exports = modal({
   closable: true,

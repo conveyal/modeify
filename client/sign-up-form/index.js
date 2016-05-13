@@ -4,7 +4,7 @@ var config = require('../config')
 var session = require('../session')
 var view = require('../view')
 
-require('./style.css')
+
 
 var View = module.exports = view(fs.readFileSync(__dirname + '/template.html'))
 

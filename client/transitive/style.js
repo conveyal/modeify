@@ -1,5 +1,5 @@
-var config = require('config')
-var convert = require('convert')
+var config = require('../config')
+var convert = require('../convert')
 
 function isBikeshareStation (place) {
   return place.place_id.lastIndexOf('bicycle_rent_station') !== -1

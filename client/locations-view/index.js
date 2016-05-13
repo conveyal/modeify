@@ -8,7 +8,7 @@ var LocationSuggest = require('../location-suggest')
 var extend = require('../../components/segmentio/extend/1.0.0')
 var session = require('../session')
 
-require('./style.css')
+
 
 /**
  * Expose `View`

@@ -11,7 +11,7 @@ var SignUpForm = require('../sign-up-form')
 var hogan = require('hogan.js')
 var each = require('component-each')
 
-require('./style.css')
+
 
 /**
  * Create `Modal`

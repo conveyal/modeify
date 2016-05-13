@@ -5,9 +5,7 @@ var log = require('../log')('feedback-modal')
 var message = require('../messages')('feedback-modal')
 var modal = require('../modal')
 var request = require('../request')
-var session = require('./session')
-
-require('./style.css')
+var session = require('../session')
 
 /**
  * Expose `Modal`

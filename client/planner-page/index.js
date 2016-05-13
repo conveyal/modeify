@@ -9,14 +9,14 @@ var showMapView = require('../map-view')
 var OptionsView = require('../options-view')
 var PlannerNav = require('../planner-nav')
 var querystring = require('component-querystring')
-var scrollbarSize = require('../scrollbar-size')
+var scrollbarSize = require('scrollbar-size')
 var session = require('../session')
 var transitive = require('../transitive')
 var ua = require('../user-agent')
 var view = require('../view')
 var showWelcomeWizard = require('../welcome-flow')
 
-require('./style.css')
+
 
 var FROM = config.geocode().start_address
 var TO = config.geocode().end_address

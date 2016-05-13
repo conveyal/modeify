@@ -7,7 +7,7 @@ var view = require('../view')
 var debounce = require('debounce')
 var config = require('../config')
 
-require('./style.css')
+
 
 /**
  * Expose `Modal`

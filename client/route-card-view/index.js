@@ -13,7 +13,7 @@ var session = require('../session')
 var transitive = require('../transitive')
 var view = require('../view')
 
-require('./style.css')
+
 
 /**
  * Expose `View`

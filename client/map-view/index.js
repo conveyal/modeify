@@ -1,6 +1,4 @@
-var config = require('.../config')
-
-require('./style.css')
+var config = require('../config')
 
 var center = config.geocode().center.split(',').map(parseFloat)
 var L = window.L
