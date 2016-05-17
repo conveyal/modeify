@@ -1,4 +1,3 @@
-var fs = require('fs')
 var Alert = require('../alert')
 var analytics = require('../analytics')
 var log = require('../log')('feedback-modal')
@@ -13,7 +12,7 @@ var session = require('../session')
 
 var Modal = module.exports = modal({
   closable: true,
-  template: fs.readFileSync(__dirname + '/template.html', 'utf8')
+  template: require('./template.html')
 })
 
 /**

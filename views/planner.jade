@@ -11,10 +11,6 @@ html
     link(rel='shortcut icon', href='#{static_url}/images/application/favicon.png')
     link(href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css', rel='stylesheet')
     link(href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css', rel='stylesheet')
-    if minified
-      link(href='#{static_url}/build/planner-app/build.min.css?v=#{version}', rel='stylesheet')
-    else
-      link(href='#{static_url}/build/planner-app/build.css?v=#{version}', rel='stylesheet')
 
     if segmentio_key
       script(type='text/javascript').

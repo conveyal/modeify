@@ -1,4 +1,3 @@
-var fs = require('fs')
 var geocode = require('../geocode')
 var hogan = require('hogan.js')
 var log = require('../log')('location-suggest')
@@ -14,7 +13,7 @@ function LocationSuggest () {}
  * Suggestions Template
  */
 
-var suggestionsTemplate = hogan.compile(fs.readFileSync(__dirname + '/suggestions.html', 'utf8'))
+var suggestionsTemplate = hogan.compile(require('./suggestions.html'))
 
 /**
  * Suggest

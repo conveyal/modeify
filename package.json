@@ -2,7 +2,7 @@
   "private": true,
   "main": "server.js",
   "engines": {
-    "node": "4.x.x"
+    "node": "6.x.x"
   },
   "version": "1.6.0",
   "dependencies": {

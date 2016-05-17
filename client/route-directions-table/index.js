@@ -1,12 +1,11 @@
-var fs = require('fs')
 var hogan = require('hogan.js')
 var session = require('../session')
 var toSentenceCase = require('to-sentence-case')
 var view = require('../view')
 var each = require('component-each')
 
-var rowTemplate = fs.readFileSync(__dirname + '/row.html', 'utf8')
-var template = fs.readFileSync(__dirname + '/template.html', 'utf8')
+var rowTemplate = require('./row.html')
+var template = require('./template.html')
 
 var row = hogan.compile(rowTemplate)
 

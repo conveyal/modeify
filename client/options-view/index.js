@@ -1,16 +1,13 @@
-var fs = require('fs')
 var FeedbackModal = require('../feedback-modal')
 var message = require('../messages')('options-view')
 var RouteCardView = require('../route-card-view')
 var view = require('../view')
 
-
-
 /**
  * Expose `View`
  */
 
-var View = module.exports = view(fs.readFileSync(__dirname + '/template.html', 'utf8'), function (view, model) {
+var View = module.exports = view(require('./template.html'), function (view, model) {
   view.lastResponse = {}
   model.on('updating options complete', function (data) {
     view.errorMessage = data.err

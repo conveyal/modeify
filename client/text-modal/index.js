@@ -1,4 +1,3 @@
-var fs = require('fs')
 var modal = require('../modal')
 
 /**
@@ -7,7 +6,7 @@ var modal = require('../modal')
 
 var Modal = modal({
   closable: true,
-  template: fs.readFileSync(__dirname + '/template.html', 'utf8')
+  template: require('./template.html')
 })
 
 /**

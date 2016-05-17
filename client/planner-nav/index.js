@@ -1,4 +1,3 @@
-var fs = require('fs')
 var config = require('../config')
 var evnt = require('component-event')
 var MarkdownModal = require('../markdown-modal')
@@ -13,7 +12,7 @@ var termsContent = require('../../deployment/terms.md')
  * Expose `View`
  */
 
-var View = module.exports = view(fs.readFileSync(__dirname + '/template.html', 'utf8'))
+var View = module.exports = view(require('./template.html'))
 
 /**
  * Scroll to top

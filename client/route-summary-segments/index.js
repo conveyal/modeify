@@ -1,9 +1,8 @@
-var fs = require('fs')
 var convert = require('../convert')
 var hogan = require('hogan.js')
 var transitive = require('../transitive')
 
-var template = hogan.compile(fs.readFileSync(__dirname + '/template.html', 'utf8'))
+var template = hogan.compile(require('./template.html'))
 
 module.exports = function (route, opts) {
   opts = opts || {}

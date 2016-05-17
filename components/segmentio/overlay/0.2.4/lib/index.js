@@ -1,10 +1,9 @@
 var classes = require('../../../../ianstormtaylor/classes/0.1.0');
 var domify = require('domify');
 var emitter = require('component-emitter');
-var fs = require('fs')
 var showable = require('../../../showable/0.1.2');
 
-var template = fs.readFileSync(__dirname + '/index.html', 'utf8');
+var template = require('./index.html');
 
 /**
  * Export `Overlay`

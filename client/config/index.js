@@ -5,8 +5,9 @@ var config = require('../../deployment/config.yaml')
 var env = process.env.NODE_ENV
 
 config.env = env
-for (var key in config.environments[env])
+for (var key in config.environments[env]) {
   config[key] = config.environments[env][key] || config[key] || ''
+}
 
 delete config.environments
 

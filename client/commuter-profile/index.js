@@ -1,4 +1,3 @@
-var fs = require('fs')
 var modal = require('../modal')
 var page = require('page')
 var session = require('../session')
@@ -14,7 +13,7 @@ var config = require('../config')
 var Modal = module.exports = modal({
   closable: true,
   width: '640px',
-  template: fs.readFileSync(__dirname + '/template.html', 'utf8')
+  template: require('./template.html')
 })
 
 Modal.prototype.applicationName = function () {
@@ -66,7 +65,7 @@ Modal.prototype.places = function () {
 }
 
 Modal.prototype['places-view'] = function () {
-  var PlaceRow = view(fs.readFileSync(__dirname + '/place.html', 'utf8'))
+  var PlaceRow = view(require('./place.html'))
 
   PlaceRow.prototype.setFrom = function () {
     placeChanged('from', this.model.address)

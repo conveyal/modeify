@@ -1,4 +1,3 @@
-var fs = require('fs')
 var analytics = require('../analytics')
 var config = require('../config')
 var modal = require('../modal')
@@ -17,7 +16,7 @@ var each = require('component-each')
 
 var RouteModal = module.exports = modal({
   closable: true,
-  template: fs.readFileSync(__dirname + '/template.html', 'utf8'),
+  template: require('./template.html'),
   title: 'Selected Option Modal'
 }, function (view, route) {
   var context = view.options.context
@@ -88,7 +87,7 @@ RouteModal.prototype.nextButtonText = function () {
   }
 }
 
-var intMatchesTemplate = hogan.compile(fs.readFileSync(__dirname + '/internal-matches.html', 'utf8'))
+var intMatchesTemplate = hogan.compile(require('./internal-matches.html'))
 
 RouteModal.prototype.internalMatches = function () {
   if (this.model.get('internalCarpoolMatches')) {

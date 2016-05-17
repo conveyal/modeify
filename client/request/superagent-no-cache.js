@@ -1,6 +1,6 @@
 var ie = require('component-ie')
 
-function with_query_strings (request) {
+function withQueryStrings (request) {
   var timestamp = Date.now().toString()
   if (request._query !== undefined && request._query[0]) {
     request._query[0] += '&' + timestamp
@@ -17,7 +17,7 @@ module.exports = function _superagentNoCache (request, mockIE) {
   request.set('Cache-Control', 'no-cache,no-store,must-revalidate,max-age=-1,private')
 
   if (ie || mockIE) {
-    with_query_strings(request)
+    withQueryStrings(request)
   }
 
   return request

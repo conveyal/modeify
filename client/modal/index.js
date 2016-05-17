@@ -1,14 +1,11 @@
-
-
 var config = require('../config')
-var fs = require('fs')
 var log = require('../log')('modal')
 var createModal = require('../../components/segmentio/modal/0.4.1/lib')
 var raf = require('component-raf')
 var scrollbarSize = require('scrollbar-size')
 var view = require('../view')
 
-var closableHtml = fs.readFileSync(__dirname + '/closable.html', 'utf8')
+var closableHtml = require('./closable.html')
 
 /**
  * Store the active modal

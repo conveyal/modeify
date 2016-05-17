@@ -1,4 +1,3 @@
-var fs = require('fs')
 var Alert = require('../../alert')
 var message = require('../../messages')('welcome-flow:locations')
 var modal = require('../../modal')
@@ -7,7 +6,7 @@ var Locations = module.exports = modal({
   closable: true,
   logo: true,
   message: message,
-  template: fs.readFileSync(__dirname + '/template.html', 'utf8')
+  template: require('./template.html')
 }, function (view, model) {
   var plan = model.plan
 

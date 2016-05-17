@@ -1,12 +1,9 @@
 var debounce = require('debounce')
-var fs = require('fs')
 var reactiveSelect = require('../reactive-select')
 var view = require('../view')
 var session = require('../session')
 
-
-
-var View = module.exports = view(fs.readFileSync(__dirname + '/template.html', 'utf8'), function (view, plan) {
+var View = module.exports = view(require('./template.html'), function (view, plan) {
   view.reactive.use(reactiveSelect)
   view.on('active', function () {
     plan.updateRoutes()

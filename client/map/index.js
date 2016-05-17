@@ -2,8 +2,6 @@ var config = require('../config')
 var log = require('../log')('map')
 var page = require('page')
 
-
-
 var L = window.L
 
 L.mapbox.accessToken = config.mapbox_access_token()

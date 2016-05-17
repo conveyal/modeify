@@ -1,4 +1,3 @@
-var fs = require('fs')
 var analytics = require('../analytics')
 var closest = require('component-closest')
 var log = require('../log')('locations-view')
@@ -12,7 +11,7 @@ var session = require('../session')
  * Expose `View`
  */
 
-var View = module.exports = view(fs.readFileSync(__dirname + '/template.html', 'utf8'), function (view, plan) {
+var View = module.exports = view(require('./template.html'), function (view, plan) {
   plan.on('change', function (name) {
     view.resetIcons()
 

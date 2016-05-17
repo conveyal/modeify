@@ -1,4 +1,3 @@
-var fs = require('fs')
 var Alert = require('../alert')
 var CommuterProfile = require('../commuter-profile')
 var LocationsView = require('../locations-view')
@@ -9,7 +8,7 @@ var session = require('../session')
 
 var ThanksModal = modal({
   closable: true,
-  template: fs.readFileSync(__dirname + '/thanks.html', 'utf8'),
+  template: require('./thanks.html'),
   title: 'Thanks Modal'
 })
 
@@ -23,7 +22,7 @@ ThanksModal.prototype.profile = function (e) {
 
 var SignUpModal = module.exports = modal({
   closable: true,
-  template: fs.readFileSync(__dirname + '/template.html', 'utf8'),
+  template: require('./template.html'),
   title: 'Sign Up Modal'
 })
 

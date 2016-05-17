@@ -1,10 +1,9 @@
-var fs = require('fs')
 var config = require('../config')
 var log = require('../log')('announcements')
 var modal = require('../modal')
 var raf = require('component-raf')
 var session = require('../session')
-var template = fs.readFileSync(__dirname + '/template.html', 'utf8')
+var template = require('./template.html')
 
 var Modal = modal({
   height: '500px',
