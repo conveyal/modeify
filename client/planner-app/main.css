@@ -1,0 +1,193 @@
+/**
+ * Custom Media Queries
+ */
+
+@custom-media --narrow-window screen and (max-width: 480px);
+
+/**
+ * Application Styling
+ */
+
+body {
+  -webkit-font-smoothing: antialiased;
+
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+
+  color: var(--font-color);
+
+  background-color: var(--primary-color); /* for the tint */
+  background-image: linear-gradient(to bottom, var(--land-color) 0%, var(--land-color) 100%); /* for the body */
+}
+
+b, strong {
+  font-weight: var(--bold);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: var(--bold);
+  cursor: pointer;
+}
+
+a:active,
+a:focus,
+a:hover {
+  color: color(var(--primary-color) shade(20%));
+  text-decoration: none;
+}
+
+.btn,
+.btn:active,
+.btn:focus,
+.btn:hover,
+.btn:visited,
+.introjs-button,
+.introjs-button:active,
+.introjs-button:focus,
+.introjs-button:hover,
+.introjs-button:visited {
+  background: var(--primary-button-background-color);
+  color: var(--primary-button-font-color);
+  outline: none;
+  border: none;
+  border-radius: var(--border-radius);
+}
+
+.btn:hover,
+.introjs-button:hover {
+  background-color: color(var(--primary-button-background-color) shade(10%));
+}
+
+.btn:active,
+.btn.active,
+.introjs-button:active {
+  background-color: color(var(--primary-button-background-color) shade(20%));
+}
+
+.btn-dark,
+.btn-dark:active,
+.btn-dark:focus,
+.btn-dark:hover,
+.btn-dark:visited {
+  background: var(--dark-button-background-color);
+  color: var(--dark-button-font-color);
+  outline: none;
+  border: none;
+}
+
+.btn-dark:hover {
+  background-color: color(var(--dark-button-background-color) shade(20%));
+}
+
+.btn-dark.active,
+.btn-dark:active {
+  background-color: color(var(--dark-button-background-color) shade(40%));
+}
+
+#main {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  background-color: var(--land-color);
+}
+
+#main,
+.btn,
+.dropdown-menu,
+.form-control,
+.input-group-addon {
+  border-radius: var(--border-radius);
+}
+
+#main .Accounts {
+  margin: 35px 0;
+  padding-top: 35px;
+  background-image: url(/images/application/nav-logo.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  height: 35px;
+}
+
+.logo {
+  background-image: url(/images/application/nav-logo.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+}
+
+.alert {
+  border-radius: var(--border-radius);
+  margin-bottom: 10px;
+}
+
+.centered {
+  text-align: center;
+}
+
+.outline-text {
+  text-shadow: -1px -1px 0 var(--font-color),
+    1px -1px 0 var(--font-color),
+    -1px 1px 0 var(--font-color),
+     1px 1px 0 var(--font-color);
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-weight);
+  color: var(--font-color);
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+p {
+  font-size: 14px;
+}
+
+.fa-spin {
+  animation: fa-spin 1s infinite linear;
+}
+
+/**
+ * Font awesome rotations
+ */
+
+.fa-north {
+  transform: rotate(270deg);
+}
+
+.fa-northeast {
+  transform: rotate(315deg);
+}
+
+.fa-east {
+}
+
+.fa-southeast {
+  transform: rotate(45deg);
+}
+
+.fa-south {
+  transform: rotate(90deg);
+}
+
+.fa-southwest {
+  transform: rotate(135deg);
+}
+
+.fa-west {
+  transform: rotate(180deg);
+}
+
+.fa-northwest {
+  transform: rotate(225deg);
+}
