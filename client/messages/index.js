@@ -1,7 +1,7 @@
 var fmt = require('../../components/yields/fmt/0.1.0')
 var markdown = require('markdown-it')()
 
-var DEFAULT_MESSAGES = require('../../deployment/messages/en.yml')
+var DEFAULT_MESSAGES = JSON.parse(process.env.MESSAGES)
 
 module.exports = messages
 

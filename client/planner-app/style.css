@@ -5,7 +5,7 @@
 @import url("node_modules/mapbox.js/theme/style.css");
 @import url("components/conveyal/modeify-icons.css/0.0.1/icons.css");
 @import url("components/conveyal/transitive.js/master/style.css");
-@import url("deployment/style.css");
+@import url("CONFIG_PATH/style.css");
 
 @import url("client/planner-app/main.css");
 
