@@ -1,5 +1,4 @@
 var analytics = require('../analytics')
-var config = require('../config')
 var modal = require('../modal')
 var RideshareSignUp = require('../rideshare-sign-up')
 var RouteComparisonTable = require('../route-comparison-table')
@@ -32,10 +31,6 @@ var RouteModal = module.exports = modal({
     })
   }
 })
-
-RouteModal.prototype.commuterConnectionsLogo = function () {
-  return config.static_url() + '/images/application/commuter-connections.png'
-}
 
 RouteModal.prototype.next = function (e) {
   e.preventDefault()
