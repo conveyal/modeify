@@ -1,5 +1,5 @@
-var log = require('./client/log')('organizations-page')
-var view = require('view')
+var log = require('../log')('organizations-page')
+var view = require('../view')
 
 var Row = require('./row')
 var template = require('./template.html')

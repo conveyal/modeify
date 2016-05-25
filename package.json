@@ -55,6 +55,8 @@
     "component-each": "^0.2.6",
     "component-emitter": "^1.2.1",
     "component-event": "^0.1.4",
+    "component-file": "^0.1.1",
+    "component-file-picker": "^0.2.1",
     "component-ie": "^1.0.0",
     "component-indexof": "0.0.3",
     "component-model": "^0.3.2",
@@ -66,8 +68,10 @@
     "component-tap": "^1.0.1",
     "component-type": "^1.2.1",
     "component-value": "^1.1.0",
+    "crossfilter2": "^1.4.0-alpha.6",
     "css-emitter-component": "^0.1.1",
     "d3": "^3.5.17",
+    "dc": "^2.0.0-beta.30",
     "debounce": "^1.0.0",
     "domify": "^1.4.0",
     "each-component": "^0.1.0",
@@ -80,7 +84,6 @@
     "html5-history-api": "^4.2.7",
     "intro.js": "^2.1.0",
     "is": "^3.1.0",
-    "isparta": "^4.0.0",
     "leaflet-transitivelayer": "^0.1.1",
     "mapbox.js": "^2.4.0",
     "markdown-it": "^6.0.2",
@@ -97,6 +100,7 @@
     "prompt": "^1.0.0",
     "scrollbar-size": "^1.0.4",
     "should": "^8.3.2",
+    "spin.js": "^2.3.2",
     "sqwish": "~0.2.2",
     "standard": "^7.1.0",
     "superagent-prefix": "0.0.2",
@@ -112,9 +116,6 @@
   "scripts": {
     "start": "node lib/server.js",
     "develop": ". deployment/env && node lib/server.js",
-    "stop": "make stop",
-    "test": "NODE_ENV=test node_modules/.bin/mocha --compilers js:./babelify --recursive --reporter spec --require should --slow 10 --timeout 10s",
-    "test-cov": "NODE_ENV=test node_modules/.bin/isparta cover node_modules/mocha/bin/_mocha -- --recursive --compilers js:./babelify --reporter dot --require should --slow 10 --timeout 30s",
-    "test-travis": "NODE_ENV=test node_modules/.bin/isparta cover ./node_modules/.bin/_mocha --report lcovonly -- --recursive --compilers js:./babelify --reporter dot --require should --slow 10 --timeout 30s"
+    "stop": "make stop"
   }
 }
