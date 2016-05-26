@@ -74,7 +74,7 @@ p('/feedback', session.touch, require('../feedback-table-page'))
 
 // User Signups
 
-p('/user-activity', session.touch, require('user-activity-page'))
+p('/user-activity', session.touch, require('../user-activity-page'))
 
 // Render all
 

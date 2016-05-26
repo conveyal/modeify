@@ -100,6 +100,7 @@
     "otp-profile-score": "^0.6.3",
     "otp-profile-to-transitive": "0.1.1",
     "page": "^1.7.1",
+    "pikaday": "^1.4.0",
     "prompt": "^1.0.0",
     "scrollbar-size": "^1.0.4",
     "should": "^8.3.2",

@@ -1,13 +1,13 @@
-var request = require('./client/request')
+var request = require('../request')
 var Pikaday = require('pikaday')
 var moment = require('moment')
 
-var textModal = require('text-modal')
-var view = require('view')
+var textModal = require('../text-modal')
+var view = require('../view')
 
 var displayFormat = 'MM-DD-YYYY'
 
-var View = view(require('./template.html'), function(view, model) {
+var View = view(require('./template.html'), function (view, model) {
   var fromDateInput = view.find('.fromDate')
 
   var defaultToDate = moment()
@@ -18,10 +18,10 @@ var View = view(require('./template.html'), function(view, model) {
     defaultDate: defaultFromDate.toDate(),
     setDefaultDate: defaultFromDate.toDate(),
     format: displayFormat,
-    onSelect: function() {
+    onSelect: function () {
       view.updateRange()
     }
-  });
+  })
 
   var toDateInput = view.find('.toDate')
   view.toDatePicker = new Pikaday({
@@ -29,25 +29,25 @@ var View = view(require('./template.html'), function(view, model) {
     defaultDate: defaultToDate.toDate(),
     setDefaultDate: defaultToDate.toDate(),
     format: displayFormat,
-    onSelect: function() {
+    onSelect: function () {
       view.updateRange()
     }
-  });
+  })
 
-  var codeSelect = view.find('.signup-code-select');
-  codeSelect.onchange = function() {
-    view.updateTable();
+  var codeSelect = view.find('.signup-code-select')
+  codeSelect.onchange = function () {
+    view.updateTable()
   }
 
-  view.updateRange();
+  view.updateRange()
 })
 
-View.prototype.updateRange = function() {
+View.prototype.updateRange = function () {
   var view = this
   var fromDate = moment(this.fromDatePicker.getDate())
   var toDate = moment(this.toDatePicker.getDate())
 
-  if(toDate.isBefore(fromDate)) {
+  if (toDate.isBefore(fromDate)) {
     textModal('To date must be later than from date.')
   }
 
@@ -58,21 +58,21 @@ View.prototype.updateRange = function() {
     if (err) {
       window.alert(err)
     } else {
-      //console.log('signups', JSON.parse(signups.text));
+      // console.log('signups', JSON.parse(signups.text));
       var users = JSON.parse(signups.text)
 
       // scanned returned users for all codes
       var codes = []
       users.forEach(user => {
-        if(user.customData && user.customData.registrationCode) {
-          if(codes.indexOf(user.customData.registrationCode) === -1) {
-            codes.push(user.customData.registrationCode);
+        if (user.customData && user.customData.registrationCode) {
+          if (codes.indexOf(user.customData.registrationCode) === -1) {
+            codes.push(user.customData.registrationCode)
           }
         }
       })
 
       // update the code selector
-      var codeSelect = view.find('.signup-code-select');
+      var codeSelect = view.find('.signup-code-select')
       while (codeSelect.firstChild) codeSelect.remove(codeSelect.firstChild)
       codes.forEach(code => {
         var option = document.createElement('option')
@@ -87,41 +87,42 @@ View.prototype.updateRange = function() {
   })
 }
 
-View.prototype.updateTable = function() {
-  users = this.users || []
+View.prototype.updateTable = function () {
+  var users = this.users || []
 
   var fromDate = moment(this.fromDatePicker.getDate())
   var toDate = moment(this.toDatePicker.getDate())
 
-  var codeSelect = this.find('.signup-code-select');
+  var codeSelect = this.find('.signup-code-select')
   var selectedCode = null
-  if(codeSelect.selectedIndex >= 0) {
+  if (codeSelect.selectedIndex >= 0) {
     selectedCode = codeSelect.options[codeSelect.selectedIndex].value
   }
 
-  var usersByDate = {}, usersByDateAndCode = {}
+  var usersByDate = {}
+  var usersByDateAndCode = {}
 
   var tbody = this.find('.signup-table-body')
   while (tbody.firstChild) {
-      tbody.removeChild(tbody.firstChild);
+    tbody.removeChild(tbody.firstChild)
   }
 
   var totalUsersByCode = 0
-  for(var i=0; i<users.length; i++) {
+  for (var i = 0; i < users.length; i++) {
     var user = users[i]
     var createdAt = moment(user.createdAt).add(-5, 'hours').format('MM-DD-YYYY')
 
-    if(!(createdAt in usersByDate)) usersByDate[createdAt] = []
+    if (!(createdAt in usersByDate)) usersByDate[createdAt] = []
     usersByDate[createdAt].push(user)
 
-    if(selectedCode && user.customData.registrationCode && user.customData.registrationCode === selectedCode) {
-      if(!(createdAt in usersByDateAndCode)) usersByDateAndCode[createdAt] = []
+    if (selectedCode && user.customData.registrationCode && user.customData.registrationCode === selectedCode) {
+      if (!(createdAt in usersByDateAndCode)) usersByDateAndCode[createdAt] = []
       usersByDateAndCode[createdAt].push(user)
       totalUsersByCode++
     }
   }
 
-  while(fromDate.isSameOrBefore(toDate)) {
+  while (fromDate.isSameOrBefore(toDate)) {
     var usersForDate = usersByDate[fromDate.format('MM-DD-YYYY')]
     var usersForDateAndCode = usersByDateAndCode[fromDate.format('MM-DD-YYYY')]
 
@@ -131,7 +132,7 @@ View.prototype.updateTable = function() {
     fromDate.add(1, 'days')
   }
 
-  var tr = document.createElement('tr')
+  tr = document.createElement('tr')
   tr.innerHTML = '<td><b>Total<b></td><td><b>' + (users ? users.length : 0) + '</b></td><td><b>' + totalUsersByCode + '</b></td>'
   tbody.appendChild(tr)
 }

@@ -13,6 +13,7 @@
 @import url("client/commute-analysis-page/style.css");
 @import url("client/confirm-modal/style.css");
 @import url("client/location-form/style.css");
+@import url("client/user-activity-page/style.css");
 
 :root {
   --border-radius: 3px;
