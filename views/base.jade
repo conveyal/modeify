@@ -14,13 +14,9 @@ html(class='no-js', lang='en')
 
     link(rel='shortcut icon', href='#{static_url}/images/application/favicon.png')
     link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600', rel='stylesheet')
-    link(href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', rel='stylesheet')
-    
-    if minified
-      link(href='#{static_url}/build/planner-app/build.min.css?v=#{version}', rel='stylesheet')
-    else
-      link(href='#{static_url}/build/planner-app/build.css?v=#{version}', rel='stylesheet')
-      
+
+    link(href='#{static_url}/build/planner-app/build.css?v=#{version}', rel='stylesheet')
+
     style.
       html,
       body {
@@ -151,7 +147,7 @@ html(class='no-js', lang='en')
         border-radius: 3px;
         padding: 0;
       }
-      
+
       .box > div {
         padding: 0 50px;
       }
@@ -319,7 +315,7 @@ html(class='no-js', lang='en')
       .login, .register { display: table; }
       .va-wrapper { display: table-cell; width: 100%; vertical-align: middle; }
       .custom-container { display: table-row; height: 100%; }
-      
+
       .nav-logo {
         padding: 20px 140px;
         margin: 0 auto;
@@ -330,7 +326,7 @@ html(class='no-js', lang='en')
     |  <script src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'></script>
     |  <script src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js'></script>
     | <![endif]-->
-        
+
     if segmentio_key
       script(type='text/javascript').
         !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";}}();
@@ -339,7 +335,7 @@ html(class='no-js', lang='en')
 
     block head
 
-  body(class='#{bodytag}')      
+  body(class='#{bodytag}')
 
     block body
 
