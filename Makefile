@@ -14,34 +14,12 @@ RB = $(shell find cookbooks -name '*.rb')
 
 BUCKET = $(shell bin/config-val $(NODE_ENV) s3_bucket)
 
-build-client: node_modules $(CSS) $(HTML) $(CLIENTJS) $(JSON)
-	@bin/build-client $(NODE_ENV)
-
 assets/cookbooks.tar.gz: $(RB)
 	@tar cvzf assets/cookbooks.tar.gz cookbooks
 
-deployment/env:
-	@bin/install
-
-# Lint JavaScript with Standard
-lint: $(ALLJS)
-	@node_modules/.bin/standard --verbose $(ALLJS)
-
-# Format JavaScript with Standard
-format-js: $(ALLJS)
-	@node_modules/.bin/standard --format $(ALLJS)
-
 # Reinstall if package.json has changed
 node_modules: package.json
-	@npm install
-
-# Watch & reload server
-serve: deployment/env node_modules stop
-	@nohup bin/server > server.log </dev/null & echo "$$!" > server.pid
-	@echo "Logs stored in server.log"
-
-stop:
-	@kill $(shell cat server.pid) || true
+	@npm installs
 
 sync: assets/cookbooks.tar.gz build-client
 	@echo Syncing $(NODE_ENV) to $(BUCKET)

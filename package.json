@@ -93,6 +93,7 @@
     "mouseenter": "^1.0.0",
     "mouseleave": "^1.0.0",
     "myth": "^1.5.0",
+    "npm-run-all": "^2.1.1",
     "once-component": "0.0.1",
     "otp-profile-score": "^0.6.3",
     "otp-profile-to-transitive": "0.1.1",
@@ -114,8 +115,12 @@
     "yields-store": "^1.0.2"
   },
   "scripts": {
+    "build:planner": "mastarm build client/planner-app/index.js assets/build/planner-app/build.js",
+    "build:manager": "mastarm build client/manager-app/index.js assets/build/manager-app/build.js",
+    "deploy": "npm-run-all --print-name --parallel build:* --sequential sync heroku",
+    "develop": ". deployment/env && npm-run-all --print-name --parallel start \"build:* -- --debug --watch\"",
+    "heroku": "git push $(node bin/config-val heroku)",
     "start": "node lib/server.js",
-    "develop": ". deployment/env && node lib/server.js",
-    "stop": "make stop"
+    "sync": "aws s3 sync assets $(node bin/config-val s3_bucket) --acl public-read"
   }
 }
