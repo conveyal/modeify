@@ -1,7 +1,8 @@
 
-@import url("components/necolas/normalize.css/3.0.2/normalize.css");
+@import url("node_modules/normalize.css/normalize.css");
 @import url("node_modules/bootstrap/dist/css/bootstrap.css");
 @import url("node_modules/font-awesome/css/font-awesome.css");
+@import url("node_modules/intro.js/introjs.css");
 @import url("node_modules/mapbox.js/theme/style.css");
 @import url("components/conveyal/modeify-icons.css/0.0.1/icons.css");
 @import url("components/conveyal/transitive.js/master/style.css");
