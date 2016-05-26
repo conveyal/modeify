@@ -1,6 +1,6 @@
-var model = require('model')
+var model = require('component-model')
 
-var request = require('./client/request')
+var request = require('../request')
 
 var User = module.exports = model('User')
   .attr('href')

@@ -1,4 +1,4 @@
-var next = require('next-tick');
+var next = require('../../../timoxley/next-tick/0.0.2');
 
 
 /**

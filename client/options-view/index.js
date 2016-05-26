@@ -1,7 +1,7 @@
-var FeedbackModal = require('feedback-modal')
-var message = require('./client/messages')('options-view')
-var RouteCardView = require('route-card-view')
-var view = require('view')
+var FeedbackModal = require('../feedback-modal')
+var message = require('../messages')('options-view')
+var RouteCardView = require('../route-card-view')
+var view = require('../view')
 
 /**
  * Expose `View`

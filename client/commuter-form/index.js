@@ -1,14 +1,14 @@
-var Alert = require('alert')
-var alerts = require('alerts')
-var Commuter = require('commuter')
-var config = require('config')
+var Alert = require('../alert')
+var alerts = require('../alerts')
+var Commuter = require('../commuter')
+var config = require('../config')
 var debug = require('debug')(config.name() + ':commuter-form')
 var page = require('page')
-var serialize = require('serialize')
-var view = require('view')
-var LocationSuggest = require('location-suggest')
-var extend = require('extend')
-var geocode = require('geocode')
+var serialize = require('../../components/trevorgerhardt/serialize/0.0.1')
+var view = require('../view')
+var LocationSuggest = require('../location-suggest')
+var extend = require('../../components/segmentio/extend/1.0.0')
+var geocode = require('../geocode')
 
 /**
  * Create `View`

@@ -1,6 +1,7 @@
-var fmt = require('fmt')
+var fmt = require('../../components/yields/fmt/0.1.0')
+var markdown = require('markdown-it')()
 
-var DEFAULT_MESSAGES = window.MESSAGES || {}
+var DEFAULT_MESSAGES = JSON.parse(process.env.MESSAGES)
 
 module.exports = messages
 
@@ -36,12 +37,16 @@ function messages (ns, msgs) {
 
     var fullPath = ns.concat(path.split(':'))
     var value = find(msgs, fullPath)
-    if (arguments.length > 1) {
-      value = fmt.apply(null, [value].concat([].slice.call(arguments)))
-    }
 
     if (!value) {
       throw new Error('Message not found for ' + fullPath.join(':'))
+    }
+
+    value = markdown.render(value)
+    value = value.slice(3, -5) // remove opening and closing <p>'s
+
+    if (arguments.length > 1) {
+      value = fmt.apply(null, [value].concat([].slice.call(arguments)))
     }
 
     return value

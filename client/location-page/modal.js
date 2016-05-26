@@ -1,9 +1,9 @@
-var alerts = require('alerts')
-var CommuterLocation = require('commuter-location')
-var each = require('each')
-var log = require('./client/log')('location-page:modal')
-var value = require('value')
-var view = require('view')
+var alerts = require('../alerts')
+var CommuterLocation = require('../commuter-location')
+var each = require('component-each')
+var log = require('../log')('location-page:modal')
+var value = require('component-value')
+var view = require('../view')
 
 /**
  * Modal, Input

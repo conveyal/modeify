@@ -1,6 +1,6 @@
-var config = require('config')
+var config = require('../config')
 var debug = require('debug')(config.name() + ':request')
-var nocache = require('superagent-no-cache')
+var nocache = require('./superagent-no-cache')
 var prefix = require('superagent-prefix')(config.api_url())
 var superagent = require('superagent')
 

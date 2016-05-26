@@ -1,5 +1,5 @@
-var config = require('./client/config')
-var tableize = require('tableize')
+var config = require('../config')
+var tableize = require('../../components/trevorgerhardt/tableize/0.1.1')
 
 module.exports.identify = function (id, data) {
   if (config.segmentio_key() && window.analytics) {

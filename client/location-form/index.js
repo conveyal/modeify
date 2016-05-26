@@ -1,11 +1,11 @@
-var alerts = require('alerts')
-var Location = require('location')
-var log = require('./client/log')('location-form')
+var alerts = require('../alerts')
+var Location = require('../location')
+var log = require('../log')('location-form')
 var page = require('page')
-var serialize = require('serialize')
-var view = require('view')
-var LocationSuggest = require('location-suggest')
-var extend = require('extend')
+var serialize = require('../../components/trevorgerhardt/serialize/0.0.1')
+var view = require('../view')
+var LocationSuggest = require('../location-suggest')
+var extend = require('../../components/segmentio/extend/1.0.0')
 
 var View = view(require('./template.html'))
 

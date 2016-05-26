@@ -1,5 +1,5 @@
-var config = require('config')
-var model = require('model')
+var config = require('../config')
+var model = require('component-model')
 
 /**
  * Expose `Journey`

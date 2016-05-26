@@ -1,4 +1,4 @@
-var create = require('view')
+var create = require('../view')
 
 /**
  * Expose `Alert`

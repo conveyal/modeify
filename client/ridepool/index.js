@@ -1,7 +1,7 @@
-var config = require('config')
-var log = require('./client/log')('ridepool')
-var model = require('model')
-var request = require('request')
+var config = require('../config')
+var log = require('../log')('ridepool')
+var model = require('component-model')
+var request = require('../request')
 
 /**
  * Expose `Ridepool`

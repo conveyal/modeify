@@ -1,7 +1,7 @@
-var config = require('config')
+var config = require('../config')
+var L = require('mapbox.js')
 
 var center = config.geocode().center.split(',').map(parseFloat)
-var L = window.L
 
 L.mapbox.accessToken = config.mapbox_access_token()
 

@@ -1,5 +1,5 @@
 
-var index = require('indexof')
+var index = require('component-indexof')
 
 exports.add = function(name, el){
 	var arr = exports.array(el)

@@ -1,10 +1,9 @@
 var debounce = require('debounce')
-var reactiveSelect = require('reactive-select')
-var template = require('./template.html')
-var view = require('view')
-var session = require('session')
+var reactiveSelect = require('../reactive-select')
+var view = require('../view')
+var session = require('../session')
 
-var View = module.exports = view(template, function (view, plan) {
+var View = module.exports = view(require('./template.html'), function (view, plan) {
   view.reactive.use(reactiveSelect)
   view.on('active', function () {
     plan.updateRoutes()
