@@ -6,7 +6,7 @@ APP="$DIR/../assets/images/application"
 
 mkdir -p $APP
 
-rm $DEP
+rm -f $DEP
 rm -rf $APP/*
 
 ln -s ../$1 $DEP
