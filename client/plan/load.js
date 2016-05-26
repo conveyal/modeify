@@ -1,6 +1,6 @@
-var store = require('browser-store')
+var store = require('../browser-store')
 var d3 = require('d3')
-var log = require('./client/log')('plan:load')
+var log = require('../log')('plan:load')
 var ProfileScorer = require('otp-profile-score')
 
 /**

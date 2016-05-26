@@ -1,6 +1,6 @@
-var config = require('config')
-var session = require('session')
-var view = require('view')
+var config = require('../config')
+var session = require('../session')
+var view = require('../view')
 
 var View = module.exports = view(require('./template.html'))
 

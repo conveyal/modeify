@@ -1,9 +1,9 @@
-var extend = require('extend')
-var config = require('config')
+var extend = require('../../components/segmentio/extend/1.0.0')
+var config = require('../config')
 
-var LocationSuggest = require('location-suggest')
+var LocationSuggest = require('../location-suggest')
 
-var View = require('view')({
+var View = require('../view')({
   category: 'create-link',
   template: require('./template.html'),
   title: 'Create Link'

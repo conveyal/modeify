@@ -1,11 +1,11 @@
-var alerts = require('alerts')
-var config = require('config')
+var alerts = require('../alerts')
+var config = require('../config')
 var debug = require('debug')(config.name() + ':organization-form')
-var Organization = require('organization')
+var Organization = require('../organization')
 var page = require('page')
-var serialize = require('serialize')
+var serialize = require('../../components/trevorgerhardt/serialize/0.0.1')
 var template = require('./template.html')
-var view = require('view')
+var view = require('../view')
 
 /**
  * Create `View`

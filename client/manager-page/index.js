@@ -1,6 +1,6 @@
-var alerts = require('alerts')
+var alerts = require('../alerts')
 var page = require('page')
-var view = require('view')
+var view = require('../view')
 
 var rowTemplate = require('./row.html')
 var template = require('./template.html')

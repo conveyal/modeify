@@ -1,4 +1,4 @@
-var modal = require('./client/modal')
+var modal = require('../modal')
 
 module.exports = modal({
   closable: true,

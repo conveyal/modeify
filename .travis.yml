@@ -1,8 +1,6 @@
 language: node_js
 node_js:
-- '0.10'
-- '0.12'
-- iojs
+- "6"
 services:
 - mongodb
 env:
@@ -12,4 +10,3 @@ env:
   - secure: OvNhiYoMSuF64jPlUYH0UVGh9WtWp+g8/6vkqyeKFPa4W6qpbf5lkd0GTYlA3cYPFtHuaBro9ex2Hw612T3IoUHoQyNZKPNxnlWk4Ao1fmhBe+ljmaSoQJZieiHMmpOXmdi4JEHYi118TwFZ2nyFMwQjTwpg2GA0AnzdCcbl9Vw=
   - secure: p273gMdviwrwEcz9nvEdKWM6mZXXCccWuLET8V6BfkIvlm3Yxc8I4w7p76WtowGl0Vo6nW3sU/uYLcL2q0VUf1OGDQ1aS63J0atq2xuBErfCc+jyMHo54JusaNKmIRXtbveM0Co5rZke9gN4tsvpIshQ6xMfGCqYNwaw3YCaS6Q=
   - secure: NLnIA3C8vcmK9+4zveYSObLFRbHIJWPuHGLygLJpgJzcJna0cvJSIlY+POvlNjzNzqs7rVAloCRKxgerh0m1x6Wh9MKG3LzVkDj2p6f3CcQDCRRuQMUkUp8433VEXcjLkoFiPQ1CxbLazKq967llgAhDxJeN0SjcPyKivNR5rnM=
-script: npm run test-travis

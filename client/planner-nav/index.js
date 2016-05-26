@@ -1,10 +1,12 @@
-var config = require('./client/config')
-var evnt = require('event')
-var MarkdownModal = require('./client/markdown-modal')
-var showWalkThrough = require('planner-walkthrough')
-var getTemplate = require('./client/template')
+var config = require('../config')
+var evnt = require('component-event')
+var MarkdownModal = require('../markdown-modal')
+var showWalkThrough = require('../planner-walkthrough')
 var page = require('page')
-var view = require('view')
+var view = require('../view')
+
+var aboutContent = require('../../configurations/default/about.md')
+var termsContent = require('../../configurations/default/terms.md')
 
 /**
  * Expose `View`
@@ -48,7 +50,7 @@ View.prototype.showAbout = function (e) {
   if (e) e.preventDefault()
   this.hideMenu()
   MarkdownModal({
-    content: getTemplate('about')
+    content: aboutContent
   }).show()
 }
 
@@ -56,7 +58,7 @@ View.prototype.showTermsAndConditions = function (e) {
   if (e) e.preventDefault()
   this.hideMenu()
   MarkdownModal({
-    content: getTemplate('terms')
+    content: termsContent
   }).show()
 }
 

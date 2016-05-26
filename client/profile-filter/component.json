@@ -1,9 +1,0 @@
-{
-  "name": "profile-filter",
-  "local": [
-    "profile-formatter"
-  ],
-  "scripts": [
-    "index.js"
-  ]
-}

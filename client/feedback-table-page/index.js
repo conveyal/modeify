@@ -1,7 +1,7 @@
 var Feedback = require('./feedback')
-var Plan = require('plan')
-var request = require('./client/request')
-var view = require('view')
+var Plan = require('../plan')
+var request = require('../request')
+var view = require('../view')
 
 var View = view(require('./template.html'))
 

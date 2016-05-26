@@ -1,5 +1,5 @@
-var classes = require('classes')
-var evnt = require('event')
+var classes = require('component-classes')
+var evnt = require('component-event')
 
 /**
  * Expose `plugin`

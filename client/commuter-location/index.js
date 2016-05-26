@@ -1,7 +1,7 @@
-var Commuter = require('commuter')
-var Location = require('location')
-var log = require('./client/log')('commuter-location')
-var request = require('request')
+var Commuter = require('../commuter')
+var Location = require('../location')
+var log = require('../log')('commuter-location')
+var request = require('../request')
 
 module.exports = {
   addCommuters: addCommuters,

@@ -1,5 +1,5 @@
-var log = require('./client/log')('plan:store')
-var store = require('browser-store')
+var log = require('../log')('plan:store')
+var store = require('../browser-store')
 
 /**
  * Expose `storePlan`

@@ -1,10 +1,10 @@
-var alerts = require('alerts')
-var log = require('./client/log')('managers-page')
+var alerts = require('../alerts')
+var log = require('../log')('managers-page')
 var page = require('page')
-var request = require('./client/request')
-var session = require('session')
-var User = require('user')
-var view = require('view')
+var request = require('../request')
+var session = require('../session')
+var User = require('../user')
+var view = require('../view')
 
 /**
  * Create View

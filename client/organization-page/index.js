@@ -1,6 +1,6 @@
-var config = require('config')
-var log = require('./client/log')('organization-page')
-var map = require('map')
+var config = require('../config')
+var log = require('../log')('organization-page')
+var map = require('../map')
 var View = require('./view')
 
 /**

@@ -1,4 +1,4 @@
-var config = require('config')
+var config = require('../config')
 var debug = require('debug')(config.application() + ':view:each')
 
 /**

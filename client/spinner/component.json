@@ -1,9 +1,0 @@
-{
-  "name": "spinner",
-  "dependencies": {
-    "fgnass/spin.js": "*"
-  },
-  "scripts": [
-    "index.js"
-  ]
-}

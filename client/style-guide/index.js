@@ -1,4 +1,4 @@
-var View = require('view')({
+var View = require('../view')({
   category: 'style-guide',
   template: require('./template.html'),
   title: 'Style Guide'

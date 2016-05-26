@@ -1,14 +1,6 @@
-
-try {
-  var clone = require('clone');
-  var each = require('each');
-  var type = require('type');
-} catch (e) {
-  var clone = require('clone-component');
-  var each = require('each-component');
-  var type = require('component-type');
-}
-
+var clone = require('component-clone');
+var each = require('component-each');
+var type = require('component-type');
 var is = require('is');
 
 /**

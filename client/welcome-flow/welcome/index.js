@@ -1,7 +1,7 @@
-var analytics = require('analytics')
-var log = require('./client/log')('welcome-flow:welcome')
-var message = require('messages')('welcome-flow:welcome')
-var modal = require('./client/modal')
+var analytics = require('../../analytics')
+var log = require('../../log')('welcome-flow:welcome')
+var message = require('../../messages')('welcome-flow:welcome')
+var modal = require('../../modal')
 var template = require('./template.html')
 
 var Welcome = module.exports = modal({

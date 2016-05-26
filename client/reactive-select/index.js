@@ -1,5 +1,5 @@
 var domify = require('domify')
-var value = require('value')
+var value = require('component-value')
 
 /**
  * Expose `plugin`

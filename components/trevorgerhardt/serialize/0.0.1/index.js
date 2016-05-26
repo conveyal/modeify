@@ -3,7 +3,7 @@
  * Dependencies
  */
 
-var value = require('value')
+var value = require('component-value')
   , slice = Array.prototype.slice;
 
 /**
@@ -30,7 +30,7 @@ function serialize(els) {
     var name = el.getAttribute('name');
     if (!data[name]) {
       var val = value(el);
-      
+
       switch (el.type) {
         case 'number':
           val = Number(val);
@@ -50,7 +50,7 @@ function serialize(els) {
         case 'submit':
         case 'button':
         case 'reset':
-          continue; 
+          continue;
       }
 
       data[name] = val;
@@ -92,11 +92,11 @@ function populate(els, data) {
       case 'submit':
       case 'button':
       case 'reset':
-        continue; 
+        continue;
       }
 
       value(el, val);
-    } 
+    }
   }
 }
 

@@ -1,6 +1,6 @@
-var config = require('config')
+var config = require('../config')
 var page = require('page')
-var view = require('view')
+var view = require('../view')
 
 var Nav = module.exports = view(require('./template.html'), function (view, model) {
   model.on('change', function () {
