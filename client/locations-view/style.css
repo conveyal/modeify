@@ -8,11 +8,11 @@
 }
 
 .Locations .icon-start {
-  color: var(--green);
+  color: var(--star-color);
 }
 
 .Locations .icon-end {
-  color: var(--gold);
+  color: var(--pin-color);
 }
 
 .Locations .input-group {
@@ -24,7 +24,7 @@
   position: absolute;
   height: 40px;
   line-height: 40px;
-  width: 24px;
+  width: 30px;
   text-align: center;
 }
 
@@ -39,7 +39,7 @@
 
 .Locations input {
   padding: 13px 48px 11px 32px;
-  color: var(--black);
+  color: var(--font-color);
   box-shadow: none;
   border: none;
   width: 100%;
@@ -60,7 +60,7 @@
 
 .Locations > .input-group > i.add-on {
   cursor: pointer;
-  color: var(--gray);
+  color: var(--font-light-color);
   top: 0;
   font-size: 16px;
 }
@@ -83,7 +83,7 @@
 }
 
 .Modal .Locations > .input-group > input {
-  border: 1px solid var(--gray);
+  border: 1px solid var(--font-light-color);
   padding-top: 11px;
 }
 
@@ -92,6 +92,6 @@
 }
 
 .Modal .Locations .suggestions {
-  border-left: 1px solid var(--gray);
-  border-right: 1px solid var(--gray);
+  border-left: 1px solid var(--font-light-color);
+  border-right: 1px solid var(--font-light-color);
 }

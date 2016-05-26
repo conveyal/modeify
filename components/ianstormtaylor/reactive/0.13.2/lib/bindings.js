@@ -2,8 +2,8 @@
  * Module dependencies.
  */
 
-var classes = require('classes');
-var event = require('event');
+var classes = require('component-classes');
+var event = require('component-event');
 
 /**
  * Attributes supported.

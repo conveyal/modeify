@@ -8,7 +8,7 @@
   overflow-x: hidden;
   max-width: 320px;
   width: 100%;
-  background-color: white;
+  background-color: var(--modal-background-color);
   box-shadow: 0px 0px 4px rgba(43, 55, 66, 0.7);
 }
 
@@ -35,20 +35,21 @@
 }
 
 .Modal .close {
-  color: var(--gray);
+  color: var(--font-light-color);
 }
 
 .Modal .close:hover,
 .Modal .close:active.
 .Modal .close:focus {
-  color: color(var(--gray) shade(20%));
+  color: color(var(--font-light-color) shade(20%));
 }
 
 .Modal > div > .logo {
   height: 44px;
-  background-color: var(--black);
-  border: 7px solid var(--black);
-  box-shadow: 0 1px 2px -1px var(--darkest);
+  background-color: var(--modal-header-background-color);
+  border: 7px solid transparent;
+  box-shadow: 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  display: block;
 }
 
 .Modal .content {

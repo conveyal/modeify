@@ -1,11 +1,13 @@
-var geocode = require('geocode')
+var geocode = require('../geocode')
 var hogan = require('hogan.js')
-var log = require('./client/log')('location-suggest')
-var each = require('each')
-var throttle = require('throttle')
-var session = require('session')
+var log = require('../log')('location-suggest')
+var each = require('component-each')
+var throttle = require('throttleit')
+var session = require('../session')
 
-var LocationSuggest = module.exports = function () {}
+module.exports = LocationSuggest
+
+function LocationSuggest () {}
 
 /**
  * Suggestions Template

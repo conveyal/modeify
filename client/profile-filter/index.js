@@ -1,4 +1,4 @@
-var profileFormatter = require('profile-formatter')
+var profileFormatter = require('../profile-formatter')
 
 var THIRTY_MINUTES = 30 * 60
 
@@ -16,8 +16,8 @@ module.exports = function profileFilter (options, scorer) {
 
     if (FILTER_RESULTS) {
       o = filterUnreasonableAccessModes(o)
-      o = filterBikeIfBikeshareIsAvailable(o)
       o = filterBikeshareIfNoBiking(o)
+      o = filterBikeIfBikeshareIsAvailable(o)
     }
   })
 

@@ -1,8 +1,9 @@
-var Alert = require('alert')
-var message = require('./client/messages')('welcome-flow:locations')
-var modal = require('./client/modal')
+var Alert = require('../../alert')
+var message = require('../../messages')('welcome-flow:locations')
+var modal = require('../../modal')
 
 var Locations = module.exports = modal({
+  closable: true,
   logo: true,
   message: message,
   template: require('./template.html')

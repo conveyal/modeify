@@ -1,16 +1,16 @@
-.form-inline input {
+.Share .form-inline input {
 	margin-right: 15px;
 	margin-bottom: 15px;
 }
 
-.share-buttons {
+.Share .share-buttons {
 	display: inline-block;
 	margin-right: 15px;
 	margin-bottom: 15px;
 	width: 100%;
 }
 
-.link {
+.Share .link {
 	display: inline-block;
 	background-color: #cfe5f9;
 	padding: 6px;
@@ -19,26 +19,26 @@
 	width: 80%;
 }
 
-.btn {
+.Share .btn {
 	display: inline-block;
 }
 
-label {display: inline-block;
+.Share label {display: inline-block;
 }
 
-.trip-link {
+.Share .trip-link {
 	width: 100%;
 	background-color: #cfe5f9;
 	border: none;
 }
 
-.place-link {
+.Share .place-link {
 	width: 100%;
 	background-color: #cfe5f9;
 	border: none;
 }
 
-.send-button {
+.Share .send-button {
 	margin-right: 15px;
 }
 

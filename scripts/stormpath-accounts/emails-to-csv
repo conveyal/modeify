@@ -1,0 +1,24 @@
+#!/usr/bin/env babel-node --presets es2015 --plugins add-module-exports
+
+const toCapitalCase = require('to-capital-case')
+const stormpath = require('../../lib/stormpath')
+
+stormpath
+  .getApplication()
+  .then(getAllAccounts)
+
+function getAllAccounts (app, limit = 100, offset = 0) {
+  app.getAccounts({ limit, offset }, (err, accounts) => {
+    if (err) throw err
+    accounts.each((account, cb) => {
+      const givenName = account.givenName && account.givenName !== 'CarFreeAtoZ' ? toCapitalCase(account.givenName) : ''
+      const surname = account.surname && account.surname !== 'Commuter' ? toCapitalCase(account.surname) : ''
+
+      console.log(`${account.email},${givenName},${surname}`)
+      cb()
+    }, (err) => {
+      if (err) throw err
+      getAllAccounts(app, limit, offset + limit)
+    })
+  })
+}

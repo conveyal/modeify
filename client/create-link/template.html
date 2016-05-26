@@ -7,7 +7,7 @@
       <div class="form-group">
         <div class="Locations">
           <label for="contact">What is the location?</label>
-          <input type="text" class="form-control" name="address" placeholder="Enter address or landmark" on-input="suggest" on-keydown="keydownInput" autocomplete="off" autocorrect="off" autocapitalize="on" spellcheck="false" id="location">
+          <input id="location" type="text" name="address" placeholder="Enter address or landmark" on-blur="blurInput" on-input="suggest" on-keydown="keydownInput" autocomplete="off" autocorrect="off" autocapitalize="on" spellcheck="false">
 
           <ul class="suggestions empty"></ul>
         </div>

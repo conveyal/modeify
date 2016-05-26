@@ -1,11 +1,12 @@
-var analytics = require('analytics')
-var log = require('./client/log')('plan:update-routes')
-var message = require('./client/messages')('plan:update-routes')
+var analytics = require('../analytics')
+var haversine = require('../../components/trevorgerhardt/haversine/master')
+var log = require('../log')('plan:update-routes')
+var message = require('../messages')('plan:update-routes')
 var otpProfileToTransitive = require('otp-profile-to-transitive')
-var profileFilter = require('profile-filter')
-var profileFormatter = require('profile-formatter')
-var request = require('request')
-var Route = require('route')
+var profileFilter = require('../profile-filter')
+var profileFormatter = require('../profile-formatter')
+var request = require('../request')
+var Route = require('../route')
 
 /**
  * Expose `updateRoutes`
@@ -75,8 +76,10 @@ function updateRoutes (plan, opts, callback) {
 
       // Track the commute
       analytics.track('Found Route', {
+        distance: haversine(query.from.lat, query.from.lon, query.to.lat, query.to.lon),
         plan: plan.generateQuery(),
-        results: profile.length
+        results: profile.length,
+        profile: summarizeProfile(profile)
       })
 
       // Get the car data
@@ -171,4 +174,26 @@ function generateErrorMessage (plan, response) {
   }
 
   return msg
+}
+
+function summarizeProfile (profile) {
+  var best = profile[0]
+  return {
+    allModes: profile.reduce(function (modes, option) {
+      var newModes = option.modes.filter(function (m) { return typeof m === 'string' }).join(',')
+      if (modes) return modes + ',' + newModes
+      else return newModes
+    }, ''),
+    best: {
+      modes: best.modes.join(','),
+      time: best.time,
+      timeInTransit: best.timeInTransit,
+      calories: best.calories,
+      cost: best.cost,
+      bikeDistance: best.bikeDistance,
+      driveDistance: best.driveDistance,
+      emissions: best.emissions,
+      walkDistance: best.walkDistance
+    }
+  }
 }

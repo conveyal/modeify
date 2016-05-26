@@ -1,7 +1,7 @@
 var page = require('page')
-var User = require('user')
-var view = require('view')
-var log = require('./client/log')('location-ridematch-settings')
+var User = require('../user')
+var view = require('../view')
+var log = require('../log')('location-ridematch-settings')
 
 var View = view(require('./template.html'))
 

@@ -33,14 +33,12 @@ var MemoryStats = function () {
     var bar = document.createElement('span')
     bar.style.cssText = 'width:1px;height:30px;float:left;background-color:#131'
     msGraph.appendChild(bar)
-
   }
 
   var updateGraph = function (dom, height, color) {
     var child = dom.appendChild(dom.firstChild)
     child.style.height = height + 'px'
     if (color) child.style.backgroundColor = color
-
   }
 
   // polyfill usedJSHeapSize
@@ -91,9 +89,7 @@ var MemoryStats = function () {
         return Math.round(bytes * precision / Math.pow(1024, i)) / precision + ' ' + sizes[i]
       }
     }
-
   }
-
 }
 
 if (typeof module !== 'undefined' && module.exports) {

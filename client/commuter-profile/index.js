@@ -1,10 +1,10 @@
-var modal = require('./client/modal')
+var modal = require('../modal')
 var page = require('page')
-var session = require('session')
-var SignUpForm = require('sign-up-form')
-var view = require('view')
+var session = require('../session')
+var SignUpForm = require('../sign-up-form')
+var view = require('../view')
 var debounce = require('debounce')
-var config = require('config')
+var config = require('../config')
 
 /**
  * Expose `Modal`
@@ -17,7 +17,7 @@ var Modal = module.exports = modal({
 })
 
 Modal.prototype.applicationName = function () {
-  return config.application()
+  return config.name()
 }
 
 /**

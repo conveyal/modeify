@@ -7,7 +7,7 @@
 
 .Welcome .graphic {
   height: 100px;
-  background-image: url(/images/graphics/multimodal.png);
+  background-image: url(/assets/images/application/welcome-graphic.png);
   background-repeat: no-repeat;
   background-size: auto 100%;
   background-position: center;
@@ -24,7 +24,7 @@
 
 .Welcome h3 .headline {
   font-size: 18px;
-  color: var(--darkest);
+  color: var(--font-color);
 }
 
 .Welcome .answer {
@@ -38,8 +38,4 @@
   padding-right: 28px;
   float: left;
   padding-left: 15px;
-}
-
-.Welcome i.icon-carshare {
-  padding-right: 23px;
 }

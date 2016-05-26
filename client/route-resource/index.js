@@ -1,5 +1,5 @@
-var log = require('./client/log')('route-resource')
-var request = require('./client/request')
+var log = require('../log')('route-resource')
+var request = require('../request')
 
 exports.findByTags = function (tags, callback) {
   log('finding resources that match %j', tags)

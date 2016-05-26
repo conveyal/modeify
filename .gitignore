@@ -28,4 +28,5 @@ node_modules
 **/weak/build
 
 coverage
+configurations/*
 deployment

@@ -1,8 +1,8 @@
 var hogan = require('hogan.js')
-var session = require('session')
+var session = require('../session')
 var toSentenceCase = require('to-sentence-case')
-var view = require('view')
-var each = require('each')
+var view = require('../view')
+var each = require('component-each')
 
 var rowTemplate = require('./row.html')
 var template = require('./template.html')

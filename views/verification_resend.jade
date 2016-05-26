@@ -10,7 +10,7 @@ block body
     .va-wrapper
       .view.login-view.container
         .box.row
-          img.nav-logo(src='#{static_url}/images/application/nav-logo.png')
+          img.--navbar-background-color.nav-logo(src='#{static_url}/images/application/nav-logo.png')
             
           .email-password-area.col-xs-12.large.col-sm-12
             .header
@@ -43,5 +43,5 @@ block body
               div
                 button.login.btn.btn-login.btn-sp-green(type='submit') Submit
 
-        if app.get('stormpathEnableLogin')
-          a.forgot(href="#{app.get('stormpathLoginUrl')}") Back to Log In
+        if stormpathConfig.web.login.enabled
+          a.forgot(href="#{stormpathConfig.web.login.uri}") Back to Log In

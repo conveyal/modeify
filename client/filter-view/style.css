@@ -1,6 +1,6 @@
 
 .FilterView {
-  color: var(--light-blue);
+  color: var(--font-dark-background-color);
   font-size: 15px;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .FilterView > .time-filters > label {
-  margin-bottom: 3px;
+  margin: 8px 1px 0;
 }
 
 .FilterView > .mode-filters {
@@ -37,8 +37,8 @@
 
 .FilterView > .mode-filters > button {
   box-shadow: none;
-  background-color: var(--green);
-  color: var(--button-green);
+  background-color: var(--mode-button-background-color);
+  color: var(--mode-button-icon-color);
   padding: 0;
   width: 44px;
   height: 44px;
@@ -54,23 +54,23 @@
   position: absolute;
   top: 23px;
   left: 27px;
-  color: var(--lightgreen);
+  color: var(--mode-button-check-color);
   text-shadow: 0px 1px 3px rgba(75, 106, 32, 0.4);
   visibility: hidden;
 }
 
 
 .mode-filters > button.active.btn-default {
-  background-color: var(--green);
-  color: var(--button-green);
+  background-color: var(--mode-button-background-color);
+  color: var(--mode-button-icon-color);
 
   text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
 }
 
 .mode-filters > button:hover.btn-default,
 .mode-filters > button:focus.btn-default {
-  background-color: var(--mgreen);
-  color: var(--button-green);
+  background-color: color(var(--mode-button-background-color) shade(20%));
+  color: color(var(--mode-button-icon-color) shade(20%));
 
   text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
 }
@@ -80,44 +80,37 @@
 }
 
 .submit {
-  margin-left: 4px;
-  width: 84px;
+  width: 83px;
   height: 44px;
   font-size: 20px;
   border: none;
-}
-
-@media (--narrow-window) {
-  .FilterView > .settings-form > select {
-    padding-left: 0;
-    padding-right: 0;
-    text-align: center;
-    display: inline-block;
-  }
 }
 
 .ExpandedSettings {
   margin-top: 8px;
 }
 
+.ExpandedSettings select {
+  margin: 0 4px;
+}
+
 .ExpandedSettings-typeIcon {
   display: inline-block;
   font-size: 28px;
   vertical-align: middle;
-  margin: 0 6px;
+  margin: 0 4px;
 }
 
 .ExpandedSettings input {
   display: inline-block;
-  color: #455a71;
   box-shadow: none;
   border: none;
   width: 51px;
   text-overflow: ellipsis;
-  background-color: #fff;
   border-radius: 3px;
-  margin: 0 6px;
+  margin: 0 4px;
   padding: 4px;
+  color: var(--font-color);
 }
 
 .ExpandedSettings-bike,

@@ -1,8 +1,7 @@
-var config = require('config')
-var log = require('./client/log')('map')
+var config = require('../config')
+var log = require('../log')('map')
+var L = require('mapbox.js')
 var page = require('page')
-
-var L = window.L
 
 L.mapbox.accessToken = config.mapbox_access_token()
 
@@ -13,7 +12,7 @@ L.mapbox.accessToken = config.mapbox_access_token()
 module.exports = function (el, opts) {
   opts = opts || {}
   opts.tileLayer = opts.tileLayer || {
-      detectRetina: true
+    detectRetina: true
   }
 
   // create a map in the el with given options

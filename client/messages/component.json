@@ -1,9 +1,0 @@
-{
-  "name": "messages",
-  "dependencies": {
-    "yields/fmt": "*"
-  },
-  "scripts": [
-    "index.js"
-  ]
-}

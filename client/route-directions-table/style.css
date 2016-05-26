@@ -1,11 +1,11 @@
 .RouteDirections {
   width: 100%;
   border-collapse: separate;
-  color: var(--black);
+  color: var(--font-color);
 }
 
 .RouteDirections tr:nth-child(odd) {
-  background-color: var(--lightest-blue);
+  background-color: var(--table-cell-color);
 }
 
 .RouteDirections tr.address {
@@ -42,11 +42,11 @@
 }
 
 .RouteDirections .icon-start {
-  color: var(--green);
+  color: var(--star-color);
 }
 
 .RouteDirections .icon-end {
-  color: var(--gold);
+  color: var(--pin-color);
 }
 
 .RouteDirections .transfer > .station {
@@ -54,17 +54,17 @@
   height: 15px;
   width: 15px;
   border-radius: 15px;
-  border: 2px solid var(--black);
+  border: 2px solid var(--primary-color);
 }
 
 .RouteDirections .segment > .icon > .fa {
-  color: var(--black);
+  color: var(--font-color);
   font-size: 16px;
   vertical-align: middle;
 }
 
 .RouteDirections .detail-route-bg {
-  background-color: var(--black);
+  background-color: var(--table-cell-color);
   width: 15px;
   height: 101%;
   margin-left: 5px;
@@ -78,6 +78,6 @@
 }
 
 .RouteDirections .address .description {
-  color: var(--black);
+  color: var(--font-color);
   font-weight: bold;
 }

@@ -1,8 +1,8 @@
-var config = require('config')
-var log = require('./client/log')('announcements')
-var modal = require('modal')
-var raf = require('raf')
-var session = require('session')
+var config = require('../config')
+var log = require('../log')('announcements')
+var modal = require('../modal')
+var raf = require('component-raf')
+var session = require('../session')
 var template = require('./template.html')
 
 var Modal = modal({

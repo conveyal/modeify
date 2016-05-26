@@ -44,7 +44,6 @@ var Stats = function () {
     bar = document.createElement('span')
     bar.style.cssText = 'width:1px;height:30px;float:left;background-color:#113'
     fpsGraph.appendChild(bar)
-
   }
 
   var msDiv = document.createElement('div')
@@ -87,7 +86,6 @@ var Stats = function () {
   var updateGraph = function (dom, value) {
     var child = dom.appendChild(dom.firstChild)
     child.style.height = value + 'px'
-
   }
 
   return {
@@ -99,7 +97,6 @@ var Stats = function () {
 
     begin: function () {
       startTime = Date.now()
-
     },
 
     end: function () {
@@ -124,23 +121,17 @@ var Stats = function () {
 
         prevTime = time
         frames = 0
-
       }
 
       return time
-
     },
 
     update: function () {
       startTime = this.end()
-
     }
-
   }
-
 }
 
 if (typeof module === 'object') {
   module.exports = Stats
-
 }

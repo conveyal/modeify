@@ -3,19 +3,12 @@ html
   head
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
-    title #{application}: Plan your commute and compare your transportation options
+    title #{applicationName}: Plan your commute and compare your transportation options
     meta(name='apple-mobile-web-app-capable', content='yes')
     meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=no, minimal-ui')
     meta(name='description', content='Plan your commute, compare your transportation options, and find the most carbon effective, healthiest, and cheapest way to travel.')
     meta(name='google-site-verification', content='#{google_site_verification}')
     link(rel='shortcut icon', href='#{static_url}/images/application/favicon.png')
-    link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css', rel='stylesheet')
-    link(href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css', rel='stylesheet')
-    link(href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css', rel='stylesheet')
-    if minified
-      link(href='#{static_url}/build/planner-app/build.min.css.gz?v=#{version}', rel='stylesheet')
-    else
-      link(href='#{static_url}/build/planner-app/build.css?v=#{version}', rel='stylesheet')
 
     if segmentio_key
       script(type='text/javascript').
@@ -30,14 +23,8 @@ html
       if (!document.body.classList) {
         window.alert('Please use a modern browser or this website will not run correctly.\\n Modern browsers include Google Chrome, Mozilla Firefox, and Microsoft Internet Explorer (version 10 or better).');
       }
-    script(src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.5/clipboard.min.js')
     if user
-      script.
+      script(type='text/javascript').
         window.USER=!{user}
-    if minified
-      script(src='#{static_url}/build/messages/en.min.js.gz?v=#{version}')
-      script(src='#{static_url}/build/planner-app/build.min.js.gz?v=#{version}')
-    else
-      script(src='#{static_url}/build/messages/en.js?v=#{version}')
-      script(src='#{static_url}/build/planner-app/build.js?v=#{version}')
+    script(src='#{static_url}/build/planner-app/build.js?v=#{version}', defer)

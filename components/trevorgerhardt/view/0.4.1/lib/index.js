@@ -1,9 +1,9 @@
 
 var domify = require('domify');
 var protos = require('./protos');
-var reactive = require('reactive');
+var reactive = require('../../../../ianstormtaylor/reactive/0.13.2/lib');
 var statics = require('./statics');
-var type = require('type');
+var type = require('component-type');
 
 
 /**

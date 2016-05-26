@@ -1,10 +1,11 @@
-var closest = require('closest')
-var log = require('./client/log')('locations-view')
-var textModal = require('text-modal')
-var view = require('view')
-var LocationSuggest = require('location-suggest')
-var extend = require('extend')
-var session = require('session')
+var analytics = require('../analytics')
+var closest = require('component-closest')
+var log = require('../log')('locations-view')
+var textModal = require('../text-modal')
+var view = require('../view')
+var LocationSuggest = require('../location-suggest')
+var extend = require('../../components/segmentio/extend/1.0.0')
+var session = require('../session')
 
 /**
  * Expose `View`
@@ -122,6 +123,10 @@ View.prototype.save = function (el) {
   var val = el.value
 
   if (val && plan[name]() !== val) {
+    analytics.track('Location Found', {
+      address: val,
+      type: name
+    })
     this.model.setAddress(name, val, function (err, location) {
       if (err) {
         log.error('%e', err)

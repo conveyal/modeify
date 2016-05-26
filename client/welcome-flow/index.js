@@ -1,12 +1,12 @@
-var analytics = require('analytics')
-var config = require('config')
+var analytics = require('../analytics')
+var config = require('../config')
 var introJs = require('intro.js').introJs
-var log = require('./client/log')('welcome-flow')
-var LocationsView = require('locations-view')
-var message = require('./client/messages')('welcomewelcome-flow')
-var showPlannerWalkthrough = require('planner-walkthrough')
-var RouteModal = require('route-modal')
-var routeResource = require('route-resource')
+var log = require('../log')('welcome-flow')
+var LocationsView = require('../locations-view')
+var message = require('../messages')('welcomewelcome-flow')
+var showPlannerWalkthrough = require('../planner-walkthrough')
+var RouteModal = require('../route-modal')
+var routeResource = require('../route-resource')
 
 var Locations = require('./locations')
 var Welcome = require('./welcome')
@@ -19,21 +19,30 @@ var TO = config.geocode().end_address
  */
 
 module.exports = function (commuter, plan) {
-  var main = document.querySelector('#main')
-
-  main.classList.add('Welcome')
-
   var welcome = new Welcome(commuter)
+  var locations = new Locations({
+    'locations-view': new LocationsView(plan),
+    plan: plan,
+    commuter: commuter
+  })
 
+  plan.setAddresses(FROM, TO, function (err) {
+    if (err) {
+      log.error('%e', err)
+    } else {
+      plan.journey({ places: plan.generatePlaces() })
+      plan.updateRoutes()
+    }
+  })
+
+  var nextClicked = false
+  welcome.on('hide', skip)
   welcome.on('next', function () {
-    var locations = new Locations({
-      'locations-view': new LocationsView(plan),
-      plan: plan,
-      commuter: commuter
-    })
+    nextClicked = true
     locations.show()
-
+    locations.on('hide', skip)
     locations.on('next', function () {
+      nextClicked = true
       var route = plan.options()[0]
 
       routeResource.findByTags(route.tags(plan), function (err, resources) {
@@ -45,41 +54,35 @@ module.exports = function (commuter, plan) {
           plan: plan
         })
         routeModal.show()
-        main.classList.remove('Welcome')
 
-        routeModal.on('next', function () {
+        routeModal.on('hide', function () {
           analytics.track('Completed Welcome Wizard')
 
           commuter.updateProfile('welcome_wizard_complete', true)
           commuter.save()
-
-          routeModal.hide()
           highlightResults()
         })
+        routeModal.on('next', function () {
+          routeModal.hide()
+        })
       })
-
     })
 
     locations.on('skip', function () {
-      commuter.updateProfile('welcome_wizard_complete', true)
-      commuter.save()
-
-      main.classList.remove('Welcome')
       locations.hide()
-      showPlannerWalkthrough()
-
-      plan.setAddresses(FROM, TO, function (err) {
-        if (err) {
-          log.error('%e', err)
-        } else {
-          plan.journey({
-            places: plan.generatePlaces()
-          })
-          plan.updateRoutes()
-        }
-      })
     })
   })
+
+  function skip () {
+    if (nextClicked) {
+      nextClicked = false
+      return
+    }
+    analytics.track('Exited Welcome Wizard')
+    commuter.updateProfile('welcome_wizard_complete', true)
+    commuter.save()
+    showPlannerWalkthrough()
+  }
 
   // Start!
   welcome.show()

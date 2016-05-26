@@ -1,9 +1,13 @@
-require('manager-router')
+require('es5-shim')
+require('es6-shim')
+require('html5-history-api')
+require('../manager-router')
+require('./style.css')
 
-var Nav = require('manager-nav')
-var onLoad = require('on-load')
+var Nav = require('../manager-nav')
+var onLoad = require('../../components/ianstormtaylor/on-load/0.0.2')
 var page = require('page')
-var session = require('session')
+var session = require('../session')
 
 /**
  * Once the browser has "loaded"...ugh, can't believe we still need this.

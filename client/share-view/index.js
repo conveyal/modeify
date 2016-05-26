@@ -1,7 +1,7 @@
-var modal = require('./client/modal')
-var session = require('session')
-var request = require('request')
-var Alert = require('alert')
+var modal = require('../modal')
+var session = require('../session')
+var request = require('../request')
+var Alert = require('../alert')
 
 /**
  * Expose `Modal`
@@ -12,19 +12,18 @@ var ShareModal = module.exports = modal({
   width: '768px',
   template: require('./template.html')
 }, function (view, routes) {
+  view.find('.trip-link').value = window.location.href
+  view.find('.place-link').value = constructPlaceLink(session.plan().from(), 'from')
 
-  view.find('.trip-link').value = window.location.href;
-  view.find('.place-link').value = constructPlaceLink(session.plan().from(), 'from');
+  var tripClipboard = new window.Clipboard('#copy-trip-btn')
+  tripClipboard.on('success', function (e) {
+    e.clearSelection()
+  })
 
-  var tripClipboard = new Clipboard('#copy-trip-btn');
-  tripClipboard.on('success', function(e) {
-      e.clearSelection();
-  });
-
-  var placeClipboard = new Clipboard('#copy-place-btn');
-  placeClipboard.on('success', function(e) {
-      e.clearSelection();
-  });
+  var placeClipboard = new window.Clipboard('#copy-place-btn')
+  placeClipboard.on('success', function (e) {
+    e.clearSelection()
+  })
 })
 
 ShareModal.prototype.sendEmail = function () {
@@ -51,13 +50,13 @@ ShareModal.prototype.sendEmail = function () {
 }
 
 ShareModal.prototype.placeChanged = function (e) {
-  var val = this.find('.place-select').value;
-  var place = session.plan().get(val);
-  this.find('.place-link').value = constructPlaceLink(place, val);
+  var val = this.find('.place-select').value
+  var place = session.plan().get(val)
+  this.find('.place-link').value = constructPlaceLink(place, val)
 }
 
-function constructPlaceLink(place, type) {
-  var loc = window.location;
-  return loc.protocol + "//" + loc.hostname + (loc.port ? ':' + loc.port: '') + '/?' + (type === 'from' ? 'planFrom' : 'planTo') + '=' + encodeURIComponent(place);
+function constructPlaceLink (place, type) {
+  var loc = window.location
+  return loc.protocol + '//' + loc.hostname + (loc.port ? ':' + loc.port : '') + '/?' + (type === 'from' ? 'planFrom' : 'planTo') + '=' + encodeURIComponent(place)
 }
 

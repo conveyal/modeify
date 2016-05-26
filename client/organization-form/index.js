@@ -1,11 +1,11 @@
-var alerts = require('alerts')
-var config = require('config')
+var alerts = require('../alerts')
+var config = require('../config')
 var debug = require('debug')(config.name() + ':organization-form')
-var Organization = require('organization')
+var Organization = require('../organization')
 var page = require('page')
-var serialize = require('serialize')
+var serialize = require('../../components/trevorgerhardt/serialize/0.0.1')
 var template = require('./template.html')
-var view = require('view')
+var view = require('../view')
 
 /**
  * Create `View`
@@ -42,8 +42,9 @@ View.prototype.action = function () {
  */
 
 View.prototype.back = function () {
-  return this.model.isNew() ? '/manager/organizations' :
-    '/manager/organizations/' + this.model._id() + '/show'
+  return this.model.isNew()
+    ? '/manager/organizations'
+    : '/manager/organizations/' + this.model._id() + '/show'
 }
 
 /**
@@ -68,8 +69,9 @@ View.prototype.save = function (e) {
 
   this.model.set(data)
 
-  var text = this.model.isNew() ? 'Created new organization.' :
-    'Saved changes to organization.'
+  var text = this.model.isNew()
+    ? 'Created new organization.'
+    : 'Saved changes to organization.'
 
   var self = this
   this.model.save(function (err) {

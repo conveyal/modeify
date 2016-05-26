@@ -17,4 +17,6 @@
 
 .RouteModal-commuterConnectionsLogo {
   width: 100%;
+  display: inline-block;
+  background-image: url(/assets/images/application/commuter-connections.png);
 }

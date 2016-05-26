@@ -1,13 +1,14 @@
-var analytics = require('analytics')
-var store = require('browser-store')
-var Commuter = require('commuter')
-var log = require('./client/log')('session')
-var defaults = require('model-defaults')
-var model = require('model')
+var analytics = require('../analytics')
+var store = require('../browser-store')
+var Commuter = require('../commuter')
+var log = require('../log')('session')
+var defaults = require('../../components/segmentio/model-defaults/0.2.0')
+var model = require('component-model')
 var page = require('page')
-var Plan = require('plan')
-var request = require('./client/request')
-var User = require('user')
+var Plan = require('../plan')
+var request = require('../request')
+var superagent = require('superagent')
+var User = require('../user')
 
 /**
  * Deafult session settings
@@ -51,10 +52,12 @@ Session.prototype.logout = function (next) {
   log('--> logging out')
 
   this.clear()
-  request.get('/auth/logout', function (err, res) {
-    log('<-- logged out %s', res.text)
-    if (next) next(err, res)
-  })
+  superagent
+    .post('/logout')
+    .end(function (err, res) {
+      log('<-- logged out %s', res.text)
+      if (next) next(err, res)
+    })
 }
 
 Session.prototype.clear = function () {
@@ -116,7 +119,15 @@ session.load = function (ctx, next) {
       session.user(user)
       session.isLoggedIn(true)
 
-      analytics.identify(user.href().split('/').shift(), user.toJSON())
+      var userJson = user.toJSON()
+      var registrationCode = store('registration-code')
+
+      if (registrationCode) {
+        userJson.registrationCode = registrationCode
+        store('registration-code', null)
+      }
+
+      analytics.identify(user.href().split('/').pop(), userJson)
 
       user.on('change', function () {
         store('user', user.toJSON())
@@ -133,8 +144,9 @@ session.load = function (ctx, next) {
       session.commuter(commuter)
 
       // load the plan
-      var userOpts = (session.user() && session.user().customData().modeify_opts) ?
-        session.user().customData().modeify_opts : {}
+      var userOpts = (session.user() && session.user().customData().modeify_opts)
+        ? session.user().customData().modeify_opts
+        : {}
       session.plan(Plan.load(userOpts))
 
       // set the session as loaded

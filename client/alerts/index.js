@@ -1,7 +1,7 @@
-var Alert = require('alert')
+var Alert = require('../alert')
 var domify = require('domify')
-var log = require('./client/log')('alerts')
-var each = require('each')
+var log = require('../log')('alerts')
+var each = require('component-each')
 
 /**
  * Alerts

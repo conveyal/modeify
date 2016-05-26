@@ -1,5 +1,5 @@
 var domify = require('domify')
-var value = require('value')
+var value = require('component-value')
 
 /**
  * Expose `plugin`
@@ -30,10 +30,9 @@ module.exports = function (reactive) {
       if (val !== undefined && current !== val) value(el, '' + val)
     })
 
-    var parse = this.view[el.getAttribute('select-parse-value')] || function (
-        v) {
-        return v
-      }
+    var parse = this.view[el.getAttribute('select-parse-value')] || function (v) {
+      return v
+    }
 
     var view = this.view
     el.onchange = function (e) {

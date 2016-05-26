@@ -1,10 +1,10 @@
-var Alert = require('./client/alert')
-var CommuterProfile = require('commuter-profile')
-var LocationsView = require('locations-view')
-var log = require('./client/log')('rideshare-sign-up')
-var modal = require('modal')
-var request = require('./client/request')
-var session = require('session')
+var Alert = require('../alert')
+var CommuterProfile = require('../commuter-profile')
+var LocationsView = require('../locations-view')
+var log = require('../log')('rideshare-sign-up')
+var modal = require('../modal')
+var request = require('../request')
+var session = require('../session')
 
 var ThanksModal = modal({
   closable: true,

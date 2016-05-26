@@ -1,7 +1,7 @@
-var convert = require('convert')
-var model = require('model')
-var defaults = require('model-defaults')
-var each = require('each')
+var convert = require('../convert')
+var model = require('component-model')
+var defaults = require('../../components/segmentio/model-defaults/0.2.0')
+var each = require('component-each')
 
 /**
  * MPS to MPH

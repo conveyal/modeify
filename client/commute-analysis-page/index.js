@@ -1,12 +1,12 @@
-var alerts = require('alerts')
-var dc = require('dc.js')
+var alerts = require('../alerts')
+var dc = require('dc')
 var d3 = require('d3')
-var crossfilter = require('crossfilter').crossfilter
-var haversine = require('haversine')
-var log = require('./client/log')('commute-analysis-page')
-var map = require('map')
+var crossfilter = require('crossfilter2').crossfilter
+var haversine = require('../../components/trevorgerhardt/haversine/master')
+var log = require('../log')('commute-analysis-page')
+var map = require('../map')
 var ProfileScorer = require('otp-profile-score')
-var view = require('view')
+var view = require('../view')
 
 module.exports = function (ctx, next) {
   log('render')
@@ -118,14 +118,14 @@ var View = view(require('./template.html'), function (view, model) {
     var $distanceAvg = view.find('#distanceAverage')
 
     var costAvg = profiles.reduce(function (total, p) {
-        return total + parseFloat(p.cost)
-      }, 0) / profiles.length
+      return total + parseFloat(p.cost)
+    }, 0) / profiles.length
     var distAvg = profiles.reduce(function (total, p) {
-        return total + p.distance
-      }, 0) / profiles.length
+      return total + p.distance
+    }, 0) / profiles.length
     var timeAvg = profiles.reduce(function (total, p) {
-        return total + p.time
-      }, 0) / profiles.length
+      return total + p.time
+    }, 0) / profiles.length
 
     $costAvg.textContent = '$' + costAvg.toFixed(2)
     $costPYAvg.textContent = '$' + parseInt(costAvg * 470, 10)

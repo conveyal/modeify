@@ -1,8 +1,11 @@
-var log = require('./client/log')('modal')
-var createModal = require('modal')
-var raf = require('raf')
+var config = require('../config')
+var log = require('../log')('modal')
+var createModal = require('../../components/segmentio/modal/0.4.1/lib')
+var raf = require('component-raf')
 var scrollbarSize = require('scrollbar-size')
-var view = require('view')
+var view = require('../view')
+
+var closableHtml = require('./closable.html')
 
 /**
  * Store the active modal
@@ -21,11 +24,11 @@ var events = ['showing', 'show', 'hiding', 'hide']
  */
 
 module.exports = function (opts, fn) {
-  if (opts.closable) opts.template = require('./closable.html') + opts.template
+  if (opts.closable && !opts.logo) opts.template = closableHtml + opts.template
   if (!opts.noPadding) opts.template = '<div class="content">' + opts.template + '</div>'
 
   // Wrap with a logo nav
-  if (opts.logo) opts.template = '<div>' + require('./logo.html') + opts.template + '</div>'
+  if (opts.logo) opts.template = '<div><a class="logo" href="' + config.organization().url + '"></a>' + opts.template + '</div>'
 
   var Modal = view(opts, fn)
 

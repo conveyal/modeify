@@ -1,4 +1,4 @@
-var view = require('view')
+var view = require('../view')
 
 var View = view(require('./template.html'))
 

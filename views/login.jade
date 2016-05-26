@@ -10,15 +10,50 @@ block body
     .va-wrapper
       .view.login-view.container
         .box.row
-          img.nav-logo(src='#{static_url}/images/application/nav-logo.png')
+          img.--navbar-background-color.nav-logo(src='#{static_url}/images/application/nav-logo.png')
+            
+          if status
+            .email-password-area.col-xs-12.large.col-sm-12
+              .header
+                if status === 'unverified'
+                  span.
+                    Your account verification email has been sent!
+                  p.
+                    Before you can log into your account, you need to activate your
+                    account by clicking the link we sent to your inbox.
+                  p.
+                    Didn't get the email? <a href="#{stormpathConfig.web.verifyEmail.uri}">Click Here</a>.
+                  br
+                if status === 'verified'
+                  span.
+                    Your Account Has Been Verified
+                  p.
+                    You may now login.
+                if status === 'created'
+                  span.
+                    Your Account Has Been Created
+                  p.
+                    You may now login.
+                if status === 'reset'
+                  span.
+                    Password Reset Successfuly
+                  p.
+                    You can now login with your new password.
+                  br
+                if status === 'forgot'
+                  span.
+                    Password Reset Requested
+                  p.
+                    If an account exists for the email provided, you will
+                    receive an email shortly.
           
           - var cls = 'large col-sm-12'
 
           div(class='email-password-area col-xs-12 #{cls}')
             .header
-              if app.get('stormpathEnableRegistration')
+              if stormpathConfig.web.register.enabled
                 span.
-                  Log In or <a href="#{app.get('stormpathRegistrationUrl')}">Create Account</a>
+                  Log In or <a href="#{stormpathConfig.web.register.uri}">Create Account</a>
               else
                 span.
                   Log In
@@ -77,7 +112,7 @@ block body
               div
                 button.login.btn.btn-login.btn-sp-green(type='submit') Log In
 
-        if app.get('stormpathEnableAccountVerification')
-          a.forgot(style="float:left", href="#{app.get('stormpathResendAccountVerificationEmailUrl')}") Resend Verification Email?
-        if app.get('stormpathEnableForgotPassword')
-          a.forgot(style="float:right", href="#{app.get('stormpathForgotPasswordUrl')}") Forgot Password?
+        if stormpathConfig.web.verifyEmail.enabled
+          a.forgot(style="float:left", href="#{stormpathConfig.web.verifyEmail.uri}") Resend Verification Email?
+        if stormpathConfig.web.forgotPassword.enabled
+          a.forgot(style="float:right", href="#{stormpathConfig.web.forgotPassword.uri}") Forgot Password?

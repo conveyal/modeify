@@ -1,16 +1,16 @@
 var Batch = require('batch')
-var config = require('config')
-var convert = require('convert')
+var config = require('../config')
+var convert = require('../convert')
 var debounce = require('debounce')
-var geocode = require('geocode')
-var Journey = require('journey')
-var Location = require('location')
-var log = require('./client/log')('plan')
-var defaults = require('model-defaults')
-var model = require('model')
-var ProfileQuery = require('profile-query')
+var geocode = require('../geocode')
+var Journey = require('../journey')
+var Location = require('../location')
+var log = require('../log')('plan')
+var defaults = require('../../components/segmentio/model-defaults/0.2.0')
+var model = require('component-model')
+var ProfileQuery = require('../profile-query')
 var ProfileScorer = require('otp-profile-score')
-var qs = require('querystring')
+var qs = require('component-querystring')
 
 var loadPlan = require('./load')
 var store = require('./store')
@@ -348,7 +348,7 @@ Plan.prototype.generateQuery = function () {
     from: {
       lat: from.lat,
       lon: from.lng,
-      name: 'From'
+      name: this.from()
     },
     maxBikeTime: this.maxBikeTime(),
     maxWalkTime: this.maxWalkTime(),
@@ -357,7 +357,7 @@ Plan.prototype.generateQuery = function () {
     to: {
       lat: to.lat,
       lon: to.lng,
-      name: 'To'
+      name: this.to()
     },
     limit: LIMIT,
     transitModes: transitModes.join(','),

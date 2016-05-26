@@ -1,11 +1,11 @@
 
 .Options ul {
   padding-left: 0;
-  color: var(--black);
+  color: var(--font-color);
 }
 
 .Options .per-year {
-  color: var(--lightgray);
+  color: var(--font-light-color);
 }
 
 .Options .RouteCard {
@@ -14,8 +14,8 @@
 }
 
 .Options .header {
-  background-color: var(--darkest);
-  color: var(--light-blue);
+  background-color: var(--route-card-header-background-color);
+  color: var(--route-card-header-font-color);
   padding: 4px 8px;
   border-top-left-radius: var(--border-radius);
   border-top-right-radius: var(--border-radius);
@@ -38,19 +38,23 @@
   line-height: 1;
   text-align: right;
   margin-right: -2px;
-  padding: 8px 10px 6px 0;
+  margin-top: 4px;
+  padding: 4px 10px 3px 0;
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  background-color: var(--ribbon-background-color);
+  color: var(--ribbon-font-color);
+  position: relative;
 }
 
-.RouteCard .benefits-badge.savings {
-  background-image: url(/images/graphics/ribbon.png);
-  color: var(--button-green);
-}
-
-.RouteCard .benefits-badge.time-savings {
-  background-image: url(/images/graphics/time-ribbon.png);
-  color: #fff;
+.RouteCard .benefits-badge::before {
+  content: ' ';
+  border: 10px solid var(--ribbon-background-color);
+  border-left-color: transparent;
+  border-left-width: 7px;
+  position: absolute;
+  top: 0;
+  left: -8px;
 }
 
 .Options .simple {
@@ -93,7 +97,7 @@
 .RouteCard .segments {
   float: left;
   padding: 6px;
-  background-color: var(--light-gray);
+  background-color: var(--route-card-segments-background-color);
   border-bottom-left-radius: var(--border-radius);
   min-height: 90px;
 }
@@ -123,12 +127,12 @@
   margin-bottom: 8px;
   line-height: 18px;
   white-space: nowrap;
-  color: var(--gray);
+  color: var(--font-light-color);
 }
 
 .simple > .minutes-column > .heading {
   margin: 0 0 8px;
-  color: var(--black);
+  color: var(--font-color);
   font-size: var(--h3);
 }
 

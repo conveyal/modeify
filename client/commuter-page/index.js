@@ -1,13 +1,13 @@
-var alerts = require('alerts')
-var config = require('config')
+var alerts = require('../alerts')
+var config = require('../config')
 var debug = require('debug')(config.name() + ':commuter-page')
-var map = require('map')
+var map = require('../map')
 var page = require('page')
-var request = require('./client/request')
+var request = require('../request')
 var template = require('./template.html')
-var view = require('view')
+var view = require('../view')
 
-var CommuterLocation = require('commuter-location')
+var CommuterLocation = require('../commuter-location')
 
 /**
  * Create `View`
@@ -57,7 +57,6 @@ module.exports = function (ctx, next) {
 
     next()
   })
-
 }
 
 /**

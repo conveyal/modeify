@@ -1,10 +1,11 @@
 var domify = require('domify');
-var Emitter = require('emitter');
-var overlay = require('overlay');
-var onEscape = require('on-escape');
+var Emitter = require('component-emitter');
+var overlay = require('../../../overlay/0.2.4/lib');
+var onEscape = require('../../../on-escape/0.0.3');
+var Showable = require('../../../showable/0.1.2');
+var Classes = require('../../../../ianstormtaylor/classes/0.1.0');
+
 var template = require('./index.html');
-var Showable = require('showable');
-var Classes = require('classes');
 
 /**
  * Expose `Modal`.

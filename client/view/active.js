@@ -2,7 +2,7 @@
  * Bind event
  */
 
-var evnt = require('event')
+var evnt = require('component-event')
 
 /**
  * Expose `plugin`

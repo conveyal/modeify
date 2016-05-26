@@ -1,4 +1,4 @@
-var messages = require('./client/messages')
+var messages = require('../messages')
 
 module.exports = function (reactive) {
   reactive.bind('data-message', function (el, name) {
