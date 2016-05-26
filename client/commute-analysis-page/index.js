@@ -1,7 +1,11 @@
-var alerts = require('../alerts')
+var crossfilter = require('crossfilter2').crossfilter
 var dc = require('dc')
 var d3 = require('d3')
-var crossfilter = require('crossfilter2').crossfilter
+var L = require('mapbox.js')
+
+require('leaflet-markercluster')
+
+var alerts = require('../alerts')
 var haversine = require('../../components/trevorgerhardt/haversine/master')
 var log = require('../log')('commute-analysis-page')
 var map = require('../map')
@@ -29,7 +33,7 @@ module.exports = function (ctx, next) {
     m.addLayer(ctx.location.mapMarker())
 
     if (ctx.location.commuterLocations.length > 0) {
-      var cluster = new window.L.MarkerClusterGroup()
+      var cluster = new L.MarkerClusterGroup()
       ctx.location.commuterLocations.forEach(function (cl) {
         if (cl._commuter.validCoordinate()) cluster.addLayer(cl._commuter.mapMarker())
       })
