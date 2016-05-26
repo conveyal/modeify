@@ -5,8 +5,8 @@ var showWalkThrough = require('../planner-walkthrough')
 var page = require('page')
 var view = require('../view')
 
-var aboutContent = require('../../deployment/about.md')
-var termsContent = require('../../deployment/terms.md')
+var aboutContent = require('../../configurations/default/about.md')
+var termsContent = require('../../configurations/default/terms.md')
 
 /**
  * Expose `View`
