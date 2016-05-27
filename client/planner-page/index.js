@@ -46,8 +46,7 @@ var View = view(require('./template.html'), function (view, model) {
 module.exports = function (ctx, next) {
   log('render')
 
-  var bikeshareLayer, transitiveLayer
-
+  var transitiveLayer
   var plan = ctx.session.plan()
   var query = querystring.parse(window.location.search)
 
@@ -71,11 +70,6 @@ module.exports = function (ctx, next) {
     // Show the map
     var map = showMapView(ctx.view.find('.MapView'))
 
-    if (config.bikeshare) {
-      // Create the bikeshare layer
-      bikeshareLayer = createBikeShareLayer(config.bikeshare().stations, map)
-    }
-
     // Create the transitive layer
     transitiveLayer = new LeafletTransitiveLayer(transitive)
 
@@ -83,7 +77,7 @@ module.exports = function (ctx, next) {
     map.addLayer(transitiveLayer)
 
     // Update map on plan change
-    updateMapOnPlanChange(plan, map, transitive, transitiveLayer, bikeshareLayer)
+    updateMapOnPlanChange(plan, map, transitive, transitiveLayer)
 
     // Clear plan & cookies for now, plan will re-save automatically on save
     plan.clearStore()
@@ -98,8 +92,6 @@ module.exports = function (ctx, next) {
 
   plan.on('updating options', function () {
     ctx.view.panelFooter.classList.add('hidden')
-
-    if (bikeshareLayer) bikeshareLayer.bringToBack()
   })
 
   plan.on('updating options complete', function (res) {
@@ -215,7 +207,7 @@ function showQuery (query) {
  * Update Map on plan change
  */
 
-function updateMapOnPlanChange (plan, map, transitive, transitiveLayer, bikeshareLayer) {
+function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
   // Register plan update events
   plan.on('change journey', function (journey) {
     if (journey && !isMobile) {
@@ -230,18 +222,29 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer, bikeshar
     }
   })
 
+  var bikeshareLayer = null
   plan.on('change bikeShare', function (bikeshare) {
-    console.log('changed bikeshare', bikeshare)
     if (config.bikeshare()) {
       if (bikeshare) {
-        bikeshareLayer.setStyle(function (feature) {
-          return {opacity: 0.5}
-        })
-      } else {
-        bikeshareLayer.setStyle(function (feature) {
-          return { opacity: 0 }
-        })
+        bikeshareLayer = renderBikeShareLayer(config.bikeshare().stations, map)
+      } else if (bikeshareLayer) {
+        map.removeLayer(bikeshareLayer)
+        bikeshareLayer = null
       }
+    }
+  })
+
+  if (config.bikeshare() && plan.bikeShare()) {
+    bikeshareLayer = renderBikeShareLayer(config.bikeshare().stations, map)
+  }
+
+  map.on('zoomend', function () {
+    if (bikeshareLayer) {
+      map.removeLayer(bikeshareLayer)
+    }
+
+    if (config.bikeshare() && plan.bikeShare()) {
+      bikeshareLayer = renderBikeShareLayer(config.bikeshare().stations, map)
     }
   })
 
@@ -283,20 +286,27 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer, bikeshar
 }) */
 }
 
-var cabiIcon = L.icon({
-  className: 'BikeShareStation-Icon',
-  opacity: 0.7,
-  iconUrl: config.static_url() + '/images/graphics/cabi-round.png',
-  iconSize: [15, 15]
-})
+var bikeshareLayerData = null
+function renderBikeShareLayer (url, map) {
+  let iconSize = [15, 15]
+  if (map.getZoom() < 12) {
+    iconSize = [1, 1]
+  } else if (map.getZoom() < 14) {
+    iconSize = [5, 5]
+  }
 
-function createBikeShareLayer (url, map) {
-  var layer = L.geoJson(undefined, {
+  var cabiIcon = L.icon({
+    className: 'BikeShareStation-Icon',
+    opacity: 0.5,
+    iconUrl: config.static_url() + '/images/graphics/cabi-round.png',
+    iconSize
+  })
+
+  var layer = window.LAYER = L.geoJson(undefined, {
     pointToLayer: function (feature, latlng) {
       return L.marker(latlng, {
         icon: cabiIcon,
-        title: feature.properties.name,
-        zIndexOffset: -1000
+        title: feature.properties.name
       })
     },
     onEachFeature: function (feature, layer) {
@@ -306,14 +316,18 @@ function createBikeShareLayer (url, map) {
     .addTo(map)
     .bringToBack()
 
-  superagent.get(url, function (err, res) {
-    if (err) {
-      console.error(err.stack)
-      return
-    }
-
-    layer.addData(JSON.parse(res.text))
-  })
+  if (bikeshareLayerData) {
+    layer.addData(bikeshareLayerData)
+  } else {
+    superagent.get(url, function (err, res) {
+      if (err) {
+        console.error(err.stack)
+        return
+      }
+      bikeshareLayerData = JSON.parse(res.text)
+      layer.addData(bikeshareLayerData)
+    })
+  }
 
   return layer
 }
