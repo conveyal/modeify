@@ -118,13 +118,17 @@ exports.modeToIcon = function (m) {
  */
 
 exports.routeToColor = function (type, agency, line, color) {
+  if (color) {
+    return `#${color}`
+  }
+
   if (agency === 'dc') {
     if (type === 1 || type === 'TRANSIT') return colors[line]
     return colors.metrobus
   }
 
-  if (colors[agency] || color) {
-    return colors[agency] || '#' + color
+  if (colors[agency]) {
+    return colors[agency]
   }
 
   return '#333'

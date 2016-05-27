@@ -6,11 +6,10 @@ const yml2js = require('js-yaml').load
 const path = require('path')
 
 let config = yml2js(read(path.join(__dirname, '/../configurations/default/settings.yml'), 'utf8'))
-for (let key in config.environments[env]) {
-  config[key] = config.environments[env][key] || config[key] || ''
-}
-for (let i = 0, key = process.argv[2].split('.'), len = path.length; i < len; i++) {
+config = Object.assign({}, config, config.environments[env])
+const key = process.argv[2].split('.')
+for (let i = 0; i < key.length; i++) {
   config = config[key[i]]
 }
 
-process.stdout.write(config)
+process.stdout.write(config || '')

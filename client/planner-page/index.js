@@ -1,4 +1,5 @@
 var querystring = require('component-querystring')
+var L = require('mapbox.js')
 var scrollbarSize = require('scrollbar-size')
 var superagent = require('superagent')
 
@@ -282,16 +283,17 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer, bikeshar
 }) */
 }
 
-var cabiIcon = window.L.icon({
+var cabiIcon = L.icon({
   className: 'BikeShareStation-Icon',
-  iconUrl: config.static_url() + '/images/graphics/cabi.png',
-  iconSize: [17.25, 15]
+  opacity: 0.7,
+  iconUrl: config.static_url() + '/images/graphics/cabi-round.png',
+  iconSize: [15, 15]
 })
 
 function createBikeShareLayer (url, map) {
-  var layer = window.L.geoJson(undefined, {
+  var layer = L.geoJson(undefined, {
     pointToLayer: function (feature, latlng) {
-      return window.L.marker(latlng, {
+      return L.marker(latlng, {
         icon: cabiIcon,
         title: feature.properties.name,
         zIndexOffset: -1000
