@@ -5,6 +5,7 @@
 @import url("node_modules/leaflet-markercluster/MarkerCluster.css");
 @import url("node_modules/leaflet-markercluster/MarkerCluster.Default.css");
 @import url("node_modules/mapbox.js/theme/style.css");
+@import url("node_modules/pikaday/css/pikaday.css");
 @import url("components/conveyal/modeify-icons.css/0.0.1/icons.css");
 @import url("components/conveyal/transitive.js/master/style.css");
 @import url("CONFIG_PATH/style.css");

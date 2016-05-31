@@ -1,0 +1,65 @@
+{
+  "name": "modeify",
+  "scripts": {
+  },
+  "env": {
+    "COOKIE_SECRET": {
+      "required": true
+    },
+    "HEROKU_APP_ID": {
+      "required": true
+    },
+    "HEROKU_APP_NAME": {
+      "required": true
+    },
+    "HEROKU_RELEASE_CREATED_AT": {
+      "required": true
+    },
+    "HEROKU_RELEASE_VERSION": {
+      "required": true
+    },
+    "HEROKU_SLUG_COMMIT": {
+      "required": true
+    },
+    "HEROKU_SLUG_DESCRIPTION": {
+      "required": true
+    },
+    "LOGENTRIES_TOKEN": {
+      "required": true
+    },
+    "MODEIFY_CONFIG": {
+      "required": true
+    },
+    "MONGODB_URL": {
+      "required": true
+    },
+    "NODE_ENV": {
+      "required": true
+    },
+    "PORT": {
+      "required": true
+    },
+    "STORMPATH_APPLICATION_HREF": {
+      "required": true
+    },
+    "STORMPATH_CLIENT_APIKEY_ID": {
+      "required": true
+    },
+    "STORMPATH_CLIENT_APIKEY_SECRET": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+    "sparkpost"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
