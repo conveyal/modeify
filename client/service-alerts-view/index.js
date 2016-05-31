@@ -1,3 +1,5 @@
+var moment = require('moment')
+
 var view = require('../view')
 var session = require('../session')
 
@@ -23,8 +25,11 @@ View.prototype['alerts-view'] = function () {
 }
 
 module.exports = function () {
-  var activeAlerts = session.serviceAlerts().filter(function () {
-    return true
+  var activeAlerts = session.serviceAlerts().filter(function (alert) {
+    var today = moment()
+    var fromDate = moment(alert.fromDate)
+    var toDate = moment(alert.toDate)
+    return !fromDate.isAfter(today) && !toDate.isBefore(today)
   })
 
   return new View({
