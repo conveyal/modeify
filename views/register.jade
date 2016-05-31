@@ -4,13 +4,14 @@ block vars
   - var description = 'Create a new account.'
   - var bodytag = 'register'
 
+
 block body
   .container.custom-container
     .va-wrapper
       .view.registration-view.container
         .box.row
           img.--navbar-background-color.nav-logo(src='#{static_url}/images/application/nav-logo.png')
-            
+
           .col-sm-12
             .header
               span Create Account
@@ -23,15 +24,19 @@ block body
               .alert.alert-danger
                 each error in formErrors
                   p #{error.error}
-    
+
             form.registration-form.form-horizontal.sp-form(method='post', role='form')
               each field in formModel.fields
                 div(form-group='true', class='form-group group-#{field.name}')
                   label.col-sm-4 #{field.label}
                   .col-sm-8
                     - var value = form ? form[field.name] : '';
-                    input.form-control(placeholder=field.placeholder, name=field.name, value=value, required=field.required, type=field.type)
+                    input.form-control(placeholder=field.placeholder, id=field.name, name=field.name, value=value, required=field.required, type=field.type)
 
               button.btn.btn-register.btn-sp-green(type='submit') Create Account
 
         a.to-login(href=stormpathConfig.web.login.uri) Back to Log In
+
+  script(type="text/javascript").
+    var code = location.search.split('registrationCode=')[1]
+    if(code) document.getElementById('registrationCode').value = code;
