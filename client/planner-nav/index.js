@@ -19,10 +19,14 @@ var View = module.exports = view(require('./template.html'))
  */
 
 View.prototype.scrollToTop = function (e) {
-  e.preventDefault()
-  document
-    .getElementById('scrollable')
-    .scrollTop = 0
+  if (e.target.href) { // Let it go through when clicking a link
+    window.open(e.target.href, '_blank')
+  } else {
+    e.preventDefault()
+    document
+      .getElementById('scrollable')
+      .scrollTop = 0
+  }
 }
 
 View.prototype.showMenu = function () {
