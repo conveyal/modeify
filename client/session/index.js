@@ -167,7 +167,6 @@ session.load = function (ctx, next) {
         if (err) {
           console.log('error loading service alerts', err)
         }
-        console.log('>> got alerts ', alerts)
         session.serviceAlerts(alerts)
         next(null, session)
       })
