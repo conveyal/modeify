@@ -20,10 +20,7 @@ var View = view(require('./template.html'), function (view, model) {
     field: fromDateInput,
     defaultDate: defaultFromDate.toDate(),
     setDefaultDate: defaultFromDate.toDate(),
-    format: displayFormat,
-    onSelect: function () {
-      view.updateRange()
-    }
+    format: displayFormat
   })
 
   var toDateInput = view.find('.toDate')
@@ -31,16 +28,11 @@ var View = view(require('./template.html'), function (view, model) {
     field: toDateInput,
     defaultDate: defaultToDate.toDate(),
     setDefaultDate: defaultToDate.toDate(),
-    format: displayFormat,
-    onSelect: function () {
-      view.updateRange()
-    }
+    format: displayFormat
   })
 })
 
 View.prototype.save = function (e) {
-  console.log('save alert', serialize(this.el))
-
   var serviceAlert = new ServiceAlert()
   serviceAlert.set(serialize(this.el))
   var text = serviceAlert.isNew() ? 'Created new alert.' : 'Saved changes to alert.'
@@ -61,7 +53,6 @@ View.prototype.save = function (e) {
 }
 
 View.prototype.delete = function (e) {
-  console.log('delete alert', e.target.attributes['data-id'].value)
   this.model.alerts.forEach(function (alert) {
     if (alert.get('_id') === e.target.attributes['data-id'].value) {
       if (window.confirm('Delete alert?')) {
@@ -90,7 +81,6 @@ View.prototype['alerts-view'] = function () {
 }
 
 module.exports = function (ctx, next) {
-  console.log('ALERTS: ', ctx.alerts)
   ctx.view = new View({
     alerts: ctx.alerts
   })
