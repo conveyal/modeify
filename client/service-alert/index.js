@@ -1,14 +1,15 @@
-var config = require('config')
-var log = require('./client/log')('service-alert')
-var model = require('model')
-var request = require('request')
+var model = require('component-model')
+
+var config = require('../config')
+var log = require('../log')('service-alert')
+var request = require('../request')
 
 /**
  * Expose `ServiceAlert`
  */
 
 var ServiceAlert = module.exports = model('ServiceAlert')
-  .use(require('model-query'))
+  .use(require('../../components/trevorgerhardt/model-query/0.3.0'))
   .route(config.api_url() + '/service-alerts')
   .attr('_id')
   .attr('text')

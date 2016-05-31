@@ -1,7 +1,7 @@
-var analytics = require('analytics')
-var each = require('each')
+var analytics = require('../analytics')
+var each = require('component-each')
 var hogan = require('hogan.js')
-var view = require('view')
+var view = require('../view')
 
 var resourceTemplate = hogan.compile(require('./resource.html'))
 

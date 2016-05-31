@@ -1,6 +1,6 @@
 
-var bind = require('event').bind
-  , indexOf = require('indexof');
+var bind = require('component-event').bind
+  , indexOf = require('component-indexof');
 
 
 /**

@@ -4,7 +4,7 @@
  */
 
 var debug = require('debug')('reactive:utils');
-var props = require('props');
+var props = require('component-props');
 var adapter = require('./adapter');
 
 /**

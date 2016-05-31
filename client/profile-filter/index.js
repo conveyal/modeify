@@ -1,4 +1,4 @@
-var profileFormatter = require('profile-formatter')
+var profileFormatter = require('../profile-formatter')
 
 var THIRTY_MINUTES = 30 * 60
 

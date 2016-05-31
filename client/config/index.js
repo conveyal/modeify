@@ -1,10 +1,9 @@
-var each = require('each')
+var each = require('component-each')
 
-/**
- * Expose `getters` for config vars
- */
+var config = JSON.parse(process.env.SETTINGS)
+config.env = process.env.NODE_ENV
 
-each(window.modeify.config, function (key, val) {
+each(config, function (key, val) {
   module.exports[key] = module.exports[key.toLowerCase()] = function () {
     return val
   }

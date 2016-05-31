@@ -1,6 +1,9 @@
-var config = require('config')
-var log = require('./client/log')('organization-page')
-var map = require('map')
+var L = require('mapbox.js')
+require('leaflet-markercluster')
+
+var config = require('../config')
+var log = require('../log')('organization-page')
+var map = require('../map')
 var View = require('./view')
 
 /**
@@ -41,7 +44,7 @@ module.exports = function (ctx, next) {
       zoom: 13
     })
 
-    var cluster = new window.L.MarkerClusterGroup()
+    var cluster = new L.MarkerClusterGroup()
     ctx.locations.forEach(function (l) {
       cluster.addLayer(l.mapMarker())
     })

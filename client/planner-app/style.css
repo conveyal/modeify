@@ -1,194 +1,42 @@
 
-/**
- * Custom Media Queries
- */
+@import url("node_modules/normalize.css/normalize.css");
+@import url("node_modules/bootstrap/dist/css/bootstrap.css");
+@import url("node_modules/font-awesome/css/font-awesome.css");
+@import url("node_modules/intro.js/introjs.css");
+@import url("node_modules/mapbox.js/theme/style.css");
+@import url("components/conveyal/modeify-icons.css/0.0.1/icons.css");
+@import url("components/conveyal/transitive.js/master/style.css");
+@import url("CONFIG_PATH/style.css");
 
-@custom-media --narrow-window screen and (max-width: 480px);
+@import url("client/planner-app/main.css");
 
-/**
- * Application Styling
- */
+@import url("components/segmentio/modal/0.4.1/lib/index.css");
+@import url("components/segmentio/overlay/0.2.4/lib/index.css");
 
-body {
-  -webkit-font-smoothing: antialiased;
-
-  font-size: var(--font-size);
-  font-weight: var(--font-weight);
-
-  color: var(--font-color);
-
-  background-color: var(--primary-color); /* for the tint */
-  background-image: linear-gradient(to bottom, var(--land-color) 0%, var(--land-color) 100%); /* for the body */
-}
-
-b, strong {
-  font-weight: var(--bold);
-}
-
-a {
-  color: var(--primary-color);
-  text-decoration: none;
-  font-weight: var(--bold);
-  cursor: pointer;
-}
-
-a:active,
-a:focus,
-a:hover {
-  color: color(var(--primary-color) shade(20%));
-  text-decoration: none;
-}
-
-.btn,
-.btn:active,
-.btn:focus,
-.btn:hover,
-.btn:visited,
-.introjs-button,
-.introjs-button:active,
-.introjs-button:focus,
-.introjs-button:hover,
-.introjs-button:visited {
-  background: var(--primary-button-background-color);
-  color: var(--primary-button-font-color);
-  outline: none;
-  border: none;
-  border-radius: var(--border-radius);
-}
-
-.btn:hover,
-.introjs-button:hover {
-  background-color: color(var(--primary-button-background-color) shade(10%));
-}
-
-.btn:active,
-.btn.active,
-.introjs-button:active {
-  background-color: color(var(--primary-button-background-color) shade(20%));
-}
-
-.btn-dark,
-.btn-dark:active,
-.btn-dark:focus,
-.btn-dark:hover,
-.btn-dark:visited {
-  background: var(--dark-button-background-color);
-  color: var(--dark-button-font-color);
-  outline: none;
-  border: none;
-}
-
-.btn-dark:hover {
-  background-color: color(var(--dark-button-background-color) shade(20%));
-}
-
-.btn-dark.active,
-.btn-dark:active {
-  background-color: color(var(--dark-button-background-color) shade(40%));
-}
-
-#main {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-
-  background-color: var(--land-color);
-}
-
-#main,
-.btn,
-.dropdown-menu,
-.form-control,
-.input-group-addon {
-  border-radius: var(--border-radius);
-}
-
-#main .Accounts {
-  margin: 35px 0;
-  padding-top: 35px;
-  background-image: url(/images/application/nav-logo.png);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: auto 100%;
-  height: 35px;
-}
-
-.logo {
-  background-image: url(/images/application/nav-logo.png);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: auto 100%;
-}
-
-.alert {
-  border-radius: var(--border-radius);
-  margin-bottom: 10px;
-}
-
-.centered {
-  text-align: center;
-}
-
-.outline-text {
-  text-shadow: -1px -1px 0 var(--font-color),
-    1px -1px 0 var(--font-color),
-    -1px 1px 0 var(--font-color),
-     1px 1px 0 var(--font-color);
-}
-
-p, h1, h2, h3, h4, h5, h6 {
-  font-weight: var(--font-weight);
-  color: var(--font-color);
-}
-
-h3 {
-  font-size: 18px;
-}
-
-h4 {
-  font-size: 16px;
-}
-
-p {
-  font-size: 14px;
-}
-
-.fa-spin {
-  animation: fa-spin 1s infinite linear;
-}
-
-/**
- * Font awesome rotations
- */
-
-.fa-north {
-  transform: rotate(270deg);
-}
-
-.fa-northeast {
-  transform: rotate(315deg);
-}
-
-.fa-east {
-}
-
-.fa-southeast {
-  transform: rotate(45deg);
-}
-
-.fa-south {
-  transform: rotate(90deg);
-}
-
-.fa-southwest {
-  transform: rotate(135deg);
-}
-
-.fa-west {
-  transform: rotate(180deg);
-}
-
-.fa-northwest {
-  transform: rotate(225deg);
-}
+@import url("client/announcements/style.css");
+@import url("client/commuter-profile/style.css");
+@import url("client/confirm-modal/style.css");
+@import url("client/feedback-modal/style.css");
+@import url("client/filter-view/style.css");
+@import url("client/help-me-choose-view/style.css");
+@import url("client/location-suggest/style.css");
+@import url("client/locations-view/style.css");
+@import url("client/map-view/style.css");
+@import url("client/markdown-modal/style.css");
+@import url("client/modal/style.css");
+@import url("client/options-view/style.css");
+@import url("client/planner-page/style.css");
+@import url("client/planner-nav/style.css");
+@import url("client/route-card-view/style.css");
+@import url("client/route-comparison-table/style.css");
+@import url("client/route-directions-table/style.css");
+@import url("client/route-modal/style.css");
+@import url("client/route-resources-view/style.css");
+@import url("client/route-summary-segments/style.css");
+@import url("client/share-view/style.css");
+@import url("client/sign-up-form/style.css");
+@import url("client/style-guide/style.css");
+@import url("client/transitive/style.css");
+@import url("client/welcome-flow/style.css");
+@import url("client/welcome-flow/welcome/style.css");
+@import url("client/welcome-flow/locations/style.css");

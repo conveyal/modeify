@@ -1,14 +1,14 @@
-var analytics = require('./client/analytics')
-var config = require('./client/config')
-var modal = require('./client/modal')
-var RideshareSignUp = require('./client/rideshare-sign-up')
-var RouteComparisonTable = require('route-comparison-table')
-var RouteResourcesView = require('route-resources-view')
-var routeSummarySegments = require('route-summary-segments')
-var session = require('session')
-var SignUpForm = require('sign-up-form')
+var analytics = require('../analytics')
+var modal = require('../modal')
+var RideshareSignUp = require('../rideshare-sign-up')
+var RouteComparisonTable = require('../route-comparison-table')
+var RouteResourcesView = require('../route-resources-view')
+var routeSummarySegments = require('../route-summary-segments')
+var session = require('../session')
+var SignUpForm = require('../sign-up-form')
 var hogan = require('hogan.js')
-var each = require('each')
+var each = require('component-each')
+
 /**
  * Create `Modal`
  */
@@ -31,10 +31,6 @@ var RouteModal = module.exports = modal({
     })
   }
 })
-
-RouteModal.prototype.commuterConnectionsLogo = function () {
-  return config.static_url() + '/images/application/commuter-connections.png'
-}
 
 RouteModal.prototype.next = function (e) {
   e.preventDefault()

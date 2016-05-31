@@ -1,13 +1,14 @@
-var request = require('./client/request')
 var Pikaday = require('pikaday')
 var moment = require('moment')
-var serialize = require('serialize')
 var page = require('page')
 
-var alerts = require('alerts') // onscreen notifications
-var textModal = require('text-modal')
-var view = require('view')
-var ServiceAlert = require ('service-alert')
+var serialize = require('../../components/trevorgerhardt/serialize/0.0.1')
+var request = require('../request')
+var alerts = require('../alerts') // onscreen notifications
+var textModal = require('../text-modal')
+var view = require('../view')
+var ServiceAlert = require ('../service-alert')
+
 var AlertRow = require('./row')
 
 var displayFormat = 'MM-DD-YYYY'

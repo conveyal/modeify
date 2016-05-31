@@ -1,10 +1,10 @@
-var Alert = require('alert')
-var analytics = require('analytics')
-var log = require('./client/log')('feedback-modal')
-var message = require('./client/messages')('feedback-modal')
-var modal = require('./client/modal')
-var request = require('./client/request')
-var session = require('session')
+var Alert = require('../alert')
+var analytics = require('../analytics')
+var log = require('../log')('feedback-modal')
+var message = require('../messages')('feedback-modal')
+var modal = require('../modal')
+var request = require('../request')
+var session = require('../session')
 
 /**
  * Expose `Modal`

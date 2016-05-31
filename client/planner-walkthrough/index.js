@@ -1,4 +1,4 @@
-var config = require('config')
+var config = require('../config')
 var introJs = require('intro.js').introJs
 
 /**

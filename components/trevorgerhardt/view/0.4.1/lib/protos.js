@@ -1,6 +1,6 @@
 
-var Classes = require('classes');
-var Emitter = require('emitter');
+var Classes = require('../../../../ianstormtaylor/classes/0.1.0');
+var Emitter = require('component-emitter');
 
 
 /**

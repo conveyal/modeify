@@ -1,13 +1,13 @@
 #!/bin/sh
 
 DIR=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
-DEP="$DIR/../deployment"
+DEP="$DIR/../configurations/default"
 APP="$DIR/../assets/images/application"
 
-mkdir -p $DEP
 mkdir -p $APP
 
-cp -r $1/* $DEP
-cp -r $1/images/* $APP
+rm -f $DEP
+rm -rf $APP/*
 
-source $DEP/env
+ln -s ../$1 $DEP
+cp -r $1/images/* $APP

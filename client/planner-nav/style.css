@@ -10,13 +10,13 @@ nav {
 }
 
 nav .logo {
-  background-image: url("/assets/images/application/nav-logo.png");
+  background-image: url(/assets/images/application/nav-logo.png);
   background-position: 8px 10px;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 44px;
   display: inline-block;
-  width: 40%;
+  width: 50%;
 }
 
 .--navbar-background-color {

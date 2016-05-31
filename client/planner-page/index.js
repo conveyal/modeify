@@ -1,20 +1,23 @@
-var config = require('config')
-var FilterView = require('filter-view')
-var HelpMeChoose = require('help-me-choose-view')
-var LeafletTransitiveLayer = require('Leaflet.TransitiveLayer')
-var LocationsView = require('locations-view')
-var log = require('./client/log')('planner-page')
-var showMapView = require('map-view')
-var OptionsView = require('options-view')
-var PlannerNav = require('planner-nav')
-var querystring = require('querystring')
+var querystring = require('component-querystring')
+var L = require('mapbox.js')
 var scrollbarSize = require('scrollbar-size')
-var session = require('session')
-var transitive = require('transitive')
-var ua = require('user-agent')
-var view = require('view')
-var showWelcomeWizard = require('welcome-flow')
-var ServiceAlertsView = require('service-alerts-view')
+var superagent = require('superagent')
+
+var config = require('../config')
+var FilterView = require('../filter-view')
+var HelpMeChoose = require('../help-me-choose-view')
+var LeafletTransitiveLayer = require('leaflet-transitivelayer')
+var LocationsView = require('../locations-view')
+var log = require('../log')('planner-page')
+var showMapView = require('../map-view')
+var OptionsView = require('../options-view')
+var PlannerNav = require('../planner-nav')
+var Share = require('../share-view')
+var session = require('../session')
+var transitive = require('../transitive')
+var ua = require('../user-agent')
+var view = require('../view')
+var showWelcomeWizard = require('../welcome-flow')
 
 var FROM = config.geocode().start_address
 var TO = config.geocode().end_address
@@ -43,6 +46,7 @@ var View = view(require('./template.html'), function (view, model) {
 module.exports = function (ctx, next) {
   log('render')
 
+  var transitiveLayer
   var plan = ctx.session.plan()
   var query = querystring.parse(window.location.search)
 
@@ -68,7 +72,7 @@ module.exports = function (ctx, next) {
     var map = showMapView(ctx.view.find('.MapView'))
 
     // Create the transitive layer
-    var transitiveLayer = new LeafletTransitiveLayer(transitive)
+    transitiveLayer = new LeafletTransitiveLayer(transitive)
 
     // Set the transitive layer
     map.addLayer(transitiveLayer)
@@ -143,6 +147,14 @@ View.prototype.helpMeChoose = function (e) {
 }
 
 /**
+ * Share
+ */
+
+View.prototype.share = function (e) {
+  Share(session.plan().options()).show()
+}
+
+/**
  * Show Journey
  */
 
@@ -211,6 +223,32 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
     }
   })
 
+  var bikeshareLayer = null
+  plan.on('change bikeShare', function (bikeshare) {
+    if (config.bikeshare()) {
+      if (bikeshare) {
+        bikeshareLayer = renderBikeShareLayer(config.bikeshare().stations, map)
+      } else if (bikeshareLayer) {
+        map.removeLayer(bikeshareLayer)
+        bikeshareLayer = null
+      }
+    }
+  })
+
+  if (config.bikeshare() && plan.bikeShare()) {
+    bikeshareLayer = renderBikeShareLayer(config.bikeshare().stations, map)
+  }
+
+  map.on('zoomend', function () {
+    if (bikeshareLayer) {
+      map.removeLayer(bikeshareLayer)
+    }
+
+    if (config.bikeshare() && plan.bikeShare()) {
+      bikeshareLayer = renderBikeShareLayer(config.bikeshare().stations, map)
+    }
+  })
+
 /* plan.on('change matches', function (matches) {
   if (matchedFeatures) {
     map.removeLayer(matchedFeatures)
@@ -247,4 +285,50 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
     matchedFeatures.addTo(map)
   }
 }) */
+}
+
+var bikeshareLayerData = null
+function renderBikeShareLayer (url, map) {
+  let iconSize = [15, 15]
+  if (map.getZoom() < 12) {
+    iconSize = [1, 1]
+  } else if (map.getZoom() < 14) {
+    iconSize = [5, 5]
+  }
+
+  var cabiIcon = L.icon({
+    className: 'BikeShareStation-Icon',
+    opacity: 0.5,
+    iconUrl: config.static_url() + '/images/graphics/cabi-round.png',
+    iconSize
+  })
+
+  var layer = window.LAYER = L.geoJson(undefined, {
+    pointToLayer: function (feature, latlng) {
+      return L.marker(latlng, {
+        icon: cabiIcon,
+        title: feature.properties.name
+      })
+    },
+    onEachFeature: function (feature, layer) {
+      layer.bindPopup(feature.properties.name)
+    }
+  })
+    .addTo(map)
+    .bringToBack()
+
+  if (bikeshareLayerData) {
+    layer.addData(bikeshareLayerData)
+  } else {
+    superagent.get(url, function (err, res) {
+      if (err) {
+        console.error(err.stack)
+        return
+      }
+      bikeshareLayerData = JSON.parse(res.text)
+      layer.addData(bikeshareLayerData)
+    })
+  }
+
+  return layer
 }

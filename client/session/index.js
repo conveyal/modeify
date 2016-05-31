@@ -1,14 +1,14 @@
-var analytics = require('analytics')
-var store = require('browser-store')
-var Commuter = require('commuter')
-var log = require('./client/log')('session')
-var defaults = require('model-defaults')
-var model = require('model')
+var analytics = require('../analytics')
+var store = require('../browser-store')
+var Commuter = require('../commuter')
+var log = require('../log')('session')
+var defaults = require('../../components/segmentio/model-defaults/0.2.0')
+var model = require('component-model')
 var page = require('page')
-var Plan = require('plan')
-var request = require('./client/request')
+var Plan = require('../plan')
+var request = require('../request')
 var superagent = require('superagent')
-var User = require('user')
+var User = require('../user')
 
 /**
  * Deafult session settings

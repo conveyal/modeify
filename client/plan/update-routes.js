@@ -1,12 +1,12 @@
-var analytics = require('analytics')
-var haversine = require('haversine')
-var log = require('./client/log')('plan:update-routes')
-var message = require('./client/messages')('plan:update-routes')
+var analytics = require('../analytics')
+var haversine = require('../../components/trevorgerhardt/haversine/master')
+var log = require('../log')('plan:update-routes')
+var message = require('../messages')('plan:update-routes')
 var otpProfileToTransitive = require('otp-profile-to-transitive')
-var profileFilter = require('profile-filter')
-var profileFormatter = require('profile-formatter')
-var request = require('request')
-var Route = require('route')
+var profileFilter = require('../profile-filter')
+var profileFormatter = require('../profile-formatter')
+var request = require('../request')
+var Route = require('../route')
 
 /**
  * Expose `updateRoutes`

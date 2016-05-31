@@ -1,5 +1,5 @@
-var config = require('config')
-var convert = require('convert')
+var config = require('../config')
+var convert = require('../convert')
 
 function isBikeshareStation (place) {
   return place.place_id.lastIndexOf('bicycle_rent_station') !== -1
@@ -53,7 +53,6 @@ exports.segments = {
   // override the default stroke color
   stroke: function (display, segment) {
     if (!segment.focused) return
-
     switch (segment.type) {
       case 'CAR':
       case 'CAR_PARK':
@@ -69,7 +68,8 @@ exports.segments = {
           var id = route.route_id.split(':')
           var agency = id[0].toLowerCase()
           var line = id[1].toLowerCase()
-          return convert.routeToColor(segment.type, agency, line, route.route_color)
+          const color = convert.routeToColor(segment.type, agency, line, route.route_color)
+          return color
         }
     }
   },

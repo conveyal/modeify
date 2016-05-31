@@ -1,7 +1,7 @@
-var config = require('config')
+var config = require('../config')
 var debug = require('debug')
-var fmt = require('fmt')
-var request = require('./client/request')
+var fmt = require('../../components/yields/fmt/0.1.0')
+var request = require('../request')
 
 /**
  * Format Errors

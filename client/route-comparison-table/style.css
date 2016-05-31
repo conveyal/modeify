@@ -35,19 +35,19 @@
 }
 
 .RouteComparisonTable .money-icon {
-	background-image: url(/images/graphics/money.png);
+	background-image: url(/assets/images/graphics/money.png);
 }
 
 .RouteComparisonTable .scale-icon {
-	background-image: url(/images/graphics/scale.png);
+	background-image: url(/assets/images/graphics/scale.png);
 }
 
 .RouteComparisonTable .leaf-icon {
-	background-image: url(/images/graphics/leaf.png);
+	background-image: url(/assets/images/graphics/leaf.png);
 }
 
 .RouteComparisonTable .book-icon {
-	background-image: url(/images/graphics/book.png);
+	background-image: url(/assets/images/graphics/book.png);
 }
 
 .RouteComparisonTable > .personal-time > .category-icon {

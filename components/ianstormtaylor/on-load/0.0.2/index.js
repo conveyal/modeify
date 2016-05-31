@@ -1,5 +1,5 @@
 
-var callback = require('callback');
+var callback = require('../../callback/0.0.1');
 
 
 /**

@@ -3,9 +3,9 @@
  * dependencies
  */
 
-var has = require('has-transitions')
-  , emitter = require('css-emitter')
-  , once = require('once');
+var has = require('../../has-transitions/1.0.0')
+  , emitter = require('css-emitter-component')
+  , once = require('once-component');
 
 /**
  * Transition support.

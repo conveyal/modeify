@@ -73,10 +73,11 @@
   box-shadow: 0 -2px 2px -1px rgba(0, 0, 0, 0.3);
   width: 100%;
   line-height: 32px;
+  padding-left: 8px;
 }
 
 .SidePanel .footer .btn {
-  margin: 6px 8px;
+  margin: 6px 0;
 }
 
 .SidePanel .footer .more-options {
@@ -87,4 +88,8 @@
   line-height: 44px;
   text-align: right;
   padding: 0 12px 0 16px;
+}
+
+.BikeShareStation-Icon {
+
 }

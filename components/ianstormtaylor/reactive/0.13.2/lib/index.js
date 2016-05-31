@@ -9,7 +9,7 @@ var debug = require('debug')('reactive');
 var bindings = require('./bindings');
 var Binding = require('./binding');
 var utils = require('./utils');
-var query = require('query');
+var query = require('component-query');
 
 /**
  * Expose `Reactive`.
