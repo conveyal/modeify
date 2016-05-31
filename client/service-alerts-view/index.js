@@ -8,11 +8,11 @@ var AlertRow = require('./row')
  */
 
 var View = view(require('./template.html'), function (view, model) {
-  console.log('s-a-v init', model);
+  console.log('s-a-v init', model)
 })
 
 View.prototype.hasAlerts = function () {
-  console.log('hasAlerts?', this.model);
+  console.log('hasAlerts?', this.model)
   return this.model.alerts && this.model.alerts.length > 0
 }
 
@@ -25,11 +25,11 @@ View.prototype['alerts-view'] = function () {
 }
 
 module.exports = function () {
-  var activeAlerts = session.serviceAlerts().filter(function() {
+  var activeAlerts = session.serviceAlerts().filter(function () {
     return true
   })
 
-  console.log("alerts-view: ", activeAlerts)
+  console.log('alerts-view: ', activeAlerts)
   return new View({
     alerts: activeAlerts
   })

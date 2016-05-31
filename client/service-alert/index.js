@@ -1,8 +1,6 @@
 var model = require('component-model')
 
 var config = require('../config')
-var log = require('../log')('service-alert')
-var request = require('../request')
 
 /**
  * Expose `ServiceAlert`

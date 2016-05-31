@@ -18,6 +18,7 @@ var transitive = require('../transitive')
 var ua = require('../user-agent')
 var view = require('../view')
 var showWelcomeWizard = require('../welcome-flow')
+var ServiceAlertsView = require('../options-view')
 
 var FROM = config.geocode().start_address
 var TO = config.geocode().end_address
