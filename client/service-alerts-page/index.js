@@ -72,10 +72,6 @@ View.prototype.delete = function (e) {
   })
 }
 
-View.prototype.formatFromDate = function (e) {
-  console.log('formatFromDate', e)
-}
-
 View.prototype['alerts-view'] = function () {
   return AlertRow
 }
