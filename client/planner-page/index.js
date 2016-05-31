@@ -224,7 +224,7 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
 
   var bikeshareLayer = null
   plan.on('change bikeShare', function (bikeshare) {
-    if (config.bikeshare()) {
+    if (config.bikeshare) {
       if (bikeshare) {
         bikeshareLayer = renderBikeShareLayer(config.bikeshare().stations, map)
       } else if (bikeshareLayer) {
@@ -234,7 +234,7 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
     }
   })
 
-  if (config.bikeshare() && plan.bikeShare()) {
+  if (config.bikeshare && plan.bikeShare()) {
     bikeshareLayer = renderBikeShareLayer(config.bikeshare().stations, map)
   }
 
@@ -243,7 +243,7 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
       map.removeLayer(bikeshareLayer)
     }
 
-    if (config.bikeshare() && plan.bikeShare()) {
+    if (config.bikeshare && plan.bikeShare()) {
       bikeshareLayer = renderBikeShareLayer(config.bikeshare().stations, map)
     }
   })
