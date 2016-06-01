@@ -26,6 +26,7 @@ b, strong {
 
 a {
   color: var(--primary-color);
+  text-decoration: none;
   font-weight: var(--bold);
   cursor: pointer;
 }
@@ -35,6 +36,18 @@ a:focus,
 a:hover {
   color: color(var(--primary-color) shade(20%));
   text-decoration: none;
+}
+
+a.text-link {
+  border-bottom: 1px solid var(--text-link-color);
+  color: var(--text-link-color);
+}
+
+a.text-link:active,
+a.text-link:focus,
+a.text-link:hover {
+  border-bottom: 1px solid color(var(--text-link-color) shade(20%));
+  color: color(var(--text-link-color) shade(20%));
 }
 
 .btn,
