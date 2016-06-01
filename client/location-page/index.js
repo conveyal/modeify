@@ -1,7 +1,7 @@
 var filePicker = require('component-file-picker')
 var L = require('mapbox.js')
 
-require('leaflet-markercluster')
+require('leaflet.markercluster')
 
 var csvToArray = require('../../components/trevorgerhardt/csv-to-array/0.0.2')
 var file = require('component-file')
@@ -31,10 +31,9 @@ module.exports = function (ctx, next) {
     if (ctx.location.commuterLocations.length > 0) {
       var cluster = new L.MarkerClusterGroup()
       ctx.location.commuterLocations.forEach(function (cl) {
-        m.addLayer(cl._commuter.mapMarker()) // temporary until marker cluster issue resolved
-        /* if (cl._commuter.validCoordinate()) {
+        if (cl._commuter.validCoordinate()) {
           cluster.addLayer(cl._commuter.mapMarker())
-        }*/
+        }
       })
 
       if (cluster.getBounds()._northEast) {

@@ -3,7 +3,7 @@ var dc = require('dc')
 var d3 = require('d3')
 var L = require('mapbox.js')
 
-require('leaflet-markercluster')
+require('leaflet.markercluster')
 
 var alerts = require('../alerts')
 var haversine = require('../../components/trevorgerhardt/haversine/master')
