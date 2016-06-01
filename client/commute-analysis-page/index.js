@@ -1,4 +1,4 @@
-var crossfilter = require('crossfilter2').crossfilter
+var crossfilter = require('crossfilter2')
 var dc = require('dc')
 var d3 = require('d3')
 var L = require('mapbox.js')
@@ -51,90 +51,95 @@ var View = view(require('./template.html'), function (view, model) {
   var scorer = new ProfileScorer()
 
   view.on('rendered', function () {
-    var profiles = model.commuterLocations
-      .filter(function (cl) {
-        return cl.profile && cl.profile.options
-      })
-      .map(function (cl) {
-        var profile = scorer.processOptions(cl.profile.options)[0]
-        var matches = cl.matches || []
-        var to = cl._location.coordinate()
-        var from = cl._commuter.coordinate()
-        return {
-          commuter: (cl._commuter.givenName() && cl._commuter.surname()) ? cl._commuter.givenName() + ' ' + cl._commuter.surname() : cl._commuter.email(),
-          calories: parseInt(profile.calories, 10),
-          cost: profile.cost.toFixed(2),
-          distance: parseFloat(haversine(from.lat, from.lng, to.lat, to.lng, true).toFixed(2)),
-          mode: profile.modes.join(', '),
-          score: profile.score,
-          time: parseInt(profile.time / 60, 10),
-          matches: matches.length
-        }
-      })
+    try {
+      var profiles = model.commuterLocations
+        .filter(function (cl) {
+          return cl.profile && cl.profile.options
+        })
+        .map(function (cl) {
+          var profile = scorer.processOptions(cl.profile.options)[0]
+          var matches = cl.matches || []
+          var to = cl._location.coordinate()
+          var from = cl._commuter.coordinate()
+          return {
+            commuter: (cl._commuter.givenName() && cl._commuter.surname()) ? cl._commuter.givenName() + ' ' + cl._commuter.surname() : cl._commuter.email(),
+            calories: parseInt(profile.calories, 10),
+            cost: profile.cost.toFixed(2),
+            distance: parseFloat(haversine(from.lat, from.lng, to.lat, to.lng, true).toFixed(2)),
+            mode: profile.modes.join(', '),
+            score: profile.score,
+            time: parseInt(profile.time / 60, 10),
+            matches: matches.length
+          }
+        })
 
-    var ndx = crossfilter(profiles)
-    var bar = dc.barChart('.time-bar-chart')
-    var pie = dc.pieChart('.mode-split-pie-chart')
-    var table = dc.dataTable('.commuter-data-table')
+      var ndx = crossfilter(profiles)
 
-    var modeDimension = ndx.dimension(function (d) { return d.mode })
-    var timeD = ndx.dimension(function (d) { return d.time })
-    var nameD = ndx.dimension(function (d) { return d.name })
+      var bar = dc.barChart('.time-bar-chart')
+      var pie = dc.pieChart('.mode-split-pie-chart')
+      var table = dc.dataTable('.commuter-data-table')
 
-    pie
-      .width(160)
-      .height(160)
-      .dimension(modeDimension)
-      .group(modeDimension.group())
+      var modeDimension = ndx.dimension(function (d) { return d.mode })
+      var timeD = ndx.dimension(function (d) { return d.time })
+      var nameD = ndx.dimension(function (d) { return d.name })
 
-    bar
-      .width(400)
-      .height(190)
-      .brushOn(false)
-      .x(d3.scale.linear().domain([0, 60]))
-      .dimension(timeD)
-      .group(timeD.group(function (t) { return t }))
+      pie
+        .width(160)
+        .height(160)
+        .dimension(modeDimension)
+        .group(modeDimension.group())
 
-    table
-      .dimension(nameD)
-      .group(function (d) { return true })
-      .columns([
-        'commuter',
-        'mode',
-        'time',
-        'distance',
-        'cost',
-        'calories',
-        'matches'
-      ])
-      .size(100)
-      .sortBy(function (d) {
-        return d.score
-      })
+      bar
+        .width(400)
+        .height(190)
+        .brushOn(false)
+        .x(d3.scale.linear().domain([0, 60]))
+        .dimension(timeD)
+        .group(timeD.group(function (t) { return t }))
 
-    pie.render()
-    bar.render()
-    table.render()
+      table
+        .dimension(nameD)
+        .group(function (d) { return true })
+        .columns([
+          'commuter',
+          'mode',
+          'time',
+          'distance',
+          'cost',
+          'calories',
+          'matches'
+        ])
+        .size(100)
+        .sortBy(function (d) {
+          return d.score
+        })
 
-    var $costAvg = view.find('#costAverage')
-    var $costPYAvg = view.find('#costPerYearAverage')
-    var $timeAvg = view.find('#timeAverage')
-    var $distanceAvg = view.find('#distanceAverage')
+      pie.render()
+      bar.render()
+      table.render()
 
-    var costAvg = profiles.reduce(function (total, p) {
-      return total + parseFloat(p.cost)
-    }, 0) / profiles.length
-    var distAvg = profiles.reduce(function (total, p) {
-      return total + p.distance
-    }, 0) / profiles.length
-    var timeAvg = profiles.reduce(function (total, p) {
-      return total + p.time
-    }, 0) / profiles.length
+      var $costAvg = view.find('#costAverage')
+      var $costPYAvg = view.find('#costPerYearAverage')
+      var $timeAvg = view.find('#timeAverage')
+      var $distanceAvg = view.find('#distanceAverage')
 
-    $costAvg.textContent = '$' + costAvg.toFixed(2)
-    $costPYAvg.textContent = '$' + parseInt(costAvg * 470, 10)
-    $timeAvg.textContent = parseInt(timeAvg, 10) + ' min'
-    $distanceAvg.textContent = distAvg.toFixed(2) + ' mi'
+      var costAvg = profiles.reduce(function (total, p) {
+        return total + parseFloat(p.cost)
+      }, 0) / profiles.length
+      var distAvg = profiles.reduce(function (total, p) {
+        return total + p.distance
+      }, 0) / profiles.length
+      var timeAvg = profiles.reduce(function (total, p) {
+        return total + p.time
+      }, 0) / profiles.length
+
+      $costAvg.textContent = '$' + costAvg.toFixed(2)
+      $costPYAvg.textContent = '$' + parseInt(costAvg * 470, 10)
+      $timeAvg.textContent = parseInt(timeAvg, 10) + ' min'
+      $distanceAvg.textContent = distAvg.toFixed(2) + ' mi'
+    } catch (err) {
+      console.log('Error generating commute analysis', err)
+    }
   })
 })
 
