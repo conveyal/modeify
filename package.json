@@ -95,6 +95,7 @@
     "mouseenter": "^1.0.0",
     "mouseleave": "^1.0.0",
     "myth": "^1.5.0",
+    "nodemon": "^1.9.2",
     "normalize.css": "^4.1.1",
     "npm-run-all": "^2.1.1",
     "once-component": "0.0.1",
@@ -129,7 +130,7 @@
     "lint:lib": "mastarm lint lib/**/*.js",
     "push-config": "bin/push-config-to-heroku",
     "push-heroku": "git push $(node bin/config-val heroku)",
-    "start": "node lib/server.js",
+    "start": "nodemon --watch lib lib/server.js",
     "sync": "aws s3 sync assets $(node bin/config-val s3Bucket) --acl public-read",
     "test": "npm-run-all lint:*"
   }
