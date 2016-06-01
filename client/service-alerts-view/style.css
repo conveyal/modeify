@@ -1,0 +1,14 @@
+
+.ServiceAlerts {
+  background-color: #f2dede;
+  padding: 5px 10px;
+}
+
+.ServiceAlerts a {
+	color: #a94442;
+	font-weight: normal;
+}
+
+.ServiceAlerts i {
+	color: #a94442;
+}

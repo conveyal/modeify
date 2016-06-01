@@ -7,6 +7,8 @@ var Ridepool = require('../ridepool')
 var RidepoolForm = require('../ridepool-form')
 var Organization = require('../organization')
 var organizationForm = require('../organization-form')
+var ServiceAlert = require('../service-alert')
+
 var p = require('page')
 var session = require('../session')
 var User = require('../user')
@@ -75,6 +77,10 @@ p('/feedback', session.touch, require('../feedback-table-page'))
 // User Signups
 
 p('/user-activity', session.touch, require('../user-activity-page'))
+
+// Alerts
+
+p('/alerts', session.touch, ServiceAlert.loadAll, require('../service-alerts-page'))
 
 // Render all
 

@@ -1,0 +1,36 @@
+.pika-prev,
+.is-rtl .pika-next {
+  background-image: url(/assets/images/graphics/arrow-left.svg);
+}
+
+.pika-next,
+.is-rtl .pika-prev {
+  background-image: url(/assets/images/graphics/arrow-right.svg);
+}
+
+.serviceAlertPreviewContainer {
+  margin-bottom: 16px;
+}
+
+.serviceAlertPreview {
+  background-color: #f2dede;
+  padding: 7px 10px;
+  margin-right: 45px;
+  border-radius: 2px;
+  border: #ebcccc;
+}
+
+.serviceAlertPreview a {
+    color: #a94442;
+}
+
+.serviceAlertDelete {
+  text-align: right;
+  float: right;
+  width: 40px;
+}
+
+.serviceAlertFooter {
+  margin-top: 5px;
+  font-style: italic;
+}
