@@ -11,7 +11,7 @@ var ServiceAlert = module.exports = model('ServiceAlert')
   .route(config.api_url() + '/service-alerts')
   .attr('_id')
   .attr('text')
-  .attr('alert_url')
+  .attr('alertUrl')
   .attr('fromDate')
   .attr('toDate')
 
