@@ -46,14 +46,15 @@ module.exports = function (ctx, next) {
 
     var cluster = new L.MarkerClusterGroup()
     ctx.locations.forEach(function (l) {
-      cluster.addLayer(l.mapMarker())
+      m.addLayer(l.mapMarker())
+      // cluster.addLayer(l.mapMarker())
     })
 
     m.addLayer(cluster)
 
-    if (ctx.locations.length > 0) {
+    /* if (ctx.locations.length > 0) {
       m.fitLayers([m.featureLayer, cluster])
-    }
+    }*/
   })
 
   next()
