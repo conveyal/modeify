@@ -1,9 +1,8 @@
 var filePicker = require('component-file-picker')
 var L = require('mapbox.js')
-
+var parse = require('csv-parse/lib/sync')
 require('leaflet.markercluster')
 
-var csvToArray = require('../../components/trevorgerhardt/csv-to-array/0.0.2')
 var file = require('component-file')
 var log = require('../log')('location-page')
 var map = require('../map')
@@ -71,7 +70,7 @@ View.prototype.parseCSV = function (e) {
     csv.toText(function (err, text) {
       if (err) log.error(err)
       spinner.remove()
-      var commuters = csvToArray(text)
+      var commuters = parse(text, {columns: true})
       view.showConfirmUpload(commuters.filter(function (commuter) {
         return commuter.email && commuter.email.length >= 5
       }))
