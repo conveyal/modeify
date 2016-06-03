@@ -111,3 +111,45 @@ View.prototype.sendPlansAndMatches = function () {
     }
   })
 }
+
+View.prototype.downloadMatches = function () {
+  let csvContent = 'data:text/csv;charset=utf-8,'
+  csvContent += 'commuter1_first,commuter1_last,commuter1_email,commuter2_first,commuter2_last,commuter2_email,distance\n'
+
+  let matchedKeys = []
+
+  this.model.commuterLocations.forEach((cl) => {
+    if (cl.matches && cl.matches.length > 0) {
+      cl.matches.forEach((match) => {
+        const matchedCl = this.model.commuterLocations.find(cl => cl._commuter.get('_id') === match._id)
+        if (!matchedCl) {
+          console.err('could not find commuter ' + match._id)
+          return
+        }
+        const id1 = cl._commuter.get('_id')
+        const id2 = matchedCl._commuter.get('_id')
+        const matchKey = id1 < id2 ? id1 + ':' + id2 : id2 + ':' + id1
+        if (matchedKeys.indexOf(matchKey) !== -1) return
+        matchedKeys.push(matchKey)
+
+        let row = []
+        row.push(cl._commuter.get('givenName'))
+        row.push(cl._commuter.get('surname'))
+        row.push(cl._commuter.get('email'))
+        row.push(matchedCl._commuter.get('givenName'))
+        row.push(matchedCl._commuter.get('surname'))
+        row.push(matchedCl._commuter.get('email'))
+        row.push(match.distance)
+
+        const rowText = row.join(',')
+        csvContent += rowText + '\n'
+      })
+    }
+  })
+  var encodedUri = encodeURI(csvContent)
+  var link = document.createElement('a')
+  link.setAttribute('href', encodedUri)
+  link.setAttribute('download', 'matches.csv')
+  document.body.appendChild(link) // Required for FF
+  link.click()
+}
