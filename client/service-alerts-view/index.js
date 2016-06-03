@@ -27,9 +27,9 @@ View.prototype['alerts-view'] = function () {
 module.exports = function () {
   var activeAlerts = session.serviceAlerts().filter(function (alert) {
     var today = moment()
-    var fromDate = moment(alert.fromDate)
-    var toDate = moment(alert.toDate)
-    return !fromDate.isAfter(today) && !toDate.isBefore(today)
+    var fromDate = moment.utc(alert.fromDate)
+    var toDate = moment.utc(alert.toDate)
+    return !fromDate.isAfter(today, 'days') && !toDate.isBefore(today, 'days')
   })
 
   return new View({
