@@ -6,6 +6,7 @@ var serialize = require('../../components/trevorgerhardt/serialize/0.0.1')
 var alerts = require('../alerts') // onscreen notifications
 var view = require('../view')
 var ServiceAlert = require('../service-alert')
+var ConfirmModal = require('../confirm-modal')
 
 var AlertRow = require('./row')
 
@@ -55,7 +56,9 @@ View.prototype.save = function (e) {
 View.prototype.delete = function (e) {
   this.model.alerts.forEach(function (alert) {
     if (alert.get('_id') === e.target.attributes['data-id'].value) {
-      if (window.confirm('Delete alert?')) {
+      ConfirmModal({
+        text: 'Are you sure want to delete this alert?'
+      }, function () {
         alert.destroy(function (err) {
           if (err) {
             window.alert(err)
@@ -67,7 +70,7 @@ View.prototype.delete = function (e) {
             page('/manager/alerts')
           }
         })
-      }
+      })
     }
   })
 }
