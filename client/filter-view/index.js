@@ -24,7 +24,7 @@ View.prototype.endTimes = function () {
 }
 
 View.prototype.bikeSpeeds = function () {
-  return [4, 6, 10].map(function (s) {
+  return [4, 6, 8, 10].map(function (s) {
     return {
       name: s + ' mph',
       value: s
