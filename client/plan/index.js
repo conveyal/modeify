@@ -31,7 +31,7 @@ var Plan = module.exports = model('Plan')
   .use(defaults({
     bike: true,
     bikeShare: true,
-    bikeSpeed: 6,
+    bikeSpeed: 8,
     bus: true,
     car: true,
     carParkingCost: 10,
