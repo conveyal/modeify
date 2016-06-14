@@ -2,7 +2,8 @@
   "private": true,
   "main": "lib/server.js",
   "engines": {
-    "node": "6.x.x"
+    "node": "6.x.x",
+    "npm": "3.x.x"
   },
   "version": "1.6.0",
   "dependencies": {
