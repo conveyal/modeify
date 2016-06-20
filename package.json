@@ -21,9 +21,11 @@
     "express": "^4.13.4",
     "express-stormpath": "^3.1.2",
     "handlebars": "^4.0.5",
+    "isomorphic-fetch": "^2.2.1",
     "jade": "^1.11.0",
     "js-yaml": "^3.6.1",
     "juice": "^2.0.0",
+    "lonlng": "0.0.2",
     "mandrill-api": "^1.0.45",
     "mapbox": "^1.0.0-beta1",
     "moment": "^2.13.0",
@@ -42,6 +44,7 @@
     "superagent": "^2.0.0",
     "to-capital-case": "^1.0.0",
     "to-slug-case": "~1.0.0",
+    "tzwhere": "^1.0.0",
     "winston": "^2.2.0"
   },
   "devDependencies": {
@@ -136,5 +139,8 @@
     "start": "nodemon --watch lib lib/server.js",
     "sync": "aws s3 sync assets $(node bin/config-val s3Bucket) --acl public-read",
     "test": "npm-run-all lint:*"
+  },
+  "standard": {
+    "parser": "babel-eslint"
   }
 }

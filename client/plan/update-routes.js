@@ -21,7 +21,7 @@ module.exports = updateRoutes
 function updateRoutes (plan, opts, callback) {
   opts = opts || {}
 
-  var done = function (err, res) {
+  const done = function (err, res) {
     if (err) {
       err = generateErrorMessage(plan, res)
       analytics.track('Failed to Find Route', {
@@ -51,8 +51,8 @@ function updateRoutes (plan, opts, callback) {
   plan.loading(true)
   plan.emit('updating options')
 
-  var query = plan.generateQuery()
-  var scorer = plan.scorer()
+  const query = plan.generateQuery()
+  const scorer = plan.scorer()
 
   log('-- see raw results here: %s', plan.generateURL())
 
