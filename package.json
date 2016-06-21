@@ -46,6 +46,7 @@
   },
   "devDependencies": {
     "bootstrap": "^3.3.6",
+    "check-dependencies": "^0.12.0",
     "cli-table": "^0.3.1",
     "commander": "^2.9.0",
     "component": "^1.1.0",
@@ -132,8 +133,9 @@
     "lint:lib": "mastarm lint \"lib/**/*.js\"",
     "push-config": "bin/push-config-to-heroku",
     "push-heroku": "git push $(node bin/config-val heroku)",
+    "prestart": "check-dependencies --install",
     "server": "nodemon --watch lib lib/server.js",
-    "start": "npm install && source bin/autoenv && npm-run-all --parallel server \"build:* -- --watch\"",
+    "start": "source bin/autoenv && npm-run-all --parallel server \"build:* -- --watch\"",
     "sync": "aws s3 sync assets $(node bin/config-val s3Bucket) --acl public-read",
     "test": "npm-run-all lint:*"
   }
