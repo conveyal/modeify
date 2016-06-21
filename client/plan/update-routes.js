@@ -63,6 +63,11 @@ function updateRoutes (plan, opts, callback) {
     } else if (!results || results.profile.length < 1) {
       done(message('no-options-found'), res)
     } else {
+      console.log('otp', results.responseTime / 1000, 'seconds')
+      console.log(results.profile)
+      console.log('r5', results.r5.responseTime / 1000, 'seconds')
+      console.log(results.r5)
+
       var profile = profileFilter(results.profile, scorer)
       var journeys = otpProfileToTransitive({
         from: query.from,
