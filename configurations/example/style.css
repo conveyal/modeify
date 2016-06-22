@@ -1,0 +1,91 @@
+
+/**
+ * Defaults
+ */
+
+:root {
+  --buildings-color: #7c61a0;
+  --land-color: #ecebeb;
+  --park-color: #61c165;
+  --street-color: #3fbfbf;
+  --water-color: #c4e7f2;
+  --metro-blue: #0076bf;
+
+  --border-radius: 3px;
+
+  --transition-speed: 0.1s;
+
+  --h3: 20px;
+
+  --font-size: 14px;
+  --font-weight: 400;
+  --bold: 700;
+
+  --panel-width: 320px;
+}
+
+/** CFAZ colors **/
+:root {
+  --cfaz-brown: #633a04;
+  --cfaz-green: #8ec449;
+  --cfaz-orange: #f5a81c;
+  --cfaz-dark-blue: #455a71;
+  --cfaz-light-blue: #cfe5f9;
+  --cfaz-medium-blue: #cfe5f9;
+  --cfaz-gray: #edeff0;
+}
+
+/** Required colors! **/
+:root {
+  --font-color: var(--cfaz-dark-blue);
+  --font-light-color: color(var(--cfaz-dark-blue) tint(25%));
+  --font-dark-background-color: #fff;
+
+  --text-link-color: var(--cfaz-orange);
+  --primary-color: var(--cfaz-orange);
+  --secondary-color: var(--cfaz-green);
+
+  --outline-color: var(--cfaz-gray);
+  --table-cell-color: var(--cfaz-gray);
+
+  /** Buttons **/
+  --primary-button-background-color: var(--cfaz-orange);
+  --primary-button-font-color: var(--cfaz-brown);
+  --dark-button-background-color: var(--cfaz-dark-blue);
+  --dark-button-font-color: #fff;
+
+  /** Navbar **/
+  --navbar-background-color: var(--cfaz-dark-blue);
+  --navbar-font-color: var(--cfaz-orange);
+
+  /** Nav menu **/
+  --navmenu-background-color: var(--cfaz-dark-blue);
+
+  /** Side bar **/
+  --sidepanel-background-color: color(var(--cfaz-dark-blue) alpha(70%));
+  --sidepanel-font-color: #fff;
+
+  /** Location Suggest **/
+  --star-color: var(--cfaz-green);
+  --pin-color: var(--cfaz-orange);
+
+  /** Mode Buttons **/
+  --mode-button-background-color: var(--cfaz-green);
+  --mode-button-icon-color: color(var(--cfaz-green) shade(60%));
+  --mode-button-check-color: color(var(--cfaz-green) tint(60%));
+
+  /** Route Card **/
+  --route-card-header-background-color: var(--cfaz-dark-blue);
+  --route-card-header-font-color: #fff;
+
+  --route-card-segments-background-color: var(--cfaz-gray);
+
+  --ribbon-background-color: var(--cfaz-green);
+  --ribbon-font-color: color(var(--cfaz-green) shade(60%));
+
+  /** Modal **/
+  --modal-header-background-color: var(--cfaz-dark-blue);
+  --modal-background-color: #fff;
+
+  --route-comparison-item-background-color: var(--cfaz-light-blue);
+}
