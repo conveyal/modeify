@@ -1,0 +1,35 @@
+.fullscreen {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 9999;
+  background: white;
+  visibility: hidden;
+}
+
+.fullscreen-button-overlay {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 10px;
+  z-index: 10000;
+}
+
+.map-container {
+  position: relative;
+  border: 1px solid black;
+}
+
+.location-map {
+  height: 100%;
+}
+
+.map-button-overlay {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 10px;
+  z-index: 1000;
+}

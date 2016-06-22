@@ -21,7 +21,7 @@ module.exports = function (ctx, next) {
     organization: ctx.organization
   })
   ctx.view.on('rendered', function (view) {
-    var m = map(view.find('.map'), {
+    var m = map(view.find('.location-map'), {
       center: ctx.location.coordinate(),
       zoom: 13
     })
@@ -39,6 +39,8 @@ module.exports = function (ctx, next) {
         m.addLayer(cluster)
       }
     }
+
+    view.mapp = m
   })
 
   next()
@@ -152,4 +154,46 @@ View.prototype.downloadMatches = function () {
   link.setAttribute('download', 'matches.csv')
   document.body.appendChild(link) // Required for FF
   link.click()
+}
+
+View.prototype.showSmallMap = function () {
+  this.changeMapSize('small')
+}
+
+View.prototype.showMediumMap = function () {
+  this.changeMapSize('medium')
+}
+
+View.prototype.showLargeMap = function () {
+  this.changeMapSize('large')
+}
+
+View.prototype.changeMapSize = function (size) {
+  var mapDiv = this.find('.map')
+  mapDiv.classList.remove('map-small')
+  mapDiv.classList.remove('map-medium')
+  mapDiv.classList.remove('map-large')
+  mapDiv.classList.add('map-' + size)
+  this.mapp.map.invalidateSize()
+}
+
+View.prototype.showFullScreenMap = function () {
+  // show the fullscreen container
+  var fsDiv = this.find('.fullscreen-map')
+  fsDiv.style.visibility = 'visible'
+
+  // attach the leaflet map to the fullscreen container
+  var mapDiv = this.find('.location-map')
+  fsDiv.appendChild(mapDiv)
+  this.mapp.map.invalidateSize()
+}
+
+View.prototype.hideFullScreenMap = function () {
+  // hide the fullscreen container
+  var fsDiv = this.find('.fullscreen-map')
+  fsDiv.style.visibility = 'hidden'
+
+  // reattach the the leaflet map to the inline container
+  this.find('.map-container').appendChild(this.find('.location-map'))
+  this.mapp.map.invalidateSize()
 }
