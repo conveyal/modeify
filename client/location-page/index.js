@@ -12,6 +12,7 @@ var view = require('../view')
 var CommuterRow = require('./commuter')
 var Modal = require('./modal')
 var View = view(require('./template.html'))
+var ConfirmModal = require('../confirm-modal')
 
 module.exports = function (ctx, next) {
   log('render')
@@ -74,7 +75,7 @@ View.prototype.parseCSV = function (e) {
       spinner.remove()
       var commuters = parse(text, {columns: true})
       view.showConfirmUpload(commuters.filter(function (commuter) {
-        return commuter.email && commuter.email.length >= 5
+        return (commuter.email && commuter.email.length >= 5) || (commuter.internalId)
       }))
     })
   })
@@ -96,9 +97,15 @@ View.prototype.showConfirmUpload = function (commuters) {
 View.prototype.profileAndMatch = function () {
   this.model.profileAndMatch(function (err) {
     if (err) {
-      window.alert('Failed to profile commuters.')
+      ConfirmModal({
+        text: 'Failed to profile commuters.',
+        showCancel: false
+      })
     } else {
-      window.alert('Profiling commuters. Please come back in a few minutes to see the results.')
+      ConfirmModal({
+        text: 'Profiling commuters. Please come back in a few minutes to see the results.',
+        showCancel: false
+      })
     }
   })
 }
@@ -107,16 +114,22 @@ View.prototype.sendPlansAndMatches = function () {
   this.model.sendPlansAndMatches(function (err) {
     if (err) {
       console.error(err)
-      window.alert('Failed to send plans.')
+      ConfirmModal({
+        text: 'Failed to send plans.',
+        showCancel: false
+      })
     } else {
-      window.alert('Sending plans to your commuters. They should arrive shortly!')
+      ConfirmModal({
+        text: 'Sending plans to your commuters. They should arrive shortly!',
+        showCancel: false
+      })
     }
   })
 }
 
 View.prototype.downloadMatches = function () {
   let csvContent = 'data:text/csv;charset=utf-8,'
-  csvContent += 'commuter1_first,commuter1_last,commuter1_email,commuter2_first,commuter2_last,commuter2_email,distance\n'
+  csvContent += 'commuter1_first,commuter1_last,commuter1_email,commuter1_internalId,commuter2_first,commuter2_last,commuter2_email,commuter2_internalId,distance\n'
 
   let matchedKeys = []
 
@@ -138,9 +151,11 @@ View.prototype.downloadMatches = function () {
         row.push(cl._commuter.get('givenName'))
         row.push(cl._commuter.get('surname'))
         row.push(cl._commuter.get('email'))
+        row.push(cl._commuter.get('internalId'))
         row.push(matchedCl._commuter.get('givenName'))
         row.push(matchedCl._commuter.get('surname'))
         row.push(matchedCl._commuter.get('email'))
+        row.push(matchedCl._commuter.get('internalId'))
         row.push(match.distance)
 
         const rowText = row.join(',')

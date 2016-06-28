@@ -40,13 +40,16 @@ Modal.prototype.upload = function (e) {
 
   var commuters = []
   each(modal.findAll('tr'), function (el) {
+    if (!el.querySelector('.confirm')) return
     // if confirm is unchecked, skip
+    console.log(value(el.querySelector('.confirm')))
     if (!value(el.querySelector('.confirm'))) return
 
     // get the other data
     commuters.push({
       address: el.querySelector('.address').textContent || '',
-      email: (el.querySelector('.email').textContent || '').toLowerCase(),
+      email: el.querySelector('.email').textContent ? el.querySelector('.email').textContent.toLowerCase() : null,
+      internalId: el.querySelector('.internalId').textContent || null,
       givenName: el.querySelector('.givenName').textContent || '',
       surname: el.querySelector('.surname').textContent || ''
     })

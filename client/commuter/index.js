@@ -28,6 +28,7 @@ var Commuter = module.exports = model('Commuter')
   .attr('email')
   .attr('givenName')
   .attr('surname')
+  .attr('internalId')
   .attr('anonymous')
   .attr('name')
   .attr('link')
@@ -35,6 +36,7 @@ var Commuter = module.exports = model('Commuter')
   .attr('opts')
   .attr('profile')
   .attr('status')
+  .attr('createAccount')
 
 /**
  * Load middleware

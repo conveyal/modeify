@@ -105,7 +105,12 @@ View.prototype.sendPlan = function (e) {
 }
 
 View.prototype.commuterName = function () {
+  if (!this.model.givenName() && !this.model.surname()) return '(Unnamed Commuter)'
   return this.model.givenName() + ' ' + this.model.surname()
+}
+
+View.prototype.internalId = function () {
+  return this.model.internalId() || '(none)'
 }
 
 View.prototype.organizationName = function () {
@@ -120,6 +125,11 @@ var Match = view(require('./match.html'))
 
 Match.prototype.distanceMi = function () {
   return Math.round(this.model.distance * 100) / 100
+}
+
+Match.prototype.commuterName = function () {
+  if (!this.model.givenName && !this.model.surname) return '(Unnamed Commuter)'
+  return this.model.givenName + ' ' + this.model.surname
 }
 
 var LocationRow = view(require('./location.html'))

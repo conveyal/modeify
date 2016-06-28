@@ -9,6 +9,7 @@ var view = require('../view')
 var LocationSuggest = require('../location-suggest')
 var extend = require('../../components/segmentio/extend/1.0.0')
 var geocode = require('../geocode')
+var ConfirmModal = require('../confirm-modal')
 
 /**
  * Create `View`
@@ -103,6 +104,22 @@ View.prototype.labels = function () {
 View.prototype.save = function (e) {
   debug('save')
   var data = serialize(this.el)
+
+  if (!data.internalId && !data.email) {
+    ConfirmModal({
+      text: 'You must specify either an Email Address or an Internal ID',
+      showCancel: false
+    })
+    return
+  }
+
+  if (data.createAccount && !data.email) {
+    ConfirmModal({
+      text: 'You must specify an Email Address to Create an Account',
+      showCancel: false
+    })
+  }
+
   data.labels = data.labels && data.labels.length > 0 ? data.labels.split(',') : []
   data.labels = data.labels.map(function (label) {
     return label.trim()

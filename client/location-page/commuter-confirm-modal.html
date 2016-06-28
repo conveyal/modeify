@@ -5,12 +5,22 @@
         <button type="button" class="close" on-tap="close">&times;</button>
         <h4 class="modal-title">Confirm Commuter Data</h4>
       </div>
-      <table class="modal-body table">
-        <tbody data-each="commuters"></tbody>
-      </table>
+      <div style='max-height: 300px; overflow: auto;'>
+        <table class="modal-body table">
+          <thead>
+            <th></th>
+            <th>Email</th>
+            <th>Internal ID</th>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Address</th>
+          </thead>
+          <tbody data-each="commuters"></tbody>
+        </table>
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" on-tap="close" data-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-primary" on-tap="upload">Upload &amp; Invite Commuters</button>
+        <button type="submit" class="btn btn-primary" on-tap="upload">Upload Commuters</button>
       </div>
     </form><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

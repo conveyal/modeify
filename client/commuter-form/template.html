@@ -15,6 +15,10 @@
     <label for="email">Email</label>
     <input type="text" class="form-control" name="email" placeholder="Email" value="{email || ''}" data-disabled="isEditing">
   </div>
+  <div class="form-group">
+    <label for="internalId">Internal ID</label>
+    <input type="text" class="form-control" name="internalId" placeholder="Internal ID (unique to organization)" value="{internalId || ''}" data-disabled="isEditing">
+  </div>
   <div class="form-group Locations">
     <label for="contact">Address</label>
     <input type="text" class="form-control" id="address" name="address" placeholder="Address" value="{address || ''}" on-input="suggest" on-keydown="keydownInput" autocomplete="off" autocorrect="off" autocapitalize="on" spellcheck="false">
@@ -35,6 +39,9 @@
   <div class="form-group">
     <label for="labels">Labels (comma separated)</label>
     <input type="text" class="form-control" name="labels" placeholder="Labels" data-value="labels">
+  </div>
+  <div class="checkbox form-group">
+    <label><input type="checkbox" name="createAccount" checked><b> Create Account?</b></label>
   </div>
   <button type="button" class="btn btn-primary" on-tap="save">{action}</button>
 </form>
