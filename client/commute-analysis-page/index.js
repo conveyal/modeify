@@ -71,8 +71,10 @@ var View = view(require('./template.html'), function (view, model) {
           var matches = cl.matches || []
           var to = cl._location.coordinate()
           var from = cl._commuter.coordinate()
+          var commuter = (cl._commuter.givenName() && cl._commuter.surname()) ? cl._commuter.givenName() + ' ' + cl._commuter.surname() : cl._commuter.email() || 'Unnamed Commuter'
+          if (cl._commuter.internalId()) commuter += ` (${cl._commuter.internalId()})`
           return {
-            commuter: (cl._commuter.givenName() && cl._commuter.surname()) ? cl._commuter.givenName() + ' ' + cl._commuter.surname() : cl._commuter.email(),
+            commuter: commuter,
             calories: parseInt(profile.calories, 10),
             cost: profile.cost.toFixed(2),
             distance: parseFloat(haversine(from.lat, from.lng, to.lat, to.lng, true).toFixed(2)),
