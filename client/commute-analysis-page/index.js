@@ -57,7 +57,17 @@ var View = view(require('./template.html'), function (view, model) {
           return cl.profile && cl.profile.options
         })
         .map(function (cl) {
-          var profile = scorer.processOptions(cl.profile.options)[0]
+          return {
+            cl: cl,
+            processedOptions: scorer.processOptions(cl.profile.options)
+          }
+        })
+        .filter(function (clpo) {
+          return clpo.processedOptions && clpo.processedOptions.length > 0
+        })
+        .map(function (clpo) {
+          var cl = clpo.cl
+          var profile = clpo.processedOptions[0]
           var matches = cl.matches || []
           var to = cl._location.coordinate()
           var from = cl._commuter.coordinate()
