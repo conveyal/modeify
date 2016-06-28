@@ -65,14 +65,12 @@ View.prototype['commuterLocations-view'] = function () {
 
 View.prototype.parseCSV = function (e) {
   var view = this
-  var spinner = spin()
   filePicker({
     accept: ['.csv']
   }, function (files) {
     var csv = file(files[0])
     csv.toText(function (err, text) {
       if (err) log.error(err)
-      spinner.remove()
       var commuters = parse(text, {columns: true})
       view.showConfirmUpload(commuters.filter(function (commuter) {
         return (commuter.email && commuter.email.length >= 5) || (commuter.internalId)

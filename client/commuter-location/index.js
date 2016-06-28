@@ -64,7 +64,7 @@ function addCommuters (_location, _organization, commuters, callback) {
     if (err) {
       callback(err)
     } else {
-      callback(null, res.body)
+      callback(null, res.text)
     }
   })
 }

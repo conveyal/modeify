@@ -4,6 +4,7 @@ var each = require('component-each')
 var log = require('../log')('location-page:modal')
 var value = require('component-value')
 var view = require('../view')
+var ConfirmModal = require('../confirm-modal')
 
 /**
  * Modal, Input
@@ -55,14 +56,14 @@ Modal.prototype.upload = function (e) {
     })
   })
 
-  CommuterLocation.addCommuters(location._id(), this.model.organization._id(), commuters, function (err, res) {
+  CommuterLocation.addCommuters(location._id(), this.model.organization._id(), commuters, function (err, status) {
     if (err) {
       log.error('%e', err)
       window.alert('Error while uploading commuters. ' + err)
-    } else {
-      alerts.push({
-        type: 'success',
-        text: 'Upload succesful, ' + res.length + ' commuters added to this location.'
+    } else if (status === 'started') {
+      ConfirmModal({
+        text: 'Commuters are being loaded. This may take several minutes with large datasets. Please check back for progress.',
+        showCancel: false
       })
     }
     modal.el.remove()

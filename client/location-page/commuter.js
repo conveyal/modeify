@@ -36,6 +36,14 @@ View.prototype.internalId = function () {
   return this.model._commuter.internalId() || '(none)'
 }
 
+View.prototype.profileCount = function () {
+  return (this.model.profile && this.model.profile.options) ? this.model.profile.options.length : '(none)'
+}
+
+View.prototype.matchCount = function () {
+  return this.model.matches ? this.model.matches.length : '(none)'
+}
+
 View.prototype.location = function () {
   var commuter = this.model._commuter
   if (commuter) return commuter.city() + ', ' + commuter.state() + ' ' + commuter.zip()

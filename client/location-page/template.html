@@ -41,7 +41,7 @@
     <div class="col-sm-12">
       <h3>
         Commuters <span class="label label-primary">{commuterCount}</span>
-        <button class="btn btn-info pull-right" on-tap="parseCSV"><i class="fa fa-upload"></i> Bulk Upload</button> 
+        <button class="btn btn-info pull-right" on-tap="parseCSV"><i class="fa fa-upload"></i> Bulk Upload</button>
         <a class="btn btn-success pull-right" href="/manager/organizations/{created_by}/locations/{_id}/commuters/new"><i class="fa fa-plus"></i> Add Commuter</a>
       </h3>
       <table class="table table-striped">
@@ -51,6 +51,8 @@
             <th>Internal ID</th>
             <th>Email</th>
             <th>Home Location</th>
+            <th>Profile Options</th>
+            <th>Matches</th>
             <th>Status</th>
             <th></th>
           </tr>
