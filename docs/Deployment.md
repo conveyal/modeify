@@ -2,58 +2,33 @@
 
 Read `docs/Development.md` and set up your configuration correctly.
 
-## Client
+## Configure
 
-Install & configure the [aws](http://docs.aws.amazon.com/cli/latest/reference/) CLI tool.
+### AWS
 
-Define your S3 buckets per environment in your `settings.yml`:
+1. Install the AWS Cli tool.
+2. Create an S3 bucket that can be publicly read.
+3. Add the `s3Bucket` key to your settings file. Can add one per environment.
 
-```yaml
-...
-environments:
-  staging:
-    s3Bucket: s3://bucket/
-...
-```
+### Heroku
 
-Once the client has been build, from the command line, run:
+1. Set up a node Heroku app that you can deploy to using Git. [Instructions](https://devcenter.heroku.com/articles/git)
+2. Add your Heroku application name in your settings file under the `heroku` key. Can add one per environment.
 
-```shell
-modeify $ NODE_ENV=staging npm run sync
-```
+## Deploy
 
-This is a simple wrapper that runs:
+### `npm run sync`
 
-```sh
-modeify $ aws s3 sync assets $(node bin/config-val s3Bucket) --acl public-read
-```
+Builds the client side files and syncs them to your S3 bucket.
 
-This builds the client files for staging & syncs the `assets` folder with your specified S3 bucket.
+### `npm run push-config`
 
-## Server
+Encodes your settings and pushes them to your Heroku application.
 
-Set up your [Heroku endpoints](https://devcenter.heroku.com/articles/git#tracking-your-app-in-git).
+### `npm run push-heroku`
 
-Define your Heroku application name in your `settings.yml`:
+Git pushes your application to heroku.
 
-```yaml
-...
-environments:
-  staging:
-    heroku: application-name
-...
-```
+### `npm run deploy`
 
-To deploy:
-
-```shell
-modeify $ NODE_ENV=staging npm run heroku
-```
-
-## Both
-
-Build, sync to S3, and push to heroku in one go:
-
-```shell
-modeify $ NODE_ENV=staging npm run deploy
-```
+Does the previous three commands in sequence.
