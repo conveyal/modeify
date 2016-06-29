@@ -1,3 +1,8 @@
+.Share h3 {
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+
 .Share .form-inline input {
 	margin-right: 15px;
 	margin-bottom: 15px;
@@ -6,7 +11,7 @@
 .Share .share-buttons {
 	display: inline-block;
 	margin-right: 15px;
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 	width: 100%;
 }
 
@@ -41,4 +46,3 @@
 .Share .send-button {
 	margin-right: 15px;
 }
-

@@ -29,10 +29,27 @@ var ShareModal = module.exports = modal({
 ShareModal.prototype.sendEmail = function () {
   var self = this
 
+  var fromName = this.find('.from-name').value
+  if (!fromName || fromName === '') {
+    self.find('.alerts').appendChild(Alert({
+      type: 'warning',
+      text: 'You must provide your name.'
+    }).el)
+    return
+  }
+
+  var toEmail = this.find('.to-email').value
+  if (!toEmail || toEmail === '') {
+    self.find('.alerts').appendChild(Alert({
+      type: 'warning',
+      text: 'You must provide the recipient email address.'
+    }).el)
+    return
+  }
+
   request.post('/share/share-trip', {
-    from: this.find('.from-email').value,
-    to: this.find('.to-email').value,
-    subject: this.find('.email-subject').value,
+    fromName: fromName,
+    to: toEmail,
     body: this.find('.email-body').value,
     link: window.location.href
   }, function (
@@ -55,8 +72,11 @@ ShareModal.prototype.placeChanged = function (e) {
   this.find('.place-link').value = constructPlaceLink(place, val)
 }
 
+ShareModal.prototype.fromName = function (e) {
+  return session.user() ? (session.user().fullName() || session.user().email()) : null
+}
+
 function constructPlaceLink (place, type) {
   var loc = window.location
   return loc.protocol + '//' + loc.hostname + (loc.port ? ':' + loc.port : '') + '/?' + (type === 'from' ? 'planFrom' : 'planTo') + '=' + encodeURIComponent(place)
 }
-

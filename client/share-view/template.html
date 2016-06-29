@@ -1,30 +1,35 @@
 <div class="Share">
   <h3>Share your trip!</h3>
   <div class="alerts"></div>
-  <form class="form-inline">
-  <div class="form-group">
-    <label class="sr-only">From email address</label>
-    <input type="email" class="form-control from-email" placeholder="From email address">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label>Your Name:</label>
+        <input class="form-control from-name" placeholder="Your Name" value="{fromName}">
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label>Recipient Email:</label>
+        <input type="email" class="form-control to-email" placeholder="To email address">
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <label class="sr-only">To email address</label>
-    <input type="email" class="form-control to-email" placeholder="To email address">
-  </div>
-  </form>
   <form>
-  <div class="form-group">
-   <label>Subject:</label><input class="form-control email-subject" value= "I just used CarFreeAtoZ to find great travel options!">
-  </div>
-  <div class="form-group">
-    <label>Body:</label>
+    <!--<div class="form-group">
+     <label>Subject:</label><input class="form-control email-subject" value= "I just used CarFreeAtoZ to find great travel options!">
+   </div>-->
+    <div class="form-group">
+      <label>Body:</label>
+      <div style="float: right"><i>(link to your search will be added automatically)</i></div>
       <textarea class="form-control email-body" rows="3">Hi! I just found great new commute options at CarFreeAtoZ. To see my trip, check out the link below:</textarea>
-  </div>
-  <div class="checkbox">
-    <button class="btn btn-default send-button" on-tap='sendEmail'>send</button>
-    <!--<label>
-      <input type="checkbox"> I want to receive updates from CarFreeAtoZ
-    </label>-->
-  </div>
+    </div>
+    <div class="checkbox">
+      <button class="btn btn-default send-button" on-tap='sendEmail'>send</button>
+      <!--<label>
+        <input type="checkbox"> I want to receive updates from CarFreeAtoZ
+      </label>-->
+    </div>
   </form>
 
 <h3>Share a link</h3>
@@ -38,7 +43,7 @@
   <p>Share a link to CarFreeAtoZ with only your current From or To location specified.</p>
 <div class="input-group">
   <div class="input-group-btn">
-    <select select-value="days" class="btn btn-default place-select" on-change="placeChanged">
+    <select select-value="days" class="btn btn-default place-select" on-change="placeChanged" style="height: 32px;">
       <option value="from">From</option>
       <option value="to">To</option>
       <span class="caret"></span>
