@@ -16,6 +16,7 @@ var Location = module.exports = model('Location')
   .attr('created_by')
   .attr('name')
   .attr('rideshare_manager')
+  .attr('commuter_count')
 
 Location.load = function (ctx, next) {
   log('loading %s', ctx.params.location)

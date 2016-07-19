@@ -28,6 +28,7 @@
     "mapbox": "^1.0.0-beta1",
     "moment": "^2.13.0",
     "mongoose": "^4.5.0",
+    "mongoose-paginate": "^5.0.0",
     "monquery": "^0.2.0",
     "morgan": "^1.7.0",
     "names": "0.1.0",

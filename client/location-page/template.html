@@ -44,6 +44,24 @@
         <button class="btn btn-info pull-right" on-tap="parseCSV"><i class="fa fa-upload"></i> Bulk Upload</button>
         <a class="btn btn-success pull-right" href="/manager/organizations/{created_by}/locations/{_id}/commuters/new"><i class="fa fa-plus"></i> Add Commuter</a>
       </h3>
+
+      <nav>
+        <ul class="pager">
+
+          <li>
+            <button type="button" class="btn btn-default" on-tap="previousPage">
+              <span aria-hidden="true">&larr;</span> Previous
+            </button>
+          </li>
+          <li>&nbsp;&nbsp;Page {page+1} of {pageCount}&nbsp;&nbsp;</li>
+          <li>
+            <button type="button" class="btn btn-default" on-tap="nextPage">
+              Next <span aria-hidden="true">&rarr;</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
       <table class="table table-striped">
         <thead>
           <tr>

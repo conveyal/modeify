@@ -13,22 +13,32 @@ var CommuterRow = require('./commuter')
 var Modal = require('./modal')
 var View = view(require('./template.html'))
 var ConfirmModal = require('../confirm-modal')
+var CommuterLocation = require('../commuter-location')
+
+var pageSize = 100
 
 module.exports = function (ctx, next) {
   log('render')
 
-  ctx.location.commuterLocations = ctx.commuterLocations
-  ctx.view = new View(ctx.location, {
+  var model = ctx.location
+  model.page = 0
+  model.pageCount = Math.ceil(ctx.location.commuter_count() / pageSize)
+
+  ctx.view = new View(model, {
     organization: ctx.organization
   })
+
   ctx.view.on('rendered', function (view) {
+    view.loadCoordinates()
+    view.loadPage()
+
     var m = map(view.find('.location-map'), {
       center: ctx.location.coordinate(),
       zoom: 13
     })
     m.addLayer(ctx.location.mapMarker())
 
-    if (ctx.location.commuterLocations.length > 0) {
+    /*if (ctx.location.commuterLocations.length > 0) {
       var cluster = new L.MarkerClusterGroup()
       ctx.location.commuterLocations.forEach(function (cl) {
         if (cl._commuter.validCoordinate()) {
@@ -39,7 +49,7 @@ module.exports = function (ctx, next) {
       if (cluster.getBounds()._northEast) {
         m.addLayer(cluster)
       }
-    }
+    }*/
 
     view.mapp = m
   })
@@ -47,8 +57,60 @@ module.exports = function (ctx, next) {
   next()
 }
 
+View.prototype.loadPage = function () {
+  var self = this
+  var spinner = spin()
+  CommuterLocation.forLocationPaged(this.model.get('_id'), this.model.page, pageSize, function (err, cls) {
+    spinner.remove()
+    if (err) {
+      console.log('Error loading page of commuters', err)
+    } else {
+      self.model.commuterLocations = cls
+      self.model.emit('change commuterLocations')
+    }
+  })
+}
+
+View.prototype.loadCoordinates = function () {
+  var self = this
+  CommuterLocation.coordinatesForLocation(this.model.get('_id'), function (err, coords) {
+    if (err) {
+      console.log('Error loading commuter coordinates', err)
+    } else {
+      var cluster = new L.MarkerClusterGroup()
+      coords.forEach(function (coord) {
+        if (!coord || !coord.lat || !coord.lng) return
+        cluster.addLayer(map.createMarker({
+          color: '#5cb85c',
+          coordinate: [coord.lng, coord.lat],
+          icon: 'building',
+          size: 'small'
+        }))
+      })
+
+      if (cluster.getBounds()._northEast) {
+        self.mapp.addLayer(cluster)
+      }
+    }
+  })
+}
+
+View.prototype.previousPage = function () {
+  if (this.model.page <= 0) return
+  this.model.page = this.model.page - 1
+  this.model.emit('change page')
+  this.loadPage(this.model.page)
+}
+
+View.prototype.nextPage = function () {
+  if (this.model.page >= this.model.pageCount - 1) return
+  this.model.page = this.model.page + 1
+  this.model.emit('change page')
+  this.loadPage(this.model.page)
+}
+
 View.prototype.commuterCount = function () {
-  return this.model.commuterLocations.length
+  return this.model.get('commuter_count')
 }
 
 View.prototype.organizationName = function () {
