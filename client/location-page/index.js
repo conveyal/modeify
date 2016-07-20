@@ -8,6 +8,8 @@ var log = require('../log')('location-page')
 var map = require('../map')
 var spin = require('../spinner')
 var view = require('../view')
+var alerts = require('../alerts')
+var page = require('page')
 
 var CommuterRow = require('./commuter')
 var Modal = require('./modal')
@@ -152,6 +154,42 @@ View.prototype.showConfirmUpload = function (commuters) {
     organization: this.options.organization
   })
   document.body.appendChild(modal.el)
+}
+
+View.prototype.match = function () {
+  var spinner = spin()
+  var self = this
+  this.model.match(function (err) {
+    spinner.remove()
+    if (err) {
+      ConfirmModal({
+        text: 'Failed to match commuters.',
+        showCancel: false
+      })
+    } else {
+      alerts.push({
+        type: 'success',
+        text: 'Completed ridematching.'
+      })
+      page('/manager/organizations/' + self.options.organization._id() + '/locations/' + self.model._id() + '/show')
+    }
+  })
+}
+
+View.prototype.profile = function () {
+  this.model.profile(function (err) {
+    if (err) {
+      ConfirmModal({
+        text: 'Failed to profile commuters.',
+        showCancel: false
+      })
+    } else {
+      ConfirmModal({
+        text: 'Profiling commuters. Please come back in a few minutes to see the results.',
+        showCancel: false
+      })
+    }
+  })
 }
 
 View.prototype.profileAndMatch = function () {
