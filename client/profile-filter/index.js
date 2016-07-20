@@ -17,7 +17,8 @@ module.exports = function profileFilter (options, scorer) {
     if (FILTER_RESULTS) {
       o = filterUnreasonableAccessModes(o)
       o = filterBikeshareIfNoBiking(o)
-      o = filterBikeIfBikeshareIsAvailable(o)
+      // Disabled at Arlington's request (i.e. to show bike & bikeshare options concurrently):
+      // o = filterBikeIfBikeshareIsAvailable(o)
     }
   })
 
