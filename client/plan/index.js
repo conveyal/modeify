@@ -313,10 +313,13 @@ Plan.prototype.generateQuery = function () {
 
   // Transit modes
   var accessModes = ['WALK']
-  var directModes = ['CAR', 'WALK']
+  var directModes = [] // ['CAR', 'WALK']
   var egressModes = ['WALK']
   var transitModes = []
 
+  if (this.walk()) {
+    directModes.push('WALK')
+  }
   if (this.bike()) {
     accessModes.push('BICYCLE')
     directModes.push('BICYCLE')
@@ -327,7 +330,10 @@ Plan.prototype.generateQuery = function () {
     egressModes.push('BICYCLE_RENT')
   }
   if (this.bus()) transitModes.push('BUS')
-  if (this.car()) accessModes.push('CAR_PARK')
+  if (this.car()) {
+    accessModes.push('CAR_PARK')
+    directModes.push('CAR')
+  }
   if (this.train()) transitModes.push('TRAINISH')
 
   var startTime = this.start_time()
