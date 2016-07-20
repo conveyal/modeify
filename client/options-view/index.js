@@ -38,8 +38,9 @@ View.prototype.optionsCount = function () {
 View.prototype.modeList = function () {
   var modes = []
   if (this.model.bus() || this.model.train()) modes.push('transit')
-  if (this.model.bike()) modes.push('biking')
+  if (this.model.bike() || this.model.bikeShare()) modes.push('biking')
   if (this.model.car()) modes.push('driving')
+  if (this.model.walk()) modes.push('walking')
 
   if (modes.length > 1) modes[modes.length - 1] = ' &amp; ' + modes[modes.length - 1]
 
