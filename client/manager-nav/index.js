@@ -7,6 +7,7 @@ var Nav = module.exports = view(require('./template.html'), function (view, mode
     model.emit('change isAdmin', model.isAdmin())
     model.emit('change isLoggedIn', model.isLoggedIn())
     model.emit('change isManager', model.isManager())
+    model.emit('change username')
   })
 })
 
@@ -18,4 +19,9 @@ Nav.prototype.logout = function () {
   this.model.logout(function () {
     page('/manager')
   })
+}
+
+Nav.prototype.username = function () {
+  if (!this.model.user()) return ''
+  return this.model.user().email()
 }
