@@ -212,7 +212,7 @@ function showQuery (query) {
 function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
   // Register plan update events
   plan.on('change journey', function (journey) {
-    if (journey && !isMobile) {
+    if (journey && journey.places && journey.places.length > 0 && !isMobile) {
       try {
         log('updating data')
         transitive.updateData(journey)
