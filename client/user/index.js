@@ -115,6 +115,16 @@ User.prototype.matchFavoritePlaces = function (text) {
   return matches
 }
 
+User.prototype.deleteUser = function (callback) {
+  request.del('/users/' + this.id(), function (err, res) {
+    if (err) {
+      callback(res.text || err)
+    } else {
+      callback(null, res.body)
+    }
+  })
+}
+
 User.loadManager = function (ctx, next) {
   request.get('/users/' + ctx.params.manager, function (err, res) {
     if (err || !res.ok) {

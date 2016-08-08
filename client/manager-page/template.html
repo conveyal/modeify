@@ -3,12 +3,16 @@
     <li><a href="/manager/managers">Managers</a></li>
     <li class="active">{fullName}</li>
   </ol>
-  <h3>Manage Permissions</h3>
-  <table class="table">
-    <thead>
-      <th>Organization</th>
-      <th>Manages</th>
-    </thead>
-    <tbody data-each="organizations"></tbody>
-  </table>
+  <div class="row">
+    <div class="col-sm-6">
+      <h3>Manage Permissions</h3>
+      <table class="table table-striped">
+        <thead>
+          <th>Organization</th>
+          <th></th>
+        </thead>
+        <tbody data-each="organizations"></tbody>
+      </table>
+    </div>
+  </div>
 </div>

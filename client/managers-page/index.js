@@ -5,6 +5,7 @@ var request = require('../request')
 var session = require('../session')
 var User = require('../user')
 var view = require('../view')
+var ConfirmModal = require('../confirm-modal')
 
 /**
  * Create View
@@ -29,7 +30,14 @@ module.exports = function (ctx, next) {
       window.alert(err)
     } else {
       var tbody = ctx.view.find('tbody')
-      managers.forEach(function (user) {
+
+      var sorter = function (a, b) {
+        if (a.fullName() < b.fullName()) return -1
+        if (a.fullName() > b.fullName()) return 1
+        return 0
+      }
+
+      managers.sort(sorter).forEach(function (user) {
         if (user.email() === session.user().email()) return
         var view = new ManagerView(user)
         tbody.appendChild(view.el)
@@ -94,4 +102,27 @@ ManagerView.prototype.resetPassword = function (e) {
       }
     })
   }
+}
+
+/**
+ * Delete User
+ */
+
+ManagerView.prototype.deleteUser = function (e) {
+  var user = this.model
+  ConfirmModal({
+    text: `Are you sure want to delete the user ${user.fullName()} (${user.email()})?`
+  }, function () {
+    user.deleteUser(function (err) {
+      if (err) {
+        window.alert(err)
+      } else {
+        alerts.push({
+          type: 'success',
+          text: 'Deleted user.'
+        })
+        page('/manager/managers')
+      }
+    })
+  })
 }

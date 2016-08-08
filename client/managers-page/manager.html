@@ -2,6 +2,13 @@
   <td>{fullName}</td>
   <td>{email}</td>
   <td>
-    <a href="/manager/managers/{id}/show" class="btn">Manage Permissions</a>
+    <div class="btn-toolbar pull-right">
+      <a href="/manager/managers/{id}/show" class="btn btn-primary">
+        <i class="fa fa-fw fa-gear"></i> Manage Permissions
+      </a>
+      <span class="btn btn-danger" on-tap="deleteUser" data-user="{id}">
+        <i class="fa fa-fw fa-remove"></i> Delete User
+      </span>
+    </div>
   </td>
 </tr>
