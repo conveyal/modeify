@@ -12,7 +12,8 @@ var alerts = require('../alerts')
 var page = require('page')
 
 var CommuterRow = require('./commuter')
-var Modal = require('./modal')
+var CommuterUploadModal = require('./commuter-upload-modal')
+var CommuterConfirmModal = require('./commuter-confirm-modal')
 var View = view(require('./template.html'))
 var ConfirmModal = require('../confirm-modal')
 var CommuterLocation = require('../commuter-location')
@@ -136,20 +137,33 @@ View.prototype.parseCSV = function (e) {
     csv.toText(function (err, text) {
       if (err) log.error(err)
       var commuters = parse(text, {columns: true})
-      view.showConfirmUpload(commuters.filter(function (commuter) {
-        return (commuter.email && commuter.email.length >= 5) || (commuter.internalId)
-      }))
+      view.showUploadModal(commuters)
     })
   })
+}
+
+View.prototype.showUploadModal = function (rawCommuterData) {
+  var view = this
+
+  var commuterUploadModal = new CommuterUploadModal({
+    rawCommuterData: rawCommuterData,
+    location: this.model,
+    organization: this.options.organization
+  }, {
+    onContinue: function (commuterData) {
+      view.showConfirmUpload(commuterData)
+    }
+  })
+  document.body.appendChild(commuterUploadModal.el)
 }
 
 /**
  * Confirm Upload
  */
 
-View.prototype.showConfirmUpload = function (commuters) {
-  var modal = new Modal({
-    commuters: commuters,
+View.prototype.showConfirmUpload = function (commuterData) {
+  var modal = new CommuterConfirmModal({
+    commuters: commuterData,
     location: this.model,
     organization: this.options.organization
   })
