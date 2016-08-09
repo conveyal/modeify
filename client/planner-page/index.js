@@ -18,6 +18,7 @@ var transitive = require('../transitive')
 var ua = require('../user-agent')
 var view = require('../view')
 var showWelcomeWizard = require('../welcome-flow')
+var showWalkThrough = require('../planner-walkthrough')
 var ServiceAlertsView = require('../service-alerts-view')
 
 var FROM = config.geocode().start_address
@@ -27,6 +28,8 @@ var isMobile = window.innerWidth <= 480
 var View = view(require('./template.html'), function (view, model) {
   view.scrollable = view.find('.scrollable')
   view.panelFooter = view.find('.footer')
+  view.optionsContainer = view.find('.options-container')
+  view.welcomeBox = view.find('.welcome-box')
 
   if (scrollbarSize > 0) {
     if (ua.os.name === 'Windows' || ua.browser.name !== 'Chrome') {
@@ -84,23 +87,54 @@ module.exports = function (ctx, next) {
     // Clear plan & cookies for now, plan will re-save automatically on save
     plan.clearStore()
 
-    // If it's a shared URL or welcome is complete skip the welcome screen
+    // If it's a shared URL or welcome is complete skip the welcome wizard
     if (query.planFrom || query.planTo || (query.from && query.to) || session.commuter().profile().welcome_wizard_complete) {
       showQuery(query)
     } else {
       showWelcomeWizard(session.commuter(), session.plan())
     }
+
+    // If it's a from/to-only shared URL, do show the welcome box (in the options area)
+    if (query.planFrom || query.planTo) {
+      ctx.view.welcomeBox.classList.remove('hidden')
+    }
   })
 
   plan.on('updating options', function () {
     ctx.view.panelFooter.classList.add('hidden')
+    if (plan.from() && plan.to()) {
+      ctx.view.optionsContainer.classList.remove('hidden')
+      ctx.view.welcomeBox.classList.add('hidden')
+    }
   })
 
   plan.on('updating options complete', function (res) {
     if (res && !res.err) ctx.view.panelFooter.classList.remove('hidden')
   })
 
+  plan.on('welcome skipped', function () {
+    if (!plan.from() || !plan.to()) {
+      ctx.view.welcomeBox.classList.remove('hidden')
+    }
+  })
+
   next()
+}
+
+/**
+ * Get Application name
+ */
+
+View.prototype.applicationName = function () {
+  return config.name()
+}
+
+/**
+ * Show Walk Through
+ */
+
+View.prototype.showWalkThrough = function (e) {
+  showWalkThrough()
 }
 
 /**
@@ -216,7 +250,7 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
       try {
         log('updating data')
         transitive.updateData(journey)
-        map.fitBounds(transitiveLayer.getBounds())
+        if (plan.from() && plan.to()) map.fitBounds(transitiveLayer.getBounds())
       } catch (e) {
         console.error(e)
         console.error(e.stack)

@@ -129,13 +129,13 @@ function updateRoutes (plan, opts, callback) {
 }
 
 function generateErrorMessage (plan, response) {
-  if (!plan.to() && !plan.from()) {
+  /*if (!plan.to() && !plan.from()) {
     return 'Please specify the from and to locations.'
   } else if (plan.to() && !plan.from()) {
     return 'Please specify the from location.'
   } else if (!plan.to() && plan.from()) {
     return 'Please specify the to location.'
-  }
+  }*/
 
   var msg = 'No results! '
   var responseText = response ? response.text : ''

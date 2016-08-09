@@ -8,7 +8,13 @@
         <div reactive="locations-view"></div>
         <div reactive="filter-view"></div>
       </form>
-      <div reactive="options-view"></div>
+      <div class="welcome-box hidden">
+        <div class="welcome-header">Welcome to {applicationName}!</div>
+        <p>To get started, enter <b>your start and end locations above</b> or <b>double-click on the map</b>. You can also <a href="#" on-tap="showWalkThrough">take a tour of the site</a>.
+      </div>
+      <div class="options-container hidden">
+        <div reactive="options-view"></div>
+      </div>
     </div>
     <div reactive="planner-nav"></div>
     <div class="footer hidden">

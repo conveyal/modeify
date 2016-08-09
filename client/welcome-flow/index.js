@@ -4,7 +4,6 @@ var introJs = require('intro.js').introJs
 var log = require('../log')('welcome-flow')
 var LocationsView = require('../locations-view')
 var message = require('../messages')('welcomewelcome-flow')
-var showPlannerWalkthrough = require('../planner-walkthrough')
 var RouteModal = require('../route-modal')
 var routeResource = require('../route-resource')
 
@@ -26,7 +25,7 @@ module.exports = function (commuter, plan) {
     commuter: commuter
   })
 
-  if(FROM && TO) {
+  if (FROM && TO) {
     plan.setAddresses(FROM, TO, function (err) {
       if (err) {
         log.error('%e', err)
@@ -89,7 +88,7 @@ module.exports = function (commuter, plan) {
     analytics.track('Exited Welcome Wizard')
     commuter.updateProfile('welcome_wizard_complete', true)
     commuter.save()
-    showPlannerWalkthrough()
+    plan.emit('welcome skipped')
   }
 
   // Start!

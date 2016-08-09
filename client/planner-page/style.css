@@ -93,3 +93,17 @@
 .BikeShareStation-Icon {
 
 }
+
+.SidePanel .welcome-header {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.SidePanel .welcome-box {
+  background: #fff;
+  margin: 8px;
+  padding: 10px;
+  border-radius: 3px;
+}
