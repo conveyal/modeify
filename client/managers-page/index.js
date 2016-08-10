@@ -56,12 +56,14 @@ View.prototype.create = function (e) {
   var email = this.find('#email').value
   var givenName = this.find('#givenName').value
   var surname = this.find('#surname').value
+  var password = this.find('#password').value
 
   alerts.clear()
   User.createManager({
     email: email,
     givenName: givenName,
-    surname: surname
+    surname: surname,
+    password: password
   }, function (err, user) {
     if (err) {
       alerts.show({

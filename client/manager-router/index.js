@@ -33,6 +33,10 @@ p('/logout', session.logoutMiddleware, function () {
   window.location.href = '/manager'
 })
 
+// Welcome new Manager
+
+p('/welcome', session.touch, require('../welcome-manager'))
+
 // Admin only
 
 p('/managers(.*)', session.touch, redirectIfNotAdmin)
