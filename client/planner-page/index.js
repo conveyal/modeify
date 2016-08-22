@@ -1,5 +1,5 @@
 var querystring = require('component-querystring')
-var L = require('mapbox.js')
+var L = require('leaflet')
 var scrollbarSize = require('scrollbar-size')
 var superagent = require('superagent')
 

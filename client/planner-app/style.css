@@ -3,7 +3,7 @@
 @import url("node_modules/bootstrap/dist/css/bootstrap.css");
 @import url("node_modules/font-awesome/css/font-awesome.css");
 @import url("node_modules/intro.js/introjs.css");
-@import url("node_modules/mapbox.js/theme/style.css");
+@import url("node_modules/leaflet/dist/leaflet.css");
 @import url("components/conveyal/modeify-icons.css/0.0.1/icons.css");
 @import url("components/conveyal/transitive.js/master/style.css");
 @import url("CONFIG_PATH/style.css");

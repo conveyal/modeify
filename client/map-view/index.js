@@ -1,11 +1,9 @@
 var config = require('../config')
-var L = require('mapbox.js')
+var L = require('leaflet')
 var debounce = require('debounce')
 var session = require('../session')
 
 var center = config.geocode().center.split(',').map(parseFloat)
-
-L.mapbox.accessToken = config.mapbox_access_token()
 
 var placeChanged = debounce(function (name, coordinate) {
   var plan = session.plan()
@@ -15,15 +13,41 @@ var placeChanged = debounce(function (name, coordinate) {
   })
 }, 150, true)
 
+function constructMapboxUrl (tileset) {
+  var mapboxAccessToken = config.mapbox_access_token()
+  var isRetina = window.devicePixelRatio > 1 ? '@2x' : ''
+  return `https://api.mapbox.com/styles/v1/${tileset}/tiles/256/{z}/{x}/{y}${isRetina}?access_token=${mapboxAccessToken}`
+}
+
 module.exports = function (el) {
-  var map = L.mapbox.map(el, config.mapbox_map_id(), {
-    attributionControl: {
-      compact: true,
-      position: 'bottomleft'
-    },
-    inertia: false,
-    zoomAnimation: false
-  }).setView([center[1], center[0]], config.geocode().zoom)
+  try {
+    // create the map
+    var map = L.map(el, {
+      attributionControl: {
+        compact: true,
+        position: 'bottomleft'
+      },
+      inertia: false,
+      zoomAnimation: false
+    }).setView([center[1], center[0]], config.geocode().zoom)
+
+    // add the base layer tileset
+    L.tileLayer(constructMapboxUrl(config.mapbox_base_style())).addTo(map)
+
+    // add a custom pane for the layers
+    map.createPane('labels')
+
+    // this pane is above overlays but below popups
+    map.getPane('labels').style.zIndex = 650
+
+    // layers in this pane are non-interactive and do not obscure mouse/touch events
+    map.getPane('labels').style.pointerEvents = 'none'
+
+    // add the labels layer to the labels pane
+    L.tileLayer(constructMapboxUrl(config.mapbox_label_style()), { pane: 'labels' }).addTo(map)
+  } catch (err) {
+    console.log(err)
+  }
 
   map.doubleClickZoom.disable()
   map.on('dblclick', function (e) {
