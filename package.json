@@ -1,11 +1,21 @@
 {
-  "private": true,
+  "name": "modeify",
+  "description": "Web TDM",
   "main": "lib/server.js",
   "engines": {
-    "node": "6.x.x",
-    "npm": "3.x.x"
+    "node": ">=6",
+    "npm": ">=3"
   },
-  "version": "1.6.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/conveyal/modeify"
+  },
+  "author": "Conveyal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/conveyal/modeify/issues"
+  },
+  "homepage": "https://github.com/conveyal/modeify",
   "dependencies": {
     "analytics-node": "^2.1.0",
     "async": "^2.0.0-rc.6",
@@ -125,7 +135,8 @@
     "transitive-js": "^0.8.2",
     "ua-parser-js": "^0.7.10",
     "uglify-js": "^2.6.2",
-    "yields-store": "^1.0.2"
+    "yields-store": "^1.0.2",
+    "semantic-release": "^4.3.5"
   },
   "scripts": {
     "build": "npm-run-all --parallel build:*",
@@ -140,7 +151,8 @@
     "server": "nodemon --watch lib lib/server.js",
     "start": "source bin/autoenv && npm-run-all --parallel server \"build:* -- --check-dependencies --watch\"",
     "sync": "aws s3 sync assets $(node bin/config-val s3Bucket) --acl public-read",
-    "test": "npm-run-all lint:*"
+    "test": "npm-run-all lint:*",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "standard": {
     "parser": "babel-eslint"
