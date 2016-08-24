@@ -1,4 +1,3 @@
-var log = require('../log')('location-page:modal')
 var view = require('../view')
 var Alert = require('../alert')
 

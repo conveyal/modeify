@@ -2,11 +2,12 @@ var analytics = require('../analytics')
 var haversine = require('../../components/trevorgerhardt/haversine/master')
 var log = require('../log')('plan:update-routes')
 var message = require('../messages')('plan:update-routes')
-var otpProfileToTransitive = require('otp-profile-to-transitive')
+var otpProfileToTransitive = require('./profile-to-transitive')
 var profileFilter = require('../profile-filter')
 var profileFormatter = require('../profile-formatter')
 var request = require('../request')
 var Route = require('../route')
+var r5toOtp = require('./r5-to-otp')
 
 /**
  * Expose `updateRoutes`
@@ -67,6 +68,10 @@ function updateRoutes (plan, opts, callback) {
       console.log(results.profile)
       console.log('r5', results.r5.responseTime / 1000, 'seconds')
       console.log(results.r5)
+
+      if (window.localStorage.getItem('r5') === 'true') {
+        results = r5toOtp(results.r5)
+      }
 
       var profile = profileFilter(results.profile, scorer)
       var journeys = otpProfileToTransitive({
@@ -134,14 +139,6 @@ function updateRoutes (plan, opts, callback) {
 }
 
 function generateErrorMessage (plan, response) {
-  /*if (!plan.to() && !plan.from()) {
-    return 'Please specify the from and to locations.'
-  } else if (plan.to() && !plan.from()) {
-    return 'Please specify the from location.'
-  } else if (!plan.to() && plan.from()) {
-    return 'Please specify the to location.'
-  }*/
-
   var msg = 'No results! '
   var responseText = response ? response.text : ''
 

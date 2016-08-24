@@ -1,7 +1,5 @@
 var profileFormatter = require('../profile-formatter')
 
-var THIRTY_MINUTES = 30 * 60
-
 /**
  * Filter, format, and score the results.
  */
@@ -17,8 +15,6 @@ module.exports = function profileFilter (options, scorer) {
     if (FILTER_RESULTS) {
       o = filterUnreasonableAccessModes(o)
       o = filterBikeshareIfNoBiking(o)
-      // Disabled at Arlington's request (i.e. to show bike & bikeshare options concurrently):
-      // o = filterBikeIfBikeshareIsAvailable(o)
     }
   })
 
@@ -172,33 +168,4 @@ function hasBicycleRent (a) {
     }, false)
   }
   return true
-}
-
-/**
- * Filter bike trips where bikeshare exists and is less than 1.5 slower.
- *
- * @param {Object} option
- * @return {Object} option Filtered
- */
-
-function filterBikeIfBikeshareIsAvailable (option) {
-  if (option.access && option.access.length > 1) {
-    var bikeTime = false
-    var bikeshareTime = false
-    option.access.forEach(function (a) {
-      if (a.mode === 'BICYCLE_RENT') {
-        bikeshareTime = a.time
-      } else if (a.mode === 'BICYCLE') {
-        bikeTime = a.time
-      }
-    })
-
-    if (bikeTime && bikeshareTime) {
-      var filterMode = bikeshareTime > THIRTY_MINUTES ? 'BICYCLE_RENT' : 'BICYCLE'
-      option.access = option.access.filter(function (a) {
-        return a.mode !== filterMode
-      })
-    }
-  }
-  return option
 }

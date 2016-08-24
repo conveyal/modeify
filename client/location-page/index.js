@@ -41,19 +41,6 @@ module.exports = function (ctx, next) {
     })
     m.addLayer(ctx.location.mapMarker())
 
-    /*if (ctx.location.commuterLocations.length > 0) {
-      var cluster = new L.MarkerClusterGroup()
-      ctx.location.commuterLocations.forEach(function (cl) {
-        if (cl._commuter.validCoordinate()) {
-          cluster.addLayer(cl._commuter.mapMarker())
-        }
-      })
-
-      if (cluster.getBounds()._northEast) {
-        m.addLayer(cluster)
-      }
-    }*/
-
     view.mapp = m
   })
 
