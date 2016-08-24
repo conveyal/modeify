@@ -5,3 +5,18 @@
   width: 100%;
   z-index: 0;
 }
+
+.set-start, .set-end {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.MapView .icon-start {
+  color: #8ec449;
+  font-size: 14px
+}
+
+.MapView .icon-end {
+  color: #8ec449;
+  font-size: 14px
+}

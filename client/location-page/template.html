@@ -1,37 +1,84 @@
-<div class="row">
-  <div class="col-sm-12">
-    <ol class="breadcrumb">
-      <li><a href="/manager/organizations">Organizations</a></li>
-      <li><a href="/manager/organizations/{created_by}/show">{organizationName}</a></li>
-      <li class="active">{name}</li>
-    </ol>
-    <h3>
-      <i class="fa fa-building-o"></i> {name}
-      <a class="btn btn-warning pull-right" href="/manager/organizations/{created_by}/locations/{_id}/edit"><i class="fa fa-pencil"></i> Edit</a>
-      <a class="btn btn-warning pull-right" href="/manager/organizations/{created_by}/locations/{_id}/ridematch"><i class="fa fa-pencil"></i> Ridematch Settings</a>
-      <a class="btn btn-info pull-right" href="/manager/organizations/{created_by}/locations/{_id}/analyze"><i class="fa fa-signal"></i> Analysis</a>
-      <button class="btn btn-success pull-right" on-tap="downloadMatches"><i class="fa fa-download"></i> Download Matches</button>
-      <button class="btn btn-success pull-right" on-tap="sendPlansAndMatches"><i class="fa fa-envelope"></i> Send Plans &amp; Matches</button>
-      <button class="btn btn-primary pull-right" on-tap="profileAndMatch"><i class="fa fa-refresh"></i> Profile &amp; Match</button>
-    </h3>
-    <p>{original_address}</p>
+<div>
+  <div class="fullscreen-map fullscreen">
+    <div class="fullscreen-button-overlay">
+      <div class="btn btn-default" on-tap="hideFullScreenMap">Exit Full Screen</div>
+    </div>
   </div>
-  <div class="col-sm-12">
-    <div class="map map-small"></div>
-  </div>
-  <div class="col-sm-12">
-    <h3>Commuters <span class="label label-primary">{commuterCount}</span> <button class="btn btn-info pull-right" on-tap="parseCSV"><i class="fa fa-upload"></i> CSV</button> <a class="btn btn-success pull-right" href="/manager/organizations/{created_by}/locations/{_id}/commuters/new"><i class="fa fa-plus"></i> Add</a></h3>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Home Location</th>
-          <th>Status</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody data-each="commuterLocations"></tbody>
-    </table>
+  <div class="row">
+    <div class="col-sm-12">
+      <ol class="breadcrumb">
+        <li><a href="/manager/organizations">Organizations</a></li>
+        <li><a href="/manager/organizations/{created_by}/show">{organizationName}</a></li>
+        <li class="active">{name}</li>
+      </ol>
+      <h3>
+        <i class="fa fa-building-o"></i> {name}
+        <a class="btn btn-warning pull-right" href="/manager/organizations/{created_by}/locations/{_id}/edit"><i class="fa fa-pencil"></i> Edit</a>
+        <!--<a class="btn btn-warning pull-right" href="/manager/organizations/{created_by}/locations/{_id}/ridematch"><i class="fa fa-pencil"></i> Ridematch Settings</a>-->
+        <a class="btn btn-info pull-right" href="/manager/organizations/{created_by}/locations/{_id}/analyze"><i class="fa fa-signal"></i> Analysis</a>
+        <button class="btn btn-success pull-right" on-tap="downloadMatches"><i class="fa fa-download"></i> Download Matches</button>
+        <button class="btn btn-success pull-right" on-tap="sendPlansAndMatches"><i class="fa fa-envelope"></i> Send Plans &amp; Matches</button>
+        <button class="btn btn-primary pull-right" on-tap="match"><i class="fa fa-refresh"></i> Ridematch</button>
+        <button class="btn btn-primary pull-right" on-tap="profile"><i class="fa fa-refresh"></i> Profile</button>
+        <!--<button class="btn btn-primary pull-right" on-tap="profileAndMatch"><i class="fa fa-refresh"></i> Profile &amp; Match</button>-->
+      </h3>
+      <p>{original_address}</p>
+    </div>
+    <div class="col-sm-12">
+      <div class="map-container map map-small">
+        <div class="location-map"></div>
+        <div class="map-button-overlay">
+          Map Size:
+          <div class="btn-group btn-group-xs" role="group">
+            <button type="button" class="btn btn-default" on-tap="showSmallMap">Small</button>
+            <button type="button" class="btn btn-default" on-tap="showMediumMap">Medium</button>
+            <button type="button" class="btn btn-default" on-tap="showLargeMap">Large</button>
+            <button type="button" class="btn btn-default" on-tap="showFullScreenMap">Full Screen</button>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="col-sm-12">
+      <h3>
+        Commuters <span class="label label-primary">{commuterCount}</span>
+        <button class="btn btn-info pull-right" on-tap="parseCSV"><i class="fa fa-upload"></i> Bulk Upload</button>
+        <a class="btn btn-success pull-right" href="/manager/organizations/{created_by}/locations/{_id}/commuters/new"><i class="fa fa-plus"></i> Add Commuter</a>
+      </h3>
+
+      <nav>
+        <ul class="pager">
+
+          <li>
+            <button type="button" class="btn btn-default" on-tap="previousPage">
+              <span aria-hidden="true">&larr;</span> Previous
+            </button>
+          </li>
+          <li>&nbsp;&nbsp;Page {page+1} of {pageCount}&nbsp;&nbsp;</li>
+          <li>
+            <button type="button" class="btn btn-default" on-tap="nextPage">
+              Next <span aria-hidden="true">&rarr;</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Internal ID</th>
+            <th>Email</th>
+            <th>Home Location</th>
+            <th>Profile Options</th>
+            <th>Matches</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody data-each="commuterLocations"></tbody>
+      </table>
+    </div>
   </div>
 </div>

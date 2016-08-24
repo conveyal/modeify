@@ -103,21 +103,6 @@ function updateRoutes (plan, opts, callback) {
         })
       }
 
-      // Remove the car option if car is turned off
-      if (!plan.car()) {
-        if (profile.length === 1) {
-          return done('No non-driving results.', res)
-        }
-
-        profile = profile.filter(function (o) {
-          return o.access[0].mode !== 'CAR'
-        })
-
-        journeys.journeys = journeys.journeys.filter(function (o) {
-          return o.journey_name.indexOf('CAR') === -1
-        })
-      }
-
       // Create a new Route object for each option
       for (var i = 0; i < profile.length; i++) {
         profile[i] = new Route(profile[i])
@@ -149,12 +134,13 @@ function updateRoutes (plan, opts, callback) {
 }
 
 function generateErrorMessage (plan, response) {
-  if (plan.to() && !plan.from()) {
+  /*if (!plan.to() && !plan.from()) {
+    return 'Please specify the from and to locations.'
+  } else if (plan.to() && !plan.from()) {
     return 'Please specify the from location.'
-  }
-  if (!plan.to() && plan.from()) {
+  } else if (!plan.to() && plan.from()) {
     return 'Please specify the to location.'
-  }
+  }*/
 
   var msg = 'No results! '
   var responseText = response ? response.text : ''

@@ -4,6 +4,7 @@ var each = require('component-each')
 var log = require('../log')('location-page:modal')
 var value = require('component-value')
 var view = require('../view')
+var ConfirmModal = require('../confirm-modal')
 
 /**
  * Modal, Input
@@ -40,26 +41,29 @@ Modal.prototype.upload = function (e) {
 
   var commuters = []
   each(modal.findAll('tr'), function (el) {
+    if (!el.querySelector('.confirm')) return
     // if confirm is unchecked, skip
+    console.log(value(el.querySelector('.confirm')))
     if (!value(el.querySelector('.confirm'))) return
 
     // get the other data
     commuters.push({
       address: el.querySelector('.address').textContent || '',
-      email: (el.querySelector('.email').textContent || '').toLowerCase(),
+      email: el.querySelector('.email').textContent ? el.querySelector('.email').textContent.toLowerCase() : null,
+      internalId: el.querySelector('.internalId').textContent || null,
       givenName: el.querySelector('.givenName').textContent || '',
       surname: el.querySelector('.surname').textContent || ''
     })
   })
 
-  CommuterLocation.addCommuters(location._id(), this.model.organization._id(), commuters, function (err, res) {
+  CommuterLocation.addCommuters(location._id(), this.model.organization._id(), commuters, function (err, status) {
     if (err) {
       log.error('%e', err)
       window.alert('Error while uploading commuters. ' + err)
-    } else {
-      alerts.push({
-        type: 'success',
-        text: 'Upload succesful, ' + res.length + ' commuters added to this location.'
+    } else if (status === 'started') {
+      ConfirmModal({
+        text: 'Commuters are being loaded. This may take several minutes with large datasets. Please check back for progress.',
+        showCancel: false
       })
     }
     modal.el.remove()

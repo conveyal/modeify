@@ -18,5 +18,10 @@
       <ul class="suggestions empty"></ul>
     </div>
   </div>
+  <div class="form-group">
+    <label for="name">Ridematch Radius (mi.)</label>
+    <input type="text" class="form-control" name="match_radius" placeholder="Radius" value="{match_radius || ''}">
+  </div>
+
   <button type="button" class="btn btn-primary" on-tap="save">{action}</button>
 </form>

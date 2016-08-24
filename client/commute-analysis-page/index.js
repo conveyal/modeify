@@ -57,12 +57,24 @@ var View = view(require('./template.html'), function (view, model) {
           return cl.profile && cl.profile.options
         })
         .map(function (cl) {
-          var profile = scorer.processOptions(cl.profile.options)[0]
+          return {
+            cl: cl,
+            processedOptions: scorer.processOptions(cl.profile.options)
+          }
+        })
+        .filter(function (clpo) {
+          return clpo.processedOptions && clpo.processedOptions.length > 0
+        })
+        .map(function (clpo) {
+          var cl = clpo.cl
+          var profile = clpo.processedOptions[0]
           var matches = cl.matches || []
           var to = cl._location.coordinate()
           var from = cl._commuter.coordinate()
+          var commuter = (cl._commuter.givenName() && cl._commuter.surname()) ? cl._commuter.givenName() + ' ' + cl._commuter.surname() : cl._commuter.email() || 'Unnamed Commuter'
+          if (cl._commuter.internalId()) commuter += ` (${cl._commuter.internalId()})`
           return {
-            commuter: (cl._commuter.givenName() && cl._commuter.surname()) ? cl._commuter.givenName() + ' ' + cl._commuter.surname() : cl._commuter.email(),
+            commuter: commuter,
             calories: parseInt(profile.calories, 10),
             cost: profile.cost.toFixed(2),
             distance: parseFloat(haversine(from.lat, from.lng, to.lat, to.lng, true).toFixed(2)),

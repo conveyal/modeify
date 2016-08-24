@@ -16,6 +16,8 @@ var Location = module.exports = model('Location')
   .attr('created_by')
   .attr('name')
   .attr('rideshare_manager')
+  .attr('commuter_count')
+  .attr('match_radius')
 
 Location.load = function (ctx, next) {
   log('loading %s', ctx.params.location)
@@ -55,6 +57,30 @@ Location.loadOrg = function (ctx, next) {
         next()
       }
     })
+}
+
+Location.prototype.profile = function (callback) {
+  request.get('/commuter-locations/profile', {
+    _location: this._id()
+  }, function (err, res) {
+    if (err) {
+      callback(err)
+    } else {
+      callback(null, res.text)
+    }
+  })
+}
+
+Location.prototype.match = function (callback) {
+  request.get('/commuter-locations/match', {
+    _location: this._id()
+  }, function (err, res) {
+    if (err) {
+      callback(err)
+    } else {
+      callback(null, res.text)
+    }
+  })
 }
 
 Location.prototype.profileAndMatch = function (callback) {

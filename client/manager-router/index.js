@@ -14,6 +14,8 @@ var session = require('../session')
 var User = require('../user')
 var utils = require('../router-utils')
 
+var redirectIfNotAdmin = required(['administrator'], '/organizations')
+
 // Setup & show alerts
 
 p('*', function (ctx, next) {
@@ -23,7 +25,7 @@ p('*', function (ctx, next) {
 
 // If the user is logged in, redirect to orgs, else redirect to login
 
-p('/', session.touch, redirectToOrgIfManager, utils.redirect('/organizations'))
+p('/', session.touch, utils.redirect('/organizations'))
 
 // Public links
 
@@ -31,27 +33,31 @@ p('/logout', session.logoutMiddleware, function () {
   window.location.href = '/manager'
 })
 
+// Welcome new Manager
+
+p('/welcome', session.touch, require('../welcome-manager'))
+
 // Admin only
 
-p('/managers(.*)', session.touch, required(['administrator'], '/organizations'))
+p('/managers(.*)', session.touch, redirectIfNotAdmin)
 p('/managers', require('../managers-page'))
 p('/managers/:manager/show', Organization.loadAll, User.loadManager, require('../manager-page'))
 
 // Organizations
 
 p('/organizations(.*)', session.touch)
-p('/organizations', redirectToOrgIfManager, Organization.loadAll, require('../organizations-page'))
-p('/organizations/new', redirectToOrgIfManager, organizationForm)
+p('/organizations', Organization.loadAll, require('../organizations-page'))
+p('/organizations/new', redirectIfNotAdmin, organizationForm)
 
-p('/organizations/:organization/(.*)', Organization.load)
-p('/organizations/:organization/show', Commuter.loadOrg, Location.loadOrg, Ridepool.loadOrg, require('../organization-page'))
+p('/organizations/:organization/(.*)', redirectIfNotOrgManager, Organization.load)
+p('/organizations/:organization/show', Location.loadOrg, Ridepool.loadOrg, require('../organization-page'))
 p('/organizations/:organization/edit', organizationForm)
 
 // Locations
 
 p('/organizations/:organization/locations/new', LocationForm)
 p('/organizations/:organization/locations/:location/(.*)', Location.load)
-p('/organizations/:organization/locations/:location/show', CommuterLocation.forLocationMiddleware, require('../location-page'))
+p('/organizations/:organization/locations/:location/show', require('../location-page'))
 p('/organizations/:organization/locations/:location/edit', LocationForm)
 p('/organizations/:organization/locations/:location/analyze', CommuterLocation.forLocationMiddleware, require('../commute-analysis-page'))
 p('/organizations/:organization/locations/:location/distribute', require('../commute-distribution-page'))
@@ -72,15 +78,15 @@ p('/organizations/:organization/locations/:location/commuters/:commuter/edit', c
 
 // Feedback
 
-p('/feedback', session.touch, require('../feedback-table-page'))
+p('/feedback', session.touch, redirectIfNotAdmin, require('../feedback-table-page'))
 
 // User Signups
 
-p('/user-activity', session.touch, require('../user-activity-page'))
+p('/user-activity', session.touch, redirectIfNotAdmin, require('../user-activity-page'))
 
 // Alerts
 
-p('/alerts', session.touch, ServiceAlert.loadAll, require('../service-alerts-page'))
+p('/alerts', session.touch, redirectIfNotAdmin, ServiceAlert.loadAll, require('../service-alerts-page'))
 
 // Render all
 
@@ -88,9 +94,9 @@ p('*', utils.render)
 
 // Has rights or redirect to
 
-function required (groups, all, redirectTo) {
+function required (groups, redirectTo) {
   return function (ctx, next) {
-    if (ctx.session.inGroups(groups, all)) {
+    if (ctx.session.inGroups(groups)) {
       next()
     } else {
       utils.redirect(redirectTo)(ctx, next)
@@ -98,10 +104,10 @@ function required (groups, all, redirectTo) {
   }
 }
 
-function redirectToOrgIfManager (ctx, next) {
-  if (ctx.session.inGroups(['administrator'])) {
+function redirectIfNotOrgManager (ctx, next) {
+  if (ctx.session.inGroups(['administrator', 'organization-' + ctx.params.organization + '-manager'])) {
     next()
   } else {
-    utils.redirect('/organizations/' + ctx.session.user().getOrganizationId() + '/show')(ctx, next)
+    utils.redirect('/organizations/')(ctx, next)
   }
 }

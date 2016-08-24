@@ -24,11 +24,24 @@ View.prototype.status = function () {
 }
 
 View.prototype.name = function () {
+  if (!this.model._commuter.givenName() && !this.model._commuter.surname()) return '(Unnamed Commuter)'
   return this.model._commuter.givenName() + ' ' + this.model._commuter.surname()
 }
 
 View.prototype.email = function () {
-  return this.model._commuter.email()
+  return this.model._commuter.email() || '(none)'
+}
+
+View.prototype.internalId = function () {
+  return this.model._commuter.internalId() || '(none)'
+}
+
+View.prototype.profileCount = function () {
+  return (this.model.profile && this.model.profile.options) ? this.model.profile.options.length : '(none)'
+}
+
+View.prototype.matchCount = function () {
+  return this.model.matches ? this.model.matches.length : '(none)'
 }
 
 View.prototype.location = function () {

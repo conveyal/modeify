@@ -6,10 +6,12 @@ var request = require('../request')
 module.exports = {
   addCommuters: addCommuters,
   forLocation: forLocation,
+  forLocationPaged: forLocationPaged,
   forLocationMiddleware: forLocationMiddleware,
   forCommuter: forCommuter,
   remove: remove,
-  sendProfileAndMatches: sendProfileAndMatches
+  sendProfileAndMatches: sendProfileAndMatches,
+  coordinatesForLocation: coordinatesForLocation
 }
 
 function forLocationMiddleware (ctx, next) {
@@ -30,11 +32,37 @@ function forLocation (_location, callback) {
     if (err) {
       callback(err)
     } else {
-      callback(null, (res.body || []).map(function (entry) {
-        entry._commuter = new Commuter(entry._commuter)
-        entry._location = new Location(entry._location)
-        return entry
-      }))
+      callback(null, expand(res.body))
+    }
+  })
+}
+
+function forLocationPaged (_location, offset, limit, callback) {
+  log('loading commuters for location %s from %s, limit %s', _location, offset, limit)
+  request.get('/commuter-locations/', { _location: _location, offset: offset, limit: limit }, function (err, res) {
+    if (err) {
+      callback(err)
+    } else {
+      callback(null, expand(res.body))
+    }
+  })
+}
+
+function expand (commuterLocations) {
+  return (commuterLocations || []).map(function (entry) {
+    entry._commuter = new Commuter(entry._commuter)
+    entry._location = new Location(entry._location)
+    return entry
+  })
+}
+
+function coordinatesForLocation (_location, callback) {
+  log('loading commuter coordinates for location %s', _location)
+  request.get('/commuter-locations/coordinates', { _location: _location }, function (err, res) {
+    if (err) {
+      callback(err)
+    } else {
+      callback(null, res.body)
     }
   })
 }
@@ -64,7 +92,7 @@ function addCommuters (_location, _organization, commuters, callback) {
     if (err) {
       callback(err)
     } else {
-      callback(null, res.body)
+      callback(null, res.text)
     }
   })
 }

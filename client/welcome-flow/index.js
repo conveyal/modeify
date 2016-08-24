@@ -4,7 +4,6 @@ var introJs = require('intro.js').introJs
 var log = require('../log')('welcome-flow')
 var LocationsView = require('../locations-view')
 var message = require('../messages')('welcomewelcome-flow')
-var showPlannerWalkthrough = require('../planner-walkthrough')
 var RouteModal = require('../route-modal')
 var routeResource = require('../route-resource')
 
@@ -26,14 +25,22 @@ module.exports = function (commuter, plan) {
     commuter: commuter
   })
 
-  plan.setAddresses(FROM, TO, function (err) {
-    if (err) {
-      log.error('%e', err)
-    } else {
-      plan.journey({ places: plan.generatePlaces() })
-      plan.updateRoutes()
-    }
-  })
+  if (FROM && TO) {
+    plan.setAddresses(FROM, TO, function (err) {
+      if (err) {
+        log.error('%e', err)
+      } else {
+        plan.journey({ places: plan.generatePlaces() })
+        plan.updateRoutes()
+      }
+    })
+  } else { // no default addresses specified
+    plan.from(null)
+    plan.from_ll(null)
+    plan.to(null)
+    plan.to_ll(null)
+    plan.updateRoutes()
+  }
 
   var nextClicked = false
   welcome.on('hide', skip)
@@ -81,7 +88,7 @@ module.exports = function (commuter, plan) {
     analytics.track('Exited Welcome Wizard')
     commuter.updateProfile('welcome_wizard_complete', true)
     commuter.save()
-    showPlannerWalkthrough()
+    plan.emit('welcome skipped')
   }
 
   // Start!
