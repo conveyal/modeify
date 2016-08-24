@@ -6,286 +6,217 @@
  */
 
 module.exports = function ({
-  patterns
+  from,
+  patterns,
+  profile,
+  routes,
+  to
 }) {
-  const data = {
-    journeys: [],
-    patterns: [],
-    places: [],
-    routes: [],
-    stops: [],
-    streetEdges: []
-  }
-
+  const options = profile.options
   const streetEdgeMap = {}
 
-  const routeIds = []
-  const stopIds = []
-
-  // Get a pattern by passing in the id
-  var getPattern = function (id) {
-    for (var i = 0; i < patterns.length; i++) {
-      var pattern = patterns[i]
-      if (pattern.id === id) return pattern
-    }
-  }
-
-  // Collect all unique stops
-  patterns.forEach(function (pattern) {
-    // Store all used route ids
-    if (routeIds.indexOf(pattern.routeId) === -1) routeIds.push(pattern.routeId)
-
-    pattern.stops.forEach(function (stop) {
-      var stopId = getStopId(stop)
-      if (stopIds.indexOf(stopId) === -1) {
-        data.stops.push({
-          stop_id: stopId,
-          stop_name: stop.name,
-          stop_lat: stop.lat,
-          stop_lon: stop.lon
-        })
-        stopIds.push(stopId)
-      }
-    })
-  })
-
-  // Collect routes
-  opts.routes.forEach(function (route) {
-    if (routeIds.indexOf(route.id) !== -1) {
-      data.routes.push({
-        agency_id: route.agency,
-        route_id: route.id,
-        route_short_name: route.shortName,
-        route_long_name: route.longName,
-        route_type: getGtfsRouteType(route.mode),
-        route_color: route.color
-      })
-    }
-  })
-
-  // Collect patterns
-  each(opts.patterns, function (pattern) {
-    var obj = {
-      pattern_id: pattern.id,
-      stops: []
-    }
-
-    if (pattern.desc) obj.pattern_name = pattern.desc
-    if (pattern.routeId) obj.route_id = pattern.routeId
-
-    each(pattern.stops, function (stop) {
-      obj.stops.push({
-        stop_id: getStopId(stop)
-      })
-    })
-
-    data.patterns.push(obj)
-  })
-
-  // Collect places
-  // TODO: Remove this
-  if (opts.from) {
-    data.places.push({
-      place_id: 'from',
-      place_name: opts.from.name,
-      place_lat: opts.from.lat,
-      place_lon: opts.from.lon
-    })
-  }
-
-  if (opts.to) {
-    data.places.push({
-      place_id: 'to',
-      place_name: opts.to.name,
-      place_lat: opts.to.lat,
-      place_lon: opts.to.lon
-    })
-  }
+  const uniqueRouteIds = new Set(patterns.map((pattern) => pattern.routeId))
+  const allStops = patterns.reduce((stops, pattern) => stops.concat(pattern.stops), [])
+  const uniqueStopIds = new Set(allStops.map((stop) => getStopId(stop)))
+  const places = [
+    formatPlace('from', from),
+    formatPlace('to', to),
+    ...getBikeRentalStations(options)
+  ].filter((place) => !!place)
 
   // Collect journeys
-  each(opts.profile.options, function (option, optionIndex) {
+  const journeys = profile.options.reduce(function (journeys, option, optionIndex) {
     // handle non-transit option as a special case
-    if (!option.hasOwnProperty('transit')) {
+    if (!option.transit) {
       // create separate journey for each non-transit mode contained in this option
-      each(option.access, function (leg) {
-        var mode = leg.mode.toUpperCase()
-        if (mode === 'WALK' || mode === 'BICYCLE' || mode === 'CAR' || mode === 'BICYCLE_RENT') {
-          data.journeys.push(processNonTransitOption(data, streetEdgeMap, leg, optionIndex))
+      return journeys.concat(option.access.map(function (leg) {
+        if (isDirectAccessMode(leg.mode)) {
+          return processNonTransitOption(streetEdgeMap, leg, optionIndex)
+        } else {
+          return false
         }
-      })
-      return
-    }
+      }).filter((journey) => !!journey))
+    } else {
+      // process option as transit journey
 
-    // process option as transit journey
-
-    var journeyId = optionIndex + '_transit'
-    var journey = {
-      journey_id: journeyId,
-      journey_name: option.summary || journeyId,
-      segments: []
-    }
-
-    // Add the access segment
-    if (opts.from && option.access) {
-      var bestAccess = option.access[0] // assume the first returned access leg is the best
-      var firstPattern = option.transit[0].segmentPatterns[0]
-      var boardStop = getPattern(firstPattern.patternId).stops[firstPattern.fromIndex]
-
-      var accessFrom = {
-        type: 'PLACE',
-        place_id: 'from'
-      }
-      var accessTo = {
-        type: 'STOP',
-        stop_id: getStopId(boardStop)
+      const journeyId = optionIndex + '_transit'
+      const journey = {
+        journey_id: journeyId,
+        journey_name: option.summary || journeyId,
+        segments: []
       }
 
-      var accessSegments = processAccessEgress(data, streetEdgeMap, bestAccess, accessFrom, accessTo)
-      journey.segments = journey.segments.concat(accessSegments)
-    }
+      // Add the access segment
+      if (from && option.access) {
+        const bestAccess = option.access[0] // assume the first returned access leg is the best
+        const firstPattern = option.transit[0].segmentPatterns[0]
+        const boardStop = findId(patterns, firstPattern.patternId).stops[firstPattern.fromIndex]
 
-    each(option.transit, function (segment, segmentIndex) {
-      // construct a collection of 'typical' patterns for each route that serves this segment
-      var routePatterns = {} // maps routeId to a segmentPattern object
-      each(segment.segmentPatterns, function (segmentPattern) {
-        var pattern = getPattern(segmentPattern.patternId)
+        const accessFrom = {
+          type: 'PLACE',
+          place_id: 'from'
+        }
+        const accessTo = {
+          type: 'STOP',
+          stop_id: getStopId(boardStop)
+        }
 
-        if (pattern.routeId in routePatterns) { // if we already have a pattern for this route
-          // replace the existing pattern only if the new one has more trips
-          if (segmentPattern.nTrips > routePatterns[pattern.routeId].nTrips) {
+        const accessSegments = processAccessEgress(streetEdgeMap, bestAccess, accessFrom, accessTo)
+        journey.segments = journey.segments.concat(accessSegments)
+      }
+
+      option.transit.forEach(function (segment, segmentIndex) {
+        // construct a collection of 'typical' patterns for each route that serves this segment
+        const routePatterns = segment.segmentPatterns.reduce(function (routePatterns, segmentPattern) {
+          const pattern = findId(patterns, segmentPattern.patternId)
+
+          if (pattern.routeId in routePatterns) { // if we already have a pattern for this route
+            // replace the existing pattern only if the new one has more trips
+            if (segmentPattern.nTrips > routePatterns[pattern.routeId].nTrips) {
+              routePatterns[pattern.routeId] = segmentPattern
+            }
+          } else { // otherwise, store this pattern as the initial typical pattern for its route
             routePatterns[pattern.routeId] = segmentPattern
           }
-        } else { // otherwise, store this pattern as the initial typical pattern for its route
-          routePatterns[pattern.routeId] = segmentPattern
-        }
-      })
 
-      var patterns = []
-      for (var routeId in routePatterns) {
-        var segmentPattern = routePatterns[routeId]
-        patterns.push({
-          pattern_id: segmentPattern.patternId,
-          from_stop_index: segmentPattern.fromIndex,
-          to_stop_index: segmentPattern.toIndex
+          return routePatterns
+        }, {})
+
+        journey.segments.push({
+          type: 'TRANSIT',
+          patterns: Object.values(routePatterns).map(formatSegmentPattern)
         })
-      }
 
-      journey.segments.push({
-        type: 'TRANSIT',
-        patterns: patterns
+        // Add a walk segment for the transfer, if needed
+        if (option.transit.length > segmentIndex + 1) {
+          const currentFirstPattern = segment.segmentPatterns[0]
+          const alightStop = findId(patterns, currentFirstPattern.patternId).stops[currentFirstPattern.toIndex]
+
+          const nextSegment = option.transit[segmentIndex + 1]
+          const nextFirstPattern = nextSegment.segmentPatterns[0]
+          const boardStop = findId(patterns, nextFirstPattern.patternId).stops[nextFirstPattern.fromIndex]
+
+          if (alightStop.id !== boardStop.id) {
+            journey.segments.push({
+              type: 'WALK',
+              from: {
+                type: 'STOP',
+                stop_id: getStopId(alightStop)
+              },
+              to: {
+                type: 'STOP',
+                stop_id: getStopId(boardStop)
+              }
+            })
+          }
+        }
       })
 
-      // Add a walk segment for the transfer, if needed
-      if (option.transit.length > segmentIndex + 1) {
-        var currentFirstPattern = segment.segmentPatterns[0]
-        var alightStop = getPattern(currentFirstPattern.patternId).stops[currentFirstPattern.toIndex]
-        var nextSegment = option.transit[segmentIndex + 1]
-        var nextFirstPattern = nextSegment.segmentPatterns[0]
-        var boardStop = getPattern(nextFirstPattern.patternId).stops[nextFirstPattern.fromIndex]
+      // Add the egress segment
+      if (to && option.egress) {
+        const bestEgress = option.egress[0] // assume the first returned egress leg is the best
+        const lastPattern = option.transit[option.transit.length - 1].segmentPatterns[0]
+        const alightStop = findId(patterns, lastPattern.patternId).stops[lastPattern.toIndex]
 
-        if (alightStop.id !== boardStop.id) {
-          journey.segments.push({
-            type: 'WALK',
-            from: {
-              type: 'STOP',
-              stop_id: getStopId(alightStop)
-            },
-            to: {
-              type: 'STOP',
-              stop_id: getStopId(boardStop)
-            }
-          })
+        const egressFrom = {
+          type: 'STOP',
+          stop_id: getStopId(alightStop)
         }
-      }
-    })
+        const egressTo = {
+          type: 'PLACE',
+          place_id: 'to'
+        }
 
-    // Add the egress segment
-    if (opts.to && option.egress) {
-      var bestEgress = option.egress[0] // assume the first returned egress leg is the best
-      var lastPattern = option.transit[option.transit.length - 1].segmentPatterns[0]
-      var alightStop = getPattern(lastPattern.patternId).stops[lastPattern.toIndex]
-
-      var egressFrom = {
-        type: 'STOP',
-        stop_id: getStopId(alightStop)
-      }
-      var egressTo = {
-        type: 'PLACE',
-        place_id: 'to'
+        const egressSegments = processAccessEgress(streetEdgeMap, bestEgress, egressFrom, egressTo)
+        journey.segments = journey.segments.concat(egressSegments)
       }
 
-      var egressSegments = processAccessEgress(data, streetEdgeMap, bestEgress, egressFrom, egressTo)
-      journey.segments = journey.segments.concat(egressSegments)
+      // Add the journey
+      return journeys.concat(journey)
     }
+  }, [])
 
-    // Add the journey
-    data.journeys.push(journey)
-  })
-
-  // populate the street edge array from the map
-  each(streetEdgeMap, function (edgeId) {
-    var edge = streetEdgeMap[edgeId]
-    data.streetEdges.push({
-      edge_id: edgeId,
-      geometry: edge.geometry
+  return {
+    journeys,
+    patterns: patterns.map(formatPattern),
+    places,
+    routes: [...uniqueRouteIds]
+      .map((id) => routes.find((route) => id === route.id))
+      .map(formatRoute),
+    stops: [...uniqueStopIds]
+      .map((id) => allStops.find((stop) => id === getStopId(id)))
+      .map(formatStop),
+    streetEdges: Object.keys(streetEdgeMap).map(function (edgeId) {
+      const edge = streetEdgeMap[edgeId]
+      return {
+        edge_id: edgeId,
+        geometry: edge.geometry
+      }
     })
-  })
-
-  return data
+  }
 }
 
-function processAccessEgress (data, streetEdgeMap, leg, from, to) {
+function processAccessEgress (streetEdgeMap, leg, from, to) {
   if (leg.mode === 'BICYCLE_RENT') {
-    return processBikeRentalSegment(data, streetEdgeMap, leg.streetEdges, from, to)
+    return processBikeRentalSegment(streetEdgeMap, leg.streetEdges, from, to)
   } else {
-    var journeySegment = constructJourneySegment(streetEdgeMap, leg.mode, from, to, leg.streetEdges)
+    const journeySegment = constructJourneySegment(streetEdgeMap, leg.mode, from, to, leg.streetEdges)
     return [journeySegment]
   }
 }
 
-function processNonTransitOption (data, streetEdgeMap, option, optionIndex) {
-  var journeyId = optionIndex + '_' + option.mode.toLowerCase()
-  var journey = {
-    journey_id: journeyId,
-    journey_name: option.mode.toUpperCase(),
-    segments: []
+function processNonTransitOption (streetEdgeMap, leg, optionIndex) {
+  const fromPlace = constructPlaceEndpoint('from')
+  const toPlace = constructPlaceEndpoint('to')
+
+  return {
+    journey_id: optionIndex + '_' + leg.mode.toLowerCase(),
+    journey_name: leg.mode.toUpperCase(),
+    segments: leg.mode === 'BICYCLE_RENT'
+      ? processBikeRentalSegment(streetEdgeMap, leg.streetEdges, fromPlace, toPlace)
+      : [constructJourneySegment(streetEdgeMap, leg.mode, fromPlace, toPlace, leg.streetEdges)]
   }
-
-  var fromPlace = constructPlaceEndpoint('from')
-  var toPlace = constructPlaceEndpoint('to')
-
-  if (option.mode === 'BICYCLE_RENT') {
-    var segments = processBikeRentalSegment(data, streetEdgeMap, option.streetEdges, fromPlace, toPlace)
-    journey.segments = journey.segments.concat(segments)
-  } else {
-    var journeySegment = constructJourneySegment(streetEdgeMap, option.mode, fromPlace, toPlace, option.streetEdges)
-    journey.segments.push(journeySegment)
-  }
-
-  return journey
 }
 
-function processBikeRentalSegment (data, streetEdgeMap, edges, from, to) {
-  var preWalkEdges = []
-  var bikeRentalEdges = []
-  var postWalkEdges = []
-  var currentLeg = preWalkEdges
-  var onStationEndpoint, offStationEndpoint
-  each(edges, function (edge) {
+function getBikeRentalStations (options) {
+  return options
+    .reduce((stations, option) => {
+      const allLegs = [...(option.access || []), ...(option.egress || [])]
+      const bikeLegs = allLegs.filter((leg) => leg.mode === 'BICYCLE_RENT')
+      if (bikeLegs.length > 0) {
+        return stations
+          .concat(option.streetEdges.reduce((stations, edge) => {
+            if (edge.bikeRentalOffStation) {
+              return stations.concat(formatBikeRentalStation(edge.bikeRentalOffStation))
+            } else if (edge.bikeRentalOnStation) {
+              return stations.concat(formatBikeRentalStation(edge.bikeRentalOnStation))
+            }
+            return stations
+          }, []))
+      }
+      return stations
+    }, [])
+}
+
+function processBikeRentalSegment (streetEdgeMap, edges, from, to) {
+  const preWalkEdges = []
+  const bikeRentalEdges = []
+  const postWalkEdges = []
+  let currentLeg = preWalkEdges
+  let onStationEndpoint, offStationEndpoint
+  edges.forEach(function (edge) {
     if (edge.bikeRentalOffStation) {
       currentLeg = postWalkEdges
-      var offStation = addBikeRentalStation(data, edge.bikeRentalOffStation)
-      offStationEndpoint = constructPlaceEndpoint(offStation.place_id)
+      offStationEndpoint = constructPlaceEndpoint(`bicycle_rent_station_${edge.bikeRentalOffStation.id}`)
     }
     currentLeg.push(edge)
     if (edge.bikeRentalOnStation) {
       currentLeg = bikeRentalEdges
-      var onStation = addBikeRentalStation(data, edge.bikeRentalOnStation)
-      onStationEndpoint = constructPlaceEndpoint(onStation.place_id)
+      onStationEndpoint = constructPlaceEndpoint(`bicycle_rent_station_${edge.bikeRentalOnStation.id}`)
     }
   })
 
-  var journeySegments = []
+  const journeySegments = []
 
   // add the walk leg to the "on" station, if applicable
   if (preWalkEdges.length > 0) {
@@ -308,44 +239,25 @@ function processBikeRentalSegment (data, streetEdgeMap, edges, from, to) {
   return journeySegments
 }
 
-function addBikeRentalStation (data, station) {
-  var placeId = 'bicycle_rent_station_' + station.id
-
-  // check if the station already exists
-  var existing = null
-  each(data.places, function (place) {
-    if (place.place_id === placeId) existing = place
-  })
-
-  if (existing) return existing
-
-  var place = {
-    place_id: placeId,
+function formatBikeRentalStation (station) {
+  return {
+    place_id: `bicycle_rent_station_${station.id}`,
     place_name: station.name,
     place_lat: station.lat,
     place_lon: station.lon
   }
-  data.places.push(place)
-
-  return place
 }
 
 function constructJourneySegment (streetEdgeMap, mode, from, to, edges) {
-  var journeySegment = {
+  return {
     type: mode.toUpperCase(),
-    from: from,
-    to: to,
-    streetEdges: []
-  }
-
-  each(edges, function (edge) {
-    if (!(edge.edgeId in streetEdgeMap)) {
+    from,
+    to,
+    streetEdges: edges.map((edge) => {
       streetEdgeMap[edge.edgeId] = edge
-    }
-    journeySegment.streetEdges.push(edge.edgeId)
-  })
-
-  return journeySegment
+      return edge.edgeId
+    })
+  }
 }
 
 function constructPlaceEndpoint (id) {
@@ -383,5 +295,67 @@ function getGtfsRouteType (mode) {
       return 6
     case 'FUNICULAR':
       return 7
+  }
+}
+
+function isDirectAccessMode (mode) {
+  return mode === 'walk' || mode === 'bicycle' || mode === 'car' || mode === 'bicycle_rent'
+}
+
+function findId (arr, id) {
+  return arr.find((v) => v.id === id)
+}
+
+function formatPattern (pattern) {
+  return {
+    pattern_id: pattern.id,
+    pattern_name: pattern.desc,
+    route_id: pattern.routeId,
+    stops: pattern.stops.map((stop) => {
+      return {
+        stop_id: getStopId(stop)
+      }
+    })
+  }
+}
+
+function formatPlace (id, place) {
+  if (place) {
+    return {
+      place_id: id,
+      place_name: place.name,
+      place_lon: place.lon,
+      place_lat: place.lat
+    }
+  } else {
+    return false
+  }
+}
+
+function formatRoute (route) {
+  return {
+    agency_id: route.agency,
+    route_id: route.id,
+    route_short_name: route.shortName,
+    route_long_name: route.longName,
+    route_type: getGtfsRouteType(route.mode),
+    route_color: route.color
+  }
+}
+
+function formatSegmentPattern (segmentPattern) {
+  return {
+    pattern_id: segmentPattern.patternId,
+    from_stop_index: segmentPattern.fromIndex,
+    to_stop_index: segmentPattern.toIndex
+  }
+}
+
+function formatStop (stop) {
+  return {
+    stop_id: getStopId(stop),
+    stop_name: stop.name,
+    stop_lat: stop.lat,
+    stop_lon: stop.lon
   }
 }
