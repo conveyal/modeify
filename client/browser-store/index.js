@@ -26,6 +26,10 @@ function get (name) {
   if (localStorageSupported) {
     return store(name)
   } else {
-    return JSON.parse(cookie(name))
+    try {
+      return JSON.parse(cookie(name))
+    } catch (e) {
+      return false
+    }
   }
 }
