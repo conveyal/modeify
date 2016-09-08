@@ -23,7 +23,7 @@
     "handlebars": "^4.0.5",
     "jade": "^1.11.0",
     "js-yaml": "^3.6.1",
-    "juice": "^2.0.0",
+    "juice": "^3.0.0",
     "mandrill-api": "^1.0.45",
     "mapbox": "^1.0.0-beta1",
     "moment": "^2.13.0",
