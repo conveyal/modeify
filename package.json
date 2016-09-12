@@ -35,8 +35,8 @@
     "jade": "^1.11.0",
     "js-yaml": "^3.6.1",
     "juice": "^2.0.0",
-    "lonlng": "0.0.2",
     "leaflet": "1.0.0-rc.3",
+    "lonlng": "0.0.2",
     "mandrill-api": "^1.0.45",
     "mapbox": "^1.0.0-beta1",
     "moment": "^2.13.0",
@@ -49,6 +49,7 @@
     "node-uuid": "^1.4.7",
     "nodemon": "^1.9.2",
     "on-finished": "^2.3.0",
+    "otp-profile-score": "^0.6.3",
     "ridematcher": "^0.2.0",
     "serve-static": "^1.11.1",
     "sparkpost": "^1.3.5",
@@ -60,6 +61,7 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
+    "ava": "^0.16.0",
     "bootstrap": "^3.3.6",
     "cli-table": "^0.3.1",
     "commander": "^2.9.0",
@@ -123,6 +125,7 @@
     "pikaday": "^1.4.0",
     "prompt": "^1.0.0",
     "scrollbar-size": "^1.0.4",
+    "semantic-release": "^4.3.5",
     "should": "^9.0.2",
     "spin.js": "^2.3.2",
     "sqwish": "~0.2.2",
@@ -135,8 +138,7 @@
     "transitive-js": "^0.8.2",
     "ua-parser-js": "^0.7.10",
     "uglify-js": "^2.6.2",
-    "yields-store": "^1.0.2",
-    "semantic-release": "^4.3.5"
+    "yields-store": "^1.0.2"
   },
   "scripts": {
     "build": "npm-run-all --parallel build:*",
@@ -151,7 +153,7 @@
     "server": "nodemon --watch lib lib/server.js",
     "start": "source bin/autoenv && npm-run-all --parallel server \"build:* -- --check-dependencies --watch\"",
     "sync": "aws s3 sync assets $(node bin/config-val s3Bucket) --acl public-read",
-    "test": "npm-run-all lint:*",
+    "test": "npm-run-all lint:* && ava",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "standard": {
