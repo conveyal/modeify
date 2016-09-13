@@ -1,22 +1,30 @@
 var config = require('../config')
 var log = require('../log')('map')
-var L = require('mapbox.js')
+var L = require('leaflet')
 var page = require('page')
 
-L.mapbox.accessToken = config.mapbox_access_token()
+var center = config.geocode().center.split(',').map(parseFloat)
+
+function constructMapboxUrl (tileset) {
+  var mapboxAccessToken = config.mapbox_access_token()
+  var isRetina = window.devicePixelRatio > 1 ? '@2x' : ''
+  return `https://api.mapbox.com/styles/v1/${tileset}/tiles/256/{z}/{x}/{y}${isRetina}?access_token=${mapboxAccessToken}`
+}
 
 /**
  * Expose `map`
  */
 
 module.exports = function (el, opts) {
-  opts = opts || {}
+  /*opts = opts || {}
   opts.tileLayer = opts.tileLayer || {
     detectRetina: true
   }
 
   // create a map in the el with given options
-  return new Mapp(L.mapbox.map(el, config.mapbox_map_id(), opts))
+  return new Mapp(L.mapbox.map(el, config.mapbox_map_id(), opts))*/
+  var ll = opts.center ? [opts.center.lat, opts.center.lng] : [center[1], center[0]]
+  return new Mapp(L.map(el).setView(ll, config.geocode().zoom))
 }
 
 /**
@@ -25,12 +33,10 @@ module.exports = function (el, opts) {
 
 module.exports.createMarker = function (opts) {
   log('creating marker %s', opts)
-
   var marker = L.marker(new L.LatLng(opts.coordinate[1], opts.coordinate[0]), {
-    icon: L.mapbox.marker.icon({
-      'marker-size': opts.size || 'medium',
-      'marker-color': opts.color || '#ccc',
-      'marker-symbol': opts.icon || ''
+    icon: L.divIcon({
+      html: `<i class="fa fa-${opts.icon}" aria-hidden="true" style="font-size: ${opts.size || 16}px; color: ${opts.color || '#000'}"></i>`,
+      className: 'marker-icon'
     }),
     title: opts.title || ''
   })
@@ -48,7 +54,8 @@ module.exports.createMarker = function (opts) {
 
 function Mapp (map) {
   this.map = map
-  this.featureLayer = L.mapbox.featureLayer().addTo(map)
+  L.tileLayer(constructMapboxUrl(config.mapbox_base_style_manager())).addTo(map)
+  this.featureLayer = L.featureGroup().addTo(map)
 }
 
 /**
