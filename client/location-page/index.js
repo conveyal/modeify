@@ -1,6 +1,7 @@
 var filePicker = require('component-file-picker')
-var L = require('mapbox.js')
 var parse = require('csv-parse/lib/sync')
+
+var L = require('leaflet')
 require('leaflet.markercluster')
 
 var file = require('component-file')
@@ -67,16 +68,20 @@ View.prototype.loadCoordinates = function () {
     if (err) {
       console.log('Error loading commuter coordinates', err)
     } else {
-      var cluster = new L.MarkerClusterGroup()
-      coords.forEach(function (coord) {
-        if (!coord || !coord.lat || !coord.lng) return
-        cluster.addLayer(map.createMarker({
-          color: '#5cb85c',
-          coordinate: [coord.lng, coord.lat],
-          icon: 'building',
-          size: 'small'
-        }))
-      })
+      try {
+        var cluster = L.markerClusterGroup()
+        coords.forEach(function (coord) {
+          if (!coord || !coord.lat || !coord.lng) return
+          cluster.addLayer(map.createMarker({
+            color: '#5cb85c',
+            coordinate: [coord.lng, coord.lat],
+            icon: 'home',
+            size: 14
+          }))
+        })
+      } catch(err) {
+        console.log(err);
+      }
 
       if (cluster.getBounds()._northEast) {
         self.mapp.addLayer(cluster)

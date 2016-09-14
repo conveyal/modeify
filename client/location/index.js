@@ -40,7 +40,7 @@ Location.prototype.mapMarker = function () {
     description: this.fullAddress(),
     color: '#428bca',
     coordinate: [c.lng, c.lat],
-    icon: 'commercial'
+    icon: 'building'
   })
 }
 
