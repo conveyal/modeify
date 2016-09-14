@@ -4,7 +4,7 @@
 @import url("node_modules/font-awesome/css/font-awesome.css");
 @import url("node_modules/leaflet.markercluster/dist/MarkerCluster.css");
 @import url("node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css");
-@import url("node_modules/mapbox.js/theme/style.css");
+@import url("node_modules/leaflet/dist/leaflet.css");
 @import url("node_modules/pikaday/css/pikaday.css");
 @import url("components/conveyal/modeify-icons.css/0.0.1/icons.css");
 @import url("components/conveyal/transitive.js/master/style.css");

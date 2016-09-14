@@ -248,7 +248,10 @@ function updateMapOnPlanChange (plan, map, transitive, transitiveLayer) {
       try {
         log('updating data')
         transitive.updateData(journey)
-        if (plan.from() && plan.to()) map.fitBounds(transitiveLayer.getBounds())
+        if (plan.from() && plan.to()) {
+          const bounds = transitiveLayer.getBounds()
+          map.fitBounds(bounds)
+        }
       } catch (e) {
         console.error(e)
         console.error(e.stack)
