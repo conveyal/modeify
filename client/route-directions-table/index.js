@@ -204,13 +204,13 @@ function narrativeDirections (edges) {
       return ''
     }
 
-    var linkOrPath = se.streetName === 'Link' || se.streetName === 'Path'
-    if (linkOrPath && se.relativeDirection === 'CONTINUE') {
+    const linkOrPath = se.streetName === 'Link' || se.streetName === 'Path'
+    if (linkOrPath || se.relativeDirection === 'CONTINUE') {
       return ''
     }
 
-    var streetSuffix = ' on ' + se.streetName
-    var step = {}
+    const streetSuffix = ' on ' + se.streetName
+    const step = {}
     if (se.bikeRentalOnStation) {
       step.description = 'Rent bike from ' + se.bikeRentalOnStation.name + ' and ride ' + se.absoluteDirection.toLowerCase() + streetSuffix
       step.icon = 'cabi'

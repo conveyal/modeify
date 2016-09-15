@@ -54,10 +54,10 @@ function updateRoutes (plan, opts, callback) {
 
   request.get('/plan', plan.generateOtpQuery(), function (err, res) {
     const results = res.body
-    const profile = results.otp ? results.otp.profile : []
     const ridepoolMatches = results.ridepoolMatches
     const externalMatches = results.externalMatches
-    const journeys = results.otp
+    const journeys = window.localStorage.getItem('r5') === 'true' ? results.r5 : results.otp
+    const profile = journeys ? journeys.profile : []
     if (err) {
       done(err, res)
     } else if (!results || profile.length < 1) {
