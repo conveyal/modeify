@@ -52,6 +52,9 @@ module.exports = function (ctx, next) {
   var plan = ctx.session.plan()
   var query = querystring.parse(window.location.search)
 
+  if (query.from === 'null') query.from = null
+  if (query.to === 'null') query.to = null
+
   // Set up the views
   var views = {
     'service-alerts-view': new ServiceAlertsView(),
@@ -198,16 +201,24 @@ function showQuery (query) {
   var from, to
   if (query.planTo) {
     to = query.planTo
-    plan.from(null)
-    plan.from_ll(null)
+    from = null
   } else if (query.planFrom) {
     from = query.planFrom
-    plan.to(null)
-    plan.to_ll(null)
+    to = null
   } else {
     from = query.from || plan.from() || FROM
     to = query.to || plan.to() || TO
   }
+
+  if (!from) {
+    plan.from(null)
+    plan.from_ll(null)
+  }
+  if (!to) {
+    plan.to(null)
+    plan.to_ll(null)
+  }
+
   var sameAddresses = from === plan.from() && to === plan.to()
 
   // Set plan from querystring
