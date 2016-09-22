@@ -58,7 +58,7 @@
     "component-cookie": "^1.1.2",
     "component-each": "^0.2.6",
     "component-emitter": "^1.2.1",
-    "component-event": "^0.1.4",
+    "component-event": "^0.2.0",
     "component-file": "^0.1.1",
     "component-file-picker": "^0.2.1",
     "component-ie": "^1.0.0",
