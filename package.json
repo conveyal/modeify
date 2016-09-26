@@ -91,7 +91,7 @@
     "component-value": "^1.1.0",
     "crossfilter2": "^1.4.0-alpha.6",
     "css-emitter-component": "^0.1.1",
-    "d3": "^4.2.2",
+    "d3": "^3.5.17",
     "dc": "^2.0.0-beta.30",
     "debounce": "^1.0.0",
     "domify": "^1.4.0",
