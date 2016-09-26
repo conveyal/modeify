@@ -70,7 +70,6 @@ module.exports = function (route, opts) {
 
   return segments
     .map(function (s) {
-      console.log(s)
       return template.render(s)
     })
     .join('')
