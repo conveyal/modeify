@@ -152,7 +152,7 @@
     "push-config": "bin/push-config-to-heroku",
     "push-heroku": "git push $(node bin/config-val heroku)",
     "server": "nodemon --watch lib lib/server.js",
-    "start": "source bin/autoenv && npm-run-all --parallel server \"build:* -- --check-dependencies --watch\"",
+    "start": "source bin/autoenv && npm-run-all --parallel server \"build:* -- --watch\"",
     "sync": "aws s3 sync assets $(node bin/config-val s3Bucket) --acl public-read",
     "test": "npm-run-all lint:* && ava",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
