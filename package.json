@@ -100,7 +100,7 @@
     "mouseleave": "^1.0.0",
     "myth": "^1.5.0",
     "nodemon": "^1.9.2",
-    "normalize.css": "^4.1.1",
+    "normalize.css": "^5.0.0",
     "npm-run-all": "^3.0.0",
     "once-component": "0.0.1",
     "otp-profile-score": "^0.6.3",
