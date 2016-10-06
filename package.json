@@ -19,7 +19,7 @@
   "dependencies": {
     "analytics-node": "^2.1.0",
     "async": "^2.0.0-rc.6",
-    "aws-sdk": "^2.3.19",
+    "aws-sdk": "^2.6.7",
     "batch": "^0.5.3",
     "body-parser": "^1.15.1",
     "commuter-connections": "^1.0.0",
