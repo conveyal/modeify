@@ -47,7 +47,7 @@
     "names": "1.0.0",
     "node-logentries": "~0.1.4",
     "node-uuid": "^1.4.7",
-    "nodemon": "^1.9.2",
+    "nodemon": "^1.11.0",
     "on-finished": "^2.3.0",
     "otp-profile-score": "^0.6.3",
     "polyline": "^0.2.0",
