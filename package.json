@@ -34,7 +34,7 @@
     "isomorphic-fetch": "^2.2.1",
     "jade": "^1.11.0",
     "js-yaml": "^3.6.1",
-    "juice": "^3.0.0",
+    "juice": "^3.0.1",
     "leaflet": "1.0.0-rc.3",
     "lonlng": "0.0.2",
     "mandrill-api": "^1.0.45",
