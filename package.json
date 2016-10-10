@@ -130,7 +130,7 @@
     "should": "^11.1.0",
     "spin.js": "^2.3.2",
     "sqwish": "~0.2.2",
-    "standard": "^8.0.0",
+    "standard": "^8.4.0",
     "superagent-prefix": "0.0.2",
     "supertest": "^2.0.0",
     "throttleit": "^1.0.0",
