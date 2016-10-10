@@ -127,7 +127,7 @@
     "prompt": "^1.0.0",
     "scrollbar-size": "^1.0.4",
     "semantic-release": "^4.3.5",
-    "should": "^11.1.0",
+    "should": "^11.1.1",
     "spin.js": "^2.3.2",
     "sqwish": "~0.2.2",
     "standard": "^8.0.0",
