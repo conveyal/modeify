@@ -118,7 +118,7 @@
     "myth": "^1.5.0",
     "nodemon": "^1.9.2",
     "normalize.css": "^4.1.1",
-    "npm-run-all": "^3.0.0",
+    "npm-run-all": "^3.1.1",
     "once-component": "0.0.1",
     "otp-profile-score": "^0.6.3",
     "otp-profile-to-transitive": "0.1.1",
