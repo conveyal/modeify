@@ -132,7 +132,7 @@
     "sqwish": "~0.2.2",
     "standard": "^8.0.0",
     "superagent-prefix": "0.0.2",
-    "supertest": "^2.0.0",
+    "supertest": "^2.0.1",
     "throttleit": "^1.0.0",
     "to-capital-case": "^1.0.0",
     "to-sentence-case": "^1.0.0",
