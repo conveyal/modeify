@@ -48,23 +48,35 @@ function updateRoutes (plan, opts, callback) {
   plan.loading(true)
   plan.emit('updating options')
 
+  // default is to query r5 only unless specified via 'routers' property in localStorage
+  let queryOtp = false
+  let queryR5 = true
+
+  const routers = window.localStorage.getItem('routers')
+  if (routers) {
+    const routersArr = routers.split(',')
+    queryOtp = routersArr.indexOf('otp') !== -1
+    queryR5 = routersArr.indexOf('r5') !== -1
+  }
+
   const query = plan.generateQuery()
+  Object.assign(query, { queryOtp, queryR5 })
 
   log('-- see raw results here: %s', plan.generateURL())
 
-  request.get('/plan', plan.generateOtpQuery(), function (err, res) {
+  request.get('/plan', query, function (err, res) {
     const results = res.body
     const ridepoolMatches = results.ridepoolMatches
     const externalMatches = results.externalMatches
-    const journeys = window.localStorage.getItem('r5') === 'true' ? results.r5 : results.otp
+    const journeys = window.localStorage.getItem('defaultRouter') === 'otp' ? results.otp : results.r5
     const profile = journeys ? journeys.profile : []
     if (err) {
       done(err, res)
     } else if (!results || profile.length < 1) {
       done(message('no-options-found'), res)
     } else {
-      console.log('otp: ' + results.otp.responseTime / 1000 + ' seconds')
-      console.log('r5: ' + results.r5.responseTime / 1000 + ' seconds')
+      if (queryOtp) console.log('otp: ' + results.otp.responseTime / 1000 + ' seconds')
+      if (queryR5) console.log('r5: ' + results.r5.responseTime / 1000 + ' seconds')
 
       // Track the commute
       analytics.track('Found Route', {

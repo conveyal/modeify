@@ -36,7 +36,7 @@
     "js-yaml": "^3.6.1",
     "juice": "^3.0.0",
     "leaflet": "1.0.0-rc.3",
-    "lonlng": "0.0.2",
+    "lonlng": "0.2.0",
     "mandrill-api": "^1.0.45",
     "mapbox": "^1.0.0-beta1",
     "moment": "^2.13.0",
