@@ -36,6 +36,11 @@
       <select select-value="bikeSpeed" select-options="bikeSpeeds" select-parse-value="parseInt" on-change="saveProfile"></select>
       <label class="label-text">max time</label>
       <input name="maxBikeTime" type="text" placeholder="min" data-value="maxBikeTime" on-change="save"></input>
+
+      <div style='margin-left: 41px; margin-top: 5px;'>
+        <label>traffic stress tolerance</label>
+        <select select-value="bikeTrafficStress" select-options="bikeTrafficStressLevels" select-parse-value="parseInt" on-change="saveProfile"></select>
+      </div>
     </div>
     <div class="ExpandedSettings-walk">
       <i class="icon-walk ExpandedSettings-typeIcon"></i>

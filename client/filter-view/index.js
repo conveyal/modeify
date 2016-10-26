@@ -32,6 +32,15 @@ View.prototype.bikeSpeeds = function () {
   })
 }
 
+View.prototype.bikeTrafficStressLevels = function () {
+  return [1, 2, 3, 4].map(function (l) {
+    return {
+      name: 'Level ' + l,
+      value: l
+    }
+  })
+}
+
 View.prototype.walkSpeeds = function () {
   return [2.3, 3, 4].map(function (s) {
     return {
@@ -101,6 +110,8 @@ View.prototype.saveProfile = function () {
       customData.modeify_opts.maxWalkTime = self.model.maxWalkTime()
       customData.modeify_opts.carParkingCost = self.model.carParkingCost()
       customData.modeify_opts.carCostPerMile = self.model.carCostPerMile()
+      customData.modeify_opts.bikeTrafficStress = self.model.bikeTrafficStress()
+
       session.user().customData(customData)
       session.user().saveCustomData(function () {}) // TODO: handle error
     }, 1000)
