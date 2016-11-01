@@ -2,7 +2,6 @@ require('es5-shim')
 require('es6-shim')
 require('html5-history-api')
 require('../manager-router')
-require('./style.css')
 
 var Nav = require('../manager-nav')
 var onLoad = require('../../components/ianstormtaylor/on-load/0.0.2')

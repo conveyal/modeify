@@ -3,8 +3,8 @@
   "description": "Web TDM",
   "main": "lib/server.js",
   "engines": {
-    "node": ">=6",
-    "npm": ">=3"
+    "node": "6",
+    "npm": "3"
   },
   "repository": {
     "type": "git",
@@ -112,7 +112,7 @@
     "leaflet.markercluster": "1.0.0-rc.1.0",
     "mapbox.js": "^2.4.0",
     "markdown-it": "^8.0.0",
-    "mastarm": "^0.10.0",
+    "mastarm": "^2.0.0",
     "mime": "^1.3.4",
     "mkdirp": "^0.5.1",
     "mocha": "^3.0.2",
@@ -145,20 +145,15 @@
     "yields-store": "^1.0.2"
   },
   "scripts": {
-    "build": "npm-run-all --parallel build:*",
-    "build:planner": "mastarm build -S client/planner-app/index.js:assets/build/planner-app/build.js",
-    "build:manager": "mastarm build -S client/manager-app/index.js:assets/build/manager-app/build.js",
-    "deploy": "npm-run-all --parallel build:* --sequential sync push-config push-heroku",
-    "lint": "npm-run-all lint:*",
-    "lint:client": "mastarm -S lint \"client/**/*.js\"",
-    "lint:lib": "mastarm -S lint \"lib/**/*.js\"",
+    "build": "mastarm build",
+    "deploy": "npm-run-all --sequential build sync push-config push-heroku",
     "push-config": "bin/push-config-to-heroku",
     "push-heroku": "git push $(node bin/config-val heroku)",
     "server": "nodemon --watch lib lib/server.js",
     "prestart": "yarn",
-    "start": "source bin/autoenv && npm-run-all --parallel server \"build:* -- --watch\"",
+    "start": "source bin/autoenv && npm-run-all --parallel server \"build -- --watch\"",
     "sync": "aws s3 sync assets $(node bin/config-val s3Bucket) --acl public-read",
-    "test": "npm-run-all lint:*",
+    "test": "mastarm lint \"client/**/*.js\" \"lib/**/*.js\"",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "standard": {
