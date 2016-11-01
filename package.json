@@ -61,7 +61,8 @@
     "to-capital-case": "^1.0.0",
     "to-slug-case": "~1.0.0",
     "tzwhere": "^1.0.0",
-    "winston": "^2.2.0"
+    "winston": "^2.2.0",
+    "yamljs": "^0.2.8"
   },
   "devDependencies": {
     "ava": "^0.16.0",
@@ -145,18 +146,19 @@
   },
   "scripts": {
     "build": "npm-run-all --parallel build:*",
-    "build:planner": "mastarm build client/planner-app/index.js:assets/build/planner-app/build.js",
-    "build:manager": "mastarm build client/manager-app/index.js:assets/build/manager-app/build.js",
+    "build:planner": "mastarm build -S client/planner-app/index.js:assets/build/planner-app/build.js",
+    "build:manager": "mastarm build -S client/manager-app/index.js:assets/build/manager-app/build.js",
     "deploy": "npm-run-all --parallel build:* --sequential sync push-config push-heroku",
     "lint": "npm-run-all lint:*",
-    "lint:client": "mastarm lint \"client/**/*.js\"",
-    "lint:lib": "mastarm lint \"lib/**/*.js\"",
+    "lint:client": "mastarm -S lint \"client/**/*.js\"",
+    "lint:lib": "mastarm -S lint \"lib/**/*.js\"",
     "push-config": "bin/push-config-to-heroku",
     "push-heroku": "git push $(node bin/config-val heroku)",
     "server": "nodemon --watch lib lib/server.js",
+    "prestart": "yarn",
     "start": "source bin/autoenv && npm-run-all --parallel server \"build:* -- --watch\"",
     "sync": "aws s3 sync assets $(node bin/config-val s3Bucket) --acl public-read",
-    "test": "npm-run-all lint:* && ava",
+    "test": "npm-run-all lint:*",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "standard": {
