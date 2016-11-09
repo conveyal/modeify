@@ -2,6 +2,12 @@ application: Modeify
 name: Modeify
 domain: modeify.co
 
+entries:
+  - client/planner-app/index.js:assets/build/planner-app/build.js
+  - client/planner-app/style.css:assets/build/planner-app/build.css
+  - client/manager-app/index.js:assets/build/manager-app/build.js
+  - client/manager-app/style.css:assets/build/manager-app/build.css
+
 announcements:
 
 organization:

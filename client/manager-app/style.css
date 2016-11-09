@@ -8,7 +8,7 @@
 @import url("node_modules/pikaday/css/pikaday.css");
 @import url("components/conveyal/modeify-icons.css/0.0.1/icons.css");
 @import url("components/conveyal/transitive.js/master/style.css");
-@import url("CONFIG_PATH/style.css");
+@import url("configurations/default/style.css");
 
 @import url("components/segmentio/modal/0.4.1/lib/index.css");
 @import url("components/segmentio/overlay/0.2.4/lib/index.css");
