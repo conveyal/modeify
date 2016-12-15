@@ -83,7 +83,7 @@ View.prototype.itinerary = function () {
     addDetail({
       color: color,
       departureTimes: formatDepartureTimes(departureTimes),
-      description: 'Take ' + getUniquePatternNames(patterns, routeAgencyNames).map(strong).join(' / '),
+      description: 'Take ' + getPatternNames(patterns),
       segment: true
     })
 
@@ -106,7 +106,34 @@ View.prototype.itinerary = function () {
   return details
 }
 
-function getUniquePatternNames (patterns, routeAgencyNames) {
+function getPatternNames (patterns) {
+  var agencyRoutes = {} // maps agency name to array of unique route shortNames
+  patterns.forEach(function (p) {
+    var agencyId = p.routeId.split(':')[0]
+    agencyId = agencyId.substring(0, agencyId.length - 54)
+    if (!(agencyId in agencyRoutes)) {
+      agencyRoutes[agencyId] = []
+    }
+    if (agencyRoutes[agencyId].indexOf(p.shortName) === -1) agencyRoutes[agencyId].push(p.shortName)
+  })
+  var agencyStrings = []
+  for (var agencyId in agencyRoutes) {
+    var agencyName = agencyId.replace('_', ' ')
+
+    // TODO: get mode from pattern
+    if (agencyName === 'WMATA') {
+      var ptn = agencyRoutes[agencyId][0].toLowerCase()
+      var colors = ['yellow', 'red', 'green', 'blue', 'orange', 'silver']
+      if (colors.indexOf(ptn) !== -1) agencyName = 'Metrorail'
+      else agencyName = 'Metrobus'
+    }
+
+    agencyStrings.push(agencyName + ' ' + agencyRoutes[agencyId].join('/'))
+  }
+  return agencyStrings.join(', ')
+}
+
+/*function getUniquePatternNames (patterns, routeAgencyNames) {
   return patterns.map(function (p) {
     var idArr = p.patternId.split(':')
     var routeId = idArr[0] + ':' + idArr[1]
@@ -116,7 +143,7 @@ function getUniquePatternNames (patterns, routeAgencyNames) {
       if (names.indexOf(name) === -1) names.push(name)
       return names
     }, [])
-}
+}*/
 
 function getAgencyName (internalName) {
   switch (internalName) {
