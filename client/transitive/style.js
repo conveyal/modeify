@@ -63,14 +63,7 @@ exports.segments = {
       case 'BICYCLE_RENT':
         return '#ef3026'
       case 'TRANSIT':
-        var route = segment.patterns[0].route
-        if (route.route_id) {
-          var id = route.route_id.split(':')
-          var agency = id[0].toLowerCase()
-          var line = id[1].toLowerCase()
-          const color = convert.routeToColor(segment.type, agency, line, route.route_color)
-          return color
-        }
+        return getTransitSegmentColor(segment)
     }
   },
 
@@ -133,7 +126,7 @@ exports.segment_label_containers = {
   // specify the fill color for the label bubble
   fill: function (display, label) {
     if (!label.isFocused()) return
-    return '#008'
+    return getTransitSegmentColor(label.parent)
   }
 }
 
@@ -192,5 +185,16 @@ exports.places_icon = {
 exports.multipoints_merged = exports.stops_merged = {
   r: function (display, data, index, utils) {
     return utils.pixels(display.zoom.scale(), 4, 6, 8)
+  }
+}
+
+function getTransitSegmentColor (segment) {
+  var route = segment.patterns[0].route
+  if (route.route_id) {
+    var id = route.route_id.split(':')
+    var agency = id[0].toLowerCase()
+    var line = id[1].toLowerCase()
+    const color = convert.routeToColor(segment.type, agency, line, route.route_color)
+    return color
   }
 }
