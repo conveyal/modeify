@@ -49,8 +49,8 @@ function updateRoutes (plan, opts, callback) {
   plan.emit('updating options')
 
   // default is to query r5 only unless specified via 'routers' property in localStorage
-  let queryOtp = false
-  let queryR5 = true
+  let queryOtp = true
+  let queryR5 = false
 
   const routers = window.localStorage.getItem('routers')
   if (routers) {
