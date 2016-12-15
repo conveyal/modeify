@@ -68,15 +68,24 @@ function updateRoutes (plan, opts, callback) {
     const results = res.body
     const ridepoolMatches = results.ridepoolMatches
     const externalMatches = results.externalMatches
-    const journeys = window.localStorage.getItem('defaultRouter') === 'otp' ? results.otp : results.r5
+
+    let journeys
+    if (results.otp && !results.r5) { // only OTP results returned
+      journeys = results.otp
+    } else if (!results.otp && results.r5) { // only R5 results returned
+      journeys = results.r5
+    } else { // both returned, look for defaultRouter setting in localStorage
+      journeys = window.localStorage.getItem('defaultRouter') === 'otp' ? results.otp : results.r5
+    }
+
     const profile = journeys ? journeys.profile : []
     if (err) {
       done(err, res)
     } else if (!results || profile.length < 1) {
       done(message('no-options-found'), res)
     } else {
-      if (queryOtp) console.log('otp: ' + results.otp.responseTime / 1000 + ' seconds')
-      if (queryR5) console.log('r5: ' + results.r5.responseTime / 1000 + ' seconds')
+      if (results.otp) console.log('otp: ' + results.otp.responseTime / 1000 + ' seconds')
+      if (results.r5) console.log('r5: ' + results.r5.responseTime / 1000 + ' seconds')
 
       // Track the commute
       analytics.track('Found Route', {

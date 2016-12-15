@@ -83,7 +83,7 @@ View.prototype.itinerary = function () {
     addDetail({
       color: color,
       departureTimes: formatDepartureTimes(departureTimes),
-      description: 'Take ' + getPatternNames(patterns),
+      description: 'Take ' + getRouteNames(segment.routes),
       segment: true
     })
 
@@ -106,44 +106,34 @@ View.prototype.itinerary = function () {
   return details
 }
 
-function getPatternNames (patterns) {
-  var agencyRoutes = {} // maps agency name to array of unique route shortNames
-  patterns.forEach(function (p) {
-    var agencyId = p.routeId.split(':')[0]
-    agencyId = agencyId.substring(0, agencyId.length - 54)
-    if (!(agencyId in agencyRoutes)) {
-      agencyRoutes[agencyId] = []
+function getRouteNames (routes) {
+  var agencyRoutes = {} // maps agency name to array of routes
+  routes.forEach(function (r) {
+    var agencyName = r.agencyName
+    // FIXME: fix this in the R5 response
+    if (!agencyName || agencyName === 'UNKNOWN') {
+      agencyName = r.id.split(':')[0]
+      agencyName = agencyName.substring(0, agencyName.length - 54)
     }
-    if (agencyRoutes[agencyId].indexOf(p.shortName) === -1) agencyRoutes[agencyId].push(p.shortName)
+    if (!(agencyName in agencyRoutes)) {
+      agencyRoutes[agencyName] = []
+    }
+    agencyRoutes[agencyName].push(r)
   })
   var agencyStrings = []
-  for (var agencyId in agencyRoutes) {
-    var agencyName = agencyId.replace('_', ' ')
-
-    // TODO: get mode from pattern
-    if (agencyName === 'WMATA') {
-      var ptn = agencyRoutes[agencyId][0].toLowerCase()
-      var colors = ['yellow', 'red', 'green', 'blue', 'orange', 'silver']
-      if (colors.indexOf(ptn) !== -1) agencyName = 'Metrorail'
-      else agencyName = 'Metrobus'
-    }
-
-    agencyStrings.push(agencyName + ' ' + agencyRoutes[agencyId].join('/'))
+  for (var agencyName in agencyRoutes) {
+    var rtes = agencyRoutes[agencyName]
+    // TODO: handle DC-specific behavior via config
+    var displayName = (agencyName === 'MET' || agencyName === 'WMATA')
+      ? rtes[0].mode === 'SUBWAY'
+        ? 'Metrorail'
+        : 'Metrobus'
+      : getAgencyName(agencyName)
+    displayName = displayName.replace('_', ' ') // FIXME: shouldn't be necessary after R5 API fix
+    agencyStrings.push(displayName + ' ' + rtes.map(function (r) { return r.shortName }).join('/'))
   }
   return agencyStrings.join(', ')
 }
-
-/*function getUniquePatternNames (patterns, routeAgencyNames) {
-  return patterns.map(function (p) {
-    var idArr = p.patternId.split(':')
-    var routeId = idArr[0] + ':' + idArr[1]
-    return (routeAgencyNames[routeId] ? getAgencyName(routeAgencyNames[routeId]) + ' ' : '') + p.shortName
-  })
-    .reduce(function (names, name) {
-      if (names.indexOf(name) === -1) names.push(name)
-      return names
-    }, [])
-}*/
 
 function getAgencyName (internalName) {
   switch (internalName) {
