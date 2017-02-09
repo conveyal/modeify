@@ -9,6 +9,11 @@
   padding-bottom: 8px;
 }
 
+.FilterView > .time-filters > select {
+  color: var(--font-color);
+  font-size: 14px;
+}
+
 .FilterView label {
   font-weight: var(--font-weight);
 }
