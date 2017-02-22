@@ -16,13 +16,13 @@ function constructMapboxUrl (tileset) {
  */
 
 module.exports = function (el, opts) {
-  /*opts = opts || {}
+  /* opts = opts || {}
   opts.tileLayer = opts.tileLayer || {
     detectRetina: true
   }
 
   // create a map in the el with given options
-  return new Mapp(L.mapbox.map(el, config.mapbox_map_id(), opts))*/
+  return new Mapp(L.mapbox.map(el, config.mapbox_map_id(), opts)) */
   var ll = opts.center ? [opts.center.lat, opts.center.lng] : [center[1], center[0]]
   return new Mapp(L.map(el).setView(ll, config.geocode().zoom))
 }

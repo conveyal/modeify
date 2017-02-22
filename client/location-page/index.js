@@ -79,8 +79,8 @@ View.prototype.loadCoordinates = function () {
             size: 14
           }))
         })
-      } catch(err) {
-        console.log(err);
+      } catch (err) {
+        console.log(err)
       }
 
       if (cluster.getBounds()._northEast) {
@@ -235,7 +235,7 @@ View.prototype.downloadMatches = function () {
   let csvContent = 'data:text/csv;charset=utf-8,'
   csvContent += 'commuter1_first,commuter1_last,commuter1_email,commuter1_internalId,commuter2_first,commuter2_last,commuter2_email,commuter2_internalId,distance\n'
 
-  let matchedKeys = []
+  const matchedKeys = []
 
   this.model.commuterLocations.forEach((cl) => {
     if (cl.matches && cl.matches.length > 0) {
@@ -251,7 +251,7 @@ View.prototype.downloadMatches = function () {
         if (matchedKeys.indexOf(matchKey) !== -1) return
         matchedKeys.push(matchKey)
 
-        let row = []
+        const row = []
         row.push(cl._commuter.get('givenName'))
         row.push(cl._commuter.get('surname'))
         row.push(cl._commuter.get('email'))
