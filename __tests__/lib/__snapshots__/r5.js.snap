@@ -1,73 +1,6 @@
-const fetch = require('isomorphic-fetch')
-// const tzwhere = require('tzwhere')
-
-const config = require('./config')
-
-// tzwhere.init()
-
-module.exports.requestPlan = function (plan) {
-  if (config.r5 || process.env.TEST_R5_URL) {
-    const r5Url = config.r5 ? config.r5.url : process.env.TEST_R5_URL
-    const timezoneOffset = -4 // millisecondsToHours(tzwhere.tzOffsetAt(plan.from.lat, plan.from.lng))
-    const variables = {
-      fromLat: plan.from.lat,
-      fromLon: plan.from.lon,
-      toLat: plan.to.lat,
-      toLon: plan.to.lon,
-      fromTime: toISO8061({ date: plan.date, time: plan.fromTime, timezoneOffset }),
-      toTime: toISO8061({ date: plan.date, time: plan.toTime, timezoneOffset })
-    }
-    const startTime = Date.now()
-    const query = buildQuery(plan)
-    return fetch(r5Url, {
-      method: 'post',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        query,
-        variables: JSON.stringify(variables)
-      })
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.errors) {
-          json.error = true
-          json.message = Array.isArray(json.errors)
-            ? json.errors.map((e) => `${e.message}\n`)
-            : json.errors
-        } else {
-          json = json.data.plan
-        }
-        json.responseTime = Date.now() - startTime
-        return json
-      })
-      .catch((err) => {
-        console.error(err.stack)
-        return {
-          error: true,
-          message: err.message,
-          responseTime: Date.now() - startTime,
-          errors: err.stack
-        }
-      })
-  } else {
-    return Promise.resolve({})
-  }
-}
-
-function buildQuery ({
-  accessModes,
-  directModes,
-  egressModes,
-  transitModes,
-  bikeTrafficStress
-}) {
-  const r5TransitModes = transitModes.replace('TRAINISH', 'RAIL,SUBWAY,TRAM') // hangover from OTP
-  const r5EgressModes = egressModes.replace('BICYCLE_RENT', '')
-  return `query requestPlan($fromLat: Float!, $fromLon: Float!, $toLat: Float!, $toLon: Float!, $fromTime: ZonedDateTime!, $toTime: ZonedDateTime!) {
-    plan(minBikeTime: 1, bikeTrafficStress: ${bikeTrafficStress}, fromLat: $fromLat, fromLon: $fromLon, toLat: $toLat, toLon: $toLon, fromTime: $fromTime, toTime: $toTime, directModes: [${directModes}], accessModes: [${accessModes}], egressModes: [${r5EgressModes}], transitModes: [${r5TransitModes}]) {
+exports[`r5 should request plan 1`] = `
+"query requestPlan($fromLat: Float!, $fromLon: Float!, $toLat: Float!, $toLon: Float!, $fromTime: ZonedDateTime!, $toTime: ZonedDateTime!) {
+    plan(minBikeTime: 1, bikeTrafficStress: undefined, fromLat: $fromLat, fromLon: $fromLon, toLat: $toLat, toLon: $toLon, fromTime: $fromTime, toTime: $toTime, directModes: [CAR,WALK,BICYCLE,BICYCLE_RENT], accessModes: [WALK,BICYCLE,BICYCLE_RENT,CAR_PARK], egressModes: [WALK], transitModes: [RAIL,SUBWAY,TRAM]) {
       patterns {
         tripPatternIdx
         routeId
@@ -233,18 +166,22 @@ function buildQuery ({
         }
       }
     }
-  }`
-}
+  }"
+`;
 
-function toISO8061 ({
-  date,
-  time,
-  timezoneOffset
-}) {
-  if (parseInt(time) < 10) time = `0${time}`
-  return `${date}T${time}:00${timezoneOffset > 0 ? '+' : '-'}${timezoneOffset < 10 && timezoneOffset > -10 ? '0' : ''}${Math.abs(timezoneOffset)}:00`
+exports[`r5 should request plan 2`] = `
+Object {
+  "fromLat": 38.943037,
+  "fromLon": -77.029199,
+  "fromTime": "2016-06-17T07:00:00-04:00",
+  "toLat": 38.891254,
+  "toLon": -77.085016,
+  "toTime": "2016-06-17T09:00:00-04:00",
 }
+`;
 
-function millisecondsToHours (ms) {
-  return ms / 1000 / 60 / 60
+exports[`r5 should request plan 3`] = `
+Object {
+  "fake": "response",
 }
+`;
