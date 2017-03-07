@@ -148,7 +148,7 @@
   },
   "scripts": {
     "build": "mastarm build",
-    "cover": "mastarm test --coverage --coverage-paths \"lib client\"",
+    "cover": "mastarm test --coverage --coverage-paths \"lib/**/*.js client/**/*.js\"",
     "deploy": "npm-run-all --sequential build sync push-config push-heroku",
     "lint": "mastarm lint \"client/**/*.js\" \"lib/**/*.js\"",
     "push-config": "bin/push-config-to-heroku",
