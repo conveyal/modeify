@@ -143,7 +143,7 @@ function getAgencyName (internalName) {
     case 'Potomac and Rappahannock Transportation Commission': return 'PRTC'
     case 'Virginia Railway Express': return 'VRE'
     case 'Montgomery County MD Ride On': return 'Ride On'
-    case 'Alexandria Transit Company (DASH)': 'DASH'
+    case 'Alexandria Transit Company (DASH)': return 'DASH'
   }
   return internalName
 }
