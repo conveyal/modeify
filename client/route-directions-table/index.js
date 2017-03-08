@@ -83,7 +83,7 @@ View.prototype.itinerary = function () {
     addDetail({
       color: color,
       departureTimes: formatDepartureTimes(departureTimes),
-      description: 'Take ' + getUniquePatternNames(patterns, routeAgencyNames).map(strong).join(' / '),
+      description: 'Take ' + getRouteNames(segment.routes),
       segment: true
     })
 
@@ -106,16 +106,33 @@ View.prototype.itinerary = function () {
   return details
 }
 
-function getUniquePatternNames (patterns, routeAgencyNames) {
-  return patterns.map(function (p) {
-    var idArr = p.patternId.split(':')
-    var routeId = idArr[0] + ':' + idArr[1]
-    return (routeAgencyNames[routeId] ? getAgencyName(routeAgencyNames[routeId]) + ' ' : '') + p.shortName
+function getRouteNames (routes) {
+  var agencyRoutes = {} // maps agency name to array of routes
+  routes.forEach(function (r) {
+    var agencyName = r.agencyName
+    // FIXME: fix this in the R5 response
+    if (!agencyName || agencyName === 'UNKNOWN') {
+      agencyName = r.id.split(':')[0]
+      agencyName = agencyName.substring(0, agencyName.length - 54)
+    }
+    if (!(agencyName in agencyRoutes)) {
+      agencyRoutes[agencyName] = []
+    }
+    agencyRoutes[agencyName].push(r)
   })
-    .reduce(function (names, name) {
-      if (names.indexOf(name) === -1) names.push(name)
-      return names
-    }, [])
+  var agencyStrings = []
+  for (var agencyName in agencyRoutes) {
+    var rtes = agencyRoutes[agencyName]
+    // TODO: handle DC-specific behavior via config
+    var displayName = (agencyName === 'MET' || agencyName === 'WMATA')
+      ? rtes[0].mode === 'SUBWAY'
+        ? 'Metrorail'
+        : 'Metrobus'
+      : getAgencyName(agencyName)
+    displayName = displayName.replace('_', ' ') // FIXME: shouldn't be necessary after R5 API fix
+    agencyStrings.push(displayName + ' ' + rtes.map(function (r) { return r.shortName }).join('/'))
+  }
+  return agencyStrings.join(', ')
 }
 
 function getAgencyName (internalName) {
@@ -126,7 +143,7 @@ function getAgencyName (internalName) {
     case 'Potomac and Rappahannock Transportation Commission': return 'PRTC'
     case 'Virginia Railway Express': return 'VRE'
     case 'Montgomery County MD Ride On': return 'Ride On'
-    case 'Alexandria Transit Company (DASH)': 'DASH'
+    case 'Alexandria Transit Company (DASH)': return 'DASH'
   }
   return internalName
 }

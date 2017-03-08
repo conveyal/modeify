@@ -1,80 +1,8 @@
-const geoTz = require('geo-tz')
-const fetch = require('isomorphic-fetch')
-const moment = require('moment-timezone')
+// Jest Snapshot v1, https://goo.gl/fbAQLP
 
-const config = require('./config')
-
-module.exports.requestPlan = function (plan) {
-  if (config.r5 || process.env.TEST_R5_URL) {
-    const r5Url = config.r5 ? config.r5.url : process.env.TEST_R5_URL
-    const timezoneName = geoTz.tz(plan.from.lat, plan.from.lon)
-    if (!timezoneName) {
-      const err = new Error({
-        error: true,
-        message: 'Timezone could not be found at given coordinates'
-      })
-      return Promise.reject(err)
-    }
-
-    const variables = {
-      fromLat: plan.from.lat,
-      fromLon: plan.from.lon,
-      toLat: plan.to.lat,
-      toLon: plan.to.lon,
-      fromTime: toISO8061({ date: plan.date, time: plan.fromTime, timezoneName }),
-      toTime: toISO8061({ date: plan.date, time: plan.toTime, timezoneName })
-    }
-    const startTime = Date.now()
-    const query = buildQuery(plan)
-    return fetch(r5Url, {
-      method: 'post',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        query,
-        variables: JSON.stringify(variables)
-      })
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.errors) {
-          json.error = true
-          json.message = Array.isArray(json.errors)
-            ? json.errors.map((e) => `${e.message}\n`)
-            : json.errors
-        } else {
-          json = json.data.plan
-        }
-        json.responseTime = Date.now() - startTime
-        return json
-      })
-      .catch((err) => {
-        console.error(err.stack)
-        return {
-          error: true,
-          message: err.message,
-          responseTime: Date.now() - startTime,
-          errors: err.stack
-        }
-      })
-  } else {
-    return Promise.resolve({})
-  }
-}
-
-function buildQuery ({
-  accessModes,
-  directModes,
-  egressModes,
-  transitModes,
-  bikeTrafficStress
-}) {
-  const r5TransitModes = transitModes.replace('TRAINISH', 'RAIL,SUBWAY,TRAM') // hangover from OTP
-  const r5EgressModes = egressModes.replace('BICYCLE_RENT', '')
-  return `query requestPlan($fromLat: Float!, $fromLon: Float!, $toLat: Float!, $toLon: Float!, $fromTime: ZonedDateTime!, $toTime: ZonedDateTime!) {
-    plan(minBikeTime: 1, bikeTrafficStress: ${bikeTrafficStress}, fromLat: $fromLat, fromLon: $fromLon, toLat: $toLat, toLon: $toLon, fromTime: $fromTime, toTime: $toTime, directModes: [${directModes}], accessModes: [${accessModes}], egressModes: [${r5EgressModes}], transitModes: [${r5TransitModes}]) {
+exports[`r5 should request plan 1`] = `
+"query requestPlan($fromLat: Float!, $fromLon: Float!, $toLat: Float!, $toLon: Float!, $fromTime: ZonedDateTime!, $toTime: ZonedDateTime!) {
+    plan(minBikeTime: 1, bikeTrafficStress: undefined, fromLat: $fromLat, fromLon: $fromLon, toLat: $toLat, toLon: $toLon, fromTime: $fromTime, toTime: $toTime, directModes: [CAR,WALK,BICYCLE,BICYCLE_RENT], accessModes: [WALK,BICYCLE,BICYCLE_RENT,CAR_PARK], egressModes: [WALK], transitModes: [RAIL,SUBWAY,TRAM]) {
       patterns {
         tripPatternIdx
         routeId
@@ -240,14 +168,22 @@ function buildQuery ({
         }
       }
     }
-  }`
-}
+  }"
+`;
 
-function toISO8061 ({
-  date,
-  time,
-  timezoneName
-}) {
-  if (parseInt(time) < 10) time = `0${time}`
-  return moment.tz(`${date}T${time}:00`, timezoneName).toISOString()
+exports[`r5 should request plan 2`] = `
+Object {
+  "fromLat": 38.943037,
+  "fromLon": -77.029199,
+  "fromTime": "2016-06-17T11:00:00.000Z",
+  "toLat": 38.891254,
+  "toLon": -77.085016,
+  "toTime": "2016-06-17T13:00:00.000Z",
 }
+`;
+
+exports[`r5 should request plan 3`] = `
+Object {
+  "fake": "response",
+}
+`;
