@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`r5 should request plan 1`] = `
-"query requestPlan($fromLat: Float!, $fromLon: Float!, $toLat: Float!, $toLon: Float!, $fromTime: ZonedDateTime!, $toTime: ZonedDateTime!) {
-    plan(minBikeTime: 1, bikeTrafficStress: undefined, fromLat: $fromLat, fromLon: $fromLon, toLat: $toLat, toLon: $toLon, fromTime: $fromTime, toTime: $toTime, directModes: [CAR,WALK,BICYCLE,BICYCLE_RENT], accessModes: [WALK,BICYCLE,BICYCLE_RENT,CAR_PARK], egressModes: [WALK], transitModes: [RAIL,SUBWAY,TRAM]) {
+"query requestPlan($fromLat: Float!, $fromLon: Float!, $toLat: Float!, $toLon: Float!, $fromTime: ZonedDateTime!, $toTime: ZonedDateTime!, $bikeSpeed:Float!, $walkSpeed:Float!) {
+    plan(minBikeTime: 1, bikeTrafficStress: undefined, fromLat: $fromLat, fromLon: $fromLon, toLat: $toLat, toLon: $toLon, fromTime: $fromTime, toTime: $toTime, directModes: [CAR,WALK,BICYCLE,BICYCLE_RENT], accessModes: [WALK,BICYCLE,BICYCLE_RENT,CAR_PARK], egressModes: [WALK], transitModes: [RAIL,SUBWAY,TRAM], bikeSpeed: $bikeSpeed, walkSpeed: $walkSpeed) {
       patterns {
         tripPatternIdx
         routeId
