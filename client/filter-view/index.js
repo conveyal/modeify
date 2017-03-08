@@ -67,9 +67,9 @@ function toOption (n) {
   }
 
   if (n > 23 || n === 0) opt.name = 'Midnight'
-  else if (n > 12) opt.name = n - 12 + ':00 pm'
+  else if (n > 12) opt.name = n - 12 + 'pm'
   else if (n === 12) opt.name = 'Noon'
-  else opt.name = n + ':00 am'
+  else opt.name = n + 'am'
 
   return opt
 }
