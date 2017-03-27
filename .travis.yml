@@ -1,12 +1,20 @@
+sudo: false
 language: node_js
+cache:
+  yarn: true
+notifications:
+  email: false
 node_js:
-- "6"
-services:
-- mongodb
-env:
-  matrix:
-  - NODE_ENV=test
-  stormpath:
-  - secure: OvNhiYoMSuF64jPlUYH0UVGh9WtWp+g8/6vkqyeKFPa4W6qpbf5lkd0GTYlA3cYPFtHuaBro9ex2Hw612T3IoUHoQyNZKPNxnlWk4Ao1fmhBe+ljmaSoQJZieiHMmpOXmdi4JEHYi118TwFZ2nyFMwQjTwpg2GA0AnzdCcbl9Vw=
-  - secure: p273gMdviwrwEcz9nvEdKWM6mZXXCccWuLET8V6BfkIvlm3Yxc8I4w7p76WtowGl0Vo6nW3sU/uYLcL2q0VUf1OGDQ1aS63J0atq2xuBErfCc+jyMHo54JusaNKmIRXtbveM0Co5rZke9gN4tsvpIshQ6xMfGCqYNwaw3YCaS6Q=
-  - secure: NLnIA3C8vcmK9+4zveYSObLFRbHIJWPuHGLygLJpgJzcJna0cvJSIlY+POvlNjzNzqs7rVAloCRKxgerh0m1x6Wh9MKG3LzVkDj2p6f3CcQDCRRuQMUkUp8433VEXcjLkoFiPQ1CxbLazKq967llgAhDxJeN0SjcPyKivNR5rnM=
+  - '6'
+before_script:
+  - yarn global add codecov
+script:
+  - yarn run lint
+  - yarn run cover
+  - codecov
+  - yarn run build -- -c configurations/example
+after_success:
+  - npm run semantic-release
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/

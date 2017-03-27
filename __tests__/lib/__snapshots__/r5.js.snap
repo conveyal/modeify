@@ -1,0 +1,189 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`r5 should request plan 1`] = `
+"query requestPlan($fromLat: Float!, $fromLon: Float!, $toLat: Float!, $toLon: Float!, $fromTime: ZonedDateTime!, $toTime: ZonedDateTime!, $bikeSpeed:Float!, $walkSpeed:Float!) {
+    plan(minBikeTime: 1, bikeTrafficStress: undefined, fromLat: $fromLat, fromLon: $fromLon, toLat: $toLat, toLon: $toLon, fromTime: $fromTime, toTime: $toTime, directModes: [CAR,WALK,BICYCLE,BICYCLE_RENT], accessModes: [WALK,BICYCLE,BICYCLE_RENT,CAR_PARK], egressModes: [WALK], transitModes: [RAIL,SUBWAY,TRAM], bikeSpeed: $bikeSpeed, walkSpeed: $walkSpeed) {
+      patterns {
+        tripPatternIdx
+        routeId
+        routeIdx
+        directionId
+        stops {
+          stopId
+          name
+          lat
+          lon
+        }
+        trips {
+          tripId
+          serviceId
+          bikesAllowed
+        }
+      }
+      options {
+        summary
+        itinerary {
+          waitingTime
+          walkTime
+          distance
+          transfers
+          duration
+          transitTime
+          startTime
+          endTime
+          connection {
+            access
+            egress
+            transit {
+              pattern
+              time
+            }
+          }
+        }
+        transit {
+          from {
+            name
+            stopId
+            lon
+            lat
+          }
+          to {
+            name
+            stopId
+            lon
+            lat
+          }
+          mode
+          routes {
+            id
+            description
+            routeIdx
+            shortName
+            mode
+            routeColor
+            textColor
+            url
+            agencyName
+          }
+          segmentPatterns {
+            patternId
+            patternIdx
+            routeIdx
+            fromIndex
+            toIndex
+            nTrips
+            fromArrivalTime
+            fromDepartureTime
+            toArrivalTime
+            toDepartureTime
+            tripId
+          }
+          middle {
+            mode
+            duration
+            distance
+            geometryPolyline
+          }
+          rideStats {
+            min
+            avg
+            max
+            num
+          }
+          waitStats {
+            min
+            avg
+            max
+            num
+          }
+        }
+        access {
+          mode
+          duration
+          distance
+          streetEdges {
+            edgeId
+            geometryPolyline
+            distance
+            mode
+            streetName
+            relativeDirection
+            absoluteDirection
+            stayOn
+            area
+            exit
+            bogusName
+            bikeRentalOnStation {
+              id
+              name
+              lat
+              lon
+            }
+            bikeRentalOffStation {
+              id
+              name
+              lat
+              lon
+            }
+            parkRide {
+              id
+              name
+              capacity
+              lon
+              lat
+            }
+          }
+        }
+        egress {
+          mode
+          duration
+          distance
+          streetEdges {
+            edgeId
+            distance
+            geometryPolyline
+            mode
+            streetName
+            relativeDirection
+            absoluteDirection
+            stayOn
+            area
+            exit
+            bogusName
+            bikeRentalOnStation {
+              id
+              name
+              lon
+              lat
+            }
+          }
+        }
+        fares {
+          type
+          low
+          peak
+          senior
+          transferReduction
+          currency
+        }
+      }
+    }
+  }"
+`;
+
+exports[`r5 should request plan 2`] = `
+Object {
+  "fromLat": 38.943037,
+  "fromLon": -77.029199,
+  "fromTime": "2016-06-17T11:00:00.000Z",
+  "toLat": 38.891254,
+  "toLon": -77.085016,
+  "toTime": "2016-06-17T13:00:00.000Z",
+}
+`;
+
+exports[`r5 should request plan 3`] = `
+Object {
+  "fake": "response",
+}
+`;

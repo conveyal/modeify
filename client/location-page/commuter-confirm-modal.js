@@ -1,4 +1,3 @@
-var alerts = require('../alerts')
 var CommuterLocation = require('../commuter-location')
 var each = require('component-each')
 var log = require('../log')('location-page:modal')

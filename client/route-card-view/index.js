@@ -19,8 +19,12 @@ var view = require('../view')
 var View = module.exports = view(require('./template.html'), function (view, model) {
   mouseenter(view.el, function () {
     var id = model.id() + ''
-    if (id.indexOf('transit') === -1) id = id + '_' + model.access()[0].mode.toLowerCase()
-    transitive.focusJourney(id)
+    if (id.indexOf('transit') === -1) {
+      id = id + '_' + model.access()[0].mode.toLowerCase()
+    }
+    if (transitive.network.journeys[id] !== undefined) {
+      transitive.focusJourney(id)
+    }
   })
 
   mouseleave(view.el, function () {

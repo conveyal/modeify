@@ -32,6 +32,7 @@ var Plan = module.exports = model('Plan')
     bike: true,
     bikeShare: true,
     bikeSpeed: 8,
+    bikeTrafficStress: 4,
     bus: true,
     car: true,
     carParkingCost: 10,
@@ -58,6 +59,7 @@ var Plan = module.exports = model('Plan')
   .attr('bike')
   .attr('bikeShare')
   .attr('bikeSpeed')
+  .attr('bikeTrafficStress')
   .attr('bus')
   .attr('car')
   .attr('carParkingCost')
@@ -347,6 +349,7 @@ Plan.prototype.generateQuery = function () {
     accessModes: accessModes.join(','),
     bikeSafe: 1000,
     bikeSpeed: convert.mphToMps(this.bikeSpeed()),
+    bikeTrafficStress: this.bikeTrafficStress(),
     date: this.nextDate(),
     directModes: directModes.join(','),
     egressModes: egressModes.join(','),

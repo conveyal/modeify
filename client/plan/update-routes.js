@@ -2,9 +2,6 @@ var analytics = require('../analytics')
 var haversine = require('../../components/trevorgerhardt/haversine/master')
 var log = require('../log')('plan:update-routes')
 var message = require('../messages')('plan:update-routes')
-var otpProfileToTransitive = require('otp-profile-to-transitive')
-var profileFilter = require('../profile-filter')
-var profileFormatter = require('../profile-formatter')
 var request = require('../request')
 var Route = require('../route')
 
@@ -21,7 +18,7 @@ module.exports = updateRoutes
 function updateRoutes (plan, opts, callback) {
   opts = opts || {}
 
-  var done = function (err, res) {
+  const done = function (err, res) {
     if (err) {
       err = generateErrorMessage(plan, res)
       analytics.track('Failed to Find Route', {
@@ -51,28 +48,44 @@ function updateRoutes (plan, opts, callback) {
   plan.loading(true)
   plan.emit('updating options')
 
-  var query = plan.generateQuery()
-  var scorer = plan.scorer()
+  // default is to query r5 only unless specified via 'routers' property in localStorage
+  let queryOtp = true
+  let queryR5 = false
+
+  const routers = window.localStorage.getItem('routers')
+  if (routers) {
+    const routersArr = routers.split(',')
+    queryOtp = routersArr.indexOf('otp') !== -1
+    queryR5 = routersArr.indexOf('r5') !== -1
+  }
+
+  const query = plan.generateQuery()
+  Object.assign(query, { queryOtp, queryR5 })
 
   log('-- see raw results here: %s', plan.generateURL())
 
-  request.get('/plan', plan.generateOtpQuery(), function (err, res) {
-    var results = res.body
+  request.get('/plan', query, function (err, res) {
+    const results = res.body
+    const ridepoolMatches = results.ridepoolMatches
+    const externalMatches = results.externalMatches
+
+    let journeys
+    if (results.otp && !results.r5) { // only OTP results returned
+      journeys = results.otp
+    } else if (!results.otp && results.r5) { // only R5 results returned
+      journeys = results.r5
+    } else { // both returned, look for defaultRouter setting in localStorage
+      journeys = window.localStorage.getItem('defaultRouter') === 'otp' ? results.otp : results.r5
+    }
+
+    const profile = journeys ? journeys.profile : []
     if (err) {
       done(err, res)
-    } else if (!results || results.profile.length < 1) {
+    } else if (!results || profile.length < 1) {
       done(message('no-options-found'), res)
     } else {
-      var profile = profileFilter(results.profile, scorer)
-      var journeys = otpProfileToTransitive({
-        from: query.from,
-        to: query.to,
-        patterns: results.patterns,
-        profile: {
-          options: profile
-        },
-        routes: results.routes
-      })
+      if (results.otp) console.log('otp: ' + results.otp.responseTime / 1000 + ' seconds')
+      if (results.r5) console.log('r5: ' + results.r5.responseTime / 1000 + ' seconds')
 
       // Track the commute
       analytics.track('Found Route', {
@@ -83,23 +96,23 @@ function updateRoutes (plan, opts, callback) {
       })
 
       // Get the car data
-      var driveOption = window.driveOption = new Route(profile.filter(function (o) {
+      const driveOption = window.driveOption = new Route(profile.filter(function (o) {
         return o.access[0].mode === 'CAR' && (!o.transit || o.transit.length < 1)
       })[0])
 
       if (driveOption) {
         driveOption.set({
-          externalCarpoolMatches: results.externalMatches,
-          hasRideshareMatches: (results.externalMatches > 0 || results.ridepoolMatches.length > 0),
+          externalCarpoolMatches: externalMatches,
+          hasRideshareMatches: (externalMatches > 0 || ridepoolMatches.length > 0),
           internalCarpoolMatches: {
-            matches: results.ridepoolMatches
+            matches: ridepoolMatches
           },
-          internalCarpoolMatchesCount: results.ridepoolMatches.length
+          internalCarpoolMatchesCount: ridepoolMatches.length
         })
       }
 
       // Create a new Route object for each option
-      for (var i = 0; i < profile.length; i++) {
+      for (let i = 0; i < profile.length; i++) {
         profile[i] = new Route(profile[i])
 
         if (plan.car() && profile[i].directCar()) {
@@ -119,7 +132,7 @@ function updateRoutes (plan, opts, callback) {
       plan.set({
         matches: results.internalMatches,
         options: profile,
-        journey: profileFormatter.journey(journeys)
+        journey: journeys
       })
 
       log('<-- updated routes')
@@ -129,14 +142,6 @@ function updateRoutes (plan, opts, callback) {
 }
 
 function generateErrorMessage (plan, response) {
-  /*if (!plan.to() && !plan.from()) {
-    return 'Please specify the from and to locations.'
-  } else if (plan.to() && !plan.from()) {
-    return 'Please specify the from location.'
-  } else if (!plan.to() && plan.from()) {
-    return 'Please specify the to location.'
-  }*/
-
   var msg = 'No results! '
   var responseText = response ? response.text : ''
 

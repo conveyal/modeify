@@ -32,6 +32,15 @@ View.prototype.bikeSpeeds = function () {
   })
 }
 
+View.prototype.bikeTrafficStressLevels = function () {
+  return [1, 2, 3, 4].map(function (l) {
+    return {
+      name: 'Level ' + l,
+      value: l
+    }
+  })
+}
+
 View.prototype.walkSpeeds = function () {
   return [2.3, 3, 4].map(function (s) {
     return {
@@ -58,9 +67,9 @@ function toOption (n) {
   }
 
   if (n > 23 || n === 0) opt.name = 'Midnight'
-  else if (n > 12) opt.name = n - 12 + ':00 pm'
+  else if (n > 12) opt.name = n - 12 + 'pm'
   else if (n === 12) opt.name = 'Noon'
-  else opt.name = n + ':00 am'
+  else opt.name = n + 'am'
 
   return opt
 }
@@ -101,6 +110,8 @@ View.prototype.saveProfile = function () {
       customData.modeify_opts.maxWalkTime = self.model.maxWalkTime()
       customData.modeify_opts.carParkingCost = self.model.carParkingCost()
       customData.modeify_opts.carCostPerMile = self.model.carCostPerMile()
+      customData.modeify_opts.bikeTrafficStress = self.model.bikeTrafficStress()
+
       session.user().customData(customData)
       session.user().saveCustomData(function () {}) // TODO: handle error
     }, 1000)

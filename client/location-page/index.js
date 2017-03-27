@@ -1,6 +1,7 @@
 var filePicker = require('component-file-picker')
-var L = require('mapbox.js')
 var parse = require('csv-parse/lib/sync')
+
+var L = require('leaflet')
 require('leaflet.markercluster')
 
 var file = require('component-file')
@@ -41,19 +42,6 @@ module.exports = function (ctx, next) {
     })
     m.addLayer(ctx.location.mapMarker())
 
-    /*if (ctx.location.commuterLocations.length > 0) {
-      var cluster = new L.MarkerClusterGroup()
-      ctx.location.commuterLocations.forEach(function (cl) {
-        if (cl._commuter.validCoordinate()) {
-          cluster.addLayer(cl._commuter.mapMarker())
-        }
-      })
-
-      if (cluster.getBounds()._northEast) {
-        m.addLayer(cluster)
-      }
-    }*/
-
     view.mapp = m
   })
 
@@ -80,16 +68,20 @@ View.prototype.loadCoordinates = function () {
     if (err) {
       console.log('Error loading commuter coordinates', err)
     } else {
-      var cluster = new L.MarkerClusterGroup()
-      coords.forEach(function (coord) {
-        if (!coord || !coord.lat || !coord.lng) return
-        cluster.addLayer(map.createMarker({
-          color: '#5cb85c',
-          coordinate: [coord.lng, coord.lat],
-          icon: 'building',
-          size: 'small'
-        }))
-      })
+      try {
+        var cluster = L.markerClusterGroup()
+        coords.forEach(function (coord) {
+          if (!coord || !coord.lat || !coord.lng) return
+          cluster.addLayer(map.createMarker({
+            color: '#5cb85c',
+            coordinate: [coord.lng, coord.lat],
+            icon: 'home',
+            size: 14
+          }))
+        })
+      } catch (err) {
+        console.log(err)
+      }
 
       if (cluster.getBounds()._northEast) {
         self.mapp.addLayer(cluster)
@@ -243,7 +235,7 @@ View.prototype.downloadMatches = function () {
   let csvContent = 'data:text/csv;charset=utf-8,'
   csvContent += 'commuter1_first,commuter1_last,commuter1_email,commuter1_internalId,commuter2_first,commuter2_last,commuter2_email,commuter2_internalId,distance\n'
 
-  let matchedKeys = []
+  const matchedKeys = []
 
   this.model.commuterLocations.forEach((cl) => {
     if (cl.matches && cl.matches.length > 0) {
@@ -259,7 +251,7 @@ View.prototype.downloadMatches = function () {
         if (matchedKeys.indexOf(matchKey) !== -1) return
         matchedKeys.push(matchKey)
 
-        let row = []
+        const row = []
         row.push(cl._commuter.get('givenName'))
         row.push(cl._commuter.get('surname'))
         row.push(cl._commuter.get('email'))

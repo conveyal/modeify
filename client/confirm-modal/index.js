@@ -23,7 +23,7 @@ Modal.prototype.confirm = function (e) {
 
 /* Modal.prototype.showCancel = function (e) {
   return false
-}*/
+} */
 
 /**
  * Expose `confirm`
