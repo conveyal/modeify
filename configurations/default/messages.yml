@@ -1,0 +1,37 @@
+announcements:
+  next: Next
+
+feedback-modal:
+  title: Tell us what you think!
+  placeholder: Is this a good or bad option?
+
+options-view:
+  feedback-text: Results not accurate?
+  feedback-link-text: Help us improve!
+
+plan:
+  update-routes:
+    invalid-coordinates: Invalid Coordinates.
+    no-options-found: We were unable to find options for these locations.
+
+welcome-flow:
+  best-options: "**Here are your best options!** We've searched all combinations of available travel modes to find the best trips for you, ranked based on their benefits versus driving alone.\n\n Use this screen to explore your options and plan any other trips you'd like to take!"
+  find-more: Click here to find out more!
+
+  locations:
+    find: Find my best option
+    headline: "**Thanks, that's a great start!** In addition, you have many more options for getting around."
+    question: "**Where do you want to go?**"
+    skip: Skip right to the application
+    tagline: "Save **money, time,** and make traveling **easy!**"
+
+  welcome:
+    headline: The region's **first multi-modal** trip planning and comparison tool.
+    tagline: We're excited to help you travel smart. Let's get started!
+    question: "**How do you usually get around?**"
+    answers:
+      drive: I **drive** alone
+      carpool: I **carpool**
+      bike: I **bike**
+      transit: I take public **transit**
+      walk: I **walk**
