@@ -1,6 +1,6 @@
-const cabiSVG = require('../../assets/images/graphics/cabi.svg')
-const startSVG = require('../../assets/images/graphics/start.svg')
-const endSVG = require('../../assets/images/graphics/end.svg')
+const cabiSVG = require('../../images/graphics/cabi.svg')
+const startSVG = require('../../images/graphics/start.svg')
+const endSVG = require('../../images/graphics/end.svg')
 const convert = require('../convert')
 
 function isBikeshareStation (place) {

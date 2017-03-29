@@ -145,14 +145,12 @@
   "scripts": {
     "build": "mastarm build",
     "cover": "mastarm test --coverage --coverage-paths \"lib/**/*.js client/**/*.js\"",
-    "deploy": "npm-run-all --sequential build sync push-config push-heroku",
+    "deploy": "mastarm deploy",
     "lint": "mastarm lint \"client/**/*.js\" \"lib/**/*.js\"",
     "push-config": "bin/push-config-to-heroku",
-    "push-heroku": "git push $(node bin/config-val heroku)",
-    "server": "nodemon --watch lib lib/server.js",
+    "server": "source bin/autoenv && nodemon --watch lib lib/server.js",
     "prestart": "yarn",
-    "start": "source bin/autoenv && npm-run-all --parallel server \"build -- --watch\"",
-    "sync": "aws s3 sync assets $(node bin/config-val s3Bucket) --acl public-read",
+    "start": "npm-run-all --parallel server \"build -- --watch\"",
     "test": "yarn run lint && mastarm test",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },

@@ -1,9 +1,9 @@
 .pika-prev,
 .is-rtl .pika-next {
-  background-image: url(/assets/images/graphics/arrow-left.svg);
+  background-image: url(/images/graphics/arrow-left.svg);
 }
 
 .pika-next,
 .is-rtl .pika-prev {
-  background-image: url(/assets/images/graphics/arrow-right.svg);
+  background-image: url(/images/graphics/arrow-right.svg);
 }

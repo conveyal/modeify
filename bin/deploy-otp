@@ -1,8 +1,0 @@
-#!/bin/sh
-
-cd "$(dirname "$0")"
-
-LAYER=$(./config-val $1 opsworks.otp_layer_id)
-
-echo "Deploying OTP to OpsWorks..."
-./reload-opsworks-layer $LAYER
