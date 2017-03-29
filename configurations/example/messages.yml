@@ -1,6 +1,14 @@
 announcements:
   next: Next
 
+feedback-modal:
+  title: Tell us what you think!
+  placeholder: Is this a good or bad option?
+
+options-view:
+  feedback-text: Results not accurate?
+  feedback-link-text: Help us improve!
+
 plan:
   update-routes:
     invalid-coordinates: Invalid Coordinates.

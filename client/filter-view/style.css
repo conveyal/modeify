@@ -97,6 +97,7 @@
 
 .ExpandedSettings select {
   margin: 0 4px;
+  color: var(--font-color);
 }
 
 .ExpandedSettings-typeIcon {

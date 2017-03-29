@@ -3,10 +3,10 @@ name: Modeify
 domain: modeify.co
 
 entries:
-  - client/planner-app/index.js:assets/build/planner-app/build.js
-  - client/planner-app/style.css:assets/build/planner-app/build.css
-  - client/manager-app/index.js:assets/build/manager-app/build.js
-  - client/manager-app/style.css:assets/build/manager-app/build.css
+  - client/planner-app/index.js:build/planner-app/build.js
+  - client/planner-app/style.css:build/planner-app/build.css
+  - client/manager-app/index.js:build/manager-app/build.js
+  - client/manager-app/style.css:build/manager-app/build.css
 
 announcements:
 
@@ -38,36 +38,16 @@ base_url: http://localhost:5000
 google_site_verification:
 
 mapbox_access_token:
-mapbox_map_id:
+mapbox_base_style:
+mapbox_label_style:
+mapbox_base_style_manager:
 
 mapzen:
   search:
     api_key:
 
-otp:
-  host: localhost
-  path: /otp/routers/default
-  port: 8080
+r5:
+  url:
 s3_bucket: ''
 segmentio_key: ''
 static_url: /assets
-
-# Custom Environments
-environments:
-
-  # For running tests
-  test:
-
-  # Default & development
-  development:
-
-  # Staging / QA / Production
-  production:
-    base_url:
-    opsworks:
-      otp_app_id:
-      otp_layer_id:
-      stack_id:
-    s3_bucket:
-    segmentio_key:
-    static_url:
