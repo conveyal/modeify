@@ -51,3 +51,9 @@ r5:
 s3_bucket: ''
 segmentio_key: ''
 static_url: /assets
+
+About: >
+  ## About
+
+Terms: >
+  ## Terms
