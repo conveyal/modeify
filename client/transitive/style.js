@@ -1,5 +1,7 @@
-var config = require('../config')
-var convert = require('../convert')
+const cabiSVG = require('../../assets/images/graphics/cabi.svg')
+const startSVG = require('../../assets/images/graphics/start.svg')
+const endSVG = require('../../assets/images/graphics/end.svg')
+const convert = require('../convert')
 
 function isBikeshareStation (place) {
   return place.place_id.lastIndexOf('bicycle_rent_station') !== -1
@@ -164,12 +166,12 @@ exports.places_icon = {
 
   'xlink:href': function (display, data) {
     if (isBikeshareStation(data.owner)) {
-      if (data.owner.focused) return config.static_url() + '/images/graphics/cabi.svg'
+      if (data.owner.focused) return `data:image/svg+xml;utf8,${cabiSVG}`
       else return false
     }
 
-    if (data.owner.getId() === 'from') return config.static_url() + '/images/graphics/start.svg'
-    if (data.owner.getId() === 'to') return config.static_url() + '/images/graphics/end.svg'
+    if (data.owner.getId() === 'from') return `data:image/svg+xml;utf8,${startSVG}`
+    if (data.owner.getId() === 'to') return `data:image/svg+xml;utf8,${endSVG}`
   },
   cursor: 'pointer',
   stroke: 0,
