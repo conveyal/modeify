@@ -1,5 +1,7 @@
 var fmt = require('../../components/yields/fmt/0.1.0')
-var markdown = require('markdown-it')()
+const Remarkable = require('remarkable')
+
+const markdown = new Remarkable()
 
 var DEFAULT_MESSAGES = JSON.parse(process.env.MESSAGES)
 
