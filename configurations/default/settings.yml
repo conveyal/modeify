@@ -47,7 +47,7 @@ mapzen:
     api_key:
 
 r5:
-  url:
+  url: http://mock-host.com
 s3_bucket: ''
 segmentio_key: ''
 static_url: /assets
