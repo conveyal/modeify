@@ -107,7 +107,7 @@ var Stats = function () {
       msMax = Math.max(msMax, ms)
 
       msText.textContent = ms + ' MS (' + msMin + '-' + msMax + ')'
-      updateGraph(msGraph, Math.min(30, 30 - (ms / 200) * 30))
+      updateGraph(msGraph, Math.min(30, 30 - ((ms / 200) * 30)))
 
       frames++
 
@@ -117,7 +117,7 @@ var Stats = function () {
         fpsMax = Math.max(fpsMax, fps)
 
         fpsText.textContent = fps + ' FPS (' + fpsMin + '-' + fpsMax + ')'
-        updateGraph(fpsGraph, Math.min(30, 30 - (fps / 100) * 30))
+        updateGraph(fpsGraph, Math.min(30, 30 - ((fps / 100) * 30)))
 
         prevTime = time
         frames = 0

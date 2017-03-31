@@ -84,8 +84,8 @@ function updateRoutes (plan, opts, callback) {
     } else if (!results || profile.length < 1) {
       done(message('no-options-found'), res)
     } else {
-      if (results.otp) console.log('otp: ' + results.otp.responseTime / 1000 + ' seconds')
-      if (results.r5) console.log('r5: ' + results.r5.responseTime / 1000 + ' seconds')
+      if (results.otp) console.log('otp: ' + (results.otp.responseTime / 1000) + ' seconds')
+      if (results.r5) console.log('r5: ' + (results.r5.responseTime / 1000) + ' seconds')
 
       // Track the commute
       analytics.track('Found Route', {

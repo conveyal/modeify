@@ -5651,9 +5651,9 @@ mapbox@^1.0.0-beta6:
     es6-promise "^4.0.5"
     rest "^2.0.0"
 
-"mastarm@https://github.com/conveyal/mastarm#dont-override-env":
-  version ""
-  resolved "https://github.com/conveyal/mastarm#ca6678ffb1048c691dd9fe092e47e2f5e85c6ce0"
+mastarm@^3.7.1:
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/mastarm/-/mastarm-3.7.1.tgz#71231a3c5dd1f3ac8c4f5aae17d60a7fc581b958"
   dependencies:
     aws-sdk "^2.4.2"
     babel-core "^6.10.4"

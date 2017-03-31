@@ -80,7 +80,7 @@
     "lonlng": "0.2.0",
     "mapbox": "^1.0.0-beta6",
     "mapbox.js": "^3.0.1",
-    "mastarm": "https://github.com/conveyal/mastarm#dont-override-env",
+    "mastarm": "^3.7.1",
     "mime": "^1.3.4",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
@@ -138,6 +138,7 @@
     "deploy": "mastarm deploy",
     "lint": "mastarm lint \"client/**/*.js\" \"lib/**/*.js\"",
     "prestart": "yarn",
+    "pretest": "yarn",
     "start": "nodemon --watch lib lib/server.js",
     "test": "yarn run lint && mastarm test",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
