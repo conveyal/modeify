@@ -80,7 +80,7 @@
     "lonlng": "0.2.0",
     "mapbox": "^1.0.0-beta6",
     "mapbox.js": "^3.0.1",
-    "mastarm": "conveyal/mastarm#dont-override-env",
+    "mastarm": "conveyal/mastarm#ca6678f",
     "mime": "^1.3.4",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
