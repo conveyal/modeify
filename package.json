@@ -133,6 +133,7 @@
     "yields-store": "^1.0.2"
   },
   "scripts": {
+    "build": "mastarm build",
     "cover": "mastarm test --coverage --coverage-paths \"lib/**/*.js client/**/*.js\"",
     "lint": "mastarm lint \"client/**/*.js\" \"lib/**/*.js\"",
     "prestart": "yarn",
