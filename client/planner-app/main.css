@@ -118,7 +118,7 @@ a.text-link:hover {
 #main .Accounts {
   margin: 35px 0;
   padding-top: 35px;
-  background-image: url(/assets/images/application/nav-logo.png);
+  background-image: url(/images/application/nav-logo.png);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: auto 100%;
@@ -126,7 +126,7 @@ a.text-link:hover {
 }
 
 .logo {
-  background-image: url(/assets/images/application/nav-logo.png);
+  background-image: url(/images/application/nav-logo.png);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: auto 100%;

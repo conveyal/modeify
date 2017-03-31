@@ -10,7 +10,7 @@ nav {
 }
 
 nav .logo {
-  background-image: url(/assets/images/application/nav-logo.png);
+  background-image: url(/images/application/nav-logo.png);
   background-position: 8px 10px;
   background-repeat: no-repeat;
   background-size: auto 24px;

@@ -1,5 +1,5 @@
 var clone = require('component-clone')
-var defaults = require('../../components/segmentio/model-defaults/0.2.0')
+var defaults = require('../components/segmentio/model-defaults/0.2.0')
 var model = require('component-model')
 
 var ProfileRequest = module.exports = model('ProfileRequest')

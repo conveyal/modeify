@@ -7,7 +7,7 @@ var config = require('../config')
  */
 
 var ServiceAlert = module.exports = model('ServiceAlert')
-  .use(require('../../components/trevorgerhardt/model-query/0.3.0'))
+  .use(require('../components/trevorgerhardt/model-query/0.3.0'))
   .route(config.api_url() + '/service-alerts')
   .attr('_id')
   .attr('text')

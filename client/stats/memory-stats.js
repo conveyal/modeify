@@ -77,7 +77,7 @@ var MemoryStats = function () {
       msText.textContent = 'Mem: ' + bytesToSize(ms, 2)
 
       var normValue = ms / (30 * 1024 * 1024)
-      var height = Math.min(30, 30 - normValue * 30)
+      var height = Math.min(30, 30 - (normValue * 30))
       updateGraph(msGraph, height, color)
 
       function bytesToSize (bytes, nFractDigit) {
@@ -86,7 +86,7 @@ var MemoryStats = function () {
         nFractDigit = nFractDigit !== undefined ? nFractDigit : 0
         var precision = Math.pow(10, nFractDigit)
         var i = Math.floor(Math.log(bytes) / Math.log(1024))
-        return Math.round(bytes * precision / Math.pow(1024, i)) / precision + ' ' + sizes[i]
+        return Math.round((bytes * precision / Math.pow(1024, i)) / precision) + ' ' + sizes[i]
       }
     }
   }

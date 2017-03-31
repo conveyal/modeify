@@ -1,5 +1,5 @@
 var config = require('../config')
-var defaults = require('../../components/segmentio/model-defaults/0.2.0')
+var defaults = require('../components/segmentio/model-defaults/0.2.0')
 var log = require('../log')('organization')
 var model = require('component-model')
 
@@ -14,7 +14,7 @@ var Organization = module.exports = model('Organization')
     email: '',
     labels: []
   }))
-  .use(require('../../components/trevorgerhardt/model-query/0.3.0'))
+  .use(require('../components/trevorgerhardt/model-query/0.3.0'))
   .route(config.api_url() + '/organizations')
   .attr('_id')
   .attr('name')

@@ -1,6 +1,6 @@
 var config = require('../config')
 var log = require('../log')('commuter')
-var defaults = require('../../components/segmentio/model-defaults/0.2.0')
+var defaults = require('../components/segmentio/model-defaults/0.2.0')
 var map = require('../map')
 var model = require('component-model')
 
@@ -19,7 +19,7 @@ var Commuter = module.exports = model('Commuter')
     profile: {}
   }))
   .use(require('../model-geo'))
-  .use(require('../../components/trevorgerhardt/model-query/0.3.0'))
+  .use(require('../components/trevorgerhardt/model-query/0.3.0'))
   .route(config.api_url() + '/commuters')
   .attr('_id')
   .attr('_location')

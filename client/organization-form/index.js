@@ -3,7 +3,7 @@ var config = require('../config')
 var debug = require('debug')(config.name() + ':organization-form')
 var Organization = require('../organization')
 var page = require('page')
-var serialize = require('../../components/trevorgerhardt/serialize/0.0.1')
+var serialize = require('../components/trevorgerhardt/serialize/0.0.1')
 var template = require('./template.html')
 var view = require('../view')
 
