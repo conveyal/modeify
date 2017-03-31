@@ -1,5 +1,5 @@
 var config = require('../config')
-var fmt = require('../../components/yields/fmt/0.1.0')
+var fmt = require('../components/yields/fmt/0.1.0')
 var request = require('../request')
 var view = require('../view')
 

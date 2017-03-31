@@ -6,7 +6,7 @@ var L = require('leaflet')
 require('leaflet.markercluster')
 
 var alerts = require('../alerts')
-var haversine = require('../../components/trevorgerhardt/haversine/master')
+var haversine = require('../components/trevorgerhardt/haversine/master')
 var log = require('../log')('commute-analysis-page')
 var map = require('../map')
 var ProfileScorer = require('otp-profile-score')

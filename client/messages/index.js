@@ -1,4 +1,4 @@
-var fmt = require('../../components/yields/fmt/0.1.0')
+var fmt = require('../components/yields/fmt/0.1.0')
 const Remarkable = require('remarkable')
 
 const markdown = new Remarkable()

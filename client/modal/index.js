@@ -1,6 +1,6 @@
 var config = require('../config')
 var log = require('../log')('modal')
-var createModal = require('../../components/segmentio/modal/0.4.1/lib')
+var createModal = require('../components/segmentio/modal/0.4.1/lib')
 var raf = require('component-raf')
 var scrollbarSize = require('scrollbar-size')
 var view = require('../view')

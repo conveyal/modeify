@@ -2,7 +2,7 @@ var Pikaday = require('pikaday')
 var moment = require('moment')
 var page = require('page')
 
-var serialize = require('../../components/trevorgerhardt/serialize/0.0.1')
+var serialize = require('../components/trevorgerhardt/serialize/0.0.1')
 var alerts = require('../alerts') // onscreen notifications
 var view = require('../view')
 var ServiceAlert = require('../service-alert')
