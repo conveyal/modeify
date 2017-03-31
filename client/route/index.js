@@ -1,6 +1,6 @@
 var convert = require('../convert')
 var model = require('component-model')
-var defaults = require('../../components/segmentio/model-defaults/0.2.0')
+var defaults = require('../components/segmentio/model-defaults/0.2.0')
 var each = require('component-each')
 
 /**
@@ -91,14 +91,14 @@ Route.prototype.rescore = function (scorer) {
 Route.prototype.setCarData = function (data) {
   var m = this.tripm()
 
-  var costDifference = data.cost * m - this.cost() * m
+  var costDifference = (data.cost * m) - (this.cost() * m)
   var emissions = (data.emissions - this.emissions()) / data.emissions * 100
   var timeSavings = (this.timeInTransit() - (data.time - this.time())) * m
 
   if (this.directCar()) {
-    costDifference = data.cost * m / 2
+    costDifference = (data.cost * m) / 2
     emissions = 50
-    timeSavings = this.average() * m / 2 // Assume split driving
+    timeSavings = (this.average() * m) / 2 // Assume split driving
   }
 
   if (costDifference > 0) {
@@ -425,7 +425,7 @@ function walkingCaloriesBurned (mps, wkg, hours) {
   var kph = mps / 1000 * 60 * 60
   var kph2 = kph * kph
   var kph3 = kph2 * kph
-  return (0.0215 * kph3 - 0.1765 * kph2 + 0.8710 * kph) * wkg * hours
+  return ((0.0215 * kph3) - (0.1765 * kph2) + (0.8710 * kph)) * wkg * hours
 }
 
 /**

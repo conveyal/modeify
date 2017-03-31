@@ -10,9 +10,9 @@ before_script:
   - yarn global add codecov
 script:
   - yarn run lint
+  - yarn run build
   - yarn run cover
   - codecov
-  - yarn run build -- -c configurations/example
 after_success:
   - npm run semantic-release
 branches:

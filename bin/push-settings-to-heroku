@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd "$(dirname "$0")"
+heroku config:set MODEIFY_CONFIG=$(cat ../$1 | base64) --app $2

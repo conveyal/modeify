@@ -27,6 +27,7 @@ node_modules
 **/kerberos/build
 **/weak/build
 
+build
 coverage
 deployment
 tmp

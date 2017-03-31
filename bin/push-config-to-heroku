@@ -1,6 +1,0 @@
-#!/bin/sh
-
-cd "$(dirname "$0")"
-APP=$(node config-val heroku)
-CONFIG=$(yaml2json ../configurations/default/settings.yml | base64)
-heroku config:set MODEIFY_CONFIG=$CONFIG --app $APP

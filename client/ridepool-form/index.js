@@ -2,7 +2,7 @@ var alerts = require('../alerts')
 var Ridepool = require('../ridepool')
 var log = require('../log')('ridepool-form')
 var page = require('page')
-var serialize = require('../../components/trevorgerhardt/serialize/0.0.1')
+var serialize = require('../components/trevorgerhardt/serialize/0.0.1')
 var view = require('../view')
 var Location = require('../location')
 

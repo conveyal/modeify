@@ -1,5 +1,5 @@
 var analytics = require('../analytics')
-var haversine = require('../../components/trevorgerhardt/haversine/master')
+var haversine = require('../components/trevorgerhardt/haversine/master')
 var log = require('../log')('plan:update-routes')
 var message = require('../messages')('plan:update-routes')
 var request = require('../request')
@@ -49,8 +49,8 @@ function updateRoutes (plan, opts, callback) {
   plan.emit('updating options')
 
   // default is to query r5 only unless specified via 'routers' property in localStorage
-  let queryOtp = true
-  let queryR5 = false
+  let queryOtp = false
+  let queryR5 = true
 
   const routers = window.localStorage.getItem('routers')
   if (routers) {
@@ -84,8 +84,8 @@ function updateRoutes (plan, opts, callback) {
     } else if (!results || profile.length < 1) {
       done(message('no-options-found'), res)
     } else {
-      if (results.otp) console.log('otp: ' + results.otp.responseTime / 1000 + ' seconds')
-      if (results.r5) console.log('r5: ' + results.r5.responseTime / 1000 + ' seconds')
+      if (results.otp) console.log('otp: ' + (results.otp.responseTime / 1000) + ' seconds')
+      if (results.r5) console.log('r5: ' + (results.r5.responseTime / 1000) + ' seconds')
 
       // Track the commute
       analytics.track('Found Route', {

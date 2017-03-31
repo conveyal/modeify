@@ -4,7 +4,7 @@ var log = require('../log')('locations-view')
 var textModal = require('../text-modal')
 var view = require('../view')
 var LocationSuggest = require('../location-suggest')
-var extend = require('../../components/segmentio/extend/1.0.0')
+var extend = require('../components/segmentio/extend/1.0.0')
 var session = require('../session')
 
 /**

@@ -1,4 +1,4 @@
-var extend = require('../../components/segmentio/extend/1.0.0')
+var extend = require('../components/segmentio/extend/1.0.0')
 var config = require('../config')
 
 var LocationSuggest = require('../location-suggest')

@@ -1,4 +1,0 @@
-#!/bin/sh
-
-export MODEIFY_CONFIG="$(./node_modules/.bin/yaml2json ./configurations/default/settings.yml | base64)"
-source ./configurations/default/env

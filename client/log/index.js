@@ -1,6 +1,6 @@
 var config = require('../config')
 var debug = require('debug')
-var fmt = require('../../components/yields/fmt/0.1.0')
+var fmt = require('../components/yields/fmt/0.1.0')
 var request = require('../request')
 
 /**

@@ -1,3 +1,6 @@
+const Remarkable = require('remarkable')
+const md = new Remarkable()
+
 var config = require('../config')
 var evnt = require('component-event')
 var MarkdownModal = require('../markdown-modal')
@@ -5,8 +8,8 @@ var showWalkThrough = require('../planner-walkthrough')
 var page = require('page')
 var view = require('../view')
 
-var aboutContent = require('../../configurations/default/about.md')
-var termsContent = require('../../configurations/default/terms.md')
+var aboutContent = md.render(config.About())
+var termsContent = md.render(config.Terms())
 
 /**
  * Expose `View`

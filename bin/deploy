@@ -1,6 +1,0 @@
-#!/bin/sh
-
-cd "$(dirname "$0")"
-
-./deploy-server $1
-./deploy-otp $1

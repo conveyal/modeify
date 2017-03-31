@@ -57,7 +57,7 @@ module.exports = function (ctx, next) {
 
   // Set up the views
   var views = {
-    'service-alerts-view': new ServiceAlertsView(),
+    'service-alerts-view': new ServiceAlertsView(session),
     'filter-view': new FilterView(plan),
     'locations-view': new LocationsView(plan),
     'options-view': new OptionsView(plan),
