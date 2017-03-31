@@ -1,3 +1,5 @@
+var moment = require('moment')
+
 var analytics = require('../analytics')
 var store = require('../browser-store')
 var Commuter = require('../commuter')
@@ -167,6 +169,14 @@ session.load = function (ctx, next) {
         if (err) {
           console.log('error loading service alerts', err)
         }
+
+        const today = moment()
+        alerts = (alerts || []).filter(function (alert) {
+          const fromDate = moment.utc(alert.fromDate)
+          const toDate = moment.utc(alert.toDate)
+          return !fromDate.isAfter(today, 'days') && !toDate.isBefore(today, 'days')
+        })
+
         session.serviceAlerts(alerts)
       })
 
