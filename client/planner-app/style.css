@@ -4,13 +4,13 @@
 @import url("node_modules/font-awesome/css/font-awesome.css");
 @import url("node_modules/intro.js/introjs.css");
 @import url("node_modules/leaflet/dist/leaflet.css");
-@import url("components/conveyal/modeify-icons.css/0.0.1/icons.css");
-@import url("components/conveyal/transitive.js/master/style.css");
+@import url("client/components/conveyal/modeify-icons.css/0.0.1/icons.css");
+@import url("client/components/conveyal/transitive.js/master/style.css");
 
 @import url("client/planner-app/main.css");
 
-@import url("components/segmentio/modal/0.4.1/lib/index.css");
-@import url("components/segmentio/overlay/0.2.4/lib/index.css");
+@import url("client/components/segmentio/modal/0.4.1/lib/index.css");
+@import url("client/components/segmentio/overlay/0.2.4/lib/index.css");
 
 @import url("client/announcements/style.css");
 @import url("client/commuter-profile/style.css");
