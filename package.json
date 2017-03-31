@@ -143,5 +143,10 @@
   },
   "standard": {
     "parser": "babel-eslint"
+  },
+  "mastarm lint": {
+    "ignore": [
+      "/client/components/*"
+    ]
   }
 }
