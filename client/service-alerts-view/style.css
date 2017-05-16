@@ -1,6 +1,9 @@
 
 .ServiceAlerts {
   background-color: #f2dede;
+}
+
+.ServiceAlert {
   padding: 8px;
 }
 
