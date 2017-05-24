@@ -6,9 +6,8 @@ var page = require('page')
 var center = config.geocode().center.split(',').map(parseFloat)
 
 function constructMapboxUrl (tileset) {
-  var mapboxAccessToken = config.mapbox_access_token()
-  var isRetina = window.devicePixelRatio > 1 ? '@2x' : ''
-  return `https://api.mapbox.com/styles/v1/${tileset}/tiles/256/{z}/{x}/{y}${isRetina}?access_token=${mapboxAccessToken}`
+  //TL Stop using Mapbox, stamen is a first replacement 24/05/2017
+  return 'http://tile.stamen.com/terrain/{z}/{x}/{y}.png';
 }
 
 /**
