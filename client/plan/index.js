@@ -283,7 +283,7 @@ Plan.prototype.modesCSV = function () {
   if (this.bike()) modes.push('BICYCLE')
   if (this.bikeShare()) modes.push('BICYCLE_RENT')
   if (this.bus()) modes.push('BUS')
-  if (this.train()) modes.push('TRAINISH')
+  if (this.train()) modes.push('RAIL,SUBWAY,TRAM') //TL 06/06/2017 Trainish n'existe plus
   if (this.walk()) modes.push('WALK')
   if (this.car()) modes.push('CAR')
 
@@ -301,7 +301,9 @@ Plan.prototype.setModes = function (csv) {
   this.bike(modes.indexOf('BICYCLE') !== -1)
   this.bikeShare(modes.indexOf('BICYCLE_RENT') !== -1)
   this.bus(modes.indexOf('BUS') !== -1)
-  this.train(modes.indexOf('TRAINISH') !== -1)
+  this.train(modes.indexOf('RAIL') !== -1)
+  this.train(modes.indexOf('TRAM') !== -1)
+  this.train(modes.indexOf('SUBWAY') !== -1)
   this.car(modes.indexOf('CAR') !== -1)
 }
 
@@ -336,7 +338,7 @@ Plan.prototype.generateQuery = function () {
     accessModes.push('CAR_PARK')
     directModes.push('CAR')
   }
-  if (this.train()) transitModes.push('TRAINISH')
+  if (this.train()) transitModes.push('RAIL,SUBWAY,TRAM')//TL 06/06/2017 Trainish n'existe plus
 
   var startTime = this.start_time()
   var endTime = this.end_time()

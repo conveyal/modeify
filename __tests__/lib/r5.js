@@ -38,7 +38,7 @@ describe('r5', () => {
       accessModes: 'WALK,BICYCLE,BICYCLE_RENT,CAR_PARK',
       directModes: 'CAR,WALK,BICYCLE,BICYCLE_RENT',
       egressModes: 'WALK',
-      transitModes: 'TRAINISH'
+      transitModes: 'RAIL,SUBWAY,TRAM' //TL 06/06/2017 Trainish n'existe plus
     })
 
     delete response.responseTime

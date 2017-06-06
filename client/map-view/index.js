@@ -34,7 +34,8 @@ module.exports = function (el) {
     L.tileLayer(constructMapboxUrl(config.mapbox_base_style())).addTo(map)
 
     // add a custom pane for the layers
-    map.createPane('labels')
+	//TL 06/06/2017 Appears above itinerary
+    /*map.createPane('labels')
 
     // this pane is above overlays but below popups
     map.getPane('labels').style.zIndex = 650
@@ -43,7 +44,7 @@ module.exports = function (el) {
     map.getPane('labels').style.pointerEvents = 'none'
 
     // add the labels layer to the labels pane
-    L.tileLayer(constructMapboxUrl(config.mapbox_label_style()), { pane: 'labels' }).addTo(map)
+    L.tileLayer(constructMapboxUrl(config.mapbox_label_style()), { pane: 'labels' }).addTo(map)*/
   } catch (err) {
     console.log(err)
   }
