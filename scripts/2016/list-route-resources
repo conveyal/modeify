@@ -3,7 +3,7 @@
 var commander = require('commander')
 var Table = require('cli-table')
 
-var RouteResource = require('../lib/route-resource/model')
+var RouteResource = require('../../lib/route-resource/model')
 
 commander
   .option('-t, --tags <tags>', 'Comma separated tags to search on')
@@ -30,6 +30,14 @@ function showResources (err, resources) {
     }).join(', ') ]
   })
   table.push.apply(table, mapped)
-  console.log(table.toString())
+  // console.log(table.toString())
+  const cols = ['name', 'title', 'description', 'tags']
+  console.log(JSON.stringify(resources.map(r => {
+    rr = {}
+    cols.forEach(c => {
+      rr[c] = r[c]
+    })
+    return rr
+  })))
   process.exit()
 }

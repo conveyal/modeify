@@ -3,7 +3,7 @@
 var prompt = require('prompt')
 var fs = require('fs')
 
-var RouteResource = require('../lib/route-resource/model')
+var RouteResource = require('../../lib/route-resource/model')
 
 var jsonfile = process.argv[2]
 var index = 0
