@@ -1,6 +1,7 @@
 const Auth0Lock = require('auth0-lock').default
 const page = require('page')
 
+const store = require('../browser-store')
 const session = require('../session')
 const User = require('../user')
 
@@ -25,8 +26,11 @@ lock.on('authenticated', function (authResult) {
       return
     }
 
-    session.user(new User(profile))
+    const user = new User(profile)
+    session.user(user)
     session.isLoggedIn(true)
+
+    store('user', user.toJSON())
 
     page('/')
   })

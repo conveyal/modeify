@@ -64,9 +64,9 @@ View.prototype.updateRange = function () {
       // scanned returned users for all codes
       var codes = []
       users.forEach(user => {
-        if (user.customData && user.customData.registrationCode) {
-          if (codes.indexOf(user.customData.registrationCode) === -1) {
-            codes.push(user.customData.registrationCode)
+        if (user.user_metadata && user.user_metadata.registrationCode) {
+          if (codes.indexOf(user.user_metadata.registrationCode) === -1) {
+            codes.push(user.user_metadata.registrationCode)
           }
         }
       })
@@ -115,7 +115,7 @@ View.prototype.updateTable = function () {
     if (!(createdAt in usersByDate)) usersByDate[createdAt] = []
     usersByDate[createdAt].push(user)
 
-    if (selectedCode && user.customData.registrationCode && user.customData.registrationCode === selectedCode) {
+    if (selectedCode && user.user_metadata.registrationCode && user.user_metadata.registrationCode === selectedCode) {
       if (!(createdAt in usersByDateAndCode)) usersByDateAndCode[createdAt] = []
       usersByDateAndCode[createdAt].push(user)
       totalUsersByCode++

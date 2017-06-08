@@ -173,7 +173,7 @@ View.prototype.toggleFavorite = function (e) {
 
   if (e.target.classList.contains('fa-heart-o')) {
     session.user().addFavoritePlace(address)
-    session.user().saveCustomData(function () {})
+    session.user().saveUserMetadata(function () {})
     this.checkAddressFavorite(type)
   }
 }

@@ -18,6 +18,15 @@ User.prototype.inGroups = function (names, all) {
   return all ? groups.length === names.length : groups.length > 0
 }
 
+User.prototype.getAccountId = function () {
+  const userMetadata = this.user_metadata()
+  if (userMetadata && userMetadata.oldStormpathHref) {
+    return userMetadata.oldStormpathHref
+  } else {
+    return this.user_id()
+  }
+}
+
 User.prototype.getOrganizationId = function () {
   return this.groupNames().reduce(function (m, n) {
     if (n.indexOf('organization-') !== -1 && n.indexOf('-manager') !== -1) {

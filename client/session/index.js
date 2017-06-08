@@ -130,7 +130,7 @@ session.load = function (ctx, next) {
         store('registration-code', null)
       }
 
-      analytics.identify(user.href().split('/').pop(), userJson)
+      analytics.identify(user.user_id(), userJson)
 
       user.on('change', function () {
         store('user', user.toJSON())
@@ -147,8 +147,8 @@ session.load = function (ctx, next) {
       session.commuter(commuter)
 
       // load the plan
-      var userOpts = (session.user() && session.user().customData().modeify_opts)
-        ? session.user().customData().modeify_opts
+      var userOpts = (session.user() && session.user().user_metadata().modeify_opts)
+        ? session.user().user_metadata().modeify_opts
         : {}
       session.plan(Plan.load(userOpts))
 
@@ -209,21 +209,20 @@ function loadCommuter (next) {
     next(null, session.commuter())
   } else if (commuterData) {
     if (user) {
-      commuterData.account = user.href()
       commuterData.anonymous = false
     }
 
     next(null, new Commuter(commuterData))
   } else if (session.isLoggedIn()) {
     request.get('/commuters', {
-      account: user.href()
+      account: user.getAccountId()
     }, function (err, res) {
       if (err || !res.body || res.body.length === 0) {
         next(null, new Commuter({
-          account: user.href(),
+          account: user.getAccountId(),
           email: user.email(),
-          givenName: user.givenName(),
-          surname: user.surname(),
+          givenName: 'unknown',
+          surname: 'unknown',
           anonymous: false
         }))
       } else {

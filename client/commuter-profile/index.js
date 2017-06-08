@@ -61,7 +61,7 @@ Modal.prototype.email = function () {
 
 Modal.prototype.places = function () {
   if (!this.model.user) return []
-  return this.model.user.customData().modeify_places
+  return this.model.user.user_metadata().modeify_places
 }
 
 Modal.prototype['places-view'] = function () {
@@ -77,7 +77,7 @@ Modal.prototype['places-view'] = function () {
 
   PlaceRow.prototype.deletePlace = function () {
     session.user().deleteFavoritePlace(this.model.address)
-    session.user().saveCustomData(function () {})
+    session.user().saveUserMetadata(function () {})
     this.el.remove()
   }
 
