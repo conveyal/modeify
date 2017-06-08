@@ -3,17 +3,11 @@ var model = require('component-model')
 var request = require('../request')
 
 var User = module.exports = model('User')
-  .attr('href')
-  .attr('customData')
+  .attr('app_metadata')
   .attr('email')
-  .attr('fullName')
-  .attr('givenName')
-  .attr('surname')
-  .attr('groups')
-
-User.prototype.id = function () {
-  return this.href().split('/').pop()
-}
+  .attr('name')
+  .attr('user_id')
+  .attr('user_metadata')
 
 User.prototype.inGroups = function (names, all) {
   var groups = this.groupNames()
@@ -64,9 +58,9 @@ User.prototype.revokeManagementPermission = function (org, callback) {
   })
 }
 
-User.prototype.saveCustomData = function (callback) {
-  request.post('/users/' + this.id() + '/save-custom-data', {
-    customData: this.customData()
+User.prototype.saveUserMetadata = function (callback) {
+  request.post('/users/' + this.id() + '/save-user-metadata', {
+    user_metadata: this.user_metadata()
   }, function (err, res) {
     if (err || !res.ok) {
       callback(res.text, res)
@@ -77,39 +71,39 @@ User.prototype.saveCustomData = function (callback) {
 }
 
 User.prototype.addFavoritePlace = function (address) {
-  var customData = this.customData()
-  if (!customData.modeify_places) customData.modeify_places = []
-  customData.modeify_places.push({
+  const userMetadata = this.user_metadata()
+  if (!userMetadata.modeify_places) userMetadata.modeify_places = []
+  userMetadata.modeify_places.push({
     address: address
   })
-  this.customData(customData)
+  this.user_metadata(userMetadata)
 }
 
 User.prototype.deleteFavoritePlace = function (address) {
-  var customData = this.customData()
-  if (!customData.modeify_places) customData.modeify_places = []
-  customData.modeify_places = customData.modeify_places.filter(function (place) {
+  const userMetadata = this.user_metadata()
+  if (!userMetadata.modeify_places) userMetadata.modeify_places = []
+  userMetadata.modeify_places = userMetadata.modeify_places.filter(function (place) {
     return place.address !== address
   })
-  this.customData(customData)
+  this.user_metadata(userMetadata)
 }
 
 User.prototype.isFavoritePlace = function (address) {
-  var customData = this.customData()
-  if (!customData.modeify_places) return false
-  for (var i = 0; i < customData.modeify_places.length; i++) {
-    if (customData.modeify_places[i].address === address) return true
+  const userMetadata = this.user_metadata()
+  if (!userMetadata.modeify_places) return false
+  for (var i = 0; i < userMetadata.modeify_places.length; i++) {
+    if (userMetadata.modeify_places[i].address === address) return true
   }
   return false
 }
 
 User.prototype.matchFavoritePlaces = function (text) {
-  var customData = this.customData()
-  if (!customData.modeify_places) return []
+  const userMetadata = this.user_metadata()
+  if (!userMetadata.modeify_places) return []
   var matches = []
-  for (var i = 0; i < customData.modeify_places.length; i++) {
-    if (customData.modeify_places[i].address.toLowerCase().lastIndexOf(text.toLowerCase()) === 0) {
-      matches.push(customData.modeify_places[i])
+  for (var i = 0; i < userMetadata.modeify_places.length; i++) {
+    if (userMetadata.modeify_places[i].address.toLowerCase().lastIndexOf(text.toLowerCase()) === 0) {
+      matches.push(userMetadata.modeify_places[i])
     }
   }
   return matches
