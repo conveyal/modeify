@@ -1,5 +1,4 @@
 const Auth0Lock = require('auth0-lock').default
-const page = require('page')
 
 const store = require('../browser-store')
 const session = require('../session')
@@ -33,7 +32,7 @@ lock.on('authenticated', function (authResult) {
 
     store('user', user.toJSON())
 
-    page('/')
+    window.location.reload()
   })
 })
 

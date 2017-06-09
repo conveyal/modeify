@@ -175,6 +175,10 @@ View.prototype.toggleFavorite = function (e) {
     session.user().addFavoritePlace(address)
     session.user().saveUserMetadata(function () {})
     this.checkAddressFavorite(type)
+  } else {
+    session.user().deleteFavoritePlace(address)
+    session.user().saveUserMetadata(function () {})
+    this.checkAddressFavorite(type)
   }
 }
 
