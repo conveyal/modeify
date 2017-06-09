@@ -20,6 +20,7 @@ const lock = new Auth0Lock(
 )
 
 lock.on('authenticated', function (authResult) {
+  store('auth0IdToken', authResult.idToken)
   lock.getProfile(authResult.idToken, function (error, profile) {
     if (error) {
       // Handle error

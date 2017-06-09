@@ -1,5 +1,7 @@
 var model = require('component-model')
+const superagent = require('superagent')
 
+const store = require('../browser-store')
 var request = require('../request')
 
 var User = module.exports = model('User')
@@ -9,13 +11,36 @@ var User = module.exports = model('User')
   .attr('user_id')
   .attr('user_metadata')
 
-User.prototype.inGroups = function (names, all) {
-  var groups = this.groupNames()
-    .reduce(function (memo, n) {
-      if (names.indexOf(n) !== -1) memo.push(n)
-      return memo
-    }, [])
-  return all ? groups.length === names.length : groups.length > 0
+/************************************************************
+ * Instance methods
+ ************************************************************/
+
+User.prototype.addFavoritePlace = function (address) {
+  const userMetadata = this.user_metadata()
+  if (!userMetadata.modeify_places) userMetadata.modeify_places = []
+  userMetadata.modeify_places.push({
+    address: address
+  })
+  this.user_metadata(userMetadata)
+}
+
+User.prototype.deleteFavoritePlace = function (address) {
+  const userMetadata = this.user_metadata()
+  if (!userMetadata.modeify_places) userMetadata.modeify_places = []
+  userMetadata.modeify_places = userMetadata.modeify_places.filter(function (place) {
+    return place.address !== address
+  })
+  this.user_metadata(userMetadata)
+}
+
+User.prototype.deleteUser = function (callback) {
+  request.del('/users/' + this.id(), function (err, res) {
+    if (err) {
+      callback(res.text || err)
+    } else {
+      callback(null, res.body)
+    }
+  })
 }
 
 User.prototype.getAccountId = function () {
@@ -37,12 +62,6 @@ User.prototype.getOrganizationId = function () {
   }, false)
 }
 
-User.prototype.groupNames = function () {
-  return (this.groups().items || []).map(function (i) {
-    return i.name
-  })
-}
-
 User.prototype.grantManagementPermission = function (org, callback) {
   request.get('/users/' + this.id() + '/add-to-group', {
     group: 'organization-' + org + '-manager'
@@ -55,46 +74,28 @@ User.prototype.grantManagementPermission = function (org, callback) {
   })
 }
 
-User.prototype.revokeManagementPermission = function (org, callback) {
-  request.get('/users/' + this.id() + '/remove-from-group', {
-    group: 'organization-' + org + '-manager'
-  }, function (err, res) {
-    if (err || !res.ok) {
-      callback(res.text, res)
-    } else {
-      callback(null, res)
-    }
+User.prototype.groupNames = function () {
+  return (this.groups().items || []).map(function (i) {
+    return i.name
   })
 }
 
-User.prototype.saveUserMetadata = function (callback) {
-  request.post('/users/' + this.id() + '/save-user-metadata', {
-    user_metadata: this.user_metadata()
-  }, function (err, res) {
-    if (err || !res.ok) {
-      callback(res.text, res)
-    } else {
-      callback(null, res)
-    }
-  })
-}
-
-User.prototype.addFavoritePlace = function (address) {
+User.prototype.id = function () {
   const userMetadata = this.user_metadata()
-  if (!userMetadata.modeify_places) userMetadata.modeify_places = []
-  userMetadata.modeify_places.push({
-    address: address
-  })
-  this.user_metadata(userMetadata)
+  if (userMetadata.oldStormpathId) {
+    return userMetadata.oldStormpathId
+  } else {
+    return this.user_id()
+  }
 }
 
-User.prototype.deleteFavoritePlace = function (address) {
-  const userMetadata = this.user_metadata()
-  if (!userMetadata.modeify_places) userMetadata.modeify_places = []
-  userMetadata.modeify_places = userMetadata.modeify_places.filter(function (place) {
-    return place.address !== address
-  })
-  this.user_metadata(userMetadata)
+User.prototype.inGroups = function (names, all) {
+  var groups = this.groupNames()
+    .reduce(function (memo, n) {
+      if (names.indexOf(n) !== -1) memo.push(n)
+      return memo
+    }, [])
+  return all ? groups.length === names.length : groups.length > 0
 }
 
 User.prototype.isFavoritePlace = function (address) {
@@ -118,23 +119,43 @@ User.prototype.matchFavoritePlaces = function (text) {
   return matches
 }
 
-User.prototype.deleteUser = function (callback) {
-  request.del('/users/' + this.id(), function (err, res) {
-    if (err) {
-      callback(res.text || err)
+User.prototype.revokeManagementPermission = function (org, callback) {
+  request.get('/users/' + this.id() + '/remove-from-group', {
+    group: 'organization-' + org + '-manager'
+  }, function (err, res) {
+    if (err || !res.ok) {
+      callback(res.text, res)
     } else {
-      callback(null, res.body)
+      callback(null, res)
     }
   })
 }
 
-User.loadManager = function (ctx, next) {
-  request.get('/users/' + ctx.params.manager, function (err, res) {
-    if (err || !res.ok) {
-      next(err || res.text)
+User.prototype.saveUserMetadata = function (callback) {
+  superagent
+    .patch(`https://${process.env.AUTH0_DOMAIN}/api/v2/users/${this.user_id()}`)
+    .set({ Authorization: `bearer ${store('auth0IdToken')}` })
+    .send({ user_metadata: this.user_metadata() })
+    .end((err, res) => {
+      if (err || !res.ok) {
+        callback(res.text, res)
+      } else {
+        callback(null, res)
+      }
+    }
+  )
+}
+
+/************************************************************
+ * Static methods
+ ************************************************************/
+
+User.createManager = function (info, callback) {
+  request.post('/users/managers', info, function (err, res) {
+    if (err) {
+      callback(res.text || err)
     } else {
-      ctx.manager = new User(res.body)
-      next()
+      callback(null, res.body)
     }
   })
 }
@@ -165,12 +186,13 @@ User.getManagersForOrg = function (org, callback) {
   })
 }
 
-User.createManager = function (info, callback) {
-  request.post('/users/managers', info, function (err, res) {
-    if (err) {
-      callback(res.text || err)
+User.loadManager = function (ctx, next) {
+  request.get('/users/' + ctx.params.manager, function (err, res) {
+    if (err || !res.ok) {
+      next(err || res.text)
     } else {
-      callback(null, res.body)
+      ctx.manager = new User(res.body)
+      next()
     }
   })
 }
