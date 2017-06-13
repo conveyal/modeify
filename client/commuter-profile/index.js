@@ -46,22 +46,22 @@ Modal.prototype.logout = function (e) {
  */
 
 Modal.prototype.anonymous = function () {
-  return this.model.commuter.anonymous()
+  return !this.model.user()
 }
 
 Modal.prototype.fullName = function () {
-  if (!this.model.user) return 'unknown'
-  return this.model.user.fullName()
+  if (!this.model.user()) return 'unknown'
+  return this.model.user().fullName()
 }
 
 Modal.prototype.email = function () {
-  if (!this.model.user) return 'unknown'
-  return this.model.user.email()
+  if (!this.model.user()) return 'unknown'
+  return this.model.user().email()
 }
 
 Modal.prototype.places = function () {
-  if (!this.model.user) return []
-  return this.model.user.user_metadata().modeify_places
+  if (!this.model.user()) return []
+  return this.model.user().user_metadata().modeify_places
 }
 
 Modal.prototype['places-view'] = function () {

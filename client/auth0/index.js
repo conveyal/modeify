@@ -32,7 +32,7 @@ lock.on('authenticated', function (authResult) {
 
     store('user', user.toJSON())
 
-    window.location.reload()
+    // window.location.reload()
   })
 })
 
