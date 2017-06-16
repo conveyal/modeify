@@ -77,7 +77,7 @@ var View = view(require('./template.html'), function (view, model) {
             commuter: commuter,
             calories: parseInt(profile.calories, 10),
             cost: profile.cost.toFixed(2),
-            distance: parseFloat(haversine(from.lat, from.lng, to.lat, to.lng, true).toFixed(2)),
+            distance: parseFloat(haversine(from.lat, from.lng, to.lat, to.lng, false).toFixed(2)),
             mode: profile.modes.join(', '),
             score: profile.score,
             time: parseInt(profile.time / 60, 10),
