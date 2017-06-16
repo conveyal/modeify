@@ -18,6 +18,15 @@ exports.metersToMiles = function (meters) {
 }
 
 /**
+ * Meters to kilometers
+ */
+
+exports.metersTokilometers = function (meters) {
+  meters = meters.toFixed(0)
+  return kilometersToString(meters * 0.001)
+}
+
+/**
  * MPH to m/s
  */
 
@@ -87,6 +96,26 @@ function milesToString (miles) {
     return ((miles * 10) | 0) / 10
   } else {
     return ((miles * 100) | 0) / 100
+  }
+}
+
+/**
+ * Expose `kilometersToString`
+ */
+
+exports.kilometersToString = kilometersToString
+
+/**
+ * Kilometers to string
+ */
+
+function kilometersToString (kilometers) {
+  if (kilometers > 15) {
+    return kilometers.toFixed(0)
+  } else if (kilometers > 2) {
+    return ((kilometers * 10) | 0) / 10       // bitwise or truncate after the unity, while toFixed() rounded
+  } else {
+    return ((kilometers * 100) | 0) / 100
   }
 }
 

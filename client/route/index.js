@@ -106,7 +106,7 @@ Route.prototype.setCarData = function (data) {
   }
 
   if (this.calories() !== 0) {
-    this.weightLost(parseInt(convert.caloriesToPounds(this.calories()) * m, 10))
+    this.weightLost(parseInt(this.calories() * m, 10))
   }
 
   if (timeSavings > 60) {
@@ -306,7 +306,8 @@ Route.prototype.distances = function (mode, val) {
   if (this.modes().indexOf(mode) === -1) {
     return false
   } else {
-    return convert.metersToMiles(this[val]())
+    return this[val]().toFixed(0)
+    //return (this[val]()<1000) ? this[val]() : convert.metersTokilometers(this[val]()) //TLprint in meters or kilometers(bugged ATM) 16/06/2017
   }
 }
 
