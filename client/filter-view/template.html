@@ -31,30 +31,41 @@
     <button class="btn btn-dark btn-block ExpandedSettings-hide" on-tap="hideSettings">Hide Settings <i class="fa fa-chevron-up"></i></button>
 
     <div class="ExpandedSettings-bike">
-      <i class="icon-bike ExpandedSettings-typeIcon"></i>
-      <label>speed</label>
-      <select select-value="bikeSpeed" select-options="bikeSpeeds" select-parse-value="parseInt" on-change="saveProfile"></select>
-      <label class="label-text">max time</label>
-      <input name="maxBikeTime" type="text" placeholder="min" data-value="maxBikeTime" on-change="save"></input>
-
-      <div style='margin-left: 41px; margin-top: 5px;'>
+	  <div>
+        <i class="icon-bike ExpandedSettings-typeIcon"></i>
+        <label>speed</label>
+        <select select-value="bikeSpeed" select-options="bikeSpeeds" select-parse-value="parseInt" on-change="saveProfile"></select>
+	  </div>
+	  <div>
+        <label class="label-text">max time</label>
+        <input name="maxBikeTime" type="text" placeholder="min" data-value="maxBikeTime" on-change="save"></input>
+	  </div>
+      <div>
         <label>traffic stress tolerance</label>
         <select select-value="bikeTrafficStress" select-options="bikeTrafficStressLevels" select-parse-value="parseInt" on-change="saveProfile"></select>
       </div>
     </div>
     <div class="ExpandedSettings-walk">
-      <i class="icon-walk ExpandedSettings-typeIcon"></i>
-      <label>speed</label>
-      <select select-value="walkSpeed" select-options="walkSpeeds" select-parse-value="parseInt" on-change="saveProfile"></select>
-      <label class="label-text">max time</label>
-      <input name="maxWalkTime" type="text" placeholder="min" data-value="maxWalkTime" on-change="save"></input>
+	  <div>
+        <i class="icon-walk ExpandedSettings-typeIcon"></i>
+        <label>speed</label>
+        <select select-value="walkSpeed" select-options="walkSpeeds" select-parse-value="parseInt" on-change="saveProfile"></select>
+	  </div>
+	  <div>
+        <label class="label-text">max time</label>
+        <input name="maxWalkTime" type="text" placeholder="min" data-value="maxWalkTime" on-change="save"></input>
+	  </div>
     </div>
     <div class="ExpandedSettings-drive">
-      <i class="icon-car ExpandedSettings-typeIcon"></i>
-      <label>parking $</label>
-      <input name="carParkingCost" type="text" placeholder="$" data-value="carParkingCost" on-change="save"></input>
-      <label>per mile $</label>
-      <input name="carCostPerMile" type="text" placeholder="$" data-value="carCostPerMile" on-change="save"></input>
+	  <div>
+        <i class="icon-car ExpandedSettings-typeIcon"></i>
+        <label>parking</label>
+        <input name="carParkingCost" type="text" placeholder="$" data-value="carParkingCost" on-change="save">€</input>
+      </div>
+	  <div>
+        <label>per km</label>
+        <input name="carCostPerMile" type="text" placeholder="$" data-value="carCostPerMile" on-change="save">€</input>
+      </div>
     </div>
   </div>
 </div>

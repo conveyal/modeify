@@ -35,6 +35,14 @@ exports.mphToMps = function (mph) {
 }
 
 /**
+ * km/h to m/s
+ */
+
+exports.kmhToMps = function (kmh) {
+  return kmh / 3.6
+}
+
+/**
  * Calories to pounds
  */
 

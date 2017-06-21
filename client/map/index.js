@@ -7,7 +7,14 @@ var center = config.geocode().center.split(',').map(parseFloat)
 
 function constructMapboxUrl (tileset) {
   //TL Stop using Mapbox, stamen is a first replacement 24/05/2017
-  return 'http://tile.stamen.com/terrain/{z}/{x}/{y}.png';
+  /*
+  var mapboxAccessToken = config.mapbox_access_token()
+  var isRetina = window.devicePixelRatio > 1 ? '@2x' : ''
+  return `https://api.mapbox.com/styles/v1/${tileset}/tiles/256/{z}/{x}/{y}${isRetina}?access_token=pk.eyJ1IjoiY29udmV5YWwiLCJhIjoiMDliQURXOCJ9.9JWPsqJY7dGIdX777An7Pw`
+  */
+  //return 'http://tile.stamen.com/terrain/{z}/{x}/{y}.png';
+  //TL use g-ny without WMS 21/06/2017
+  return 'http://carto.g-ny.org/gnybright/{z}/{x}/{y}.png';
 }
 
 /**

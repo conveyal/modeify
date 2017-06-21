@@ -24,9 +24,9 @@ View.prototype.endTimes = function () {
 }
 
 View.prototype.bikeSpeeds = function () {
-  return [4, 6, 8, 10].map(function (s) {
+  return [8, 10, 12, 14, 16, 18, 20].map(function (s) {
     return {
-      name: s + ' mph',
+      name: s + ' km/h',
       value: s
     }
   })
@@ -42,9 +42,9 @@ View.prototype.bikeTrafficStressLevels = function () {
 }
 
 View.prototype.walkSpeeds = function () {
-  return [2.3, 3, 4].map(function (s) {
+  return [3, 4, 5, 6].map(function (s) {
     return {
-      name: parseInt(s, 10) + ' mph&nbsp;&nbsp;',
+      name: parseInt(s, 10) + ' km/h&nbsp;&nbsp;',
       value: s
     }
   })

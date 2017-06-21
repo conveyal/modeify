@@ -8,6 +8,7 @@ try {
 var CO2_PER_GALLON = 8.887 // Kilograms of CO2 burned per gallon of gasoline
 var CYCLING_MET = 8 // Find MET scores here: http://appliedresearch.cancer.gov/atus-met/met.php
 var METERS_TO_MILES = 0.000621371
+var METERS_TO_KILOMETERS = 0.001
 var SECONDS_TO_HOURS = 1 / 60 / 60
 var WALKING_MET = 3.8
 
@@ -254,7 +255,8 @@ ProfileScore.prototype.tally = function (o) {
 
   // Set the parking costs
   if (o.modes.indexOf('car') !== -1 || o.modes.indexOf('car_park') !== -1) {
-    o.carCost = this.rates.mileageRate * (o.driveDistance * METERS_TO_MILES) + this.rates.carParkingCost
+    //o.carCost = this.rates.mileageRate * (o.driveDistance * METERS_TO_MILES) + this.rates.carParkingCost
+    o.carCost = this.rates.mileageRate * (o.driveDistance * METERS_TO_KILOMETERS) + this.rates.carParkingCost
     o.cost += o.carCost
     o.emissions = o.driveDistance / this.rates.mpg * CO2_PER_GALLON
   }

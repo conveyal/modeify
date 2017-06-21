@@ -10,6 +10,18 @@ var each = require('component-each')
 var MPS_TO_MPH = 2.23694
 
 /**
+ * MPS to KMS
+ */
+
+var MPS_TO_KMS = 3.6
+
+/**
+ * METERS_TO_KILOMETERS
+ */
+
+var METERS_TO_KILOMETERS = 0.001
+
+/**
  * Expose `Route`
  */
 
@@ -235,7 +247,7 @@ Route.prototype.costPerTrip = function () {
     cost += this.transitCost()
   }
   if (this.hasCar()) {
-    cost += this.vmtRate() * this.driveDistances()
+    cost += this.vmtRate() * this.driveDistances() * METERS_TO_KILOMETERS
     cost += this.carParkingCost()
   }
 
@@ -316,11 +328,13 @@ Route.prototype.distances = function (mode, val) {
  */
 
 Route.prototype.bikeSpeedMph = function () {
-  return toFixed(this.bikeSpeed() * MPS_TO_MPH, 1)
+  //return toFixed(this.bikeSpeed() * MPS_TO_MPH, 1)
+  return toFixed(this.bikeSpeed() * MPS_TO_KMS, 1)
 }
 
 Route.prototype.walkSpeedMph = function () {
-  return toFixed(this.walkSpeed() * MPS_TO_MPH, 1)
+  //return toFixed(this.walkSpeed() * MPS_TO_MPH, 1)
+  return toFixed(this.walkSpeed() * MPS_TO_KMS, 1)
 }
 
 /**

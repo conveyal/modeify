@@ -1,4 +1,4 @@
-var analytics = require('../analytics')
+﻿var analytics = require('../analytics')
 var d3 = require('d3')
 var hogan = require('hogan.js')
 var log = require('../log')('help-me-choose')
@@ -131,9 +131,9 @@ Modal.prototype.refresh = function (e) {
 
 Modal.prototype.renderRoute = function (data) {
   data.calories = data.calories ? parseInt(data.calories, 10).toLocaleString() + ' cals' : 'None'
-  data.cost = data.cost ? '$' + data.cost.toFixed(2) : 'Free'
+  data.cost = data.cost ? data.cost.toFixed(2) + ' €' : 'Free'
   data.emissions = data.emissions ? parseInt(data.emissions, 10) : 'None'
-  data.walkDistance = data.walkDistance ? data.walkDistance + ' mi' : 'None'
+  data.walkDistance = data.walkDistance ? data.walkDistance + ' m' : 'None'
 
   if (data.productiveTime) {
     if (data.productiveTime > 120) {
