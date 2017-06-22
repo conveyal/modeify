@@ -27,6 +27,8 @@ lock.on('authenticated', function (authResult) {
     }
 
     console.log('logged in w/ Auth0!')
+
+    // update user stuff
     const user = new User(profile)
     session.user(user)
     session.isLoggedIn(true)
@@ -35,7 +37,25 @@ lock.on('authenticated', function (authResult) {
 
     store('user', user.toJSON())
 
-    // window.location.reload()
+    // update advancedSettings if present in user data
+    if (profile.user_metadata && profile.user_metadata.modeify_opts) {
+      const advancedSettings = [
+        'bikeSpeed',
+        'bikeTrafficStress',
+        'carCostPerMile',
+        'carParkingCost',
+        'maxBikeTime',
+        'maxWalkTime',
+        'walkSpeed'
+      ]
+
+      advancedSettings.forEach((setting) => {
+        const settingValue = profile.user_metadata.modeify_opts[setting]
+        if (settingValue || settingValue === 0) {
+          session.plan()[setting](settingValue)
+        }
+      })
+    }
   })
 })
 
