@@ -1,4 +1,4 @@
-var crossfilter = require('crossfilter2')
+﻿var crossfilter = require('crossfilter2')
 var dc = require('dc')
 var d3 = require('d3')
 var L = require('leaflet')
@@ -145,8 +145,8 @@ var View = view(require('./template.html'), function (view, model) {
         return total + p.time
       }, 0) / profiles.length
 
-      $costAvg.textContent = '$' + costAvg.toFixed(2)
-      $costPYAvg.textContent = '$' + parseInt(costAvg * 470, 10)
+      $costAvg.textContent = costAvg.toFixed(2) + ' €'
+      $costPYAvg.textContent = parseInt(costAvg * 470, 10) + ' €'
       $timeAvg.textContent = parseInt(timeAvg, 10) + ' min'
       $distanceAvg.textContent = distAvg.toFixed(2) + ' mi'
     } catch (err) {

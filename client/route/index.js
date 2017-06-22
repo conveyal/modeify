@@ -247,10 +247,11 @@ Route.prototype.costPerTrip = function () {
     cost += this.transitCost()
   }
   if (this.hasCar()) {
-    cost += this.vmtRate() * this.driveDistances() * METERS_TO_KILOMETERS
-    cost += this.carParkingCost()
+    this.attrs.carCost = this.vmtRate() * this.driveDistances() * METERS_TO_KILOMETERS + this.carParkingCost()
+    cost +=  this.attrs.carCost
   }
 
+  this.attrs.cost=cost
   return cost.toFixed(2)
 }
 
