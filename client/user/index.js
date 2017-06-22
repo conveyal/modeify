@@ -82,7 +82,7 @@ User.prototype.groupNames = function () {
 
 User.prototype.id = function () {
   const userMetadata = this.user_metadata()
-  if (userMetadata.oldStormpathId) {
+  if (userMetadata && userMetadata.oldStormpathId) {
     return userMetadata.oldStormpathId
   } else {
     return this.user_id()

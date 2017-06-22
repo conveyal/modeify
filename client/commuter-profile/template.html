@@ -5,7 +5,7 @@
   </h3>
 
   <div class="row">
-    <section class="col-sm-12" data-visible="anonymous">
+    <section class="col-sm-12" data-hidden="isLoggedIn">
       <h4>
         <i class="fa fa-user"></i>
         <strong>Create an Account</strong>
@@ -15,7 +15,7 @@
       <div reactive="signUpForm"></div>
     </section>
 
-    <section class="col-sm-12" data-hidden="anonymous">
+    <section class="col-sm-12" data-visible="isLoggedIn">
       <h4>
         <i class="fa fa-user"></i>
         Your <strong>Account</strong>

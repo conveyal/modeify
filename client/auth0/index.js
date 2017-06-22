@@ -26,9 +26,12 @@ lock.on('authenticated', function (authResult) {
       return
     }
 
+    console.log('logged in w/ Auth0!')
     const user = new User(profile)
     session.user(user)
     session.isLoggedIn(true)
+    session.emit('change email', session.user().email())
+    session.emit('change places', session.user().user_metadata().modeify_places)
 
     store('user', user.toJSON())
 
