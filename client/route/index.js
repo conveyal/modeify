@@ -196,6 +196,10 @@ Route.prototype.hasCar = function () {
   return this.modes().indexOf('car') !== -1
 }
 
+Route.prototype.hasCarPark = function () {
+  return (this.modes().indexOf('car_park') !== -1)
+}
+
 Route.prototype.hasTransit = function () {
   return this.transit().length > 0
 }
@@ -246,8 +250,10 @@ Route.prototype.costPerTrip = function () {
   if (this.transitCost()) {
     cost += this.transitCost()
   }
-  if (this.hasCar()) {
-    this.attrs.carCost = this.vmtRate() * this.driveDistances() * METERS_TO_KILOMETERS + this.carParkingCost()
+  if (this.hasCar() || this.hasCarPark()) {
+    if (this.hasCarPark()) console.log(this)
+    this.attrs.carCost = this.vmtRate() * this.driveDistance() * METERS_TO_KILOMETERS
+    if (this.hasCar()) this.attrs.carCost += this.carParkingCost() //TL On suppose que le prix du parking est inclus dans le prix du transport en commun pour car_park 23/06/2017
     cost +=  this.attrs.carCost
   }
 

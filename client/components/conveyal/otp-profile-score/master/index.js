@@ -238,7 +238,7 @@ ProfileScore.prototype.tally = function (o) {
       })
     }
 
-    o.cost += o.transitCost
+    o.cost += o.transitCost ? o.transitCost : 0
   }
 
   // Set the walking calories burned
