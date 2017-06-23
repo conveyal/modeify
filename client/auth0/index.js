@@ -4,6 +4,8 @@ const store = require('../browser-store')
 const session = require('../session')
 const User = require('../user')
 
+let loginCallback
+
 const lock = new Auth0Lock(
   process.env.AUTH0_CLIENT_ID,
   process.env.AUTH0_DOMAIN,
@@ -23,6 +25,9 @@ lock.on('authenticated', function (authResult) {
   lock.getProfile(authResult.idToken, function (error, profile) {
     if (error) {
       // Handle error
+      if (typeof loginCallback === 'function') {
+        loginCallback(error)
+      }
       return
     }
 
@@ -38,7 +43,8 @@ lock.on('authenticated', function (authResult) {
     store('user', user.toJSON())
 
     // update advancedSettings if present in user data
-    if (profile.user_metadata && profile.user_metadata.modeify_opts) {
+    // the plan might not be loaded when logging into manager app, so skip in that case
+    if (profile.user_metadata && profile.user_metadata.modeify_opts && session.plan()) {
       const advancedSettings = [
         'bikeSpeed',
         'bikeTrafficStress',
@@ -55,6 +61,12 @@ lock.on('authenticated', function (authResult) {
           session.plan()[setting](settingValue)
         }
       })
+
+      session.plan().store()
+    }
+
+    if (typeof loginCallback === 'function') {
+      loginCallback()
     }
   })
 })
@@ -62,6 +74,10 @@ lock.on('authenticated', function (authResult) {
 lock.on('authorization_error', function (err) {
   console.error(err)
 })
+
+module.exports.setLoginCallback = function (callback) {
+  loginCallback = callback
+}
 
 module.exports.show = function () {
   lock.show()

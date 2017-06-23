@@ -6,7 +6,6 @@ var Nav = module.exports = view(require('./template.html'), function (view, mode
   model.on('change', function () {
     model.emit('change isAdmin', model.isAdmin())
     model.emit('change isLoggedIn', model.isLoggedIn())
-    model.emit('change isManager', model.isManager())
     model.emit('change username')
   })
 })

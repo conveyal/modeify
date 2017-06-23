@@ -82,15 +82,7 @@ Session.prototype.clear = function () {
 }
 
 Session.prototype.isAdmin = function () {
-  return this.inGroups(['administrator'])
-}
-
-Session.prototype.isManager = function () {
-  return this.inGroups(['administrator', 'manager'])
-}
-
-Session.prototype.inGroups = function (groups, all) {
-  return this.isLoggedIn() && this.user().inGroups(groups, all)
+  return this.isLoggedIn() && this.user().app_metadata()['is_admin']
 }
 
 /**
