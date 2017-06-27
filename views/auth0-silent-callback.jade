@@ -1,0 +1,13 @@
+doctype html
+html(lang='en')
+  head
+    script(type='text/javascript').
+      var data = {
+        type: 'auth0:silent-authentication',
+        hash: window.location.hash
+      };
+      
+      // This page is designed to be loaded in an Iframe
+      var result = parent.postMessage(data, "*");
+
+  body

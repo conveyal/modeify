@@ -1,4 +1,3 @@
-const auth0 = require('../auth0')
 var config = require('../config')
 var session = require('../session')
 var view = require('../view')
@@ -14,7 +13,7 @@ View.prototype.anonymous = function () {
 }
 
 View.prototype.login = function () {
-  auth0.show()
+  session.login()
 }
 
 View.prototype.showButton = function (e) {
@@ -22,5 +21,5 @@ View.prototype.showButton = function (e) {
 }
 
 View.prototype.signUp = function () {
-  auth0.show()
+  session.login()
 }

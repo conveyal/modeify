@@ -1,10 +1,12 @@
+const auth0 = require('auth0-js')
 const Auth0Lock = require('auth0-lock').default
 
-const store = require('../browser-store')
-const session = require('../session')
-const User = require('../user')
-
 let loginCallback
+
+const auth0client = new auth0.WebAuth({
+  domain: process.env.AUTH0_DOMAIN,
+  clientID: process.env.AUTH0_CLIENT_ID
+})
 
 const lock = new Auth0Lock(
   process.env.AUTH0_CLIENT_ID,
@@ -21,64 +23,47 @@ const lock = new Auth0Lock(
 )
 
 lock.on('authenticated', function (authResult) {
-  store('auth0IdToken', authResult.idToken)
-  lock.getProfile(authResult.idToken, function (error, profile) {
-    if (error) {
-      // Handle error
-      if (typeof loginCallback === 'function') {
-        loginCallback(error)
-      }
-      return
-    }
-
-    console.log('logged in w/ Auth0!')
-
-    // update user stuff
-    const user = new User(profile)
-    session.user(user)
-    session.isLoggedIn(true)
-    session.emit('change email', session.user().email())
-    session.emit('change places', session.user().user_metadata().modeify_places)
-
-    store('user', user.toJSON())
-
-    // update advancedSettings if present in user data
-    // the plan might not be loaded when logging into manager app, so skip in that case
-    if (profile.user_metadata && profile.user_metadata.modeify_opts && session.plan()) {
-      const advancedSettings = [
-        'bikeSpeed',
-        'bikeTrafficStress',
-        'carCostPerMile',
-        'carParkingCost',
-        'maxBikeTime',
-        'maxWalkTime',
-        'walkSpeed'
-      ]
-
-      advancedSettings.forEach((setting) => {
-        const settingValue = profile.user_metadata.modeify_opts[setting]
-        if (settingValue || settingValue === 0) {
-          session.plan()[setting](settingValue)
-        }
-      })
-
-      session.plan().store()
-    }
-
-    if (typeof loginCallback === 'function') {
-      loginCallback()
-    }
-  })
+  if (typeof loginCallback === 'function') {
+    loginCallback(null, authResult)
+  }
 })
 
 lock.on('authorization_error', function (err) {
   console.error(err)
 })
 
+module.exports.getProfile = function (idToken, callback) {
+  lock.getProfile(idToken, callback)
+}
+
+module.exports.renewAuth = function (callback) {
+  auth0client.renewAuth({
+    audience: '',
+    postMessageDataType: 'auth0:silent-authentication',
+    redirectUri: window.location.origin + '/auth/silent-callback',
+    scope: 'openid app_metadata user_metadata',
+    usePostMessage: true
+  }, (err, authResult) => {
+    if (err) {
+      console.log('Failed to renew log in.')
+      return callback(err)
+    }
+
+    if (!authResult.idToken) {
+      const err = new Error('idToken not received from auth0')
+      console.log(authResult)
+      return callback(err)
+    }
+
+    lock.getProfile(authResult.idToken, callback)
+  })
+}
+
 module.exports.setLoginCallback = function (callback) {
   loginCallback = callback
 }
 
-module.exports.show = function () {
+module.exports.show = function (callback) {
+  loginCallback = callback
   lock.show()
 }

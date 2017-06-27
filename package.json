@@ -19,7 +19,8 @@
   "dependencies": {
     "analytics-node": "^2.4.0",
     "async": "^2.2.0",
-    "auth0-lock": "^10.16.0",
+    "auth0-js": "^8.8.0",
+    "auth0-lock": "^10.18.0",
     "aws-sdk": "^2.34.0",
     "batch": "^0.6.0",
     "body-parser": "^1.17.1",
