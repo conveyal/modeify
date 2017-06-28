@@ -1,5 +1,7 @@
 const auth0 = require('auth0-js')
 const Auth0Lock = require('auth0-lock').default
+const decodeJwt = require('jwt-decode')
+const uuidv4 = require('uuid/v4')
 
 let loginCallback
 
@@ -37,8 +39,10 @@ module.exports.getProfile = function (idToken, callback) {
 }
 
 module.exports.renewAuth = function (callback) {
+  const nonce = uuidv4()
   auth0client.renewAuth({
     audience: '',
+    nonce,
     postMessageDataType: 'auth0:silent-authentication',
     redirectUri: window.location.origin + '/auth/silent-callback',
     scope: 'openid app_metadata user_metadata',
@@ -46,16 +50,17 @@ module.exports.renewAuth = function (callback) {
   }, (err, authResult) => {
     if (err) {
       console.log('Failed to renew log in.')
-      return callback(err)
-    }
-
-    if (!authResult.idToken) {
+      callback(err)
+    } else if (!authResult.idToken) {
       const err = new Error('idToken not received from auth0')
       console.log(authResult)
-      return callback(err)
+      callback(err)
+    } else if (decodeJwt(authResult.idToken).nonce !== nonce) {
+      const err = new Error('Nonce string does not match!')
+      callback(err)
+    } else {
+      callback(null, authResult)
     }
-
-    lock.getProfile(authResult.idToken, callback)
   })
 }
 

@@ -63,6 +63,8 @@ Session.prototype.clear = function () {
   store('session', null)
   store('user', null)
 
+  request.setAuthHeader(null)
+
   document.cookie = 'expires=Thu, 01 Jan 1970 00:00:00 UTC'
 
   session.set({
@@ -80,7 +82,7 @@ Session.prototype.clear = function () {
 }
 
 Session.prototype.isAdmin = function () {
-  return this.isLoggedIn() && this.user().app_metadata()['is_admin']
+  return this.isLoggedIn() && this.user().app_metadata()['isAdmin']
 }
 
 /**
@@ -105,13 +107,12 @@ session.touch = function (ctx, next) {
 session.load = function (ctx, next) {
   session.settings(store('session') || DEFAULT_SETTINGS)
 
-  loadUser(function (err, user) {
+  loadUser(function (err) {
     if (err) return next(err)
 
-    if (user) {
-      session.user(user)
-      session.isLoggedIn(true)
+    const user = session.user()
 
+    if (user) {
       var userJson = user.toJSON()
       var registrationCode = store('registration-code')
 
@@ -176,22 +177,50 @@ session.load = function (ctx, next) {
 }
 
 session.login = function (callback) {
-  auth0.show((showError, authResult) => {
-    if (showError) {
+  auth0.show(makeAuthResponseHandler(true, callback))
+}
+
+session.loginWithLink = function (ctx, next) {
+  next()
+}
+
+/**
+ * Log out
+ */
+
+session.logoutMiddleware = function (ctx, next) {
+  log('logout %s', decodeURIComponent(ctx.path))
+
+  session.logout(next)
+}
+
+function makeAuthResponseHandler (alertIfFailed, callback) {
+  return (authErr, authResult) => {
+    const idToken = authResult ? authResult.idToken : null
+    if (authErr || !idToken) {
       store('auth0IdToken', null)
-      alert('Failed to login')
-      if (typeof callback === 'function') {
-        callback(showError)
+      if (alertIfFailed) {
+        alert('Failed to login')
       }
+      if (typeof callback === 'function') {
+        callback(authErr || new Error('Failed to obtain idToken'))
+      }
+      console.error(authErr || 'Failed to obtain idToken')
       return
     }
-    store('auth0IdToken', authResult.idToken)
-    auth0.getProfile(authResult.idToken, (getProfileError, profile) => {
+
+    store('auth0IdToken', idToken)
+    request.setAuthHeader(idToken)
+
+    auth0.getProfile(idToken, (getProfileError, profile) => {
       if (getProfileError) {
-        alert('Failed to login')
+        if (alertIfFailed) {
+          alert('Failed to login')
+        }
         if (typeof callback === 'function') {
           callback(getProfileError)
         }
+        console.error(getProfileError)
         return
       }
 
@@ -230,21 +259,7 @@ session.login = function (callback) {
         callback()
       }
     })
-  })
-}
-
-session.loginWithLink = function (ctx, next) {
-  next()
-}
-
-/**
- * Log out
- */
-
-session.logoutMiddleware = function (ctx, next) {
-  log('logout %s', decodeURIComponent(ctx.path))
-
-  session.logout(next)
+  }
 }
 
 function loadUser (next) {
@@ -260,20 +275,7 @@ function loadUser (next) {
   }
 
   // initiate refresh of user data
-  auth0.renewAuth((err, profile) => {
-    if (err) {
-      // Handle error
-      console.error(err)
-      store('auth0IdToken', null)
-      return next()
-    }
-
-    console.log('logged in w/ Auth0!')
-
-    // update user stuff
-    const user = new User(profile)
-    return next(null, user)
-  })
+  auth0.renewAuth(makeAuthResponseHandler(false, next))
 }
 
 function loadCommuter (next) {
