@@ -18,7 +18,7 @@ p('/', session.touch, utils.redirect('/welcome'))
 // Public links
 
 p('/logout', session.logoutMiddleware, function () {
-  window.location.href = '/manager'
+  window.location.href = '/'
 })
 
 // Welcome new Manager

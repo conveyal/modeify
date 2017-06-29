@@ -54,6 +54,8 @@ Session.prototype.logout = function (next) {
   log('--> logging out')
 
   this.clear()
+
+  next()
 }
 
 Session.prototype.clear = function () {
