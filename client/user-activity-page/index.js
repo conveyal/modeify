@@ -59,7 +59,8 @@ View.prototype.updateRange = function () {
       window.alert(err)
     } else {
       // console.log('signups', JSON.parse(signups.text));
-      var users = JSON.parse(signups.text)
+      var usersResponse = JSON.parse(signups.text)
+      const {users} = usersResponse
 
       // scanned returned users for all codes
       var codes = []
@@ -110,7 +111,7 @@ View.prototype.updateTable = function () {
   var totalUsersByCode = 0
   for (var i = 0; i < users.length; i++) {
     var user = users[i]
-    var createdAt = moment(user.createdAt).add(-5, 'hours').format('MM-DD-YYYY')
+    var createdAt = moment.unix(user.user_metadata.createdAtUnix).format('MM-DD-YYYY')
 
     if (!(createdAt in usersByDate)) usersByDate[createdAt] = []
     usersByDate[createdAt].push(user)

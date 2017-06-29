@@ -225,6 +225,15 @@ function makeAuthResponseHandler (alertIfFailed, callback) {
       }
 
       const user = new User(profile)
+
+      // make sure new users have their createdAtUnix field set
+      const userMetadata = user.user_metadata() || {}
+      if (!userMetadata.createdAtUnix) {
+        userMetadata.createdAtUnix = moment(profile.created_at).unix()
+        user.user_metadata(userMetadata)
+        user.saveUserMetadata(() => {})
+      }
+
       session.user(user)
       session.isLoggedIn(true)
       session.emit('change email', session.user().email())

@@ -17,7 +17,7 @@ const lock = new Auth0Lock(
     auth: {
       redirect: false,
       params: {
-        scope: 'app_metadata email openid user_metadata'
+        scope: 'app_metadata profile email openid user_metadata'
       }
     },
     autoclose: true
@@ -45,7 +45,7 @@ module.exports.renewAuth = function (callback) {
     nonce,
     postMessageDataType: 'auth0:silent-authentication',
     redirectUri: window.location.origin + '/auth/silent-callback',
-    scope: 'openid app_metadata user_metadata',
+    scope: 'openid app_metadata user_metadata email profile',
     usePostMessage: true
   }, (err, authResult) => {
     if (err) {
@@ -59,13 +59,10 @@ module.exports.renewAuth = function (callback) {
       const err = new Error('Nonce string does not match!')
       callback(err)
     } else {
+      console.log('renewed auth successfully!')
       callback(null, authResult)
     }
   })
-}
-
-module.exports.setLoginCallback = function (callback) {
-  loginCallback = callback
 }
 
 module.exports.show = function (callback) {

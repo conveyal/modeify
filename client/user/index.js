@@ -84,7 +84,8 @@ User.prototype.id = function () {
 }
 
 User.prototype.isAdmin = function () {
-  return !!this.app_metadata().isAdmin
+  const appMetadata = this.app_metadata() || {}
+  return !!appMetadata.isAdmin
 }
 
 User.prototype.isFavoritePlace = function (address) {
@@ -133,55 +134,4 @@ User.prototype.saveUserMetadata = function (callback) {
       }
     }
   )
-}
-
-/************************************************************
- * Static methods
- ************************************************************/
-
-User.createManager = function (info, callback) {
-  request.post('/users/managers', info, function (err, res) {
-    if (err) {
-      callback(res.text || err)
-    } else {
-      callback(null, res.body)
-    }
-  })
-}
-
-User.getManagers = function (callback) {
-  request.get('/users/managers', function (err, res) {
-    if (err) {
-      callback(err)
-    } else {
-      callback(null, (res.body || []).map(function (user) {
-        return new User(user)
-      }))
-    }
-  })
-}
-
-User.getManagersForOrg = function (org, callback) {
-  request.get('/users/managers-for-organization', {
-    organization: org
-  }, function (err, res) {
-    if (err) {
-      callback(err)
-    } else {
-      callback(null, (res.body || []).map(function (user) {
-        return new User(user)
-      }))
-    }
-  })
-}
-
-User.loadManager = function (ctx, next) {
-  request.get('/users/' + ctx.params.manager, function (err, res) {
-    if (err || !res.ok) {
-      next(err || res.text)
-    } else {
-      ctx.manager = new User(res.body)
-      next()
-    }
-  })
 }

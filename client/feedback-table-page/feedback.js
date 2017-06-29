@@ -14,8 +14,7 @@ Feedback.prototype.summary = function () {
 }
 
 Feedback.prototype.name = function () {
-  var commuter = this.model._commuter ? this.model._commuter : {}
-  return commuter.name || commuter.email || 'Anonymous'
+  return this.model.account || 'Anonymous'
 }
 
 Feedback.prototype.resultsLink = function () {
