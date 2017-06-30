@@ -4,6 +4,7 @@ var log = require('../log')('plan:update-routes')
 var message = require('../messages')('plan:update-routes')
 var request = require('../request')
 var Route = require('../route')
+var _tr = require('../translate')
 
 /**
  * Expose `updateRoutes`
@@ -142,26 +143,26 @@ function updateRoutes (plan, opts, callback) {
 }
 
 function generateErrorMessage (plan, response) {
-  var msg = 'No results! '
+  var msg = _tr('No results! ')
   var responseText = response ? response.text : ''
 
   if (responseText.indexOf('VertexNotFoundException') !== -1) {
-    msg += 'The <strong>'
-    msg += responseText.indexOf('[from]') !== -1 ? 'from' : 'to'
-    msg += '</strong> address entered is outside the supported region.'
+    msg += _tr('The <strong>')
+    msg += responseText.indexOf('[from]') !== -1 ? _tr('from ') : _tr('to ')
+    msg += _tr('</strong>address entered is outside the supported region.')
   } else if (!plan.validCoordinates()) {
-    msg += plan.coordinateIsValid(plan.from_ll()) ? 'To' : 'From'
-    msg += ' address could not be found. Please enter a valid address.'
+    msg += plan.coordinateIsValid(plan.from_ll()) ? _tr('To') : _tr('From')
+    msg += _tr(' address could not be found. Please enter a valid address.')
   } else if (!plan.bus() || !plan.train()) {
-    msg += 'Try turning all <strong>transit</strong> modes on.'
+    msg += _tr('Try turning all <strong>transit</strong> modes on.')
   } else if (!plan.bike()) {
-    msg += 'Add biking to see bike-to-transit results.'
+    msg += _tr('Add biking to see bike-to-transit results.')
   } else if (!plan.car()) {
-    msg += 'Unfortunately we were unable to find non-driving results. Try turning on driving.'
+    msg += _tr('Unfortunately we were unable to find non-driving results. Try turning on driving.')
   } else if (plan.end_time() - plan.start_time() < 2) {
-    msg += 'Make sure the hours you specified are large enough to encompass the length of the journey.'
+    msg += _tr('Make sure the hours you specified are large enough to encompass the length of the journey.')
   } else if (plan.days() !== 'M—F') {
-    msg += 'Transit runs less often on the weekends. Try switching to a weekday.'
+    msg += _tr('Transit runs less often on the weekends. Try switching to a weekday.')
   }
 
   return msg

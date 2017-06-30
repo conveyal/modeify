@@ -11,12 +11,17 @@ var routeResource = require('../route-resource')
 var session = require('../session')
 var transitive = require('../transitive')
 var view = require('../view')
+var _tr = require('../translate')
 
 /**
  * Expose `View`
  */
 
 var View = module.exports = view(require('./template.html'), function (view, model) {
+  _tr.inHTML(view, '.distance2')
+  _tr.inHTML(view, '.btn-default')
+  _tr.inHTML(view, '.btn-sm')
+  _tr.inHTML(view, 'a')
   mouseenter(view.el, function () {
     var id = model.id() + ''
     if (id.indexOf('transit') === -1) {

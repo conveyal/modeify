@@ -2,8 +2,13 @@ var debounce = require('debounce')
 var reactiveSelect = require('../reactive-select')
 var view = require('../view')
 var session = require('../session')
+var _tr = require('../translate')
 
 var View = module.exports = view(require('./template.html'), function (view, plan) {
+  _tr.inHTML(view, "option")
+  _tr.inHTML(view, ".date-text")
+  _tr.inHTML(view, ".btn-dark")
+  _tr.inHTML(view, "label")
   view.reactive.use(reactiveSelect)
   view.on('active', function () {
     plan.updateRoutes()
@@ -66,10 +71,12 @@ function toOption (n) {
     value: n
   }
 
-  if (n > 23 || n === 0) opt.name = 'Midnight'
-  else if (n > 12) opt.name = n - 12 + 'pm'
-  else if (n === 12) opt.name = 'Noon'
-  else opt.name = n + 'am'
+  if (n > 23 || n === 0) opt.name = _tr('Midnight')
+  //else if (n > 12) opt.name = n - 12 + 'pm'
+  else if (n > 12) opt.name = n + 'h'
+  else if (n === 12) opt.name = _tr('Noon')
+  //else opt.name = n + 'am'
+  else opt.name = n + 'h'
 
   return opt
 }

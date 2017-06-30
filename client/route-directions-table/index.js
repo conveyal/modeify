@@ -7,6 +7,8 @@ var each = require('component-each')
 var rowTemplate = require('./row.html')
 var template = require('./template.html')
 
+var _tr = require('../translate')
+
 var row = hogan.compile(rowTemplate)
 
 var View = module.exports = view(template, function (view, route) {
@@ -61,7 +63,7 @@ View.prototype.itinerary = function () {
     if (segment.walkTime !== 0 || i === 0) {
       if (i > 0) {
         addDetail({
-          description: 'Walk ' + (Math.ceil(segment.walkTime / 60) + 1) + ' min',
+          description: _tr('Walk ') + (Math.ceil(segment.walkTime / 60) + 1) + ' min',
           icon: 'walk'
         })
       }
@@ -83,7 +85,7 @@ View.prototype.itinerary = function () {
     addDetail({
       color: color,
       departureTimes: formatDepartureTimes(departureTimes),
-      description: 'Take ' + getRouteNames(segment.routes),
+      description: _tr('Take ') + getRouteNames(segment.routes),
       segment: true
     })
 
@@ -226,19 +228,19 @@ function narrativeDirections (edges) {
       return ''
     }
 
-    const streetSuffix = ' on ' + se.streetName
+    const streetSuffix = _tr(' on ') + _tr(se.streetName)
     const step = {}
     if (se.bikeRentalOnStation) {
-      step.description = 'Rent bike from ' + se.bikeRentalOnStation.name + ' and ride ' + se.absoluteDirection.toLowerCase() + streetSuffix
+      step.description = _tr('Rent bike from ') + se.bikeRentalOnStation.name + _tr(' and ride ') + se.absoluteDirection.toLowerCase() + streetSuffix
       step.icon = 'cabi'
     } else if (se.bikeRentalOffStation) {
-      step.description = 'Park bike at ' + se.bikeRentalOffStation.name
+      step.description = _tr('Park bike at ') + se.bikeRentalOffStation.name
       step.icon = 'cabi'
     } else if (se.mode) {
-      step.description = MODE_TO_ACTION[se.mode] + ' ' + se.absoluteDirection.toLowerCase() + streetSuffix
+      step.description = _tr(MODE_TO_ACTION[se.mode]) + ' ' + _tr(se.absoluteDirection.toLowerCase()) + streetSuffix
       step.icon = MODE_TO_ICON[se.mode]
     } else {
-      step.description = toSentenceCase(se.relativeDirection) + streetSuffix
+      step.description = _tr(toSentenceCase(se.relativeDirection)) + streetSuffix
       step.direction = DIRECTION_TO_CARDINALITY[se.relativeDirection]
     }
 

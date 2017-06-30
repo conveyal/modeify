@@ -2,6 +2,7 @@ var convert = require('../convert')
 var model = require('component-model')
 var defaults = require('../components/segmentio/model-defaults/0.2.0')
 var each = require('component-each')
+var _tr = require('../translate')
 
 /**
  * MPS to MPH
@@ -400,35 +401,36 @@ Route.prototype.modeDescriptor = function () {
 
   switch (accessMode) {
     case 'bicycle_rent':
-      modeStr = 'bikeshare'
+      modeStr = _tr('bikeshare')
       break
     case 'bicycle':
-      modeStr = 'bike'
+      modeStr = _tr('bike')
       break
     case 'car':
       if (this.hasTransit()) {
-        modeStr = 'drive'
+        modeStr = _tr('drive')
       } else {
-        modeStr = 'carpool/vanpool'
+        modeStr = _tr('carpool/vanpool')
+        //modeStr = 'carpool/vanpool'
       }
       break
     case 'walk':
       if (!this.hasTransit()) {
-        modeStr = 'walk'
+        modeStr = _tr('walk')
       }
       break
   }
 
   if (this.hasTransit()) {
-    if (modeStr.length > 0) modeStr += ' to '
-    modeStr += 'transit'
+    if (modeStr.length > 0) modeStr += _tr(' to ')
+    modeStr += _tr('transit')
   }
 
   if (egressMode && egressMode !== 'walk') {
-    modeStr += ' to '
+    modeStr += _tr(' to ')
     switch (egressMode) {
       case 'bicycle_rent':
-        modeStr += 'bikeshare'
+        modeStr += _tr('bikeshare')
         break
     }
   }
