@@ -15,12 +15,10 @@ var User = module.exports = model('User')
  * Instance methods
  ************************************************************/
 
-User.prototype.addFavoritePlace = function (address) {
+User.prototype.addFavoritePlace = function (favorite) {
   const userMetadata = this.user_metadata()
   if (!userMetadata.modeify_places) userMetadata.modeify_places = []
-  userMetadata.modeify_places.push({
-    address: address
-  })
+  userMetadata.modeify_places.push(favorite)
   this.user_metadata(userMetadata)
 }
 

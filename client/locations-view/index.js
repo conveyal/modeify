@@ -29,8 +29,7 @@ var View = module.exports = view(require('./template.html'), function (view, pla
 
     // Set the initial state of the favorite icons
     if (session.user()) {
-      view.checkAddressFavorite('from')
-      view.checkAddressFavorite('to')
+      view.checkAddressFavorites()
     }
 
     // On form submission
@@ -46,6 +45,23 @@ var View = module.exports = view(require('./template.html'), function (view, pla
       })
     }
   })
+
+  function listenToUserForFavoriteChanges () {
+    session.user().on('change user_metadata', () => {
+      view.checkAddressFavorites()
+    })
+  }
+
+  session.on('change isLoggedIn', () => {
+    if (session.user()) {
+      view.checkAddressFavorites()
+      listenToUserForFavoriteChanges()
+    }
+  })
+
+  if (session.user()) {
+    listenToUserForFavoriteChanges()
+  }
 })
 
 extend(View.prototype, LocationSuggest.prototype)
@@ -170,9 +186,14 @@ View.prototype.toggleFavorite = function (e) {
 
   var type = e.target.parentNode.classList.contains('from') ? 'from' : 'to'
   var address = this.model.get(type)
+  const gps = this.model.get(`${type}_ll`)
 
   if (e.target.classList.contains('fa-heart-o')) {
-    session.user().addFavoritePlace(address)
+    session.user().addFavoritePlace({
+      address,
+      lat: gps.lat,
+      lon: gps.lng
+    })
     session.user().saveUserMetadata(function () {})
     this.checkAddressFavorite(type)
   } else {
@@ -180,6 +201,11 @@ View.prototype.toggleFavorite = function (e) {
     session.user().saveUserMetadata(function () {})
     this.checkAddressFavorite(type)
   }
+}
+
+View.prototype.checkAddressFavorites = function () {
+  this.checkAddressFavorite('from')
+  this.checkAddressFavorite('to')
 }
 
 View.prototype.checkAddressFavorite = function (type) {
