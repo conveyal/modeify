@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/conveyal/modeify",
   "dependencies": {
+    "@conveyal/lonlat": "^1.3.0",
     "analytics-node": "^2.4.0",
     "async": "^2.2.0",
     "auth0-js": "^8.8.0",
@@ -80,7 +81,6 @@
     "leaflet": "1.0.3",
     "leaflet-transitivelayer": "^0.2.0",
     "leaflet.markercluster": "^1.0.4",
-    "lonlng": "0.2.0",
     "mapbox": "^1.0.0-beta6",
     "mapbox.js": "^3.0.1",
     "mastarm": "^3.7.1",
