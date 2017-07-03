@@ -68,11 +68,11 @@ Modal.prototype['places-view'] = function () {
   var PlaceRow = view(require('./place.html'))
 
   PlaceRow.prototype.setFrom = function () {
-    placeChanged('from', this.model.address)
+    placeChanged('from', this.model)
   }
 
   PlaceRow.prototype.setTo = function () {
-    placeChanged('to', this.model.address)
+    placeChanged('to', this.model)
   }
 
   PlaceRow.prototype.deletePlace = function () {
@@ -84,9 +84,9 @@ Modal.prototype['places-view'] = function () {
   return PlaceRow
 }
 
-var placeChanged = debounce(function (name, address) {
+var placeChanged = debounce(function (name, locationData) {
   var plan = session.plan()
-  plan.setAddress(name, address, function (err, res) {
+  plan.setAddress(name, locationData, function (err, res) {
     if (err) console.error(err)
     else plan.updateRoutes()
   })

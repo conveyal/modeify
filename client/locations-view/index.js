@@ -36,13 +36,35 @@ var View = module.exports = view(require('./template.html'), function (view, pla
     closest(view.el, 'form').onsubmit = function (e) {
       e.preventDefault()
 
-      plan.setAddresses(view.find('.from input').value, view.find('.to input').value, function (err) {
-        if (err) {
-          log.error('%e', err)
-        } else {
-          plan.updateRoutes()
-        }
-      })
+      // only reset addresses if needed
+      const newFromValue = view.find('.from input').value
+      const newToValue = view.find('.to input').value
+
+      if (newFromValue !== plan.from() && newToValue !== plan.to()) {
+        plan.setAddresses(newFromValue, newToValue, function (err) {
+          if (err) {
+            log.error('%e', err)
+          } else {
+            plan.updateRoutes()
+          }
+        })
+      } else if (newFromValue !== plan.from()) {
+        plan.setAddress('from', newFromValue, function (err) {
+          if (err) {
+            log.error('%e', err)
+          } else {
+            plan.updateRoutes()
+          }
+        })
+      } else if (newToValue !== plan.to()) {
+        plan.setAddress('to', newToValue, function (err) {
+          if (err) {
+            log.error('%e', err)
+          } else {
+            plan.updateRoutes()
+          }
+        })
+      }
     }
   })
 
@@ -125,25 +147,33 @@ View.prototype.currentLocation = function (e) {
   }
 }
 
-View.prototype.locationSelected = function (target) {
-  this.save(target)
+View.prototype.locationSelected = function (target, val, coords) {
+  this.save(target, val, coords)
 }
 
 /**
  * Geocode && Save
  */
 
-View.prototype.save = function (el) {
+View.prototype.save = function (el, val, coords) {
   var plan = this.model
   var name = el.name
-  var val = el.value
+  val = val || el.value
 
   if (val && plan[name]() !== val) {
     analytics.track('Location Found', {
       address: val,
       type: name
     })
-    this.model.setAddress(name, val, function (err, location) {
+    let locationData = val
+    if (coords) {
+      locationData = {
+        address: val,
+        lat: coords.lat,
+        lon: coords.lon
+      }
+    }
+    this.model.setAddress(name, locationData, function (err, location) {
       if (err) {
         log.error('%e', err)
         textModal('Invalid address.')
