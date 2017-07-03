@@ -1,3 +1,5 @@
+/* globals alert */
+
 var model = require('component-model')
 var moment = require('moment')
 
