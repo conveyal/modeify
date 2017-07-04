@@ -96,7 +96,7 @@
     "Walk ": "Marcher vers ",
     "Hard right": "Complètement à droite",
     "Hard left": "Complètement à gauche",
-    "Steps": "Marches",
+    "Steps": "Escaliers",
     "No results! ": "Aucun résultat ! ",
     "The <strong>": "L'adresse <strong>",
     "from ": "de départ ",
@@ -133,5 +133,8 @@
     "Here you can explore the details of a specifc option including step by step directions and the factors we've used to rate this option.": "(à faire plus tard) Here you can explore the details of a specifc option including step by step directions and the factors we've used to rate this option.",
     "Go to your profile to change your travel preferences, manage your account, or view saved journeys.": "(à faire plus tard) Go to your profile to change your travel preferences, manage your account, or view saved journeys.",
     "Reverse Commute": "Echanger",
-    "without traffic": "sans circulation"
+    "without traffic": "sans circulation",
+    "U-turn left": "virage en U à gauche",
+    "U-turn right": "virage en U à droite",
+    "Bike Path": "Chemin pour vélo"
 }

@@ -1,10 +1,11 @@
 var fr = require('./fr.json')
 
 var langage = fr
-var _tr = module.exports = function (translate) {
-        if (arguments.length == 1) {
+var _tr = module.exports = function (translate, filter) {
+        if (arguments.length == 1 || arguments.length == 2) {
             if (langage[translate] || langage[translate] === "") return langage[translate]
-            if (translate !== " " && translate !=="") console.log(translate + " is not registered")
+            if (translate !== " " && translate !=="" && !filter) console.log(translate + " is not registered")
+            if (translate !== " " && translate !=="" && filter) console.log(translate + " is not registered. Looking for filter " + filter)
 
             return translate
         }
@@ -18,24 +19,25 @@ module.exports.inHTML = function (view, filter) {
     var translations = view.el.querySelectorAll(filter)
     for (var i=0; i<translations.length;i++){
         //innerText Non supporté par Firefox ?
-        var tr = _tr(translations[i].innerText)
+        var tr = _tr(translations[i].innerText, filter)
         var tmp = translations[i].innerHTML.replace(translations[i].innerText, tr)
         translations[i].innerText =  tr
         translations[i].innerHTML = tmp
   }
-  return view
 }
 
 module.exports.attribute = function (view, filter, attribute) {
     var translations = view.el.querySelectorAll(filter)
     for (var i=0; i<translations.length;i++){
         //innerText Non supporté par Firefox ?
-        translations[i][attribute] = _tr(translations[i][attribute])
+        if (translations[i][attribute]) translations[i][attribute] = _tr(translations[i][attribute], filter)
+        else console.error("the element " + translations[i] + " has no attribute " + attribute)
   }
-  return view
 }
 
-module.exports.stringOfHTML = function (htmlstr, strToReplace, limit){
-    strToReplace = strToReplace.substring(limit)
-    return htmlstr.replace(strToReplace, _tr(strToReplace))
+module.exports.stringOfHTML = function (htmlstr, strToReplace, limitStart, limitEnd){
+    if (!limitStart) limitStart = 0
+    if (!limitEnd && limitEnd !== 0) limitEnd = strToReplace.length
+    var translatedStr = strToReplace.substring(0, limitStart) +_tr(strToReplace.substring(limitStart, limitEnd)) + strToReplace.substring(limitEnd)
+    return htmlstr.replace(strToReplace, translatedStr)
 }

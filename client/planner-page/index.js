@@ -24,8 +24,6 @@ var FROM = config.geocode().start_address
 var TO = config.geocode().end_address
 var isMobile = window.innerWidth <= 480
 
-var showMapView = require('../map-view')
-
 var View = view(require('./template.html'), function (view, model) {
   _tr.inHTML(view, '.btn-default')
   _tr.inHTML(view, '.title2')

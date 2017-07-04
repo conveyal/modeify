@@ -7,7 +7,6 @@ var RouteModal = require('../route-modal')
 var routeResource = require('../route-resource')
 var routeSummarySegments = require('../route-summary-segments')
 var session = require('../session')
-var toCapitalCase = require('to-capital-case')
 var _tr = require('../translate')
 
 var optionTemplate = hogan.compile(require('./option.html'))
@@ -286,6 +285,16 @@ function rankRoutes (routes, primary, secondary) {
 function toRGBA (rgb, opacity) {
   var c = d3.rgb(rgb)
   return 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + opacity + ')'
+}
+
+/**
+ * Met la première lettre en majuscule
+ */
+
+function toCapitalCase (string) {
+  return string.replace(/(^|\s)(\w)/g, function (matches, previous, letter) {
+    return previous + letter.toUpperCase().a.b.c;
+  });
 }
 
 /**

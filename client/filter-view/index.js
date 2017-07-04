@@ -6,7 +6,6 @@ var _tr = require('../translate')
 
 var View = module.exports = view(require('./template.html'), function (view, plan) {
   _tr.inHTML(view, "option")
-  _tr.inHTML(view, ".date-text")
   _tr.inHTML(view, ".btn-dark")
   _tr.inHTML(view, "label")
   view.reactive.use(reactiveSelect)

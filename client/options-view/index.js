@@ -10,7 +10,7 @@ var _tr = require('../translate')
 
 var View = module.exports = view(require('./template.html'), function (view, model) {
   _tr.inHTML(view, 'span')
-  _tr.inHTML(view, '.title2')
+
   view.lastResponse = {}
   model.on('updating options complete', function (data) {
     view.errorMessage = data.err
