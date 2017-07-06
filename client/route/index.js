@@ -2,12 +2,25 @@ var convert = require('../convert')
 var model = require('component-model')
 var defaults = require('../components/segmentio/model-defaults/0.2.0')
 var each = require('component-each')
+var _tr = require('../translate')
 
 /**
  * MPS to MPH
  */
 
 var MPS_TO_MPH = 2.23694
+
+/**
+ * MPS to KMS
+ */
+
+var MPS_TO_KMS = 3.6
+
+/**
+ * METERS_TO_KILOMETERS
+ */
+
+var METERS_TO_KILOMETERS = 0.001
 
 /**
  * Expose `Route`
@@ -106,7 +119,7 @@ Route.prototype.setCarData = function (data) {
   }
 
   if (this.calories() !== 0) {
-    this.weightLost(parseInt(convert.caloriesToPounds(this.calories()) * m, 10))
+    this.weightLost(parseInt(this.calories() * m, 10))
   }
 
   if (timeSavings > 60) {
@@ -184,6 +197,10 @@ Route.prototype.hasCar = function () {
   return this.modes().indexOf('car') !== -1
 }
 
+Route.prototype.hasCarPark = function () {
+  return (this.modes().indexOf('car_park') !== -1)
+}
+
 Route.prototype.hasTransit = function () {
   return this.transit().length > 0
 }
@@ -234,11 +251,14 @@ Route.prototype.costPerTrip = function () {
   if (this.transitCost()) {
     cost += this.transitCost()
   }
-  if (this.hasCar()) {
-    cost += this.vmtRate() * this.driveDistances()
-    cost += this.carParkingCost()
+  if (this.hasCar() || this.hasCarPark()) {
+    if (this.hasCarPark()) console.log(this)
+    this.attrs.carCost = this.vmtRate() * this.driveDistance() * METERS_TO_KILOMETERS
+    if (this.hasCar()) this.attrs.carCost += this.carParkingCost() //TL On suppose que le prix du parking est inclus dans le prix du transport en commun pour car_park 23/06/2017
+    cost +=  this.attrs.carCost
   }
 
+  this.attrs.cost=cost
   return cost.toFixed(2)
 }
 
@@ -306,7 +326,8 @@ Route.prototype.distances = function (mode, val) {
   if (this.modes().indexOf(mode) === -1) {
     return false
   } else {
-    return convert.metersToMiles(this[val]())
+    return this[val]().toFixed(0)
+    //return (this[val]()<1000) ? this[val]() : convert.metersTokilometers(this[val]()) //TLprint in meters or kilometers(bugged ATM) 16/06/2017
   }
 }
 
@@ -315,11 +336,13 @@ Route.prototype.distances = function (mode, val) {
  */
 
 Route.prototype.bikeSpeedMph = function () {
-  return toFixed(this.bikeSpeed() * MPS_TO_MPH, 1)
+  //return toFixed(this.bikeSpeed() * MPS_TO_MPH, 1)
+  return toFixed(this.bikeSpeed() * MPS_TO_KMS, 1)
 }
 
 Route.prototype.walkSpeedMph = function () {
-  return toFixed(this.walkSpeed() * MPS_TO_MPH, 1)
+  //return toFixed(this.walkSpeed() * MPS_TO_MPH, 1)
+  return toFixed(this.walkSpeed() * MPS_TO_KMS, 1)
 }
 
 /**
@@ -378,35 +401,36 @@ Route.prototype.modeDescriptor = function () {
 
   switch (accessMode) {
     case 'bicycle_rent':
-      modeStr = 'bikeshare'
+      modeStr = _tr('bikeshare')
       break
     case 'bicycle':
-      modeStr = 'bike'
+      modeStr = _tr('bike')
       break
     case 'car':
       if (this.hasTransit()) {
-        modeStr = 'drive'
+        modeStr = _tr('drive')
       } else {
-        modeStr = 'carpool/vanpool'
+        modeStr = _tr('carpool/vanpool')
+        //modeStr = 'carpool/vanpool'
       }
       break
     case 'walk':
       if (!this.hasTransit()) {
-        modeStr = 'walk'
+        modeStr = _tr('walk')
       }
       break
   }
 
   if (this.hasTransit()) {
-    if (modeStr.length > 0) modeStr += ' to '
-    modeStr += 'transit'
+    if (modeStr.length > 0) modeStr += _tr(' to ')
+    modeStr += _tr('transit')
   }
 
   if (egressMode && egressMode !== 'walk') {
-    modeStr += ' to '
+    modeStr += _tr(' to ')
     switch (egressMode) {
       case 'bicycle_rent':
-        modeStr += 'bikeshare'
+        modeStr += _tr('bikeshare')
         break
     }
   }

@@ -6,12 +6,14 @@ var view = require('../view')
 var LocationSuggest = require('../location-suggest')
 var extend = require('../components/segmentio/extend/1.0.0')
 var session = require('../session')
+var _tr = require('../translate')
 
 /**
  * Expose `View`
  */
 
 var View = module.exports = view(require('./template.html'), function (view, plan) {
+  _tr.attribute(view, 'input', 'placeholder')
   plan.on('change', function (name) {
     view.resetIcons()
 

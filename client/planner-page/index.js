@@ -18,12 +18,16 @@ var view = require('../view')
 var showWelcomeWizard = require('../welcome-flow')
 var showWalkThrough = require('../planner-walkthrough')
 var ServiceAlertsView = require('../service-alerts-view')
+var _tr = require('../translate')
 
 var FROM = config.geocode().start_address
 var TO = config.geocode().end_address
 var isMobile = window.innerWidth <= 480
 
 var View = view(require('./template.html'), function (view, model) {
+  _tr.inHTML(view, '.btn-default')
+  _tr.inHTML(view, '.title2')
+  _tr.attribute(view, '.icon-reverse', 'title')
   view.scrollable = view.find('.scrollable')
   view.panelFooter = view.find('.footer')
   view.optionsContainer = view.find('.options-container')

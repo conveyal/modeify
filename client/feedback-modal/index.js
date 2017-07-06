@@ -5,6 +5,7 @@ var message = require('../messages')('feedback-modal')
 var modal = require('../modal')
 var request = require('../request')
 var session = require('../session')
+var _tr = require('../translate')
 
 /**
  * Expose `Modal`
@@ -13,6 +14,10 @@ var session = require('../session')
 var Modal = module.exports = modal({
   closable: true,
   template: require('./template.html')
+}, function (view, model) {
+  _tr.inHTML(view, 'h3')
+  _tr.inHTML(view, '.btn-block')
+  _tr.attribute(view, '.form-control', 'placeholder')
 })
 
 /**

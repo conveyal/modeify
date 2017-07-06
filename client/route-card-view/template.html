@@ -1,5 +1,5 @@
-<li class="RouteCard">
-  <div class="benefits-badge savings" data-visible="costPerTrip"><strong>$ {costPerTrip}</strong></div>
+﻿<li class="RouteCard">
+  <div class="benefits-badge savings" data-visible="costPerTrip"><strong>{costPerTrip}€</strong></div>
 
   <div class="header" title="score: {score}">
     <span data-visible="hasRideshareMatches"><strong>{externalCarpoolMatches + internalCarpoolMatchesCount}</strong> {modeDescriptor} matches</span>
@@ -12,14 +12,14 @@
     <div class="minutes-column">
       <div class="heading"><strong>{average}</strong> mins</div>
 
-      <div data-visible="freeflowTime">{freeflowTime} without traffic</div>
+      <div data-visible="freeflowTime">{freeflowTime} <span class="distance2">without traffic</span></div>
       <div data-visible="hasTransit">
-        <div class="distance" data-visible="bikeDistances">{bikeTime} min biking</div>
-        <div class="distance" data-visible="walkDistances">{walkTime} min walking</div>
+        <div class="distance" data-visible="bikeDistances">{bikeTime} min <span class="distance2">biking</span></div>
+        <div class="distance" data-visible="walkDistances">{walkTime} min <span class="distance2">walking</span></div>
       </div>
       <div data-hidden="hasTransit">
-        <div class="distance" data-visible="bikeDistances">{bikeDistances} mi biking</div>
-        <div class="distance" data-visible="walkDistances">{walkDistances} mi walking</div>
+        <div class="distance" data-visible="bikeDistances">{bikeDistances} m <span class="distance2">biking</span></div>
+        <div class="distance" data-visible="walkDistances">{walkDistances} m <span class="distance2">walking</span></div>
       </div>
     </div>
 

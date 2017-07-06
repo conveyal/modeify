@@ -1,4 +1,4 @@
-var analytics = require('../analytics')
+﻿var analytics = require('../analytics')
 var d3 = require('d3')
 var hogan = require('hogan.js')
 var log = require('../log')('help-me-choose')
@@ -7,7 +7,7 @@ var RouteModal = require('../route-modal')
 var routeResource = require('../route-resource')
 var routeSummarySegments = require('../route-summary-segments')
 var session = require('../session')
-var toCapitalCase = require('to-capital-case')
+var _tr = require('../translate')
 
 var optionTemplate = hogan.compile(require('./option.html'))
 var routeTemplate = hogan.compile(require('./route.html'))
@@ -55,7 +55,12 @@ var Modal = module.exports = modal({
 
   view.oneWay = true
   view.daily = true
-
+ 
+  view = _tr.inHTML(view, '.btn-dark')
+  view = _tr.inHTML(view, '.title')
+  view = _tr.inHTML(view, 'p')
+  view = _tr.inHTML(view, 'label')
+  
   view.refresh()
 })
 
@@ -130,10 +135,10 @@ Modal.prototype.refresh = function (e) {
  */
 
 Modal.prototype.renderRoute = function (data) {
-  data.calories = data.calories ? parseInt(data.calories, 10).toLocaleString() + ' cals' : 'None'
-  data.cost = data.cost ? '$' + data.cost.toFixed(2) : 'Free'
+  data.calories = data.calories ? parseInt(data.calories, 10).toLocaleString() + ' cals' : _tr('None')
+  data.cost = data.cost ? data.cost.toFixed(2) + ' €' : _tr('Free')
   data.emissions = data.emissions ? parseInt(data.emissions, 10) : 'None'
-  data.walkDistance = data.walkDistance ? data.walkDistance + ' mi' : 'None'
+  data.walkDistance = data.walkDistance ? data.walkDistance + ' m' : 'None'
 
   if (data.productiveTime) {
     if (data.productiveTime > 120) {
@@ -142,10 +147,11 @@ Modal.prototype.renderRoute = function (data) {
       data.productiveTime = parseInt(data.productiveTime, 10).toLocaleString() + ' min'
     }
   } else {
-    data.productiveTime = 'None'
+    data.productiveTime = _tr('None')
   }
-
-  return routeTemplate.render(data)
+  var tmpTemplate = routeTemplate.render(data)
+  tmpTemplate = _tr.stringOfHTML(tmpTemplate, 'select', 0)
+  return tmpTemplate
 }
 
 /**
@@ -156,7 +162,7 @@ Modal.prototype.filters = function () {
   var options = ''
   for (var f in filters) {
     options += optionTemplate.render({
-      name: toCapitalCase(f).toLowerCase(),
+      name: _tr(toCapitalCase(f).toLowerCase()),
       value: f
     })
   }
@@ -279,6 +285,16 @@ function rankRoutes (routes, primary, secondary) {
 function toRGBA (rgb, opacity) {
   var c = d3.rgb(rgb)
   return 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + opacity + ')'
+}
+
+/**
+ * Met la première lettre en majuscule
+ */
+
+function toCapitalCase (string) {
+  return string.replace(/(^|\s)(\w)/g, function (matches, previous, letter) {
+    return previous + letter.toUpperCase();
+  });
 }
 
 /**

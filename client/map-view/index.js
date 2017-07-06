@@ -14,9 +14,15 @@ var placeChanged = debounce(function (name, coordinate) {
 }, 150, true)
 
 function constructMapboxUrl (tileset) {
+  //TL Stop using Mapbox, stamen is a first replacement 24/05/2017
+  /*
   var mapboxAccessToken = config.mapbox_access_token()
   var isRetina = window.devicePixelRatio > 1 ? '@2x' : ''
-  return `https://api.mapbox.com/styles/v1/${tileset}/tiles/256/{z}/{x}/{y}${isRetina}?access_token=${mapboxAccessToken}`
+  return `https://api.mapbox.com/styles/v1/${tileset}/tiles/256/{z}/{x}/{y}${isRetina}?access_token=pk.eyJ1IjoiY29udmV5YWwiLCJhIjoiMDliQURXOCJ9.9JWPsqJY7dGIdX777An7Pw`
+  */
+  //return 'http://tile.stamen.com/terrain/{z}/{x}/{y}.png';
+  //TL use g-ny without WMS 21/06/2017
+  return 'http://carto.g-ny.org/gnybright/{z}/{x}/{y}.png';
 }
 
 module.exports = function (el) {
@@ -35,7 +41,8 @@ module.exports = function (el) {
     L.tileLayer(constructMapboxUrl(config.mapbox_base_style())).addTo(map)
 
     // add a custom pane for the layers
-    map.createPane('labels')
+	//TL 06/06/2017 Appears above itinerary
+    /*map.createPane('labels')
 
     // this pane is above overlays but below popups
     map.getPane('labels').style.zIndex = 650
@@ -44,7 +51,7 @@ module.exports = function (el) {
     map.getPane('labels').style.pointerEvents = 'none'
 
     // add the labels layer to the labels pane
-    L.tileLayer(constructMapboxUrl(config.mapbox_label_style()), { pane: 'labels' }).addTo(map)
+    L.tileLayer(constructMapboxUrl(config.mapbox_label_style()), { pane: 'labels' }).addTo(map)*/
   } catch (err) {
     console.log(err)
   }

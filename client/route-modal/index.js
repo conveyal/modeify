@@ -8,6 +8,7 @@ var session = require('../session')
 var SignUpForm = require('../sign-up-form')
 var hogan = require('hogan.js')
 var each = require('component-each')
+var _tr = require('../translate')
 
 /**
  * Create `Modal`
@@ -65,20 +66,20 @@ RouteModal.prototype.routeResourcesView = function () {
 RouteModal.prototype.routeIntroText = function () {
   switch (this.options.context) {
     case 'welcome-flow':
-      return 'Your best option is to'
+      return _tr('Your best option is to')
     case 'help-me-choose':
     case 'route-card':
-      return 'You selected'
+      return _tr('You selected')
   }
 }
 
 RouteModal.prototype.nextButtonText = function () {
   switch (this.options.context) {
     case 'welcome-flow':
-      return 'Show all of my options'
+      return _tr('Show all of my options')
     case 'help-me-choose':
     case 'route-card':
-      return 'Return to my options'
+      return _tr('Return to my options')
   }
 }
 
