@@ -293,7 +293,7 @@ function toRGBA (rgb, opacity) {
 
 function toCapitalCase (string) {
   return string.replace(/(^|\s)(\w)/g, function (matches, previous, letter) {
-    return previous + letter.toUpperCase().a.b.c;
+    return previous + letter.toUpperCase();
   });
 }
 
