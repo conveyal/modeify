@@ -1,5 +1,3 @@
-/* globals alert */
-
 var model = require('component-model')
 var moment = require('moment')
 
@@ -204,7 +202,7 @@ function makeAuthResponseHandler (alertIfFailed, callback) {
     if (authErr || !idToken) {
       store('auth0IdToken', null)
       if (alertIfFailed) {
-        alert('Failed to login')
+        window.alert('Failed to login')
       }
       if (typeof callback === 'function') {
         callback(authErr || new Error('Failed to obtain idToken'))
@@ -219,7 +217,7 @@ function makeAuthResponseHandler (alertIfFailed, callback) {
     auth0.getProfile(idToken, (getProfileError, profile) => {
       if (getProfileError) {
         if (alertIfFailed) {
-          alert('Failed to login')
+          window.alert('Failed to login')
         }
         if (typeof callback === 'function') {
           callback(getProfileError)
