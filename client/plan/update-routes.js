@@ -65,6 +65,10 @@ function updateRoutes (plan, opts, callback) {
   log('-- see raw results here: %s', plan.generateURL())
 
   request.get('/plan', query, function (err, res) {
+    if (err) {
+      return done(err, res)
+    }
+
     const results = res.body
     const ridepoolMatches = results.ridepoolMatches
     const externalMatches = results.externalMatches
@@ -79,9 +83,7 @@ function updateRoutes (plan, opts, callback) {
     }
 
     const profile = journeys ? journeys.profile : []
-    if (err) {
-      done(err, res)
-    } else if (!results || profile.length < 1) {
+    if (!results || profile.length < 1) {
       done(message('no-options-found'), res)
     } else {
       if (results.otp) console.log('otp: ' + (results.otp.responseTime / 1000) + ' seconds')

@@ -29,23 +29,61 @@ var View = module.exports = view(require('./template.html'), function (view, pla
 
     // Set the initial state of the favorite icons
     if (session.user()) {
-      view.checkAddressFavorite('from')
-      view.checkAddressFavorite('to')
+      view.checkAddressFavorites()
     }
 
     // On form submission
     closest(view.el, 'form').onsubmit = function (e) {
       e.preventDefault()
 
-      plan.setAddresses(view.find('.from input').value, view.find('.to input').value, function (err) {
-        if (err) {
-          log.error('%e', err)
-        } else {
-          plan.updateRoutes()
-        }
-      })
+      // only reset addresses if needed
+      const newFromValue = view.find('.from input').value
+      const newToValue = view.find('.to input').value
+
+      if (newFromValue !== plan.from() && newToValue !== plan.to()) {
+        plan.setAddresses(newFromValue, newToValue, function (err) {
+          if (err) {
+            log.error('%e', err)
+          } else {
+            plan.updateRoutes()
+          }
+        })
+      } else if (newFromValue !== plan.from()) {
+        plan.setAddress('from', newFromValue, function (err) {
+          if (err) {
+            log.error('%e', err)
+          } else {
+            plan.updateRoutes()
+          }
+        })
+      } else if (newToValue !== plan.to()) {
+        plan.setAddress('to', newToValue, function (err) {
+          if (err) {
+            log.error('%e', err)
+          } else {
+            plan.updateRoutes()
+          }
+        })
+      }
     }
   })
+
+  function listenToUserForFavoriteChanges () {
+    session.user().on('change user_metadata', () => {
+      view.checkAddressFavorites()
+    })
+  }
+
+  session.on('change isLoggedIn', () => {
+    if (session.user()) {
+      view.checkAddressFavorites()
+      listenToUserForFavoriteChanges()
+    }
+  })
+
+  if (session.user()) {
+    listenToUserForFavoriteChanges()
+  }
 })
 
 extend(View.prototype, LocationSuggest.prototype)
@@ -109,25 +147,33 @@ View.prototype.currentLocation = function (e) {
   }
 }
 
-View.prototype.locationSelected = function (target) {
-  this.save(target)
+View.prototype.locationSelected = function (target, val, coords) {
+  this.save(target, val, coords)
 }
 
 /**
  * Geocode && Save
  */
 
-View.prototype.save = function (el) {
+View.prototype.save = function (el, val, coords) {
   var plan = this.model
   var name = el.name
-  var val = el.value
+  val = val || el.value
 
   if (val && plan[name]() !== val) {
     analytics.track('Location Found', {
       address: val,
       type: name
     })
-    this.model.setAddress(name, val, function (err, location) {
+    let locationData = val
+    if (coords) {
+      locationData = {
+        address: val,
+        lat: coords.lat,
+        lon: coords.lon
+      }
+    }
+    this.model.setAddress(name, locationData, function (err, location) {
       if (err) {
         log.error('%e', err)
         textModal('Invalid address.')
@@ -170,12 +216,26 @@ View.prototype.toggleFavorite = function (e) {
 
   var type = e.target.parentNode.classList.contains('from') ? 'from' : 'to'
   var address = this.model.get(type)
+  const gps = this.model.get(`${type}_ll`)
 
   if (e.target.classList.contains('fa-heart-o')) {
-    session.user().addFavoritePlace(address)
-    session.user().saveCustomData(function () {})
+    session.user().addFavoritePlace({
+      address,
+      lat: gps.lat,
+      lon: gps.lng
+    })
+    session.user().saveUserMetadata(function () {})
+    this.checkAddressFavorite(type)
+  } else {
+    session.user().deleteFavoritePlace(address)
+    session.user().saveUserMetadata(function () {})
     this.checkAddressFavorite(type)
   }
+}
+
+View.prototype.checkAddressFavorites = function () {
+  this.checkAddressFavorite('from')
+  this.checkAddressFavorite('to')
 }
 
 View.prototype.checkAddressFavorite = function (type) {

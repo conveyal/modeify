@@ -46,47 +46,47 @@ Modal.prototype.logout = function (e) {
  */
 
 Modal.prototype.anonymous = function () {
-  return this.model.commuter.anonymous()
+  return !this.model.user()
 }
 
 Modal.prototype.fullName = function () {
-  if (!this.model.user) return 'unknown'
-  return this.model.user.fullName()
+  if (!this.model.user()) return 'unknown'
+  return this.model.user().fullName()
 }
 
 Modal.prototype.email = function () {
-  if (!this.model.user) return 'unknown'
-  return this.model.user.email()
+  if (!this.model.user()) return 'unknown'
+  return this.model.user().email()
 }
 
 Modal.prototype.places = function () {
-  if (!this.model.user) return []
-  return this.model.user.customData().modeify_places
+  if (!this.model.user()) return []
+  return this.model.user().user_metadata().modeify_places
 }
 
 Modal.prototype['places-view'] = function () {
   var PlaceRow = view(require('./place.html'))
 
   PlaceRow.prototype.setFrom = function () {
-    placeChanged('from', this.model.address)
+    placeChanged('from', this.model)
   }
 
   PlaceRow.prototype.setTo = function () {
-    placeChanged('to', this.model.address)
+    placeChanged('to', this.model)
   }
 
   PlaceRow.prototype.deletePlace = function () {
     session.user().deleteFavoritePlace(this.model.address)
-    session.user().saveCustomData(function () {})
+    session.user().saveUserMetadata(function () {})
     this.el.remove()
   }
 
   return PlaceRow
 }
 
-var placeChanged = debounce(function (name, address) {
+var placeChanged = debounce(function (name, locationData) {
   var plan = session.plan()
-  plan.setAddress(name, address, function (err, res) {
+  plan.setAddress(name, locationData, function (err, res) {
     if (err) console.error(err)
     else plan.updateRoutes()
   })

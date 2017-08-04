@@ -10,8 +10,8 @@ var routeResource = require('../route-resource')
 var Locations = require('./locations')
 var Welcome = require('./welcome')
 
-var FROM = config.geocode().start_address
-var TO = config.geocode().end_address
+var FROM = config.geocode().start_location
+var TO = config.geocode().end_location
 
 /**
  * Show Modal

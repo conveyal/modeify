@@ -1,9 +1,9 @@
-<form class="SignUpForm" on-submit="submit" data-visible="anonymous">
+<form class="SignUpForm" on-submit="submit" data-hidden="isLoggedIn">
   <div class="alerts"></div>
   <div class="alert alert-success">
     <p><strong>Sign up for <span data-text="applicationName"></span></strong></p>
     <p>Create a free account to access special features and receive future updates!</p>
-    <p><a href="/register" target="_self" class="btn btn-block">Sign up!</a></p>
+    <p><button class="btn btn-block" on-tap="signUp">Sign up!</button></p>
   </div>
-  <p class="centered">Already have an account? <a href="/login" target="_self">Log in here.</a></p>
+  <p class="centered">Already have an account? <button class="btn" on-tap="login">Log in here.</button></p>
 </form>

@@ -23,15 +23,11 @@ View.prototype['organizations-view'] = function () {
   return Row
 }
 
-Row.prototype.isManager = function () {
-  return this.model.manager.inGroups(['organization-' + this.model._id() + '-manager'])
-}
-
 Row.prototype.toggleManager = function () {
   var org = this.model
   var manager = org.manager
   alerts.clear()
-  if (this.isManager()) {
+  if (this.isAdmin()) {
     manager.revokeManagementPermission(org._id(), function (err) {
       if (err) {
         alerts.show({

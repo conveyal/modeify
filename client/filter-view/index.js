@@ -102,18 +102,18 @@ View.prototype.saveProfile = function () {
 
   if (session.user()) {
     setTimeout(function () {
-      var customData = session.user().customData()
-      if (!customData.modeify_opts) customData.modeify_opts = {}
-      customData.modeify_opts.bikeSpeed = self.model.bikeSpeed()
-      customData.modeify_opts.walkSpeed = self.model.walkSpeed()
-      customData.modeify_opts.maxBikeTime = self.model.maxBikeTime()
-      customData.modeify_opts.maxWalkTime = self.model.maxWalkTime()
-      customData.modeify_opts.carParkingCost = self.model.carParkingCost()
-      customData.modeify_opts.carCostPerMile = self.model.carCostPerMile()
-      customData.modeify_opts.bikeTrafficStress = self.model.bikeTrafficStress()
+      var userMetadata = session.user().user_metadata()
+      if (!userMetadata.modeify_opts) userMetadata.modeify_opts = {}
+      userMetadata.modeify_opts.bikeSpeed = self.model.bikeSpeed()
+      userMetadata.modeify_opts.walkSpeed = self.model.walkSpeed()
+      userMetadata.modeify_opts.maxBikeTime = self.model.maxBikeTime()
+      userMetadata.modeify_opts.maxWalkTime = self.model.maxWalkTime()
+      userMetadata.modeify_opts.carParkingCost = self.model.carParkingCost()
+      userMetadata.modeify_opts.carCostPerMile = self.model.carCostPerMile()
+      userMetadata.modeify_opts.bikeTrafficStress = self.model.bikeTrafficStress()
 
-      session.user().customData(customData)
-      session.user().saveCustomData(function () {}) // TODO: handle error
+      session.user().user_metadata(userMetadata)
+      session.user().saveUserMetadata(function () {}) // TODO: handle error
     }, 1000)
   }
 }

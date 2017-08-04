@@ -4,6 +4,7 @@ var page = require('page')
 
 var serialize = require('../components/trevorgerhardt/serialize/0.0.1')
 var alerts = require('../alerts') // onscreen notifications
+var store = require('../browser-store')
 var view = require('../view')
 var ServiceAlert = require('../service-alert')
 var ConfirmModal = require('../confirm-modal')
@@ -34,6 +35,7 @@ var View = view(require('./template.html'), function (view, model) {
 })
 
 View.prototype.save = function (e) {
+  setAuthHeader()
   var serviceAlert = new ServiceAlert()
   serviceAlert.set(serialize(this.el))
   var text = serviceAlert.isNew() ? 'Created new alert.' : 'Saved changes to alert.'
@@ -54,6 +56,7 @@ View.prototype.save = function (e) {
 }
 
 View.prototype.delete = function (e) {
+  setAuthHeader()
   this.model.alerts.forEach(function (alert) {
     if (alert.get('_id') === e.target.attributes['data-id'].value) {
       ConfirmModal({
@@ -84,4 +87,10 @@ module.exports = function (ctx, next) {
     alerts: ctx.alerts
   })
   next()
+}
+
+function setAuthHeader () {
+  ServiceAlert.headers({
+    Authorization: `bearer ${store('auth0IdToken')}`
+  })
 }
