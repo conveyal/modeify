@@ -3,6 +3,9 @@ const Auth0Lock = require('auth0-lock').default
 const decodeJwt = require('jwt-decode')
 const uuidv4 = require('uuid/v4')
 
+const config = require('../config')
+const message = require('../messages')('login')
+
 let loginCallback
 
 const auth0client = new auth0.WebAuth({
@@ -20,7 +23,11 @@ const lock = new Auth0Lock(
         scope: 'app_metadata profile email openid user_metadata'
       }
     },
-    autoclose: true
+    autoclose: true,
+    languageDictionary: {
+      title: message('title')
+    },
+    ...config.lock()
   }
 )
 

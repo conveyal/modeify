@@ -5,6 +5,9 @@ feedback-modal:
   title: Tell us what you think!
   placeholder: Is this a good or bad option?
 
+login:
+  title: 'Modeify'
+  
 options-view:
   feedback-text: Results not accurate?
   feedback-link-text: Help us improve!
