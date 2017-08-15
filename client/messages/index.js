@@ -34,22 +34,16 @@ function messages (ns, msgs) {
 
   function message (path) {
     if (!path) {
-      if (process.env.NODE_ENV !== 'development') {
-        throw new Error('Message requires a path.')
-      } else {
-        return ''
-      }
+      console.warn('Message requires a path.')
+      return ''
     }
 
     var fullPath = ns.concat(path.split(':'))
     var value = find(msgs, fullPath)
 
     if (!value) {
-      if (process.env.NODE_ENV !== 'development') {
-        throw new Error('Message not found for ' + fullPath.join(':'))
-      } else {
-        return ''
-      }
+      console.warn('Message not found for ' + fullPath.join(':'))
+      return ''
     }
 
     value = markdown.render(value)
