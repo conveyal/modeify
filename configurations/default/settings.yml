@@ -58,6 +58,11 @@ s3_bucket: ''
 segmentio_key: ''
 static_url: /assets
 
+lock:
+  theme:
+    logo: 'http://lorempixel.com/400/200/'
+    primaryColor: '#fff'
+
 About: >
   ## About
 

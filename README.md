@@ -46,6 +46,7 @@ An example configuration can be found in `configurations/default`. Copy that dir
 3. Mapzen Search `api_key` to `settings.yml`.
 4. R5 url endpoint to `settings.yml`.
 5. Auth0 `AUTH0_CLIENT_ID`, `AUTH0_DOMAIN`, `AUTH0_NON_INTERACTIVE_CLIENT_ID`, `AUTH0_NON_INTERACTIVE_CLIENT_SECRET`, and `AUTH0_SIGNING_CERTIFICATE` to `env.yml`.
+6. Auth0 logo and primary color in `lock > theme` in `settings.yml`.
 
 If you have configuration specific images run `./bin/set-deployment ../path/to/your/configuration/directory` to use them.
 
