@@ -1,18 +1,20 @@
 var Batch = require('batch')
+var model = require('component-model')
+var qs = require('component-querystring')
+const typ = require('component-type')
+const ll = require('@conveyal/lonlat')
+var debounce = require('debounce')
+
+var defaults = require('../components/segmentio/model-defaults/0.2.0')
 var config = require('../config')
 var convert = require('../convert')
-var debounce = require('debounce')
 var geocode = require('../geocode')
 var Journey = require('../journey')
+var loadPlan = require('./load')
 var Location = require('../location')
 var log = require('../log')('plan')
-var defaults = require('../components/segmentio/model-defaults/0.2.0')
-var model = require('component-model')
-var ProfileQuery = require('../profile-query')
 var ProfileScorer = require('otp-profile-score')
-var qs = require('component-querystring')
-
-var loadPlan = require('./load')
+var ProfileQuery = require('../profile-query')
 var store = require('./store')
 var updateRoutes = require('./update-routes')
 
@@ -159,6 +161,7 @@ Plan.prototype.geocode = function (dest, callback) {
 
 /**
  * Save Journey
+ * Evan Siroky note - 2017-06-30: I don't think this gets called from anywhere
  */
 
 Plan.prototype.saveJourney = function (callback) {
@@ -197,12 +200,24 @@ Plan.prototype.validCoordinates = function () {
  * Set Address
  */
 
-Plan.prototype.setAddress = function (name, address, callback) {
+Plan.prototype.setAddress = function (name, locationData, callback) {
   callback = callback || function () {} // noop callback
-  if (!address || address.length < 1) return callback()
+  if (
+    !locationData &&
+    (
+      typ(locationData) !== 'string' ||
+      !locationData.address ||
+      typ(locationData.lat) !== 'number'
+    )
+  ) {
+    return callback()
+  }
 
   var location = new Location()
   var plan = this
+  const address = typ(locationData) === 'string'
+    ? locationData
+    : (locationData.address || ll.toString(locationData))
   var c = address.split(',')
   var isCoordinate = c.length === 2 && !isNaN(parseFloat(c[0])) && !isNaN(parseFloat(c[1]))
 
@@ -211,31 +226,80 @@ Plan.prototype.setAddress = function (name, address, callback) {
       lat: parseFloat(c[1]),
       lng: parseFloat(c[0])
     })
-  } else {
+  }
+
+  if (address) {
     location.address(address)
   }
 
-  location.save(function (err, res) {
-    if (err) {
-      callback(err)
-    } else {
-      var changes = {}
-      if (isCoordinate) {
-        changes[name] = res.body.address
-        if (res.body.city) changes[name] += ', ' + res.body.city
-        if (res.body.state) changes[name] += ', ' + res.body.state
+  if (config.geocode().save_to_db) {
+    // code that will save each geocode to a db
+    location.save(function (err, res) {
+      if (err) {
+        callback(err)
       } else {
-        changes[name] = address
+        var changes = {}
+        if (isCoordinate) {
+          changes[name] = res.body.address
+          if (res.body.city) changes[name] += ', ' + res.body.city
+          if (res.body.state) changes[name] += ', ' + res.body.state
+        } else {
+          changes[name] = address
+        }
+
+        changes[name + '_ll'] = res.body.coordinate
+        changes[name + '_id'] = res.body._id
+        changes[name + '_valid'] = true
+
+        plan.set(changes)
+        callback(null, res.body)
       }
+    })
+  } else {
+    // code that doesn't save geocode to a db
+    const changes = {}
 
-      changes[name + '_ll'] = res.body.coordinate
-      changes[name + '_id'] = res.body._id
+    // determine if reverse geocoding, regular geocoding is needed
+    if (isCoordinate) {
+      // do reverse geocode
+      geocode.reverse(c, (err, res) => {
+        if (err) {
+          return callback(err)
+        } else {
+          changes[name] = res.address
+          if (res.city) changes[name] += ', ' + res.city
+          if (res.state) changes[name] += ', ' + res.state
+          changes[name + '_ll'] = location.coordinate()
+          changes[name + '_valid'] = true
+          plan.set(changes)
+          callback(null, location.toJSON())
+        }
+      })
+    } else if (typ(locationData.lat) !== 'number') {
+      // do regular geocode
+      geocode(locationData, (err, res) => {
+        if (err) {
+          return callback(err)
+        } else {
+          location.coordinate(res)
+          changes[name + '_ll'] = res
+          changes[name + '_valid'] = true
+          plan.set(changes)
+          callback(null, location.toJSON())
+        }
+      })
+    } else {
+      changes[name] = address
+      const coords = ll(locationData)
+      changes[name + '_ll'] = {
+        lat: coords.lat,
+        lng: coords.lon
+      }
       changes[name + '_valid'] = true
-
       plan.set(changes)
-      callback(null, res.body)
+      callback(null, location.toJSON())
     }
-  })
+  }
 }
 
 /**

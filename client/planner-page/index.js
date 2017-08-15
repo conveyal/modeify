@@ -19,8 +19,8 @@ var showWelcomeWizard = require('../welcome-flow')
 var showWalkThrough = require('../planner-walkthrough')
 var ServiceAlertsView = require('../service-alerts-view')
 
-var FROM = config.geocode().start_address
-var TO = config.geocode().end_address
+var FROM = config.geocode().start_location
+var TO = config.geocode().end_location
 var isMobile = window.innerWidth <= 480
 
 var View = view(require('./template.html'), function (view, model) {

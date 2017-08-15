@@ -21,6 +21,7 @@ module.exports.get = function (url, params, callback) {
     .accept('json')
     .use(prefix)
     .use(nocache)
+    .use(auth)
     .query(params)
     .end(response(name, callback))
 }
@@ -37,6 +38,7 @@ module.exports.post = function (url, data, callback) {
     .accept('json')
     .use(prefix)
     .use(nocache)
+    .use(auth)
     .send(data)
     .end(response(name, callback))
 }
@@ -53,7 +55,20 @@ module.exports.del = function (url, callback) {
     .accept('json')
     .use(prefix)
     .use(nocache)
+    .use(auth)
     .end(response(name, callback))
+}
+
+let bearer
+
+function auth (request) {
+  if (bearer) {
+    request.set('Authorization', `bearer ${bearer}`)
+  }
+}
+
+module.exports.setAuthHeader = function (token) {
+  bearer = token
 }
 
 /**

@@ -23,8 +23,14 @@ email:
 geocode:
   center: -77.105933,38.880148
   zoom: 13
-  start_address: 4301 13th St NW Washington, DC 20011
-  end_address: 2100 Wilson Blvd, Arlington, VA
+  start_location:
+    address: 4301 13th St NW Washington, DC 20011
+    lat: 38.943037
+    lng: -77.029199
+  end_location:
+    address: 2100 Wilson Blvd, Arlington, VA
+    lat: 38.891254
+    lng: -77.085016
   boundary_rect:
     min_lat: 38.5
     min_lon: -77.5
@@ -51,6 +57,11 @@ r5:
 s3_bucket: ''
 segmentio_key: ''
 static_url: /assets
+
+lock:
+  theme:
+    logo: 'http://lorempixel.com/400/200/'
+    primaryColor: '#fff'
 
 About: >
   ## About

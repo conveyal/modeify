@@ -20,10 +20,12 @@ var View = module.exports = view(template, function (view, route) {
  */
 
 View.prototype.from = function () {
-  return session.plan().from().split(',')[0]
+  const plan = session.plan()
+  return plan ? plan.from().split(',')[0] : ''
 }
 View.prototype.to = function () {
-  return session.plan().to().split(',')[0]
+  const plan = session.plan()
+  return plan ? plan.to().split(',')[0] : ''
 }
 
 /**

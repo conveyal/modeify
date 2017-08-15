@@ -1,15 +1,14 @@
+var model = require('component-model')
 var moment = require('moment')
 
 var analytics = require('../analytics')
+const auth0 = require('../auth0')
 var store = require('../browser-store')
 var Commuter = require('../commuter')
 var log = require('../log')('session')
 var defaults = require('../components/segmentio/model-defaults/0.2.0')
-var model = require('component-model')
-var page = require('page')
 var Plan = require('../plan')
 var request = require('../request')
-var superagent = require('superagent')
 var User = require('../user')
 
 /**
@@ -55,19 +54,18 @@ Session.prototype.logout = function (next) {
   log('--> logging out')
 
   this.clear()
-  superagent
-    .post('/logout')
-    .end(function (err, res) {
-      log('<-- logged out %s', res.text)
-      if (next) next(err, res)
-    })
+
+  next()
 }
 
 Session.prototype.clear = function () {
+  store('auth0IdToken', null)
   store('commuter', null)
   store('plan', null)
   store('session', null)
   store('user', null)
+
+  request.setAuthHeader(null)
 
   document.cookie = 'expires=Thu, 01 Jan 1970 00:00:00 UTC'
 
@@ -79,18 +77,14 @@ Session.prototype.clear = function () {
     settings: {},
     user: null
   })
+
+  this.isLoggedIn(false)
+  this.emit('change email', null)
+  this.emit('change places', [])
 }
 
 Session.prototype.isAdmin = function () {
-  return this.inGroups(['administrator'])
-}
-
-Session.prototype.isManager = function () {
-  return this.inGroups(['administrator', 'manager'])
-}
-
-Session.prototype.inGroups = function (groups, all) {
-  return this.isLoggedIn() && this.user().inGroups(groups, all)
+  return this.isLoggedIn() && this.user().app_metadata()['isAdmin']
 }
 
 /**
@@ -115,13 +109,12 @@ session.touch = function (ctx, next) {
 session.load = function (ctx, next) {
   session.settings(store('session') || DEFAULT_SETTINGS)
 
-  loadUser(function (err, user) {
+  loadUser(function (err) {
     if (err) return next(err)
 
-    if (user) {
-      session.user(user)
-      session.isLoggedIn(true)
+    const user = session.user()
 
+    if (user) {
       var userJson = user.toJSON()
       var registrationCode = store('registration-code')
 
@@ -130,7 +123,7 @@ session.load = function (ctx, next) {
         store('registration-code', null)
       }
 
-      analytics.identify(user.href().split('/').pop(), userJson)
+      analytics.identify(user.user_id(), userJson)
 
       user.on('change', function () {
         store('user', user.toJSON())
@@ -147,8 +140,8 @@ session.load = function (ctx, next) {
       session.commuter(commuter)
 
       // load the plan
-      var userOpts = (session.user() && session.user().customData().modeify_opts)
-        ? session.user().customData().modeify_opts
+      var userOpts = (session.user() && session.user().user_metadata().modeify_opts)
+        ? session.user().user_metadata().modeify_opts
         : {}
       session.plan(Plan.load(userOpts))
 
@@ -185,20 +178,115 @@ session.load = function (ctx, next) {
   })
 }
 
-session.groupsRequired = function (groups, all) {}
+session.login = function (callback) {
+  auth0.show(makeAuthResponseHandler(true, callback))
+}
+
+session.loginWithLink = function (ctx, next) {
+  next()
+}
+
+/**
+ * Log out
+ */
+
+session.logoutMiddleware = function (ctx, next) {
+  log('logout %s', decodeURIComponent(ctx.path))
+
+  session.logout(next)
+}
+
+function makeAuthResponseHandler (alertIfFailed, callback) {
+  return (authErr, authResult) => {
+    const idToken = authResult ? authResult.idToken : null
+    if (authErr || !idToken) {
+      store('auth0IdToken', null)
+      if (alertIfFailed) {
+        window.alert('Failed to login')
+      }
+      if (typeof callback === 'function') {
+        callback(authErr || new Error('Failed to obtain idToken'))
+      }
+      console.error(authErr || 'Failed to obtain idToken')
+      return
+    }
+
+    store('auth0IdToken', idToken)
+    request.setAuthHeader(idToken)
+
+    auth0.getProfile(idToken, (getProfileError, profile) => {
+      if (getProfileError) {
+        if (alertIfFailed) {
+          window.alert('Failed to login')
+        }
+        if (typeof callback === 'function') {
+          callback(getProfileError)
+        }
+        console.error(getProfileError)
+        return
+      }
+
+      const user = new User(profile)
+
+      // make sure new users have their createdAtUnix field set
+      const userMetadata = user.user_metadata() || {}
+      if (!userMetadata.createdAtUnix) {
+        userMetadata.createdAtUnix = moment(profile.created_at).unix()
+        user.user_metadata(userMetadata)
+        user.saveUserMetadata(() => {})
+      }
+
+      session.user(user)
+      session.isLoggedIn(true)
+      session.emit('change email', session.user().email())
+      session.emit('change places', session.user().user_metadata().modeify_places)
+
+      store('user', user.toJSON())
+
+      // update advancedSettings if present in user data
+      // the plan might not be loaded when logging into manager app, so skip in that case
+      if (profile.user_metadata && profile.user_metadata.modeify_opts && session.plan()) {
+        const advancedSettings = [
+          'bikeSpeed',
+          'bikeTrafficStress',
+          'carCostPerMile',
+          'carParkingCost',
+          'maxBikeTime',
+          'maxWalkTime',
+          'walkSpeed'
+        ]
+
+        advancedSettings.forEach((setting) => {
+          const settingValue = profile.user_metadata.modeify_opts[setting]
+          if (settingValue || settingValue === 0) {
+            session.plan()[setting](settingValue)
+          }
+        })
+
+        session.plan().store()
+      }
+
+      if (typeof callback === 'function') {
+        callback()
+      }
+    })
+  }
+}
 
 function loadUser (next) {
-  var userData = store('user')
-
   if (session.user()) {
-    next(null, session.user())
-  } else if (userData) {
-    next(null, new User(userData))
-  } else if (window.USER) {
-    next(null, new User(window.USER))
-  } else {
-    next()
+    // webapp is already initiated?
+    return next(null, session.user())
   }
+
+  const idToken = store('auth0IdToken')
+
+  if (!idToken) {
+    return next()
+  }
+
+  // initiate refresh of user data
+  auth0.renewAuth(makeAuthResponseHandler(false, next))
 }
 
 function loadCommuter (next) {
@@ -209,21 +297,20 @@ function loadCommuter (next) {
     next(null, session.commuter())
   } else if (commuterData) {
     if (user) {
-      commuterData.account = user.href()
       commuterData.anonymous = false
     }
 
     next(null, new Commuter(commuterData))
   } else if (session.isLoggedIn()) {
     request.get('/commuters', {
-      account: user.href()
+      account: user.getAccountId()
     }, function (err, res) {
       if (err || !res.body || res.body.length === 0) {
         next(null, new Commuter({
-          account: user.href(),
+          account: user.getAccountId(),
           email: user.email(),
-          givenName: user.givenName(),
-          surname: user.surname(),
+          givenName: 'unknown',
+          surname: 'unknown',
           anonymous: false
         }))
       } else {
@@ -245,63 +332,4 @@ function loadServiceAlerts (next) {
       next(null, res.body)
     }
   })
-}
-
-/**
- * Log in with link middleware.
- * TODO: Fix this.
- */
-
-session.loginWithLink = function (ctx, next) {
-  log('--> logging in with link %s', ctx.params.link)
-  request.get('/login/' + ctx.params.link, function (err, res) {
-    if (res.ok && res.body) {
-      session.login(res.body)
-      log('<-- successfully logged in with link')
-      next()
-    } else {
-      log.warn('<-- failed to login with link: %e', err)
-      next(err || new Error(res.text))
-    }
-  })
-}
-
-/**
- * Log out
- */
-
-session.logoutMiddleware = function (ctx, next) {
-  log('logout %s', decodeURIComponent(ctx.path))
-
-  session.logout(next)
-}
-
-/**
- * Check if admin
- */
-
-session.checkIfAdmin = function (ctx, next) {
-  log('is admin %s', decodeURIComponent(ctx.path))
-  var groups = ctx.session.user().groups()
-
-  if (groups.indexOf('administrator') === -1) {
-    page('/manager/organizations')
-  } else {
-    next()
-  }
-}
-
-/**
- * Check if manager
- */
-
-session.checkIfManager = function (ctx, next) {
-  log('is manager %s', ctx.path)
-  var groups = ctx.session.user().groups()
-
-  if (groups.indexOf('manager') === -1) {
-    window.location.href = '/login'
-  } else {
-    next()
-  }
 }

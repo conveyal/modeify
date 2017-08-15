@@ -59,14 +59,15 @@ View.prototype.updateRange = function () {
       window.alert(err)
     } else {
       // console.log('signups', JSON.parse(signups.text));
-      var users = JSON.parse(signups.text)
+      var usersResponse = JSON.parse(signups.text)
+      const {users} = usersResponse
 
       // scanned returned users for all codes
       var codes = []
       users.forEach(user => {
-        if (user.customData && user.customData.registrationCode) {
-          if (codes.indexOf(user.customData.registrationCode) === -1) {
-            codes.push(user.customData.registrationCode)
+        if (user.user_metadata && user.user_metadata.registrationCode) {
+          if (codes.indexOf(user.user_metadata.registrationCode) === -1) {
+            codes.push(user.user_metadata.registrationCode)
           }
         }
       })
@@ -110,12 +111,12 @@ View.prototype.updateTable = function () {
   var totalUsersByCode = 0
   for (var i = 0; i < users.length; i++) {
     var user = users[i]
-    var createdAt = moment(user.createdAt).add(-5, 'hours').format('MM-DD-YYYY')
+    var createdAt = moment.unix(user.user_metadata.createdAtUnix).format('MM-DD-YYYY')
 
     if (!(createdAt in usersByDate)) usersByDate[createdAt] = []
     usersByDate[createdAt].push(user)
 
-    if (selectedCode && user.customData.registrationCode && user.customData.registrationCode === selectedCode) {
+    if (selectedCode && user.user_metadata.registrationCode && user.user_metadata.registrationCode === selectedCode) {
       if (!(createdAt in usersByDateAndCode)) usersByDateAndCode[createdAt] = []
       usersByDateAndCode[createdAt].push(user)
       totalUsersByCode++
