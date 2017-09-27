@@ -282,6 +282,7 @@ Plan.prototype.setAddress = function (name, locationData, callback) {
           return callback(err)
         } else {
           location.coordinate(res)
+          changes[name] = locationData
           changes[name + '_ll'] = res
           changes[name + '_valid'] = true
           plan.set(changes)
