@@ -78,9 +78,6 @@
       "quantity": 1
     }
   },
-  "addons": [
-    "sparkpost"
-  ],
   "buildpacks": [
     {
       "url": "heroku/nodejs"
