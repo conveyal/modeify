@@ -196,6 +196,10 @@ session.logoutMiddleware = function (ctx, next) {
   session.logout(next)
 }
 
+session.signUp = function () {
+  auth0.show({ initialScreen: 'signUp' }, makeAuthResponseHandler(true))
+}
+
 function makeAuthResponseHandler (alertIfFailed, callback) {
   return (authErr, authResult) => {
     const idToken = authResult ? authResult.idToken : null
