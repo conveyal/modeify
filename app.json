@@ -3,6 +3,18 @@
   "scripts": {
   },
   "env": {
+    "AUTH0_DOMAIN": {
+      "required": true
+    },
+    "AUTH0_NON_INTERACTIVE_CLIENT_ID": {
+      "required": true
+    },
+    "AUTH0_NON_INTERACTIVE_CLIENT_SECRET": {
+      "required": true
+    },
+    "AUTH0_SIGNING_CERTIFICATE": {
+      "required": true
+    },
     "COOKIE_SECRET": {
       "required": true
     },
@@ -39,13 +51,25 @@
     "PORT": {
       "required": true
     },
-    "STORMPATH_APPLICATION_HREF": {
+    "SPARKPOST_API_KEY": {
       "required": true
     },
-    "STORMPATH_CLIENT_APIKEY_ID": {
+    "SPARKPOST_API_URL": {
       "required": true
     },
-    "STORMPATH_CLIENT_APIKEY_SECRET": {
+    "SPARKPOST_SANDBOX_DOMAIN": {
+      "required": true
+    },
+    "SPARKPOST_SMTP_HOST": {
+      "required": true
+    },
+    "SPARKPOST_SMTP_PASSWORD": {
+      "required": true
+    },
+    "SPARKPOST_SMTP_PORT": {
+      "required": true
+    },
+    "SPARKPOST_SMTP_USERNAME": {
       "required": true
     }
   },
@@ -54,9 +78,6 @@
       "quantity": 1
     }
   },
-  "addons": [
-    "sparkpost"
-  ],
   "buildpacks": [
     {
       "url": "heroku/nodejs"

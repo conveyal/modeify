@@ -21,5 +21,5 @@ View.prototype.showButton = function (e) {
 }
 
 View.prototype.signUp = function () {
-  session.login()
+  session.signUp()
 }

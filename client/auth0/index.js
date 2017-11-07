@@ -72,7 +72,19 @@ module.exports.renewAuth = function (callback) {
   })
 }
 
-module.exports.show = function (callback) {
+/**
+ * Show the lock screen.
+ *
+ * @param  {mixed}   options  Either the options as defined in
+ *   https://github.com/auth0/lock#showoptions or a callback function if
+ *   the second argument is falsy.
+ * @param  {Function} [callback]
+ */
+module.exports.show = function (options, callback) {
+  if (!callback) {
+    callback = options
+    options = {}
+  }
   loginCallback = callback
-  lock.show()
+  lock.show(options)
 }
