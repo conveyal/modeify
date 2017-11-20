@@ -1,0 +1,18 @@
+<div class='ServiceAlert'>
+  <div style='float: left; padding-top: 0px;'>
+    {{#iconCode}}
+      <i class="fa fa-fw {{iconCode}}" style="width: 24px; text-align: left;"></i>
+    {{/iconCode}}
+    {{^iconCode}}
+      <i class="fa fa-fw fa-exclamation-triangle"></i>
+    {{/iconCode}}
+  </div>
+  <div style="margin-left: 28px;">
+    {{#alertUrl}}
+      <a href="{{alertUrl}}" target="_blank">{{{text}}}</a>
+    {{/alertUrl}}
+    {{^alertUrl}}
+      {{{text}}}
+    {{/alertUrl}}
+  </div>
+</div>
