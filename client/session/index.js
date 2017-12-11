@@ -28,7 +28,8 @@ var Session = model('Session')
     plan: null,
     settings: {},
     user: null,
-    isLoggedIn: false
+    isLoggedIn: false,
+    serviceAlerts: []
   }))
   .attr('commuter')
   .attr('loaded')
@@ -171,6 +172,7 @@ session.load = function (ctx, next) {
         })
 
         session.serviceAlerts(alerts)
+        session.emit('change serviceAlerts', alerts)
       })
 
       next(null, session)
