@@ -14,9 +14,16 @@ module.exports.suggest = suggest
  * Geocode -- returns lat/lng coordinate only
  */
 
-function geocode (address, callback) {
+function geocode (address, magicKey, callback) {
+  let params = ''
+  if (!callback) {
+    callback = magicKey
+    magicKey = undefined
+  } else {
+    params = `?magicKey=${magicKey}`
+  }
   log('--> geocoding %s', address)
-  get('/geocode/' + address, function (err, res) {
+  get(`/geocode/${address}${params}`, function (err, res) {
     if (err) {
       log('<-- geocoding error %s', err)
       callback(err, res)
