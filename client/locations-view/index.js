@@ -147,15 +147,15 @@ View.prototype.currentLocation = function (e) {
   }
 }
 
-View.prototype.locationSelected = function (target, val, coords) {
-  this.save(target, val, coords)
+View.prototype.locationSelected = function (target, val, magicKey) {
+  this.save(target, val, magicKey)
 }
 
 /**
  * Geocode && Save
  */
 
-View.prototype.save = function (el, val, coords) {
+View.prototype.save = function (el, val, magicKey) {
   var plan = this.model
   var name = el.name
   val = val || el.value
@@ -166,11 +166,10 @@ View.prototype.save = function (el, val, coords) {
       type: name
     })
     let locationData = val
-    if (coords) {
+    if (magicKey) {
       locationData = {
         address: val,
-        lat: coords.lat,
-        lon: coords.lon
+        magicKey
       }
     }
     this.model.setAddress(name, locationData, function (err, location) {

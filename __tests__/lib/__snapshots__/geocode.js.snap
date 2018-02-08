@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic encode g-a-g response 1`] = `
+Array [
+  Object {
+    "city": "Northeast Harbor",
+    "coordinate": Object {
+      "lat": 44.29358000000008,
+      "lng": -68.28902999999997,
+    },
+    "state": "Maine",
+    "zip": "04662",
+  },
+  Object {
+    "city": "Katikati",
+    "coordinate": Object {
+      "lat": -37.552359999999965,
+      "lng": 175.91785000000004,
+    },
+    "state": "",
+    "zip": "3129",
+  },
+  Object {
+    "city": "State Center",
+    "coordinate": Object {
+      "lat": 42.01650127782905,
+      "lng": -93.16481632584107,
+    },
+    "state": "Iowa",
+    "zip": "50247",
+  },
+  Object {
+    "city": "State Center",
+    "coordinate": Object {
+      "lat": 42.016789740145164,
+      "lng": -93.16319981148884,
+    },
+    "state": "Iowa",
+    "zip": "50247",
+  },
+  Object {
+    "city": "Greven",
+    "coordinate": Object {
+      "lat": 52.121028096728054,
+      "lng": 7.554969892325715,
+    },
+    "state": "Nordrhein-Westfalen",
+    "zip": "48268",
+  },
+]
+`;
+
+exports[`basic encode request uri 1`] = `"/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?forStorage=true&outFields=*&location=-77.105933%2C38.880148&searchExtent=-78.4039%2C38.0784%2C-76.1902%2C39.6987&SingleLine=123%20main%20st&f=json&token=undefined"`;
+
+exports[`basic reverse g-a-g response 1`] = `
+Object {
+  "address": "14 Victor Sq, Scotts Valley, CA, 95066, USA",
+  "city": "Scotts Valley",
+  "coordinate": Object {
+    "lat": 37.060855792976916,
+    "lng": -122.00718855545652,
+  },
+  "country": "USA",
+  "state": "California",
+  "zip": "95066",
+}
+`;
+
+exports[`basic reverse request uri 1`] = `"/arcgis/rest/services/World/GeocodeServer/reverseGeocode?forStorage=true&location=-122.006443%2C37.06146&maxLocations=10&f=json&token=undefined"`;
+
+exports[`basic suggest g-a-g response 1`] = `
+Array [
+  Object {
+    "isCollection": false,
+    "magicKey": "dHA9MCNsb2M9NjI3MjE4MiNsbmc9MzQjcGw9MjE2Mzc2MSNsYnM9MTQ6NDYxMTQz",
+    "text": "123 Main Street, 123 Main St, Northeast Harbor, ME, 04662, USA",
+  },
+  Object {
+    "isCollection": false,
+    "magicKey": "dHA9MCNsb2M9OTQ3MTgjbG5nPTM0I2huPTEyMyNsYnM9MTA5OjQwMTA1Njc1",
+    "text": "123 Main St E, Rock Hill, SC, 29730, USA",
+  },
+  Object {
+    "isCollection": false,
+    "magicKey": "dHA9MCNsb2M9Njg5NjAjbG5nPTM0I2huPTEyMyNsYnM9MTA5OjQwMTA1Njc0",
+    "text": "123 Main St, Brunson, SC, 29911, USA",
+  },
+  Object {
+    "isCollection": false,
+    "magicKey": "dHA9MCNsb2M9NjY3MzYjbG5nPTM0I2huPTEyMyNsYnM9MTA5OjQwMTA1Njc0",
+    "text": "123 Main St, Greenville, SC, 29601, USA",
+  },
+  Object {
+    "isCollection": false,
+    "magicKey": "dHA9MCNsb2M9OTQyMDQjbG5nPTM0I2huPTEyMyNsYnM9MTA5OjQwMTA1Njg0",
+    "text": "123 Main St W, Rock Hill, SC, 29730, USA",
+  },
+  Object {
+    "isCollection": false,
+    "magicKey": "dHA9MCNsb2M9NzI1NjgjbG5nPTM0I2huPTEyMyNsYnM9MTA5OjQwMTA1Njc0",
+    "text": "123 Main St, Andrews, SC, 29510, USA",
+  },
+  Object {
+    "isCollection": false,
+    "magicKey": "dHA9MCNsb2M9MTA5NjIzI2xuZz0zNCNobj0xMjMjbGJzPTEwOTo0MDEwNTY3NA==",
+    "text": "123 Main St, Barnwell, SC, 29812, USA",
+  },
+  Object {
+    "isCollection": false,
+    "magicKey": "dHA9MCNsb2M9MTEwMDgxI2xuZz0zNCNobj0xMjMjbGJzPTEwOTo0MDEwNTY3NA==",
+    "text": "123 Main St, Blackville, SC, 29817, USA",
+  },
+  Object {
+    "isCollection": false,
+    "magicKey": "dHA9MCNsb2M9MjYyODcjbG5nPTM0I2huPTEyMyNsYnM9MTA5OjQwMTA1Njc0",
+    "text": "123 Main St, Blythewood, SC, 29016, USA",
+  },
+  Object {
+    "isCollection": false,
+    "magicKey": "dHA9MCNsb2M9MTA5MzgjbG5nPTM0I2huPTEyMyNsYnM9MTA5OjQwMTA1Njc0",
+    "text": "123 Main St, Chesnee, SC, 29323, USA",
+  },
+]
+`;
+
+exports[`basic suggest request uri 1`] = `"/arcgis/rest/services/World/GeocodeServer/suggest?location=-77.105933%2C38.880148&searchExtent=-78.4039%2C38.0784%2C-76.1902%2C39.6987&text=123%20main%20st&outFields=*&maxSuggestions=10&f=json"`;

@@ -31,11 +31,7 @@ geocode:
     address: 2100 Wilson Blvd, Arlington, VA
     lat: 38.891254
     lng: -77.085016
-  boundary_rect:
-    min_lat: 38.5
-    min_lon: -77.5
-    max_lat: 39.5
-    max_lon: -76.5
+  searchExtent: -78.4039,38.0784,-76.1902,39.6987
 
 # Default application values
 api_url: /api
@@ -48,9 +44,9 @@ mapbox_base_style:
 mapbox_label_style:
 mapbox_base_style_manager:
 
-mapzen:
-  search:
-    api_key:
+arcgis:
+  client_id: test
+  client_secret: test
 
 r5:
   url: http://mock-host.com
