@@ -2547,10 +2547,6 @@ core-js@^2.4.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
 
-corslite@0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/corslite/-/corslite-0.0.6.tgz#622954e14c33852123c4c68fa3deffa9e2d1c896"
-
 cp@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/cp/-/cp-0.1.1.tgz#3946a76c1a53ffe0e68593f341c124b336c1f06d"
@@ -3253,6 +3249,10 @@ es6-promise@^3.0.2:
 es6-promise@^4.0.5:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.1.0.tgz#dda03ca8f9f89bc597e689842929de7ba8cebdf0"
+
+es6-promise@^4.1.1:
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.2.4.tgz#dc4221c2b16518760bd8c39a52d8f356fc00ed29"
 
 es6-promise@~2.3.0:
   version "2.3.0"
@@ -4023,6 +4023,16 @@ geobuf@^3.0.0:
     concat-stream "^1.5.2"
     pbf "^3.0.1"
     shapefile "~0.5.7"
+
+geocoder-arcgis@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/geocoder-arcgis/-/geocoder-arcgis-2.0.0.tgz#3949399ac07b7045e2fce8ace990259a15e5a7c9"
+  dependencies:
+    es6-promise "^4.1.1"
+    isomorphic-fetch "^2.2.1"
+    lodash.get "^4.4.2"
+    lodash.isobject "^3.0.2"
+    lodash.isstring "^4.0.1"
 
 get-caller-file@^1.0.1:
   version "1.0.2"
@@ -4920,6 +4930,7 @@ jade@^1.11.0:
     jstransformer "0.0.2"
     mkdirp "~0.5.0"
     transformers "2.1.0"
+    uglify-js "^2.4.19"
     void-elements "~2.0.1"
     with "~4.0.0"
 
@@ -5375,10 +5386,6 @@ leaflet.markercluster@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/leaflet.markercluster/-/leaflet.markercluster-1.0.4.tgz#d3f85fe7412723e2daa27634dc5ed9c45152757c"
 
-leaflet@1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.0.2.tgz#fa4fbcb7844944fc2bfb0bcf9ca0dea13463ca21"
-
 leaflet@1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.0.3.tgz#1f401b98b45c8192134c6c8d69686253805007c8"
@@ -5516,6 +5523,10 @@ lodash.foreach@^4.3.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.foreach/-/lodash.foreach-4.5.0.tgz#1a6a35eace401280c7f06dddec35165ab27e3e53"
 
+lodash.get@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
+
 lodash.isarguments@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/lodash.isarguments/-/lodash.isarguments-3.1.0.tgz#2f573d85c6a24289ff00663b491c1d338ff3458a"
@@ -5523,6 +5534,14 @@ lodash.isarguments@^3.0.0:
 lodash.isarray@^3.0.0:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/lodash.isarray/-/lodash.isarray-3.0.4.tgz#79e4eb88c36a8122af86f844aa9bcd851b5fbb55"
+
+lodash.isobject@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/lodash.isobject/-/lodash.isobject-3.0.2.tgz#3c8fb8d5b5bf4bf90ae06e14f2a530a4ed935e1d"
+
+lodash.isstring@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/lodash.isstring/-/lodash.isstring-4.0.1.tgz#d527dfb5456eca7cc9bb95d5daeaf88ba54a5451"
 
 lodash.keys@^3.0.0:
   version "3.1.2"
@@ -5703,19 +5722,9 @@ map-stream@~0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/map-stream/-/map-stream-0.1.0.tgz#e56aa94c4c8055a16404a0674b78f215f7c8e194"
 
-mapbox.js@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/mapbox.js/-/mapbox.js-3.0.1.tgz#630a97d1c5aac1fd8dc77f5eef250bf9522aba04"
-  dependencies:
-    corslite "0.0.6"
-    isarray "0.0.1"
-    leaflet "1.0.2"
-    mustache "2.2.1"
-    sanitize-caja "0.1.4"
-
-mapbox@^1.0.0-beta6:
-  version "1.0.0-beta6"
-  resolved "https://registry.yarnpkg.com/mapbox/-/mapbox-1.0.0-beta6.tgz#be3af63702913108480b67dc19534ac88944889b"
+mapbox@^1.0.0-beta9:
+  version "1.0.0-beta9"
+  resolved "https://registry.yarnpkg.com/mapbox/-/mapbox-1.0.0-beta9.tgz#580bbacd9990bbe10f2f729ff4031a3b898d27a4"
   dependencies:
     es6-promise "^4.0.5"
     rest "^2.0.0"
@@ -6092,10 +6101,6 @@ ms@^2.0.0:
 muri@1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/muri/-/muri-1.2.1.tgz#ec7ea5ce6ca6a523eb1ab35bacda5fa816c9aa3c"
-
-mustache@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/mustache/-/mustache-2.2.1.tgz#2c40ca21c278f53150682bcf9090e41a3339b876"
 
 mute-stream@0.0.5:
   version "0.0.5"
@@ -8039,10 +8044,6 @@ sane@~1.5.0:
     walker "~1.0.5"
     watch "~0.10.0"
 
-sanitize-caja@0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/sanitize-caja/-/sanitize-caja-0.1.4.tgz#7803e8e452b8e3bacb342dbd93adb885acd078af"
-
 sax@1.1.5, sax@>=0.6, sax@>=0.6.0:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.1.5.tgz#1da50a8d00cdecd59405659f5ff85349fe773743"
@@ -9112,6 +9113,15 @@ uglify-js@2.x.x, uglify-js@~2.2.5:
   dependencies:
     optimist "~0.3.5"
     source-map "~0.1.7"
+
+uglify-js@^2.4.19:
+  version "2.8.29"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.29.tgz#29c5733148057bb4e1f75df35b7a9cb72e6a59dd"
+  dependencies:
+    source-map "~0.5.1"
+    yargs "~3.10.0"
+  optionalDependencies:
+    uglify-to-browserify "~1.0.0"
 
 uglify-js@^2.6:
   version "2.8.8"

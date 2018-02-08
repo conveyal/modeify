@@ -3,6 +3,10 @@
   background-color: #f2dede;
 }
 
+.ServiceAlerts .header {
+  padding: 8px;
+}
+
 .ServiceAlert {
   padding: 8px;
 }

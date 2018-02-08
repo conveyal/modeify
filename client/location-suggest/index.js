@@ -59,11 +59,7 @@ LocationSuggest.prototype.renderSuggestions = function (input, suggestions) {
     suggestions = suggestions.slice(0, 4)
 
     suggestionList.innerHTML = suggestionsTemplate.render({
-      suggestions: suggestions.map(suggestion => {
-        suggestion.lat = suggestion.center[1]
-        suggestion.lon = suggestion.center[0]
-        return suggestion
-      })
+      suggestions
     })
 
     each(view.findAll('.suggestion'), function (li) {
@@ -96,16 +92,10 @@ LocationSuggest.prototype.blurInput = function (e) {
   inputGroup.classList.remove('suggestions-open')
 
   var highlight = this.find('.suggestion.highlight')
-  let coords
+  let magicKey
   if (highlight) {
     e.target.value = cleanText(highlight.textContent || '')
-    coords = {
-      lat: parseFloat(highlight.getAttribute('data-lat')),
-      lon: parseFloat(highlight.getAttribute('data-lon'))
-    }
-    if (isNaN(coords.lat) || isNaN(coords.lon)) {
-      coords = undefined
-    }
+    magicKey = highlight.getAttribute('data-key')
   }
 
   suggestionList.classList.add('empty')
@@ -116,7 +106,7 @@ LocationSuggest.prototype.blurInput = function (e) {
 
   inputGroup.classList.remove('highlight')
 
-  this.locationSelected(e.target, e.target.value, coords)
+  this.locationSelected(e.target, e.target.value, magicKey)
 }
 
 /**

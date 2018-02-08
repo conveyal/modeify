@@ -275,6 +275,20 @@ Plan.prototype.setAddress = function (name, locationData, callback) {
           callback(null, location.toJSON())
         }
       })
+    } else if (typ(locationData.magicKey) === 'string') {
+      // received an autcomplete suggestion, do geocode to get details
+      geocode(address, locationData.magicKey, (err, res) => {
+        if (err) {
+          return callback(err)
+        } else {
+          location.coordinate(res)
+          changes[name] = address
+          changes[name + '_ll'] = res
+          changes[name + '_valid'] = true
+          plan.set(changes)
+          callback(null, location.toJSON())
+        }
+      })
     } else if (typ(locationData.lat) !== 'number') {
       // do regular geocode
       geocode(locationData, (err, res) => {
