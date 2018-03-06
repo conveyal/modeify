@@ -216,9 +216,9 @@ function makeAuthResponseHandler (alertIfFailed, callback) {
     }
 
     store('auth0IdToken', idToken)
-    request.setAuthHeader(idToken)
+    request.setAuthHeader(authResult.accessToken)
 
-    auth0.getProfile(idToken, (getProfileError, profile) => {
+    auth0.getProfile(authResult.accessToken, (getProfileError, profile) => {
       if (getProfileError) {
         if (alertIfFailed) {
           window.alert('Failed to login')

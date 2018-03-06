@@ -41,8 +41,8 @@ lock.on('authorization_error', function (err) {
   console.error(err)
 })
 
-module.exports.getProfile = function (idToken, callback) {
-  lock.getProfile(idToken, callback)
+module.exports.getProfile = function (accessToken, callback) {
+  lock.getProfile(accessToken, callback)
 }
 
 module.exports.renewAuth = function (callback) {
