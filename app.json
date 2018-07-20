@@ -12,7 +12,7 @@
     "AUTH0_NON_INTERACTIVE_CLIENT_SECRET": {
       "required": true
     },
-    "AUTH0_SIGNING_CERTIFICATE": {
+    "AUTH0_SECRET": {
       "required": true
     },
     "COOKIE_SECRET": {
