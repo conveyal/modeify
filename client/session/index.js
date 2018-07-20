@@ -216,7 +216,7 @@ function makeAuthResponseHandler (alertIfFailed, callback) {
     }
 
     store('auth0IdToken', idToken)
-    request.setAuthHeader(authResult.accessToken)
+    request.setAuthHeader(idToken)
 
     auth0.getProfile(authResult.accessToken, (getProfileError, profile) => {
       if (getProfileError) {
