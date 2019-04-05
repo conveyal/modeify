@@ -12,7 +12,7 @@ html
     link(href='#{static_url}/build/planner-app/build.css?v=#{version}', rel='stylesheet')
 
     if google_analytics_key
-        script(async, src='https://www.googletagmanager.com/gtag/js?id=#{goole_analytics_key}')
+        script(async, src='https://www.googletagmanager.com/gtag/js?id=#{google_analytics_key}')
         script(type='text/javascript').
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
