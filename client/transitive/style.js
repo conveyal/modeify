@@ -1,6 +1,4 @@
-const cabiSVG = require('../../images/graphics/cabi.svg')
-const startSVG = require('../../images/graphics/start.svg')
-const endSVG = require('../../images/graphics/end.svg')
+const config = require('../config')
 const convert = require('../convert')
 
 function isBikeshareStation (place) {
@@ -165,13 +163,14 @@ exports.places_icon = {
   },
 
   'xlink:href': function (display, data) {
+    const baseSvgFolder = `${config.static_url()}/images/graphics`
     if (isBikeshareStation(data.owner)) {
-      if (data.owner.focused) return `data:image/svg+xml;utf8,${cabiSVG}`
+      if (data.owner.focused) return `${baseSvgFolder}/cabi.svg`
       else return false
     }
 
-    if (data.owner.getId() === 'from') return `data:image/svg+xml;utf8,${startSVG}`
-    if (data.owner.getId() === 'to') return `data:image/svg+xml;utf8,${endSVG}`
+    if (data.owner.getId() === 'from') return `${baseSvgFolder}/start.svg`
+    if (data.owner.getId() === 'to') return `${baseSvgFolder}/end.svg`
   },
   cursor: 'pointer',
   stroke: 0,
